@@ -1,0 +1,8 @@
+site_name: LSCC Documentation
+theme: flatly 
+pages:
+- [index.md, "Home"]
+- [tutorials/overview.md, "Tutorials", "Overview"]
+- [tutorials/ngs_overview/NGS_Overview.md, "Tutorials", "NGS Overview"]
+- [tutorials/using_git/Using_Git.md, "Tutorials", "Using Git and Github for revision control"]
+- [tutorials/var_detect_advanced/var_detect_advanced_background.md, "Tutorials", "Variant Detection Advanced"]
