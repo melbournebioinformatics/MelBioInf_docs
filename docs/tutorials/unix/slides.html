@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @import url(http://127.0.0.1:8000/ext/mdx_showable.css);
+
+      body { font-family: 'Droid Serif';}
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      
+      /* */
+      p, ul, ol {font-size: 50px;}
+      div.title h1 {font-size: 120px;}
+      div.title h2 {font-size: 90px;}
+      
+      .remark-slide-content  h1 {font-size:75px; margin: 0 0 0.3em 0;}
+      .remark-slide-content  h2 {font-size:62px; margin: 0.2em 0;}
+      .remark-slide-content  h3 {font-size:50px; margin: 0.2em 0;}
+      .remark-slide-content  p {margin: 0.5em 0;}
+      .remark-slide-content ul, .remark-slide-content ol {margin: 0; padding: 0 0 0 1em;}
+      .remark-slide-content  li {margin: 0.3em 0 .3em .6em;}
+      /* */
+     
+	div.showable-container.hint div.showable-header a {color: #18bc9c; font-weight: bold;}
+	div.showable-container.indent div.showable-header a {color: #18bc9c; font-weight: bold;}
+	div.showable-container.answer div.showable-header a {color: #18bc9c; font-weight: bold;}
+    
+    div.showable-container p {font-size: 14pt;}
+    div.showable-container div {font-size: 16pt;}
+    
+    span.spacer {display: block; height: 20px;}
+    
+    </style>
+    
+    <script src="../../js/jquery-1.10.2.min.js"></script>
+    <script src="../../ext/mdx_showable.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, title
+
+# Introduction to Unix
+## Hands-on workshop
+
+---
+# Agenda
+
+1. TODO: put the content in here
+6. Before we start
+
+---
+# Before we start
+
+* Q/A style
+* Incremental Hints
+* Think > Hint > Answer
+
+.spacer[]
+
+<div class="showable-container question showable-hidden" id="showable0">
+<div class="showable-inner">
+<div class="showable-header question" id="showabletitle0"><span class="link-like" id="showablelink0">What is the Answer to Life?</span></div>
+</div>
+</div>
+
+<div class="showable-container hint showable-hidden" id="showable1">
+<div class="showable-inner">
+<div class="showable-header hint" id="showabletitle1"><a href="#7" id="showablelink1">Hint</a></div>
+<div class="showable-body hint" id="showablebody1">
+<p>What is the answer to everything?</p>
+<p>As featured in <em>"The Hitchhiker's Guide to the Galaxy"</em></p>
+<div class="showable-container showable-hidden" id="showable2">
+<div class="showable-inner">
+<div class="showable-header" id="showabletitle2"><a href="#7" id="showablelink2">More</a></div>
+<div class="showable-body" id="showablebody2">
+<p>It is probably a two digit number</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="showable-container answer showable-hidden" id="showable3">
+<div class="showable-inner">
+<div class="showable-header answer" id="showabletitle3"><a href="#7" id="showablelink3">Answer</a></div>
+<div class="showable-body answer" id="showablebody3">
+<p><strong>Answer</strong>: 42</p>
+<p>Ref: <a href="http://en.wikipedia.org/wiki/42_%28number%29">Number 42 (Wikipedia)</a></p>
+</div>
+</div>
+</div>
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+    
+    
+<script>
+    $(document).ready(function(){
+        $("#showablelink2").click(function(){
+            $("#showable2").toggleClass("showable-hidden");
+            if ($("#showable2").hasClass("showable-hidden")) {
+                $("#showablelink2").text("More");
+            } else {
+                $("#showablelink2").text("Less");
+            }
+            return false;
+        });
+    });
+    $(document).ready(function(){
+        $("#showablelink1").click(function(){
+            $("#showable1").toggleClass("showable-hidden");
+            return false;
+        });
+    });
+    $(document).ready(function(){
+        $("#showablelink3").click(function(){
+            $("#showable3").toggleClass("showable-hidden");
+            return false;
+        });
+    });
+    </script>
+  </body>
+</html>
