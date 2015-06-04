@@ -9,7 +9,7 @@ I recommend installing MkDocs into a virtualenv:
 ```
 virtualenv mkdocs_dev
 source mkdocs_dev/bin/activate
-pip install -U mkdocs
+pip install -U mkdocs markdown-include
 pip install -U mdx_showable
 ```
 
