@@ -2,4 +2,4 @@
 .project
 .pydevproject
 site/
-
+.settings
