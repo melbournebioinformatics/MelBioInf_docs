@@ -75,11 +75,13 @@ This workshop attempts to cater for two usage styles:
 
 ## Topic 1: Remote log in
 
+In this topic we will learn how to connect to a *Unix* computer via a method called *SSH* and run a few basic commands.
 
-### Connecting to HPC
 
-To begin this workshop you will need to connect to an HPC.  Today we will use the LIMS-HPC.  The computer called *lims-hpc-m* (m is for 
-master which is another name for head node) is the one that coordinates all the HPCs tasks.
+### Connecting to a Unix computer
+
+To begin this workshop you will need to connect to an HPC.  Today we will use the LIMS-HPC.  The computer called 
+*lims-hpc-m* (m is for master which is another name for head node) is the one that coordinates all the HPCs tasks.
 
 **Server details**:
 
@@ -96,7 +98,7 @@ master which is another name for head node) is the one that coordinates all the 
 can be confusing because it appears as if your typing is not recognised by the computer. Don’t be 
 alarmed; type your password in and press return at the end.
 
-LIMS-HPC is a high performance computer for La Trobe Users. Logging in connects your local computer 
+LIMS-HPC is a high performance computer for La Trobe Users.  Logging in connects your local computer 
 (e.g. laptop) to LIMS-HPC, and allows you to type commands into the Unix prompt which are run on 
 the HPC, and have the results displayed on your local screen.
 
@@ -106,6 +108,8 @@ username and password will be supplied at the start of the workshop.
 Log out of LIMS-HPC, and log back in again (to make sure you can repeat the process).
 
 All the remaining parts assume that you are logged into LIMS-HPC over ssh.
+
+### Exercises
 
 \showable+{1.1) When you’ve logged into LIMS-HPC run the following commands and see what they do:}{question}
 
@@ -137,37 +141,92 @@ the current month.
 
 
 
-## Topic 2: exploring your home directory
+## Topic 2: Exploring your home directory
 
 **Duration**: 20 minutes. See "The shell and the command line" and "The file system" section of the workshop notes.
 
-**Relevant commands**: *ls*, *pwd*, *echo*
+**Relevant commands**: *ls*, *pwd*, *echo*, *man*
 
-Your home directory contains your own private working space. Your current working directory is automatically set 
-to your home directory when you log into a Unix computer.
+Your home directory contains your own private working space.  Your *current working directory* is automatically set 
+to your *home* directory when you log into a Unix computer.
 
-\showable{2.1) How many files are there in your home directory?}{question}\endshowable
+\showable{2.1) Use the *ls* command to list the files in your *home* directory.  How many files are there?}{question}\endshowable
+
+\showable{Hint}{hint}
+
+Literally, type *ls* and press the *ENTER* key.
+
+\endshowable
 
 \showable{Answer}{answer}
 
-The *ls* command lists files in a directory. When you first log into *LIMS-HPC* you will not have created any files of 
-your own, so running the *ls* command (without any arguments) will not show any files. However you do have some files 
-in your home directory, they are just not shown by default. By default, the *ls* command does not display files (or 
-directories) whose names start with a dot. You can force *ls* to show all files by giving it the *-a* argument:
-
 ```sh
-ls -a 
+$ ls
+file01  muscle.fq
 ```
 
-Now you should see several files in your home directory whose names all begin with a dot. All these files are 
-created automatically for your user account. They are mostly configuration options for various programs including 
-the shell. It is safe to ignore them for the moment.
+When running the *ls* command with no options it will list files in your current working directory.  The place 
+where you start when you first login is your *HOME* directory.
+
+**Answer**: 2 (file01 and muscle.fq)
 
 \endshowable
 
 ---
 
-\showable{2.2) What is the full path name of your home directory?}{question}\endshowable
+The above answer is not quite correct.  There are a number of *hidden* files in your home directory.
+
+\showable{2.2) What *flag* might you use to display *all* files with the *ls* command?  How many files are really there?}{question}\endshowable
+
+\showable{Hint}{hint}
+
+Take the *all* quite literally.
+
+\showable{More|Less}
+
+Literally, type *ls --all* and press the *ENTER* key.
+
+\endshowable
+
+\endshowable
+
+\showable{Answer}{answer}
+
+**Answer 1**: *--all* (or *-a*) flag
+
+Now you should see several files in your home directory whose names all begin with a dot. All these files are 
+created automatically for your user account. They are mostly configuration options for various programs including 
+the shell. It is safe to ignore them for the moment.
+
+```sh
+$ ls --all
+.              .bash_logout   file01    muscle.fq
+..             .bash_profile  .kshrc    .viminfo
+.bash_history  .bashrc        .lesshst
+```
+
+There are two trick files here; namely *.* and *..* which are not real files but instead, shortcuts.  *.* is a shortcut
+for the current directory and *..* a shortcut for the directory above the current one.
+
+**Answer 2**: 9 files (don't count *.* and *..*)
+
+\endshowable
+
+---
+
+\showable{2.3) What is the full path name of your home directory?}{question}\endshowable
+
+\showable{Hint}{hint}
+
+
+
+\showable{More|Less}
+
+
+
+\endshowable
+
+\endshowable
 
 \showable{Answer}{answer}
 
@@ -190,7 +249,19 @@ echo $HOME
 
 ---
 
-\showable{2.3) Who has permission to *read*, *write* and *execute* your home directory?}{question}\endshowable
+\showable{2.4) Who has permission to *read*, *write* and *execute* your home directory?}{question}\endshowable
+
+\showable{Hint}{hint}
+
+
+
+\showable{More|Less}
+
+
+
+\endshowable
+
+\endshowable
 
 \showable{Answer}{answer}
 
@@ -239,7 +310,19 @@ ls  -la
 
 ---
 
-\showable{2.4) Can you list the contents of someone else's directory?}{question}\endshowable
+\showable{2.5) Can you list the contents of someone else's directory?}{question}\endshowable
+
+\showable{Hint}{hint}
+
+
+
+\showable{More|Less}
+
+
+
+\endshowable
+
+\endshowable
 
 \showable{Answer}{answer}
 
@@ -263,7 +346,19 @@ Which part of the permissions on a directory lets other users list the contents 
 
 ---
 
-\showable{2.5) Use the man command to find out what the -h option does for ls}{question}\endshowable
+\showable{2.6) Use the man command to find out what the -h option does for ls}{question}\endshowable
+
+\showable{Hint}{hint}
+
+
+
+\showable{More|Less}
+
+
+
+\endshowable
+
+\endshowable
 
 \showable{Answer}{answer}
 

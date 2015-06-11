@@ -1,0 +1,20 @@
+.remark-container div.header {display: block; position: absolute; top: 25px; left: 0px; width: 908px;}
+
+.remark-container span.header-left {display: block; float: left; padding-left: 30px;}
+.remark-container span.header-right {display: block; float: right; padding-right: 30px;}
+
+/* Proper font sizing */
+body.remark-container { font-family: 'Droid Serif';}
+.remark-container h1, .remark-container h2, .remark-container h3 { font-family: 'Yanone Kaffeesatz'; font-weight: normal; }
+.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+  
+.remark-slide-content p, .remark-slide-content ul, .remark-slide-content ol {font-size: 50px;}
+div.remark-slide-content.title h1 {font-size: 120px;}
+div.remark-slide-content.title h2 {font-size: 90px;}
+  
+.remark-slide-content  h1 {font-size:75px; margin: 0 0 0.3em 0;}
+.remark-slide-content  h2 {font-size:62px; margin: 0.2em 0;}
+.remark-slide-content  h3 {font-size:50px; margin: 0.2em 0;}
+.remark-slide-content  p {margin: 0.5em 0;}
+.remark-slide-content ul, .remark-slide-content ol {margin: 0; padding: 0 0 0 1em;}
+.remark-slide-content  li {margin: 0.3em 0 .3em .6em;}
