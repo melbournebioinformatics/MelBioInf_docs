@@ -91,10 +91,23 @@ class: center, middle, title
 	<img width="100%" src="media/unix-screen.png" />
 </div>
 
+???
+
+* My Documents -> Home dir
+* Double click folder -> cd folder
+
 ---
 # Command prompt
 
 <img width="100%" src="media/cli-parts.png" />
+
+???
+
+* Time: when last command finished
+* Username: you
+* Hostname: the computer you are connected to (useful in HPC course)
+* Current Working Directory: like the "location" bar at top of file explorer
+* Prompt: Give me something to do!
 
 ---
 # Command line
@@ -103,6 +116,147 @@ class: center, middle, title
 
 * space separation
 * quote spaces
+
+???
+
+* Simplified the prompt to just *$*
+* space separation: 
+	* 1+ spaces, 
+	* don't put spaces in filenames
+* parts:
+	* command: the program/app running
+	* flag: a *-* followed by a *letter*, turns feature on (or off)
+	* long-flag: same as flage but *--* and a word
+	* option: a (long-)*flag* followed by value.
+	* anonymous options: values without a flag. (aka positional)
+* quote spaces: wrap with single/double
+
+---
+# File System
+
+<img width="600px" src="media/file-system.png" />
+
+???
+
+* (Up-side-down) Tree
+	* Root ~> (My) Computer
+	* Directory == Folder
+	* Dir in dir
+	* /home/user1/ == Home ~= Documents
+* Absolute path for settings file
+
+---
+# Absolute File Name
+
+<img width="600px" src="media/file-system-settings.png" />
+
+???
+
+* Absolute &lt;-&gt; Full
+* Uniquely ID file/dir
+
+---
+# Absolute File Name
+
+<img width="600px" src="media/file-system-settings.png" />
+
+* /settings
+
+---
+# Absolute File Name
+
+<img width="600px" src="media/file-system-file01.png" />
+
+---
+# Absolute File Name
+
+<img width="600px" src="media/file-system-file01.png" />
+
+* /home/user1/file01.txt
+
+---
+# Absolute File Name
+
+<img width="600px" src="media/file-system-user2.png" />
+
+---
+# Absolute File Name
+
+<img width="600px" src="media/file-system-user2.png" />
+
+* /home/user2
+	* Trailing "/" ignored
+
+???
+
+* Correct answer (no /)
+* Absolute = lots of typing
+
+---
+# Current Working Directory
+
+* Current &lt;-&gt; Present
+* Starts at *Home*
+
+<img width="100%" src="media/unix-cwd.png" />
+<!-- <img width="100%" src="media/windows-cwd.png" /> -->
+
+???
+
+* CWD has 2 names
+* At home on login
+* Reminder in Prompt
+
+---
+# Relative File Name
+
+<img width="600px" src="media/file-system-muscle.png" />
+
+* **CWD**: /home
+
+???
+
+* Relative to CWD
+	* leave off first part 
+
+---
+# Relative File Name
+
+<img width="600px" src="media/file-system-muscle.png" />
+
+* **CWD**: /home
+* user1/muscle.fq
+
+---
+# Special File Names
+
+* **~** = *Home directory*
+* **.** = *CWD*
+* **..** = *Parent* of *CWD*
+* **...** = ??
+
+---
+# Special File Names
+
+* **~** = *Home directory*
+* **.** = *CWD*
+* **..** = *Parent* of *CWD*
+* **...** = ERROR, use **../..** instead
+
+---
+# Relative File Name
+
+<img width="600px" src="media/file-system-muscle2.png" />
+
+* **CWD**: /home/user2
+
+---
+# Relative File Name
+
+<img width="600px" src="media/file-system-muscle2.png" />
+
+* **CWD**: /home/user2
+* ../user1/muscle.fq
 
 ---
 # Before we start
@@ -163,6 +317,24 @@ class: center, middle, title
 		</div>
 	</div>
 </div>
+
+???
+
+
+
+---
+# Ready, Set, Go
+
+* Pairs?
+
+.giant-url2[goo.gl/jjNs9i]
+
+???
+
+* Pairs: 
+	* Recommend, 
+	* Alternate *driving* responsibilities
+	* Make sure both understand what is happening
 
     </textarea>
     <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
