@@ -15,7 +15,7 @@
    version="1.1"
    inkscape:version="0.48.5 r10040"
    sodipodi:docname="unix-cwd.svg"
-   inkscape:export-filename="/home/arobinson/Documents/Workspace/lscc_docs/docs/tutorials/unix/media/unix-cwd.png"
+   inkscape:export-filename="/home/arobinson/Documents/AptanaStudio/lscc_docs/docs/tutorials/unix/media/unix-cwd.png"
    inkscape:export-xdpi="150.04741"
    inkscape:export-ydpi="150.04741">
   <defs
@@ -63,7 +63,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
