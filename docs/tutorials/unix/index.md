@@ -224,7 +224,7 @@ Remember your *Current Working Directory* start's in your *home* directory (and 
 
 \showable{More|Less}
 
-Try the initials of the *alternate* name for Current Working Directory (in lower case).
+Try a shortened version of *print working directory*
 
 \endshowable
 
@@ -729,7 +729,7 @@ Bourne-Again shell script text executable
 
 **Answer**: Bourne-Again shell script text executable
 
-The "Bource-Again shell" is more commonly known as BASH. The *file* command is telling us that sleepy 
+The "Bourne-Again shell" is more commonly known as BASH. The *file* command is telling us that sleepy 
 is (probably) a shell script written in the language of BASH.
 
 The file command uses various heuristics to guess the "type" of a file. If you want to know how it works 

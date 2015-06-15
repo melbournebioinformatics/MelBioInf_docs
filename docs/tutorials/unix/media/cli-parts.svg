@@ -28,7 +28,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="378.04894"
+     inkscape:cx="352.91669"
      inkscape:cy="-71.597826"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -63,7 +63,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -73,7 +73,7 @@
      id="layer1"
      transform="translate(-12.716536,-2.0865924)">
     <rect
-       style="fill:#3b3b3b;fill-opacity:1;fill-rule:nonzero;stroke:#3b3b3b;stroke-width:7.99999904999999867;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974000000037"
+       style="fill:#f6f6f6;fill-opacity:1;fill-rule:nonzero;stroke:#b0b0b0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974000000037"
        id="rect3843-0"
        width="970.86615"
        height="159.44884"
@@ -84,7 +84,7 @@
        inkscape:export-xdpi="150.04741"
        inkscape:export-ydpi="150.04741" />
     <rect
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.99999952;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974"
+       style="fill:#ececec;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974000000037"
        id="rect3843"
        width="970.86609"
        height="53.149597"
@@ -115,56 +115,58 @@
          sodipodi:role="line"
          x="35.299454"
          y="42.190563"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
          id="tspan2999"><tspan
-           style="font-weight:bold;fill:#5599ff"
+           style="font-weight:bold;fill:#2079ff;fill-opacity:1"
            id="tspan3015">[16:28:59]</tspan><tspan
-           style="font-weight:bold;fill:#7fff2a"
+           style="font-weight:bold;fill:#49b700;fill-opacity:1"
            id="tspan3019"> training01</tspan><tspan
-           style="fill:#ff2a2a"
+           style="fill:#ff2a2a;font-weight:bold"
            id="tspan3033">@lims-hpc-m</tspan><tspan
-           style="font-weight:bold;fill:#5599ff;fill-opacity:1"
+           style="font-weight:bold;fill:#2079ff;fill-opacity:1"
            id="tspan3805"> /home/group/common $</tspan></tspan><tspan
          sodipodi:role="line"
          x="35.299454"
          y="77.205101"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
          id="tspan3877" /><tspan
          sodipodi:role="line"
          x="35.299454"
          y="112.04543"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
          id="tspan3864"><tspan
-           style="fill:#5599ff;fill-opacity:1"
+           style="fill:#2079ff;fill-opacity:1;font-weight:bold"
            id="tspan3809">\--------/</tspan><tspan
-           style="fill:#7fff2a;fill-opacity:1"
+           style="font-weight:bold;fill:#49b700;fill-opacity:1"
            id="tspan3813"> \--------/</tspan><tspan
-           style="fill:#ff2a2a;fill-opacity:1"
+           style="fill:#ff2a2a;fill-opacity:1;font-weight:bold"
            id="tspan3817"> \--------/</tspan><tspan
-           style="fill:#5599ff;fill-opacity:1"
-           id="tspan3866"> \-------+--------/ ^ </tspan></tspan><tspan
+           style="fill:#5599ff;fill-opacity:1;font-weight:bold"
+           id="tspan3866"><tspan
+             style="fill:#2079ff;fill-opacity:1"
+             id="tspan3800"> \-------+--------/ ^ </tspan></tspan></tspan><tspan
          sodipodi:role="line"
          x="35.299454"
          y="147.05997"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
          id="tspan3005"><tspan
-           style="font-weight:bold;fill:#5599ff;fill-opacity:1"
+           style="font-weight:bold;fill:#2079ff;fill-opacity:1"
            id="tspan3811">   time</tspan><tspan
-           style="font-weight:bold;fill:#7fff2a;fill-opacity:1"
+           style="font-weight:bold;fill:#49b700;fill-opacity:1"
            id="tspan3815">     username</tspan><tspan
            style="font-weight:bold;fill:#ff2a2a;fill-opacity:1"
            id="tspan3819">   hostname</tspan><tspan
-           style="fill:#5599ff;fill-opacity:1"
+           style="font-weight:bold;fill:#2079ff;fill-opacity:1"
            id="tspan3831">          |          |</tspan></tspan><tspan
          sodipodi:role="line"
          x="35.299454"
          y="181.9003"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;fill:#5599ff;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#2079ff;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
          id="tspan3009">                      /------------------+----\   /-+--\</tspan><tspan
          sodipodi:role="line"
          x="35.299454"
          y="216.91484"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#5599ff;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#2079ff;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
          id="tspan3013">                      current working directory   prompt</tspan></text>
     <flowRoot
        xml:space="preserve"

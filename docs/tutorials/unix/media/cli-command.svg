@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="516.42513"
-     inkscape:cy="-60.249047"
+     inkscape:zoom="0.7"
+     inkscape:cx="510.03828"
+     inkscape:cy="-105.21965"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -37,10 +37,10 @@
      fit-margin-top="1"
      fit-margin-right="1"
      fit-margin-bottom="1"
-     inkscape:window-width="2063"
-     inkscape:window-height="1423"
-     inkscape:window-x="275"
-     inkscape:window-y="137"
+     inkscape:window-width="1280"
+     inkscape:window-height="1561"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -63,7 +63,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -73,7 +73,7 @@
      id="layer1"
      transform="translate(-12.716536,-2.0865724)">
     <rect
-       style="fill:#3b3b3b;fill-opacity:1;fill-rule:nonzero;stroke:#3b3b3b;stroke-width:7.99999904999999867;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974000000037"
+       style="fill:#f6f6f6;fill-opacity:1;fill-rule:nonzero;stroke:#b0b0b0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974000000037"
        id="rect3843-0"
        width="1045.2755"
        height="88.582664"
@@ -84,7 +84,7 @@
        inkscape:export-xdpi="150.04741"
        inkscape:export-ydpi="150.04741" />
     <rect
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.99999952;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974"
+       style="fill:#ececec;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974000000037"
        id="rect3843"
        width="1045.2756"
        height="53.149597"
@@ -118,37 +118,37 @@
          y="42.190563"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
          id="tspan2999"><tspan
-           style="font-weight:bold;fill:#5599ff;fill-opacity:1"
+           style="font-weight:bold;fill:#2079ff;fill-opacity:1"
            id="tspan3826">$ </tspan><tspan
-           style="font-weight:bold;fill:#ffffff;fill-opacity:1"
+           style="font-weight:bold;fill:#000000;fill-opacity:1"
            id="tspan3816">grep    <tspan
-   style="fill:#828282;fill-opacity:1"
-   id="tspan3978">-i</tspan>   --recursive  <tspan
-   style="fill:#828282;fill-opacity:1"
-   id="tspan3980">-B 1</tspan>   &quot;rew robi&quot; tmp/groups.txt </tspan></tspan><tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3791">-i</tspan>   --recursive  <tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3825">-B 1</tspan>   &quot;rew robi&quot; tmp/groups.txt  </tspan></tspan><tspan
          sodipodi:role="line"
          x="35.299454"
          y="77.030899"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier;fill:#000000;fill-opacity:1"
          id="tspan3877" /><tspan
          sodipodi:role="line"
          x="35.299454"
          y="111.87123"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#ffffff;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
          id="tspan3857"> /----\  <tspan
-   style="fill:#828282;fill-opacity:1"
-   id="tspan3972">/--\</tspan>  \---------/ <tspan
-   style="fill:#828282;fill-opacity:1"
-   id="tspan3974">/----\</tspan>  \--------/ \------------/</tspan><tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3823">/--\</tspan>  \---------/ <tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3827">/----\</tspan>  \--------/ \------------/</tspan><tspan
          sodipodi:role="line"
          x="35.299454"
          y="146.71156"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#ffffff;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
          id="tspan3861">command  <tspan
-   style="fill:#828282;fill-opacity:1"
-   id="tspan3906">flag</tspan>   long flag  <tspan
-   style="fill:#828282;fill-opacity:1"
-   id="tspan3976">option</tspan>   \- anonymous options -/</tspan><tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3821">flag</tspan>   long flag  <tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3829">option</tspan>   \- anonymous options -/</tspan><tspan
          sodipodi:role="line"
          x="35.299454"
          y="181.5519"
@@ -175,7 +175,7 @@
            height="39.285713"
            x="301.42856"
            y="-23.256458" /></flowRegion><flowPara
-         id="flowPara3824"></flowPara></flowRoot>    <text
+         id="flowPara3824" /></flowRoot>    <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="231.42857"
@@ -186,6 +186,6 @@
          sodipodi:role="line"
          id="tspan3867"
          x="233.33873"
-         y="33.886398">  </tspan></text>
+         y="33.886398" /></text>
   </g>
 </svg>

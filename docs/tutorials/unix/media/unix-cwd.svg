@@ -13,7 +13,7 @@
    height="63.149597"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.5 r10040"
    sodipodi:docname="unix-cwd.svg"
    inkscape:export-filename="/home/arobinson/Documents/Workspace/lscc_docs/docs/tutorials/unix/media/unix-cwd.png"
    inkscape:export-xdpi="150.04741"
@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="450.26918"
-     inkscape:cy="-112.9148"
+     inkscape:zoom="0.7"
+     inkscape:cx="470.89665"
+     inkscape:cy="-125.54139"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -39,8 +39,8 @@
      fit-margin-bottom="1"
      inkscape:window-width="1278"
      inkscape:window-height="984"
-     inkscape:window-x="1280"
-     inkscape:window-y="0"
+     inkscape:window-x="30"
+     inkscape:window-y="500"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -63,7 +63,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -73,7 +73,7 @@
      id="layer1"
      transform="translate(-12.716536,-2.0865924)">
     <rect
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.99999952;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974"
+       style="fill:#ececec;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974000000037"
        id="rect3843"
        width="970.86609"
        height="53.149597"
@@ -104,21 +104,12 @@
          sodipodi:role="line"
          x="35.299454"
          y="42.190563"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
-         id="tspan2999"><tspan
-           style="font-weight:bold;fill:#5599ff"
-           id="tspan3015">[16:28:59]</tspan><tspan
-           style="font-weight:bold;fill:#7fff2a"
-           id="tspan3019"> training01</tspan><tspan
-           style="fill:#ff2a2a"
-           id="tspan3033">@lims-hpc-m</tspan><tspan
-           style="font-weight:bold;fill:#5599ff;fill-opacity:1"
-           id="tspan3805"> /home/group/common $</tspan></tspan><tspan
-         sodipodi:role="line"
-         x="35.299454"
-         y="77.205101"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#5599ff;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
-         id="tspan3013" /></text>
+         id="tspan3013">[16:28:59] <tspan
+   style="fill:#49b700;fill-opacity:1"
+   id="tspan3770">training01</tspan><tspan
+   style="fill:#ff2a2a;fill-opacity:1"
+   id="tspan3772">@lims-hpc-m</tspan> /home/group/common $</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot3835"
