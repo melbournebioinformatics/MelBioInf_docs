@@ -1,11 +1,14 @@
 site_name: LSCC Documentation
 theme: flatly 
 pages:
-- [index.md, "Home"]
-- [tutorials/overview.md, "Tutorials", "Overview"]
-- [tutorials/ngs_overview/NGS_Overview.md, "Tutorials", "NGS Overview"]
-- [tutorials/using_git/Using_Git.md, "Tutorials", "Using Git and Github for revision control"]
-- [tutorials/var_detect_advanced/var_detect_advanced_background.md, "Tutorials", "Variant Detection Advanced"]
+- 'Home': 'index.md'
+- 'Tutorials':
+  - 'Overview': 'tutorials/index.md'
+  - 'NGS Overview': 'tutorials/ngs_overview/NGS_Overview.md'
+  - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
+  - 'Variant Detection Advanced': 'tutorials/var_detect_advanced/var_detect_advanced_background.md'
+
 markdown_extensions: [
   'markdown_include.include',
+  'showable',
 ]

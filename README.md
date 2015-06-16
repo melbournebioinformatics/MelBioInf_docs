@@ -10,6 +10,7 @@ I recommend installing MkDocs into a virtualenv:
 virtualenv mkdocs_dev
 source mkdocs_dev/bin/activate
 pip install -U mkdocs markdown-include
+pip install -U mdx_showable
 ```
 
 Once you have mkdocs installed (and in your PATH) then you can preview the website by running the
