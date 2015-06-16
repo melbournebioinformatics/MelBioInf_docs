@@ -7,7 +7,10 @@ pages:
   - 'NGS Overview': 'tutorials/ngs_overview/NGS_Overview.md'
   - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
   - 'Variant Detection Advanced': 'tutorials/var_detect_advanced/var_detect_advanced_background.md'
-
+  - 'Introduction to Unix': 'tutorials/unix/index.md'
+extra_templates: [
+  'tutorials/unix/slides.html',
+]
 markdown_extensions: [
   'markdown_include.include',
   'showable',

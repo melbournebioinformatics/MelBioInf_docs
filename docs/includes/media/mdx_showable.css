@@ -1,0 +1,8 @@
+/* base style classes */
+div.showable-container {margin: 0 0 10.5px;}
+div.showable-header {}
+div.showable-body {}
+
+/* Show / hide classes */
+div.showable-body {display: block;}
+div.showable-hidden > div.showable-inner > div.showable-body {display: none;}
