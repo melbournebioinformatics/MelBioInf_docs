@@ -1,4 +1,5 @@
 <style src="../../media/tute.css" ></style>
+<style>em {font-style: normal; font-family: courier new;}</style>
 
 # High-Performance Computing
 
@@ -112,19 +113,19 @@ An HPC (short for ‘High Performance Computer’) is simply a collection of Ser
 
 ### Exercises
 
-\showable{What is the contact email for your HPC's System Administrator?}{question}
+\showable{1.1) What is the contact email for your HPC's System Administrator?}{question}
 
 \endshowable
 
 \showable{Hint}{hint}
 
-When you login you will be presented with a message; this is called the *Message Of The Day* and usually includes lots of useful 
+When you login, you will be presented with a message; this is called the *Message Of The Day* and usually includes lots of useful 
 information.  On LIMS-HPC this includes a list of useful commands, the last login details for your account and the contact email
 of the system administrator
 
 \endshowable
 
-Show \showable{Answer}{answer}
+\showable{Answer}{answer}
 
 * LIMS-HPC: andrew.robinson@latrobe.edu.au
 * MERRI & BARCOO: help@vlsci.unimelb.edu.au
@@ -133,18 +134,18 @@ Show \showable{Answer}{answer}
 
 ---------------
 
-\showable{How many nodes are there in this hpc?}{question}
+\showable{1.2) Run the *sinfo* command.  How many nodes are there in this hpc?}{question}
 
 \endshowable
 
 \showable{Hint}{hint}
 
-Try the *sinfo* command
+The *lims-hpc-[2-4]* is shorthand for *lims-hpc-2 lims-hpc-3 and lims-hpc-4* and *lims-hpc-[1,5]* is shorthand for
+*lims-hpc-1 and lims-hpc-5*
 
 \showable{more|less}
 
-Have a look at the NODELIST column.  The *lims-hpc-[2-4]* is shorthand for *lims-hpc-2 lims-hpc-3 
-and lims-hpc-4*
+Have a look at the NODELIST column.  Only count each node once.
 
 ```sh
 $ sinfo
@@ -155,11 +156,13 @@ bigmem       up 200-00:00:      1   idle lims-hpc-1
 8hour        up   08:00:00      3    mix lims-hpc-[2-4]
 8hour        up   08:00:00      3   idle lims-hpc-[1,5],lims-hpc-m
 ```
-\endshowable
+NOTE: the above list will vary depending on the HPC setup.
 
 \endshowable
 
-Show \showable{Answer}{answer}
+\endshowable
+
+\showable{Answer}{answer}
 
 The *sinfo* command lists all available partitions and the status of each node within them.  If you count up the names of nodes 
 (uniquely) you will get the total nodes in this cluster.  
@@ -175,7 +178,7 @@ The *sinfo* command lists all available partitions and the status of each node w
 An automatic (though more complex) way would have been running the following command:
 
 ```sh
-scontrol show node | grep NodeName | wc -l
+$ scontrol show node | grep NodeName | wc -l
 ```
 
 Where:
@@ -210,7 +213,69 @@ This topic uses the *man* and *module* commands heavily
 
 ### Exercises
 
-\showable{How do you find a list of available software?}{question}
+\showable{2.1) What happens if you run the *module* command without any options / arguments?}{question}
+
+\endshowable
+
+\showable{Hint}{hint}
+
+Literally type *module* and press *ENTER* key.
+
+\endshowable
+
+\showable{Answer}{answer}
+
+**Answer**: It prints an error followed by a list of available options / flags
+
+~~~~{.text hl_lines="9 21 25 30 31 33"}
+$ module
+cmdModule.c(166):ERROR:11: Usage is 'module command  [arguments ...] '
+
+  Modules Release 3.2.10 2012-12-21 (Copyright GNU GPL v2 1991):
+
+  Usage: module [ switches ] [ subcommand ] [subcommand-args ]
+
+Switches:
+	-H|--help		this usage info
+	-V|--version		modules version & configuration options
+	-f|--force		force active dependency resolution
+	-t|--terse		terse    format avail and list format
+	-l|--long		long     format avail and list format
+	-h|--human		readable format avail and list format
+	-v|--verbose		enable  verbose messages
+	-s|--silent		disable verbose messages
+	-c|--create		create caches for avail and apropos
+	-i|--icase		case insensitive
+	-u|--userlvl <lvl>	set user level to (nov[ice],exp[ert],adv[anced])
+  Available SubCommands and Args:
+	+ add|load		modulefile [modulefile ...]
+	+ rm|unload		modulefile [modulefile ...]
+	+ switch|swap		[modulefile1] modulefile2
+	+ display|show		modulefile [modulefile ...]
+	+ avail			[modulefile [modulefile ...]]
+	+ use [-a|--append]	dir [dir ...]
+	+ unuse			dir [dir ...]
+	+ update
+	+ refresh
+	+ purge
+	+ list
+	+ clear
+	+ help			[modulefile [modulefile ...]]
+	+ whatis		[modulefile [modulefile ...]]
+	+ apropos|keyword	string
+	+ initadd		modulefile [modulefile ...]
+	+ initprepend		modulefile [modulefile ...]
+	+ initrm		modulefile [modulefile ...]
+	+ initswitch		modulefile1 modulefile2
+	+ initlist
+	+ initclear
+~~~~
+
+\endshowable
+
+---------------
+
+\showable{2.2) How do you find a list of *available* software?}{question}
 
 \endshowable
 
@@ -254,7 +319,7 @@ are the science software; before this are a few built-in ones that you can ignor
 
 ---------------
 
-\showable{How many modules are there starting with ‘f’?}{question}
+\showable{2.3) How many modules are there starting with ‘*f*’?}{question}
 
 \endshowable
 
@@ -282,7 +347,7 @@ language but basically it's saying you can put search terms after the avail subc
 The man page told us that we could put a search term after *module avail*.
 
 ```sh
-module avail f
+$ module avail f
 ------------------- /usr/local/Modules/modulefiles -------------------
 fasta-gcc/35.4.12            flex-gcc/2.5.39
 fastqc/0.10.1                fontconfig-gcc/2.11.93
@@ -290,8 +355,7 @@ fastStructure-gcc/2013.11.07 freebayes-gcc/20140603
 fastx_toolkit-gcc/0.0.14     freetype-gcc/2.5.3
 ```
 
-**Answer**:
-8 modules
+**Answer**: 8 modules
 
 \endshowable
 
@@ -300,13 +364,15 @@ fastx_toolkit-gcc/0.0.14     freetype-gcc/2.5.3
 To get a fully automated solution your could do the following command:
 
 ```sh
-module -l avail 2>&1 | grep "^f" | wc -l
+$ module -l avail 2>&1 | grep "^f" | wc -l
 ```
 
 Where:
 
-* *module -l avail*: lists all modules (in long format)
-* *2>&1*: merges output from *standard error* to the *standard output* so it can be feed into grep 
+* *module -l avail*: lists all modules (in long format, i.e. one per line)
+* *2>&1*: merges output from *standard error* to the *standard output* so it can be feed into grep.  For some reason the
+developers of the *module* command thought it was a good idea to output the module names on the *error* stream rather than
+the logical *output* stream.
 * *grep "^f"*: only shows lines beginning with *f*
 * *wc -l*: counts the number of lines
 
@@ -314,7 +380,7 @@ Where:
 
 ---------------
 
-\showable{Run the *pear* command (without loading it), does it work?}{question}
+\showable{2.4) Run the *pear* command (without loading it), does it work?}{question}
 
 \endshowable
 
@@ -339,7 +405,7 @@ The error you see is from BASH, it is complaining that it doesn't know anything 
 
 ---------------
 
-\showable{How would we load the *pear* module?}{question}
+\showable{2.5) How would we *load* the *pear* module?}{question}
 
 \endshowable
 
@@ -373,7 +439,7 @@ of the software.</div>
 
 ---------------
 
-\showable{Now it's *load*ed, run pear again, what does it do?}{question}\endshowable
+\showable{2.6) Now it's *load*ed, run pear again, what does it do?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -405,13 +471,13 @@ Zhang et al (2014) Bioinformatics 30(5): 614-620 | doi:10.1093/bioinformatics/bt
 
 ---------------
 
-\showable{*List* all the loaded modules. How many are there? Where did all the others come from?}{question}\endshowable
+\showable{2.7) *List* all the loaded modules. How many are there? Where did all the others come from?}{question}\endshowable
 
 \showable{Hint}{hint}
 
 Use man to find a subcommand that will list currently loaded modules.
 
-We are not really expecting you to be able to answer the 2nd question however if you did get it correct then *well-done*, that was very tough.
+We are not really expecting you to be able to answer the 2nd question however if you do get it correct then well-done, that was very tough.
 
 \endshowable
 
@@ -437,7 +503,7 @@ You may have noticed when we loaded *pear-gcc* the module called *gcc* was also 
 
 ---------------
 
-\showable{How do you undo the loading of the *pear* module?  List the loaded modules again, did they all disappear?}{question}\endshowable
+\showable{2.8) How do you undo the loading of the *pear* module?  List the loaded modules again, did they all disappear?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -464,7 +530,7 @@ needed or not so we will need to do it manually (or see next question)
 
 ---------------
 
-\showable{How do you clear ALL loaded modules?}{question}
+\showable{2.9) How do you clear ALL loaded modules?}{question}
 
 \endshowable
 
@@ -473,6 +539,12 @@ needed or not so we will need to do it manually (or see next question)
 It's easier than running *unload* for all modules
 
 This one isn't that straight forward; try a [synonym](https://www.google.com.au/search?q=rid+synonym) of *rid*.
+
+\showable{More|Less}
+
+We will *purge* the list of loaded modules.
+
+\endshowable
 
 \endshowable
 
@@ -495,7 +567,7 @@ The following questions use the *moduleinfo* command; this is only available on 
 another HPC then you will need to skip ahead to topic 3. 
 
 
-\showable{What does the *moduleinfo* command do?}{question}\endshowable
+\showable{2.10) What does the *moduleinfo* command do?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -518,7 +590,7 @@ moduleinfo: support application for environment modules to provide
 
 ---------------
 
-\showable{Find a description of the biostreamtools module}{question}\endshowable
+\showable{2.11) Find a *description* of the *biostreamtools* module}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -552,7 +624,7 @@ biostreamtools-gcc/0.4.0: A collection of fast generic bioinformatics
 
 ---------------
 
-\showable{How would you cite all currently loaded modules?}{question}\endshowable
+\showable{2.12) How would you *cite* all currently loaded modules?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -567,6 +639,8 @@ View the help information provided when you ran *moduleinfo -h*.  Search for a f
 \endshowable
 
 \showable{Answer}{answer}
+
+Assuming we had the pear module loaded
 
 ```text
 $ moduleinfo cite
@@ -590,7 +664,7 @@ pear-gcc/0.9.4:           J. Zhang, K. Kobert, T. Flouri, A. Stamatakis.
 
 ---------------
 
-\showable{The malt module requires a special licence, how can you find out details of this?}{question}\endshowable
+\showable{2.13) The malt module requires a special licence, how can you find out details of this?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -654,7 +728,7 @@ HPCs like LIMS-HPC, it's unworkable for most jobs.  In this topic we will start 
 ### Background
 
 On conventional Unix computers (such as the HPC headnode) we enter the commands we want to run at the terminal and see the results directly output
-in front of us.  On an HPC this type of computation will only make use of one nodes, namely, the *Head Node*.  To make use of the remaining (*compute*) nodes
+in front of us.  On an HPC this type of computation will only make use of one node, namely, the *Head Node*.  To make use of the remaining (*compute*) nodes
 we need to use the SLURM software package (called an HPC Scheduler).  The purpose of SLURM is to manage all user jobs and distribute the available resources
 (i.e. time on the compute nodes) to each job in a fair manner.  You can think of the SLURM software as like an electronic *calendar* and the user jobs like 
 *meetings*.  Users *say* to SLURM "I want XX CPUS for YY hours" and SLURM will look at its current bookings and find the next available time it can fit the job.
@@ -680,7 +754,9 @@ is called the output file.
 
 ### Exercises
 
-\showable{Which nodes could a ‘compute’ job go on?}{question}\endshowable
+**Useful Commands**: *man, sinfo, cat, sbatch, squeue, cp, module, prime*
+
+\showable{3.1) Which nodes could a ‘compute’ job go on?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -688,7 +764,7 @@ Try the *sinfo* command
 
 \showable{more|less}
 
-Have a look at the NODELIST column.  The *lims-hpc-[2-4]* is shorthand for *lims-hpc-2 lims-hpc-3 
+Have a look at the PARTITION and NODELIST columns.  The *lims-hpc-[2-4]* is shorthand for *lims-hpc-2 lims-hpc-3 
 and lims-hpc-4*
 
 ```sh
@@ -717,7 +793,7 @@ lims-hpc-3, lims-hpc-4, lims-hpc-5.
 
 ---------------
 
-\showable{What about an ‘8hour’ job?}{question}\endshowable
+\showable{3.2) What about an ‘8hour’ job?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -736,22 +812,23 @@ Show \showable{Answer}{answer}
 
 Use the *cat* command to view the contents of *task01*, *task02* and *task03* job script
 
-\showable{How many *cpu cores* will each ask for?}{question}\endshowable
+\showable{3.3) How many *cpu cores* will each ask for?}{question}\endshowable
 
 \showable{Hint}{hint}
 
-Lookup the man page for *sbatch* command.  *sbatch*'s options match up with the *#SBATCH* comments at the top of each job script
+Lookup the man page for *sbatch* command.  *sbatch*'s options match up with the *#SBATCH* comments at the top of each job 
+script.  Some will be affected by more than one option
 
 \showable{More|Less}
 
-**Non-exclusive jobs**:
+**Non-exclusive (shared) jobs**:
 
-The *--cpus-per-task* option is what tells us how many cores.  Technically it is *--cpus-per-task x --ntasks* but given this is not 
-present and defaults to 1 its *--cpus-per-task x 1*
+It is *--cpus-per-task x --ntasks* but if *--ntasks* is not present it defaults to 1 so its *--cpus-per-task x 1*
 
 **Exclusive jobs**:
 
-The *--nodes* options tells us how many nodes we ask for and the *--exclusive* option says give us all it has.
+The *--nodes* options tells us how many nodes we ask for and the *--exclusive* option says give us all it has.  This
+one is a bit tricky as we don't really know until it runs.
 
 \endshowable
 
@@ -770,11 +847,12 @@ However, since we know that all nodes on LIMS-HPC have 16, we know it will get 1
 
 ---------------
 
-\showable{What about total memory?}{question}\endshowable
+\showable{3.4) What about total memory?}{question}\endshowable
 
 \showable{Hint}{hint}
 
-Lookup the man page for *sbatch* command.  *sbatch*'s options match up with the *#SBATCH* comments at the top of each job script
+Lookup the man page for *sbatch* command.  *sbatch*'s options match up with the *#SBATCH* comments at the top of each job 
+script.  Some will be affected by more than one option
 
 \showable{More|Less}
 
@@ -796,8 +874,8 @@ For task01 and task02 the calculation is *--mem-per-cpu x --ntasks x --cpus-per-
 
 For task03, like with the cpus cores question, we get all the memory available on the node we get allocated
 
-<div class="warning"><b>NOTE</b>: it might be tempting to use the *--mem* option on non-exclusive (i.e. *--shared*) jobs 
-however this will <b>NOT</b> work since the meaning of *--mem* is *"go on a node with at least X MB of memory"*; it does 
+<div class="warning"><b>NOTE</b>: it might be tempting to use the <em>--mem</em> option on non-exclusive (i.e. <em>--shared</em>) jobs 
+however this will <b>NOT</b> work since the meaning of <em>--mem</em> is <em>"go on a node with at least X MB of memory"</em>; it does 
 not actually allocate any of it to you so your job will get terminated once it tries to use any memory.</div>
 
 **Answer**:
@@ -810,7 +888,7 @@ not actually allocate any of it to you so your job will get terminated once it t
 
 ---------------
 
-\showable{How long can it run for?}{question}\endshowable
+\showable{3.5) How long can each run for?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -833,7 +911,7 @@ The *--time* option is what tells slurm how long your job will run for.
 
 ---------------
 
-\showable{Is this maximum, minimum or both runtime?}{question}\endshowable
+\showable{3.6) Is this maximum, minimum or both runtime?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -854,7 +932,7 @@ time.  If you think your job may not complete in time you can ask the system adm
 
 ---------------
 
-\showable+{Calculate the *--time* specification for the following runtimes:}{question}
+\showable+{3.7) Calculate the *--time* specification for the following runtimes:}{question}
 
 1. <span class="fix150">1h30m:</span><span class="fix60">--time=</span><span class="answer100"></span>
 2. <span class="fix150">1m20s:</span><span class="fix60">--time=</span><span class="answer100"></span>
@@ -883,7 +961,7 @@ Show \showable{Answer}{answer}
 
 ---------------
 
-\showable+{What do the following --time specifications mean?}{question}
+\showable+{3.8) What do the following --time specifications mean?}{question}
 
 1. <span class="fix150">--time=12-00:20</span><span class="fix60"></span><span class="answer100"></span>
 2. <span class="fix150">--time=45</span><span class="fix60"></span><span class="answer100"></span>
@@ -912,7 +990,7 @@ Now use sbatch to submit the *task01* job:
 
 ---------------
 
-\showable{What job id was your job given?}{question}\endshowable
+\showable{3.9) What job id was your job given?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -933,7 +1011,7 @@ Submitted batch job 9998
 
 ---------------
 
-\showable{Which node did your job go on?}{question}\endshowable
+\showable{3.10) Which node did your job go on?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -969,16 +1047,12 @@ $ squeue -u training01
 
 ### Advanced
 
-\showable{Make a copy of *task01* and call it *prime_numbers*.  Make it load the training module and use the *prime* command calculate prime 
+\showable{3.11) Make a copy of *task01* and call it *prime_numbers*.  Make it load the training module and use the *prime* command calculate prime 
 numbers for 20 seconds.}{question}\endshowable
 
 \showable{Hint}{hint}
 
 You can find the *prime* command in the *training/1.0* module
-
-\showable{More|Less}
-
-\endshowable
 
 \endshowable
 
@@ -1012,7 +1086,7 @@ of when this job was run.  If you have one before and after your main program yo
 
 ---------------
 
-\showable{Submit the job.  What was the *largest* prime number it found in 20 seconds?}{question}\endshowable
+\showable{3.12) Submit the job.  What was the *largest* prime number it found in 20 seconds?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -1043,7 +1117,7 @@ Finished at: Fri May  8 16:11:27 AEST 2015
 
 ---------------
 
-\showable+{Modify your prime_numbers script to notify you via email when it starts and ends.  Submit it again}{question}
+\showable+{3.13) Modify your prime_numbers script to notify you via email when it starts and ends.  Submit it again}{question}
 
 * **Did it start immediately or have some delay?**
 * **How long did it actually run for?**
@@ -1112,7 +1186,7 @@ in the future.
 
 ###Exercises
 
-\showable{What does the *top* command show?}{question}\endshowable
+\showable{4.1) What does the *top* command show?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -1139,7 +1213,7 @@ DESCRIPTION
 Run the *top* command.  Above the black line it shows some *system-wide statistics* and below are statistics specific to a single 
 process (a.k.a, tasks OR software applications).
 
-\showable{How much total memory does this HPC (head-node) have?}{question}\endshowable
+\showable{4.2) How much total memory does this HPC (head-node) have?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -1161,7 +1235,7 @@ To transfer from kB to MB you divide by 1024 and MB to GB by 1024 again.
 
 ---------------
 
-\showable{What is the current total CPU usage?}{question}\endshowable
+\showable{4.3) What is the current total CPU usage?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -1183,7 +1257,7 @@ Show \showable{Answer}{answer}
 
 ---------------
 
-\showable{What column does it appear to be sorting the processes by? Is this *low-to-high* OR *high-to-low*?}{question}\endshowable
+\showable{4.4) What column does it appear to be sorting the processes by? Is this *low-to-high* OR *high-to-low*?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -1202,7 +1276,7 @@ Show \showable{Answer}{answer}
 Add up the top few CPU usages of processes and compare this to the system-wide CPU usage at that time.  NOTE: you may need to quit 
 *top* (by pressing q) so you can compare before it updates.
 
-\showable{Why might the numbers disagree?}{question}\endshowable
+\showable{4.5) Why might the numbers disagree?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -1221,7 +1295,7 @@ on the system-wide section.
 
 ---------------
 
-\showable+{What command-line flag instructs *top* to sort results by *%MEM*?}{question}
+\showable+{4.6) What command-line flag instructs *top* to sort results by *%MEM*?}{question}
 
 Can you think of a reason that this might be useful?
 \endshowable
@@ -1242,7 +1316,7 @@ Show \showable{Answer}{answer}
 
 **Answer**: *top -m* will cause *top* to sort the processes by memory usage.
 
-*Can you think of a reason that this might be useful?*
+**Can you think of a reason that this might be useful?**
 
 Your program might be using a lot of memory and you want to know how much, by sorting by memory will cause your program to stay at the top.
 
@@ -1250,7 +1324,7 @@ Your program might be using a lot of memory and you want to know how much, by so
 
 ---------------
 
-\showable{Run *"top -c"*.  What does it do?  How might this be helpful?}{question}\endshowable
+\showable{4.7) Run *"top -c"*.  What does it do?  How might this be helpful?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -1282,7 +1356,7 @@ If *top* is running you can press the *c* key to toggle show/hide complete comma
 
 ---------------
 
-\showable{How can you get *top* to only show your processes?  Why might this be useful?}{question}\endshowable
+\showable{4.8) How can you get *top* to only show your processes?  Why might this be useful?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -1323,7 +1397,7 @@ Open the munin webpage and have a look at the graphs
 
 **Munin**: [http://munin-lims.latrobe.edu.au/lims-hpc.html](http://munin-lims.latrobe.edu.au/lims-hpc.html)
 
-\showable{What are the graphs showing?}{question}\endshowable
+\showable{4.9) What are the graphs showing?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -1339,7 +1413,7 @@ Show \showable{Answer}{answer}
 
 ---------------
 
-\showable{How much is the Compute Node 5 being used currently?}{question}\endshowable
+\showable{4.10) How much is the Compute Node 5 being used currently?}{question}\endshowable
 
 Show \showable{Answer}{answer}
 
@@ -1353,7 +1427,7 @@ You can either:
 ---------------
 
 
-\showable{And at midday yesterday?}{question}\endshowable
+\showable{4.11) And at midday yesterday?}{question}\endshowable
 
 \showable{Hint}{hint}
 
@@ -1436,7 +1510,7 @@ Edit your job script so that it:
 
 ### Task 4: Monitor the job
 
-Use the *top* command to check how much CPU and Memory the job is using.  Given that you SLURM is running the job on your behalf on one of the compute 
+Use the *top* command to check how much CPU and Memory the job is using.  Given that SLURM is running the job on your behalf on one of the compute 
 nodes, *top* wont be able to see the job.  To be able to use top, you will first need to login to the compute node the is running your job.
 
 To login:
