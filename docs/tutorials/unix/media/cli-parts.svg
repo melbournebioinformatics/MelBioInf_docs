@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="980.86615"
+   height="240.31497"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="cli-parts.svg"
+   inkscape:export-filename="/home/arobinson/Documents/AptanaStudio/lscc_docs/docs/tutorials/unix/media/cli-parts.png"
+   inkscape:export-xdpi="150.04741"
+   inkscape:export-ydpi="150.04741">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="474.2037"
+     inkscape:cy="-55.646958"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     fit-margin-left="1"
+     fit-margin-top="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     inkscape:window-width="1279"
+     inkscape:window-height="1561"
+     inkscape:window-x="1280"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       units="mm"
+       spacingx="1mm"
+       spacingy="1mm"
+       originx="-3.5888887mm"
+       originy="-228.58888mm" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-12.716536,-2.0865924)">
+    <rect
+       style="fill:#f6f6f6;fill-opacity:1;fill-rule:nonzero;stroke:#b0b0b0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974000000037"
+       id="rect3843-0"
+       width="970.86615"
+       height="159.44884"
+       x="17.716536"
+       y="77.952728"
+       rx="4.8000002"
+       ry="4.8000002"
+       inkscape:export-xdpi="150.04741"
+       inkscape:export-ydpi="150.04741" />
+    <rect
+       style="fill:#ececec;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974000000037"
+       id="rect3843"
+       width="970.86609"
+       height="53.149597"
+       x="17.716536"
+       y="7.0865922"
+       rx="4.8000002"
+       ry="4.8000002" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2987"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion2989"><rect
+           id="rect2991"
+           width="139.64285"
+           height="90.35714"
+           x="150"
+           y="102.36218" /></flowRegion><flowPara
+         id="flowPara2993" /></flowRoot>    <text
+       xml:space="preserve"
+       style="font-size:27.87226677px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="35.299454"
+       y="42.190563"
+       id="text2995"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0037853,0.996229)"
+       inkscape:export-xdpi="150.04741"
+       inkscape:export-ydpi="150.04741"><tspan
+         sodipodi:role="line"
+         x="35.299454"
+         y="42.190563"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
+         id="tspan2999"><tspan
+           style="font-weight:bold;fill:#2079ff;fill-opacity:1"
+           id="tspan3015">[16:28:59]</tspan><tspan
+           style="font-weight:bold;fill:#49b700;fill-opacity:1"
+           id="tspan3019"> training01</tspan><tspan
+           style="fill:#ff2a2a;font-weight:bold"
+           id="tspan3033">@lims-hpc-m</tspan><tspan
+           style="font-weight:bold;fill:#2079ff;fill-opacity:1"
+           id="tspan3805"> /home/group/common $</tspan></tspan><tspan
+         sodipodi:role="line"
+         x="35.299454"
+         y="77.205101"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
+         id="tspan3877" /><tspan
+         sodipodi:role="line"
+         x="35.299454"
+         y="112.04543"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
+         id="tspan3864"><tspan
+           style="fill:#2079ff;fill-opacity:1;font-weight:bold"
+           id="tspan3809">\--------/</tspan><tspan
+           style="font-weight:bold;fill:#49b700;fill-opacity:1"
+           id="tspan3813"> \--------/</tspan><tspan
+           style="fill:#ff2a2a;fill-opacity:1;font-weight:bold"
+           id="tspan3817"> \--------/</tspan><tspan
+           style="fill:#5599ff;fill-opacity:1;font-weight:bold"
+           id="tspan3866"><tspan
+             style="fill:#2079ff;fill-opacity:1"
+             id="tspan3800"> \-------+--------/ ^ </tspan></tspan></tspan><tspan
+         sodipodi:role="line"
+         x="35.299454"
+         y="147.05997"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
+         id="tspan3005"><tspan
+           style="font-weight:bold;fill:#2079ff;fill-opacity:1"
+           id="tspan3811">   time</tspan><tspan
+           style="font-weight:bold;fill:#49b700;fill-opacity:1"
+           id="tspan3815">     username</tspan><tspan
+           style="font-weight:bold;fill:#ff2a2a;fill-opacity:1"
+           id="tspan3819">   hostname</tspan><tspan
+           style="font-weight:bold;fill:#2079ff;fill-opacity:1"
+           id="tspan3831">          |          |</tspan></tspan><tspan
+         sodipodi:role="line"
+         x="35.299454"
+         y="181.9003"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#2079ff;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
+         id="tspan3009">                      /------------------+----\   /-+--\</tspan><tspan
+         sodipodi:role="line"
+         x="35.299454"
+         y="216.91484"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#2079ff;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
+         id="tspan3013">                      current working directory   prompt</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3835"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion3837"><rect
+           id="rect3839"
+           width="31.428572"
+           height="47.857143"
+           x="20.714285"
+           y="75.219322" /></flowRegion><flowPara
+         id="flowPara3841" /></flowRoot>  </g>
+</svg>
