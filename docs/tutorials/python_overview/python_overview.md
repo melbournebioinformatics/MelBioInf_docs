@@ -143,8 +143,8 @@ There are many ways to run Python code:
     run it from the command line like so: python example.py
 
 -   You can use one of several integrated programming environments.
-    Python ships with a fairly minimal one called IDLE[^3], though
-    many scientists prefer the more comprehensive IPython[^4].
+    Python ships with a fairly minimal one called [IDLE](https://docs.python.org/2/library/idle.html), though
+    many scientists prefer the more comprehensive [IPython](http://ipython.org/).
 
 -   If your Python code was installed as a package (see below), then it
     may be executed like an ordinary application without the user
