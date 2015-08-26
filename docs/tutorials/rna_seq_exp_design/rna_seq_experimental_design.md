@@ -189,7 +189,8 @@ which returns the most powerful design within budget constraints.
 
 As a general rule, the number of biological replicates should never be below 3.
 For a basic RNA-seq differential expression experiment, 10M to 20M reads per
-sample is usually enough.
+sample is usually enough.  If similar data exists it can be helpful to check
+the read counts for key genes of interest to estimate the required depth.
 
 
 ## Sequencing options to consider
