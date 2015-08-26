@@ -160,6 +160,10 @@ variables include:
  - randomising samples to prevent a confounding batch effect if all samples
    can't be processed at one time.
 
+If variation between samples can not be removed it should be balanced between
+conditions of interest as much as possible, and carefully recorded to allow
+its effect to be measured and potentially removed during analysis.
+
 
 ## How many replicates and how many reads do I need?
 
