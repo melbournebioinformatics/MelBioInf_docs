@@ -71,7 +71,9 @@ used in RNA-seq.
     population of cells grown separately from each other but originating from
     the same cell-line. For example, the samples obtained from three different
     knock-out mice could be considered biological replicates in a knock-out
-    versus wild-type experiment.
+    versus wild-type experiment. A biological replicate combines both technical
+    and biological variability as it is also an independent case of all the
+    technical steps.
   <tr>
     <td>Technical replicates:
     <td>Samples in which the starting biological sample is the same, but the
@@ -122,20 +124,23 @@ using multiple observations in each condition.
 Variability is present in two forms: technical variability and biological
 variability.
 
-Biological variability is measured using biological replicates. It is the main
-source of variability and is due to natural variation in the population and
-within cells. This includes different individuals having different levels of a
-particular gene and the stochastic nature of expression levels in different
-cells.
+Combined biological and technical variability is measured using biological 
+replicates. Biological variability is the main source of variability and is 
+due to natural variation in the population and within cells. This includes 
+different individuals having different levels of a particular gene and the 
+stochastic nature of expression levels in different cells.
 
 Technical variability is measured using technical replicates. Technical
-variability is often very small compared to biological variability, hence
-technical replicates are much less important than biological replicates. The
-main source of technical variation comes from measurement error in the
-sequencing process and from library prep. Variability from sequencing in
-different flow cells or different lanes is usually minimal. Generally,
-creating technical replicates from multiple library preps is unnecessary for
-RNA-seq experiments.
+variability is often very small compared to biological variability.  Usually
+the question is whether an observed difference is greater than the total 
+variability (i.e. significant).  As combined variability is measured by 
+biological replicates technical replicates are only important if you need to
+know the degree of biological variability or technical variability.  An
+example of wanting technical variability would be method development. The
+main source of technical variation comes from RNA processing and from 
+library prep. Variability from sequencing in different flow cells or different
+lanes is usually minimal. Generally, creating technical replicates from multiple
+library preps is unnecessary for RNA-seq experiments.
 
 The amount of variance between your biological replicates will affect the
 outcome of your analysis. Ideally, you aim to have minimal variability between
@@ -154,6 +159,10 @@ variables include:
  - having the same laboratory technician perform each library prep,
  - randomising samples to prevent a confounding batch effect if all samples
    can't be processed at one time.
+
+If variation between samples can not be removed it should be balanced between
+conditions of interest as much as possible, and carefully recorded to allow
+its effect to be measured and potentially removed during analysis.
 
 
 ## How many replicates and how many reads do I need?
@@ -180,7 +189,21 @@ which returns the most powerful design within budget constraints.
 
 As a general rule, the number of biological replicates should never be below 3.
 For a basic RNA-seq differential expression experiment, 10M to 20M reads per
-sample is usually enough.
+sample is usually enough.  If similar data exists it can be helpful to check
+the read counts for key genes of interest to estimate the required depth.
+
+Biological variability is usually the largest effect limiting the power of 
+RNA-seq analysis.  The most improvement in an experiment will usually be 
+achieved by increasing the biological replication to improve estimation of 
+the biological variation.
+
+It is often possible to design experiments where the analysis is done 
+incrementally such that a pilot study is added to with an additional block of
+samples or a pool of libraries is sequenced to additional depth. In these cases
+care must be taken to balance the design in a manner that each stage is a
+valid experiment in its own right.  This can allow a focused question to be 
+answered in the first stage, with an ability to either address issues or 
+progress to a second stage with additional questions.
 
 
 ## Sequencing options to consider
@@ -194,7 +217,9 @@ RNA is also important when making libraries. A RNA Integrity Number (RIN) is a
 number from 1 (poor) to 10 (good) and can indicate how much degradation there
 is in the sample. A poor score can lead to over representation at the 3' end
 of the transcript and low yield. Samples with low RIN scores (below 8) are
-not recommended for sequencing.
+not recommended for sequencing.  Care should also be taken to ensure RIN is
+consistent between conditions to avoid confounding this technical effect with
+the biological question.
 
 **Choosing an enrichment method:**  
 Ribosomal RNA makes up >95% of total cellular RNA, so a preparation for
