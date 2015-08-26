@@ -71,7 +71,9 @@ used in RNA-seq.
     population of cells grown separately from each other but originating from
     the same cell-line. For example, the samples obtained from three different
     knock-out mice could be considered biological replicates in a knock-out
-    versus wild-type experiment.
+    versus wild-type experiment. A biological replicate combines both technical
+    and biological variability as it is also an independent case of all the
+    technical steps.
   <tr>
     <td>Technical replicates:
     <td>Samples in which the starting biological sample is the same, but the
@@ -122,20 +124,23 @@ using multiple observations in each condition.
 Variability is present in two forms: technical variability and biological
 variability.
 
-Biological variability is measured using biological replicates. It is the main
-source of variability and is due to natural variation in the population and
-within cells. This includes different individuals having different levels of a
-particular gene and the stochastic nature of expression levels in different
-cells.
+Combined biological and technical variability is measured using biological 
+replicates. Biological variability is the main source of variability and is 
+due to natural variation in the population and within cells. This includes 
+different individuals having different levels of a particular gene and the 
+stochastic nature of expression levels in different cells.
 
 Technical variability is measured using technical replicates. Technical
-variability is often very small compared to biological variability, hence
-technical replicates are much less important than biological replicates. The
-main source of technical variation comes from measurement error in the
-sequencing process and from library prep. Variability from sequencing in
-different flow cells or different lanes is usually minimal. Generally,
-creating technical replicates from multiple library preps is unnecessary for
-RNA-seq experiments.
+variability is often very small compared to biological variability.  Usually
+the question is whether an observed difference is greater than the total 
+variability (i.e. significant).  As combined variability is measured by 
+biological replicates technical replicates are only important if you need to
+know the degree of biological variability or technical variability.  An
+example of wanting technical variability would be method development. The
+main source of technical variation comes from RNA processing and from 
+library prep. Variability from sequencing in different flow cells or different
+lanes is usually minimal. Generally, creating technical replicates from multiple
+library preps is unnecessary for RNA-seq experiments.
 
 The amount of variance between your biological replicates will affect the
 outcome of your analysis. Ideally, you aim to have minimal variability between
