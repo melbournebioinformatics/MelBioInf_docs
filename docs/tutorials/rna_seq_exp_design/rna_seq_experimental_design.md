@@ -217,7 +217,9 @@ RNA is also important when making libraries. A RNA Integrity Number (RIN) is a
 number from 1 (poor) to 10 (good) and can indicate how much degradation there
 is in the sample. A poor score can lead to over representation at the 3' end
 of the transcript and low yield. Samples with low RIN scores (below 8) are
-not recommended for sequencing.
+not recommended for sequencing.  Care should also be taken to ensure RIN is
+consistent between conditions to avoid confounding this technical effect with
+the biological question.
 
 **Choosing an enrichment method:**  
 Ribosomal RNA makes up >95% of total cellular RNA, so a preparation for
