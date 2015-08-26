@@ -192,6 +192,11 @@ For a basic RNA-seq differential expression experiment, 10M to 20M reads per
 sample is usually enough.  If similar data exists it can be helpful to check
 the read counts for key genes of interest to estimate the required depth.
 
+Biological variability is usually the largest effect limiting the power of 
+RNA-seq analysis.  The most improvement in an experiment will usually be 
+achieved by increasing the biological replication to improve estimation of 
+the biological variation.
+
 
 ## Sequencing options to consider
 
