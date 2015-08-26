@@ -197,6 +197,14 @@ RNA-seq analysis.  The most improvement in an experiment will usually be
 achieved by increasing the biological replication to improve estimation of 
 the biological variation.
 
+It is often possible to design experiments where the analysis is done 
+incrementally such that a pilot study is added to with an additional block of
+samples or a pool of libraries is sequenced to additional depth. In these cases
+care must be taken to balance the design in a manner that each stage is a
+valid experiment in its own right.  This can allow a focused question to be 
+answered in the first stage, with an ability to either address issues or 
+progress to a second stage with additional questions.
+
 
 ## Sequencing options to consider
 
