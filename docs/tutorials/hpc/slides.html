@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Slides - Introduction to HPC Workshop</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @import url(http://andrewjrobinson.github.io/python-md-showable/media/mdx_showable.css);
+      @import url(../../includes/media/mdx_showable_user.css);
+      @import url(../../includes/media/slides.css);
+     
+	div.showable-container.hint div.showable-header a {color: #18bc9c; font-weight: bold;}
+	div.showable-container.indent div.showable-header a {color: #18bc9c; font-weight: bold;}
+	div.showable-container.answer div.showable-header a {color: #18bc9c; font-weight: bold;}
+    
+    div.showable-container p {font-size: 14pt;}
+    div.showable-container div {font-size: 16pt;}
+    
+    span.spacer {display: block; height: 20px;}
+    
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://andrewjrobinson.github.io/python-md-showable/media/mdx_showable.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, title
+
+.header[
+.header-left[<img height="70px" src="http://www.latrobe.edu.au/__data/assets/image/0011/545987/logo.png"/>]
+.header-right[<img height="70px" style="padding-right: 30px;" src="../../img/vlsci_logo.gif"/>]
+]
+
+# Introduction to HPC
+## Hands-on workshop
+
+---
+# VLSCI
+
+**V**ictorian **L**ife **S**ciences **C**omputation **I**nitiative
+.header[
+.header-right[<img height="70px" style="padding-right: 30px;" src="../../img/vlsci_logo.gif"/>]
+]
+
+???
+
+* Big Compute
+* Bioinformaticians (3x LTU)
+* Members
+	* University of Melbourne
+	* La Trobe University
+	* RMIT University
+	* Monash University (former member)
+
+---
+# Objectives
+
+1. What is an HPC
+2. Loading Software
+3. Submitting a job
+4. Monitoring jobs
+5. Putting it all together
+
+???
+
+* Slides for Introduction
+* Then hands-on workshop
+
+---
+# What is an HPC?
+
+<img src="media/drawing1.png" title="HPC Structure" alt="HPC Structure" style="float: right;" width="245px" />
+
+* Big
+* Shared
+* Coordinated
+* Compute Collection
+
+???
+
+* Lots of CPU/Mem
+* Many users
+* Job Queues/Fair use
+* Multiple Computers (Called NODES)
+
+
+* Describe Figure
+	* User TOUCHES pc
+	* pc SSH's headnode
+	* headnode ALLOCATES JOBS to compute nodes
+
+---
+# Why use HPCs?
+
+* Many *CPU*s
+* Large *Memory*
+* *Efficient* use
+
+???
+
+* Lots and Faster
+* 10x + a desktop
+* Pooled resources: "When A not use B can"
+
+---
+# Software Modules
+
+* Packaged
+* Loadable
+* Versions
+
+???
+
+* **Boxed** to avoid **conflicts**
+* Must **load** (**blank** to start)
+* Multiple versions then available
+
+---
+# Job Submission
+
+* SLURM
+* Queues (Partition)
+* Batch
+
+???
+
+* SLURM: Simple Linux Utility for Resource Management
+* Placed in Queue till resources available
+	* Aka Partition
+* Batch:
+	* Not interactive (keyboard,display)
+	* May not start immediately
+	* Script
+
+---
+# Resources
+
+* CPU's
+* Memory
+* Nodes
+* Time
+
+???
+
+
+---
+# Job Type
+
+* Exclusive
+* Shared
+
+???
+
+* Exclusive = X node(s)
+* Shared = X cpu(s)
+
+
+* Today use SHARED only
+
+---
+# Before we start
+
+* Q/A style
+* Incremental Hints
+* Think > Hint > Answer
+
+.spacer[]
+
+<div class="showable-container question showable-hidden" id="showable0">
+	<div class="showable-inner">
+		<div class="showable-header question" id="showabletitle0">
+			<span class="link-like" id="showablelink0">What is the Answer to Life?</span>
+		</div>
+	</div>
+</div>
+
+<div class="showable-container hint showable-hidden" id="showable1">
+	<div class="showable-inner">
+		<div class="showable-header hint" id="showabletitle1">
+			<a href="#7" id="showablelink1">Hint</a>
+		</div>
+		<div class="showable-body hint" id="showablebody1">
+			<p>
+				What is the answer to everything?
+			</p>
+			<p>
+				As featured in <em>"The Hitchhiker's Guide to the Galaxy"</em>
+			</p>
+			<div class="showable-container showable-hidden" id="showable2">
+				<div class="showable-inner">
+					<div class="showable-header" id="showabletitle2">
+						<a href="#7" id="showablelink2">More</a>
+					</div>
+					<div class="showable-body" id="showablebody2">
+						<p>
+							It is probably a two digit number
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="showable-container answer showable-hidden" id="showable3">
+	<div class="showable-inner">
+		<div class="showable-header answer" id="showabletitle3">
+			<a href="#7" id="showablelink3">Answer</a>
+		</div>
+		<div class="showable-body answer" id="showablebody3">
+			<p>
+				<strong>Answer</strong>: 42
+			</p>
+			<p>
+				Ref: <a href="http://en.wikipedia.org/wiki/42_%28number%29">Number 42 (Wikipedia)</a>
+			</p>
+		</div>
+	</div>
+</div>
+
+???
+
+---
+# Ready, Set, Go
+
+* Pairs?
+
+.giant-url2[goo.gl/UlSrCo]
+
+.phonetic2[**U**niform **l**ima **S**ierra **r**omeo **C**harlie **o**scar]
+
+???
+
+* Pairs: 
+	* Recommend, 
+	* Alternate *driving* responsibilities
+	* Make sure both understand what is happening
+
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+    
+    
+<script>
+    $(document).ready(function(){
+        $("#showablelink2").click(function(){
+            $("#showable2").toggleClass("showable-hidden");
+            if ($("#showable2").hasClass("showable-hidden")) {
+                $("#showablelink2").text("More");
+            } else {
+                $("#showablelink2").text("Less");
+            }
+            return false;
+        });
+    });
+    $(document).ready(function(){
+        $("#showablelink1").click(function(){
+            $("#showable1").toggleClass("showable-hidden");
+            return false;
+        });
+    });
+    $(document).ready(function(){
+        $("#showablelink3").click(function(){
+            $("#showable3").toggleClass("showable-hidden");
+            return false;
+        });
+    });
+    </script>
+  </body>
+</html>
