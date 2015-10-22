@@ -1,7 +1,8 @@
-<p>
+
+
 [<img src="media/vlsci_logo.jpg" alt="VLSCI logo" align="left" width="164"/>](http://vlsci.org.au)
 [<img src="media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/>](http://genome.edu.au)
-</p>
+
 <p></p>
 
 # Microbial de novo Assembly for Illumina Data
@@ -20,6 +21,19 @@ Simon Gladman - VLSCI
 5. [Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser](#5-section-2:-assemble-reads-into-contigs-with-velvet-and-the-velvet-optimiser) [45 min]
 6. [Section 3. Extension](#6-section-3:-extension) [20 min]
 7. [References](#7-references)
+
+## Tutorial Overview
+
+In this tutorial we cover the concepts of Microbial de novo assembly using a very small synthetic dataset from a well studied organism.
+
+
+**What’s not covered**
+
+This tutorial covers the basic aspects of microbial de novo assembly from Illumina paired end or single end reads.
+It does not cover more complicated aspects of assembly such as:
+* Incorporation of other raw data types (454 reads, Sanger reads)
+* Gap filling techniques for “finishing” an assembly
+* Measuring the accuracy of assemblies
 
   ----------------------------------------------
 
