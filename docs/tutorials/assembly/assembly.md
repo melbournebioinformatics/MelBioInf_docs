@@ -70,8 +70,8 @@ Follow this [link for an overview of the protocol](protocol.md)
   * You can use a galaxy server of your own or
   * [Galaxy Tute](http://galaxy-tut.genome.edu.au) at genome.edu.au
 
+
   >  <img src="media/tips.png" alt="Tip" height="42" width="42"/>
-  Tip:
   NOTE: Firefox/Safari/Chrome all work well, Internet Explorer not so well
   Register as a new user: User>Register or login if you already have an account
 
