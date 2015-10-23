@@ -11,7 +11,7 @@
 
 <img src="media/D4D_5503X.jpg" width="70"/>
 
-Simon Gladman - VLSCI
+Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) - VLSCI 
 
 <!-- toc -->
 ##Contents
