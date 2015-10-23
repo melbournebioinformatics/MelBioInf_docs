@@ -76,14 +76,13 @@ Follow this [link for an overview of the protocol](protocol.md)
 
 2. Register as a new user if you don’t already have an account on that particular server
 
+3. Import the DNA read data for the workshop. You can do this in a few ways, of which by far the easiest is:
+  * Go to shared Data -> Published Histories and click on  ‘Microbial_assembly_input_data’. Then click 'Import History' at top right, wait for the history to be imported to your account, and then ‘start using this history’.
+  * This will create a new Galaxy history in your account with all of the required data files.
+Proceed to step 4.
 
-Import the DNA read data for the workshop. You can do this in a few ways, of which by far the easiest is:
-Go to shared Data -> Published Histories and click on  ‘Microbial_assembly_input_data’. Then click 'Import History' at top right, wait for the history to be imported to your account, and then ‘start using this history’.
-This will create a new Galaxy history in your account with all of the required data files
-Proceed to step 3.
-
-Alternately:
-You can download the data from the GVL repository using the following URLs, then upload it to Galaxy for use.
+  * Alternately:
+  You can download the data from the GVL repository using the following URLs, then upload it to Galaxy for use.
 Download the following files:
 https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_1.fastq.gz
 https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_2.fastq.gz
