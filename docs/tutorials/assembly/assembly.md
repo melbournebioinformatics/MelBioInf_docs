@@ -1,8 +1,8 @@
 
-
+<p>
 [<img src="media/vlsci_logo.jpg" alt="VLSCI logo" align="left" width="164"/>](http://vlsci.org.au)
 [<img src="media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/>](http://genome.edu.au)
-
+</p>
 <p></p>
 
 # Microbial de novo Assembly for Illumina Data
