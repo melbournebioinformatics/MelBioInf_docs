@@ -72,8 +72,7 @@ Follow this [link for an overview of the protocol](protocol.md)
 
 
   >  <img src="media/tips.png" alt="Tip" height="42" width="42"/>
-  NOTE: Firefox/Safari/Chrome all work well, Internet Explorer not so well
-  Register as a new user: User>Register or login if you already have an account
+  NOTE: Firefox/Safari/Chrome all work well, Internet Explorer not so well.
 
 2. Register as a new user if you don’t already have an account on that particular server
 
