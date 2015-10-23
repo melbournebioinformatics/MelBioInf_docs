@@ -11,7 +11,7 @@
 
 <img src="media/D4D_5503X.jpg" width="70"/>
 
-Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) - VLSCI 
+Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) - VLSCI
 
 <!-- toc -->
 ##Contents
@@ -61,6 +61,61 @@ Follow this [link for an overview of the protocol](protocol.md)
 
 *Output:* File of assembled scaffolds/contigs and associated information.
 
+
+## Preparation [15 min]
+
+**Login to Galaxy**
+
+1. Open a browser and go to a Galaxy server. (what is [Galaxy](assembly_background.md)?)
+  * You can use a galaxy server of your own or
+  * [Galaxy Tute](http://galaxy-tut.genome.edu.au) at genome.edu.au
+
+  >  <img src="media/tips.png" alt="Tip" height="42" width="42"/>
+  Tip:
+  NOTE: Firefox/Safari/Chrome all work well, Internet Explorer not so well
+  Register as a new user: User>Register or login if you already have an account
+
+2. Register as a new user if you don’t already have an account on that particular server
+
+
+Import the DNA read data for the workshop. You can do this in a few ways, of which by far the easiest is:
+Go to shared Data -> Published Histories and click on  ‘Microbial_assembly_input_data’. Then click 'Import History' at top right, wait for the history to be imported to your account, and then ‘start using this history’.
+This will create a new Galaxy history in your account with all of the required data files
+Proceed to step 3.
+
+Alternately:
+You can download the data from the GVL repository using the following URLs, then upload it to Galaxy for use.
+Download the following files:
+https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_1.fastq.gz
+https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_2.fastq.gz
+https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/illumina_adapters.fna
+Once files are downloaded, for each of them:
+In Galaxy tools panel click on Get data>Upload File
+Click 'Choose File', locate the local copy file and upload
+For the ‘.fastq.gz’ files, make sure you select ‘fastqsanger’ under the file format to tell Galaxy this is a fastq file. Galaxy will unzip it automatically. For the ‘.fna’ file, make sure you select ‘fasta’.
+Click ‘Execute’ to upload. (This may take a couple of minutes for each file.)
+Or:
+You can upload the data directly to Galaxy using the file URLs.
+In Galaxy tools panel click on Get data>Upload File
+copy the URLs from the previous step into the URL/Text box one at a time, and Galaxy will download and import them directly. Remember to select the ‘fastqsanger’ File Format for the sequence files and ‘fasta’ for the ‘.fna’ file.
+When the files have finished uploading, rename them to ‘ERR048396_1.fastq’, ‘ERR048396_2.fastq’ and ‘illumina_adapters.fna’ respectively by clicking on the pencil icon to the top right of the file name in the right hand Galaxy panel (the history panel)
+
+
+You should now have the following files in your Galaxy history:
+A set of paired end reads consisting of 2 files:
+ERR048396_1.fastq
+ERR048396_2.fastq
+Illumina adapter list as illumina_adapters.fa
+
+
+View the fastq files
+Click on the eye icon to the top right of each fastq file to view the first part of the file
+If you’re not familiar with the FASTQ format, click here for an overview
+
+NOTE: If you log out of Galaxy and log back at a later time your data and results from previous experiments will be available in the right panel of your screen called the ‘History’
+
+
+Completed Galaxy history for this section (in SharedData>Published Histories): Microbial_assembly_complete
 
 
 
