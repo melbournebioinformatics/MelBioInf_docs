@@ -1,7 +1,7 @@
 
 <p>
-[<img src="media/vlsci_logo.jpg" alt="VLSCI logo" align="left" width="164"/>](http://vlsci.org.au)
-[<img src="media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/>](http://genome.edu.au)
+<a href=http://vlsci.org.au><img src="media/vlsci_logo.jpg" alt="VLSCI logo" align="left" width="164"/></a>
+<a href=http://genome.edu.au><img src="media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/></a>
 </p>
 <p></p>
 
