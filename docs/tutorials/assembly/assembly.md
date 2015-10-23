@@ -9,7 +9,9 @@
 
 ## *Introductory Tutorial*
 
-Simon Gladman - VLSCI <img src="media/D4D_5503X.jpg" width="112"/>
+<img src="media/D4D_5503X.jpg" width="70"/>
+
+Simon Gladman - VLSCI
 
 <!-- toc -->
 ##Contents
