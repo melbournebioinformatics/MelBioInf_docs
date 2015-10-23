@@ -9,17 +9,17 @@
 
 ## *Introductory Tutorial*
 
-Simon Gladman - VLSCI
+Simon Gladman - VLSCI <img src="media/D4D_5503X.jpg" width="112"/>
 
 <!-- toc -->
 ##Contents
 
 1. [Tutorial Overview](#1-tutorial-overview)
-2. [Background](#2-background) [15 min]
-3. [Preparation](#3-preparation) [15 min]
-4. [Section 1: Quality control](#4-section-1:-quality-control) [30 mins]
-5. [Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser](#5-section-2:-assemble-reads-into-contigs-with-velvet-and-the-velvet-optimiser) [45 min]
-6. [Section 3. Extension](#6-section-3:-extension) [20 min]
+2. [Background](#2-background-15-min) [15 min]
+3. [Preparation](#3-preparation-15-min) [15 min]
+4. [Section 1: Quality control](#4-section-1-quality-control-30-mins) [30 mins]
+5. [Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser](#5-section-2-assemble-reads-into-contigs-with-velvet-and-the-velvet-optimiser-45-min) [45 min]
+6. [Section 3. Extension](#6-section-3-extension-20-min) [20 min]
 7. [References](#7-references)
 
 ## Tutorial Overview
@@ -58,6 +58,8 @@ Follow this [link for an overview of the protocol](protocol.md)
 *Input:* Raw reads from sequencer run on microbial DNA sample.
 
 *Output:* File of assembled scaffolds/contigs and associated information.
+
+
 
 
   ----------------------------------------------
