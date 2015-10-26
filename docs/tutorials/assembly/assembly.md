@@ -80,7 +80,7 @@ Follow this [link for an overview of the protocol](protocol.md)
 ### Import the DNA read data for the tutorial.
 
 **You can do this in a few ways. If you're using [galaxy-tut.genome.edu.au](http://galaxy-tut.genome.edu.au):**
-  1. Go to **Shared Data -> Published Histories** and click on *‘Microbial_assembly_input_data’*. Then click **'Import History'** at top right, wait for the history to be imported to your account, and then **‘start using this history’**.
+  1. Go to **Shared Data -> Published Histories** and click on "*Microbial_assembly_input_data*". Then click **'Import History'** at top right, wait for the history to be imported to your account, and then **‘start using this history’**.
   2. This will create a new Galaxy history in your account with all of the required data files.
   3. Proceed to step 4.
 
@@ -126,7 +126,7 @@ The basic process here is to collect statistics about the quality of the reads i
 
   Screenshot of this process can be seen [here.](screenshots.md)
 
-  > Note: This may take a few minutes, depending on how busy Galaxy is.
+  > <img src="media/tips.png" alt="Tip" height="42" width="42"/> Note: This may take a few minutes, depending on how busy Galaxy is.
 
 2. Now repeat the above process on the second read file: *ERR048396_2.fastq*
 
@@ -205,7 +205,7 @@ We will use a single tool, Velvet Optimiser, which takes the trimmed reads from 
   Screenshot of this process can be seen [here](screenshots.md).
 
 
-## Examine assembly output
+### Examine assembly output
 Once step 1 is complete, you should now have 2 new objects in your history:
 * *VelvetOptimiser on data 9, data 7, and others: Contigs*
 * *VelvetOptimiser on data 9, data 7, and others: Contig Stats*
@@ -219,7 +219,7 @@ Click on the <img src="media/Galaxy-view.png" width=20 /> icon of the various ob
 Screenshots can be seen [here](screenshots.md).
 
 
-## Calculate some statistics on the assembled contigs
+### Calculate some statistics on the assembled contigs
 
 1. From the tools menu in the left hand panel of Galaxy, select **FASTA Manipulation -> Fasta Statistics** and run with these parameters:
   * "Fasta or multifasta file": *Velvet Optimiser ... Contigs*
@@ -231,6 +231,57 @@ Screenshots can be seen [here](screenshots.md).
 
 ----------------------------------------------
 
+## Section 3: Extension.
+
+Examine the contig coverage depth and blast a high coverage contig against a protein database.
+
+### Examine the contig coverage depth.
+
+Look at the Contig Stats data (Velvet Optimiser vlsci on data 8, data 9, and data 7: Contig stats) by clicking on the <img src="media/Galaxy-view.png" width=20 /> icon. Note that column 2 contig length (lgth), shows a number of very short contigs (some are length 1).
+
+  * We can easily filter out these short contigs from this information list by using the **Filter and Sort -> Filter tool.**
+  * Set the following:
+    * "Filter": *Velvet Optimiser on data 8, data 7 and others: Contig stats*
+    * "With the following condition": *c2 > 100*
+  * Click **Execute**
+
+
+The new data object in the history is called: *Filter on data 11*.
+
+Click on its <img src="media/Galaxy-view.png" width=20 /> icon to view it. Look through the list taking note of the coverages. Note that the average of the coverages (column 6) seems to be somewhere between 16 and 32.  There are a lot of contigs with coverage 16. We could say that these contigs only appear once in the genome of the bacteria. Therefore, contigs with double this coverage would appear twice. Note that some of the coverages are >400! These contigs will appear in the genome more than 20 times!
+
+Lets have a look at one of these contigs and see if we can find out what it is.
+
+### Extract a single sequence from the contigs file.
+Note the contig number (column 1 in the Contig stats file) of a contig with a coverage of over 300. There should be a few of them. We need to extract the fasta sequence of this contig from the contigs multifasta so we can see it more easily.
+
+To do this we will use the tool:
+  * **Fasta manipulation -> Fasta Extract Sequence**
+  * Set the following:
+    * "Fasta or multifasta file": *Velvet Optimiser ... : Contigs*
+    * "Sequence ID (or partial): *NODE\_1_...* (for example)
+  * Click **Execute**
+
+The new data object in the history is called: *Fasta Extract Sequence on data 10: Fasta*.
+
+Click on its <img src="media/Galaxy-view.png" width=20 /> icon to view it. It is a single sequence in fasta format.
+
+### Blast sequence to determine what it contains.
+
+We want to find out what this contig is or what kind of coding sequence (if any) it contains. So we will blast the sequence using the NCBI blast website. (External to Galaxy). To do this:
+
+  * Bring up the sequence of the contig into the main window of the browser by clicking on the <img src="media/Galaxy-view.png" width=20 /> icon if it isn’t already.
+  * Select the entire sequence by clicking and dragging with the mouse or by pressing ctrl-a in the browser.
+  * Copy the selected sequence to the clipboard.
+  * Open a new tab of your browser and point it to: http://blast.ncbi.nlm.nih.gov/Blast.cgi
+  * Under the BASIC BLAST section, click “blastx”.
+  * Paste the sequence into the large text box labelled: Enter Accession number(s), gi(s) or FASTA sequence(s).
+  * Change the Genetic code to: Bacteria and Archaea (11)
+  * Click the button labelled: BLAST
+
+After a while the website will present a report of the blast run. Note that the sequence we blasted (if you chose NODE_1) is identical to part of a transposase gene (IS256) from a similar Staphylococcus aureus bacteria. These transposases occur frequently as repeats in bacterial genomes and so we shouldn’t be surprised at its very high coverage.
+
+A screenshot of the output can be seen [here](screenshots.md).
 
 
 
