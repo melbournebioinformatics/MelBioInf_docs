@@ -12,7 +12,9 @@ pages:
   - 'Introduction to HPC': 'tutorials/hpc/index.md'
   - 'Introduction to Unix': 'tutorials/unix/index.md'
   - 'Python Overview': 'tutorials/python_overview/python_overview.md'
-  - 'Microbial de novo Assembly for Illumina Data': 'tutorials/assembly/assembly.md'
+  - 'Microbial de novo Assembly for Illumina Data':
+    - 'tutorials/assembly/assembly.md'
+    - 'tutorials/assembly/screenshots.md'
 extra_templates: [
   'tutorials/hpc/slides.html',
   'tutorials/unix/slides.html',
