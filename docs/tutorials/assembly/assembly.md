@@ -39,7 +39,7 @@ It does not cover more complicated aspects of assembly such as:
 
 ## Background [15 min]
 
-Read the [background to the workshop here](assembly_background.md)
+Read the [background to the workshop here](assembly-background.md)
 
 **Where is the data in this tutorial from?**
 
@@ -66,7 +66,7 @@ Follow this [link for an overview of the protocol](protocol.md)
 
 ### Login to Galaxy
 
-1. Open a browser and go to a Galaxy server. (what is [Galaxy](assembly_background.md)?)
+1. Open a browser and go to a Galaxy server. (what is [Galaxy](assembly-background.md)?)
   * You can use a galaxy server of your own or
   * [Galaxy Tute](http://galaxy-tut.genome.edu.au) at genome.edu.au
 
