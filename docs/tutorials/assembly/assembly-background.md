@@ -32,7 +32,7 @@ Learn more about Galaxy here
 
 Tools on the left, data in the middle, analysis workflow on the right.
 
-<img src="media/screenshot-fastqc-output.png" width=100% />
+<img src="../media/screenshot-fastqc-output.png" width=100% />
 
 ------------------------------
 
@@ -48,7 +48,7 @@ A de Bruijn graph is a directed graph which represents overlaps between sequence
 
 **Figure 2: A de Bruijn graph of word length 3 for the symbols 1 and 0.**
 
-<img src="media/debruijn.jpg" width=80% />
+<img src="../media/debruijn.jpg" width=80% />
 
 *From: https://cameroncounts.wordpress.com/2015/02/28/1247/*
 
@@ -78,13 +78,13 @@ Velvet is not the only assembly software that works in this manner. Euler, Edena
 
 **Figure 3: Section of a simple de Bruijn graph of reads with k-mer size 5. Coloured sequences are constructed by following the appropriately coloured line through the graph.** *(Base figure Zerbino et al 2008.)*
 
-<img src="media/velvet-graph.png" width=80% />
+<img src="../media/velvet-graph.png" width=80% />
 
 #### *Step 3: Simplification of the graph.*
 
 * Chain merging: When there are two connected nodes in the graph without a divergence, merge the two nodes.
 * Tip clipping: Tips are short (typically) chains of nodes that are disconnected on one end. They will be clipped if their length is < 2 x k or their average k-mer depth is much less than the continuing path.
-* Bubble removal: Bubbles are redundant paths that start and end at the same nodes (Figure 4.) They are created by sequencing errors, biological variants or slightly varying repeat sequences. 
+* Bubble removal: Bubbles are redundant paths that start and end at the same nodes (Figure 4.) They are created by sequencing errors, biological variants or slightly varying repeat sequences.
   * Velvet compares the paths using dynamic programming.
   * If they are highly similar, the paths are merged.
 * Error removal: Erroneous connections are removed by using a “coverage cutoff”. Genuine short nodes which cannot be simplified should have a high coverage. An attempt is made to resolve repeats using the “expected coverage” of the graph nodes.
@@ -92,7 +92,7 @@ Velvet is not the only assembly software that works in this manner. Euler, Edena
 
 **Figure 4: Representation of “bubbles” in a Velvet de Bruijn graph.**  *(Base figure Zerbino et al 2008.)*
 
-<img src="media/velvet-bubbles.png" width=80% />
+<img src="../media/velvet-bubbles.png" width=80% />
 
 #### *Step 4: Read off the contigs.*
 

@@ -2,7 +2,7 @@
 <p>
 <a href=http://vlsci.org.au><img src="../media/vlsci_logo.jpg" alt="VLSCI logo" align="left" width="164"/></a>
 <a href=http://genome.edu.au><img src="../media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/></a><br></br><br></br>
-<br></br><br></br></p>
+<br></br></p>
 <p> </p>
 
 
@@ -14,7 +14,7 @@
 
 Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) - VLSCI
 
-<!-- toc -->
+<!-- toc
 ## Contents
 
 1. [Tutorial Overview](#1-tutorial-overview)
@@ -24,6 +24,7 @@ Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) -
 5. [Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser](#5-section-2-assemble-reads-into-contigs-with-velvet-and-the-velvet-optimiser-45-min) [45 min]
 6. [Section 3. Extension](#6-section-3-extension-20-min) [20 min]
 7. [References](#7-references)
+-->
 
 ## Tutorial Overview
 
@@ -41,7 +42,7 @@ It does not cover more complicated aspects of assembly such as:
 
 ## Background [15 min]
 
-Read the [background to the workshop here](assembly-background.md)
+Read the [background to the workshop here](assembly-background.md#background)
 
 **Where is the data in this tutorial from?**
 
@@ -68,9 +69,9 @@ Follow this [link for an overview of the protocol](protocol.md)
 
 ### Login to Galaxy
 
-1. Open a browser and go to a Galaxy server. (what is [Galaxy](assembly-background.md)?)
-  * You can use a galaxy server of your own or
-  * [Galaxy Tute](http://galaxy-tut.genome.edu.au) at genome.edu.au
+1. Open a browser and go to a Galaxy server. (what is [Galaxy](assembly-background.md#the-galaxy-workflow-platform)?)
+    * You can use a galaxy server of your own **or**
+    * [Galaxy Tute](http://galaxy-tut.genome.edu.au) at genome.edu.au
 2. Register as a new user if you don’t already have an account on that particular server
 
 
@@ -81,11 +82,13 @@ Follow this [link for an overview of the protocol](protocol.md)
 ### Import the DNA read data for the tutorial.
 
 **You can do this in a few ways. If you're using [galaxy-tut.genome.edu.au](http://galaxy-tut.genome.edu.au):**
+
   1. Go to **Shared Data -> Published Histories** and click on "*Microbial_assembly_input_data*". Then click **'Import History'** at top right, wait for the history to be imported to your account, and then **‘start using this history’**.
   2. This will create a new Galaxy history in your account with all of the required data files.
   3. Proceed to step 4.
 
 **If you are using a different Galaxy server, you can upload the data directly to Galaxy using the file URLs.**
+
   1. On the Galaxy tools panel, click on **Get data -> Upload File**.
   2. Click on the **Paste/Fetch Data** button.
   3. Paste the URL: https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_1.fastq.gz into the text box. Change the type to *fastqsanger* (Not *fastqcsanger*).
@@ -121,21 +124,21 @@ The basic process here is to collect statistics about the quality of the reads i
 
 ### Run FastQC on both input read files
 1. From the tools menu in the left hand panel of Galaxy, select **NGS QC and manipulation > FastQC: Comprehensive QC** (down the bottom of this category) and run with these parameters:
-  * "FASTQ reads": *ERR048396_1.fastq*
-  * Use default for other fields
-  * Click **Execute**
+    * "FASTQ reads": *ERR048396_1.fastq*
+    * Use default for other fields
+2. Click **Execute**
+3. Now repeat the above process on the second read file: *ERR048396_2.fastq*
 
-  Screenshot of this process can be seen [here.](screenshots.md)
+Screenshot of this process can be seen [here.](screenshots.md#figure-1-screenshot-of-fastqc-interface-in-galaxy)
 
-  > <img src="../media/tips.png" alt="Tip" height="42" width="42"/> Note: This may take a few minutes, depending on how busy Galaxy is.
-
-2. Now repeat the above process on the second read file: *ERR048396_2.fastq*
+> <img src="../media/tips.png" alt="Tip" height="42" width="42"/> Note: This may take a few minutes, depending on how busy Galaxy is.
 
 It is important to do both read files as the quality can be very different between them.
 
 ### Examine the FastQC output
 
 You should have two output objects from the first step:
+
 * *FastQC_ERR048396_1.fastqc.html*
 * *FastQC_ERR048396_2.fastqc.html*
 
@@ -144,34 +147,38 @@ These are a html outputs which show the results of all of the tests FastQC perfo
 1. Click on the <img src="../media/Galaxy-view.png" width=20 /> icon of each of these objects in turn to see the FastQC output.
 
   The main parts of the output to evaluate are:
+
   * Basic statistics. This section tells us that the ASCII quality encoding format used was Sanger/Illumina 1.9 and the reads are length 75 and the percent GC content of the entire file is 35%.
   * Per base sequence quality. In the plot you should see that most of the early bases are up around the '32' mark and then increase to 38-40, which is very high quality; The spread of quality values for the last few bases increases and some of the outliers have quality scores of less than 30. This is a very good quality dataset. 20 is often used as a cutoff for reliable quality.
 
-  Screenshot can be seen [here.](screenshots.md)
+  Screenshot can be seen [here.](screenshots.md#figure-2-screenshot-of-fastqc-output-in-galaxy)
 
 ### Quality trim the reads using Trimmomatic.
 
 1. From the tools menu in the left hand panel of Galaxy, select **NGS QC and manipulation > Trimmomatic** and run with these parameters (only the non-default selections are listed here):
-  * "Input FASTQ file (R1/first of pair)": *ERR048396_1.fastq*
-  * "Input FASTQ file (R2/second of pair)": *ERR048396_2.fastq*
-  * "Perform initial ILLUMINACLIP step?": *Yes*
-  * "Adapter sequences to use": *TruSeq3 (additional seqs) (paired end, for MiSeq and HiSeq)*
-  * "How accurate ... read alignment": *40*
-  * "How accurate ... against a read": *15*
-  * We will use the default settings for the SLIDING_WINDOW operation but we need to add a few more Trimmomatic operations.
-  * Click **Insert Trimmomatic Operation**
-    * Add *Cut bases ... (LEADING)*
-    * "Minimum quality required to keep a base": *15*
-  * Repeat the **Insert Trimmomatic Operation** for:
-    * Trim trailing bases, minimum quality: *15*
-    * Minimum length read: *35*
-  * Click **Execute**
 
-  Screenshot of this process can be seen [here](screenshots.md).
+    * "Input FASTQ file (R1/first of pair)": *ERR048396_1.fastq*
+    * "Input FASTQ file (R2/second of pair)": *ERR048396_2.fastq*
+    * "Perform initial ILLUMINACLIP step?": *Yes*
+    * "Adapter sequences to use": *TruSeq3 (additional seqs) (paired end, for MiSeq and HiSeq)*
+    * "How accurate ... read alignment": *40*
+    * "How accurate ... against a read": *15*
+    * We will use the default settings for the SLIDING_WINDOW operation but we need to add a few more Trimmomatic operations.
+    * Click **Insert Trimmomatic Operation**
+        * Add *Cut bases ... (LEADING)*
+        * "Minimum quality required to keep a base": *15*
+    * Repeat the **Insert Trimmomatic Operation** for:
+        * Trim trailing bases, minimum quality: *15*
+        * Minimum length read: *35*
 
-2. Examine the Trimmomatic output FastQ files.
+2. Click **Execute**
+      <br></br>
+  Screenshot of this process can be seen [here](screenshots.md).<br></br>
+
+### Examine the Trimmomatic output FastQ files.
 
   You should have 4 new objects in your history from the output of Trimmomatic:
+
   * *Trimmomatic on data 2 and data 1 (R1 Paired)*
   * *Trimmomatic on data 2 and data 1 (R1 Unpaired)*
   * *Trimmomatic on data 2 and data 1 (R2 Paired)*
@@ -192,16 +199,16 @@ We will use a single tool, Velvet Optimiser, which takes the trimmed reads from 
 ### De novo assembly of the reads into contigs
 
 1. From the tools menu in the left hand panel of Galaxy, select **NGS: Assembly -> Velvet Optimiser** and run with these parameters (only the non-default selections are listed here):
-  * "Start k-mer value": *55*
-  * "End k-mer value": *69*
-  * In the input files section:
-    * "Select first set of reads": *Trimmomatic on data 2 and data 1 (R1 paired)*
-    * "Select second set of reads": *Trimmomatic on data 2 and data 1 (R2 paired)*
-  * Click the **Insert Input Files** button and add the following:
-    * "Single or paired end reads": *Single*
-    * "Select the reads": *Trimmomatic on data 2 and data 1 (R1 unpaired)*
-  * Repeat the above process to add the other unpaired read set *Trimmomatic on data 2 and data 1 (R2 unpaired)* as well.
-  * Click **Execute**.
+    * "Start k-mer value": *55*
+    * "End k-mer value": *69*
+    * In the input files section:
+        * "Select first set of reads": *Trimmomatic on data 2 and data 1 (R1 paired)*
+        * "Select second set of reads": *Trimmomatic on data 2 and data 1 (R2 paired)*
+    * Click the **Insert Input Files** button and add the following:
+        * "Single or paired end reads": *Single*
+        * "Select the reads": *Trimmomatic on data 2 and data 1 (R1 unpaired)*
+    * Repeat the above process to add the other unpaired read set *Trimmomatic on data 2 and data 1 (R2 unpaired)* as well.
+2. Click **Execute**.
 
   Screenshot of this process can be seen [here](screenshots.md).
 
@@ -223,10 +230,11 @@ Screenshots can be seen [here](screenshots.md).
 ### Calculate some statistics on the assembled contigs
 
 1. From the tools menu in the left hand panel of Galaxy, select **FASTA Manipulation -> Fasta Statistics** and run with these parameters:
-  * "Fasta or multifasta file": *Velvet Optimiser ... Contigs*
-  * Click **Execute**
-2.  Examine the Fasta Stats output
-  * You should now have one more object in your history: *Fasta Statistics on data 10: Fasta summary stats*
+    * "Fasta or multifasta file": *Velvet Optimiser ... Contigs*
+2. Click **Execute**
+3.  Examine the Fasta Stats output
+
+You should now have one more object in your history: *Fasta Statistics on data 10: Fasta summary stats*
 
   Click on the <img src="../media/Galaxy-view.png" width=20 /> icon next to this object and have a look at the output. You’ll see a statistical summary of the contigs including various length stats, the % GC content, the n50 as well as the number of contigs and the number of N bases contained in them.
 
