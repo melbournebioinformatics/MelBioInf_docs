@@ -12,3 +12,4 @@
 * [Variant Detection Advanced](var_detect_advanced/var_detect_advanced_background.md)
 * [RNA-Seq Experimental Design](rna_seq_exp_design/rna_seq_experimental_design.md)
 * [RNA Seq Differential Gene Expression - Basic](rna_seq_dge_basic/rna_seq_basic_background.md)
+* [Microbial de novo Assembly for Illumina Data](assembly/assembly.md)
