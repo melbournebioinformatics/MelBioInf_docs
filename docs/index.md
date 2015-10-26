@@ -1,7 +1,7 @@
 ![VLSCI Logo](img/vlsci_logo.gif)
 
-# LSCC Documentation 
+# LSCC Documentation
 
-## Contents 
+## Contents
 
-* [Tutorials](tutorials/index.md)
+* [Tutorials and Protocols](tutorials/index.md)

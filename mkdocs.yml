@@ -16,6 +16,8 @@ pages:
     - 'tutorials/assembly/assembly.md'
     - 'tutorials/assembly/screenshots.md'
     - 'tutorials/assembly/assembly-background.md'
+- 'Protocols':
+  - 'De Novo Genome Assembly for Illumina Data': 'tutorials/assembly/assembly-protocol.md'
 extra_templates: [
   'tutorials/hpc/slides.html',
   'tutorials/unix/slides.html',
