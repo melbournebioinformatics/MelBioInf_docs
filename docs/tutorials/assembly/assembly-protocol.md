@@ -140,7 +140,7 @@ Things to look for in the output:
 
 Trimmomatic should produce 2 pairs files (1 left and 1 right hand end) and 1 or 2 single “orphaned reads” files if you trimmed a pair of read files using paired end mode. It only produces 1 output read file if you used it in single ended mode. Each read library (2 paired files or 1 single ended file) should be trimmed separately with parameters dependent on their own FastQC reports. The output files are the ones you should use for assembly.
 
-#### Possible alternate tools:
+### Possible alternate tools:
 
 Read quality trimming: **nesoni clip**, part of the **nesoni** suite of bioinformatics tools. Available at [http://www.bioinformatics.net.au/software.shtml](http://www.bioinformatics.net.au/software.shtml)
 
@@ -158,39 +158,104 @@ You shouldn’t just run it once and say, “I’ve assembled!”
 
 #### Assembly of the reads.
 
-The suggested assembly software for this protocol is the Velvet Optimiser which wraps the Velvet Assembler. The Velvet assembler is a short read assembler specifically written for Illumina style reads. It uses the de Bruijn graph approach (see here for details).
+The suggested assembly software for this protocol is the [Velvet Optimiser](http://bioinformatics.net.au/software.velvetoptimiser.shtml) which wraps the Velvet Assembler. The [Velvet](https://www.ebi.ac.uk/~zerbino/velvet/) assembler is a short read assembler specifically written for Illumina style reads. It uses the de Bruijn graph approach (see [here](assembly-background.md#de-novo-assembly-with-velvet-and-the-velvet-optimiser) for details).
 
 Velvet and therefore the Velvet Optimiser is capable of taking multiple read files in different formats and types (single ended, paired end, mate pair) simultaneously.
 
 The quality of contigs that Velvet outputs is dependent heavily on its parameter settings, and significantly better assemblies can be had by choosing them appropriately. The three most critical parameters to optimize are the hash size (k), the expected coverage (e), and the coverage cutoff (c).
 
-Velvet Optimiser is a Velvet wrapper that optimises the values for the input parameters in a fast, easy to use and automatic manner for all datasets. It can be run from within Galaxy-Vic or by command line.
-In Galaxy-Vic: NGS-Assembly → Velvet Optimiser
-Command line: details and examples here.
-VelvetOptimiser.pl
+Velvet Optimiser is a Velvet wrapper that optimises the values for the input parameters in a fast, easy to use and automatic manner for all datasets. It can be run from within GVL Galaxy servers or by command line.
 
-The critical inputs for Velvet Optimiser are the read files and the k-mer size search range. The read files need to be supplied in a specific order. single ended reads first, then by increasing paired end insert size. The k-mer size search range needs a start and end value. Each needs to be an odd integer with start < end. If you set the start hash size to be higher than the length of any of the reads in the read files then those reads will be left out. i.e. reads of length 36 with a starting hash value of 39 will give no assembly. The output from FastQC can be a very good tool for determining appropriate start and end of the k-mer size search range. The per base sequence quality graph from FastQC shows where the quality of the reads starts to drop off and going just a bit higher can be a good end value for the k-mer size search range.
+In Galaxy: **NGS-Assembly → Velvet Optimiser**
 
-Examine the draft contigs and assessment of the assembly quality.
+Command line: details and examples [here](http://www.vicbioinformatics.com/velvetoptimiser.manual.txt).
+
+* Example command line for paired end reads in read files *reads_R1.fq* and *reads_R2.fq* using a kmer-size search range of *63* - *75*.
+* ```VelvetOptimiser.pl -f "-shortPaired -fastq -separate reads_R1.fq reads_R2.fq" -s 63 -e 75 -d output_directory```
+
+The critical inputs for Velvet Optimiser are the read files and the k-mer size search range. The read files need to be supplied in a specific order. Single ended reads first, then by increasing paired end insert size. The k-mer size search range needs a start and end value. Each needs to be an odd integer with start < end. If you set the start hash size to be higher than the length of any of the reads in the read files then those reads will be left out of the assembly. i.e. reads of length 36 with a starting hash value of 39 will give no assembly. The output from FastQC can be a very good tool for determining appropriate start and end of the k-mer size search range. The per base sequence quality graph from FastQC shows where the quality of the reads starts to drop off and going just a bit higher can be a good end value for the k-mer size search range.
+
+#### Examine the draft contigs and assessment of the assembly quality.
 
 The Velvet Optimiser log file contains information about all of the assemblies ran in the optimisation process. At the end of this file is a lot of information regarding the final assembly. This includes some metric data about the draft contigs (n50, maximum length, number of contigs etc) as well as the estimates of the insert lengths for each paired end data set. It also contains information on where to find the final contigs.fa file.
 
 The assembly parameters used in the final assembly can also be found as part of the last entry in the log file.
 
-The stats.txt file associated with the assembly shows details regarding the coverage depth of each contig (in k-mer coverage terms NOT read coverage) and this can be useful information for finding repeated contigs etc.
+The *contig_stats.txt* file associated with the assembly shows details regarding the coverage depth of each contig (in k-mer coverage terms NOT read coverage) and this can be useful information for finding repeated contigs etc.
 
-More detailed metrics on the contigs can be gotten using a fasta statistics tool such as fasta-stats on Galaxy-Vic. (Fasta Manipulation → Fasta Statistics).
+More detailed metrics on the contigs can be gotten using a fasta statistics tool such as fasta-stats on Galaxy. (**Fasta Manipulation → Fasta Statistics**).
 
 
+### Possible alternative software:
 
-Possible alternative software:
+Assembly: There are a large number of short read assemblers available. Each with their own strengths and weaknesses. Some of the available assemblers include:
 
-Assembly: There are a large number of short read assemblers available. Each with their own strengths and weaknesses. Some of the available assemblers include:  
-SOAP-denovo
-MIRA
-ALLPATHS
+* Spades
+* SOAP-denovo
+* MIRA
+* ALLPATHS
 
-See here for a comprehensive list of - and links to - short read assembly programs.
+See [here](http://en.wikipedia.org/wiki/Sequence_assembly) for a comprehensive list of - and links to - short read assembly programs.
+
+----------------------------------------------
+
+## Section 3: What next?
+
+### Purpose:
+
+Help determine the suitability of a draft set of contigs for the rest of your analysis and what to do with them now.
+
+Some things to remember about the contigs you have just produced:
+
+* They’re draft contigs.
+* They may contain some gaps or regions of “N”s.
+* There may be some mis-assemblies.
+
+What happens with your contigs next is determined by what you need them for:
+
+* You only want to look at certain loci or genes in your genome
+    * Check and see if the regions of interest have been assembled in their entirety.
+    * If they have then just use the contigs of interest.
+    * If they haven’t, you may need to close gaps or join contigs in these areas. See below for suggestions.
+    * Performing an automatic annotation on your draft contigs can help with this.
+* You want to perform comparative genomics analyses with your contigs
+    * Do your contigs cover all of the regions you are interested in?
+    * Some of the larger repeated elements (such as the ribosomal RNA loci) may not have all been resolved correctly. Do you care about this? If so then you’ll need to finish these areas to distinguish between the repeats.
+    * Do your contigs show a missing section of the reference genome(s) or a novel section? You may want to check that this is actually the case with some further experiments or by delving deeper into the assembly data. Some tool suggestions for this appear below.
+* You want to “finish” the genome and publish it in genbank.
+    * Can your assembly be improved with more and/or different read data?
+    * Can you use other tools to improve your assembly with your current read data?
+
+#### Possible tools for improving your assemblies:
+
+Most of these tools are open source and freely available (or at least academically available) but some are commercial software. This is by no means an exhaustive list. No warranties/suitability for purpose supplied or implied!
+
+**Mis-assembly checking and assembly metric tools:**
+
+* QUAST - Quality assessment tool for genome assembly [http://bioinf.spbau.ru/quast](http://bioinf.spbau.ru/quast)
+* Mauve assembly metrics - [http://code.google.com/p/ngopt/wiki/How_To_Score_Genome_Assemblies_with_Mauve](http://code.google.com/p/ngopt/wiki/How_To_Score_Genome_Assemblies_with_Mauve)
+* InGAP-SV - [https://sites.google.com/site/nextgengenomics/ingap](https://sites.google.com/site/nextgengenomics/ingap) and [http://ingap.sourceforge.net/](http://ingap.sourceforge.net/)
+    * inGAP is also useful for finding structural variants between genomes from read mappings.
+
+**Genome finishing tools:**
+
+**Semi-automated gap fillers:**
+
+* Gap filler - [http://www.baseclear.com/landingpages/basetools-a-wide-range-of-bioinformatics-solutions/gapfiller/](http://www.baseclear.com/landingpages/basetools-a-wide-range-of-bioinformatics-solutions/gapfiller/)
+* IMAGE (V2) - [http://sourceforge.net/apps/mediawiki/image2/index.php?title=Main_Page](http://sourceforge.net/apps/mediawiki/image2/index.php?title=Main_Page)
+
+**Genome visualisers and editors**
+
+* Artemis - [http://www.sanger.ac.uk/resources/software/artemis/](http://www.sanger.ac.uk/resources/software/artemis/)
+* IGV - [http://www.broadinstitute.org/igv/](http://www.broadinstitute.org/igv/)
+* Geneious - [http://www.geneious.com/](http://www.geneious.com/)
+* CLC BioWorkbench - [http://www.clcbio.com/products/clc-genomics-workbench/](http://www.clcbio.com/products/clc-genomics-workbench/)
+
+**Automated and semi automated annotation tools**
+
+* Prokka - [https://github.com/tseemann/prokka](https://github.com/tseemann/prokka)
+* RAST - [http://www.nmpdr.org/FIG/wiki/view.cgi/FIG/RapidAnnotationServer](http://www.nmpdr.org/FIG/wiki/view.cgi/FIG/RapidAnnotationServer)
+* JCVI Annotation Service - [http://www.jcvi.org/cms/research/projects/annotation-service/](http://www.jcvi.org/cms/research/projects/annotation-service/)
 
 
 ----------------------------------------------

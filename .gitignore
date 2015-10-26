@@ -4,3 +4,4 @@
 site/
 .settings
 mkdocs/
+.DS_Store
