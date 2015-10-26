@@ -1,15 +1,16 @@
 
 <p>
-<a href=http://vlsci.org.au><img src="media/vlsci_logo.jpg" alt="VLSCI logo" align="left" width="164"/></a>
-<a href=http://genome.edu.au><img src="media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/></a>
-</p>
-<p></p>
+<a href=http://vlsci.org.au><img src="../media/vlsci_logo.jpg" alt="VLSCI logo" align="left" width="164"/></a>
+<a href=http://genome.edu.au><img src="../media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/></a><br></br><br></br>
+<br></br><br></br></p>
+<p> </p>
+
 
 # Microbial de novo Assembly for Illumina Data
 
 ## *Introductory Tutorial*
 
-<img src="media/D4D_5503X.jpg" width="70"/>
+<img src="../media/D4D_5503X.jpg" width="70"/>
 
 Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) - VLSCI
 
@@ -33,6 +34,7 @@ In this tutorial we cover the concepts of Microbial de novo assembly using a ver
 
 This tutorial covers the basic aspects of microbial de novo assembly from Illumina paired end or single end reads.
 It does not cover more complicated aspects of assembly such as:
+
 * Incorporation of other raw data types (454 reads, Sanger reads)
 * Gap filling techniques for “finishing” an assembly
 * Measuring the accuracy of assemblies
@@ -69,12 +71,11 @@ Follow this [link for an overview of the protocol](protocol.md)
 1. Open a browser and go to a Galaxy server. (what is [Galaxy](assembly-background.md)?)
   * You can use a galaxy server of your own or
   * [Galaxy Tute](http://galaxy-tut.genome.edu.au) at genome.edu.au
-
 2. Register as a new user if you don’t already have an account on that particular server
 
 
 
-  >  <img src="media/tips.png" alt="Tip" height="42" width="42"/>
+  >  <img src="../media/tips.png" alt="Tip" height="42" width="42"/>
   NOTE: Firefox/Safari/Chrome all work well, Internet Explorer not so well.
 
 ### Import the DNA read data for the tutorial.
@@ -92,7 +93,7 @@ Follow this [link for an overview of the protocol](protocol.md)
   5. Paste the URL: https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_2.fastq.gz into the text box and change it's type to *fastqsanger* as well.
   6. Repeat the process for the last URL: https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/illumina_adapters.fna, but make it's type *fasta*
   7. Click on the **Start** button. Once all of the uploads are at 100%, click on the **Close** button.
-  8. When the files have finished uploading, rename them to ‘ERR048396_1.fastq’, ‘ERR048396_2.fastq’ and ‘illumina_adapters.fna’ respectively by clicking on the <img src="media/Galaxy-edit.png" width=20 /> icon to the top right of the file name in the right hand Galaxy panel (the history panel)
+  8. When the files have finished uploading, rename them to ‘ERR048396_1.fastq’, ‘ERR048396_2.fastq’ and ‘illumina_adapters.fna’ respectively by clicking on the <img src="../media/Galaxy-edit.png" width=20 /> icon to the top right of the file name in the right hand Galaxy panel (the history panel)
 
 
 You should now have the following files in your Galaxy history:
@@ -103,7 +104,7 @@ You should now have the following files in your Galaxy history:
 
 
 ### View the fastq files
-Click on the <img src="media/Galaxy-view.png" width=20 />  icon to the top right of each fastq file to view the first part of the file
+Click on the <img src="../media/Galaxy-view.png" width=20 />  icon to the top right of each fastq file to view the first part of the file
 If you’re not familiar with the FASTQ format, click here for an overview
 
 NOTE: If you log out of Galaxy and log back in at a later time your data and results from previous experiments will be available in the right panel of your screen called the ‘History.’
@@ -126,7 +127,7 @@ The basic process here is to collect statistics about the quality of the reads i
 
   Screenshot of this process can be seen [here.](screenshots.md)
 
-  > <img src="media/tips.png" alt="Tip" height="42" width="42"/> Note: This may take a few minutes, depending on how busy Galaxy is.
+  > <img src="../media/tips.png" alt="Tip" height="42" width="42"/> Note: This may take a few minutes, depending on how busy Galaxy is.
 
 2. Now repeat the above process on the second read file: *ERR048396_2.fastq*
 
@@ -140,7 +141,7 @@ You should have two output objects from the first step:
 
 These are a html outputs which show the results of all of the tests FastQC performed on the read files.
 
-1. Click on the <img src="media/Galaxy-view.png" width=20 /> icon of each of these objects in turn to see the FastQC output.
+1. Click on the <img src="../media/Galaxy-view.png" width=20 /> icon of each of these objects in turn to see the FastQC output.
 
   The main parts of the output to evaluate are:
   * Basic statistics. This section tells us that the ASCII quality encoding format used was Sanger/Illumina 1.9 and the reads are length 75 and the percent GC content of the entire file is 35%.
@@ -176,7 +177,7 @@ These are a html outputs which show the results of all of the tests FastQC perfo
   * *Trimmomatic on data 2 and data 1 (R2 Paired)*
   * *Trimmomatic on data 2 and data 1 (R2 Unpaired)*
 
-  Click on the <img src="media/Galaxy-view.png" width=20 /> on one of the objects to look at its contents. You’ll notice that not all of the reads are the same length now, as they have had the illumina adapters cut out of them and they’ve been quality trimmed.
+  Click on the <img src="../media/Galaxy-view.png" width=20 /> on one of the objects to look at its contents. You’ll notice that not all of the reads are the same length now, as they have had the illumina adapters cut out of them and they’ve been quality trimmed.
 
 ----------------------------------------------
 
@@ -210,7 +211,7 @@ Once step 1 is complete, you should now have 2 new objects in your history:
 * *VelvetOptimiser on data 9, data 7, and others: Contigs*
 * *VelvetOptimiser on data 9, data 7, and others: Contig Stats*
 
-Click on the <img src="media/Galaxy-view.png" width=20 /> icon of the various objects.
+Click on the <img src="../media/Galaxy-view.png" width=20 /> icon of the various objects.
 
 * Contigs: You’ll see the first MB of the file. Note that the contigs are named NODE_XX_length_XXXX_cov_XXX.XXX. This information tells you how long (in k-mer length) each contig is and what it’s average k-mer coverage is. (See detailed explanation of Velvet and Velvet Optimiser for explanation of k-mer coverage and k-mer length.)
 
@@ -227,7 +228,7 @@ Screenshots can be seen [here](screenshots.md).
 2.  Examine the Fasta Stats output
   * You should now have one more object in your history: *Fasta Statistics on data 10: Fasta summary stats*
 
-  Click on the <img src="media/Galaxy-view.png" width=20 /> icon next to this object and have a look at the output. You’ll see a statistical summary of the contigs including various length stats, the % GC content, the n50 as well as the number of contigs and the number of N bases contained in them.
+  Click on the <img src="../media/Galaxy-view.png" width=20 /> icon next to this object and have a look at the output. You’ll see a statistical summary of the contigs including various length stats, the % GC content, the n50 as well as the number of contigs and the number of N bases contained in them.
 
 ----------------------------------------------
 
@@ -237,7 +238,7 @@ Examine the contig coverage depth and blast a high coverage contig against a pro
 
 ### Examine the contig coverage depth.
 
-Look at the Contig Stats data (Velvet Optimiser vlsci on data 8, data 9, and data 7: Contig stats) by clicking on the <img src="media/Galaxy-view.png" width=20 /> icon. Note that column 2 contig length (lgth), shows a number of very short contigs (some are length 1).
+Look at the Contig Stats data (Velvet Optimiser vlsci on data 8, data 9, and data 7: Contig stats) by clicking on the <img src="../media/Galaxy-view.png" width=20 /> icon. Note that column 2 contig length (lgth), shows a number of very short contigs (some are length 1).
 
   * We can easily filter out these short contigs from this information list by using the **Filter and Sort -> Filter tool.**
   * Set the following:
@@ -248,7 +249,7 @@ Look at the Contig Stats data (Velvet Optimiser vlsci on data 8, data 9, and dat
 
 The new data object in the history is called: *Filter on data 11*.
 
-Click on its <img src="media/Galaxy-view.png" width=20 /> icon to view it. Look through the list taking note of the coverages. Note that the average of the coverages (column 6) seems to be somewhere between 16 and 32.  There are a lot of contigs with coverage 16. We could say that these contigs only appear once in the genome of the bacteria. Therefore, contigs with double this coverage would appear twice. Note that some of the coverages are >400! These contigs will appear in the genome more than 20 times!
+Click on its <img src="../media/Galaxy-view.png" width=20 /> icon to view it. Look through the list taking note of the coverages. Note that the average of the coverages (column 6) seems to be somewhere between 16 and 32.  There are a lot of contigs with coverage 16. We could say that these contigs only appear once in the genome of the bacteria. Therefore, contigs with double this coverage would appear twice. Note that some of the coverages are >400! These contigs will appear in the genome more than 20 times!
 
 Lets have a look at one of these contigs and see if we can find out what it is.
 
@@ -264,13 +265,13 @@ To do this we will use the tool:
 
 The new data object in the history is called: *Fasta Extract Sequence on data 10: Fasta*.
 
-Click on its <img src="media/Galaxy-view.png" width=20 /> icon to view it. It is a single sequence in fasta format.
+Click on its <img src="../media/Galaxy-view.png" width=20 /> icon to view it. It is a single sequence in fasta format.
 
 ### Blast sequence to determine what it contains.
 
 We want to find out what this contig is or what kind of coding sequence (if any) it contains. So we will blast the sequence using the NCBI blast website. (External to Galaxy). To do this:
 
-  * Bring up the sequence of the contig into the main window of the browser by clicking on the <img src="media/Galaxy-view.png" width=20 /> icon if it isn’t already.
+  * Bring up the sequence of the contig into the main window of the browser by clicking on the <img src="../media/Galaxy-view.png" width=20 /> icon if it isn’t already.
   * Select the entire sequence by clicking and dragging with the mouse or by pressing ctrl-a in the browser.
   * Copy the selected sequence to the clipboard.
   * Open a new tab of your browser and point it to: http://blast.ncbi.nlm.nih.gov/Blast.cgi
