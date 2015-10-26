@@ -15,6 +15,7 @@ pages:
   - 'Microbial de novo Assembly for Illumina Data':
     - 'tutorials/assembly/assembly.md'
     - 'tutorials/assembly/screenshots.md'
+    - 'tutorials/assembly/assembly-background.md'
 extra_templates: [
   'tutorials/hpc/slides.html',
   'tutorials/unix/slides.html',
