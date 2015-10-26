@@ -120,46 +120,118 @@ The basic process here is to collect statistics about the quality of the reads i
 
 ### Run FastQC on both input read files
 1. From the tools menu in the left hand panel of Galaxy, select **NGS QC and manipulation > FastQC: Comprehensive QC** (down the bottom of this category) and run with these parameters:
-  * FASTQ reads: *ERR048396_1.fastq*
+  * "FASTQ reads": *ERR048396_1.fastq*
   * Use default for other fields
   * Click **Execute**
 
-Screenshot of this process can be seen [here.](assembly-background.md)
+  Screenshot of this process can be seen [here.](screenshots.md)
 
-> Note: This may take a few minutes, depending on how busy Galaxy is.
+  > Note: This may take a few minutes, depending on how busy Galaxy is.
 
 2. Now repeat the above process on the second read file: *ERR048396_2.fastq*
 
 It is important to do both read files as the quality can be very different between them.
-Examine the FastQC output
+
+### Examine the FastQC output
+
 You should have two output objects from the first step:
-FastQC_ERR048396_1.fastqc.html
-FastQC_ERR048396_2.fastqc.html
+* *FastQC_ERR048396_1.fastqc.html*
+* *FastQC_ERR048396_2.fastqc.html*
+
 These are a html outputs which show the results of all of the tests FastQC performed on the read files.
-Click on the “eye” of each of these objects in turn to see the FastQC output.
-The main parts of the output to evaluate are:
-Basic statistics. This section tells us that the ASCII quality encoding format used was Sanger/Illumina 1.9 and the reads are length 75 and the percent GC content of the entire file is 35%.
-Per base sequence quality. In the plot you should see that most of the early bases are up around the '32' mark and then increase to 38-40, which is very high quality; The spread of quality values for the last few bases increases and some of the outliers have quality scores of less than 30. This is a very good quality dataset. 20 is often used as a cutoff for reliable quality.
-Screenshot can be seen here
-Quality trim the reads using Trimmomatic.
-From the tools menu in the left hand panel of Galaxy, select NGS QC and manipulation > Trimmomatic (down the bottom of this category) and run with these parameters (only the non-default selections are listed here):
-Direction 1 fastq reads to trim: ERR048396_1.fastq
-Direction 1 fastq reads to trim: ERR048396_2.fastq
-Quality encoding: phred33
-Clip Illumina adapters? checkbox: checked
-Fasta of adapters to clip: illumina_adapters.fa
-Trim leading bases, minimum quality: 15
-Trim trailing bases, minimum quality: 15
-Minimum length read: 35
-Execute
-Screenshot of this process can be seen here.
-Examine the Trimmomatic output FastQ files.
-You should have 3 objects from the output of Trimmomatic:
-Trimmomatic on data 3, data 1, and data 2: Dir1 trimmed pairs
-Trimmomatic on data 3, data 1, and data 2: Dir2 trimmed pairs
-Trimmomatic on data 3, data 1, and data 2: trimmed reads
-Click on the “eye” symbol on one of the objects to look at its contents. You’ll notice that not all of the reads are the same length now, as they have had the illumina adapters cut out of them and they’ve been quality trimmed.
-Completed Galaxy history for this section (in SharedData>Published Histories): Microbial_assembly_section1
+
+1. Click on the <img src="media/Galaxy-view.png" width=20 /> icon of each of these objects in turn to see the FastQC output.
+
+  The main parts of the output to evaluate are:
+  * Basic statistics. This section tells us that the ASCII quality encoding format used was Sanger/Illumina 1.9 and the reads are length 75 and the percent GC content of the entire file is 35%.
+  * Per base sequence quality. In the plot you should see that most of the early bases are up around the '32' mark and then increase to 38-40, which is very high quality; The spread of quality values for the last few bases increases and some of the outliers have quality scores of less than 30. This is a very good quality dataset. 20 is often used as a cutoff for reliable quality.
+
+  Screenshot can be seen [here.](screenshots.md)
+
+### Quality trim the reads using Trimmomatic.
+
+1. From the tools menu in the left hand panel of Galaxy, select **NGS QC and manipulation > Trimmomatic** and run with these parameters (only the non-default selections are listed here):
+  * "Input FASTQ file (R1/first of pair)": *ERR048396_1.fastq*
+  * "Input FASTQ file (R2/second of pair)": *ERR048396_2.fastq*
+  * "Perform initial ILLUMINACLIP step?": *Yes*
+  * "Adapter sequences to use": *TruSeq3 (additional seqs) (paired end, for MiSeq and HiSeq)*
+  * "How accurate ... read alignment": *40*
+  * "How accurate ... against a read": *15*
+  * We will use the default settings for the SLIDING_WINDOW operation but we need to add a few more Trimmomatic operations.
+  * Click **Insert Trimmomatic Operation**
+    * Add *Cut bases ... (LEADING)*
+    * "Minimum quality required to keep a base": *15*
+  * Repeat the **Insert Trimmomatic Operation** for:
+    * Trim trailing bases, minimum quality: *15*
+    * Minimum length read: *35*
+  * Click **Execute**
+
+  Screenshot of this process can be seen [here](screenshots.md).
+
+2. Examine the Trimmomatic output FastQ files.
+
+  You should have 4 new objects in your history from the output of Trimmomatic:
+  * *Trimmomatic on data 2 and data 1 (R1 Paired)*
+  * *Trimmomatic on data 2 and data 1 (R1 Unpaired)*
+  * *Trimmomatic on data 2 and data 1 (R2 Paired)*
+  * *Trimmomatic on data 2 and data 1 (R2 Unpaired)*
+
+  Click on the <img src="media/Galaxy-view.png" width=20 /> on one of the objects to look at its contents. You’ll notice that not all of the reads are the same length now, as they have had the illumina adapters cut out of them and they’ve been quality trimmed.
+
+----------------------------------------------
+
+## Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser [35 min]
+
+The aim here is to assemble the trimmed reads into contigs/scaffolds using Velvet and the Velvet Optimiser.
+
+We will use a single tool, Velvet Optimiser, which takes the trimmed reads from Trimmomatic and performs numerous Velvet assemblies to find the best one. We need to add the reads in two separate libraries. One for the still paired reads and the other for the singleton reads orphaned from their pairs by the trimming process.
+
+[Click here for a more detailed explanation of Velvet assemblies and the Velvet Optimiser](assembly-background.md)
+
+### De novo assembly of the reads into contigs
+
+1. From the tools menu in the left hand panel of Galaxy, select **NGS: Assembly -> Velvet Optimiser** and run with these parameters (only the non-default selections are listed here):
+  * "Start k-mer value": *55*
+  * "End k-mer value": *69*
+  * In the input files section:
+    * "Select first set of reads": *Trimmomatic on data 2 and data 1 (R1 paired)*
+    * "Select second set of reads": *Trimmomatic on data 2 and data 1 (R2 paired)*
+  * Click the **Insert Input Files** button and add the following:
+    * "Single or paired end reads": *Single*
+    * "Select the reads": *Trimmomatic on data 2 and data 1 (R1 unpaired)*
+  * Repeat the above process to add the other unpaired read set *Trimmomatic on data 2 and data 1 (R2 unpaired)* as well.
+  * Click **Execute**.
+
+  Screenshot of this process can be seen [here](screenshots.md).
+
+
+## Examine assembly output
+Once step 1 is complete, you should now have 2 new objects in your history:
+* *VelvetOptimiser on data 9, data 7, and others: Contigs*
+* *VelvetOptimiser on data 9, data 7, and others: Contig Stats*
+
+Click on the <img src="media/Galaxy-view.png" width=20 /> icon of the various objects.
+
+* Contigs: You’ll see the first MB of the file. Note that the contigs are named NODE_XX_length_XXXX_cov_XXX.XXX. This information tells you how long (in k-mer length) each contig is and what it’s average k-mer coverage is. (See detailed explanation of Velvet and Velvet Optimiser for explanation of k-mer coverage and k-mer length.)
+
+* Contig stats: This shows a table of the contigs and their k-mer coverages and which read library contributed to the coverage. It is interesting to note that some of them have much higher coverage than the average. These are most likely to be repeated contigs. (Things like ribosomal RNA and IS elements.)
+
+Screenshots can be seen [here](screenshots.md).
+
+
+## Calculate some statistics on the assembled contigs
+
+1. From the tools menu in the left hand panel of Galaxy, select **FASTA Manipulation -> Fasta Statistics** and run with these parameters:
+  * "Fasta or multifasta file": *Velvet Optimiser ... Contigs*
+  * Click **Execute**
+2.  Examine the Fasta Stats output
+  * You should now have one more object in your history: *Fasta Statistics on data 10: Fasta summary stats*
+
+  Click on the <img src="media/Galaxy-view.png" width=20 /> icon next to this object and have a look at the output. You’ll see a statistical summary of the contigs including various length stats, the % GC content, the n50 as well as the number of contigs and the number of N bases contained in them.
+
+----------------------------------------------
+
+
 
 
 ----------------------------------------------
