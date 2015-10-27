@@ -265,6 +265,7 @@ Lets have a look at one of these contigs and see if we can find out what it is.
 Note the contig number (column 1 in the Contig stats file) of a contig with a coverage of over 300. There should be a few of them. We need to extract the fasta sequence of this contig from the contigs multifasta so we can see it more easily.
 
 To do this we will use the tool:
+
   * **Fasta manipulation -> Fasta Extract Sequence**
   * Set the following:
     * "Fasta or multifasta file": *Velvet Optimiser ... : Contigs*
