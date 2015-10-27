@@ -56,7 +56,7 @@ We will use software called [Velvet](https://www.ebi.ac.uk/~zerbino/velvet/) (Ze
 
 We are performing a de novo assembly of the read data into contigs and then into scaffolds (appropriately positioned contigs loosely linked together). We firstly need to check the quality of the input data as this will help us choose the most appropriate range of input parameters for the assembly and will guide us on an appropriate quality trimming/cleanup strategy. We will then use an iterative method to assemble the reads using the [Velvet Optimiser](http://www.vicbioinformatics.com/software.velvetoptimiser.shtml) (a program that performs lots of Velvet assemblies searching for an optimum outcome.) Once this is complete we will obtain summary statistics on the final results (contigs) of the assembly.
 
-Follow this [link for an overview of the protocol](protocol.md)
+Follow this [link for an overview of the protocol](assembly-protocol.md)
 
 **The protocol in a nutshell:**
 

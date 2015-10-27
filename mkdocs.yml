@@ -16,6 +16,9 @@ pages:
     - 'tutorials/assembly/assembly.md'
     - 'tutorials/assembly/screenshots.md'
     - 'tutorials/assembly/assembly-background.md'
+  - 'Introduction to Variant Calling using Galaxy': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
+- 'Protocols':
+  - 'De Novo Genome Assembly for Illumina Data': 'tutorials/assembly/assembly-protocol.md'
 extra_templates: [
   'tutorials/hpc/slides.html',
   'tutorials/unix/slides.html',
