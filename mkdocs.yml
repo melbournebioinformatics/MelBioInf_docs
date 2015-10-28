@@ -1,11 +1,12 @@
 site_name: LSCC Documentation
-theme: flatly
+theme: cerulean
 pages:
 - 'Home': 'index.md'
 - 'Tutorials':
   - 'Overview': 'tutorials/index.md'
   - 'NGS Overview': 'tutorials/ngs_overview/NGS_Overview.md'
   - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
+  - 'Introduction to Galaxy': 'tutorials/galaxy_101/galaxy_101.md'
   - 'Variant Detection Advanced': 'tutorials/var_detect_advanced/var_detect_advanced_background.md'
   - 'RNA Seq Basic': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
   - 'RNA Seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'

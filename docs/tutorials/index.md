@@ -10,6 +10,8 @@
 
 #### Galaxy
 
+* [Introduction to Galaxy](galaxy_101/galaxy_101.md)
+
 ## Science
 
 #### Next Generation Sequencing
