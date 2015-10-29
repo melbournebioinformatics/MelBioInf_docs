@@ -19,6 +19,14 @@ pages:
     - 'tutorials/assembly/screenshots.md'
     - 'tutorials/assembly/assembly-background.md'
   - 'Introduction to Variant Calling using Galaxy': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
+  - 'Identifying proteins from mass spectrometry data':
+    - 'Tutorial' : 'tutorials/proteomics_basic/proteomics_basic.md'
+    - 'Galaxy Background' : 'tutorials/proteomics_basic/background_galaxy.md'
+    - 'Data Formats Background' : 'tutorials/proteomics_basic/background_data_formats.md'
+    - 'Create find count items workflow' : 'tutorials/proteomics_basic/background_findcountitems_workflow.md'
+    - 'Protein Databases' : 'tutorials/proteomics_basic/background_protein_databases.md'
+    - 'Search Engines' : 'tutorials/proteomics_basic/background_search_engines.md'
+    - 'Protein Prophet' : 'tutorials/proteomics_basic/background_protein_prophet.md'
 - 'Protocols':
   - 'De Novo Genome Assembly for Illumina Data': 'tutorials/assembly/assembly-protocol.md'
 extra_templates: [

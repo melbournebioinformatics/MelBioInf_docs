@@ -38,3 +38,9 @@
 **Protocol**
 
 * [De Novo Genome Assembly](assembly/assembly-protocol.md)
+
+#### Proteomics
+
+**Tutorial**
+
+* [Identifying proteins from mass spectrometry data](proteomics_basic/proteomics_basic.md)
