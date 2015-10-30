@@ -519,6 +519,7 @@ In this section, we will run Cuffdiff with fewer replicates.
     - **Filter:** "Cuffdiff on data....: gene differential expression testing"
     - **With following condition:** c14=='yes'
     - Execute
+
     Rename the output file to something meaningful like
     "Significant_DE_Genes_C1_R1_vs_C2_R1"
 
@@ -551,6 +552,7 @@ In this section, we will run Cuffdiff with fewer replicates.
     - **Filter:** "Cuffdiff on data....: gene differential expression testing"
     - **With following condition:** c14=='yes'
     - Execute
+
     Rename the output file to something meaningful like
     "Significant_DE_Genes_C1_R1_vs_C2_R2"
 
@@ -662,6 +664,7 @@ transcriptome, we would run Cufflinks and Cuffmerge to create a transcriptome.
     - **Filter:** "Cuffdiff on data....: gene differential expression testing"
     - **With following condition:** c14=='yes'
     - Execute
+    
     Rename the output file to something meaningful like
     "Significant_DE_Genes_using_Cufflinks_Assembly"
 
