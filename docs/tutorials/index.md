@@ -22,7 +22,8 @@
 #### RNA-Seq
 
 * [RNA-Seq Experimental Design](rna_seq_exp_design/rna_seq_experimental_design.md)
-* [RNA Seq Differential Gene Expression - Basic](rna_seq_dge_basic/rna_seq_basic_background.md)
+* [RNA-Seq Differential Gene Expression - Basic](rna_seq_dge_basic/rna_seq_basic_tutorial.md)
+* [RNA-Seq Differential Gene Expression - Advanced](rna_seq_dge_advanced/rna_seq_advanced_tutorial.md)
 
 #### Variant Detection
 
