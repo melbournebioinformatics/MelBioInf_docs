@@ -1,12 +1,12 @@
 
 ## Tutorial Overview
 
-In this tutorial, we will
+In this tutorial, we will look further at variant calling from sequence data. We will:
 
 * Align NGS read data to a reference genome and perform variant calling, using somewhat different tools to those in the Basic workshop
 * Carry out local realignment on our aligned reads
 * Compare the performance of different variant calling tools
-* Annotate our called variants with reference data
+* Annotate our called variants with reference information
 
 ## Background
 
@@ -14,7 +14,7 @@ Some background reading and reference material can be found [here](var_detect_ad
 
 **Where is the data in this tutorial from?**
 
-The data has been produced from human whole genomic DNA. Only reads that have mapped to a part of chromosome 20 have been used, to make the data suitable for an interactive tutorial. There are about one million 100bp reads in the dataset, produced on an Illumina HiSeq2000. This data was generated as part of the 1000 Genomes project: [http://www.1000genomes.org/]
+The data has been produced from human whole genomic DNA. Only reads that have mapped to a part of chromosome 20 have been used, to make the data suitable for an interactive tutorial. There are about one million 100bp reads in the dataset, produced on an Illumina HiSeq2000. This data was generated as part of the 1000 Genomes project: http://www.1000genomes.org/
 
 ## Preparation
 
@@ -25,7 +25,7 @@ The data has been produced from human whole genomic DNA. Only reads that have ma
 
 2. **Import data for the tutorial.**
     * We will import a pair of FASTQ files containing paired-end reads, and a
-  VCF file to use for variant evaluation.
+  VCF file of known human variants to use for variant evaluation.
 
     * **Method 1: Paste/Fetch data from a URL to Galaxy.**
     * In the Galaxy tools panel (left), under *BASIC TOOLS*, click on *Get Data* and choose *Upload File*.
@@ -40,7 +40,7 @@ The data has been produced from human whole genomic DNA. Only reads that have ma
     * This time, you can leave the *Type* on Auto-detect. Click *Start*.
     * Once the upload status for both sets of files turns *green*, you can click *Close*. You should now be able to see all three files in the Galaxy history panel (right).
 
-    * **Method 2: Upload local data to Galaxy.** (in most cases, you won't need this for the tutorial)
+    * **Method 2: Upload local data to Galaxy.** (In most cases, you won't need this for the tutorial)
     * *Use this method if you have your own files to upload, or if for any reason you find you need to manually download files for the tutorial.*
     * In the Galaxy tools panel (left), under *BASIC TOOLS*, click on *Get Data* and choose *Upload File*.
     * Click *Choose local file* and select the downloaded  FASTQ files. Select *Type* as **fastqsanger** and click *Start*.
@@ -66,33 +66,37 @@ Look at the generated FastQC metrics. This data looks pretty good - high per-bas
 
 ## Section 2: Alignment and depth of coverage
 
-In this step we map each of the individual reads in the sample FASTQ readsets to a reference genome, so that we can then identify the sequence changes with respect to the reference genome.
+In this step we map each of the individual reads in the sample FASTQ readsets to a reference genome, so that we will be able to identify the sequence changes with respect to the reference genome.
 
 Some of the variant callers need extra information regarding the source of reads in order to identify the correct error profiles to use in their statistical variant detection model, so we add more information into the alignment step so that that generated BAM file contains the metadata the variant caller expects.
+
+We will also examine the depth of coverage of the aligned reads across the genome, as a quality check on both the sequencing experiment and the alignment.
 
 1. **Map/align the reads with Bowtie2 to the human reference genome 19 (hg19).** We will use Bowtie2, which is one of several good alignment tools for DNA-seq data. Under *NGS ANALYSIS* in the tools panel, select the tool *NGS: Mapping -> Bowtie2*.
     * We have paired-end reads in two FASTQ files, so select *paired-end*.
     * Select the two FASTQ files as inputs.
     * Under *Select reference genome* select the human genome *hg19*.
-    * Next we will add read group information. Read groups are usually used when we have reads from multiple experiments, libraries or samples, and want to put them into one aligned BAM file while remembering which read came from which group. In our case we only have one paired-end "experiment", but the GATK tools need us to specify the read group in order to work correctly. Under *Set read groups information?* select *Set read groups (SAM/BAM specification)* (Picard-style should also work).
-        * Set the read group identifier to "Tutorial_readgroup". This identifier needs to be a unique identifier for this read group. Since we only have one read group, it doesn't matter much what it is, but a common practice is to construct it out of information guaranteed to be unique, such as the library identifier and Platform Unit (e.g. flowcell) identifier.
+    * Next we will add read group information. Read groups are usually used when we have reads from multiple experiments, libraries or samples, and want to put them into one aligned BAM file while remembering which read came from which group. In our case we only have one group, but the GATK tools need us to specify a read group in order to work correctly. Under *Set read groups information?* select *Set read groups (SAM/BAM specification)* (Picard-style should also work).
+        * Set the read group identifier to "Tutorial_readgroup". This identifier needs to be a unique identifier for this read group. Since we only have one read group, it doesn't matter much what it is, but a common practice is to construct it out of information guaranteed to be unique, such as the library identifier plus Platform Unit (e.g. flowcell) identifier.
         * Set the sample name to "NA12878"
         * Set the platform to *ILLUMINA*
         * Set the library name to "Tutorial_library". Normally we would set this to identify the DNA library from our DNA extraction.
     * You can leave other read group information blank, and use default Bowtie2 settings. *Execute* the tool.
     * When the alignment has finished, you should rename the BAM file to something more convenient, such as **NA12878.chr20_2mb.30xPE.BWA_mapped**.
+    * *Note: we assume that you have seen BAM and SAM files before. If you have not you may want to try out the Basic Variant Calling workshop, or take the time now to convert your BAM file to a SAM file and examine the contents.*
 
-2. **Visualise the aligned BAM file with IGV.** The Integrated Genome Viewer, IGV, will run on your computer (not on the server).
+2. **Visualise the aligned BAM file with IGV.** The Integrated Genome Viewer, IGV, is a very popular tool for visualising aligned NGS data. It will run on your computer (not on the server).
+    * *Note: if you are already familiar with IGV, you may want to go through this section quickly, but it's still a good idea to launch IGV for use in later steps.*
     * In the green dataset box for your BAM file in the history panel, you will see some *display with IGV* links. Launch IGV by clicking the *current* link. If IGV is already running on your computer, instead click the *local* link. If you have problems you can instead launch IGV by visiting https://www.broadinstitute.org/software/igv/download.
     * _If_ your BAM file was not automatically loaded, download and open it:
         * Download the BAM file AND the BAM index (BAI file) by clicking the floppy-disk icon in the green dataset window and selecting each file in turn. Make sure these two files are in the same directory.
-        * In IGV, select the correct reference genome, *hg19*, in the top-left drop-down menu
+        * In IGV, select the correct reference genome, *hg19*, in the top-left drop-down menu.
         * In IGV, open the BAM file using *File -> Load from File*.
     * Select chr20 in the IGV chromosomal region drop down box (top of IGV, on the left next to the organism drop down box).
     * Zoom in to the left hand end of chromosome 20 to see the read alignments - remember our reads only cover the first 2mb of the chromosome.
     * Scroll around and zoom in and out in the IGV genome viewer to get a feel for genomic data. Note that coverage is variable, with some regions getting almost no coverage (e.g. try chr20:1,870,686-1,880,895 - if you zoom right in to base resolution you’ll see that this region is very GC rich, meaning it’s hard to sequence. Unfortunately it also contains the first few exons of a gene...)
 
-3. **Restrict the genomic region considered.** The following steps can be computationally intensive if performed on the entire genome. We will generate a genomic interval (BED) file that we will use to restrict further analyses to the first 2mb of chromosome 20, as we know our data comes from this region.
+3. **Restrict the genomic region considered.** Later steps can be computationally intensive if performed on the entire genome. We will generate a genomic interval (BED) file that we will use to restrict further analyses to the first 2mb of chromosome 20, as we know our data comes from this region.
     * Under *BASIC TOOLS*, select the tool *Text manipulation -> Create single interval*. Enter these values:
         * Chromosome: chr20
         * Start position: 0
@@ -117,6 +121,9 @@ Here is a more detailed [guide to using samtools mpileup](http://samtools.source
 
 ## Section 4. Local realignment
 
+If you skip this section, you can still carry out the variant calling steps in later sections by simply using the BAM file from Section 2.
+However performing local realignment will improve the accuracy of our variant calls.
+
 To be done
 
 * Possible site of interest at 1094320
@@ -140,7 +147,7 @@ You can [read more about FreeBayes here](https://github.com/ekg/freebayes).
     * Click the eye icon to examine the VCF file contents.
     * How many variants exactly are in your list? (Hint: you can look at the number of lines in the dataset, listed in the green box in the History, but remember the top lines are header lines.)
     * What sort of quality scores do your variants have?
-    * Open the VCF file in IGV using the dataset's *display in IGV local* link (using the *current* link will open IGV again, and using *local* should use your already-running IGV). This will give an annotation track in IGV to visualise where variants have been called.
+    * Open the VCF file in IGV using the dataset's *display in IGV local* link (using the *current* link will open IGV again, and using *local* should use your already-running IGV). This will give an annotation track in IGV to visualise where variants have been called. Compare it to your BAM file.
 
 ## Section ?. Annotation
 
@@ -150,9 +157,10 @@ The variants we have detected can be annotated with information from known refer
 * whether the variant is inside or near a known gene
 * whether the variant is in a particular kind of genomic region (exon of a gene, UTR, etc)
 * whether a variant is at a site predicted to cause a pathogenic effect on the gene when mutated
+
 ... and lots of other information!
 
-Most human genes have multiple isoforms, i.e. multiple alternative splicings leading to alternative transcripts. The annotation information we get for a variant in the gene can depend on which transcript is used.
+Most human genes have multiple isoforms, i.e. multiple alternative splicings leading to alternative transcripts. The annotation information we get for a variant in the gene can depend on which transcript is used. In some cases, unless you request only one, you may see multiple alternative annotations for one variant.
 
 For this workshop we will annotate our variants with the *SnpEff* tool, which has its own prebuilt annotation databases.
 
@@ -167,7 +175,7 @@ For this workshop we will annotate our variants with the *SnpEff* tool, which ha
     * You should see more information in the INFO column for each variant.
     * You should also see a few extra VCF header rows. In particular notice the new *INFO=<ID=EFF...* header row, listing the information added on the predicted effects of each variant.
     * Have a look through a few variants. Variants not inside or near known genes will not have much annotated information, and may simply have a short *EFF* field listing the variant as being in an "intergenic region". Variants in known functional regions of the genome will be annotated with much more information.
-    * Try filtering to view only missense variants (i.e. substitutions which cause an amino acid change) by using the Galaxy tool *BASIC TOOLS -> Filter and Sort -> Select* on your annotated VCF file and filtering for lines matching the string *missense_variant*.
+    * Try filtering to view only missense variants (i.e. substitutions which cause an amino acid change) by using the Galaxy tool *BASIC TOOLS -> Filter and Sort -> Select* on your annotated VCF file and filtering for lines matching the string "missense_variant".
 
 3. **Examine the annotation summary stats.** The other file SnpEff produces is an HTML document with a summary of the annotations applied to the observed variants. Examine the contents of this file.
      * You will see summaries of types of variants, impact of variants, functional regions etc.
