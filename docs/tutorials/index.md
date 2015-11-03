@@ -28,7 +28,7 @@
 #### Variant Detection
 
 * [Introduction to Variant Calling using Galaxy](variant_calling_galaxy_1/variant_calling_galaxy_1.md)
-* [Variant Detection Advanced](var_detect_advanced/var_detect_advanced_background.md)
+* [Variant Detection Advanced](var_detect_advanced/var_detect_advanced.md)
 
 #### Assembly
 
