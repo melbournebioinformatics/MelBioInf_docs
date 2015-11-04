@@ -1,4 +1,10 @@
 
+<p>
+<a href=http://vlsci.org.au><img src="../media/vlsci_logo.jpg" alt="VLSCI logo" align="left" width="164"/></a>
+<a href=http://genome.edu.au><img src="../media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/></a><br></br><br></br>
+<br></br></p>
+<p> </p>
+
 ## Tutorial Overview
 
 In this tutorial, we will look further at variant calling from sequence data. We will:
@@ -273,7 +279,7 @@ We will also compare the output of our variant callers to one another - how many
         * "FreeBayes \ UnifiedGenotyper" indicates the difference, i.e. how many variants were called by FreeBayes and *not* UnifiedGenotyper.
         * "FreeBayes ∩ UnifiedGenotyper" indicates the intersection, i.e. how many variants were called by both variant callers.
     * You will probably find that FreeBayes calls variants more aggressively, and that there are more variants called by FreeBayes and not UnifiedGenotyper than vice versa. We could make FreeBayes calls more specific by filtering on e.g. variant quality score. We'd expect this to  remove many false positives, but also a few true positives.
-        
+
 
 ## Section 7. Annotation
 
