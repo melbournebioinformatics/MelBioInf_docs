@@ -119,15 +119,7 @@ We will also examine the depth of coverage of the aligned reads across the genom
     * The other tables give you more detailed statistics on the level of coverage, broken down by regions etc. We don’t really need them so to keep our Galaxy history clean you can delete all the outputs of this step except for the ‘Depth of Coverage on data.... (output summary sample)’ file. Use the ‘X’ next to a history file to delete it.
 
 
-## Section 3. Calling single nucleotide variations with mpileup, and VCF format
-
-Mpileup is part of the SamTools suite. It is a Bayesian genotyper which assesses the likelihood of each possible genotype for each position in the reference genome, given the observed reads at that position, and reports back the list of variants (positions where a genotype different to homozygous reference was called).
-
-Here is a more detailed [guide to using samtools mpileup](http://samtools.sourceforge.net/mpileup.shtml).
-
-*Mpileup is currently broken in Galaxy; this section will probably be removed for now*
-
-## Section 4. Local realignment
+## Section 3. Local realignment
 
 Alignment to large genomes is a compromise between speed and accuracy. Since we usually have (at least) millions of reads, it becomes computationally too expensive to compare reads to one another - instead, high-throughput aligners such as Bowtie align each read individually to the reference genome.
 
@@ -163,9 +155,9 @@ However performing local realignment will improve the accuracy of our variant ca
     you should see that realignment has resulted in reads originally providing evidence of a ‘G/C’ variant at chr20:1163937 to be realigned with a 10bp insertion at chr20:1163835 and no evidence of the variant.
 
 
-## Section 5. Calling variants with FreeBayes
+## Section 4. Calling variants with FreeBayes
 
-FreeBayes is a Bayesian variant caller which can be set to aggressivel call all possible variants, leaving filtering to the user. FreeBayes generates a variant Quality score (as do all variant callers) which can be used for filtering. FreeBayes will also give some phasing information, indicating when nearby variants appear to be on the same chromosome.
+FreeBayes is a Bayesian variant caller which assesses the likelihood of each possible genotype for each position in the reference genome, given the observed reads at that position, and reports back the list of variants (positions where a genotype different to homozygous reference was called). It  can be set to aggressively call all possible variants, leaving filtering to the user. FreeBayes generates a variant quality score (as do all variant callers) which can be used for filtering. FreeBayes will also give some phasing information, indicating when nearby variants appear to be on the same chromosome.
 
 You can [read more about FreeBayes here](https://github.com/ekg/freebayes).
 
@@ -180,6 +172,7 @@ You can [read more about FreeBayes here](https://github.com/ekg/freebayes).
     * How many variants exactly are in your list? (Hint: you can look at the number of lines in the dataset, listed in the green box in the History, but remember the top lines are header lines.)
     * What sort of quality scores do your variants have?
     * Open the VCF file in IGV using the dataset's *display in IGV local* link (using the *current* link will open IGV again, and using *local* should use your already-running IGV). This will give an annotation track in IGV to visualise where variants have been called. Compare it to your BAM file.
+
 
 ## Section ?. Annotation
 
