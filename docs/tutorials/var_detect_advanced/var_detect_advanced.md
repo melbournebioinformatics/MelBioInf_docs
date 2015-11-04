@@ -36,13 +36,12 @@ The data has been produced from human whole genomic DNA. Only reads that have ma
     * **Method 1: Paste/Fetch data from a URL to Galaxy.**
     * In the Galaxy tools panel (left), under *BASIC TOOLS*, click on *Get Data* and choose *Upload File*.
     * Get the FASTQ files: click *Paste/Fetch data* and enter these URLs into the text box.
-    Make sure there is only one URL per line.
-      https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/NA12878.hiseq.wgs_chr20_2mb.30xPE.fastq_1
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/NA12878.hiseq.wgs_chr20_2mb.30xPE.fastq_2
-    * Select *Type* as **fastqsanger** and click *Start*. Note that you cannot use Auto-detect for the
-  type here as there are different subtypes of FASTQ and Galaxy can't be sure which is which.
+    If you put them in the same upload box, make sure there is a newline between the URLs so that they are really on separate lines.
+        `https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/NA12878.hiseq.wgs_chr20_2mb.30xPE.fastq_1`
+        `https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/NA12878.hiseq.wgs_chr20_2mb.30xPE.fastq_2`
+    * Select *Type* as **fastqsanger** and click *Start*. Note that you cannot use Auto-detect for the type here as there are different subtypes of FASTQ and Galaxy can't be sure which is which.
     * Get the VCF file: click *Paste/Fetch data* again to open a new text box, and paste the following URL into the box
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/dbSNP135_excludingsitesafter129_chr20.vcf
+        `https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/dbSNP135_excludingsitesafter129_chr20.vcf`
     * This time, you can leave the *Type* on Auto-detect. Click *Start*.
     * Once the upload status for both sets of files turns *green*, you can click *Close*. You should now be able to see all three files in the Galaxy history panel (right).
 
@@ -78,17 +77,17 @@ Some of the variant callers need extra information regarding the source of reads
 
 We will also examine the depth of coverage of the aligned reads across the genome, as a quality check on both the sequencing experiment and the alignment.
 
-1. **Map/align the reads with Bowtie2 to the human reference genome 19 (hg19).** We will use Bowtie2, which is one of several good alignment tools for DNA-seq data. Under *NGS ANALYSIS* in the tools panel, select the tool *NGS: Mapping -> Bowtie2*.
+1. **Map/align the reads with Bowtie2 to the human reference genome.** We will use Bowtie2, which is one of several good alignment tools for DNA-seq data. Under *NGS ANALYSIS* in the tools panel, select the tool *NGS: Mapping -> Bowtie2*.
     * We have paired-end reads in two FASTQ files, so select *paired-end*.
     * Select the two FASTQ files as inputs.
     * Under *Select reference genome* select the human genome *hg19*.
-    * Next we will add read group information. Read groups are usually used when we have reads from multiple experiments, libraries or samples, and want to put them into one aligned BAM file while remembering which read came from which group. In our case we only have one group, but the GATK tools need us to specify a read group in order to work correctly. Under *Set read groups information?* select *Set read groups (SAM/BAM specification)* (Picard-style should also work).
+    * Next we will add read group information. Read groups are usually used when we have reads from multiple experiments, libraries or samples, and want to put them into one aligned BAM file while remembering which read came from which group. In our case we only have one group, but the GATK tools need us to specify a read group in order to work correctly. Under *Set read groups information?* select *Set read groups (SAM/BAM specification)*. (Picard-style should also work.)
         * Set the read group identifier to "Tutorial_readgroup". This identifier needs to be a unique identifier for this read group. Since we only have one read group, it doesn't matter much what it is, but a common practice is to construct it out of information guaranteed to be unique, such as the library identifier plus Platform Unit (e.g. flowcell) identifier.
         * Set the sample name to "NA12878"
         * Set the platform to *ILLUMINA*
         * Set the library name to "Tutorial_library". Normally we would set this to identify the DNA library from our DNA extraction.
     * You can leave other read group information blank, and use default Bowtie2 settings. *Execute* the tool.
-    * When the alignment has finished, you should rename the BAM file to something more convenient, such as **NA12878.chr20_2mb.30xPE.BWA_mapped**.
+    * When the alignment has finished, you should rename the BAM file to something more convenient, such as **NA12878.chr20_2mb.30xPE.BWA_mapped.bam**.
     * *Note: we assume that you have seen BAM and SAM files before. If you have not you may want to try out the Basic Variant Calling workshop, or take the time now to convert your BAM file to a SAM file and examine the contents.*
 
 2. **Visualise the aligned BAM file with IGV.** The Integrated Genome Viewer, IGV, is a very popular tool for visualising aligned NGS data. It will run on your computer (not on the server).
@@ -109,7 +108,7 @@ We will also examine the depth of coverage of the aligned reads across the genom
         * End position: 2000000
         * Name: chr20_2mb
         * Strand: plus
-    * *Execute* this tool. This will create a small BED file (TBD: add link) specifying just one genomic region.
+    * *Execute* this tool. This will create a small BED file specifying just one genomic region.
     * When the file is created, rename it to **chr20_2mb.bed**. Have a look at the contents of this BED file.
 
 4. **Evaluate the depth of coverage of the aligned region.** Under *NGS COMMON TOOLSETS*, select the tool *NGS: GATK Tools 2.8 -> Depth of Coverage*.
@@ -129,7 +128,7 @@ We will also examine the depth of coverage of the aligned reads across the genom
 
 Alignment to large genomes is a compromise between speed and accuracy. Since we usually have (at least) millions of reads, it becomes computationally too expensive to compare reads to one another - instead, high-throughput aligners such as Bowtie align each read individually to the reference genome.
 
-This is often a problem where indels are present, as the aligner will be reluctant to align a read over an indel without sufficient evidence. This can lead to misalignment and to false positive SNVs. We can improve the performance of variant callers by carrying out a further step of ‘realignment’ after the initial alignment, considering all the reads at a particular genomic region collectively. In particular, this can lead us to realign reads correctly over suspected indels.
+This is often a problem where indels are present, as the aligner will be reluctant to align a read over an indel without sufficient evidence. This can lead to misalignment and to false positive SNVs. We can improve the performance of variant callers by carrying out a further step of ‘realignment’ after the initial alignment, considering all the reads in a particular genomic region collectively. In particular, this can provide enough collective evidence to realign reads correctly over suspected indels.
 
 Both GATK and FreeBayes will benefit from local realignment around indels. Some tools, such as SamTools Mpileup, have alternative methods to deal with possible misalignment around indels.
 
@@ -149,15 +148,15 @@ However performing local realignment will improve the accuracy of our variant ca
     * Select the correct reference genome.
     * Under *Restrict realignment to provided intervals*, select the intervals file generated in the previous step.
     * *Execute*.
-    * Rename the file to something easier to recognise, e.g. **NA12878.chr20_2mb.30xPE.bam.realigned**
+    * Rename the file to something easier to recognise, e.g. **NA12878.chr20_2mb.30xPE.realigned.bam**
     * To keep your history clean, you may want to delete the log files generated by GATK in the last two steps.
 
 
 3. **Compare the realigned BAM file to original BAM around an indel.**
-    * Open the realigned BAM file in IGV. You can use the *local* link to open it in your already-opened IGV window.
+    * Open the realigned BAM file in IGV. You can use the *local* link to open it in your already-running IGV session and compare it to the pre-realignment BAM file.
     * Generally, the new BAM should appear identical to the old BAM except in the realigned regions.
     * Find some regions with indels that have been realigned (use the ‘Realigner Target Creator on data... (GATK intervals)’ file from the first step of realignment, it has a list of the realigned regions).
-    * If you can’t find anything obvious, check region chr20:1163914-1163954
+    * If you can’t find anything obvious, check region chr20:1163914-1163954;
     you should see that realignment has resulted in reads originally providing evidence of a ‘G/C’ variant at chr20:1163937 to be realigned with a 10bp insertion at chr20:1163835 and no evidence of the variant.
 
 
