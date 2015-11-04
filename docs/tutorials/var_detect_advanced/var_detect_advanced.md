@@ -107,8 +107,16 @@ We will also examine the depth of coverage of the aligned reads across the genom
     * When the file is created, rename it to **chr20_2mb.bed**. Have a look at the contents of this BED file.
 
 4. **Evaluate the depth of coverage of the aligned region.** Under *NGS COMMON TOOLSETS*, select the tool *NGS: GATK Tools 2.8 -> Depth of Coverage*.
-
-To be done - may replace with bedtools version
+    * Select the BAM file you just generated as the input BAM file.
+    * Make sure the reference genome we aligned to is selected under *Using reference genome*.
+    * Set *Output format* to *table*.
+    * Restrict the analysis to only the region of interest: Set *Basic or Advanced GATK options* to *Advanced*. Click *Insert Operate on Genomic intervals* to add a new region and select the chr20_2mb.bed file from your history.
+    * *Execute*.
+    * This tool will produce a lot of files. We are most interested in the summaries. Examine the contents of:
+        * **‘Depth of Coverage on data.... (output summary sample)’:** this file  will tell you the total depth of coverage for your sample across the genome (or in our case, across the first 2mb region we specified). It gives the total and mean coverage, plus some quantiles. This will give you an idea if there is something seriously wrong with your coverage distribution.
+        * Your mean depth here should be ~24x. Note that ~89% of reference bases are covered by at least 15x coverage, which is a sort of informal agreed minimum for reasonable variant calling.
+        * Also have a quick look at the **(per locus coverage)** file. It's not practical to go through this by hand, but you'll see that it gives coverage statistics for every site in the genome.
+    * The other tables give you more detailed statistics on the level of coverage, broken down by regions etc. We don’t really need them so to keep our Galaxy history clean you can delete all the outputs of this step except for the ‘Depth of Coverage on data.... (output summary sample)’ file. Use the ‘X’ next to a history file to delete it.
 
 
 ## Section 3. Calling single nucleotide variations with mpileup, and VCF format
