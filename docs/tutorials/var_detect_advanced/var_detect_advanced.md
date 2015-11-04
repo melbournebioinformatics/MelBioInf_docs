@@ -202,7 +202,57 @@ You can [read more about the GATK here](http://www.broadinstitute.org/gatk).
     * Find a region where GATK has called a variant but FreeBayes hasn’t, and vice versa. Try chr20:1,123,714-1,128,378.
 
 
-## Section ?. Annotation
+## Section 6. Evaluate variants
+
+How can we evaluate our variants?
+
+We've called variants on normal human DNA, so we expect to find variants with the typical characteristics of human germline variants. We know a lot about variation in humans from many empirical studies, including the 1000Genomes project, so we have some expectations on what we should see when we call variants in a new sample:
+* Expect to see true variations at the rate of about 1 per 1000bp against the reference genome
+* 85% of variations ‘rediscovered’ - that is, 85% already known and recorded in dbSNP (% dependent on the version of dbSNP)
+* A transition/transversion (Ti/Tv) rate of >2 if the variants are high quality, even higher if the variants are in coding regions.
+
+You can [read more about SNP call set properties here](http://genome.sph.umich.edu/wiki/SNP_Call_Set_Properties).
+
+You may find that each of the variant callers has more variants than we would have expected - we would have expected around 2000 in our 2 megabase region but we see between 3000 and 5000. This is normal for variant calling, where most callers err on the side of sensitivity to reduce false negatives (missed SNVs), expecting the user to do further filtering to remove false positives (false SNVs).
+
+We will also compare the output of our variant callers to one another - how many SNVs have they called in common? How many do they disagree on?
+
+1. **Evaluate dbSNP concordance and Ti/Tv ratio using the GATK VariantEval tool.**
+    * Under *NGS COMMON TOOLSETS*, select *NGS: GATK Tools 2.8 -> Eval Variants*.
+    * Under *Input variant file*, select the VCF file you generated with FreeBayes.
+    * Click *Insert Variant* to add a second input file, and under *Input variant file*, select the VCF file you generated with UnifiedGenotyper.
+    * Set the reference genome to *hg19*.
+    * Provide our list of known variants: make sure *Provide a dbSNP Reference-Ordered Data (ROD) file* is set to *Set dbSNP* and under *dbSNP ROD file* select the input reference variant file, **dbSNP135_excludingsitesafter129.chr20.vcf**.
+    * We will avoid carrying out the full suite of comparisons for this tutorial, and look at a couple of metrics. Set *Basic or Advanced Analysis options* to *Advanced*. Then set the following:
+        * *Eval modules to apply on the eval track(s)*:
+            * *CompOverlap*
+            * *TiTvVariantEvaluator*
+        * *Do not use the standard eval modules by default*: check this option
+    * *Execute*.
+
+
+2. **Interpret the dbSNP concordance section of the evaluation report.**
+    * Examine the contents of the ‘Eval Variants on data... (report)’
+    * The first section of the report lists the overlap in variants between the generated VCF files and known human variation sites from dbSNP.
+        * The *EvalRod* column specifies which of the input VCFs is analysed (input_0 = first VCF, input_1 = second etc). For us, these should be FreeBayes and GATK respectively.
+        * The *CompRod* column specifies the set of variants against which the input VCFs are being compared; we have used dbsnp.
+        * *Novelty*: whether the variants in this row have been found in the supplied dbSNP file or not (known = in dbSNP, novel = not in dbSNP). The rows containing *all* variants are the most informative summaries.
+        * *nEvalVariants*: number of variant sites in EvalRod (called variants).
+        * *novelSites*: number of variant sites found in EvalRod but not CompRod (i.e. called variants not in dbSNP).
+        * *CompOverlap*: number of variant sites found in both EvalRod and CompRod (i.e. called variants that ARE in dbSNP).
+        * *compRate*: percentage of variant sites from EvalRod found in CompRod (=CompOverlap/nEvalVariants).
+            * This metric is important, and it’s what people generally refer to as *dbSNP concordance*.
+        * *nConcordant* and *concordantRate*: number and percentage of overlapping variants with the same genotype.
+
+
+3. **Interpret the TiTv section of the evaluation report.**
+    * The second section of the report lists the TiTv ratio for different groups of variants from the callsets.
+    * It generally follows the format above. The most interesting metric is in the column labelled *tiTvRatio*.
+    * The expectation is a Ti/Tv close to the TiTvRatioStandard of 2.38. Generally, the higher the better, as a high Ti/Tv ratio indicates that most variants are likely to reflect our expectations from what we know about human variation.
+
+
+
+## Section 7. Annotation
 
 The variants we have detected can be annotated with information from known reference data. This can include
 
