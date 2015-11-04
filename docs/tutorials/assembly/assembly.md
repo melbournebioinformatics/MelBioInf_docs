@@ -1,9 +1,19 @@
+<style>
+  .image-header-gvl {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
 
-<p>
-<a href=http://vlsci.org.au><img src="../media/vlsci_logo.jpg" alt="VLSCI logo" align="left" width="164"/></a>
-<a href=http://genome.edu.au><img src="../media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/></a><br></br><br></br>
-<br></br></p>
-<p> </p>
+    -webkit-column-gap: 140px;
+    -moz-column-gap: 140px;
+    column-gap: 140px;
+  }
+</style>
+<div class="image-header-gvl">
+    <a href=http://genome.edu.au><img src="../media/gvl_logo.jpg" alt="GVL logo" width="112"/></a>
+    <a href="http://galaxyproject.org"><img src="../media/GalaxyLogoHighRes.png" width="164" /></a>
+    <a href=http://vlsci.org.au><img src="../media/vlsci_logo.jpg" alt="VLSCI logo" width="164"/></a>
+</div>
 
 
 # Microbial de novo Assembly for Illumina Data
