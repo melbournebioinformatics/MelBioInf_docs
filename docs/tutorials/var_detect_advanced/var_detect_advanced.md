@@ -246,15 +246,38 @@ We will also compare the output of our variant callers to one another - how many
 
 
 3. **Interpret the TiTv section of the evaluation report.**
-    * The second section of the report lists the TiTv ratio for different groups of variants from the callsets.
-    * It generally follows the format above. The most interesting metric is in the column labelled *tiTvRatio*.
+    * The second section of the report lists the Ti/Tv ratio for different groups of variants from the callsets.
+    * It generally follows the table format above. The most interesting metric is in the column labelled *tiTvRatio*.
     * The expectation is a Ti/Tv close to the TiTvRatioStandard of 2.38. Generally, the higher the better, as a high Ti/Tv ratio indicates that most variants are likely to reflect our expectations from what we know about human variation.
+    * In this table, it can be useful to compare not just the rows labelled *all*, but also those labelled *known* and *novel*. Is the Ti/Tv ratio different for known dbSNP variants, as compared to novel variants?
 
 
+4. **How much overlap is there in the call sets?**
+    * One way to work out how many of the variants are in common between the call sets is to produce a Venn diagram to visualise the overlap. Since all our variants are on chromosome 20, we will do this by simply comparing the positions of the SNVs. So, we will first remove the VCF headers, leaving us just the variant rows, and then we will compare the variant coordinates.
+    * Remove the header lines from a VCF file: select the tool *BASIC TOOLS -> Filter and Sort ->Select*.
+        * As an input file, in *Select lines from*, select the VCF file you generated using FreeBayes.
+        * Select *NOT Matching*.
+        * As the pattern, enter "^#". *^* in regular expressions indicates the start of the line, so this is a regular expression that says we are detecting lines where there is a "#" character at the start of the line.
+        * *Execute*. This should give you a new dataset, containing just the variant rows. Notice that the number of lines in this dataset now tells you how many variant calls you have!
+    * Repeat the above steps to remove the header lines from VCF file that you generated using GATK UnifiedGenotyper.
+    * Create a Venn diagram: select the tool *STATISTICS AND VISUALISATION -> Graph/Display Data -> proportional venn*.
+        * Enter any title you like, e.g. "FreeBayes vs UnifiedGenotyper".
+        * As *Input file 1*, select the first of the filtered files you just generated.
+        * As *Column index*, enter 1. This is the second column, i.e. the column containing the position coordinate.
+        * Under *as name*, enter a name for this input file, e.g. just "FreeBayes".
+        * As *Input file 2*, select the second of the filtered VCF files.
+        * Again as *Column index*, enter 1.
+        * Under *as name*, enter a name for this input file, e.g. just "UnifiedGenotyper".
+        * *Execute*.
+    * You should get an HTML file containing a Venn diagram, containing the overlap of the two sets of SNV calls. The counts below show how many variants are in each part of the diagram:
+        * "FreeBayes \ UnifiedGenotyper" indicates the difference, i.e. how many variants were called by FreeBayes and *not* UnifiedGenotyper.
+        * "FreeBayes ∩ UnifiedGenotyper" indicates the intersection, i.e. how many variants were called by both variant callers.
+    * You will probably find that FreeBayes calls variants more aggressively, and that there are more variants called by FreeBayes and not UnifiedGenotyper than vice versa. We could make FreeBayes calls more specific by filtering on e.g. variant quality score. We'd expect this to  remove many false positives, but also a few true positives.
+        
 
 ## Section 7. Annotation
 
-The variants we have detected can be annotated with information from known reference data. This can include
+The variants we have detected can be annotated with information from known reference data. This can include, for instance
 
 * whether the variant corresponds to a previously-observed variant in other samples, or across the population
 * whether the variant is inside or near a known gene
