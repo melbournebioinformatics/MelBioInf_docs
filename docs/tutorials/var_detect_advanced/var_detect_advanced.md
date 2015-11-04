@@ -212,7 +212,8 @@ You can [read more about the GATK here](http://www.broadinstitute.org/gatk).
 How can we evaluate our variants?
 
 We've called variants on normal human DNA, so we expect to find variants with the typical characteristics of human germline variants. We know a lot about variation in humans from many empirical studies, including the 1000Genomes project, so we have some expectations on what we should see when we call variants in a new sample:
-* Expect to see true variations at the rate of about 1 per 1000bp against the reference genome
+
+* We expect to see true variations at the rate of about 1 per 1000bp against the reference genome
 * 85% of variations ‘rediscovered’ - that is, 85% already known and recorded in dbSNP (% dependent on the version of dbSNP)
 * A transition/transversion (Ti/Tv) rate of >2 if the variants are high quality, even higher if the variants are in coding regions.
 
@@ -242,19 +243,19 @@ We will also compare the output of our variant callers to one another - how many
         * The *EvalRod* column specifies which of the input VCFs is analysed (input_0 = first VCF, input_1 = second etc). For us, these should be FreeBayes and GATK respectively.
         * The *CompRod* column specifies the set of variants against which the input VCFs are being compared; we have used dbsnp.
         * *Novelty*: whether the variants in this row have been found in the supplied dbSNP file or not (known = in dbSNP, novel = not in dbSNP). The rows containing *all* variants are the most informative summaries.
-        * *nEvalVariants*: number of variant sites in EvalRod (called variants).
+        * *nEvalVariants*: number of variant sites in EvalRod (i.e. all called variants).
         * *novelSites*: number of variant sites found in EvalRod but not CompRod (i.e. called variants not in dbSNP).
         * *CompOverlap*: number of variant sites found in both EvalRod and CompRod (i.e. called variants that ARE in dbSNP).
         * *compRate*: percentage of variant sites from EvalRod found in CompRod (=CompOverlap/nEvalVariants).
             * This metric is important, and it’s what people generally refer to as *dbSNP concordance*.
-        * *nConcordant* and *concordantRate*: number and percentage of overlapping variants with the same genotype.
+        * *nConcordant* and *concordantRate*: number and percentage of overlapping variants that have the same genotype.
 
 
 3. **Interpret the TiTv section of the evaluation report.**
-    * The second section of the report lists the Ti/Tv ratio for different groups of variants from the callsets.
+    * The second section of the report lists the transition/transversion ratio for different groups of variants from the callsets.
     * It generally follows the table format above. The most interesting metric is in the column labelled *tiTvRatio*.
     * The expectation is a Ti/Tv close to the TiTvRatioStandard of 2.38. Generally, the higher the better, as a high Ti/Tv ratio indicates that most variants are likely to reflect our expectations from what we know about human variation.
-    * In this table, it can be useful to compare not just the rows labelled *all*, but also those labelled *known* and *novel*. Is the Ti/Tv ratio different for known dbSNP variants, as compared to novel variants?
+    * In this table, it can be useful to compare not just the rows labelled *all*, but also those labelled *known* and *novel*. Is the Ti/Tv ratio different for known dbSNP variants, as compared to novel variants in this individual?
 
 
 4. **How much overlap is there in the call sets?**
