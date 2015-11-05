@@ -90,6 +90,16 @@ tutorial a suitable length. This has implications, as discussed in section 8.
     clicking **User > Login**.
 
 #### 2.  Import the RNA-seq data for the workshop.
+If you are using the public Galaxy Tutorial server or Galaxy Melbourne server,
+you can import the data directly from Galaxy. You can do this by going to
+**Shared Data > Published Histories** on the top toolbar, and selecting
+the history called **RNA-Seq_Adv_Sec_1**. Then click on "Import History" on
+the top right and "start using this history" to switch to the newly imported
+history.
+
+Alternatively, if you are using your own personal Galaxy server, you can import
+the data by:
+
 1.  In the tool panel located on the left, under Basic Tools select **Get
     Data > Upload File**. Click on the **Paste/Fetch data** button on the
     bottom section of the pop-up window.
@@ -100,22 +110,34 @@ tutorial a suitable length. This has implications, as discussed in section 8.
     when uploading.
     <div class="code">
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch1_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch1_chrI_2.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch2_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch2_chrI_2.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch3_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch3_chrI_2.fastq
+    <br>
     </div>
     These six files are three paired-end samples from the chem condition
     (glucose-limited). Make sure the type is specified as 'fastqsanger'
     when uploading.
     <div class="code">
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem1_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem1_chrI_2.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem2_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem2_chrI_2.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem3_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem3_chrI_2.fastq
+    <br>
     </div>
     Then, upload this file of gene definitions. You don't need to specify
     the type for this file as Galaxy will auto-detect the file as a GTF
