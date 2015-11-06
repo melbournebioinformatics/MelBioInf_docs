@@ -50,7 +50,7 @@ It does not cover more complicated aspects of assembly such as:
 * Gap filling techniques for “finishing” an assembly
 * Measuring the accuracy of assemblies
 
-## Background [15 min]
+## Background
 
 Read the [background to the workshop here](assembly-background.md#background)
 
@@ -75,7 +75,7 @@ Follow this [link for an overview of the protocol](assembly-protocol.md)
 *Output:* File of assembled scaffolds/contigs and associated information.
 
 
-## Preparation [15 min]
+## Preparation
 
 ### Login to Galaxy
 
@@ -124,7 +124,7 @@ NOTE: If you log out of Galaxy and log back in at a later time your data and res
 
 ----------------------------------------------
 
-## Section 1: Quality control [15 mins]
+## Section 1: Quality control
 
 The basic process here is to collect statistics about the quality of the reads in the sample FASTQ readsets. We will then evaluate their quality and choose an appropriate regime for quality filtering using Trimmomatic (a fastq read quality trimmer.)
 
@@ -139,11 +139,13 @@ The basic process here is to collect statistics about the quality of the reads i
 2. Click **Execute**
 3. Now repeat the above process on the second read file: *ERR048396_2.fastq*
 
-Screenshot of this process can be seen [here.](screenshots.md#figure-1-screenshot-of-fastqc-interface-in-galaxy)
-
 > <img src="../media/tips.png" alt="Tip" height="42" width="42"/> Note: This may take a few minutes, depending on how busy Galaxy is.
 
 It is important to do both read files as the quality can be very different between them.
+
+##### Figure 1: Screenshot of FastQC interface in Galaxy
+
+<img src="../media/screenshot-fastqc-interface.png" width=80% />
 
 ### Examine the FastQC output
 
@@ -161,7 +163,9 @@ These are a html outputs which show the results of all of the tests FastQC perfo
   * Basic statistics. This section tells us that the ASCII quality encoding format used was Sanger/Illumina 1.9 and the reads are length 75 and the percent GC content of the entire file is 35%.
   * Per base sequence quality. In the plot you should see that most of the early bases are up around the '32' mark and then increase to 38-40, which is very high quality; The spread of quality values for the last few bases increases and some of the outliers have quality scores of less than 30. This is a very good quality dataset. 20 is often used as a cutoff for reliable quality.
 
-  Screenshot can be seen [here.](screenshots.md#figure-2-screenshot-of-fastqc-output-in-galaxy)
+##### Figure 2: Screenshot of FastQC output in Galaxy
+
+  <img src="../media/screenshot-fastqc-output.png" width=80% />
 
 ### Quality trim the reads using Trimmomatic.
 
@@ -183,7 +187,10 @@ These are a html outputs which show the results of all of the tests FastQC perfo
 
 2. Click **Execute**
       <br></br>
-  Screenshot of this process can be seen [here](screenshots.md).<br></br>
+
+##### Figure 3: Screenshot of Trimmomatic inputs in Galaxy
+
+<img src="../media/screenshot-trimmomatic-inputs.png" width=80% />
 
 ### Examine the Trimmomatic output FastQ files.
 
@@ -198,7 +205,7 @@ These are a html outputs which show the results of all of the tests FastQC perfo
 
 ----------------------------------------------
 
-## Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser [35 min]
+## Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser
 
 The aim here is to assemble the trimmed reads into contigs/scaffolds using Velvet and the Velvet Optimiser.
 
@@ -220,7 +227,9 @@ We will use a single tool, Velvet Optimiser, which takes the trimmed reads from 
     * Repeat the above process to add the other unpaired read set *Trimmomatic on data 2 and data 1 (R2 unpaired)* as well.
 2. Click **Execute**.
 
-  Screenshot of this process can be seen [here](screenshots.md).
+##### Figure 4: Screenshot of Velvet Optimiser inputs in Galaxy
+
+<img src="../media/screenshot-velvetoptimiser-inputs.png" width=80% />
 
 
 ### Examine assembly output
@@ -234,7 +243,15 @@ Click on the <img src="../media/Galaxy-view.png" width=20 /> icon of the various
 
 * Contig stats: This shows a table of the contigs and their k-mer coverages and which read library contributed to the coverage. It is interesting to note that some of them have much higher coverage than the average. These are most likely to be repeated contigs. (Things like ribosomal RNA and IS elements.)
 
-Screenshots can be seen [here](screenshots.md).
+##### Figure 5: Screenshot of assembled contigs (a) and contig stats (b)
+
+##### a
+
+<img src="../media/screenshot-contigs.png" width=80% />
+
+##### b
+
+<img src="../media/screenshot-contig-stats.png" width=80% />
 
 
 ### Calculate some statistics on the assembled contigs
@@ -301,7 +318,9 @@ We want to find out what this contig is or what kind of coding sequence (if any)
 
 After a while the website will present a report of the blast run. Note that the sequence we blasted (if you chose NODE_1) is identical to part of a transposase gene (IS256) from a similar Staphylococcus aureus bacteria. These transposases occur frequently as repeats in bacterial genomes and so we shouldn’t be surprised at its very high coverage.
 
-A screenshot of the output can be seen [here](screenshots.md).
+##### Figure 6: Screenshot of the output from the NCBI Blast website
+
+<img src="../media/screenshot-blast.png" width=80% />
 
 
 
