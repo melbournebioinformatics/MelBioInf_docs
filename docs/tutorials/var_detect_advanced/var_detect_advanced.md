@@ -5,6 +5,8 @@
 <br></br></p>
 <p> </p>
 
+# Variant Detection - Advanced Workshop
+
 ## Tutorial Overview
 
 In this tutorial, we will look further at variant calling from sequence data. We will:
@@ -16,7 +18,9 @@ In this tutorial, we will look further at variant calling from sequence data. We
 
 ## Background
 
-Some background reading and reference material can be found [here](var_detect_advanced_background.md)
+Some background reading and reference material can be found [here](var_detect_advanced_background.md).
+
+The slides used in this workshop can be found [here](https://docs.google.com/presentation/d/1gsoS-ec1kCS7gBxLD4VAevhEMSsMA7TU7S8ZC_fzyEE/pub?start=false&loop=false&delayms=10000&slide=id.gd138ad700_0_0).
 
 **Where is the data in this tutorial from?**
 
@@ -63,7 +67,7 @@ The data has been produced from human whole genomic DNA. Only reads that have ma
 The aim here is to evaluate the quality of the short data. If the quality is poor, then adjustments can be made - eg trimming the short reads, or adjusting your expectations of the final outcome!
 
 1. **Analyse the quality of the reads in the FASTQ file.**
-    * From the left hand tool panel in Galaxy, under *NGS ANALYSIS*, select *NGS: QC and manipulation -> FASTQC*
+    * From the left hand tool panel in Galaxy, under *NGS ANALYSIS*, select *NGS: QC and manipulation -> FastQC*
     * Select one of the FASTQ files as input and *Execute* the tool.
     * When the tool finishes running, you should have an HTML file in your History. Click on the eye icon to view the various quality metrics.
 
@@ -87,7 +91,7 @@ We will also examine the depth of coverage of the aligned reads across the genom
         * Set the platform to *ILLUMINA*
         * Set the library name to "Tutorial_library". Normally we would set this to identify the DNA library from our DNA extraction.
     * You can leave other read group information blank, and use default Bowtie2 settings. *Execute* the tool.
-    * When the alignment has finished, you should rename the BAM file to something more convenient, such as **NA12878.chr20_2mb.30xPE.BWA_mapped.bam**.
+    * When the alignment has finished, you should rename the BAM file to something more convenient, such as **NA12878.chr20_2mb.30xPE.bam**.
     * *Note: we assume that you have seen BAM and SAM files before. If you have not you may want to try out the Basic Variant Calling workshop, or take the time now to convert your BAM file to a SAM file and examine the contents.*
 
 2. **Visualise the aligned BAM file with IGV.** The Integrated Genome Viewer, IGV, is a very popular tool for visualising aligned NGS data. It will run on your computer (not on the server).
