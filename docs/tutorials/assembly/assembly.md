@@ -1,13 +1,6 @@
 <style>
-  .image-header-gvl {
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
 
-    -webkit-column-gap: 140px;
-    -moz-column-gap: 140px;
-    column-gap: 140px;
-  }
+
 </style>
 <div class="image-header-gvl">
     <a href=http://genome.edu.au><img src="../media/gvl_logo.jpg" alt="GVL logo" width="112"/></a>
@@ -101,10 +94,10 @@ Follow this [link for an overview of the protocol](assembly-protocol.md)
 
   1. On the Galaxy tools panel, click on **Get data -> Upload File**.
   2. Click on the **Paste/Fetch Data** button.
-  3. Paste the URL: https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_1.fastq.gz into the text box. Change the type to *fastqsanger* (Not *fastqcsanger*).
+  3. Paste the URL: *https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_1.fastq.gz* into the text box. Change the type to *fastqsanger* (Not *fastqcsanger*).
   4. Click on the **Paste/Fetch Data** button again.
-  5. Paste the URL: https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_2.fastq.gz into the text box and change it's type to *fastqsanger* as well.
-  6. Repeat the process for the last URL: https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/illumina_adapters.fna, but make it's type *fasta*
+  5. Paste the URL: *https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_2.fastq.gz* into the text box and change it's type to *fastqsanger* as well.
+  6. Repeat the process for the last URL: *https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/illumina_adapters.fna* , but make it's type *fasta*
   7. Click on the **Start** button. Once all of the uploads are at 100%, click on the **Close** button.
   8. When the files have finished uploading, rename them to ‘ERR048396_1.fastq’, ‘ERR048396_2.fastq’ and ‘illumina_adapters.fna’ respectively by clicking on the <img src="../media/Galaxy-edit.png" width=20 /> icon to the top right of the file name in the right hand Galaxy panel (the history panel)
 

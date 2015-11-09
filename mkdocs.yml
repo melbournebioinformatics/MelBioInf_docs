@@ -18,7 +18,6 @@ pages:
   - 'Python Overview': 'tutorials/python_overview/python_overview.md'
   - 'Microbial de novo Assembly for Illumina Data':
     - 'Tutorial': 'tutorials/assembly/assembly.md'
-    - 'tutorials/assembly/screenshots.md'
     - 'Method Background': 'tutorials/assembly/assembly-background.md'
   - 'Introduction to Variant Calling using Galaxy': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
   - 'Identifying proteins from mass spectrometry data':
