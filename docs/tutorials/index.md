@@ -8,6 +8,10 @@
 * [Using Git and Github for revision control](using_git/Using_Git.md)
 * [Python Overview](python_overview/python_overview.md)
 
+#### HPC
+
+* [Introduction to HPC](hpc/index.md)
+
 #### Galaxy
 
 * [Introduction to Galaxy](galaxy_101/galaxy_101.md)

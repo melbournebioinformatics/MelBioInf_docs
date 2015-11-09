@@ -120,6 +120,16 @@ More information about the Tuxedo protocol can be found [here](rna_seq_basic_bac
     clicking **User > Login**.
 
 #### 2.  Import the RNA-seq data for the workshop.
+If you are using the public Galaxy Tutorial server or Galaxy Melbourne server,
+you can import the data directly from Galaxy. You can do this by going to
+**Shared Data > Published Histories** on the top toolbar, and selecting
+the history called **RNA-Seq_Basic_Sec_1**. Then click on "Import History" on
+the top right and "start using this history" to switch to the newly imported
+history.
+
+Alternatively, if you are using your own personal Galaxy server, you can import
+the data by:
+
 1.  In the tool panel located on the left, under Basic Tools select **Get
     Data > Upload File**. Click on the **Paste/Fetch data** button on the
     bottom section of the pop-up window.
@@ -127,11 +137,17 @@ More information about the Tuxedo protocol can be found [here](rna_seq_basic_bac
     input area:
     <div class="code">
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C1_R1.chr4.fq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C1_R2.chr4.fq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C1_R3.chr4.fq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C2_R1.chr4.fq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C2_R2.chr4.fq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C2_R3.chr4.fq
+    <br>
     </div>
     Select the type as 'fastqsanger' and press **start** to upload the
     files to Galaxy.
@@ -382,7 +398,7 @@ In the left tool panel menu, under NGS Analysis, select
 - **Transcripts:** ensembl_dm3.chr4.gtf
 - **Condition:**  
     - **1: Condition**
-        - **name** C1
+        - **name:** C1
         - **Replicates:**
             - Tophat on data 1: accepted_hits
             - Tophat on data 2: accepted_hits
@@ -390,7 +406,7 @@ In the left tool panel menu, under NGS Analysis, select
             (Multiple datasets can be selected by holding down the shift key or
             the ctrl key for Windows or the command key for OSX.)
     - **2: Condition**
-        - **name** C2
+        - **name:** C2
         - **Replicates:**
             - Tophat on data 4: accepted_hits
             - Tophat on data 5: accepted_hits
@@ -474,8 +490,8 @@ results from testing the level of expression between condition C1 and condition 
     Two genes have been identified as differentially expressed between
     conditions C1 and C2:
     <ul>
-        <li>*Ank* located at chr4:137014-150378, and
-        <li>*CG2177* located at chr4:331557-334534  
+        <li><b>Ank</b> located at chr4:137014-150378, and
+        <li><b>CG2177</b> located at chr4:331557-334534
     </ul>
     Both genes have q-values of 0.00175.
 </div>
@@ -504,10 +520,10 @@ In this section, we will run Cuffdiff with fewer replicates.
     - **Transcripts:** ensembl_dm3.chr4.gtf
     - **Condition:**  
         - **1: Condition**
-            - **name** C1
+            - **name:** C1
             - **Replicates:** Tophat on data 1: accepted_hits
         - **2: Condition**
-            - **name** C2
+            - **name:** C2
             - **Replicates:** Tophat on data 4: accepted_hits
     - **Library normalization method:** classic-fpkm
     - **Dispersion estimation method:** blind
@@ -537,10 +553,10 @@ In this section, we will run Cuffdiff with fewer replicates.
     - **Transcripts:** ensembl_dm3.chr4.gtf
     - **Condition:**  
         - **1: Condition**
-            - **name** C1
+            - **name:** C1
             - **Replicates:** Tophat on data 1: accepted_hits
         - **2: Condition**
-            - **name** C2
+            - **name:** C2
             - **Replicates:** Tophat on data 5: accepted_hits
     - **Library normalization method:** classic-fpkm
     - **Dispersion estimation method:** blind
@@ -645,13 +661,13 @@ transcriptome, we would run Cufflinks and Cuffmerge to create a transcriptome.
       transcripts
     - **Condition:**  
         - **1: Condition**
-            - **name** C1
+            - **name:** C1
             - **Replicates:**
                 - Tophat on data 1: accepted_hits
                 - Tophat on data 2: accepted_hits
                 - Tophat on data 3: accepted_hits
         - **2: Condition**
-            - **name** C2
+            - **name:** C2
             - **Replicates:**
                 - Tophat on data 4: accepted_hits
                 - Tophat on data 5: accepted_hits
@@ -664,7 +680,7 @@ transcriptome, we would run Cufflinks and Cuffmerge to create a transcriptome.
     - **Filter:** "Cuffdiff on data....: gene differential expression testing"
     - **With following condition:** c14=='yes'
     - Execute
-    
+
     Rename the output file to something meaningful like
     "Significant_DE_Genes_using_Cufflinks_Assembly"
 
