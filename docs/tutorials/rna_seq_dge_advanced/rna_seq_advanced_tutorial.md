@@ -53,7 +53,7 @@ expression analysis tools:
 - DESeq2
 
 This tutorial builds on top of the [basic RNA-seq DGE tutorial](../rna_seq_dge_basic/rna_seq_basic_tutorial.md).
-It is recommened to have some familiarity of RNA-seq before beginning this
+It is recommended to have some familiarity of RNA-seq before beginning this
 tutorial.
 
 -----
@@ -69,10 +69,10 @@ cerevisiae* by Nookaew et al. [1] which studies S.cerevisiae strain CEN.PK
 or glucose-limited (chemostat).
 
 The RNA-Seq data has been uploaded in NCBI, short read archive (SRA), with
-accession SRS307298. There are 6 samples in total having two treatments with
+accession SRS307298. There are 6 samples in total-- two treatments with
 three biological replicates each. The data is paired-end.  
 
-We have extracted only chromosome I reads from the samples to make the
+We have extracted chromosome I reads from the samples to make the
 tutorial a suitable length. This has implications, as discussed in section 8.
 
 -----
@@ -251,10 +251,10 @@ by using the **pen icon** next to the file.
     'batch1-accepted_hits.bam' and 'chem1-accepted_hits.bam' by using the
     checkboxes on the left.
 4.  Select chrI from the dropdown box. You can zoom in and out using the
-    buttons on the top toolbar. You can also add more tracks using the **Add
-    Tracks icon** located on the top right.
-5.  Select one of the splice junction files such as 'Tophat on data 2
-    and data 1: splice junctions'
+    buttons on the top toolbar.
+5.  You can also add more tracks using the **Add Tracks icon** located on the
+    top right. Load one of the splice junction files such as 'Tophat on data 2
+    and data 1: splice junctions'.
 6.  Explore the data and try to find a splice junction. Next to the
     drop down list, click on the chromosomal position number
     display and specify the location **chrI:86985-87795** to view an
@@ -544,7 +544,7 @@ Venn diagram to visualise the amount of overlap.
         Rename the output to something like 'Cuffdiff_gene_list'
 
     2.  Select **Text Manipulation > cut**
-        - **Cut columns:** c0
+        - **Cut columns:** c1
         - **Delimited by:** Tab
         - **From:** edgeR_Significant_DE_Genes
         - Execute
@@ -552,7 +552,7 @@ Venn diagram to visualise the amount of overlap.
         Rename the output to something like 'edgeR_gene_list'
 
     3.  Select **Text Manipulation > cut**
-        - **Cut columns:** c0
+        - **Cut columns:** c1
         - **Delimited by:** Tab
         - **From:** DESeq2_Significant_DE_Genes
         - Execute
@@ -581,7 +581,7 @@ differentially expressed by all three tools.
 
 -----
 
-## Section 8: Biological interpretation using gene set enrichment analysis
+## Section 8: Gene set enrichment analysis
 
 The biological question being asked in the original paper is essentially:  
 *"What is the global response of the yeast transcriptome in the shift from
