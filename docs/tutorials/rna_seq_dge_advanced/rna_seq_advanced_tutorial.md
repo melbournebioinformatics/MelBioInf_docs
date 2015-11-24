@@ -637,6 +637,62 @@ is driven by your biological knowledge of the problem space. There are an
 unlimited number of methods for further interpretation of which GSEA is just one.
 
 -----
+
+## Optional extension: Degust
+
+Degust is an interactive visualiser for analysing RNA-seq data. It runs as a
+web service and can be found at [vicbioinformatics.com/degust/](http://www.vicbioinformatics.com/degust/).
+
+<img src="../media/rna_advanced_degust_1.png" height=400px style="display:block; margin-left: auto; margin-right:auto;">
+
+#### 1. Load count data into Degust
+
+1.  In Galaxy, download the count data "bams to DGE count matrix_htseqsams2mx.xls"
+    generated in Section 4 using the **disk icon**.
+2.  Go to [vicbioinformatics.com/degust/](http://www.vicbioinformatics.com/degust/)
+    and click on "Upload your counts file".
+3.  Click "Choose file" and upload the recently downloaded Galaxy tabular file
+    containing your RNA-seq counts.
+
+#### 2. Configure your uploaded data
+
+1.  Give your visualisation a name.
+2.  For the Info column, select Contig.
+3.  Add two conditions: batch and chem. For each condition, select the three
+    samples which correspond with the condition.
+4.  Click **Save changes** and view your data.
+
+\showable{Show screenshot}{hint}
+
+<img src="../media/rna_advanced_degust_2.png" height=700px style="display:block; margin-left: auto; margin-right:auto;">
+
+\endshowable
+
+#### 3. Explore your data
+
+Read through the Degust tour of features. Explore the parallel coordinates plot,
+MA plot, MDS plot, heatmap and gene list. Each is fully interactive and
+influences other portions on the display depending on what is selected.
+
+<img src="../media/rna_advanced_degust_3.png" height=400px style="display:block; margin-left: auto; margin-right:auto;">
+
+On the right side of the page is an options module which can set thresholds to
+filter genes using statistical significance or absolute-fold-change.
+
+On the left side is a dropdown box you can specify the method (Voom/Limma or
+edgeR) used to perform differential expression analysis on the data. You can
+also view the R code by clicking "Show R code" under the options module on
+the right.
+
+#### 4. Explore the demo data
+
+Degust also provides an example dataset with 4 conditions and more genes. You
+can play with the demo dataset by clicking on the "Try the demo" button on the
+Degust homepage. The demo dataset includes a column with an EC number for each
+gene. This means genes can be displayed on Kegg pathways using the module on
+the right.
+
+-----
 ## References
 
 [1] Nookaew I, Papini M, Pornputtpong N, Scalcinati G, Fagerberg L, Uhlén M, Nielsen J: A comprehensive comparison of RNA-Seq-based transcriptome analysis from reads to differential gene expression and cross-comparison with microarrays: a case study in Saccharomyces cerevisiae. Nucleic Acids Res 2012, 40 (20):10084 – 10097. doi:10.1093/nar/gks804. Epub 2012 Sep 10
