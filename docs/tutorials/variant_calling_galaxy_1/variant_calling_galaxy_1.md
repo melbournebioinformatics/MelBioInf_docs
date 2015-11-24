@@ -116,15 +116,17 @@ The basic process here to map individual reads - from the input sample FASTQ fil
 
 1.  Map/align the reads with the [BWA] tool to Human reference genome 19 (hg19) [UCSC hg19].
   From the Galaxy tools panel, select
-  ```
-  NGS: Mapping > Map with BWA-MEM [3-5mins]
 
-  From the options:
-  Using reference genome: set to hg19.
-  Single or Paired-end reads: set to Single
+<div class=code>
+    NGS: Mapping > Map with BWA-MEM [3-5mins]<br>
 
-  keep other options as default and click execute
-  ```
+    From the options:<br>
+    Using reference genome: set to hg19.<br>
+    Single or Paired-end reads: set to Single<br>
+
+    keep other options as default and click execute
+</div>
+
   *Note: This is the longest step in the workshop and will take a few minutes, possibly more depending on how many people are also scheduling mappings*
 
 2.  Sort the BAM file.

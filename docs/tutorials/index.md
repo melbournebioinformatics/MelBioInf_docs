@@ -8,6 +8,10 @@
 * [Using Git and Github for revision control](using_git/Using_Git.md)
 * [Python Overview](python_overview/python_overview.md)
 
+#### HPC
+
+* [Introduction to HPC](hpc/index.md)
+
 #### Galaxy
 
 * [Introduction to Galaxy](galaxy_101/galaxy_101.md)
@@ -28,7 +32,7 @@
 #### Variant Detection
 
 * [Introduction to Variant Calling using Galaxy](variant_calling_galaxy_1/variant_calling_galaxy_1.md)
-* [Variant Detection Advanced](var_detect_advanced/var_detect_advanced_background.md)
+* [Variant Detection Advanced](var_detect_advanced/var_detect_advanced.md)
 
 #### Assembly
 
