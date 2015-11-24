@@ -281,7 +281,10 @@ To visualise the alignment data:
 1.  Click on one of the Tophat accepted hits files, for example 'Tophat on
     data 1: accepted_hits'.
 2.  Click on Display with IGV **'webcurrent'** (or 'local' if you have IGV
-    installed on your computer)
+    installed on your computer. You will need to open IGV before you click on
+    'local'). This should download a .jnlp Java Web Start file to your
+    computer. Open this file to run IGV. (You will need Java installed on your
+    computer to run IGV)
 3.  Once IGV opens, it will show you the accepted_hits BAM file. (Note:
     this may take a bit of time as the data is downloaded to IGV)
 4.  Select **chr4** from the second drop box under the toolbar. Zoom in to
