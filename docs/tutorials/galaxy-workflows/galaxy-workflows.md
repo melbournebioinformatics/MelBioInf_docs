@@ -18,8 +18,6 @@
 # Galaxy Workflows
 
 
-<img src="../media/D4D_5503X.jpg" width="70"/>
-
 Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) - VLSCI
 
 ## Background
