@@ -53,7 +53,7 @@ expression analysis tools:
 - DESeq2
 
 This tutorial builds on top of the [basic RNA-seq DGE tutorial](../rna_seq_dge_basic/rna_seq_basic_tutorial.md).
-It is recommened to have some familiarity of RNA-seq before beginning this
+It is recommended to have some familiarity of RNA-seq before beginning this
 tutorial.
 
 -----
@@ -69,10 +69,10 @@ cerevisiae* by Nookaew et al. [1] which studies S.cerevisiae strain CEN.PK
 or glucose-limited (chemostat).
 
 The RNA-Seq data has been uploaded in NCBI, short read archive (SRA), with
-accession SRS307298. There are 6 samples in total having two treatments with
+accession SRS307298. There are 6 samples in total-- two treatments with
 three biological replicates each. The data is paired-end.  
 
-We have extracted only chromosome I reads from the samples to make the
+We have extracted chromosome I reads from the samples to make the
 tutorial a suitable length. This has implications, as discussed in section 8.
 
 -----
@@ -90,6 +90,16 @@ tutorial a suitable length. This has implications, as discussed in section 8.
     clicking **User > Login**.
 
 #### 2.  Import the RNA-seq data for the workshop.
+If you are using the public Galaxy Tutorial server or Galaxy Melbourne server,
+you can import the data directly from Galaxy. You can do this by going to
+**Shared Data > Published Histories** on the top toolbar, and selecting
+the history called **RNA-Seq_Adv_Sec_1**. Then click on "Import History" on
+the top right and "start using this history" to switch to the newly imported
+history.
+
+Alternatively, if you are using your own personal Galaxy server, you can import
+the data by:
+
 1.  In the tool panel located on the left, under Basic Tools select **Get
     Data > Upload File**. Click on the **Paste/Fetch data** button on the
     bottom section of the pop-up window.
@@ -100,22 +110,34 @@ tutorial a suitable length. This has implications, as discussed in section 8.
     when uploading.
     <div class="code">
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch1_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch1_chrI_2.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch2_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch2_chrI_2.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch3_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch3_chrI_2.fastq
+    <br>
     </div>
     These six files are three paired-end samples from the chem condition
     (glucose-limited). Make sure the type is specified as 'fastqsanger'
     when uploading.
     <div class="code">
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem1_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem1_chrI_2.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem2_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem2_chrI_2.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem3_chrI_1.fastq
+    <br>
     https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem3_chrI_2.fastq
+    <br>
     </div>
     Then, upload this file of gene definitions. You don't need to specify
     the type for this file as Galaxy will auto-detect the file as a GTF
@@ -229,10 +251,10 @@ by using the **pen icon** next to the file.
     'batch1-accepted_hits.bam' and 'chem1-accepted_hits.bam' by using the
     checkboxes on the left.
 4.  Select chrI from the dropdown box. You can zoom in and out using the
-    buttons on the top toolbar. You can also add more tracks using the **Add
-    Tracks icon** located on the top right.
-5.  Select one of the splice junction files such as 'Tophat on data 2
-    and data 1: splice junctions'
+    buttons on the top toolbar.
+5.  You can also add more tracks using the **Add Tracks icon** located on the
+    top right. Load one of the splice junction files such as 'Tophat on data 2
+    and data 1: splice junctions'.
 6.  Explore the data and try to find a splice junction. Next to the
     drop down list, click on the chromosomal position number
     display and specify the location **chrI:86985-87795** to view an
@@ -522,7 +544,7 @@ Venn diagram to visualise the amount of overlap.
         Rename the output to something like 'Cuffdiff_gene_list'
 
     2.  Select **Text Manipulation > cut**
-        - **Cut columns:** c0
+        - **Cut columns:** c1
         - **Delimited by:** Tab
         - **From:** edgeR_Significant_DE_Genes
         - Execute
@@ -530,7 +552,7 @@ Venn diagram to visualise the amount of overlap.
         Rename the output to something like 'edgeR_gene_list'
 
     3.  Select **Text Manipulation > cut**
-        - **Cut columns:** c0
+        - **Cut columns:** c1
         - **Delimited by:** Tab
         - **From:** DESeq2_Significant_DE_Genes
         - Execute
@@ -559,7 +581,7 @@ differentially expressed by all three tools.
 
 -----
 
-## Section 8: Biological interpretation using gene set enrichment analysis
+## Section 8: Gene set enrichment analysis
 
 The biological question being asked in the original paper is essentially:  
 *"What is the global response of the yeast transcriptome in the shift from
@@ -613,6 +635,62 @@ At this stage you are interpreting the experiment in different ways, potentially
 discovering information that will lead you to further lab experiments. This
 is driven by your biological knowledge of the problem space. There are an
 unlimited number of methods for further interpretation of which GSEA is just one.
+
+-----
+
+## Optional extension: Degust
+
+Degust is an interactive visualiser for analysing RNA-seq data. It runs as a
+web service and can be found at [vicbioinformatics.com/degust/](http://www.vicbioinformatics.com/degust/).
+
+<img src="../media/rna_advanced_degust_1.png" height=400px style="display:block; margin-left: auto; margin-right:auto;">
+
+#### 1. Load count data into Degust
+
+1.  In Galaxy, download the count data "bams to DGE count matrix_htseqsams2mx.xls"
+    generated in Section 4 using the **disk icon**.
+2.  Go to [vicbioinformatics.com/degust/](http://www.vicbioinformatics.com/degust/)
+    and click on "Upload your counts file".
+3.  Click "Choose file" and upload the recently downloaded Galaxy tabular file
+    containing your RNA-seq counts.
+
+#### 2. Configure your uploaded data
+
+1.  Give your visualisation a name.
+2.  For the Info column, select Contig.
+3.  Add two conditions: batch and chem. For each condition, select the three
+    samples which correspond with the condition.
+4.  Click **Save changes** and view your data.
+
+\showable{Show screenshot}{hint}
+
+<img src="../media/rna_advanced_degust_2.png" height=700px style="display:block; margin-left: auto; margin-right:auto;">
+
+\endshowable
+
+#### 3. Explore your data
+
+Read through the Degust tour of features. Explore the parallel coordinates plot,
+MA plot, MDS plot, heatmap and gene list. Each is fully interactive and
+influences other portions on the display depending on what is selected.
+
+<img src="../media/rna_advanced_degust_3.png" height=400px style="display:block; margin-left: auto; margin-right:auto;">
+
+On the right side of the page is an options module which can set thresholds to
+filter genes using statistical significance or absolute-fold-change.
+
+On the left side is a dropdown box you can specify the method (Voom/Limma or
+edgeR) used to perform differential expression analysis on the data. You can
+also view the R code by clicking "Show R code" under the options module on
+the right.
+
+#### 4. Explore the demo data
+
+Degust also provides an example dataset with 4 conditions and more genes. You
+can play with the demo dataset by clicking on the "Try the demo" button on the
+Degust homepage. The demo dataset includes a column with an EC number for each
+gene. This means genes can be displayed on Kegg pathways using the module on
+the right.
 
 -----
 ## References
