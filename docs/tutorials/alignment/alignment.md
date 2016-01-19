@@ -48,13 +48,13 @@ The data for this workshop is the same as that used in the GVL Introductory Vari
 
 #### Run BWA
 
-For our alignment, we will use the tool BWA, which stands for "Burrows-Wheeler Aligner". You can see its website, if interested, at [http://bio-bwa.sourceforge.net/](http://bio-bwa.sourceforge.net/).
+For our alignment, we will use the tool BWA, which stands for "Burrows-Wheeler Aligner". You can see its website, if interested, at [http://bio-bwa.sourceforge.net/](http://bio-bwa.sourceforge.net/). We will be using the bwa mem variant.
 
 Hopefully, everything will be working fine, so the first thing we need to do is run BWA.. To do this, use the following steps.
 
-1. In the Galaxy tool pane on the left, under **NGS: Mapping** select the tool **Map with BWA**.
+1. In the Galaxy tool pane on the left, under **NGS: Mapping** select the tool **Map with BWA-MEM**.
 
-    * We want to align this data to the human genome. Have a look under **Select a reference genome**. Choose *hg19*. This is Human reference genome 19 ([UCSC hg19](http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&position=chr9%3A133252000-133280861&hgsid=469994169_9o1YboOfEP0gNexrwy41qevQrTdZ)).
+    * We want to align this data to the human genome. Have a look under **Using reference genome**. Choose *hg19*. This is Human reference genome 19 ([UCSC hg19](http://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&position=chr9%3A133252000-133280861&hgsid=469994169_9o1YboOfEP0gNexrwy41qevQrTdZ)).
     * Set **Single or Paired-end reads** to *Single*
     * Specify the FASTQ file as input - it may be automatically selected already.
     * For our alignment, it will be ok to use the default alignment parameters. However, have a look at the options you can change by setting **Select analysis mode** to *Full list of options*. Look through the parameters and see if you understand from lectures what they are for. You can also read documentation on these options by scrolling down the Galaxy BWA tool page.
@@ -180,7 +180,7 @@ Use `less` to examine it.
 
 Try to convert your SAM file to a BAM file using samtools view. The command you'll need is:
 
-    samtools view -S -b -h aligned_reads.sam > aligned_reads.bam
+    samtools view -b -h aligned_reads.sam > aligned_reads.bam
 
 You can look up the effect of all these command line flags by typing the view command by itself, or by reading the samtools documentation.
 
