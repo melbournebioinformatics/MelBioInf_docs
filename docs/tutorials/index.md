@@ -49,3 +49,9 @@
 **Tutorial**
 
 * [Identifying proteins from mass spectrometry data](proteomics_basic/proteomics_basic.md)
+
+#### Special
+
+**Tutorial**
+
+* [Peking University Alignment Tutorial](alignment/alignment.md)
