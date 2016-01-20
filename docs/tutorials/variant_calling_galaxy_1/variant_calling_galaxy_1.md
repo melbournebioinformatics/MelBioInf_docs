@@ -409,9 +409,9 @@ keep other options as default and click execute<br>
     Firstly,
     > Click the pencil icon.
 
-    > Under Attributes tab: make sure End column = 2
-
     > Under the Datatype tab: choose *Interval* and save
+
+    > Under Attributes tab: make sure End column = 2
 
     Next, we can convert the *Interval* file to *BED* format.
     > Click the pencil icon.
