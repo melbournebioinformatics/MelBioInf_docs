@@ -174,26 +174,6 @@ Keep other options as default and click execute
 
 5.  Assessing the alignment data
 
-    *Histogram of genome coverage*
-    From the Galaxy tools panel, select
-<div class=code>
-BED tools > Create a histogram of genome coverage
-<br><br>
-From the options:
-<br>
-The BAM: select the sorted BAM file
-<br><br>
-keep other options as default and click execute
-<br>
-</div>
-    The output format (tab delimited):
-
-    1. chromosome (or entire genome)
-    2. depth of coverage from features in input file
-    3. number of bases on chromosome (or genome) with depth equal to column 2
-    4. size of chromosome (or entire genome) in base pairs
-    5. fraction of bases on chromosome (or entire genome) with depth equal to column 2
-
     *Mapping statistics*
 
     From the Galaxy tools panel, select
