@@ -41,11 +41,18 @@ The data has been produced from human whole genomic DNA. Only reads that have ma
     * In the Galaxy tools panel (left), under *BASIC TOOLS*, click on *Get Data* and choose *Upload File*.
     * Get the FASTQ files: click *Paste/Fetch data* and enter these URLs into the text box.
     If you put them in the same upload box, make sure there is a newline between the URLs so that they are really on separate lines.
-        `https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/NA12878.hiseq.wgs_chr20_2mb.30xPE.fastq_1`
-        `https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/NA12878.hiseq.wgs_chr20_2mb.30xPE.fastq_2`
+<div class=code>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/NA12878.hiseq.wgs_chr20_2mb.30xPE.fastq_1
+<br>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/NA12878.hiseq.wgs_chr20_2mb.30xPE.fastq_2
+<br>
+</div>
     * Select *Type* as **fastqsanger** and click *Start*. Note that you cannot use Auto-detect for the type here as there are different subtypes of FASTQ and Galaxy can't be sure which is which.
     * Get the VCF file: click *Paste/Fetch data* again to open a new text box, and paste the following URL into the box
-        `https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/dbSNP135_excludingsitesafter129_chr20.vcf`
+<div class=code>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/variantCalling_ADVNCD/dbSNP135_excludingsitesafter129_chr20.vcf
+<br>
+</div>
     * This time, you can leave the *Type* on Auto-detect. Click *Start*.
     * Once the upload status for both sets of files turns *green*, you can click *Close*. You should now be able to see all three files in the Galaxy history panel (right).
 
