@@ -55,7 +55,7 @@ The purpose of this section is to get you to log in to the server..
 
 ## Section 2: Getting data into Galaxy
 
-There are 3 main ways to get your data into Galaxy. We will use each of these methods for 3 files and then work use those 3 files for the rest of the workshop.
+There are 2 main ways to get your data into Galaxy. We will use each of these methods for 3 files and then work use those 3 files for the rest of the workshop.
 
 * Start a new history for this workshop. To do this:
 
@@ -144,7 +144,7 @@ Firstly however, you’ll notice that two of the files have very long and confus
 2. In the "Name" text box, give it a new name. Call it: *Typical Fastq File*
 3. Click the **Save** button.
 
-Repeat the process for the MRSA252 fasta file. Rename it to *MRSA252.fna**
+Repeat the process for the MRSA252 fasta file. Rename it to *MRSA252.fna*
 
 Now that’s better. There was a lot of other functionality hidden behind that edit (<img src="../media/Galaxy-edit.png" width=20 />) icon. You can change a file’s data type, convert its format and many other things. Feel free to play around with them at a later date.
 
