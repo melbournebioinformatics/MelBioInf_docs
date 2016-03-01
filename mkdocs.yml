@@ -30,6 +30,7 @@ pages:
     - 'Protein Databases' : 'tutorials/proteomics_basic/background_protein_databases.md'
     - 'Search Engines' : 'tutorials/proteomics_basic/background_search_engines.md'
     - 'Protein Prophet' : 'tutorials/proteomics_basic/background_protein_prophet.md'
+    - 'Alignment Tutorial' : 'tutorials/alignment/alignment.md'
 - 'Protocols':
   - 'De Novo Genome Assembly for Illumina Data': 'tutorials/assembly/assembly-protocol.md'
 extra_templates: [

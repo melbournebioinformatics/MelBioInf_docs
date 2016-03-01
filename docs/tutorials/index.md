@@ -22,6 +22,7 @@
 #### Next Generation Sequencing
 
 * [NGS Overview](ngs_overview/NGS_Overview.md)
+* [Alignment using BWA](alignment/alignment.md)
 
 #### RNA-Seq
 
