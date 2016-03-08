@@ -6,6 +6,7 @@ pages:
   - 'Overview': 'tutorials/index.md'
   - 'NGS Overview': 'tutorials/ngs_overview/NGS_Overview.md'
   - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
+  - 'Launching a Personal GVL Server': 'tutorials/gvl_launch/gvl_launch.md'
   - 'Introduction to Galaxy': 'tutorials/galaxy_101/galaxy_101.md'
   - 'Galaxy Workflows': 'tutorials/galaxy-workflows/galaxy-workflows.md'
   - 'RNA-seq Basic Background': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
