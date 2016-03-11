@@ -16,6 +16,7 @@
 
 * [Introduction to Galaxy](galaxy_101/galaxy_101.md)
 * [Galaxy workflows](galaxy-workflows/galaxy-workflows.md)
+* [Introduction to GenomeSpace](genomespace/genomespace.md)
 
 ## Science
 
