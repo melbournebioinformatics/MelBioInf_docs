@@ -12,6 +12,10 @@
 
 * [Introduction to HPC](hpc/index.md)
 
+#### GVL
+
+* [Launching a Personal GVL Server](gvl_launch/gvl_launch.md)
+
 #### Galaxy
 
 * [Introduction to Galaxy](galaxy_101/galaxy_101.md)
