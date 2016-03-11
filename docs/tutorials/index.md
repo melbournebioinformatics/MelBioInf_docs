@@ -12,10 +12,15 @@
 
 * [Introduction to HPC](hpc/index.md)
 
+#### GVL
+
+* [Launching a Personal GVL Server](gvl_launch/gvl_launch.md)
+
 #### Galaxy
 
 * [Introduction to Galaxy](galaxy_101/galaxy_101.md)
 * [Galaxy workflows](galaxy-workflows/galaxy-workflows.md)
+* [Introduction to GenomeSpace](genomespace/genomespace.md)
 
 ## Science
 

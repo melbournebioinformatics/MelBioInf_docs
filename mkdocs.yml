@@ -6,6 +6,7 @@ pages:
   - 'Overview': 'tutorials/index.md'
   - 'NGS Overview': 'tutorials/ngs_overview/NGS_Overview.md'
   - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
+  - 'Launching a Personal GVL Server': 'tutorials/gvl_launch/gvl_launch.md'
   - 'Introduction to Galaxy': 'tutorials/galaxy_101/galaxy_101.md'
   - 'Galaxy Workflows': 'tutorials/galaxy-workflows/galaxy-workflows.md'
   - 'RNA-seq Basic Background': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
@@ -31,6 +32,7 @@ pages:
     - 'Search Engines' : 'tutorials/proteomics_basic/background_search_engines.md'
     - 'Protein Prophet' : 'tutorials/proteomics_basic/background_protein_prophet.md'
     - 'Alignment Tutorial' : 'tutorials/alignment/alignment.md'
+  - 'Introduction to GenomeSpace' : 'tutorials/genomespace/genomespace.md'
 - 'Protocols':
   - 'De Novo Genome Assembly for Illumina Data': 'tutorials/assembly/assembly-protocol.md'
 extra_templates: [
