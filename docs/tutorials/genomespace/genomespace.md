@@ -4,7 +4,7 @@ GenomeSpace is a cloud-based interoperability framework to support integrative g
 
 GenomeSpace does not perform any analyses itself; these are done within the member tools wherever they live – desktop, Web service, cloud, in-house server, etc. Rather, GenomeSpace provides tool selection and launch capabilities, and acts as a data highway automatically reformatting data as required when results move from the output of one tool to input for the next.
 
-The GVL GenomeSpace can be found at [https://genomespace.genome.edu.au](https://genomespace.genome.edu.au) .
+The GVL GenomeSpace can be found at [https://genomespace.genome.edu.au](https://genomespace.genome.edu.au).
 
 ## Prerequisites
 
