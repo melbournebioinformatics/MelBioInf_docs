@@ -24,7 +24,7 @@ Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) -
 
 ## Background
 
-This workshop/tutorial will familiarise you with the Galaxy interface. It will cover the following topics:
+This workshop/tutorial will familiarize you with the Galaxy interface. It will cover the following topics:
 
 * Logging in to the server
 * Getting data into galaxy
@@ -33,16 +33,16 @@ This workshop/tutorial will familiarise you with the Galaxy interface. It will c
 
 ## Learning Objectives
 
-At the end of this tutorial you should know how to:
+At the end of this tutorial you should:
 
-1. Know how to register on and login to a Galaxy server.
-2. Know how to upload data to a Galaxy server from:
+1. Be able to register on and login to a Galaxy server.
+2. Be able to upload data to a Galaxy server from:
     * A file on your local computer
     * A file on a remote datastore with an accessible URL.
-3. How to use tools in Galaxy:
-    * How to access the tool via the tool menu
-    * How to use the tool interface to run the particular tool
-    * How to view/access the tool output.
+3. Be able use tools in Galaxy by:
+    * Accessing the tool via the tool menu
+    * Using the tool interface to run the particular tool
+    * Viewing/accessing the tool output.
 
 -------------------------------
 
