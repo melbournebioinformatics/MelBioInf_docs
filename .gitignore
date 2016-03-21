@@ -5,3 +5,4 @@ site/
 .settings
 mkdocs/
 .DS_Store
+mkdocs_dev/
