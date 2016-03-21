@@ -24,12 +24,22 @@ Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) -
 
 ## Background
 
+Galaxy is a web based analysis and workflow platform designed for biologists to analyse their own data. It comes with most of the popular bioinformatics tools already installed and ready for use. There are many Galaxy servers around the world and some are tailored with specific toolsets and reference data for analysis of human genomics, microbial genomics, proteomics etc.
+
+There are some introductory slides available [here](https://docs.google.com/presentation/d/1dzHagGkswjH7MOZ7OACVXGU-riBs33K3J5lWpnCpPhs/pub?start=false&loop=false&slide=id.g537781ff1_2_18).
+
+Basically, the Galaxy interface is separated into 3 parts. The tool list on the left, the viewing pane in the middle and the analysis and data history on the right. We will be looking at all 3 parts in this tutorial.
+
+<img src="../media/Galaxy_components.png" alt="Galaxy interface components diagram" width="70%" />
+
 This workshop/tutorial will familiarize you with the Galaxy interface. It will cover the following topics:
 
 * Logging in to the server
 * Getting data into galaxy
 * How to access the tools
 * Using to use some common tools
+
+-------------------------------
 
 ## Learning Objectives
 
@@ -110,6 +120,14 @@ Note that Galaxy is smart enough to recognize that this is a compressed file and
 
 ### Method 2 (again): Get data from a public URL
 
+Now we are going to upload another file from the remote data source.
+
+Repeat the above for: *https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/MRSA0252.fna*
+
+Note that this file is a *fasta* file and not a *fastqsanger* file.
+
+\showable{Reveal detailed instructions}{details}
+
 * From the tool panel, click on **Get Data -> Upload File**
 
     * Click on the **Paste/Fetch Data** button
@@ -117,6 +135,8 @@ Note that Galaxy is smart enough to recognize that this is a compressed file and
     * Set the file format to *fasta*.
     * Click **Start**
     * Once the progress bar has reached 100%, click **Close**
+
+\endshowable
 
 The DNA sequence of *Staphlococcus aureus MRSA252* will be loaded into your history as a fasta file.
 
