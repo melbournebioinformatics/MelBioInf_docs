@@ -5,25 +5,22 @@
 <p><br></p>
 <p><br></p>
 
-# Table of Contents
-1. [Tutorial Overview](#1-tutorial-overview)
-2. [Background](#2-background)
-3. [Preparation](#3-preparation)
-4. [Quality Control](#4-quality-control)
-5. [Alignment to the reference - (FASTQ to BAM)](#5-alignment-to-the-reference---fastq-to-bam))
-6. [Calling single nucleotide variations(SNVs)](#6-calling-single-nucleotide-variations-snvs)
-7. [Calling small insertions and deletetions](#7-calling-small-insertions-and-deletions-indels)
 
-
-## 1. Tutorial Overview
+## Tutorial Overview
 
 In this tutorial we cover the concepts of detecting small variants (SNVs and indels) in human genomic DNA using a small set of reads from chromosome 22.
 
-Note:
+Note: The tutorial is designed to introduce the tools, datatypes and workflow of variation detection. We filter the variations manually to understand what is actually happening in variant calling. In practice the datasets would be much larger and you would use more sophisticated tools to call, annotate and filter variants.
 
-The tutorial is designed to introduce the tools, datatypes and workflow of variation detection. We filter the variations manually to understand what is actually happening in variant calling. In practice the datasets would be much larger and you would use more sophisticated tools to call, annotate and filter variants.
+## Learning Objectives
 
-## 2. Background
+At the end of this tutorial you should:
+
+ - Be familiar with the FASTQ format and base quality scores
+ - Be able to align reads to generate a BAM file and subsequently generate a pileup file
+ - Be able to visualise BAM files using IGV and identify likely SNVs and indels by eye
+
+## Background
 
 Some background reading material - [background]
 
@@ -31,7 +28,7 @@ Some background reading material - [background]
 
 The workshop is based on analysis of short read data from the exome of chromosome 22 of a single human individual. There are one million 76bp reads in the dataset, produced on an Illumina GAIIx from exome-enriched DNA. This data was generated as part of the [1000 genomes] Genomes project.
 
-## 3. Preparation
+## 1. Preparation
 
 1. **Make sure you have an instance of Galaxy ready to go.**
     *  If not - go to our [Melbourne Galaxy] instance.
@@ -63,7 +60,7 @@ the Galaxy instance.
 Now we are ready to perform our analysis.
 
 
-## 4. Quality Control
+## 2. Quality Control
 
 The first step is to evaluate the quality of the raw sequence data. If the quality is poor, then adjustments can be made - e.g. trimming the short reads, or adjusting your expectations of the final outcome!
 
@@ -110,7 +107,7 @@ Look at the various quality scores. The data looks pretty good - *high Per base 
 
 *Note that the 'Sequence Duplication Levels' are marked as high. Normally we would run another tool to remove duplicates (technical PCR artifacts) but for the sake of brevity we will omit this step.*
 
-## 5. Alignment to the reference - (FASTQ to BAM)
+## 3. Alignment to the reference - (FASTQ to BAM)
 
 The basic process here to map individual reads - from the input sample FASTQ file - to a matching region on the reference genome.
 
@@ -210,9 +207,11 @@ keep other options as default and click execute
 
     Note that in this case the statistics are not very informative. This is because the dataset has been generated for this workshop and much of the noise has been removed (and in fact we just removed a lot more noise in the previous step); also we are using single ended read data rather than paired-end so some of the metrics are not relevant.
 
-6.  Visualize the BAM file.
-    * Download the sorted BAM file
-    From the Galaxy history panel, select
+## 4. Visualize the BAM file.
+
+Download the sorted BAM file
+
+From the Galaxy history panel, select
 <div class=code>
 Click on the sorted BAM file.<br>
 Click on the disk icon > Download dataset<br>
@@ -236,7 +235,7 @@ Can you see a few variants?
 <a href="../media/igv_mb.jpg"><img src="../media/igv_mb.jpg" alt="IGV view 1" width="640px" style="display:block; margin-left: auto; margin-right:auto;"/></a>
 
 
-## 6. Calling single nucleotide variations (SNVs)
+## 5. Calling single nucleotide variations (SNVs)
 
 1.  Generate a pileup file from the aligned reads (sorted bam file previous step 2). A pileup is essentially a column wise representation of the aligned read - at the base level - to the reference. The pileup file summarises all data from the reads at each genomic region that is covered by at least one read.
 
@@ -369,7 +368,7 @@ keep other options as default and click execute<br>
     * Now zoom into the region chr22:35,947,503-35,947,667.
     > Is this a homozygous variant?
 
-## 7. Calling small insertions and deletions (indels)
+## 6. Calling small insertions and deletions (indels)
 
 1.  Generate a pileup file from the aligned reads containing only indels.
     From the Galaxy tools panel, select
