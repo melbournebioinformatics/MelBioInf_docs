@@ -77,6 +77,21 @@ synthetic and has no quality issues, unlike real data.
 
 -----
 
+## Learning Objectives
+
+At the end of this tutorial you should:
+
+ - Be familiar with the Tuxedo Protocol workflow for RNA-seq differential
+   expression analysis
+ - Be able to process raw RNA sequence data into a list of differentially
+   expressed genes
+ - Be aware of how the relationship between the number of biological replicates
+   in an experiment and the statistical power available to detect differentially
+   expressed genes
+
+
+-----
+
 ## Background
 
 #### Where does the data in this tutorial come from?
