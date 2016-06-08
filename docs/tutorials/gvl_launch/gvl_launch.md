@@ -316,6 +316,22 @@ password.
 This is a shared web-accessible folder. Any files you place in the directory
 `/home/researcher/public_html` will be publicly accessible.
 
+#### PacBio SMRT Portal
+[PacBio's SMRT Portal](http://www.pacb.com/products-and-services/analytical-software/smrt-analysis/) is an open source software suite for the analysis of single molecule, real-time sequencing data.
+
+Before you use SMRT Portal, you need to firstly install it through the Admin console. *Please note PacBio recommends the use of a 16 core instance with 64GB of RAM (or higher) for this package.*
+
+To install SMRT Portal from the GVL dashboard:
+
+* Click on 'Admin' in the top navigation bar.
+
+* Log in with the username 'ubuntu' and your cluster password. The screen will now show all the tools available to be installed.
+
+* Scroll down to 'SMRT Analysis', and click 'install'.
+
+* The install is complete when SMRT Portal is available as a tool on the GVL dashboard, and a green tick is displayed.
+
+When launching SMRT Portal for the first time, you will need to register yourself as a new user.
 
 -----
 
