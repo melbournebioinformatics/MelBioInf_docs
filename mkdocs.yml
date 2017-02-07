@@ -1,5 +1,6 @@
 site_name: LSCC Documentation
-theme: cerulean
+theme: mkdocs
+copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
 pages:
 - 'Home': 'index.md'
 - 'Tutorials':

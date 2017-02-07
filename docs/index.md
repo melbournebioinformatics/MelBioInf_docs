@@ -1,4 +1,4 @@
-![VLSCI Logo](img/vlsci_logo.gif)
+![Melbourne Bioinformatics Logo](img/melbioinf_logo.png)
 
 # LSCC Documentation
 

@@ -1,5 +1,5 @@
 <p>
-<img src="../media/vlsci_logo.jpg" alt="VLSCI logo" align="left" width="164"/>
+<img src="../../../img/melbioinf_logo.png" alt="Melbourne Bioinformatics logo" align="left" width="40%"/><br />
 <img src="../media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/>
 </p>
 <p><br></p>

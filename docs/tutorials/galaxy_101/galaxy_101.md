@@ -12,7 +12,7 @@
 <div class="image-header-gvl">
     <a href=http://genome.edu.au><img src="../media/gvl_logo.jpg" alt="GVL logo" width="112"/></a>
     <a href="http://galaxyproject.org"><img src="../media/GalaxyLogoHighRes.png" width="164" /></a>
-    <a href=http://vlsci.org.au><img src="../media/vlsci_logo.jpg" alt="VLSCI logo" width="164"/></a>
+    <a href="https://www.melbournebioinformatics.org.au/"><img src="../../../img/melbioinf_logo.png" alt="Melbourne Bioinformatics logo" width="164"/></a>
 </div>
 
 
@@ -20,7 +20,7 @@
 # Introduction to Galaxy
 
 
-Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) - VLSCI
+Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) - Melbourne Bioinformatics (formerly VLSCI)
 
 ## Background
 

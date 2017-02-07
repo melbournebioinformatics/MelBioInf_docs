@@ -34,7 +34,7 @@
     }
 </style>
 
-<img src="../media/vlsci_logo.jpg" height=100px>
+<img src="../../../img/melbioinf_logo.png" height=100px>
 <img src="../media/gvl_logo.jpg" height=100px align=right>
 
 # RNA-Seq Differential Gene Expression: Advanced Tutorial

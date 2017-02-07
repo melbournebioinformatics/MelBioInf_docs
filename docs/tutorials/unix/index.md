@@ -2156,7 +2156,7 @@ Workshop.
 You will no-doubt forget a lot of what you learnt here so I encourage you to save a link to this 
 Workshop for later reference.
 
-Thank you for your attendance, please don't forget to complete the VLSCI training survey and give it
+Thank you for your attendance, please don't forget to complete the Melbourne Bioinformatics training survey and give it
 back to the Workshop facilitators.
 
 

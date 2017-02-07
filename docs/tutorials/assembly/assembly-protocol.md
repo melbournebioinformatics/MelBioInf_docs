@@ -1,5 +1,5 @@
 <p>
-<a href=http://vlsci.org.au><img src="../media/vlsci_logo.jpg" alt="VLSCI logo" align="left" width="164"/></a>
+<a href="https://www.melbournebioinformatics.org.au/"><img src="../../../img/melbioinf_logo.png" alt="Melbourne Bioinformatics logo" width="164"/></a>
 <a href=http://genome.edu.au><img src="../media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/></a><br></br><br></br>
 <br></br></p>
 <p> </p>
@@ -9,7 +9,7 @@
 ## *Protocol*
 
 
-Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) - VLSCI
+Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) - Melbourne Bioinformatics (formerly VLSCI)
 
 ## Protocol Overview / Introduction
 

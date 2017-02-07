@@ -1,0 +1,38 @@
+/* the bar across the top */
+.navbar {
+	background: #fff url('https://www.melbournebioinformatics.org.au/wp-content/themes/_vlsci/images/top-orange.gif') repeat-x top left;
+	border-bottom: none;
+}
+
+.icon-bar {
+	background-color: #555 !important;
+}
+
+.navbar-default .navbar-brand, .navbar-default:hover .navbar-brand:hover {
+	color: #2fa4e7;
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: #2fa4e7;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	background-color: #00A8BD;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	background-color: #00A8BD;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+	background-color: #00A8BD;
+}
+
+/* the menu items */
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+	background-color: #00A8BD;
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+	background-color: #00A8BD;
+}

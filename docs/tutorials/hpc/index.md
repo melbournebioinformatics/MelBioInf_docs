@@ -128,7 +128,7 @@ of the system administrator
 \showable{Answer}{answer}
 
 * LIMS-HPC: andrew.robinson@latrobe.edu.au
-* MERRI & BARCOO: help@vlsci.unimelb.edu.au
+* SNOWY & BARCOO: help@melbournebioinformatics.org.au
 
 \endshowable
 
@@ -1585,7 +1585,7 @@ not the training one).
 You will no-doubt forget a lot of what you learnt here so I encourage you to save a link to this 
 Workshop for later reference.
 
-Thank you for your attendance, please don't forget to complete the VLSCI training survey and give it
+Thank you for your attendance, please don't forget to complete the Melbourne Bioinformatics training survey and give it
 back to the Workshop facilitators.
 
 

@@ -1,6 +1,6 @@
 # Authors:
 
-- Bernie Pope, VLSCI
+- Bernie Pope, Melbourne Bioinformatics (formerly VLSCI)
 
 - Catherine de Burgh-Day, Dept. of Physics, The University of Melbourne
 
