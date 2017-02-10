@@ -1,4 +1,4 @@
-# LSCC Documentation
+# Bioinformatics Documentation
 
 ## How to build the documentation
 
