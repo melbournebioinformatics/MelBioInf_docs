@@ -269,7 +269,7 @@ OSX, open up a Terminal window.
 
 If you are unfamiliar with the command line and UNIX, many
 [tutorials](http://swcarpentry.github.io/shell-novice/)
-[on UNIX](http://vlsci.github.io/lscc_docs/tutorials/unix/)
+[on UNIX](../unix/)
 [can be](http://www.ee.surrey.ac.uk/Teaching/Unix/)
 [found online](http://www.doc.ic.ac.uk/~wjk/UnixIntro/).
 
@@ -289,7 +289,7 @@ and Python3 kernals.
 
 If you are unfamiliar with Python, there are many
 [tutorials](http://swcarpentry.github.io/python-novice-inflammation/)
-[available](http://vlsci.github.io/lscc_docs/tutorials/python_overview/python_overview/)
+[available](../python_overview/python_overview/)
 [online](http://pythonprogramminglanguage.com/).
 
 You can log into JupyterHub with the username 'researcher' and your cluster
