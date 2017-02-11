@@ -12,7 +12,7 @@
 
 In this tutorial we will be performing some alignments of short reads to a longer reference (as outlined in earlier lectures.) It is split into two sections. You will perform the same analysis in both sections. The first is Alignment using the Galaxy bioinformatics workflow environment, the second is Alignment using the Unix/Linux command line. Both sections use the same tools.
 
-We'll be using some data and steps from the Genomics Virtual Lab Variant Detection tutorials. You can follow these links if interested to see the full [Introductory Variant Detection](http://vlsci.github.io/lscc_docs/tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1/) and [Advanced Variant Detection](http://vlsci.github.io/lscc_docs/tutorials/var_detect_advanced/var_detect_advanced/) tutorials.
+We'll be using some data and steps from the Genomics Virtual Lab Variant Detection tutorials. You can follow these links if interested to see the full [Introductory Variant Detection](../variant_calling_galaxy_1/variant_calling_galaxy_1/) and [Advanced Variant Detection](../var_detect_advanced/var_detect_advanced/) tutorials.
 
 ## Section 1: Alignment using Galaxy
 

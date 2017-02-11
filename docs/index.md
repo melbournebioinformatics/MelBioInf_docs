@@ -1,6 +1,6 @@
 ![Melbourne Bioinformatics Logo](img/melbioinf_logo.png)
 
-# LSCC Documentation
+# Bioinformatics Documentation
 
 ## Contents
 
