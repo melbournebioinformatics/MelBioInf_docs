@@ -103,7 +103,7 @@ We will also examine the depth of coverage of the aligned reads across the genom
 
 2. **Visualise the aligned BAM file with IGV.** The Integrated Genome Viewer, IGV, is a very popular tool for visualising aligned NGS data. It will run on your computer (not on the server).
     * *Note: if you are already familiar with IGV, you may want to go through this section quickly, but it's still a good idea to launch IGV for use in later steps.*
-    * In the green dataset box for your BAM file in the history panel, you will see some *display with IGV* links. Launch IGV by clicking the *current* link. If IGV is already running on your computer, instead click the *local* link. If you have problems you can instead launch IGV by visiting https://www.broadinstitute.org/software/igv/download.
+    * In the green dataset box for your BAM file in the history panel, you will see some *display with IGV* links. Launch IGV by clicking the *web current* link. If IGV is already running on your computer, instead click the *local* link. If you have problems you can instead launch IGV by visiting https://www.broadinstitute.org/software/igv/download.
     * _If_ your BAM file was not automatically loaded, download and open it:
         * Download the BAM file AND the BAM index (BAI file) by clicking the floppy-disk icon in the green dataset window and selecting each file in turn. Make sure these two files are in the same directory.
         * In IGV, select the correct reference genome, *hg19*, in the top-left drop-down menu.
@@ -187,7 +187,7 @@ You can [read more about FreeBayes here](https://github.com/ekg/freebayes).
     * Click the eye icon to examine the VCF file contents.
     * How many variants exactly are in your list? (Hint: you can look at the number of lines in the dataset, listed in the green box in the History, but remember the top lines are header lines.)
     * What sort of quality scores do your variants have?
-    * Open the VCF file in IGV using the dataset's *display in IGV local* link (using the *current* link will open IGV again, and using *local* should use your already-running IGV). This will give an annotation track in IGV to visualise where variants have been called. Compare it to your BAM file.
+    * Open the VCF file in IGV using the dataset's *display in IGV local* link (using the *web current* link will open IGV again, and using *local* should use your already-running IGV). This will give an annotation track in IGV to visualise where variants have been called. Compare it to your BAM file.
 
 
 ## Section 5. Calling variants with GATK Unified Genotyper
