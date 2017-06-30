@@ -40,14 +40,25 @@ To register a GenomeSpace account you need to have a valid email address and do 
     5. The directory under the name _Shared to “your username”_ contains any folders that have been shared to you through the GenomeSpace website.
     6. The public directory is the directory which contains anything that has been made public to the cloud through the GenomeSpace website.
 
-
-## Mounting a swift container
+## Making a swift container
 
 _(These instructions are for the NeCTAR Australian Research Cloud. For any other OpenStack-based cloud storage please change the parameters as necessary.)_
 
-NeCTAR object storage is a place that people with NeCTAR credentials can store their data reliably. Containers can be found under the Object Store link in NeCTAR’s dashboard.
+NeCTAR object storage is a place that people with NeCTAR credentials can store their data reliably.
 
-To browse through available containers, go to the NeCTAR dashboard at [https://dashboard.rc.nectar.org.au](https://dashboard.rc.nectar.org.au) . On the left hand side of the dashboard you can find the Object Store. By "Containers" you can see all the available containers within your tenancy.
+If you haven't used the NeCTAR cloud before, follow the steps in sections 1 and 2 of this tutorial: [https://vlsci.github.io/lscc_docs/tutorials/gvl_launch/gvl_launch/](https://vlsci.github.io/lscc_docs/tutorials/gvl_launch/gvl_launch/).
+
+Go to the NeCTAR dashboard at [https://dashboard.rc.nectar.org.au](https://dashboard.rc.nectar.org.au).
+
+- On the left hand side of the dashboard click on "Object Store" and then "Containers".
+
+- To make a container, click "Create Container".
+
+![create container](media/images/create_container.png)
+
+## Mounting a swift container
+
+Containers can be found under the Object Store link in NeCTAR’s dashboard.
 
 To mount an available container go to Connect menu bar in GenomeSpace and select Swift Container.
 ![](media/images/GS-swift.png)
