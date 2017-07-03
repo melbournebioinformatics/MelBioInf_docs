@@ -1,14 +1,20 @@
-# Bioinformatics Documentation
 
-These tutorials have been developed by Melbourne Bioinfomatics (formerly VLSCI) for training in commmon bioinformatic tasks.
 
-## Deployment
+# Bioinformatics Tutorials and Workshops
+
+These tutorials have been developed by Melbourne Bioinfomatics (formerly VLSCI) for training in commmon bioinformatics tasks.
 
 The tutorials have been deployed here: http://vlsci.github.io/lscc_docs/tutorials/
 
+All documentation source files are under `docs/`. Tutorials are stored under `docs/tutorials/`.
+Tutorials are written in [Markdown](http://en.wikipedia.org/wiki/Markdown).
+
+Slides for workshops are either in Google Drive as Google Slides, or as Markdown
+slides in this repository.
+
 ## How to contribute
 
-## Install the mkdocs tools
+## Set up your environment and build the documentation
 
 We are using the Python package [MkDocs](http://www.mkdocs.org/).
 
