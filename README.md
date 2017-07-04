@@ -2,7 +2,24 @@
 
 # Bioinformatics Tutorials and Workshops
 
-These tutorials have been developed by Melbourne Bioinfomatics (formerly VLSCI) for training in commmon bioinformatics tasks.
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Bioinformatics Tutorials and Workshops](#bioinformatics-tutorials-and-workshops)
+	- [What's in a tutorial](#whats-in-a-tutorial)
+	- [How to contribute](#how-to-contribute)
+		- [Fork and clone this repository](#fork-and-clone-this-repository)
+		- [Sync with upstream](#sync-with-upstream)
+		- [Set up your environment and build the documentation](#set-up-your-environment-and-build-the-documentation)
+		- [Deploy to your fork (optional)](#deploy-to-your-fork-optional)
+		- [Pull request](#pull-request)
+	- [Merging and deploying a pull request](#merging-and-deploying-a-pull-request)
+	- [Making changes to tutorial instructions](#making-changes-to-tutorial-instructions)
+	- [Making changes to slides](#making-changes-to-slides)
+	- [Adding a new tutorial](#adding-a-new-tutorial)
+
+<!-- /TOC -->
+
+These tutorials have been developed by Melbourne Bioinformatics (formerly VLSCI).
 
 The tutorials have been deployed here: http://vlsci.github.io/lscc_docs/tutorials/
 
@@ -22,6 +39,8 @@ Each tutorial subdirectory under `docs/tutorials/` should contain:
 Tutorials are built and deployed to the `gh-pages` branch using MkDocs, and then appear at http://vlsci.github.io/lscc_docs/tutorials/.
 
 ## How to contribute
+
+This section is a guide to contributing edits to the repository. For a guide to which files to edit, see [Making changes to tutorial instructions](#making-changes-to-tutorial-instructions), [Making changes to slides](#making-changes-to-slides), and [Adding a new tutorial](#adding-a-new-tutorial).
 
 ### Fork and clone this repository
 
@@ -73,7 +92,7 @@ Alternatively, you can build the site locally using `mkdocs build`. This will pu
 
 It is a good idea to preview your changes locally before pushing them.
 
-## Deploy to your fork (optional)
+### Deploy to your fork (optional)
 
 You can deploy changes to your fork. This will allow you (and PR reviewers) to
 view your changes online prior to merging your pull request.
@@ -87,16 +106,21 @@ mkdocs gh-deploy
 This will build the Markdown into HTML in your fork's `gh-pages` branch, AND immediately push the result without any further chance to review it. Your build should be
 visible at `http://<youraccount>.github.io/lscc_docs/tutorials`.
 
-TODO: check steps needed to have a github.io site up.
 
-### Merging and deploying a pull request
+### Pull request
+
+Commit your changes with `git commit`. Then push them to your fork with `git push origin`.
+
+Open your fork in github and issue a Pull Request.
 
 Ideally you should have someone else check and merge your pull request rather than do it yourself. Suggested reviewers for each tutorial are in that tutorial's `README.md`.
 
-To merge and deploy a PR:
+## Merging and deploying a pull request
+
+If someone has asked you to merge their PR, or if you are merging in your own:
 
 * Check the changes in github. Optionally, view the deployed site at the requester's fork.
-* Merge the PR in github. If there are merge conflicts, ask the issuer of the pull request to bring their fork up to date (see "Sync with upstream", above) and re-issue the pull request.
+* Merge the PR in github. If there are merge conflicts, ask the issuer of the pull request to bring their fork up to date (see [Sync with upstream](#sync-with-upstream)) and re-issue the pull request.
 * Clone or update a local copy of this repository, and update deployment of documentation, with:
 
 ```
@@ -117,9 +141,11 @@ Check that the updated tutorial appears under http://vlsci.github.io/lscc_docs/t
 
 ## Making changes to tutorial instructions
 
-To edit tutorial instructions, just edit the `.md` files containing those instructions and commit your changes with a helpful commit message. Follow the instructions above to contribute changes.
+Tutorial instructions are stored as Markdown and fully versioned, so you can just edit the `.md` files containing those instructions and commit your changes. Follow the instructions above to contribute changes.
 
-## Making changes to slides, or adding slide sets
+New images can be added to the tutorial's `media` subdirectory and linked in to the Markdown document.
+
+## Making changes to slides
 
 For slides stored in Google Drive, a link should be recorded in `docs/tutorials/<tutorialname>/README.md`. This link should point to the Google slides source (not PDF) where possible.
 
@@ -128,7 +154,8 @@ If you have made an alternate version of the slides for a workshop, you can list
 If you want to update the latest set of slides for a workshop:
 
 * Move the link from "Current slides" in `README.md` to a bullet point under "Other slides". Give some kind of description for this old version, even if it is just "Slides prior to June 2017 edits".
-* Create the new set of slides. Ideally, it should be stored in the LSCC shared Google Drive folder, in an appropriately named subfolder under either  `LSCC_shared/capacity_building/tutorials_workshops/` or `LSCC_shared/capacity_building/LSCC_NGSschool/`. Add the link to your new slides after "Current slides:" in the `README.md`.
+* Create the new set of slides. Ideally, it should be stored in the LSCC shared Google Drive folder, in an appropriately named subfolder under either  `LSCC_shared/capacity_building/tutorials_workshops/` or `LSCC_shared/capacity_building/LSCC_NGSschool/`.
+* Add the link to your new slides after "Current slides:" in the `README.md`.
 
 Don't be afraid to replace the current slides with your version if you think it is more up to date. The old slides are still accessible.
 
@@ -140,7 +167,7 @@ To create your new tutorial:
 * Create a main Markdown document within that folder, containing the tutorial instructions, e.g. `docs/tutorials/molecular_modelling/molecular_modelling.md`. You can use other tutorials as a template for the layout.
 * Add your main Markdown document to `mkdocs.yml` in the correct section. This will cause a link to it to appear in the menu of tutorials.
 * Create a `media` subdirectory, e.g. `docs/tutorials/molecular_modelling/media`. Copy in any images you need from other tutorials (e.g. logos). You can add any images here that you want to link into your Markdown documents.
-* Create a `README.md` file, e.g. `docs/tutorials/molecular_modelling/README.md`. You can copy the format from another tutorial. Add your own name as a PR reviewer for future changes.
+* Create a `README.md` file in your tutorial subdirectory, e.g. `docs/tutorials/molecular_modelling/README.md`. You can copy the format from another tutorial. Add your own name as a PR reviewer for future changes.
 
 Add slides:
 
@@ -149,5 +176,6 @@ Add slides:
 
 Once you've created your content:
 
-* Follow the "How to contribute" instructions above to preview your changes locally. Check that the new tutorial appears in the menu and renders correctly. Then pull request and (ideally) ask someone to merge and deploy your changes.
+* Before committing changes, add all newly created files to git with `git add`.
+* Follow the [How to contribute](#how-to-contribute) instructions above to create a pull request. When previewing your changes, check that the new tutorial appears in the menu and renders correctly.
 * Tell Christina that there is a new workshop available.
