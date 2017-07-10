@@ -1,10 +1,10 @@
 
 
-# Bioinformatics Tutorials and Workshops
+# Bioinformatics Tutorials
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Bioinformatics Tutorials and Workshops](#bioinformatics-tutorials-and-workshops)
+- [Bioinformatics Tutorials](#bioinformatics-tutorials)
 	- [What's in a tutorial](#whats-in-a-tutorial)
 	- [How to contribute](#how-to-contribute)
 		- [Fork and clone this repository](#fork-and-clone-this-repository)
@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-These tutorials have been developed by Melbourne Bioinformatics (formerly VLSCI).
+These tutorials have been developed by Melbourne Bioinformatics (formerly VLSCI) and are used in Melbourne Bioinformatics hands-on workshops.
 
 The tutorials have been deployed here: http://vlsci.github.io/lscc_docs/tutorials/
 
@@ -104,7 +104,7 @@ mkdocs gh-deploy
 ```
 
 This will build the Markdown into HTML in your fork's `gh-pages` branch, AND immediately push the result without any further chance to review it. Your build should be
-visible at `http://<youraccount>.github.io/lscc_docs/tutorials`.
+visible at `http://<your_account>.github.io/lscc_docs/tutorials`.
 
 
 ### Pull request
@@ -119,21 +119,13 @@ Ideally you should have someone else check and merge your pull request rather th
 
 If someone has asked you to merge their PR, or if you are merging in your own:
 
-* Check the changes in github. Optionally, view the deployed site at the requester's fork.
+* Check the changes in github. Optionally, view the deployed site at the requester's fork, or clone and build the requester's fork locally.
 * Merge the PR in github. If there are merge conflicts, ask the issuer of the pull request to bring their fork up to date (see [Sync with upstream](#sync-with-upstream)) and re-issue the pull request.
-* Clone or update a local copy of this repository, and update deployment of documentation, with:
+* Clone or update a local copy of this repository, and re-deploy the updated documentation, like so:
 
 ```
 git clone https://github.com/vlsci/lscc_docs
 cd lscc_docs
-mkdocs gh-deploy
-```
-
-or if you already have a local clone:
-
-```
-git checkout master
-git pull
 mkdocs gh-deploy
 ```
 
@@ -143,18 +135,19 @@ Check that the updated tutorial appears under http://vlsci.github.io/lscc_docs/t
 
 Tutorial instructions are stored as Markdown and fully versioned, so you can just edit the `.md` files containing those instructions and commit your changes. Follow the instructions above to contribute changes.
 
-New images can be added to the tutorial's `media` subdirectory and linked in to the Markdown document.
+New media can be added to the tutorial's `media` subdirectory and linked in to the Markdown document.
 
 ## Making changes to slides
 
 For slides stored in Google Drive, a link should be recorded in `docs/tutorials/<tutorialname>/README.md`. This link should point to the Google slides source (not PDF) where possible.
 
-If you have made an alternate version of the slides for a workshop, you can list the link for it under "Other slides". Give some kind of description for this alternate version, e.g. "slides for a clinical audience", "slides for bioinformaticians at GCC", or "Clare's abbreviated 5-minute slides".
+If you have made an alternate version of the slides for a workshop, you can list the link for it under "Other slides" in the `README.md`. Give some kind of description for this alternate version, e.g. "slides for a clinical audience", "slides for bioinformaticians at GCC", or "Clare's abbreviated 5-minute slides".
 
 If you want to update the latest set of slides for a workshop:
 
-* Move the link from "Current slides" in `README.md` to a bullet point under "Other slides". Give some kind of description for this old version, even if it is just "Slides prior to June 2017 edits".
+* Move the link from "Current slides" in `README.md` to a bullet point under "Other slides". Give some kind of description for this old version, even if it is just something like "Slides prior to June 2017 edits".
 * Create the new set of slides. Ideally, it should be stored in the LSCC shared Google Drive folder, in an appropriately named subfolder under either  `LSCC_shared/capacity_building/tutorials_workshops/` or `LSCC_shared/capacity_building/LSCC_NGSschool/`.
+* Get a shareable link to your slides from Google Drive. If you do this via "Get shareable link", you will find that Google will automatically turn on link sharing. You should make sure to turn off edit permissions on link sharing or, if preferred, turn off link sharing completely: the link will still work, and so long as the slides were created in the `LSCC_shared` folder, they will still be accessible to anyone with access permissions for that folder.
 * Add the link to your new slides after "Current slides:" in the `README.md`.
 
 Don't be afraid to replace the current slides with your version if you think it is more up to date. The old slides are still accessible.
@@ -167,12 +160,12 @@ To create your new tutorial:
 * Create a main Markdown document within that folder, containing the tutorial instructions, e.g. `docs/tutorials/molecular_modelling/molecular_modelling.md`. You can use other tutorials as a template for the layout.
 * Add your main Markdown document to `mkdocs.yml` in the correct section. This will cause a link to it to appear in the menu of tutorials.
 * Create a `media` subdirectory, e.g. `docs/tutorials/molecular_modelling/media`. Copy in any images you need from other tutorials (e.g. logos). You can add any images here that you want to link into your Markdown documents.
-* Create a `README.md` file in your tutorial subdirectory, e.g. `docs/tutorials/molecular_modelling/README.md`. You can copy the format from another tutorial. Add your own name as a PR reviewer for future changes.
+* Create a `README.md` file in your tutorial subdirectory, e.g. `docs/tutorials/molecular_modelling/README.md`. You can copy the format of this file from another tutorial. Add your own name as a PR reviewer for future changes.
 
 Add slides:
 
 * If you are using Google Slides, ideally store them in a new subdirectory under `LSCC_shared/capacity_building/LSCC_NGSschool`.
-* Add a link to the slides to your new `README.md` with the text "Current slides".
+* Add a link to the slides to your new `README.md` and label them "Current slides".
 
 Once you've created your content:
 
