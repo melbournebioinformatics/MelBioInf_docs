@@ -23,7 +23,7 @@ These tutorials have been developed by Melbourne Bioinformatics (formerly VLSCI)
 
 The tutorials have been deployed here: http://vlsci.github.io/lscc_docs/tutorials/
 
-Tutorials are written in [Markdown](http://en.wikipedia.org/wiki/Markdown) and built with `MkDocs`(http://www.mkdocs.org/).
+Tutorials are written in [Markdown](http://en.wikipedia.org/wiki/Markdown) and built with [MkDocs](http://www.mkdocs.org/).
 All documentation source files are under `docs/`. Tutorials are stored under `docs/tutorials/`.
 
 Slides for workshops are currently stored in Google Drive as Google Slides. Slides may optionally be added to this repository as e.g. Markdown or PDF.
@@ -44,9 +44,10 @@ This section is a guide to contributing edits to the repository. For a guide to 
 
 ### Fork and clone this repository
 
-- Fork this repository in github.
-- Clone your fork to your local computer, e.g.: `git clone https://github.com/<your_account>/lscc_docs`
-- `cd lscc_docs`
+You should do your work in a fork under your own github account:
+
+* Fork this repository in github using the fork button at https://github.com/vlsci/lscc_docs .
+* Clone your fork to your local computer, e.g.: `git clone https://github.com/<your_account>/lscc_docs`
 
 ### Sync with upstream
 
@@ -109,9 +110,11 @@ visible at `http://<your_account>.github.io/lscc_docs/tutorials`.
 
 ### Pull request
 
-Commit your changes with `git commit`. Then push them to your fork with `git push origin`.
+Commit your changes. Then push them to your fork with `git push origin master`.
 
-Open your fork in github and issue a Pull Request.
+Open your fork in github at `https://github.com/<your_account>/lscc_docs` and create a pull request.
+
+If your fork is up to date, you should see "These branches can be automatically merged" while you are creating the pull request. If your fork is *not* up to date you should bring it up to date (see [Sync with upstream](#sync-with-upstream))) and resolve any merge conflicts before creating the pull request.
 
 Ideally you should have someone else check and merge your pull request rather than do it yourself. Suggested reviewers for each tutorial are in that tutorial's `README.md`.
 
