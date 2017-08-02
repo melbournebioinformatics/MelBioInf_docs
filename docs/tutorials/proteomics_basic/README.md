@@ -1,5 +1,5 @@
 
-PR reviewers and advice: Clare Sloggett
+PR reviewers and advice: Ira Cooke
 
 Current slides: TBD
 

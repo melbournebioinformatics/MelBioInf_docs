@@ -1,5 +1,5 @@
 
-PR reviewers and advice: Clare Sloggett
+PR reviewers and advice: Jessica Chung
 
 Current slides: TBD
 
