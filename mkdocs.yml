@@ -1,29 +1,44 @@
+
 site_name: Bioinformatics Documentation
-theme: mkdocs
+
+repo_name: vlsci/lscc_docs
+repo_url: https://github.com/vlsci/lscc_docs
+
+# needs pip install mkdocs-material
+theme: 'material'
+extra:
+    feature:
+        tabs: false
+extra_css:
+  - 'extra.css'
+
 copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+
 pages:
-- 'Home': 'index.md'
-- 'Tutorials':
-  - 'Overview': 'tutorials/index.md'
-  - 'NGS Overview': 'tutorials/ngs_overview/NGS_Overview.md'
+- 'Home': 'tutorials/index.md'
+- 'General Tutorials':
+  - 'Python Overview': 'tutorials/python_overview/python_overview.md'
   - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
+  - 'Introduction to HPC': 'tutorials/hpc/index.md'
+  - 'Introduction to Unix': 'tutorials/unix/index.md'
   - 'Launching a Personal GVL Server': 'tutorials/gvl_launch/gvl_launch.md'
   - 'Introduction to Galaxy': 'tutorials/galaxy_101/galaxy_101.md'
   - 'Galaxy Workflows': 'tutorials/galaxy-workflows/galaxy-workflows.md'
-  - 'RNA-seq Basic Background': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
-  - 'RNA-seq Basic': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tutorial.md'
-  - 'RNA-seq Advanced': 'tutorials/rna_seq_dge_advanced/rna_seq_advanced_tutorial.md'
-  - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
-  - 'Introduction to HPC': 'tutorials/hpc/index.md'
-  - 'Introduction to Unix': 'tutorials/unix/index.md'
-  - 'Python Overview': 'tutorials/python_overview/python_overview.md'
+  - 'Introduction to GenomeSpace' : 'tutorials/genomespace/genomespace.md'
+- 'Genomics Tutorials':
+  - 'Introduction to Variant Calling': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
+  - 'Variant Calling Advanced':
+    - 'Tutorial': 'tutorials/var_detect_advanced/var_detect_advanced.md'
+    - 'Background': 'tutorials/var_detect_advanced/var_detect_advanced_background.md'
+  - 'RNA-seq DGE Basic':
+    - 'Tutorial': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tutorial.md'
+    - 'Background': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
+  - 'RNA-seq DGE Advanced': 'tutorials/rna_seq_dge_advanced/rna_seq_advanced_tutorial.md'
+  - 'RNA-seq DGE Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
   - 'Microbial de novo Assembly for Illumina Data':
     - 'Tutorial': 'tutorials/assembly/assembly.md'
     - 'Method Background': 'tutorials/assembly/assembly-background.md'
-  - 'Introduction to Variant Calling using Galaxy': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
-  - 'Variant Detection Advanced':
-    - 'tutorials/var_detect_advanced/var_detect_advanced.md'
-    - 'tutorials/var_detect_advanced/var_detect_advanced_background.md'
+- 'Proteomics Tutorials':
   - 'Identifying proteins from mass spectrometry data':
     - 'Tutorial' : 'tutorials/proteomics_basic/proteomics_basic.md'
     - 'Galaxy Background' : 'tutorials/proteomics_basic/background_galaxy.md'
@@ -32,10 +47,9 @@ pages:
     - 'Protein Databases' : 'tutorials/proteomics_basic/background_protein_databases.md'
     - 'Search Engines' : 'tutorials/proteomics_basic/background_search_engines.md'
     - 'Protein Prophet' : 'tutorials/proteomics_basic/background_protein_prophet.md'
-    - 'Alignment Tutorial' : 'tutorials/alignment/alignment.md'
-  - 'Introduction to GenomeSpace' : 'tutorials/genomespace/genomespace.md'
 - 'Protocols':
   - 'De Novo Genome Assembly for Illumina Data': 'tutorials/assembly/assembly-protocol.md'
+
 extra_templates: [
   'tutorials/hpc/slides.html',
   'tutorials/unix/slides.html',
