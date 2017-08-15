@@ -122,7 +122,10 @@ Ideally you should have someone else check and merge your pull request rather th
 
 If someone has asked you to merge their PR, or if you are merging in your own:
 
-* Check the changes in github. Optionally, view the deployed site at the requester's fork, or clone and build the requester's fork locally.
+* Check the changes in github to spot any errors. You should be able to see the diff for the changes if the requester has sent you a link to their Pull Request.
+* Optionally, to view the new docs in their final form:
+	- view the deployed site at the requester's fork. This will be at `http://<requesters_account>.github.io/lscc_docs/tutorials/` *if* the author has run `mkdocs gh-deploy` on their fork. Or,
+	- clone and build the requester's fork locally, using the [instructions above](#set-up-your-environment-and-build-the-documentation).
 * Merge the PR in github. If there are merge conflicts, ask the issuer of the pull request to bring their fork up to date (see [Sync with upstream](#sync-with-upstream)) and re-issue the pull request.
 * Clone or update a local copy of this repository, and re-deploy the updated documentation, like so:
 
