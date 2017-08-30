@@ -1,7 +1,16 @@
 /* the bar across the top */
-.navbar {
+.md-header {
 	background: #fff url('https://www.melbournebioinformatics.org.au/wp-content/themes/_vlsci/images/top-orange.gif') repeat-x top left;
+	color: #2fa4e7;
 	border-bottom: none;
+}
+
+.md-header-nav__parent {
+	color: #2fa4e7;
+}
+
+.md-search__form:hover {
+	background-color: #333333;
 }
 
 .icon-bar {
