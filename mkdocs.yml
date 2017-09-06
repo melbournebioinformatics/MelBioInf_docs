@@ -6,6 +6,7 @@ repo_url: https://github.com/vlsci/lscc_docs
 
 # needs pip install mkdocs-material
 theme: 'material'
+theme_dir: 'material-theme-overrides'
 extra:
     feature:
         tabs: false
