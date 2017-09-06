@@ -1,4 +1,4 @@
-[![Melbourne Bioinformatics Logo](../img/melbioinf_logo.png)](https://www.melbournebioinformatics.org.au/)
+[![Melbourne Bioinformatics Logo](img/melbioinf_logo.png)](https://www.melbournebioinformatics.org.au/)
 
 # Tutorials and protocols
 
