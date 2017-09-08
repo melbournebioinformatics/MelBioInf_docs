@@ -49,6 +49,8 @@ You should do your work in a fork under your own github account:
 * Fork this repository in github using the fork button at https://github.com/vlsci/lscc_docs .
 * Clone your fork to your local computer, e.g.: `git clone https://github.com/<your_account>/lscc_docs`
 
+It is often a good idea to make a separate branch in your fork to work on your changes.
+
 ### Sync with upstream
 
 If the repository has been edited since you forked it, you will need to bring your fork up to date before you can contribute changes:
@@ -117,6 +119,8 @@ Open your fork in github at `https://github.com/<your_account>/lscc_docs` and cr
 If your fork is up to date, you should see "These branches can be automatically merged" while you are creating the pull request. If your fork is *not* up to date you should bring it up to date (see [Sync with upstream](#sync-with-upstream))) and resolve any merge conflicts before creating the pull request.
 
 Ideally you should have someone else check and merge your pull request rather than do it yourself. Suggested reviewers for each tutorial are in that tutorial's `README.md`.
+
+Preferably, change one major thing per pull request - e.g. edit one tutorial in one pull request, and make a separate pull request if you want to edit another tutorial.
 
 ## Merging and deploying a pull request
 
