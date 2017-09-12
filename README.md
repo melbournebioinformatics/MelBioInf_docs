@@ -72,6 +72,7 @@ virtualenv mkdocs_dev
 source mkdocs_dev/bin/activate
 pip install -U mkdocs markdown-include
 pip install -U mdx_showable
+pip install -U mkdocs-material
 ```
 
 Once you have mkdocs installed (and in your PATH) then you can preview the website by running the following command in the top directory of this repository:
