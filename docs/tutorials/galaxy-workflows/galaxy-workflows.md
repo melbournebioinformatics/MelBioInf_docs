@@ -83,7 +83,7 @@ You might have to wait for a bit, then:
 
 
 -->
-### Workflow creation: Method 1
+## Workflow creation: Method 1
 
 We will create a workflow from an existing history. You can use this method to make a re-useable analysis from one you’ve already done. i.e. You can perform the analysis once and then create a workflow out of it to re-use it on more/new data. We will create a workflow from the history you imported in step 1 above. The footnote below explains the steps that created this history. These are the steps we will mimic in the workflow.
 
@@ -102,7 +102,7 @@ You will now be shown a page which contains the steps used to create the history
 The workflow is now accessible via the bottom of the tool pane by clicking on All Workflows.
 
 
-#### Some discussion
+### Some discussion
 
 Have a look at your workflow. Click on its button in the workflow list. It’s tool interface will appear. You can now run this workflow any time you like with different input datasets. NOTE: The input data sets must be of the same types as the original ones. i.e. In our case, two fastq reads files and one fasta reference sequence.
 
@@ -116,11 +116,11 @@ A visualisation of your workflow will appear. Note the connections and the steps
 
 Next we’ll go through how to create this workflow using the editor..
 
-### Workflow Creation: Method 2
+## Workflow Creation: Method 2
 
 We will now create the same read mapping/variant calling workflow using the editor directly. The workflow needs to take in some reads and a reference, map the reads to the reference using BWA, run Freebayes on the BAM output from BWA to call the variants, and finally filter the resulting vcf file.
 
-#### Step 1: Create a workflow name and edit space.
+### Step 1: Create a workflow name and edit space.
 
 * Click on **Workflow** in Galaxy’s menu.
 * Click on the **Create New Workflow** button.
@@ -129,7 +129,7 @@ We will now create the same read mapping/variant calling workflow using the edit
 
 You should now be presented with a blank workflow editing grid.
 
-#### Step 2: Open the editor and place component tools
+### Step 2: Open the editor and place component tools
 
 **Add three input datafiles.**
 
@@ -193,7 +193,7 @@ Phew! We’re nearly done! The only thing left is to select which workflow outpu
 * Click on the star next to "Map with BWA’s" bam file output.
 * Click on the star next to "Filter’s" output vcf.
 
-#### Step 3: Save it!
+### Step 3: Save it!
 
 Click on the <img src="../media/Galaxy-menu.png" width=20 /> at the top of the workflow grid and select **Save**.
 
@@ -201,11 +201,11 @@ Congratulations. You’ve just created a Galaxy workflow.
 
 Now to run it!
 
-### Running the workflow
+## Running the workflow
 
 We will now make a new history called "Test" and run the workflow on it’s data.
 
-#### Create the new history
+### Create the new history
 
 * From the Histories Menu, select **Copy Datasets**
 * Select the 2 x fastq files and the Ecoli .fna file.
@@ -213,7 +213,7 @@ We will now make a new history called "Test" and run the workflow on it’s data
 * Click **Copy History Items** button
 * Click on the link to the new history in the green bar at the top of the screen
 
-#### Run the workflow
+### Run the workflow
 
 * On the tools pane, click **All Workflows**
 * Select the *Variants from scratch* workflow (or whatever you called it.)
