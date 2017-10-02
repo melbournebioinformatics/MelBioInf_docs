@@ -32,7 +32,7 @@ This workshop/tutorial will familiarise you with the Galaxy workflow engine. It 
 
 ## Section 1: Preparation.
 
-The purpose of this section is to get you to log in to the server.. For this workshop, you can use a Galaxy server that you have created by following the steps outlined in: [Launch a GVL Galaxy Instance]() or you can use the public [Galaxy-tut](http://galaxy-tut.genome.edu.au)
+The purpose of this section is to get you to log in to the server.. For this workshop, you can use a Galaxy server that you have created by following the steps outlined in: [Launch a GVL Galaxy Instance]() or you can use the public [Galaxy-mel](http://galaxy-mel.genome.edu.au)
 
 
 **Go to Galaxy URL of your server in Firefox or Chrome (your choice, please don't use IE or Safari.)**
@@ -57,6 +57,19 @@ This section will show you two different methods to create a workflow and then h
 
 ### Import the workflow history
 
+In this step we will import a shared history to our workspace so we can extract a workflow from it. This will only work on Galaxy servers which have the history available on it. If yours doesn't have the appropriate history, there are instructions to create it [here](history_creation.md). Alternatively, you can extract a workflow from any history you have in your "Saved Histories."
+
+* From the menu at the top of the Galaxy window, click **Shared Data -> Histories**
+* Find the history called "*workflow_finished*" and click on it.
+* Then click on **Import history** at the top right of the screen.
+* Change the name if you wish and then click **Import**
+
+This history should now be in your history pane on the right.
+
+
+<!--
+
+
 This step will show you how to import a history from a remote source into your own workspace. We will be using this history to build a workflow.
 
 * From the histories menu <img src="../media/Galaxy-menu.png" width=20 />, click **Import from File**.
@@ -68,11 +81,13 @@ You might have to wait for a bit, then:
 * From the history menu <img src="../media/Galaxy-menu.png" width=20 />, click **Saved Histories**
 * Select the history: *Imported: Workflow-finished*
 
+
+-->
 ### Workflow creation: Method 1
 
 We will create a workflow from an existing history. You can use this method to make a re-useable analysis from one you’ve already done. i.e. You can perform the analysis once and then create a workflow out of it to re-use it on more/new data. We will create a workflow from the history you imported in step 1 above. The footnote below explains the steps that created this history. These are the steps we will mimic in the workflow.
 
-Make sure your current history is the one you imported in Section 2 - Step 1 above (*imported: Workflow_finished.*) If not, switch to it.
+Make sure your current history is the one you imported in Section 2 - Step 1 above (*imported: workflow_finished.*) If not, switch to it. If you couldn't import it, you should be able to complete this step with any suitable history.
 
 **Now we will create the workflow.**
 
@@ -87,9 +102,9 @@ You will now be shown a page which contains the steps used to create the history
 The workflow is now accessible via the bottom of the tool pane by clicking on All Workflows.
 
 
-#### Some discussion:
+#### Some discussion
 
-Have a look at your workflow. Click on its button in the workflow list. It’s tool interface will appear. You can now run this workflow any time you like with different input datasets. NOTE: The input data sets must be of the same types as the original ones. i.e. Two fastq reads files and one fasta reference sequence.
+Have a look at your workflow. Click on its button in the workflow list. It’s tool interface will appear. You can now run this workflow any time you like with different input datasets. NOTE: The input data sets must be of the same types as the original ones. i.e. In our case, two fastq reads files and one fasta reference sequence.
 
 More interesting though is to:
 
@@ -103,7 +118,7 @@ Next we’ll go through how to create this workflow using the editor..
 
 ### Workflow Creation: Method 2
 
-We will now create the same read mapping/variant calling workflow using the editor directly. We need to get some reads and a reference, map the reads to the reference using BWA, run Freebayes on the BAM to call the variants, and finally filter the resulting vcf file.
+We will now create the same read mapping/variant calling workflow using the editor directly. The workflow needs to take in some reads and a reference, map the reads to the reference using BWA, run Freebayes on the BAM output from BWA to call the variants, and finally filter the resulting vcf file.
 
 #### Step 1: Create a workflow name and edit space.
 
@@ -112,14 +127,9 @@ We will now create the same read mapping/variant calling workflow using the edit
 * In the "Workflow Name" text box type: *Variants from scratch*
 * Click the **Create** button.
 
-You’ll now see a list of workflows. Your’s will be in that list.
+You should now be presented with a blank workflow editing grid.
 
 #### Step 2: Open the editor and place component tools
-
-* Click on the down arrow on your workflow’s button.
-* Select **Edit**
-
-You’ll be presented with a blank workflow grid.
 
 **Add three input datafiles.**
 
@@ -157,14 +167,14 @@ You’ll be presented with a blank workflow grid.
 If you’re keen - **Note: this is optional.** Also change the following parameters the right hand pane for freebayes to make it a bit more sensible for variant calling in bacterial genomes.
 
 * "Choose parameter selection level": *Complete list of all options*
-* "Set population model": *Yes*
+* "Population model options": *Set population model options*
 * "Set ploidy for the analysis": *1*
-* "Set input filters": *Yes*
+* "Input filters": *Set input filters*
 * "Exclude alignments from analysis if they have a mapping quality less than": *20*
 * "Exclude alleles from analysis if their supporting base quality is less than": *20*
 * "Require at least this fraction of observations … to evaluate the position": *0.9*
 * "Require at least this count of observations .. to evaluate the position": *10*
-* "Set population and mappability priors": *Yes*
+* "Population and mappability priors": *Set population and mappability priors*
 * "Disable incorporation of prior expectations about observations": *Yes*
 
 **Add in the Filter step.**

@@ -24,7 +24,9 @@ pages:
   - 'Introduction to Unix': 'tutorials/unix/index.md'
   - 'Launching a Personal GVL Server': 'tutorials/gvl_launch/gvl_launch.md'
   - 'Introduction to Galaxy': 'tutorials/galaxy_101/galaxy_101.md'
-  - 'Galaxy Workflows': 'tutorials/galaxy-workflows/galaxy-workflows.md'
+  - 'Galaxy Workflows': 
+    - 'Tutorial': 'tutorials/galaxy-workflows/galaxy-workflows.md'
+    - 'History Creation': 'tutorials/galaxy-workflows/history_creation.md'
   - 'Introduction to GenomeSpace' : 'tutorials/genomespace/genomespace.md'
 - 'Genomics Tutorials':
   - 'Introduction to Variant Calling': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
