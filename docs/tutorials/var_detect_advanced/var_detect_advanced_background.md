@@ -36,7 +36,7 @@ The number of reads that stack up on each other is called *read coverage*. The d
 
 What should be noted about variants is that they are rare events and homozygous variants are even rarer than heterozygous events.
 
-## Variant Calling Software: 
+## Variant Calling Software:
 
 There a number of software available for variant calling some of which are as follows:
 
@@ -229,7 +229,7 @@ Col      | Field     | Description
 2        |POS        |1-based position. For an indel, this is the position preceding the indel.
 3        |ID         |Variant identifier. Usually the dbSNP rsID.
 4        |REF        |Reference sequence at POS involved in the variant. For a SNP, it is a single base.
-5        |ALT        |Comma delimited list of alternative seuqence(s).
+5        |ALT        |Comma delimited list of alternative sequence(s).
 6        |QUAL       |Phred-scaled probability of all samples being homozygous reference.
 7        |FILTER     |Semicolon delimited list of filters that the variant fails to pass.
 8        |INFO       |Semicolon delimited list of variant information.
@@ -243,9 +243,8 @@ Col      | Field     | Description
 
 #### Bcf file format:
 
-### 
+###
 
 **BCF format:**
 
 BCF, or the binary variant call format, is the binary version of VCF. It keeps the same information in VCF, while much more efficient to process especially for many samples. The relationship between BCF and VCF is similar to that between BAM and SAM.
-
