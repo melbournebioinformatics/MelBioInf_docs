@@ -46,7 +46,7 @@ _(These instructions are for the NeCTAR Australian Research Cloud. For any other
 
 NeCTAR object storage is a place that people with NeCTAR credentials can store their data reliably.
 
-If you haven't used the NeCTAR cloud before, follow the steps in sections 1 and 2 of this tutorial: [https://vlsci.github.io/lscc_docs/tutorials/gvl_launch/gvl_launch/](https://vlsci.github.io/lscc_docs/tutorials/gvl_launch/gvl_launch/).
+If you haven't used the NeCTAR cloud before, follow the steps in sections 1 and 2 of this tutorial: [http://melbournebioinformatics.github.io/MelBioInf_docs/gvl_launch/gvl_launch/](http://melbournebioinformatics.github.io/MelBioInf_docs/gvl_launch/gvl_launch/).
 
 Go to the NeCTAR dashboard at [https://dashboard.rc.nectar.org.au](https://dashboard.rc.nectar.org.au).
 

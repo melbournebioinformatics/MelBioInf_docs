@@ -1,8 +1,8 @@
 
 site_name: Bioinformatics Documentation
 
-repo_name: vlsci/lscc_docs
-repo_url: https://github.com/vlsci/lscc_docs
+repo_name: melbournebioinformatics/MelBioInf_docs
+repo_url: https://github.com/melbournebioinformatics/MelBioInf_docs
 
 # needs pip install mkdocs-material
 theme: 'material'

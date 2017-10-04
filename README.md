@@ -21,7 +21,7 @@
 
 These tutorials have been developed by Melbourne Bioinformatics (formerly VLSCI) and are used in Melbourne Bioinformatics hands-on workshops.
 
-The tutorials have been deployed here: http://vlsci.github.io/lscc_docs/tutorials/
+The tutorials have been deployed here: http://melbournebioinformatics.github.io/MelBioInf_docs/
 
 Tutorials are written in [Markdown](http://en.wikipedia.org/wiki/Markdown) and built with [MkDocs](http://www.mkdocs.org/).
 All documentation source files are under `docs/`. Tutorials are stored under `docs/tutorials/`.
@@ -36,7 +36,7 @@ Each tutorial subdirectory under `docs/tutorials/` should contain:
 * A `README.md` Markdown document containing suggested PR reviewers and the location of any relevant Google Slides (or any other slides that cannot be stored in the repository directly).
 * A `media` subdirectory with images that will be used by MkDocs.
 
-Tutorials are built and deployed to the `gh-pages` branch using MkDocs, and then appear at http://vlsci.github.io/lscc_docs/tutorials/.
+Tutorials are built and deployed to the `gh-pages` branch using MkDocs, and then appear at http://melbournebioinformatics.github.io/MelBioInf_docs/.
 
 ## How to contribute
 
@@ -46,8 +46,8 @@ This section is a guide to contributing edits to the repository. For a guide to 
 
 You should do your work in a fork under your own github account:
 
-* Fork this repository in github using the fork button at https://github.com/vlsci/lscc_docs .
-* Clone your fork to your local computer, e.g.: `git clone https://github.com/<your_account>/lscc_docs`
+* Fork this repository in github using the fork button at https://github.com/melbournebioinformatics/MelBioInf_docs.
+* Clone your fork to your local computer, e.g.: `git clone https://github.com/<your_account>/MelBioInf_docs`
 
 It is often a good idea to make a separate branch in your fork to work on your changes.
 
@@ -56,7 +56,7 @@ It is often a good idea to make a separate branch in your fork to work on your c
 If the repository has been edited since you forked it, you will need to bring your fork up to date before you can contribute changes:
 
 ```
-git remote add upstream https://github.com/vlsci/lscc_docs
+git remote add upstream https://github.com/melbournebioinformatics/MelBioInf_docs
 git fetch upstream
 git merge upstream/master
 ```
@@ -115,7 +115,7 @@ visible at `http://<your_account>.github.io/lscc_docs/tutorials`.
 
 Commit your changes. Then push them to your fork with `git push origin master`.
 
-Open your fork in github at `https://github.com/<your_account>/lscc_docs` and create a pull request.
+Open your fork in github at `https://github.com/<your_account>/MelBioInf_docs` and create a pull request.
 
 If your fork is up to date, you should see "These branches can be automatically merged" while you are creating the pull request. If your fork is *not* up to date you should bring it up to date (see [Sync with upstream](#sync-with-upstream))) and resolve any merge conflicts before creating the pull request.
 
@@ -129,18 +129,18 @@ If someone has asked you to merge their PR, or if you are merging in your own:
 
 * Check the changes in github to spot any errors. You should be able to see the diff for the changes if the requester has sent you a link to their Pull Request.
 * Optionally, to view the new docs in their final form:
-	- view the deployed site at the requester's fork. This will be at `http://<requesters_account>.github.io/lscc_docs/tutorials/` *if* the author has run `mkdocs gh-deploy` on their fork. Or,
+	- view the deployed site at the requester's fork. This will be at `http://<requesters_account>.github.io/MelBioInf_docs/` *if* the author has run `mkdocs gh-deploy` on their fork. Or,
 	- clone and build the requester's fork locally, using the [instructions above](#set-up-your-environment-and-build-the-documentation).
 * Merge the PR in github. If there are merge conflicts, ask the issuer of the pull request to bring their fork up to date (see [Sync with upstream](#sync-with-upstream)) and re-issue the pull request.
 * Clone or update a local copy of this repository, and re-deploy the updated documentation, like so:
 
 ```
-git clone https://github.com/vlsci/lscc_docs
-cd lscc_docs
+git clone https://github.com/melbournebioinformatics/MelBioInf_docs
+cd MelBioInf_docs
 mkdocs gh-deploy
 ```
 
-Check that the updated tutorial appears under http://vlsci.github.io/lscc_docs/tutorials/.
+Check that the updated tutorial appears under http://melbournebioinformatics.github.io/MelBioInf_docs/
 
 ## Making changes to tutorial instructions
 
