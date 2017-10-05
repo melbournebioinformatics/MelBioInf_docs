@@ -308,7 +308,7 @@ The current generation of variant calling tools do not output pileup files, and 
 
     Try this filtering step two ways:
 
-      * First, set the parameter *Only report variants?* to **No**. This will give you all locations with a coverage of at least 10 and sufficient read quality. This is similar to the information
+      * First, set the parameter *Only report variants?* to **No**. This will give you all locations with a coverage of at least 10 and sufficient read quality. This is similar to the information you see when you look at IVG: each pilup row corresponds to a column of aligned bases at one genomic location.
       * Then, repeat the step but set *Only report variants?* to **Yes**. This will effectively do variant calling: it will give you only locations that have some evidence that there might be a variant present. This variant calling is not very stringent, so you will still get lots of rows. We could filter further to, for instance, variants with high quality scores.
 
     Examine your two pileup files and understand the difference between them. Which coordinates are present in each? What do the bases look like in one compared to the other? Compare the variant quality score (in column 6) to the bases listed on each row.
@@ -321,7 +321,6 @@ FreeBayes is a Bayesian variant caller which assesses the likelihood of each pos
     * Select your sorted BAM file as input, and select the correct reference genome.
     * Under *Choose parameter selection level*, select "Simple diploid calling with filtering and coverage". This will consider only aligned reads with sufficient mapping quality and base quality. You can see the exact parameters this sets by scrolling down in the main Galaxy window to the Galaxy FreeBayes documentation section on *Galaxy-specific options*.
     * *Execute* FreeBayes.
-    * When it has run, rename the resulting VCF file to something shorter, such as **NA12878.FreeBayes.chr22.vcf**.
 
 2. **Check the generated list of variants**.
     * Click the eye icon to examine the VCF file contents. The VCF format is described below - make sure you can identify the header rows and the data, and understand the important columns.
@@ -330,7 +329,7 @@ FreeBayes is a Bayesian variant caller which assesses the likelihood of each pos
 
     FreeBayes, like most variant callers, produces a [Variant Call Format (VCF)](http://vcftools.sourceforge.net/specs.html) file.
 
-    VCF consists of a header section and a data section. The header section has some information about the file, the parameters used to produce it, and the details of what information this variant caller has stored in the INFO, FILTER and FORMAT columns.
+    VCF consists of a header section and a data section. The header section has some information about the file and the parameters used to produce it. The header also specifies what information is stored in the INFO, FILTER and FORMAT columns, as this is different for different variant callers.
 
     The data section has several columns. For this tutorial, you should concentrate on CHROM, POS, REF, ALT and QUAL. CHROM and POS describe the variant's genomic location, REF and ALT describe the variant's nucleotides relative to the reference, and QUAL is a quality score giving FreeBayes' confidence in the correctness of this variant call.
 
@@ -349,12 +348,28 @@ FreeBayes is a Bayesian variant caller which assesses the likelihood of each pos
     9        |FORMAT     |Colon delimited list of the format of individual genotypes in the following fields.
     10+      |Sample(s)  |Individual genotype information defined by FORMAT.
 
-    For more detail, you can look at the [*VCF spec*](http://vcftools.sourceforge.net/specs.html).
+    For even more detail on VCF files, you can look at the [*VCF format specification*](http://vcftools.sourceforge.net/specs.html).
 
 3. **Visualise the variants and compare files**
     * Open the VCF file in IGV using the dataset's *display in IGV local* link (using the *web current* link will open IGV again, and using *local* should use your already-running IGV). This will give an annotation track in IGV to visualise where variants have been called. Compare it to your BAM file.
     * Take a look again at the same region as earlier: `chr22:36,006,744-36,007,406`
     * Try comparing to the corresponding location in the pileup file. You can filter to the same window as we just opened in IGV with the tool *Filter and Sort > Filter*. Choose your previously-filtered pileup file as input, and set the filter condition to `c1=="chr22" and c2 > 36006744 and c2 < 36007406`.
+
+4. **Optional: filter variants**: See if you can work out how to filter your VCF file to variants with quality scores greater than 50. You can use the *Filter and Sort: Filter* tool we used above.
+
+## 6. Further steps
+
+We've seen how to:
+
+ - Align the raw data (sequence reads) to a reference genome
+ - Generate variant calls from aligned reads
+ - Interpret the various file formats used in storing reads, alignments and variant calls
+ - Visualise the data using IGV
+
+For real variant calling, you will probably want to carry out clean-up steps on your BAM file to improve the quality of the calls, and do further filtering and selection on the resulting variants.
+
+We look at some further steps in the [Advanced Variant Calling](../var_detect_advanced/var_detect_advanced) tutorial.
+
 
   ----------------------------------------------
 
