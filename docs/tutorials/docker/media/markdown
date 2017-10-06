@@ -159,7 +159,7 @@ Run the following command to start an nginx server running on your cloud instanc
 ```bash
 docker run -p 80:80 nginx
 ```
-Now visit this server by typing in your cloud instance URL into a web browser:
+Now visit this server by typing in your cloud instance IP address into a web browser:
 ```
 http://115.146.85.14
 ```
@@ -178,6 +178,7 @@ Exercise
 * The image is called `bgruening/galaxy-rna-seq`
 * The galaxy image listens on port 80 inside the container
 * What is the correct `docker run` command to use?
+* Once you have done this, check it was correct by visitng your instance IP address in a browser
 ]
 ]
 
@@ -215,6 +216,7 @@ Exercise
 * You need to store the logs for your Galaxy image on your host system using a bind mount
 * The Galaxy container stores its logs in `/home/galaxy/logs`
 * What command do you run?
+* Once you have done this, `ls` the directory you mounted into the container to verify that you have the logs
 ]
 ]
 --
@@ -243,11 +245,11 @@ Exercise
 .message-body[
 Run a container in the background:
 ```bash
-docker run -d bgruening/galaxy-rna-seq
+docker run -d -p 80:80 bgruening/galaxy-rna-seq
 ```
 And now try running the command:
 ```bash
-docker containers
+docker ps
 ```
 ]
 ]
@@ -282,25 +284,33 @@ docker exec bd2ac6cce96f ls
 docker exec -it bd2ac6cce96f bash
 ```
 ---
-# Task 1.3 - Running a Container Interactively
-* You started the Galaxy container using:
+# Running a Container Interactively
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+* You should have started the Galaxy container using:
 ```bash
-docker run -p -d 8080:80 bgruening/galaxy-rna-seq
+docker run -d -p 80:80 bgruening/galaxy-rna-seq
 ```
 * You want to make a quick edit to the Galaxy homepage
 * The homepage is located at `/etc/galaxy/web/welcome.html`
+]
+]
 
---
-
+---
+# Running a Container Interactively
+.message.is-success[
+.message-header[
+Exercise
+]
+.message-body[
 * First, `docker ps` to find the container ID
-
---
-
 * Next, `docker exec -it <CONTAINER_ID> bash`
-
---
-
 * Now, run `nano /etc/galaxy/web/welcome.html` (or vim!) and save the file
+]
+]
 ---
 class: center, middle
 # Part 3
@@ -313,6 +323,7 @@ class: center, middle
     * `RUN` executes a shell command
     * `COPY` copies some data from the host to the image
     * `ENTRYPOINT` sets the command that will be run when a container is created
+    * `WORKDIR`, like `cd`, sets the current working directory for the build script
 ---
 # Dockerfiles - Example
 ```
@@ -345,52 +356,97 @@ ENTRYPOINT ["./cpipe"]
 	* [Best practices](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/)
 ---
 # Docker Build
-* To go from a Dockerfile to a Docker image, use the `docker build` command
-* You normally have to specify an image tag/name using `-t`, and a directory containing the Dockerfile. For example:
+* To build a Docker image from a Dockerfile, use the `docker build` command
+* You should specify an image tag/name using `-t`, and a directory containing the Dockerfile. For example:
 ```bash
 docker build -t my_samtools .
 ```
 ---
-# Task 2.1 - Dockerizing Samtools
+# Exercise - Dockerizing Samtools
 * Samtools is a common utility for working with SAM and BAM alignment files
 * Samtools can be installed using `apt-get install samtools`
-* Make sure you tag this as `my_samtools` - we'll use this later!
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+* Create a Dockerfile for samtools inside its own directory, and build it using `docker build`
+* Once it's finished, try testing it using the SAM file provided:
+
+```bash
+docker run my_samtools sort < alignment.bam
+```
+]
+]
 
 --
-
+.message.is-success[
+.message-header[
+Solution
+]
+.message-body[
 ```
 FROM ubuntu
 RUN apt-get update && apt-get install -y samtools
 ENTRYPOINT ["samtools"]
 ```
+]
+]
 
-Now you've got a working samtools image, try testing it using the SAM file provided:
-```bash
-docker run my_samtools sort < alignment.bam
-```
+
 
 ---
-# Task 2.2 - Dockerizing BWA
+# Exercise - Dockerizing BWA
 * bwa can be installed in much the same way as samtools
-* Try `apt-get install bwa`
+
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+* Try making a Dockerfile for `bwa`
 * Make sure you tag this as `my_bwa`
+]
+]
 
 --
 
+.message.is-success[
+.message-header[
+Exercise
+]
+.message-body[
 ```
 FROM ubuntu
 RUN apt-get update && apt-get install -y bwa
 ENTRYPOINT ["bwa"]
 ```
+]
+]
 ---
-# Task 2.3 - Dockerizing Freebayes
+# Exercise - Dockerizing Freebayes
+* Freebayes is an open-source variant caller (calculates how a given patient's DNA differs from the 'normal' reference genome)
 * Freebayes is a little harder to install - you'll need to build it from source
-* Have a look at the git repo for some help: https://github.com/ekg/freebayes
+* Installation instructions for Freebayes can be found here: https://github.com/ekg/freebayes#obtaining
+
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+* Try making a Dockerfile for `freebayes`
 * As a tip, the apt-get repositories you need for this will be: `git build-essential zlib1g-dev libbz2-dev liblzma-dev`
 * Make sure you tag this as `my_freebayes`
+]
+]
 
---
-
+---
+# Exercise - Dockerizing Freebayes
+.message.is-success[
+.message-header[
+Solution
+]
+.message-body[
 ```
 FROM ubuntu
 RUN apt-get update && apt-get install -y git build-essential zlib1g-dev libbz2-dev liblzma-dev
@@ -401,21 +457,31 @@ RUN make
 RUN make install
 ENTRYPOINT ["freebayes"]
 ```
+]
+]
 
 ---
 # Dockerized Pipelines
 * Docker containers are often used to provide the tools and runtime environment for each stage in a bioinformatics pipeline
 * Conveniently, the images you just make are just the right ones for running a variant calling pipeline
-* Try running 
+
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+Try running 
 ```bash
 cwltool workflow.cwl \ 
 	--read_1 data/NA12878_CARDIACM_MUTATED_L001_R1.fastq.gz \
 	--read_2 data/NA12878_CARDIACM_MUTATED_L001_R2.fastq.gz \ 
 	--reference data/ucsc.hg19.fasta
 ```
+]
+]
 ---
 class: center, middle
 # Part 4
 ## Docker on HPC
 ---
-# Task 3.1 - Running on Singularity
+# Exercise - Running on Singularity
