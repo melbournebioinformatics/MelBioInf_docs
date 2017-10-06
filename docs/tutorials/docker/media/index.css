@@ -21,6 +21,9 @@ img {
 .img-half img {
   max-width: 45%;
 }
+.message-body ul {
+  margin-top: 0;
+}
 .remark-slide-content {
   /*background-color: rgb(21, 148, 205) /* rgb(52, 138, 189) */
 }

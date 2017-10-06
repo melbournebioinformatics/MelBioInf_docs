@@ -60,48 +60,139 @@ class: center, middle
 ## Running Containers
 ---
 # Docker Run
-To run a container, all you need to do is specify the image name, and docker will pull the image from Docker Hub, and begin running it 
+* To run a container, all you need to do is specify the image name, and docker will pull the image from Docker Hub, and begin running it 
+* `docker run [IMAGE]`
 
 .message.is-info[
 .message-header[
-    <p>Example</p>
+Exercise
 ]
 .message-body[
-	```bash
-	docker run hello-world
-	```
+Run the following command. What does it output?
+
+```bash
+docker run hello-world
+```
+]
+]
+--
+.message.is-success[
+.message-header[
+Answer
+]
+.message-body[
+```
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+```
+]
+]
+---
+# Docker Hub
+* When you ran this command, Docker first looked for the image on your local machine, and when it couldn't find it, pulled it down from Docker Hub, the cloud registry of Docker images
+* Docker Hub is located here: https://hub.docker.com/
+* On Docker Hub, images without a prefix (e.g. `hello-world`) are official images, while those with a prefix (e.g. `bgruening/galaxy-stable`) are community-made images
+
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+Search on Docker Hub for the official `hello-world` image. How many stars does it have?
+]
+]
+---
+# Docker Hub
+.message.is-success[
+.message-header[
+Answer
+]
+.message-body[
+    ![](assets/stars.png)
 ]
 ]
 ---
 # Task 1.2 - Viewing the Image
-Now that you've downloaded a Docker image, you can see it using:
+* Images that you have installed locally can be viewed using `docker images`
+* If you use the `-a` flag, it will also show containers that have closed
+
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+Run the following command to view all images installed on your machine:
 ```bash
-docker images
+docker images -a
 ```
+]
+]
+---
+# Docker Run Flags
+* Docker Run is of the form:
+```bash
+docker run [DOCKER OPTIONS] IMAGE [IMAGE ARGUMENTS]
+```
+* This means that arguments that affect the way Docker runs must always go before the image name, but arguments that are passed to the image itself must go after the image name
 ---
 # Port Mapping
 * Docker containers are free to listen on whatever ports to want to, for example port 80/443 for web requests
 * However, these ports are not available on the host machine unless you use
     ```bash
-    docker run -p host:container
+    docker run -p host:container [IMAGE]
     ```
-* This command means "map port 8080 inside this container to port 80 on the host"
-    ```bash
-    docker run -p 80:8080 nginx
+* This command means "map port 8080 inside this container to port 80 on the host machine"
     ```
-     
+    docker run -p 80:8080 [IMAGE]
+    ``` 
+* Note that the host port and container port *can be the same*, and this is quite common
+
 ![](assets/Ports.svg)
 ---
-# Task 2.1 - Galaxy
+# Port Mapping
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+Run the following command to start an nginx server running on your cloud instance:
+```bash
+docker run -p 80:80 nginx
+```
+Now visit this server by typing in your cloud instance URL into a web browser:
+```
+http://115.146.85.14
+```
+]
+]
+---
+# Galaxy
+Galaxy is a web-based platform for running bioinformatics analysis
+
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
 * You want to run a Galaxy server on your NeCTAR instance
 * The image is called `bgruening/galaxy-rna-seq`
 * The galaxy image listens on port 80 inside the container
 * What is the correct `docker run` command to use?
---
+]
+]
 
+--
+.message.is-success[
+.message-header[
+Answer
+]
+.message-body[
 ```
 docker run -p 80:80 bgruening/galaxy-rna-seq
 ```
+]
+]
+
 ---
 # Volumes and Bind Mounts
 * By default, Docker containers cannot access data on the host system. This means
@@ -115,28 +206,58 @@ docker run -p 80:80 bgruening/galaxy-rna-seq
 	* [Bind Mounts](https://docs.docker.com/engine/admin/volumes/bind-mounts/)
 	* [When to use volumes vs bind mounts](https://docs.docker.com/engine/admin/volumes/#good-use-cases-for-volumes)
 ---
-# Task 2.2 - Galaxy Logs
-* You need to store the logs for your Galaxy image on your host system
+# Galaxy Logs
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+* You need to store the logs for your Galaxy image on your host system using a bind mount
 * The Galaxy container stores its logs in `/home/galaxy/logs`
+* What command do you run?
+]
+]
 --
 
+.message.is-success[
+.message-header[
+Answer
+]
+.message-body[
 ```bash
 docker run \
     -p 8080:80 \
     -v `pwd`/galaxy_logs:/home/galaxy/logs bgruening/galaxy-rna-seq
 ```
-or
-```bash
-docker run \
-    -p 8080:80 \
-    -v galaxy_logs:/home/galaxy/logs bgruening/galaxy-rna-seq
-```
+]
+]
 ---
 # Listing running containers
 * `docker ps` lists all currently running containers
 * Can also show all terminated containers with the `-a` flag
 * The IDs that are shown can be useful for other docker commands...
-* Try it now:
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+Run a container in the background:
+```bash
+docker run -d bgruening/galaxy-rna-seq
+```
+And now try running the command:
+```bash
+docker containers
+```
+]
+]
+---
+# Listing running containers
+.message.is-success[
+.message-header[
+Answer
+]
+.message-body[
 ```
 CONTAINER ID        IMAGE                      COMMAND                  CREATED             STATUS                   PORTS                                                       NAMES
 4a594d121fa9        bgruening/galaxy-rna-seq   "/usr/bin/startup"       26 minutes ago      Up 26 minutes            21/tcp, 443/tcp, 8800/tcp, 9002/tcp, 0.0.0.0:8080->80/tcp   suspicious_albattani
@@ -144,6 +265,8 @@ CONTAINER ID        IMAGE                      COMMAND                  CREATED 
 64ad604535fd        bwa_mem                    "bash"                   2 weeks ago         Exited (0) 2 weeks ago                                                               nervous_lichterman
 6cdc73c5699a        bwa_mem                    "./align.py --refe..."   2 weeks ago         Exited (0) 2 weeks ago                                                               elegant_morse
 ```
+]
+]
 ---
 # Running commands inside a container
 * You can run a command inside a running container using:
