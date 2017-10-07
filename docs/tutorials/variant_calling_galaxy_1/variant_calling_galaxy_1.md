@@ -313,7 +313,7 @@ The current generation of variant calling tools do not output pileup files, and 
 
     Examine your two pileup files and understand the difference between them. Which coordinates are present in each? What do the bases look like in one compared to the other? Compare the variant quality score (in column 6) to the bases listed on each row.
 
-## 5. Call variants with FreeBayes
+## 6. Call variants with FreeBayes
 
 FreeBayes is a Bayesian variant caller which assesses the likelihood of each possible genotype for each position in the reference genome, given the observed reads at that position, and reports back the list of possible variants. We look at it in more detail in the [Advanced Variant Calling](../var_detect_advanced/var_detect_advanced) tutorial.
 
@@ -357,7 +357,7 @@ FreeBayes is a Bayesian variant caller which assesses the likelihood of each pos
 
 4. **Optional: filter variants**: See if you can work out how to filter your VCF file to variants with quality scores greater than 50. You can use the *Filter and Sort: Filter* tool we used above.
 
-## 6. Further steps
+## 7. Further steps
 
 We've seen how to:
 
