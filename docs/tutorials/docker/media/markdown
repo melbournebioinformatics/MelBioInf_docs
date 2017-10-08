@@ -61,7 +61,7 @@ class: center, middle
 ---
 # Docker Run
 * To run a container, all you need to do is specify the image name, and docker will pull the image from Docker Hub, and begin running it 
-* `docker run [IMAGE]`
+* `docker run <IMAGE NAME>`
 
 .message.is-info[
 .message-header[
@@ -112,7 +112,7 @@ Answer
 ]
 ]
 ---
-# Task 1.2 - Viewing the Image
+# Listing Images
 * Images that you have installed locally can be viewed using `docker images`
 * If you use the `-a` flag, it will also show containers that have closed
 
@@ -131,7 +131,7 @@ docker images -a
 # Docker Run Flags
 * Docker Run is of the form:
 ```bash
-docker run [DOCKER OPTIONS] IMAGE [IMAGE ARGUMENTS]
+docker run [docker options] <IMAGE NAME> [image arguments]
 ```
 * This means that arguments that affect the way Docker runs must always go before the image name, but arguments that are passed to the image itself must go after the image name
 ---
@@ -139,11 +139,11 @@ docker run [DOCKER OPTIONS] IMAGE [IMAGE ARGUMENTS]
 * Docker containers are free to listen on whatever ports to want to, for example port 80/443 for web requests
 * However, these ports are not available on the host machine unless you use
     ```bash
-    docker run -p host:container [IMAGE]
+    docker run -p host:container <IMAGE NAME>
     ```
 * This command means "map port 8080 inside this container to port 80 on the host machine"
     ```
-    docker run -p 80:8080 [IMAGE]
+    docker run -p 80:8080 <IMAGE NAME>
     ``` 
 * Note that the host port and container port *can be the same*, and this is quite common
 
@@ -166,7 +166,7 @@ http://115.146.85.14
 ]
 ]
 ---
-# Galaxy
+# Exercise - Galaxy
 Galaxy is a web-based platform for running bioinformatics analysis
 
 .message.is-info[
@@ -200,13 +200,13 @@ docker run -p 80:80 bgruening/galaxy-rna-seq
 	* You can't use host data in your containers
 	* All data stored in the container will be lost when the container exits
 * You can solve this in two ways:
-	* `-v /path/in/host:/path/in/container`: This **bind mounts** a host file or directory into the container. Writes to one will affect the other.
+	* `-v /path/in/host:/path/in/container`: This **bind mounts** a host file or directory into the container. Writes to one will affect the other. Note that both paths have to be *absolute* paths, so you often want to use
+ ```
+`pwd`/some/path
+```
 	* `-v volume_name:/path/in/container`. This mounts a **named volume** into the container, which will live separately from the rest of your files. This is preferred, unless you need to access or edit the files from the host
-* Useful resources:
-	* [Volumes](https://docs.docker.com/engine/admin/volumes/volumes/)
-	* [Bind Mounts](https://docs.docker.com/engine/admin/volumes/bind-mounts/)
-	* [When to use volumes vs bind mounts](https://docs.docker.com/engine/admin/volumes/#good-use-cases-for-volumes)
 ---
+
 # Galaxy Logs
 .message.is-info[
 .message-header[
@@ -237,7 +237,8 @@ docker run \
 # Listing running containers
 * `docker ps` lists all currently running containers
 * Can also show all terminated containers with the `-a` flag
-* The IDs that are shown can be useful for other docker commands...
+* The IDs that are shown can be useful for other docker commands like `docker stop` and `docker exec`
+
 .message.is-info[
 .message-header[
 Exercise
@@ -273,7 +274,7 @@ CONTAINER ID        IMAGE                      COMMAND                  CREATED 
 # Running commands inside a container
 * You can run a command inside a running container using:
 ```bash
-docker exec <CONTAINER_ID> <COMMAND>
+docker exec <CONTAINER ID> <COMMAND>
 ```
 * For example:
 ```bash
@@ -311,6 +312,30 @@ Exercise
 * Now, run `nano /etc/galaxy/web/welcome.html` (or vim!) and save the file
 ]
 ]
+---
+# Docker Stop
+* Ordinarily, you can press `ctrl+c` to stop a container currently running in your terminal
+* However, if the container is running in the background (with `-d`), or refuses to close, you can use `docker stop`
+```bash
+docker stop <CONTAINER ID>
+```
+
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+Use `docker ps` and `docker stop` to close the currently running Galaxy Docker container
+]
+]
+---
+# Summary
+The Docker commands we've covered so far are:
+* `docker [-p host:container] [-v /host/path:/container/path] run <IMAGE NAME>`, which runs a Docker image
+* `docker images [-a]`, which displays all installed images
+* `docker ps [-a]`, which displays all containers on the system
+* `docker exec <CONTAINER ID> <COMMAND>`, which lets you run a command inside a running container
+* `docker stop <CONTAINER ID>`, which stops a running container
 ---
 class: center, middle
 # Part 3
@@ -365,6 +390,7 @@ docker build -t my_samtools .
 # Exercise - Dockerizing Samtools
 * Samtools is a common utility for working with SAM and BAM alignment files
 * Samtools can be installed using `apt-get install samtools`
+
 .message.is-info[
 .message-header[
 Exercise
@@ -463,8 +489,16 @@ ENTRYPOINT ["freebayes"]
 ---
 # Dockerized Pipelines
 * Docker containers are often used to provide the tools and runtime environment for each stage in a bioinformatics pipeline
-* Conveniently, the images you just make are just the right ones for running a variant calling pipeline
+* A number of workflow frameworks support Docker:
+	* Broad's WDL
+	* CWL (Common Workflow Language)
+	* Galaxy
 
+![](assets/Docker Workflows.svg)
+
+---
+# Dockerized Pipelines
+Conveniently, the images you just make are just the right ones for running a variant calling pipeline
 .message.is-info[
 .message-header[
 Exercise
@@ -472,9 +506,9 @@ Exercise
 .message-body[
 Try running 
 ```bash
-cwltool workflow.cwl \ 
+cwltool workflow.cwl \
 	--read_1 data/NA12878_CARDIACM_MUTATED_L001_R1.fastq.gz \
-	--read_2 data/NA12878_CARDIACM_MUTATED_L001_R2.fastq.gz \ 
+	--read_2 data/NA12878_CARDIACM_MUTATED_L001_R2.fastq.gz \
 	--reference data/ucsc.hg19.fasta
 ```
 ]
@@ -484,4 +518,51 @@ class: center, middle
 # Part 4
 ## Docker on HPC
 ---
-# Exercise - Running on Singularity
+# Docker on HPC
+* Security on HPC:
+	* If you have Docker access, you effectively have `root` permissions over the entire operating system
+	* This works fine on the cloud, where instances are rarely shared between multiple users
+	* However on HPC (computing clusters etc), this would allow Docker users to access each other's files
+	* For this reason, it is unlikely you will find Docker installed on an HPC system
+* Two main alternatives exist for running containers on HPC:
+	* [Shifter](https://github.com/NERSC/shifter) - Generally uses the same API as Docker, but with some key missing features like writeable containers. Not actively developed.
+	* [Singularity](http://singularity.lbl.gov/) - A ground-up reimplementation of Docker, with a fairly different CLI. Actively developed.
+---
+# Converting a Docker Image
+* Unlike Docker, Singularity stores its images as individual files
+* You can convert a docker image to a singularity image using the following command:
+```bash
+docker run \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v [OUTPUT DIRECTORY]:/output \
+    --privileged \
+    -t --rm \
+    singularityware/docker2singularity \
+	[IMAGE NAME]
+```
+
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+Using the command above, try creating a singularity image from your `my_samtools` image
+]
+]
+
+---
+# Running a Singularity Image
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+Test out that your singularity image works properly using:
+```bash
+singularity run [IMAGE FILE] view -HS - < data/alignment.sam
+```
+]
+]
+---
+class: center, middle
+# That's All
