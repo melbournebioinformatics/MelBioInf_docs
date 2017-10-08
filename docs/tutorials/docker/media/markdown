@@ -189,7 +189,7 @@ Exercise
 ]
 .message-body[
 * You want to run a Galaxy server on your NeCTAR instance
-* The image is called `bgruening/galaxy-rna-seq`
+* The image is called `bgruening/galaxy-stable`
 * The galaxy image listens on port 80 inside the container
 * What is the correct `docker run` command to use?
 * Once you have done this, check it was correct by visiting your instance IP address in a browser
@@ -203,7 +203,7 @@ Answer
 ]
 .message-body[
 ```
-docker run -p 80:80 bgruening/galaxy-rna-seq
+docker run -p 80:80 bgruening/galaxy-stable
 ```
 ]
 ]
@@ -238,7 +238,7 @@ Answer
 .message-body[
 ```
 CONTAINER ID        IMAGE                      COMMAND                  CREATED             STATUS                   PORTS                                                       NAMES
-4a594d121fa9        bgruening/galaxy-rna-seq   "/usr/bin/startup"       26 minutes ago      Up 26 minutes            21/tcp, 443/tcp, 8800/tcp, 9002/tcp, 0.0.0.0:8080->80/tcp   suspicious_albattani
+4a594d121fa9        bgruening/galaxy-stable   "/usr/bin/startup"       26 minutes ago      Up 26 minutes            21/tcp, 443/tcp, 8800/tcp, 9002/tcp, 0.0.0.0:8080->80/tcp   suspicious_albattani
 3a519be38d87        bwa_mem                    "./align.py --refe..."   2 weeks ago         Exited (1) 2 weeks ago                                                               angry_jennings
 64ad604535fd        bwa_mem                    "bash"                   2 weeks ago         Exited (0) 2 weeks ago                                                               nervous_lichterman
 6cdc73c5699a        bwa_mem                    "./align.py --refe..."   2 weeks ago         Exited (0) 2 weeks ago                                                               elegant_morse
@@ -296,7 +296,7 @@ Answer
 ```bash
 docker run \
     -p 8080:80 \
-    -v `pwd`/galaxy_logs:/home/galaxy/logs bgruening/galaxy-rna-seq
+    -v `pwd`/galaxy_logs:/home/galaxy/logs bgruening/galaxy-stable
 ```
 ]
 ]
@@ -333,7 +333,7 @@ Exercise
 .message-body[
 * Start another Galaxy container using:
 ```bash
-docker run -d -p 80:80 bgruening/galaxy-rna-seq
+docker run -d -p 80:80 bgruening/galaxy-stable
 ```
 * Now, you want to make a quick edit to the Galaxy homepage, which is located at `/etc/galaxy/web/welcome.html`
 * Edit the welcome message in some way, save the file, and then check to see if your changes worked on the website
