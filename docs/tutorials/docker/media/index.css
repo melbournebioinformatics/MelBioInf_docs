@@ -18,8 +18,11 @@ img {
 .content pre {
   padding: 0;
 }
+.img-half {
+  text-align: center;
+}
 .img-half img {
-  max-width: 45%;
+  max-width: 50%;
 }
 .message-body ul {
   margin-top: 0;

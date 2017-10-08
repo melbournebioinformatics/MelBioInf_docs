@@ -1,12 +1,24 @@
-![](assets/docker_logo.png)
-### Michael Milton
+# Containerised Bioinformatics
+##  Docker and other tools for reproducible analysis
+.img-half[
+![](assets/container.svg)
+]
 ---
 layout: true
 class: content
 ---
 class: center, middle
 # Part 1
-## Introduction to Docker
+## Docker and Containers
+---
+# Containerization
+* Containerization is any system that allows multiple isolated operating systems to run inside a larger, host system
+* The most basic type of containerization is `chroot`, which runs an application in a *jail* where it cannot see or access anything outside of its jail
+* The most popular and well supported system for containerization is Docker, which will be the focus of this workshop
+
+.center[
+<img style="width:500px" src="assets/docker_logo.png"/>
+]
 ---
 # What is Docker? 
 > Docker containers wrap a piece of software in a complete filesystem that contains everything needed to run: code, runtime, system tools, system libraries – anything that can be installed on a server. This guarantees that the software will always run the same, regardless of its environment 
@@ -45,7 +57,7 @@ class: center, middle
 ]
 ---
 # Terminology - Images and Containers
-* A docker **image** an archive containing all the data needed to run the application
+* A docker **image** is an archive containing all the data needed to run the application
 * When you run an **image**, it creates a **container**, which you can start and stop and delete without it affecting the image
 * You can have many containers running the same image
 * You can think of a Docker image as like a class in Object-Oriented Programming, and a docker container as like an object
@@ -91,6 +103,7 @@ This message shows that your installation appears to be working correctly.
 # Docker Hub
 * When you ran this command, Docker first looked for the image on your local machine, and when it couldn't find it, pulled it down from Docker Hub, the cloud registry of Docker images
 * Docker Hub is located here: https://hub.docker.com/
+* You can find an image for most applications and runtimes on Docker Hub
 * On Docker Hub, images without a prefix (e.g. `hello-world`) are official images, while those with a prefix (e.g. `bgruening/galaxy-stable`) are community-made images
 
 .message.is-info[
@@ -98,7 +111,7 @@ This message shows that your installation appears to be working correctly.
 Exercise
 ]
 .message-body[
-Search on Docker Hub for the official `hello-world` image. How many stars does it have?
+Search on Docker Hub for the official `java` image. What is its name?
 ]
 ]
 ---
@@ -108,7 +121,7 @@ Search on Docker Hub for the official `hello-world` image. How many stars does i
 Answer
 ]
 .message-body[
-    ![](assets/stars.png)
+    ![](assets/java.png)
 ]
 ]
 ---
@@ -163,6 +176,7 @@ Now visit this server by typing in your cloud instance IP address into a web bro
 ```
 http://115.146.85.14
 ```
+Stop the container using `Ctrl+C`, just like any process
 ]
 ]
 ---
@@ -178,7 +192,7 @@ Exercise
 * The image is called `bgruening/galaxy-rna-seq`
 * The galaxy image listens on port 80 inside the container
 * What is the correct `docker run` command to use?
-* Once you have done this, check it was correct by visitng your instance IP address in a browser
+* Once you have done this, check it was correct by visiting your instance IP address in a browser
 ]
 ]
 
@@ -193,7 +207,60 @@ docker run -p 80:80 bgruening/galaxy-rna-seq
 ```
 ]
 ]
+---
+# Exercise - Galaxy
+* If you try to `Ctrl+C` to close this container, it probably won't work
+* In order to stop it, we'll have to start another SSH session, and use some different commands...
+---
+# Listing running containers
+* `docker ps` lists all currently running containers
+* Can also show all terminated containers with the `-a` flag
+* The IDs that are shown can be useful for other docker commands like `docker stop` and `docker exec`
 
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+If your Galaxy image is still running, you might have to SSH in for a second time.
+Then, try running the command:
+```bash
+docker ps
+```
+]
+]
+---
+# Listing running containers
+.message.is-success[
+.message-header[
+Answer
+]
+.message-body[
+```
+CONTAINER ID        IMAGE                      COMMAND                  CREATED             STATUS                   PORTS                                                       NAMES
+4a594d121fa9        bgruening/galaxy-rna-seq   "/usr/bin/startup"       26 minutes ago      Up 26 minutes            21/tcp, 443/tcp, 8800/tcp, 9002/tcp, 0.0.0.0:8080->80/tcp   suspicious_albattani
+3a519be38d87        bwa_mem                    "./align.py --refe..."   2 weeks ago         Exited (1) 2 weeks ago                                                               angry_jennings
+64ad604535fd        bwa_mem                    "bash"                   2 weeks ago         Exited (0) 2 weeks ago                                                               nervous_lichterman
+6cdc73c5699a        bwa_mem                    "./align.py --refe..."   2 weeks ago         Exited (0) 2 weeks ago                                                               elegant_morse
+```
+]
+]
+---
+# Docker Stop
+* Ordinarily, you can press `ctrl+c` to stop a container currently running in your terminal
+* However, if the container is running in the background (with `-d`), or refuses to close, you can use `docker stop`
+```bash
+docker stop <CONTAINER ID>
+```
+
+.message.is-info[
+.message-header[
+Exercise
+]
+.message-body[
+Use `docker ps` and `docker stop` to close the currently running Galaxy Docker container
+]
+]
 ---
 # Volumes and Bind Mounts
 * By default, Docker containers cannot access data on the host system. This means
@@ -201,13 +268,13 @@ docker run -p 80:80 bgruening/galaxy-rna-seq
 	* All data stored in the container will be lost when the container exits
 * You can solve this in two ways:
 	* `-v /path/in/host:/path/in/container`: This **bind mounts** a host file or directory into the container. Writes to one will affect the other. Note that both paths have to be *absolute* paths, so you often want to use
- ```
+```
 `pwd`/some/path
 ```
 	* `-v volume_name:/path/in/container`. This mounts a **named volume** into the container, which will live separately from the rest of your files. This is preferred, unless you need to access or edit the files from the host
 ---
 
-# Galaxy Logs
+# Exercise - Galaxy Logs
 .message.is-info[
 .message-header[
 Exercise
@@ -234,40 +301,13 @@ docker run \
 ]
 ]
 ---
-# Listing running containers
-* `docker ps` lists all currently running containers
-* Can also show all terminated containers with the `-a` flag
-* The IDs that are shown can be useful for other docker commands like `docker stop` and `docker exec`
-
+# Exercise - Galaxy Logs
 .message.is-info[
 .message-header[
 Exercise
 ]
 .message-body[
-Run a container in the background:
-```bash
-docker run -d -p 80:80 bgruening/galaxy-rna-seq
-```
-And now try running the command:
-```bash
-docker ps
-```
-]
-]
----
-# Listing running containers
-.message.is-success[
-.message-header[
-Answer
-]
-.message-body[
-```
-CONTAINER ID        IMAGE                      COMMAND                  CREATED             STATUS                   PORTS                                                       NAMES
-4a594d121fa9        bgruening/galaxy-rna-seq   "/usr/bin/startup"       26 minutes ago      Up 26 minutes            21/tcp, 443/tcp, 8800/tcp, 9002/tcp, 0.0.0.0:8080->80/tcp   suspicious_albattani
-3a519be38d87        bwa_mem                    "./align.py --refe..."   2 weeks ago         Exited (1) 2 weeks ago                                                               angry_jennings
-64ad604535fd        bwa_mem                    "bash"                   2 weeks ago         Exited (0) 2 weeks ago                                                               nervous_lichterman
-6cdc73c5699a        bwa_mem                    "./align.py --refe..."   2 weeks ago         Exited (0) 2 weeks ago                                                               elegant_morse
-```
+Now, try to stop this container the same way we did last time
 ]
 ]
 ---
@@ -291,12 +331,13 @@ docker exec -it bd2ac6cce96f bash
 Exercise
 ]
 .message-body[
-* You should have started the Galaxy container using:
+* Start another Galaxy container using:
 ```bash
 docker run -d -p 80:80 bgruening/galaxy-rna-seq
 ```
-* You want to make a quick edit to the Galaxy homepage
-* The homepage is located at `/etc/galaxy/web/welcome.html`
+* Now, you want to make a quick edit to the Galaxy homepage, which is located at `/etc/galaxy/web/welcome.html`
+* Edit the welcome message in some way, save the file, and then check to see if your changes worked on the website
+* You'll probably have to re-open the webpage in an incognito window to get it to refresh
 ]
 ]
 
@@ -310,22 +351,6 @@ Exercise
 * First, `docker ps` to find the container ID
 * Next, `docker exec -it <CONTAINER_ID> bash`
 * Now, run `nano /etc/galaxy/web/welcome.html` (or vim!) and save the file
-]
-]
----
-# Docker Stop
-* Ordinarily, you can press `ctrl+c` to stop a container currently running in your terminal
-* However, if the container is running in the background (with `-d`), or refuses to close, you can use `docker stop`
-```bash
-docker stop <CONTAINER ID>
-```
-
-.message.is-info[
-.message-header[
-Exercise
-]
-.message-body[
-Use `docker ps` and `docker stop` to close the currently running Galaxy Docker container
 ]
 ]
 ---
@@ -343,6 +368,7 @@ class: center, middle
 ---
 # Dockerfiles
 * The core of making a Docker image is a Dockerfile
+* These files should have the exact name `Dockerfile`, and should be located in their own directory
 * A Dockerfile is a list of commands, a lot like a shell script, that progressively builds the image:
     * `FROM` lists the image to "inherit" from
     * `RUN` executes a shell command
@@ -384,7 +410,7 @@ ENTRYPOINT ["./cpipe"]
 * To build a Docker image from a Dockerfile, use the `docker build` command
 * You should specify an image tag/name using `-t`, and a directory containing the Dockerfile. For example:
 ```bash
-docker build -t my_samtools .
+docker build -t my_image .
 ```
 ---
 # Exercise - Dockerizing Samtools
@@ -397,10 +423,12 @@ Exercise
 ]
 .message-body[
 * Create a Dockerfile for samtools inside its own directory, and build it using `docker build`
+* Make sure you tag it as `my_samtools`, we'll need it later on
+* You'll also need to set the entrypoint to the `samtools` command
 * Once it's finished, try testing it using the SAM file provided:
 
 ```bash
-docker run my_samtools sort < alignment.bam
+docker run -i my-samtools view -S -H - < data/alignment.sam
 ```
 ]
 ]
@@ -432,6 +460,7 @@ Exercise
 .message-body[
 * Try making a Dockerfile for `bwa`
 * Make sure you tag this as `my_bwa`
+* The image is probably working if it prints out the `bwa` help when you run the image
 ]
 ]
 
@@ -451,7 +480,7 @@ ENTRYPOINT ["bwa"]
 ]
 ---
 # Exercise - Dockerizing Freebayes
-* Freebayes is an open-source variant caller (calculates how a given patient's DNA differs from the 'normal' reference genome)
+* Freebayes is an open-source variant caller (calculates how a given individual's DNA differs from a reference genome)
 * Freebayes is a little harder to install - you'll need to build it from source
 * Installation instructions for Freebayes can be found here: https://github.com/ekg/freebayes#obtaining
 
@@ -506,7 +535,7 @@ Exercise
 .message-body[
 Try running 
 ```bash
-cwltool workflow.cwl \
+cwltool cwl_workflow/workflow.cwl \
 	--read_1 data/NA12878_CARDIACM_MUTATED_L001_R1.fastq.gz \
 	--read_2 data/NA12878_CARDIACM_MUTATED_L001_R2.fastq.gz \
 	--reference data/ucsc.hg19.fasta
@@ -530,7 +559,7 @@ class: center, middle
 ---
 # Converting a Docker Image
 * Unlike Docker, Singularity stores its images as individual files
-* You can convert a docker image to a singularity image using the following command:
+* You can convert a docker image to a singularity image using a docker container:
 ```bash
 docker run \
     -v /var/run/docker.sock:/var/run/docker.sock \
