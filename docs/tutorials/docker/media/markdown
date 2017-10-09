@@ -44,7 +44,7 @@ class: center, middle
 * **Easy To Use** – Docker containers can always be run using one single docker run command
 ---
 # Docker vs VMs
-* Virtual machines solve the same problem as docker, but are much more lightweight
+* Virtual machines solve the same problem as docker, but are much less lightweight
 * Virtual machines package the entire guest OS, while Docker uses the host kernel and a minimal OS that can be shared between containers
 
 .columns[
@@ -127,7 +127,6 @@ Answer
 ---
 # Listing Images
 * Images that you have installed locally can be viewed using `docker images`
-* If you use the `-a` flag, it will also show containers that have closed
 
 .message.is-info[
 .message-header[
@@ -136,7 +135,7 @@ Exercise
 .message-body[
 Run the following command to view all images installed on your machine:
 ```bash
-docker images -a
+docker images
 ```
 ]
 ]
@@ -357,7 +356,7 @@ Exercise
 # Summary
 The Docker commands we've covered so far are:
 * `docker [-p host:container] [-v /host/path:/container/path] run <IMAGE NAME>`, which runs a Docker image
-* `docker images [-a]`, which displays all installed images
+* `docker images`, which displays all installed images
 * `docker ps [-a]`, which displays all containers on the system
 * `docker exec <CONTAINER ID> <COMMAND>`, which lets you run a command inside a running container
 * `docker stop <CONTAINER ID>`, which stops a running container
@@ -433,16 +432,22 @@ docker run -i my-samtools view -S -H - < data/alignment.sam
 ]
 ]
 
---
+---
+# Exercise - Dockerizing Samtools
 .message.is-success[
 .message-header[
 Solution
 ]
 .message-body[
+`my_samtools/Dockerfile`:
 ```
 FROM ubuntu
 RUN apt-get update && apt-get install -y samtools
 ENTRYPOINT ["samtools"]
+```
+Building:
+```bash
+docker build -t my_samtools my_samtools/
 ```
 ]
 ]
