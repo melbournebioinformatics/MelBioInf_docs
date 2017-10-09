@@ -294,7 +294,6 @@ Answer
 .message-body[
 ```bash
 docker run \
-    -p 8080:80 \
     -v `pwd`/galaxy_logs:/home/galaxy/logs bgruening/galaxy-stable
 ```
 ]
