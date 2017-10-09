@@ -426,7 +426,7 @@ Exercise
 * Once it's finished, try testing it using the SAM file provided:
 
 ```bash
-docker run -i my-samtools view -S -H - < data/alignment.sam
+docker run -i my_samtools view -S -H - < data/alignment.sam
 ```
 ]
 ]
