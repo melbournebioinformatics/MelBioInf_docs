@@ -112,7 +112,6 @@ For more details see [FASTQ].
 When the job has finished, click on the eye icon to view the newly generated data (in this case a set of quality metrics for the FASTQ data).
 Look at the various quality scores. The data looks pretty good - *high Per base sequence quality* (avg. above 30).
 
-*Note that the 'Sequence Duplication Levels' are marked as high. Normally we would run another tool to remove duplicates (technical PCR artifacts) but for the sake of brevity we will omit this step.*
 
 -----
 
