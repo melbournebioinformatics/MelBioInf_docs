@@ -141,6 +141,7 @@ You should now be presented with a blank workflow editing grid.
         * Reference data
         * Reads 1
         * Reads 2 - respectively.
+    * If you click on **Input dataset** in the tan box at the top of the right hand panel on the screen, you can change the name of the box as it appears on the editing layout. You need to give each one a more sensible name and press *Enter* to make the change.
 
 **Add in the BWA mapping step.**
 
