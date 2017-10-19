@@ -12,8 +12,8 @@ This workshop will teach you:
 
 ## Requirements
 
-* This workshop is aimed at anyone with basic Unix command-line experience.
-* Attendees are required to bring their own laptop computers.
+* This workshop is aimed at anyone with basic Unix command-line experience
+* Attendees are required to bring their own laptop computers
 * Windows users should have [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) installed
 
 
