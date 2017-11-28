@@ -3,6 +3,7 @@ site_name: Bioinformatics Documentation
 
 repo_name: melbournebioinformatics/MelBioInf_docs
 repo_url: https://github.com/melbournebioinformatics/MelBioInf_docs
+google_analytics: ['UA-21794901-5', 'www.melbournebioinformatics.org.au/tutorials/']
 
 # needs pip install mkdocs-material
 theme: 'material'
