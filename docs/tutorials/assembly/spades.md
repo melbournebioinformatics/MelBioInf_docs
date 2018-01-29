@@ -1,7 +1,4 @@
-<br>
 # Assembly using Spades
-
-Keywords: de novo assembly, Spades, Galaxy, Microbial Genomics Virtual Lab
 
 ## Background
 Spades is one of a number of *de novo* assemblers that use short read sets as input (e.g. Illumina Reads), and the assembly method is based on de Bruijn graphs. For information about Spades see this [link](http://bioinf.spbau.ru/spades).
@@ -15,9 +12,6 @@ At the end of this tutorial you should be able to:
 
 
 ## Import and view data
-
-<!-- If you have completed the previous tutorial on [Quality Control](/modules/fastqc/index.md), you should already have the required files in your current Galaxy history. If not, see how to get them [here](/modules/galaxy/index.md).
--->
 
 ### Galaxy
 
@@ -56,12 +50,12 @@ The read set for today is from an imaginary *Staphylococcus aureus* bacterium wi
 - <fn>wildtype.gbk</fn>: the reference genome sequence in genbank format.
 -->
 
-- Click on the View Data button (the ![Eye icon](images/image04.png)) next to one of the FASTQ sequence files.
+- Click on the View Data button (the ![Eye icon](spades_media/image04.png)) next to one of the FASTQ sequence files.
 
 <!--
 - The gff file should look like this:
 - Brief Discussion about the GFF format (FIXME: add)
-![GFF format](images/image08.png)
+![GFF format](spades_media/image08.png)
 
 ## Evaluate the input reads
 
@@ -78,7 +72,7 @@ We will evaluate the input reads using the FastQC tool.
 - Go to <ss>Tools &rarr; NGS:Analysis &rarr; NGS: QC and Manipulation &rarr; FastQC</ss>
 - Select <fn>mutant_R1.fastq</fn>
 - <ss>Execute</ss>
-- Once finished, examine the output called <fn>FastQC on data1:webpage</fn> (Hint:![Eye icon](./images/image04.png)). It has a summary at the top of
+- Once finished, examine the output called <fn>FastQC on data1:webpage</fn> (Hint:![Eye icon](./spades_media/image04.png)). It has a summary at the top of
 the page and a number of graphs.
 
 Some of the important outputs of FastQC for our purposes are:
@@ -110,7 +104,7 @@ Although we have warnings for two outputs (per base sequence content; Kmer conte
 
 - Your tool interface should look like this:
 
-![Spades interface](images/image03.png)
+![Spades interface](spades_media/image03.png)
 
 -  Click <ss>Execute</ss>
 
@@ -123,14 +117,14 @@ Although we have warnings for two outputs (per base sequence content; Kmer conte
     - two files for statistics about these
     - the Spades logfile
 
-![spades output](images/output_files.png)
+![spades output](spades_media/output_files.png)
 
-- Click on the View Data button ![Eye icon](images/image04.png) on each of the files.
+- Click on the View Data button ![Eye icon](spades_media/image04.png) on each of the files.
 - Note that the short reads have been assembled into much longer contigs.
 - (However, in this case, the contigs have not been assembled into larger scaffolds.)
 - The stats files will give you the length of each of the contigs, and the file should look something like this:
 
-![spades output contigs](images/contig_stats.png)
+![spades output contigs](spades_media/contig_stats.png)
 
 <!-- ## What next?
 
