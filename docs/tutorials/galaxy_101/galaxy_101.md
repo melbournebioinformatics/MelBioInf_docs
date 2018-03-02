@@ -60,7 +60,10 @@ At the end of this tutorial you should:
 
 The purpose of this section is to get you to log in to the server..
 
-1. Go to the ip address of your GVL Galaxy server (or if you don’t have one, open [Galaxy-Tut](http://galaxy-tut.genome.edu.au) server) in Firefox or Chrome (your choice) - Please don’t use Internet Explorer or Safari.
+1. Open your browser. We recommend Firefox or Chrome (please don't use Internet Explorer or Safari). 
+
+    * Go to the [Galaxy-Mel](https://galaxy-mel.genome.edu.au/galaxy/) server. 
+    * Alternatively, you can use a different Galaxy server - a list of available servers is [here](https://galaxyproject.org/galaxy-services/).
 
 2. If you have previously registered on this server just log in:
 
@@ -95,10 +98,11 @@ With this method you can get most of the files on your own computer into Galaxy.
 
 * Download the following file to your computer: *https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/galaxy101/Contig_stats.txt.gz*
 
+    * (To download this file, copy the link into a new browser tab, and press enter. The file should now download.)
     * From the Galaxy tool panel, click on **Get Data -> Upload File**
     * Click the **Choose File** button
     * Find and select the *Contig_stats.txt.gz* file you downloaded and click **Open**
-    * Set the "file format" to *tabular*
+    * Set the "Type" (= file format) to *tabular*
     * Click the **Start** button
     * Once the progress bar reaches 100%, click the **Close** button
 
@@ -126,17 +130,18 @@ Repeat the above for: *https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/MR
 
 Note that this file is a *fasta* file and not a *fastqsanger* file.
 
-\showable{Reveal detailed instructions}{details}
+<details>
+
+<summary>Reveal details instructions</summary>
 
 * From the tool panel, click on **Get Data -> Upload File**
+* Click on the **Paste/Fetch Data** button
+* Copy and paste the following web address into the URL/Text box: https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/MRSA0252.fna
+* Set the file format to *fasta*.
+* Click **Start**
+* Once the progress bar has reached 100%, click **Close**
 
-    * Click on the **Paste/Fetch Data** button
-    * Copy and paste the following web address into the URL/Text box: https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/MRSA0252.fna
-    * Set the file format to *fasta*.
-    * Click **Start**
-    * Once the progress bar has reached 100%, click **Close**
-
-\endshowable
+</details>
 
 The DNA sequence of *Staphlococcus aureus MRSA252* will be loaded into your history as a fasta file.
 
@@ -197,7 +202,7 @@ Click on the <img src="../media/Galaxy-view.png" width=20 /> icon of the *Contig
 * "Cut from": *Contig_stats.txt*
 * Click **Execute**
 
-Examine the new file by clicking on it’s <img src="../media/Galaxy-view.png" width=20 /> icon. We now have 2 columns instead of the 18 in the original file.
+Examine the new file by clicking on its <img src="../media/Galaxy-view.png" width=20 /> icon. We now have 2 columns instead of the 18 in the original file.
 
 **2. Remove the Header lines of the new file.**
 
@@ -218,7 +223,7 @@ Note the the new file is the same as the previous one without the header line.
 * "Label for X axis": *Coverage depth*
 * Click **Execute**
 
-Click on the <img src="../media/Galaxy-view.png" width=20 /> icon of the histogram to have a look at it. Note there are a few peaks.. Maybe these correspond to single, double and triple copy number of these contigs.
+Click on the <img src="../media/Galaxy-view.png" width=20 /> icon of the histogram to have a look at it. Note there are a few peaks. Maybe these correspond to single, double and triple copy number of these contigs.
 
 **4. Calculate summary statistics for contig coverage depth.**
 
@@ -247,18 +252,19 @@ This example shows how to use a tool called “barrnap” to search for rRNAs in
 
 **1. Find all of the ribosomal RNA's in a sequence**
 
-* From the tool panel, click on **Annotation -> barrnap** and set the following:
+* From the tool panel, click on **NGS: Annotation -> barrnap** and set the following:
 * "Fasta file": MRSA252.fna
 * Click **Execute**
 
-A new file called *barrnap on data 3* will be produced. It is a gff3 file. (This stands for genome feature format - version 3. It is a file format for describing features contained by a DNA sequence.) Change it’s name to something more appropriate (click on the <img src="../media/Galaxy-edit.png" width=20 /> icon.) There is also a STDERR output file from this tool - just ignore this one.
+A new file called *barrnap on data 3* will be produced. It is a gff3 file. (This stands for genome feature format - version 3. It is a file format for describing features contained by a DNA sequence.) Change its name to something more appropriate (click on the <img src="../media/Galaxy-edit.png" width=20 /> icon.) 
 
-Now lets say you only want the lines of the file for the 23S rRNA annotations. We can do this using a Filter tool.
+Now let's say you only want the lines of the file for the 23S rRNA annotations. We can do this using a Filter tool.
 
 **2. Filter the annotations to get the 23S RNAs**
 
 * From the tool panel, click on **Filter and Sort -> Select** and set the following:
 * "Select lines from":  (whatever you called the barrnap gff3 output)
+* "that": *Matching*
 * "the pattern": *23S*     (this will look for all the lines in the file that contain “23S”)
 * Click **Execute**
 
