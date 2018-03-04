@@ -41,9 +41,10 @@ pages:
     - 'Background': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
   - 'RNA-seq DGE Advanced': 'tutorials/rna_seq_dge_advanced/rna_seq_advanced_tutorial.md'
   - 'RNA-seq DGE Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
-  - 'Microbial de novo Assembly for Illumina Data':
+  - 'Microbial de novo Assembly for Illumina Data: Velvet':
     - 'Tutorial': 'tutorials/assembly/assembly.md'
     - 'Method Background': 'tutorials/assembly/assembly-background.md'
+  - 'Microbial assembly: Spades': 'tutorials/assembly/spades.md'
   - 'Long read assembly': 'tutorials/pacbio/index.md'
 - 'Proteomics Tutorials':
   - 'Identifying proteins from mass spectrometry data':
