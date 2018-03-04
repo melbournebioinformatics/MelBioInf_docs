@@ -45,3 +45,36 @@
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
 	background-color: #00A8BD;
 }
+/*
+These style abbreviations are as follows:
+SS = "screen shot" for menu items etc.
+FN = filename
+TX = text
+*/
+
+SS {
+  font-family: "Lucida Grande", sans-serif;
+  font-size: 80%;
+  font-weight: bolder;
+  color: black;
+  text-align: center;
+  border-radius: 5px;
+  background: lightsteelblue;
+  padding: 0.3ex 1ex;
+
+}
+
+FN {
+  font-family: "Lucida Grande", sans-serif;
+  font-size: 80%;
+  color: black;
+  text-align: center;
+  padding: 0.3ex 1ex;
+  border: solid thin black;
+  border-radius: 4px;
+}
+
+TX {
+  font-family: monospace;
+  font-weight: bolder;
+}

@@ -45,6 +45,7 @@ pages:
     - 'Tutorial': 'tutorials/assembly/assembly.md'
     - 'Method Background': 'tutorials/assembly/assembly-background.md'
   - 'Microbial assembly: Spades': 'tutorials/assembly/spades.md'
+  - 'Long read assembly': 'tutorials/pacbio/index.md'
 - 'Proteomics Tutorials':
   - 'Identifying proteins from mass spectrometry data':
     - 'Tutorial' : 'tutorials/proteomics_basic/proteomics_basic.md'
