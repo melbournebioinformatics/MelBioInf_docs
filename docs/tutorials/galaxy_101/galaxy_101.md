@@ -58,7 +58,7 @@ At the end of this tutorial you should:
 
 ## Section 1: Preparation.
 
-The purpose of this section is to get you to log in to the server..
+The purpose of this section is to get you to log in to the server.
 
 1. Open your browser. We recommend Firefox or Chrome (please don't use Internet Explorer or Safari). 
 
@@ -81,7 +81,7 @@ The purpose of this section is to get you to log in to the server..
 
 ## Section 2: Getting data into Galaxy
 
-There are 2 main ways to get your data into Galaxy. We will use each of these methods for 3 files and then work use those 3 files for the rest of the workshop.
+There are 2 main ways to get your data into Galaxy. We will use each of these methods for 3 files and then use those 3 files for the rest of the workshop.
 
 * Start a new history for this workshop. To do this:
 
@@ -132,7 +132,7 @@ Note that this file is a *fasta* file and not a *fastqsanger* file.
 
 <details>
 
-<summary>Reveal details instructions</summary>
+<summary>Reveal detailed instructions</summary>
 
 * From the tool panel, click on **Get Data -> Upload File**
 * Click on the **Paste/Fetch Data** button
@@ -162,7 +162,7 @@ Though we aren't going to focus on the contents of these files and what they mea
 
 * *bacterial_std_err_1.fastq.gz*
 
-    * This file contains sequence reads as they would come off an Illunina sequencing machine. They are in [fastq](https://en.wikipedia.org/wiki/FASTQ_format) format.  
+    * This file contains sequence reads as they would come off an Illumina sequencing machine. They are in [fastq](https://en.wikipedia.org/wiki/FASTQ_format) format.  
 
 <!-- -->
 
@@ -186,7 +186,7 @@ Repeat the process for the MRSA252 fasta file. Rename it to *MRSA252.fna*
 
 Now that’s better. There was a lot of other functionality hidden behind that edit (<img src="../media/Galaxy-edit.png" width=20 />) icon. You can change a file’s data type, convert its format and many other things. Feel free to play around with them at a later date.
 
-Ok, back to the tools..
+Ok, back to the tools.
 
 ### Example 1: Histogram and summary statistics
 
