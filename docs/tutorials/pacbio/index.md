@@ -58,9 +58,9 @@ mkdir Workshop
 cd Workshop
 ```
 
-**NOTE: Everytime you open a new terminal or Putty session, you will need to make sure you are in this directory again.**
+**NOTE: Every time you open a new terminal or Putty session, you will need to make sure you are in this directory again.**
 
-The current directory can be obtained with the linux command:
+Find your current directory by typing:
 
 ```text
 pwd
@@ -162,36 +162,48 @@ less canu.report
  
 ### Questions
 
-!!! note "Question"
-    How do long- and short-read assembly methods differ?
 
-    ??? "Answer"
-         Short reads are usually assembled with De Bruijn graphs. For long reads, there is a move back towards simpler overlap-layout-consensus methods.
+How do long- and short-read assembly methods differ?
 
-!!! note "Question"
-    Where can we find out the what the approximate genome size should be for the species being assembled?
+<details>
+<summary>Answer (click to reveal)</summary>
+Short reads are usually assembled with De Bruijn graphs. For long reads, there is a move back towards simpler overlap-layout-consensus methods.
+</details>
 
-    ??? "Answer"
-        Go to NCBI Genomes, enter species name, click on Genome Assembly and Annotation report, sort table by clicking on the column header Size (Mb), look at range of sizes in this column.
+Where can we find out the what the approximate genome size should be for the species being assembled?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+Go to NCBI Genomes, enter species name, click on Genome Assembly and Annotation report, sort table by clicking on the column header Size (Mb), look at range of sizes in this column.
+</details>
+
+In the assembly output, what are the unassembled reads? 
+
+<details>
+<summary>Answer (click to reveal)</summary>
+Reads and low-coverage contigs that were not used in the assembly.
+</details>
+
+What are the corrected reads? How did canu correct the reads?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+Canu builds overlaps between reads. The consensus is used to correct the reads. 
+</details>
+
+    
+        
 
 
-!!! note "Question"
-    In the assembly output, what are the unassembled reads? Why are they there?
+Where could you view the output .gfa and what would it show?
 
-    ??? "Answer"
-        Reads and low-coverage contigs that were not used in the assembly. 
+<details>
+<summary>Answer (click to reveal)</summary>
+A useful program is [Bandage](https://rrwick.github.io/Bandage/). If the assembly has multiple contigs, the assembly graph shows how these are connected. 
+</details>
 
-!!! note "Question"
-    What are the corrected reads? How did canu correct the reads?
-
-    ??? "Answer"
-        Canu builds overlaps between reads. The consensus is used to correct the reads. 
-
-!!! note "Question"
-    Where could you view the output .gfa and what would it show?
-
-    ??? "Answer"
-        A useful program is [Bandage](https://rrwick.github.io/Bandage/). If the assembly has multiple contigs, the assembly graph shows how these are connected. 
+    
+        
 
 
 ## 5. Trim and circularise
@@ -276,17 +288,28 @@ cd ..
 
 ### Questions
 
-!!! note "Question"
-    Were all the contigs circularised? 
 
-    ??? "Answer"
-        In this example, yes, the contig was circularised. 
+Were all the contigs circularised? 
 
-!!! note "Question"
-    Circlator can set the start of the sequence at a particular gene. Which gene does it use? Is this appropriate for all contigs?
+<details>
+<summary>Answer (click to reveal)</summary>
+In this example, yes, the contig was circularised.
+</details>
 
-    ??? "Answer"
-        Circlator uses dnaA (if present) for the chromosomal contig. For other contigs, it uses a centrally-located gene. However, ideally, plasmids would be oriented on a gene such as repA. It is possible to provide a file to Circlator to do this.
+
+    
+         
+
+
+Circlator can set the start of the sequence at a particular gene. Which gene does it use? Is this appropriate for all contigs?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+Circlator uses dnaA (if present) for the chromosomal contig. For other contigs, it uses a centrally-located gene. However, ideally, plasmids would be oriented on a gene such as repA. It is possible to provide a file to Circlator to do this.
+</details>
+
+    
+       
 
 
 ## 6. Find smaller plasmids
@@ -500,35 +523,61 @@ infoseq genome.fasta
 
 ### Questions
 
-!!! note "Question"
-    Why is this section so complicated?
 
-    ??? "Answer"
-        Finding small plasmids is difficult for many reasons! This paper has a nice summary: On the (im)possibility to reconstruct plasmids from whole genome short-read sequencing data. doi: https://doi.org/10.1101/086744
+Why is this section so complicated?
 
-!!! note "Question"
-    Why can PacBio sequencing miss small plasmids?
 
-    ??? "Answer"
-        Library prep size selection.
+<details>
+<summary>Answer (click to reveal)</summary>
+Finding small plasmids is difficult for many reasons! This paper has a nice summary: On the (im)possibility to reconstruct plasmids from whole genome short-read sequencing data. doi: https://doi.org/10.1101/086744
+</details>
 
-!!! note "Question"
-    We extract unmapped Illumina reads and assemble these to find small plasmids. What could they be missing?
+    
+        
 
-    ??? "Answer"
-        Repeats that have mapped to the PacBio assembly.
 
-!!! note "Question"
-    How do you find a plasmid in a Bandage graph?
+Why can PacBio sequencing miss small plasmids?
 
-    ??? "Answer"
-        It is probably circular, matches the size of a known plasmid, and has a rep gene.
+<details>
+<summary>Answer (click to reveal)</summary>
+Library prep size selection.
+</details>
 
-!!! note "Question"
-    Are there easier ways to find plasmids?
+    
+        
 
-    ??? "Answer"
-        Possibly. One option is the program called Unicycler which may automate many of these steps. https://github.com/rrwick/Unicycler
+
+We extract unmapped Illumina reads and assemble these to find small plasmids. What could they be missing?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+Repeats that have mapped to the PacBio assembly.
+</details>
+
+    
+        
+
+
+How do you find a plasmid in a Bandage graph?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+It is probably circular, matches the size of a known plasmid, and has a rep gene.
+</details>
+
+    
+        
+
+
+Are there easier ways to find plasmids?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+Possibly. One option is the program called Unicycler which may automate many of these steps. https://github.com/rrwick/Unicycler
+</details>
+
+    
+        
 
 
 ## 7. Correct the assembly
@@ -618,25 +667,38 @@ We now have the corrected genome assembly of *Staphylococcus aureus* in .fasta f
 
 ### Questions
 
-!!! note "Question"
-    Why don't we correct earlier in the assembly process?
+
+Why don't we correct earlier in the assembly process?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+We need to circularise the contigs and trim overhangs first.
+</details>
+
+    
+        
 
 
-    ??? "Answer"
-        We need to circularise the contigs and trim overhangs first.
+Why can we use some reads (Illumina) to correct other reads (PacBio) ?
 
-!!! note "Question"
-    Why can we use some reads (Illumina) to correct other reads (PacBio) ?
+<details>
+<summary>Answer (click to reveal)</summary>
+Illumina reads have higher accuracy.
+</details>
+
+    
+        
 
 
-    ??? "Answer"
-        Illumina reads have higher accuracy.
+Could we just use PacBio reads to assemble the genome?
 
-!!! note "Question"
-    Could we just use PacBio reads to assemble the genome?
+<details>
+<summary>Answer (click to reveal)</summary>
+Yes, if accuracy adequate.
+</details>
 
-    ??? "Answer"
-        Yes, if accuracy adequate.
+    
+        
 
 
 ## 8. Comparative Genomics
@@ -662,12 +724,16 @@ The assembly graph from PacBio reads (Canu assembly) - this is missing the small
 
 Here we can see that the long read data results in a more contiguous assembly - one complete chromosome versus many smaller contigs with ambiguous placement. 
 
-!!! note "Question"
-    Does it matter that an assembly is in many contigs?
 
+Does it matter that an assembly is in many contigs?
 
-    ??? "Answer"
-        Yes and No. Yes: broken genes can lead to missing/incorrect annotations; fragmented assemblies provide less information about the genomic structure (*e.g.* the number of plasmids) and the location of genes of interest (*e.g.* gene A is located on plasmid X). No: many or all genes may still be annotated correctly. Gene location is useful (e.g. chromosome, plasmid1) but not always essential (e.g. presence/absence of particular resistance genes may be enough information).
+<details>
+<summary>Answer (click to reveal)</summary>
+Yes and No. Yes: broken genes can lead to missing/incorrect annotations; fragmented assemblies provide less information about the genomic structure (*e.g.* the number of plasmids) and the location of genes of interest (*e.g.* gene A is located on plasmid X). No: many or all genes may still be annotated correctly. Gene location is useful (e.g. chromosome, plasmid1) but not always essential (e.g. presence/absence of particular resistance genes may be enough information).
+</details>
+
+    
+        
 
 
 ### Annotations
@@ -689,20 +755,28 @@ Some of the output data is displayed here:
 </center>
 
 
-!!! note "Question"
-    Why are there more CDS identified in the PacBio assembly? 
+
+Why are there more CDS identified in the PacBio assembly? 
+
+<details>
+<summary>Answer (click to reveal)</summary>
+The PacBio assembly may have errors (usually a one base indel) which will cause a frame shift, which can result in three things: a longer CDS, a shorter CDS, or a shorter CDS plus an additional CDS. In addition, the Illumina assembly is about 33 kb smaller than the PacBio assembly. In bacteria, a rule of thumb is that 1 kb is roughly equal to one gene. Thus, we would probably expect about 33 fewer identified genes, which fits with these results.  
+</details>
+
+    
+        
 
 
-    ??? "Answer"
-        The PacBio assembly may have errors (usually a one base indel) which will cause a frame shift, which can result in three things: a longer CDS, a shorter CDS, or a shorter CDS plus an additional CDS. In addition, the Illumina assembly is about 33 kb smaller than the PacBio assembly. In bacteria, a rule of thumb is that 1 kb is roughly equal to one gene. Thus, we would probably expect about 33 fewer identified genes, which fits with these results.  
 
+Why are there more rRNA identified in the PacBio assembly? 
 
-!!! note "Question"
-    Why are there more rRNA identified in the PacBio assembly? 
+<details>
+<summary>Answer (click to reveal)</summary>
+There may be multiple copies of the rRNAs and these could have been collapsed as repeats in the Illumina assembly. 
+</details>
 
-
-    ??? "Answer"
-        There may be multiple copies of the rRNAs and these could have been collapsed as repeats in the Illumina assembly. 
+    
+        
 
 ## 9. Summary
 
