@@ -115,7 +115,7 @@ you may have to pay Amazon usage charges (the GVL software itself is free).
     medium instance (with 2 cores) which is sufficient for launching a GVL
     instance.
 
-    <img src="../media/nectar_dashboard.png" height=400px style="display:block; margin-left: auto; margin-right:auto;">
+    <img src="../media/nectar_dashboard.png" height="400px" style="display:block; margin-left: auto; margin-right:auto;">
 
     If you have projects which require more compute resources, you can apply
     for more allocation [here](https://dashboard.rc.nectar.org.au/allocation/).
@@ -124,51 +124,76 @@ you may have to pay Amazon usage charges (the GVL software itself is free).
 
 ## Section 2: Get your cloud credentials
 
-Launching a GVL instance requires EC2 API keys from NeCTAR. Obtaining these keys
-is a simple 3 step process.
+Launching a GVL instance requires OpenStack API credentials from NeCTAR. These credentials allows the GVL launcher
+to create a new GVL Virtual Machine on your behalf. Obtaining these credentials is a 5 step process.
 
-<img src="../media/get_ec2_annotated.png" height=400px/>
+<img src="../media/openstack_creds_annotated_step_1.png" height="400px" />
 
 1.  From the NeCTAR dashboard, on the left sidebar, navigate to  
     Project > Compute > Access & Security
 
 2.  Click on the top **'API Access'** tab.
 
-3.  Click on the **'+ View Credentials'** button on the top right. A window
-    containing your API access key (1) and your secret key (2) will appear.
-    Click on the eye icon to view your secret key. Keep this key secret and
-    secure.
+3.  Click on the **'Download OpenStack RC File'** button on the top right.
+    A file containing your credentials will be saved to your downloads folder.
+    This file will be needed later in the launch process.
 
-    <img src="../media/ec2_creds_annotated.png" height=300px/>
+4.  Next you must obtain your OpenStack password and record it securely for future use.
+    If you have ever done this step before, you should reuse your previously saved
+    password.
+    
+    To obtain your OpenStack password, click on your username on the top right hand corner
+    and go to settings as shown below.
+    
+    <img src="../media/openstack_creds_annotated_step_2.png" />
+    
+    Click on the reset password link.
+    
+    <img src="../media/openstack_creds_annotated_step_3.png" />
 
-    Keep this page open for later reference.
+5.  Once reset, your password will be displayed. Record this securely for all future
+    GVL launches.
+    
+    <img src="../media/openstack_creds_annotated_step_4.png" />
 
 -----
 
 ## Section 3: Launch your personal GVL instance
 
-1.  In a new browser tab, go to [launch.genome.edu.au](https://launch.genome.edu.au)
+1.  In a new browser tab, go to [launch.usegalaxy.org](https://launch.usegalaxy.org)
 
-2.  Fill in the required fields:
-    - **Cloud:** Keep the default: NeCTAR (OpenStack)
-    - **Access key / Secret key:** Copy and paste your access key and your secret
-      key you obtained in the previous step in the required fields.
-    - **Institutional email:** Enter your institutional email address
-    - **Cluster name:** Choose 'Specify a new name' and enter a name for your
-      instance (eg. GVL_workshop). It is recommended you choose a unique name
-      if you launch multiple instances.
+2.  You will see the screen below. Select the first option from the list - "Genomics Virtual Lab".
+
+    <img src="../media/cloudlaunch_gvl_step_1.png" height="400px" /> 
+
+3.  You will be asked to login with your preferred social network account.
+
+    <img src="../media/cloudlaunch_gvl_step_2.png" /> 
+
+4.  Once logged in, perform the following steps.
+
+    <img src="../media/cloudlaunch_gvl_step_3.png" style="display:block; margin-left: auto; margin-right:auto; margin-top:10px;">
+
+    - 1. Select NeCTAR for the question "On which cloud would you like to launch your appliance"
+    - 2. Click "load credentials from file" and provide file you downloaded in Section 2.3
+    - 3. Provide the OpenStack password you obtained in Section 2.5.
+    - 4. Click "Test and Use these Credentials". The Next button will now be activated.
+    
+5.  Click the next button, and provide the following options.
+
+    <img src="../media/cloudlaunch_gvl_step_4.png" /> 
+
     - **Password:** Choose a strong password and remember it. This is the
       password you will use later to log into your instance.
-    - **Instance type:** Keep the default: Medium (2 vcpu / 8GB RAM)
-    - **Cluster type:** Keep the default: Cluster with Galaxy
-    - **Storage type:** Keep the default: Transient instance storage
 
-    <img src="../media/launch_gvl.png" height=500px style="display:block; margin-left: auto; margin-right:auto; margin-top:10px;">
-
-3.  Optional advanced options  
-    Toggle the 'Show advanced startup options' option to see more options. For
+6.  Optional advanced options  
+    Toggle the 'Advanced cloudlaunch options' option to see more options. For
     this tutorial, it is not necessary to modify any of the advanced options.
-    - **Placement:** You can also choose the region of where your server is
+    - **Deployment name:** You can override the name with a name of your choice.
+      It is recommended you choose a unique name if you launch multiple instances.
+    - **Instance type:** Keep the default: Medium (2 vcpu / 8GB RAM)
+    - **Root Volume Storage:** Keep the default: Instance storage
+    - **Placement Zone:** You can also choose the region of where your server is
       hosted. If you are doing lots of data transfer, it may be beneficial to
       pick a location close to your physical location. More information about
       zones can be found [here](https://support.rc.nectar.org.au/docs/availability-zones).
@@ -176,42 +201,28 @@ is a simple 3 step process.
       your instance. You can create and import key pairs in the NeCTAR dashboard
       by navigating to Project > Compute > Access & Security > Key Pairs and
       creating or importing a key pair.
-    - **Image:** The image to start. The default option is usually the latest,
-      most stable GVL image.
-    - **Flavor:** Flavours are versions of the GVL with slightly customised
-      toolsets. These toolsets are optimised for different usage patterns. More
-      information about the different flavours can be found
-      [here](http://genome.edu.au/get/get#gvlflavours). For this tutorial, keep
-      the default option of 'GVL + Tutorial Indices'
 
-    <img src="../media/launch_gvl_advanced_options.png" height=500px style="display:block; margin-left: auto; margin-right:auto; margin-top:10px;">
-
-4.  Click **'Create a cluster'** to launch the image.  
+7.  Click **'Launch'** to launch a GVL.  
     The launch process takes 2-5 minutes to start the machine and another 5
     minutes to start and configure Galaxy.
 
-    <img src="../media/launch_gvl_wait.png" height=250px style="display:block; margin-left: auto; margin-right:auto;">
+    <img src="../media/cloudlaunch_gvl_wait.png" style="display:block; margin-left: auto; margin-right:auto;">
 
-    If your progress bar seems stuck on the 'Requesting' stage for > 5 minutes,
-    navigate back to the launch page and try selecting a different availability
-    zone under the advanced startup options **Placement** field. You will need
-    re-enter your secret key and your password.
+    If an error occurs, or the launch does not complete in 10 minutes, navigate back to the launch page and try
+    selecting a different availability zone under the advanced cloudlaunch options -> **Placement Zone** field.
 
 -----
 
 ## Section 4: Access your GVL instance
 
-1.  Once your instance has finished launching, click on the cluster IP address
+1.  Once your instance has finished launching, click on the Access address
     to access your GVL dashboard.
 
-    <img src="../media/launch_gvl_ready.png" height=500px style="display:block; margin-left: auto; margin-right:auto;">
+    <img src="../media/cloudlaunch_gvl_ready.png" style="display:block; margin-left: auto; margin-right:auto;">
 
-    If you accidentally closed the launch page, you can find your cluster's
-    address on the [NeCTAR dashboard](https://dashboard.rc.nectar.org.au/project/instances/)
-    by navigating to Project > Compute > Instances on the left panel. This page
-    contains a list of your instances and can be used to terminate your instance
-    if anything goes wrong. Copy and paste the instance's IP address into your
-    browser's URL navigation bar.
+    If you accidentally closed the launch page, you can find your access address at any time
+    by logging back into [launch.usegalaxy.org](https://launch.usegalaxy.org) and navigating
+    to the "My Appliances" section through the menu bar.
 
 2.  Explore the GVL dashboard.
     Have a read through of the services provided by the GVL.
