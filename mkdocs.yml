@@ -7,7 +7,7 @@ google_analytics: ['UA-21794901-5', 'www.melbournebioinformatics.org.au/tutorial
 
 # needs pip install mkdocs-material
 theme: 'material'
-theme_dir: 'material-theme-overrides'
+#theme_dir: 'material-theme-overrides'  # needs updating for mkdocs 0.17
 extra:
     feature:
         tabs: false
