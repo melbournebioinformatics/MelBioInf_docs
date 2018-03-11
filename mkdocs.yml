@@ -25,7 +25,7 @@ pages:
   - 'Introduction to Unix': 'tutorials/unix/robinson-unix-link.md'
   - 'Launching a Personal GVL Server': 'tutorials/gvl_launch/gvl_launch.md'
   - 'Introduction to Galaxy': 'tutorials/galaxy_101/galaxy_101.md'
-  - 'Galaxy Workflows': 
+  - 'Galaxy Workflows':
     - 'Tutorial': 'tutorials/galaxy-workflows/galaxy-workflows.md'
     - 'History Creation': 'tutorials/galaxy-workflows/history_creation.md'
   - 'Introduction to GenomeSpace' : 'tutorials/genomespace/genomespace.md'
@@ -55,6 +55,9 @@ pages:
     - 'Protein Databases' : 'tutorials/proteomics_basic/background_protein_databases.md'
     - 'Search Engines' : 'tutorials/proteomics_basic/background_search_engines.md'
     - 'Protein Prophet' : 'tutorials/proteomics_basic/background_protein_prophet.md'
+- 'Molecular Modelling Tutorials':
+  - 'Molecular Dynamics - Introduction to cluster computing': 'tutorials/molecular_dynamics_101/molecular_dynamics_101.md'
+  - 'Molecular Dynamics - Building input files': 'tutorials/molecular_dynamics_201/molecular_dynamics_201.md'
 - 'Protocols':
   - 'De Novo Genome Assembly for Illumina Data': 'tutorials/assembly/assembly-protocol.md'
 
