@@ -4,36 +4,34 @@
 
 -----
 
-Welcome to the practical session of the supercomputer cluster workshop. In the following exercises we will be logging on a high performance computer (HPC) submitting NAMD\* molecular dynamics jobs. As students have a vast range of skill levels and requirements, *each of the following exercises are designed to be stand alone and worked on at your own pace*. Start at where you feel most comfortable and skip the exercises that are too simple. As we will be working from a terminal on the cluster and later downloading data back to our local desktop for visualization and analysis, we will be assuming that the users have basic knowledge of Linux and the molecular visualization program VMD\*.
+In the following tutorials we will be logging on a high performance computer (HPC) to submit [NAMD](http://www.ks.uiuc.edu/Research/namd/) molecular dynamics (MD) jobs and visualising the results with the molecular visualization program [VMD](http://www.ks.uiuc.edu/Research/vmd/). As students have a vast range of skill levels and requirements, the tutorials are divided into two parts described below. Each tutorial is designed to be stand alone, start where you feel most comfortable and skip the exercises that are too simple.
 
-As we will be using a computer terminal for these exercises, it will be useful if you are familiar with some Unix/Linux commands. If you are unfamiliar with these, we suggest you first work through the exercises outlined on this [Unix tutorial page](https://melbournebioinformatics.github.io/MelBioInf_docs/tutorials/unix/robinson-unix-link/).
+* **MD tutorial - Introduction to cluster computing (this tutorial)**: If you have never launched a job on a cluster before, this tutorial is for you. Here we will simply copy across a bare minimum directory containing input files ready to go for a short NAMD simulation. Once the job is finished, we will download the data to your local computer and visualize the trajectory with VMD.
 
-\*[NAMD - molecular dynamics program](http://www.ks.uiuc.edu/Research/namd/)
+* **[MD tutorial - Building input files](../molecular_dynamics_201/molecular_dynamics_201/)**: In this tutorial we will be introducing a more sophisticated directory structure using scripts to direct the output and run the job. We initially download a copy of the directory to our local computer where we then build up the input files using VMD. We then upload this directory to the cluster where we submit the job. Finally we will download the results back to our local computer to visualize with VMD.
 
-\*[VMD - molecular visualization program](http://www.ks.uiuc.edu/Research/vmd/)
+As we will be working from a terminal on the cluster and later downloading data back to our local desktop for visualization and analysis, we will be assuming that the users have basic knowledge of Unix/Linux. If you are unfamiliar with these, we suggest you first work through this [Unix tutorial](https://melbournebioinformatics.github.io/MelBioInf_docs/tutorials/unix/robinson-unix-link/).
 
 -----
 
-## 1 - Introduction
+## 1 - Overview
 
-If you have never launched a job on a cluster before, this exercise is for you. Here we will simply copy across a bare minimum directory containing input files ready to go for a short **NAMD** simulation. Once the job is finished, we will download the data to your local computer and visualize the trajectory with **VMD**.
+The aim of this tutorial is to give the user experience to upload and submit a typical parallel job to the cluster, download the output, and visualize the preliminary results. Though this example is mostly relevant to those studying in the life sciences area, the workflow is representative of launching other parallel jobs.
 
-The aim of this exercise is to give the user experience to upload and submit a typical parallel job to the cluster, download the output, and visualize the preliminary results. Though this example is mostly relevant to those studying in the life sciences area, the workflow is representative of launching other parallel jobs.
-
-The program we shall use, NAMD, is a parallel, molecular dynamics simulation program developed by the **Theoretical and Computational Biophysics Group at Illinois University at Urbana Champaign**. It is particularly good at modelling large biomolecular systems using high performance computing clusters and is freely available for academic work. If you are interested in running NAMD simulations you should also install a local copy of VMD on your own computer. VMD is a molecular viewer program developed by the same group that can be used to help set up NAMD simulation and to help visualize NAMD output.
+The program we shall use, NAMD, is a parallel, molecular dynamics simulation program developed by the [Theoretical and Computational Biophysics Group at Illinois University at Urbana Champaign](http://www.ks.uiuc.edu/). It is particularly good at modelling large biomolecular systems using HPC clusters and is freely available for academic work. If you are interested in running NAMD simulations you should also install a local copy of VMD on your own computer. VMD is a molecular viewer program developed by the same group that can be used to help set up NAMD simulation and to help visualize NAMD output.
 
 ## 2 - Basic introduction to cluster computing
 
 ### a) Logging in to the cluster
 
-Using a terminal on your local computer and your <username> and password, login to the HPC cluster.
+Using a terminal on your local computer and your username and password, login to the HPC cluster.
 
 ```
-ssh <username>@snowy.vlsci.org.au
+ssh <username>@snowy.vlsci.unimelb.edu.au
 ```
 
 You should see a welcome screen and a command line prompt.
-If you type `ls` at the prompt you should see a list of the files and directories. - which should be nothing as we haven’t put anything there yet!
+If you type `ls` at the prompt you should see a list of the files and directories - which should be nothing as we haven’t put anything there yet!
 
 > **Note**: be careful to use the right **terminal** when you are typing in commands!
 > Sometimes you need to type the commands on the cluster terminal, and sometimes on your local terminal. You can tell which is which by looking at the command line prompt. When you are logged into the cluster, you should see the machine name at the prompt, for example:
@@ -217,7 +215,7 @@ Now on to part 2, visualizing the results with VMD.
 
 Welcome to part 2 of the NAMD tutorial, where you will be using the [molecular visualization program VMD](http://www.ks.uiuc.edu/Research/vmd/) to look at the trajectory data of the ubiquitin protein you generated in part 1 of the tutorial. If you haven't already done so, download and install VMD to your local computer (make sure to pick the right flavour: Windows, Mac or Linux).
 
-> **Tip**: the most confusing part of this exercise seems to be remembering to use the rioght terminal! That is, either one is connected to the cluster, or one running on your local computer. The exercises we just ran were on the cluster. That is, a terminal which we used to connect to the **snowy** cluster using the program **ssh**.
+> **Tip**: the most confusing part of this exercise seems to be remembering to use the right terminal! That is, either one is connected to the cluster, or one is running on your local computer. The exercises we just ran were on the cluster. That is, a terminal which we used to connect to the **snowy** cluster using the program **ssh**.
 
 > You can usually tell which computer you are logged into by the terminal command line: for example the terminal command line:
 
@@ -235,7 +233,7 @@ Download the entire NAMD example directory back to your **local computer**.
 For example, in Linux you can type in your **local computer** terminal: (if you see `snowy` in the command line prompt you are typing in the wrong terminal!)
 
 ```
-scp -r <username>@snowy.vlsci.org.au:Namd_simple_example_01 .
+scp -r <username>@snowy.vlsci.unimelb.edu.au:Namd_simple_example_01 .
 ```
 
 What to do if your simulations didn’t run.
@@ -243,10 +241,8 @@ What to do if your simulations didn’t run.
 If for some reason your simulations didn’t run properly you can download a copy of the precomputed data to your local computer by using the following command command from a local terminal:
 
 ```
-scp -r <username>@snowy.vlsci.org.au:vlsci/examples/namd/ Namd_simple_example_01_finished .  
+scp -r <username>@snowy.vlsci.unimelb.edu.au:vlsci/examples/namd/Namd_simple_example_01_finished .  
 ```
-
-(all on one line!)
 
 You can now start VMD **locally** and load up the trajectory data. In a new local terminal type:
 
@@ -254,7 +250,7 @@ You can now start VMD **locally** and load up the trajectory data. In a new loca
 vmd
 ```
 
-> (or start from the Program menu if you are using a Windows machine, (under the folder University of Illinios). If this doesn’t work, there could be a problem with defining the path to vmd on your computer.
+> **Note**: On Windows, start VMD from the Program menu, under the folder University of Illinios. If this doesn’t work, there could be a problem with defining the path to vmd on your computer.
 
 Two new windows should pop up.
 
@@ -289,7 +285,7 @@ This is the initial starting position of the simulation. Next load in the trajec
 
 > File → Load data onto molecule → (browse:1ubq_output.dcd) → load
 
-This data represents the “molecular movie” or trajectory of how the atoms in the model moved around during the course of the NAMD simulation. You can play the trajectory by pressing the bottom right arrow of the *main panel*. (Use the speed scroll bar to the left of that button to slow it down).
+This data represents the “molecular movie” or trajectory of how the atoms in the model moved around during the course of the NAMD simulation. You can play the trajectory by clicking the bottom right arrow of the *main panel*. (Use the speed scroll bar to the left of that button to slow it down).
 
 What you are seeing represents the molecular motion of the protein on an extremely small time scale. The NAMD program calculates how the molecule moves over time given certain parameters such as temperature. These models and simulations can give insight into how proteins behave and their role in biological function and certain diseases.
 
@@ -298,8 +294,8 @@ to play with more rendering types: - try them out!
 
 > Graphics → Representations
 
-And this conclude the basic exercise to running a simple jobs on a cluster.
+And this conclude the basic tutorial to running a simple job on a cluster.
 Wasn’t so scary now was it?
 
-Please play around with VMD. Once you feel comfortable, try start the next group of exercises:
-[Intermediate_MD_workshop](../molecular_dynamics_201/molecular_dynamics_201/)
+Please play around with VMD. Once you feel comfortable, try start the next tutorial:
+[Molecular dynamics - Building input files](../molecular_dynamics_201/molecular_dynamics_201/)

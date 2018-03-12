@@ -1,34 +1,30 @@
 ![](../../../img/melbioinf_logo.png)
 
-# Molecular Dynamics Tutorial - Building input files
+# Molecular Dynamics Tutorial - Intermediate
 
 -----
 
-Welcome to the practical session of the supercomputer cluster workshop. In the following exercises we will be logging on a high performance computer (HPC) submitting NAMD\* molecular dynamics jobs. As students have a vast range of skill levels and requirements, *each of the following exercises are designed to be stand alone and worked on at your own pace*. Start at where you feel most comfortable and skip the exercises that are too simple. As we will be working from a terminal on the cluster and later downloading data back to our local desktop for visualization and analysis, we will be assuming that the users have basic knowledge of Linux and the molecular visualization program VMD\*.
+In the following tutorials we will be logging on a high performance computer (HPC) to submit [NAMD](http://www.ks.uiuc.edu/Research/namd/) molecular dynamics (MD) jobs and visualising the results with the molecular visualization program [VMD](http://www.ks.uiuc.edu/Research/vmd/). As students have a vast range of skill levels and requirements, the tutorials are divided into two parts described below. Each tutorial is designed to be stand alone, start where you feel most comfortable and skip the exercises that are too simple.
 
-As we will be using a computer terminal for these exercises, it will be useful if you are familiar with some Unix/Linux commands. If you are unfamiliar with these, we suggest you first work through the exercises outlined on this [Unix tutorial page](https://melbournebioinformatics.github.io/MelBioInf_docs/tutorials/unix/robinson-unix-link/).
+* **[MD tutorial - Introduction to cluster computing](../molecular_dynamics_101/molecular_dynamics_101/)**: If you have never launched a job on a cluster before, this tutorial is for you. Here we will simply copy across a bare minimum directory containing input files ready to go for a short NAMD simulation. Once the job is finished, we will download the data to your local computer and visualize the trajectory with VMD.
 
-\*[NAMD - molecular dynamics program](http://www.ks.uiuc.edu/Research/namd/)
+* **MD tutorial - Building input files (this tutorial)**: In this tutorial we will be introducing a more sophisticated directory structure using scripts to direct the output and run the job. We initially download a copy of the directory to our local computer where we then build up the input files using VMD. We then upload this directory to the cluster where we submit the job. Finally we will download the results back to our local computer to visualize with VMD.
 
-\*[VMD - molecular visualization program](http://www.ks.uiuc.edu/Research/vmd/)
+As we will be working from a terminal on the cluster and later downloading data back to our local desktop for visualization and analysis, we will be assuming that the users have basic knowledge of Unix/Linux. If you are unfamiliar with these, we suggest you first work through this [Unix tutorial](https://melbournebioinformatics.github.io/MelBioInf_docs/tutorials/unix/robinson-unix-link/).
 
 -----
 
-## 1 - Introduction
+## 1 - Overview
 
-In this exercise we will be introducing a more sophisticated directory structure using scripts to direct the output and run the job. We initially download a copy of the directory to our local computer where we then build up the input files using VMD. We then upload this directory to the cluster where we submit the job. Finally we will download the results back to our local computer to visualize with VMD.
+The aim of this tutorial is to give more advanced lessons in setting up and preparing molecular dynamics jobs for submission to the HPC cluster. It is assumed that the user has a basic command of visualization programs such as VMD and has had at least some experience launching and retrieving example tutorial jobs to the cluster, as shown in [this molecular dynamics tutorial](../molecular_dynamics_101/molecular_dynamics_101/).
 
-
-The aim of this tutorial is to give more advanced lessons in setting up and preparing molecular dynamics jobs for submission to the HPC cluster. It is assumed that the user has a basic command of visualization programs such as VMD and has had at least some experience launching and retrieving example tutorial jobs to the cluster.
-
-> **Tip**: in conjunction with this workshop there are some excellent [NAMD tutorials](http://www.ks.uiuc.edu/Training/Tutorials/) available that are worth working through.
+> **Tip**: in conjunction with this tutorial there are some excellent [NAMD tutorials](http://www.ks.uiuc.edu/Training/Tutorials/) available that are worth working through.
 
 ## 2 - NAMD overview
 
-
 ### a) Recap: what we've done so far
 
-In the previous [beginner's tutorial](../molecular_dynamics_101/molecular_dynamics_101/) we simply launched a short job on the cluster that already had all the required input files to simulate a ubiquitin protein molecule in solution.
+In the previous [beginners tutorial](../molecular_dynamics_101/molecular_dynamics_101/) we simply launched a short job on the cluster that already had all the required input files to simulate a ubiquitin protein molecule in solution.
 
 For a cluster computing the minimum files we need to run a job are:
 
@@ -42,7 +38,7 @@ For a cluster computing the minimum files we need to run a job are:
 
 `sbatch_batchfile` - **a script file** to launch the job on the cluster depending on the scheduler used. ie) pbs or slurm. Tells the cluster how to run the NAMD job and how many cores to use.
 
-In our introductory example all we had to do was launch the job. We will now go through the process of building a NAMD input file from scratch.
+In our [beginners tutorial](../molecular_dynamics_101/molecular_dynamics_101/) all we had to do was launch the job. We will now go through the process of building a NAMD input file from scratch.
 
 ### b) Building NAMD input files overview
 
@@ -56,11 +52,11 @@ In a flowchart, the process looks something like this:
 
 ### c) The *Namd_intermediate_template* directory structure
 
-> **Note**: one problem with running molecular dynamics simulations is that you can very quickly build up a mess of output files with the resulting directory becoming disorganized and difficult to navigate. (If you ran the beginner exercise you may have noticed a lot more files at the end of the run with no particular order!). One solution to this is to have specific directories for certain tasks and using scripts to redirect output.
+> **Note**: one problem with running molecular dynamics simulations is that you can very quickly build up a mess of output files with the resulting directory becoming disorganized and difficult to navigate. (If you ran the [beginner tutorial](../molecular_dynamics_101/molecular_dynamics_101/) you may have noticed a lot more files at the end of the run with no particular order!). One solution to this is to have specific directories for certain tasks and using scripts to redirect output.
 
->In the next exercise we will download a template directory within which we will build our model and setup our simulation. We will use more sophisticated scripts to launch and manage our jobs that will direct output to appropriate directories.
+> In the next exercise we will download a template directory within which we will build our model and setup our simulation. We will use more sophisticated scripts to launch and manage our jobs that will direct output to appropriate directories.
 
-This directory is found on barcoo, under **/vlsci/examples/namd/Namd_intermediate_template**.
+This directory is found on snowy, under **/vlsci/examples/namd/Namd_intermediate_template**.
 
 It has a particular directory structure as follows:
 
@@ -118,7 +114,7 @@ More of running a job later. First we need to build input files!
 Download a copy of the *Namd_intermediate_template* to your **local computer**. We will prepare our files here and then upload them to the cluster once ready.
 
 ```
-scp -r <user>@barcoo.vlsci.org.au:/vlsci/examples/namd/Namd_intermediate_template .
+scp -r <username>@snowy.vlsci.unimelb.edu.au:/vlsci/examples/namd/Namd_intermediate_template .
 ```
 
 > **Note**: don't forget the dot at the end
@@ -139,11 +135,9 @@ In this structure there are 3 “chains”. Chain **A** and **B** are the monome
 
 Highlight the protein selection in the **VMD main panel** and then click:
 
-```
-File → save coordinates
-```
+> File → save coordinates
 
-In the “selected atoms” box of the save trajectory gui type:
+In the “selected atoms” box of the save trajectory window type:
 
 ```
 chain A and protein
@@ -239,9 +233,7 @@ vmd model_temp_x.psf model_temp_x.pdb
 
 We will now use the solvation module to center and create a solvent box around our protein. We will use dimensions of `80 x 64 x 64` Å. Open the solvation window from the main panel:
 
-```
-Extensions → Modeling → add solvation box
-```
+> Extensions → Modeling → add solvation box
 
 In this window do the following:
 
@@ -251,17 +243,15 @@ In this window do the following:
 - In the Box Size add:
     - min: x: 40 y: -32 z: -32
     - max: x: 40 y: 32 z: 32
-- press “Solvate”
+- click “Solvate”
 
 We now should have two new files, **solvate.psf** and **solvate.pdb**, the solvated version of your original input.
 
 Now we can jump straight to adding ions. Adding ions makes the simulation more physiologically relevant and also balances charges. Open the ionization window:
 
-```
-Extensions → Modeling → add ions
-```
+> Extensions → Modeling → add ions
 
-In the **“Autoionize”** window simply toggle the “neutralize and set NaCl concentration” option and press “Autoionize”. We should get about 26 sodium ions and 30 chloride ions added to the system in two new files: **ionized.psf** and **ionized.pdb**.
+In the **“Autoionize”** window simply toggle the “neutralize and set NaCl concentration” option and click “Autoionize”. We should get about 26 sodium ions and 30 chloride ions added to the system in two new files: **ionized.psf** and **ionized.pdb**.
 
 These are are final input files. We should now rename and move these files to a better location in the directory structure. In Linux we can use the command:
 
@@ -414,16 +404,17 @@ There are a number of other control parameters in the production configuration s
 
 Save and close your .conf files.
 
-## 5 - A look at the sbatch scripts
+**A look at the sbatch scripts**
 
-The sbatch scripts tell the cluster how to run the simulation and how to handle the generated data. These scripts are a lot more complicated to the ones we saw in the beginners exercises, but most of the details you need to worry about are all in the first few lines.
+The sbatch scripts tell the cluster how to run the simulation and how to handle the generated data. These scripts are a lot more complicated to the ones we saw in the [beginners tutorial](../molecular_dynamics_101/molecular_dynamics_101/), but most of the details you need to worry about are all in the first few lines.
 
 In a sbatch script we need to pass arguments to the slurm scheduler (the controlling program which launches users jobs to the cluster). The way to do so is use a complete code word “#SBATCH” on the first spaces of a line:
 
-```
-#SBATCH –nodes=2 		← this works!
-# SBATCH -nodes=2 		← this doesn't because of the space between “#” and “S”.
-```
+
+`#SBATCH –nodes=2` 		← this works!
+
+`# SBATCH -nodes=2`		← this doesn't because of the space between “#” and “S”
+
 
 > **Note**: PBS scripts work in a similar way, but with the code word “**#PBS**” )
 
@@ -439,20 +430,18 @@ To set the number of nodes used for a job set:
 
 To set the job runtime change this line:
 
-```
-#SBATCH –time=2:0:0         ← (hours : minutes : seconds)
-```
+`#SBATCH –time=2:0:0`         ← (hours:minutes:seconds)
 
 The time or “walltime” tells the cluster how long your job should run. If your job runs longer than this, it will be stopped. As rule of thumb, use the time you expect plus %10.  If you use an excessively long walltime such as days or weeks, the scheduler may take a long time to fit your job into the queue. Generally shorter jobs will get on the cluster faster. (but make sure your walltime is appropriate for your configuration file!)
 
-### 6 - Launching the job on the cluster
+## 5 - Launching the job on the cluster
 
 We are now ready to go ahead with launching the job. For convenience I prefer to keep everything associated with the simulation together in the one directory in including all the build scripts and parameter files. The size of the extra files is tiny compared to the data you generate but this way you can ensure to totally replicate and finding that you happen to make.
 
 Upload the entire directory to your account. Under Linux this might be:
 
 ```
-scp -r Namd_intermediate_template <username>@snowy.vlsci.org.au:
+scp -r Namd_intermediate_template <username>@snowy.vlsci.unimelb.edu.au:
 ```
 
 Log into your account on **snowy** and change into the top of the directory.
@@ -482,34 +471,34 @@ scancel <jobnumber>
 ```
 
 Now that your job has finished, we will copy across a completed job run.
-From your top directory on barcoo: (this should be all on one line:)
+From your top directory on snowy: (this should be all on one line:)
 
 ```
 cp -r /vlsci/examples/namd/Namd_intermediate_template_finished/* Namd_intermediate_template/
 ```
 
-Once the jobs are finished, (or you have stopped the jobs and copied across the precomputed data)  we can download the entire directory back to our desktop for analysis. If you don't have much memory on your laptop, you can do the analysis remotely on the cluster.
+Once the jobs are finished (or you have stopped the jobs and copied across the precomputed data), we can download the entire directory back to our desktop for analysis. If you don't have much memory on your laptop, you can do the analysis remotely on the cluster.
 
 A smart way to copy files back to your local computer is to use **rsync**. This way you only copy new or changed files back to your computer. In Linux from the desktop this would be:
 
 ```
-rsync -avzt train01@barcoo.vlsci.org.au:Namd_intermediate_template .
+rsync -avzt <username>@snowy.vlsci.unimelb.edu.au:Namd_intermediate_template .
 ```
 
 > **Note**: the dot is important!
 
 Now that you have your data, we are ready to visualize the results,.....
 
-### 7 - Visualization of the MD trajectory
+## 6 - Visualization of the MD trajectory
 
 Hopefully by now you have successfully built a model, completed a small run with the template directory on the cluster and downloaded the results on to your local laptop. We will now have a look at the data you generated.
 
-#### a) Combining the trajectory files
+### a) Combining the trajectory files
 
 When we run segmented jobs as in this template, we end up with a series of output files in **/OutputFiles** such as:
 
 ```
-[train01@barcoo OutputFiles]$ ls -lrt  
+[train01@snowy OutputFiles]$ ls -lrt  
 total 13184
 -rwxr-xr-x 1 train01 TRAINING    1477 Mar 21 10:18 create_dcd_loader_script
 -rw-r--r-- 1 train01 TRAINING 4090120 Mar 21 10:45 opt.2017-03-21-10.19.sim_opt_r1.dcd.x
@@ -524,7 +513,7 @@ total 13184
 
 The main output files have the **.dcd** extension. We can see that things went well as the sizes of these files are identical as expected.
 
-If you have a lot of these files, it can be tedious to read them into VMD. Luckily we can run a script from this directory (you can do this on the cluster if you are running a Windows OS) to generate a list of this output to be read in by VMD. Simply run:
+If you have a lot of these files, it can be tedious to read them into VMD. Luckily we can run a script from this directory (you can do this on the cluster if you are running Windows on your local computer) to generate a list of this output to be read in by VMD. Simply run:
 
 ```
 ./create_dcd_loader_script
@@ -540,73 +529,68 @@ vmd InputFiles/hiv_protease.psf InputFiles/hiv_protease.pdb
 
 then from the main panel:
 
-```
-File → Load Visualization State → /OutputFiles/combined_dcd_file_loader.vmd
-```
+> File → Load Visualization State → /OutputFiles/combined_dcd_file_loader.vmd
 
 It is possible to restart the simulations of any segment as the restart files are saved under **/RestartFiles**.
 
-### 8 - Looking at longer simulations
+## 7 - Looking at longer simulations
 
 The previous examples have not run for a particularly long period of time, barely a few hundred picoseconds, thus the relative movement in the molecule is small. For simulations that run on longer timescales there will be an amount of drifting making the analysis and visualization difficult.
 
 Luckily, there is an easy way to center and visualize our simulations which we will cover next.
 
-#### Copy across extended files to your local machine
+### a) Copy across extended files to your local machine
 
 We have prepared some HIV simulation files that ran for a total of 20 nanoseconds, (which is still quite short, but long enough to show off the some of the techniques.)
 
 Copy to your desktop the precomputed data in the Snowy folder: **/vlsci/examples/namd/Namd_intermediate_template_finished**
 
 ```
-scp -r <username>@snowy.vlsci.org.au:/vlsci/examples/namd/Namd_intermediate_template_finished .
+scp -r <username>@snowy.vlsci.unimelb.edu.au:/vlsci/examples/namd/Namd_intermediate_template_finished .
 ```
 
 In the **/OutputFiles** it has additional data which ran for a longer time, 10 x 2 ns simulations, with data points every 100 ps. The data has the extension **example.namd_job_extended_run_1.X.dcd** etc...
 
 Start VMD and load in your starting psf and pdb HIV protease files. (We will come to why we used the starting files shortly). Next, load up the 10 new trajectory data files onto the model in VMD. i.e.:
 
-```
-File -> Load Data Into Molecule -> example.namd_job_extended_run_1.9.dcd
-File -> Load Data Into Molecule -> example.namd_job_extended_run_1.8.dcd
-...etc...
-File -> Load Data Into Molecule -> example.namd_job_extended_run_1.0.dcd
-```
+> File → Load Data Into Molecule → example.namd_job_extended_run_1.9.dcd
+
+> File → Load Data Into Molecule → example.namd_job_extended_run_1.8.dcd
+
+> ...
+
+> File → Load Data Into Molecule → example.namd_job_extended_run_1.0.dcd
 
 Now display only the protein backbone. You will notice the protein jiggles around quite when you play the trajectory. This is Brownian motion, now more prominent due to longer sampling.
 
-The first thing we might try to ease the jiggling is to increase the **trajectory smoothing window size**. In the VMD Graphical representations gui, select your protein representation and toggle the **Trajectory** tab. At the bottom of the tab, increase the Trajectory Smoothing value to 5 and replay the trajectory. This should be much smoother. Try increasing to higher values.
+The first thing we might try to ease the jiggling is to increase the **trajectory smoothing window size**. In the VMD Graphical representations window, select your protein representation and toggle the **Trajectory** tab. At the bottom of the tab, increase the Trajectory Smoothing value to 5 and replay the trajectory. This should be much smoother. Try increasing to higher values.
 
 Although this view is smoother, it still can be difficult to visualize what relative motion is going on, due to the motion of the protein in the simulation box.
 
 We will now use the **RMSD Trajectory Tool** to center our protein frames.
 
-In the VMD main panel open:
+In the VMD main panel, open:
 
-```
-Extensions → Analysis → RMSD Trajectory Tool
-```
+> Extensions → Analysis → RMSD Trajectory Tool
 
 This should open up a new window. Towards the top left we have the selection, for the 'Selection modifiers' tick 'Backbone'. In the top right, click **“RMSD”**.
 
 When you do so, it will calculate the RMSD, of the protein backbone over the course of the simulation. The average value can be quite large depending on how much you selection drifts through space. At this point nothing has changed in the trajectory yet.
 
-Next, press the **“ALIGN”** button. This will translate each frame to minimize the RMSD of the selection based on the first frame, (In this case, our original input files).
+Next, click the **“ALIGN”** button. This will translate each frame to minimize the RMSD of the selection based on the first frame, (In this case, our original input files).
 
 In other word, the protein has been centered on a reference frame, but now the water box appears to rotate about the axis. This makes it much more useful for analysis.
-Press **“RMSD”** again and you'll see the value becomes much smaller.
+Click **“RMSD”** again and you'll see the value becomes much smaller.
 
 You may notice that the loop regions (residues 45 to 55) of the HIV protease dimer almost come apart in the longer simulations. This is an important part of the HIV protease kinetics, as the loops need to open for the substrate to enter the active site. We are getting a glimpse here of proteins in action.
 
-### Using Volmap to map ligand density.
+### b) Using Volmap to map ligand density.
 
-Now that we have a nicely centered protein data set we can do something useful like plot the water density. In the VMD main panel open:
+Now that we have a nicely centered protein data set we can do something useful like plot the water density. In the VMD main panel, open:
 
-```
-Extensions → Analysis → VolMap Tool.
-```
+> Extensions → Analysis → VolMap Tool.
 
-A new VolMap gui should open up.
+A new VolMap window should open up.
 
 In the selection box type: “water” and tick the box “compute for all frames”.
 
@@ -622,7 +606,7 @@ If all goes well you might see something like this. The red and blue lines are t
 
 You can also do this sort of view for ligands too, to show where they bind. Always make sure you first center your target protein or else this sort of representation will not make sense!
 
-### 6) Including a non-standard ligand
+## 8 - Including a non-standard ligand
 
 The difficulty with simulating new ligands in molecular dynamics simulations is about finding the right parameter files. Your simulation is only as good as the parameters they use, so it is worthwhile trying to validate them. Most of the common residues, such as amino acids, nucleotides and glycosides have decent parameters for the main MD codes, but finding suitable parameters for new drug molecules can be arduous.
 
@@ -643,10 +627,10 @@ If you submit the APV.mol2 file to the **SwissParam** website, you will receive 
 lig.crd
 lig.itp
 lig.mol2
-lig.par 		← this is the parameter file to run the APV ligand simulation.
-lig.pdb 		← we need this pdb file to build the APV in the model.
+lig.par 		← this is the parameter file to run the APV ligand simulation
+lig.pdb 		← we need this pdb file to build the APV in the model
 lig.psf
-lig.rtf 		← we need this topology file to build the model.
+lig.rtf 		← we need this topology file to build the model
 ```
 
 This is stored in the **/BUILD_DIR/lig** folder.
@@ -670,13 +654,8 @@ parameters InputFiles/Parameters/lig.par
 
 This is to tell NAMD how to treat the new APV molecule in the simulation.
 
-A small sample of data is already precomputed and stored under **/OutputFiles/** as
-**hiv_prot_APV.dcd**
-
-You can view this using VMD, with the **/InputFiles/hiv_prot_APV.psf** file.
+A small sample of data is already precomputed and stored under **/OutputFiles/** as **hiv_prot_APV.dcd**. You can view this using VMD, with the **/InputFiles/hiv_prot_APV.psf** file.
 
 > **Exercise**: With the simulation data, try to visualize the APV alone. Does the molecule behave as you might expect? Do the charges on the atoms seem reasonable? Look up some mutations associated with Amprenavir resistance. Does this make sense in the model?
 
-So concludes the intermediate exercises. For the extra keen, there are additional input files under the **/Example** directory where users can attempt to build membrane embedded protein models.
-
-A more advanced workflow called [MD_workflow_py](https://github.com/mkuiper/MD_workflow_py) was written with the Python programming language. This new workflow uses a similar structure to what was shown in this example and has additional capability to manage thousands of independent jobs and generate molecular animations.
+So concludes the intermediate tutorial. A more advanced workflow called [MD_workflow_py](https://github.com/mkuiper/MD_workflow_py) was written with using the Python programming language. This new workflow uses a similar structure to what was shown in this tutorial and has additional capability to manage thousands of independent jobs and generate molecular animations.
