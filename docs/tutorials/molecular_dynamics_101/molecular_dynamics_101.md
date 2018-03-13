@@ -36,12 +36,12 @@ If you type `ls` at the prompt you should see a list of the files and directorie
 > **Note**: be careful to use the right **terminal** when you are typing in commands!
 > Sometimes you need to type the commands on the cluster terminal, and sometimes on your local terminal. You can tell which is which by looking at the command line prompt. When you are logged into the cluster, you should see the machine name at the prompt, for example:
 
-> `[<username>@snowy ~]$`               <- tells you your terminal is on snowy
+> `[<username>@snowy ~]$`               <- tells you your terminal is on Snowy
 
 
 ### b) Copy across files, starting the job
 
-We’ll need to copy across the basic example directory to our working directory on **snowy**. Do this with:
+We’ll need to copy across the basic example directory to our working directory on **Snowy**. Do this with:
 
 ```
 cp -r /vlsci/examples/namd/Namd_simple_example_01 .
@@ -215,13 +215,13 @@ Now on to part 2, visualizing the results with VMD.
 
 Welcome to part 2 of the NAMD tutorial, where you will be using the [molecular visualization program VMD](http://www.ks.uiuc.edu/Research/vmd/) to look at the trajectory data of the ubiquitin protein you generated in part 1 of the tutorial. If you haven't already done so, download and install VMD to your local computer (make sure to pick the right flavour: Windows, Mac or Linux).
 
-> **Tip**: the most confusing part of this exercise seems to be remembering to use the right terminal! That is, either one is connected to the cluster, or one is running on your local computer. The exercises we just ran were on the cluster. That is, a terminal which we used to connect to the **snowy** cluster using the program **ssh**.
+> **Tip**: the most confusing part of this exercise seems to be remembering to use the right terminal! That is, either one is connected to the cluster, or one is running on your local computer. The exercises we just ran were on the cluster. That is, a terminal which we used to connect to the **Snowy** cluster using the program **ssh**.
 
 > You can usually tell which computer you are logged into by the terminal command line: for example the terminal command line:
 
 > `[mike@snowy Namd_simple_example_01]$`
 
-> tells me I am logged into **snowy**, in the `Namd_simple_example_01` directory.
+> tells me I am logged into **Snowy**, in the `Namd_simple_example_01` directory.
 
 > Compared to my local terminal command line:
 

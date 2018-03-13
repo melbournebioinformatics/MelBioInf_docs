@@ -1,6 +1,6 @@
 ![](../../../img/melbioinf_logo.png)
 
-# Molecular Dynamics Tutorial - Intermediate
+# Molecular Dynamics Tutorial - Building input files
 
 -----
 
@@ -16,7 +16,7 @@ As we will be working from a terminal on the cluster and later downloading data 
 
 ## 1 - Overview
 
-The aim of this tutorial is to give more advanced lessons in setting up and preparing molecular dynamics jobs for submission to the HPC cluster. It is assumed that the user has a basic command of visualization programs such as VMD and has had at least some experience launching and retrieving example tutorial jobs to the cluster, as shown in [this molecular dynamics tutorial](../molecular_dynamics_101/molecular_dynamics_101/).
+The aim of this tutorial is to give more advanced lessons in setting up and preparing molecular dynamics jobs for submission to the HPC cluster. It is assumed that the user has a basic command of visualization programs such as VMD and has had at least some experience launching and retrieving example tutorial jobs to the cluster, as shown in [our introductory molecular dynamics tutorial](../molecular_dynamics_101/molecular_dynamics_101/).
 
 > **Tip**: in conjunction with this tutorial there are some excellent [NAMD tutorials](http://www.ks.uiuc.edu/Training/Tutorials/) available that are worth working through.
 
@@ -24,9 +24,9 @@ The aim of this tutorial is to give more advanced lessons in setting up and prep
 
 ### a) Recap: what we've done so far
 
-In the previous [beginners tutorial](../molecular_dynamics_101/molecular_dynamics_101/) we simply launched a short job on the cluster that already had all the required input files to simulate a ubiquitin protein molecule in solution.
+In the previous [introductory tutorial](../molecular_dynamics_101/molecular_dynamics_101/) we simply launched a short job on the cluster that already had all the required input files to simulate a ubiquitin protein molecule in solution.
 
-For a cluster computing the minimum files we need to run a job are:
+To run a molecular dynamics simulation on a cluster, the minimum files we need are:
 
 `<filename>.psf` - **protein structure file**. A list of the atoms, masses, charges and connections between atoms.
 
@@ -34,11 +34,11 @@ For a cluster computing the minimum files we need to run a job are:
 
 `<filename>.conf` - **NAMD configuration file**. Tells NAMD how to run the job.
 
-`par_all27_prot_na.par` - **a parameter file**. (there are different types of these depending on the classes of molecules you have in your model, such as lipids or DNA). Used by NAMD to run the simulation, basically a list of all the bonds, angles, dihedrals, improper and VdW terms.
+`par_all27_prot_na.par` - **a parameter file**. (there are different types of these depending on the classes of molecules you have in your model, such as lipids or DNA). It is used by NAMD to run the simulation, basically a list of all the bonds, angles, dihedrals, improper and VdW terms.
 
-`sbatch_batchfile` - **a script file** to launch the job on the cluster depending on the scheduler used. ie) pbs or slurm. Tells the cluster how to run the NAMD job and how many cores to use.
+`sbatch_batchfile` - **a script file** to launch the job on the cluster depending on the scheduler used (i.e. PBS or Slurm). Tells the cluster how to run the NAMD job and how many cores to use.
 
-In our [beginners tutorial](../molecular_dynamics_101/molecular_dynamics_101/) all we had to do was launch the job. We will now go through the process of building a NAMD input file from scratch.
+In our [introductory tutorial](../molecular_dynamics_101/molecular_dynamics_101/) all we had to do was launch the job. We will now go through the process of building a NAMD input files from scratch.
 
 ### b) Building NAMD input files overview
 
@@ -52,11 +52,11 @@ In a flowchart, the process looks something like this:
 
 ### c) The *Namd_intermediate_template* directory structure
 
-> **Note**: one problem with running molecular dynamics simulations is that you can very quickly build up a mess of output files with the resulting directory becoming disorganized and difficult to navigate. (If you ran the [beginner tutorial](../molecular_dynamics_101/molecular_dynamics_101/) you may have noticed a lot more files at the end of the run with no particular order!). One solution to this is to have specific directories for certain tasks and using scripts to redirect output.
+> **Note**: one problem with running molecular dynamics simulations is that you can very quickly build up a mess of output files with the resulting directory becoming disorganized and difficult to navigate. (If you ran the [introductory tutorial](../molecular_dynamics_101/molecular_dynamics_101/) you may have noticed a lot more files at the end of the run with no particular order!). One solution to this is to have specific directories for certain tasks and using scripts to redirect outputs.
 
 > In the next exercise we will download a template directory within which we will build our model and setup our simulation. We will use more sophisticated scripts to launch and manage our jobs that will direct output to appropriate directories.
 
-This directory is found on snowy, under **/vlsci/examples/namd/Namd_intermediate_template**.
+This directory is found on Snowy, under **/vlsci/examples/namd/Namd_intermediate_template**.
 
 It has a particular directory structure as follows:
 
@@ -93,15 +93,13 @@ It has a particular directory structure as follows:
 	/RestartFiles			← Generic restart files saved here
 ```
 
-Rather than running one long job, this template is designed to run into smaller stages. After we build a model and make the appropriate changes to the input files the run is started by launching **(don't do this just yet!)**:
+Rather than running one long job, this template is designed to run into smaller stages. After we build a model and make the appropriate changes to the input files the run is started by launching:
 
-```
-sbatch sbatch_start
-```
+`sbatch sbatch_start`		**(don't do this just yet!)**
 
 This will launch a job using the **sim_opt.conf** configuration file which is designed to equilibrate the system. At the conclusion of the equilibration run, the script will automatically launch the production run: **sbatch sbatch_production**
 
-Production runs are designed to run less than 24 hours at a time, at the end of which *restart files* are saved and relaunch themselves for another 24 hour job. Every time they do, the script increases a **counter.txt** file by 1. Once that reaches the number in the **MaxJobNumber.txt** file the job stops. For example, if a 24 hour job completes 5 nanoseconds of simulation a day, and we want a contiguous simulation of say 50 ns, then we'd set the counter.txt file to 0 and the MaxJobNumber.txt to 10 and thus would expect the job to finish in 10 days. The advantage of running a series of smaller jobs rather than one long one is better scheduling on the cluster, and also better protection from data corruption should there be a hardware failure.
+Production runs are designed to run less than 24 hours at a time, at the end of which *restart files* are saved and relaunch themselves for another 24 hour job. Every time they do, the script increases a **counter.txt** file by 1. Once that reaches the number in the **MaxJobNumber.txt** file, the job stops. For example, if a 24 hour job completes 5 nanoseconds of simulation a day, and we want a contiguous simulation of say 50 ns, then we'd set the counter.txt file to 0 and the MaxJobNumber.txt to 10 and thus would expect the job to finish in 10 days. The advantage of running a series of smaller jobs rather than one long one is better scheduling on the cluster, and also better protection from data corruption should there be a hardware failure.
 
 The script also date stamps and directs the output to the appropriate folders. A complete **dcd trajectory** can be reconstructed from the ordered files in the **/OutputFile** directory.
 
@@ -125,11 +123,9 @@ Change into the build directory:
 cd Namd_intermediate_template/BUILD_DIR
 ```
 
-We are going to build a model of HIV protease which is a dimer of two 99 amino acids protein monomers. First we need to extract the two chains as separate pdb files. We will use the rcsb entry 7hvp. If you are connected to the web, on your **local computer** start VMD and download this entry.
+We are going to build a model of HIV protease which is a dimer of two 99 amino acids protein monomers. First we need to extract the two chains as separate pdb files. We will use the [RCSB entry 7hvp](https://www.rcsb.org/structure/7HVP). Download the pdb file by clicking on "Download Files" (right hand corner), PDB Format. On your **local computer** start VMD and load the newly downloaded 7hvp.pdb file by doing the following in the **VMD main panel**:
 
-```
-vmd 7hvp
-```
+> File → New Molecule → Browse... → Load
 
 In this structure there are 3 “chains”. Chain **A** and **B** are the monomers and chain **C** is the inhibitor PRD_000228. Since there are water molecules associated with each chain selection we need to be more selective.
 
@@ -146,7 +142,7 @@ chain A and protein
 Save the chain as a pdb file with a sensible name and a pdb extension into **BUILD_DIR**. (e.g. 7hvp_chainA.pdb)
 
 Repeat for chain B. Since the inhibitor is complicated we will leave chain C out for now for this exercise.
-We should now have two pdb files in the **/BUILD_DIR** which will be the basis of our model building. ie)
+We should now have two pdb files in the **/BUILD_DIR** which will be the basis of our model building, i.e.:
 
 ```
 7hvp_chainA.pdb
@@ -162,7 +158,7 @@ package require psfgen
 topology ../InputFiles/Parameters/top_all27_prot_na.rtf
 ```
 
-If we were to be building a model with a **lipid bilayer** we would need to also include the topology file referring to lipids. ie)
+If we were to be building a model with a **lipid bilayer** we would need to also include the topology file referring to lipids, i.e.:
 
 ```
 topology ../InputFiles/Parameter/top_all27_prot_lipid.rtf
@@ -212,7 +208,7 @@ vmd -dispdev text -e build_example
 
 **You should see some errors.**
 
-This is because in the original chains A and B there are some modified alanine residues labeled **ABA**. Since the residues ABA are not defined in the topology files vmd psfgen does not know how to build this model. Edit the **7hvcp_chainA.pdb** and **7hvp_chainB.pdb** files and carefully change any occurrence of **ABA** to **ALA**.
+This is because in the original chains A and B there are some modified alanine residues labeled **ABA**. Since the residues ABA are not defined in the topology files, **vmd psfgen** does not know how to build this model. Edit the **7hvp_chainA.pdb** and **7hvp_chainB.pdb** files and carefully change any occurrence of **ABA** to **ALA**.
 
 > **Note**: spacing in pdb files is really important so don't mess it up!
 
@@ -233,7 +229,7 @@ vmd model_temp_x.psf model_temp_x.pdb
 
 We will now use the solvation module to center and create a solvent box around our protein. We will use dimensions of `80 x 64 x 64` Å. Open the solvation window from the main panel:
 
-> Extensions → Modeling → add solvation box
+> Extensions → Modeling → Add Solvation Box
 
 In this window do the following:
 
@@ -241,11 +237,13 @@ In this window do the following:
 - Change the Boundary number from “2.4” to “1.8”
 - untoggle the 'use molecular Dimensions” button.
 - In the Box Size add:
-    - min: x: 40 y: -32 z: -32
+    - min: x: -40 y: -32 z: -32
     - max: x: 40 y: 32 z: 32
 - click “Solvate”
 
-We now should have two new files, **solvate.psf** and **solvate.pdb**, the solvated version of your original input.
+We now should have two new files, **solvate.psf** and **solvate.pdb**, the solvated version of your original input. You should also your newly solvated system in the **VMD display**.
+
+> **Tip**: you can quickly hide "model_temp_x.psf" and "model_temp_x.pdb" from the VMD display by double-clicking on 'D' (Drawn) next to these in the VMD main panel. This helps visualise the solvate.psf system.
 
 Now we can jump straight to adding ions. Adding ions makes the simulation more physiologically relevant and also balances charges. Open the ionization window:
 
@@ -269,23 +267,20 @@ You can also now remove the old “solvate” and “\_x” files to keep things
 
 ## 4 - Preparing the configuration files
 
-By now we have prepared two new input files for a NAMD simulation called **hiv_protease.psf** and **hiv_protease.pdb** and placed them in the folder **/InputFiles**. We now need to make changes to the NAMD configuration files to match our new inputs. At the top of the directory we have two configuration files and two sbatch files:
+By now we have prepared two new input files for a NAMD simulation called **hiv_protease.psf** and **hiv_protease.pdb** and placed them in the folder **/InputFiles**. We now need to make changes to the NAMD configuration files to match our new inputs. In the main directory (Namd_intermediate_template) we have two configuration files and two sbatch files:
 
 ```
-sbatch_start		sim_opt.conf
-sbatch_production	sim_production.conf
+sim_opt.conf
+sim_production.conf
+sbatch_start
+sbatch_production
 ```
+
+### a) Edit the .conf files
 
 Let us first edit the **.conf** files. Open the **sim_opt.conf** file.
 
-Make changes to the lines:
-
-```
-structure   InputFiles/change_me.psf
-coordinates InputFiles/change_me.pdb
-```
-
-to match our inputs:
+You can see that these two lines match our inputs (change them if you used a different name of the psf and pdb files):
 
 ```
 structure   InputFiles/hiv_protease.psf
@@ -306,20 +301,11 @@ parameters 	InputFiles/Parameters/par_all27_prot_lipid.prm
 parameters 	InputFiles/Parameters/par_for_ligand.prm
 ```
 
-We also need to make changes to match our **Periodic Boundary Conditions** (PBC).
+We also need to make changes to match our **periodic boundary conditions** (PBC).
 
 The way PBC works is that our simulation box has a certain rectangular geometry which is mirrored on all sides to mimic an infinite system. A molecule which falls out of the left and side of the box fall back in on the right hand side. A molecule that falls out of the bottom reappears at the top and so on. Care has to be given when building a solvated PBC system so that a protein molecule has enough room around its edges so that it doesn't interact with itself should it wander too close to a boundary.
 
-Since our box ended up being of dimensions 80 x 64 x 64 Å change the lines:
-
-```
-cellBasisVector1   96.  0.  0.
-cellBasisVector2    0. 96.  0.
-cellBasisVector3    0.  0. 96.
-cellOrigin          0   0   0
-```
-
-to
+Since our box ended up being of dimensions 80 x 64 x 64 Å, this is reflected in the PBC parameters here:
 
 ```
 cellBasisVector1   80.  0.  0.
@@ -334,17 +320,10 @@ The **sim_production.conf** file controls how we run a segment of the production
 
 Open the **sim_production.conf** file:
 
-Make the appropriate changes to the lines:
-
-```
-structure   InputFiles/change_me.psf
-coordinates InputFiles/change_me.pdb
-```
-
 Since we would like to run a relatively short job segment for this exercise, we will change the line:
 
 ```
-set NumberSteps 2500000
+set NumberSteps 2500
 ```
 
 to:
@@ -355,13 +334,13 @@ set NumberSteps 20000
 
 This segment will run for only 20,000 x 2 fs = 0.04 ns at a time. For example, if we set max_jobnumber.txt to be 5 then we will should get 0.2 ns worth of simulation.
 
-In another terminal edit the **counter.txt** file to contain the number 0. (The counter file is a way of running a certain number of jobs. This increments up after each job finished until it reaches the same as MaxJobNumber.txt and then stops). In linux we can simply use:
+Edit the **counter.txt** file to contain the number 0. (The counter file is a way of running a certain number of jobs. This increments up after each job finished until it reaches the same as MaxJobNumber.txt and then stops). In linux we can simply use:
 
 ```
 echo 0 > counter.txt
 ```
 
-In another terminal edit the **MaxJobNumber.txt** file to contain the number 5. This will limit the total number of jobs run. Jobs will stop when counter.txt value is equal to or greater than the MaxJobNumber.txt value.
+Then edit the **MaxJobNumber.txt** file to contain the number 5. This will limit the total number of jobs run. Jobs will stop when counter.txt value is equal to or greater than the MaxJobNumber.txt value.
 
 ```
 echo 5 > MaxJobNumber.txt
@@ -369,15 +348,15 @@ echo 5 > MaxJobNumber.txt
 
 We can always make this number bigger later and restart the jobs if we want things to go longer.
 
-Since we might want to see a bit more data in this short example we will also change more lines in the **sim_production.conf** file:
+For this short example we will also change more lines in the **sim_production.conf** file:
 
 ```
-restartfreq     250000
-dcdfreq         50000
-xstFreq         50000
-outputEnergies  50000
-outputPressure  50000
-outputTiming    50000
+restartfreq     2500
+dcdfreq         5000
+xstFreq         5000
+outputEnergies  5000
+outputPressure  5000
+outputTiming    5000
 ```
 
 to:
@@ -402,37 +381,39 @@ extendedSystem $inputname.xsc   ; # Cell dimensions from last run
 
 There are a number of other control parameters in the production configuration script worth taking a look at including such things as cutoffs and temperature controls if you have time. These don't change much typically between simulations, but are covered better in the online NAMD tutorials and manuals. The setting we use here are reasonable default values.
 
-Save and close your .conf files.
+Save and close your **.conf** files.
 
-**A look at the sbatch scripts**
+### b) Edit the sbatch scripts
 
-The sbatch scripts tell the cluster how to run the simulation and how to handle the generated data. These scripts are a lot more complicated to the ones we saw in the [beginners tutorial](../molecular_dynamics_101/molecular_dynamics_101/), but most of the details you need to worry about are all in the first few lines.
+The sbatch scripts tell the cluster how to run the simulation and how to handle the generated data. These scripts are a lot more complicated than the ones we saw in the [introductory tutorial](../molecular_dynamics_101/molecular_dynamics_101/), but most of the details you need to worry about are all in the first few lines.
 
-In a sbatch script we need to pass arguments to the slurm scheduler (the controlling program which launches users jobs to the cluster). The way to do so is use a complete code word “#SBATCH” on the first spaces of a line:
-
-
-`#SBATCH –nodes=2` 		← this works!
-
-`# SBATCH -nodes=2`		← this doesn't because of the space between “#” and “S”
+In a sbatch script we need to pass arguments to the Slurm scheduler (the controlling program which launches users jobs to the cluster). The way to do so is use a complete code word “#SBATCH” on the first spaces of a line:
 
 
-> **Note**: PBS scripts work in a similar way, but with the code word “**#PBS**” )
+`#SBATCH --nodes=2` 		← this works!
 
-> **Note**: people often get confused with this as the “**#**” symbol usually denotes a comment line.
+`# SBATCH --nodes=2`		← this doesn't because of the space between “#” and “SBATCH”
 
-To set the number of nodes used for a job set:
+
+> **Note**:
+
+> - people often get confused with this as the “**#**” symbol usually denotes a comment line.
+
+> - PBS scripts work in a similar way, but with the code word “**#PBS**”
+
+Set the number of nodes used for a job on **sbatch_start** and **sbatch_production** to 4, as shown below:
 
 ```
-#SBATCH –nodes=4
+#SBATCH --nodes=4
 ```
 
 **Remember, more nodes is not necessarily faster and can be dramatically slower!** It can be a good way to quickly burn up your quota inefficiently. It is a good idea to benchmark your jobs to find an optimal sweet spot, - more of how to do that another time. 4 nodes for this example will be fine.
 
-To set the job runtime change this line:
+To set the production job runtime change this line on **sbatch_production**:
 
-`#SBATCH –time=2:0:0`         ← (hours:minutes:seconds)
+`#SBATCH --time=2:0:0`         ← (hours:minutes:seconds)
 
-The time or “walltime” tells the cluster how long your job should run. If your job runs longer than this, it will be stopped. As rule of thumb, use the time you expect plus %10.  If you use an excessively long walltime such as days or weeks, the scheduler may take a long time to fit your job into the queue. Generally shorter jobs will get on the cluster faster. (but make sure your walltime is appropriate for your configuration file!)
+The time or “walltime” tells the cluster how long your job should run. If your job runs longer than this, it will be stopped. As rule of thumb, use the time you expect plus 10%.  If you use an excessively long walltime such as days or weeks, the scheduler may take a long time to fit your job into the queue. Generally shorter jobs will get on the cluster faster (but make sure your walltime is appropriate for your configuration file!).
 
 ## 5 - Launching the job on the cluster
 
@@ -444,7 +425,12 @@ Upload the entire directory to your account. Under Linux this might be:
 scp -r Namd_intermediate_template <username>@snowy.vlsci.unimelb.edu.au:
 ```
 
-Log into your account on **snowy** and change into the top of the directory.
+Log into your account on **Snowy** and change into the top of the *Namd_intermediate_template/* directory:
+
+```
+ssh <username>@snowy.vlsci.unimelb.edu.au
+```
+
 Launch the start script:
 
 ```
@@ -453,11 +439,10 @@ sbatch sbatch_start
 
 This should launch the equilibration phase of the simulation. As mentioned previously, the sbatch_script will automatically direct the output to the proper directories and launch the production phase. **This might take an hour or two to complete**.
 
+All text output is directed to the **/OutputText** folder. You can take a peek at how your job is going by using the command `tail <filename>` which prints out the last few lines of `<filename>`.
 
-All text output is directed to the **/OutputText** folder. You can take a peek at how your job is going by using the command “tail <filename>” which prints out the last few lines of <filename>.
+**For the purpose of this exercise**, we will stop the job early and copy across a pre-computed data set. In your directory you should see slurm output file.
 
-
-**For the purpose of this exercise**, we will stop the job early and copy across a pre-computed data set. In your directory you should see slurm output file
 It will look something like this:
 
 ```
@@ -470,16 +455,15 @@ The number represents the job number on the cluster. Now use **scancel** to stop
 scancel <jobnumber>
 ```
 
-Now that your job has finished, we will copy across a completed job run.
-From your top directory on snowy: (this should be all on one line:)
+Now that your job has finished, we will copy across a completed job run. From your **top directory** on Snowy:
 
 ```
 cp -r /vlsci/examples/namd/Namd_intermediate_template_finished/* Namd_intermediate_template/
 ```
 
-Once the jobs are finished (or you have stopped the jobs and copied across the precomputed data), we can download the entire directory back to our desktop for analysis. If you don't have much memory on your laptop, you can do the analysis remotely on the cluster.
+Once the jobs are finished (or you have stopped the jobs and copied across the precomputed data), we can download the entire directory back to our local computer for analysis. If you don't have much memory on your laptop, you can do the analysis remotely on the cluster.
 
-A smart way to copy files back to your local computer is to use **rsync**. This way you only copy new or changed files back to your computer. In Linux from the desktop this would be:
+A smart way to copy files back to your local computer is to use **rsync**. This way you only copy new or changed files back to your computer. In Linux from the local computer terminal this would be:
 
 ```
 rsync -avzt <username>@snowy.vlsci.unimelb.edu.au:Namd_intermediate_template .
@@ -487,11 +471,11 @@ rsync -avzt <username>@snowy.vlsci.unimelb.edu.au:Namd_intermediate_template .
 
 > **Note**: the dot is important!
 
-Now that you have your data, we are ready to visualize the results,.....
+Now that you have your data, we are ready to visualize the results.
 
 ## 6 - Visualization of the MD trajectory
 
-Hopefully by now you have successfully built a model, completed a small run with the template directory on the cluster and downloaded the results on to your local laptop. We will now have a look at the data you generated.
+Hopefully by now you have successfully built a model, completed a small run with the template directory on the cluster and downloaded the results on to your local computer. We will now have a look at the data you generated.
 
 ### a) Combining the trajectory files
 
@@ -521,7 +505,7 @@ If you have a lot of these files, it can be tedious to read them into VMD. Lucki
 
 This creates the file: **combined_dcd_file_loader.vmd**
 
-From the main directory we can load in our trajectory using:
+From the main directory on your local computer, we can load in our trajectory using:
 
 ```
 vmd InputFiles/hiv_protease.psf InputFiles/hiv_protease.pdb
@@ -531,7 +515,9 @@ then from the main panel:
 
 > File → Load Visualization State → /OutputFiles/combined_dcd_file_loader.vmd
 
-It is possible to restart the simulations of any segment as the restart files are saved under **/RestartFiles**.
+Click on the "play" button at the bottom right hand corner of the VMD main panel and watch the simulation run!
+
+> **Note**: it is possible to restart the simulations of any segment as the restart files are saved under **/RestartFiles**.
 
 ## 7 - Looking at longer simulations
 
@@ -541,7 +527,7 @@ Luckily, there is an easy way to center and visualize our simulations which we w
 
 ### a) Copy across extended files to your local machine
 
-We have prepared some HIV simulation files that ran for a total of 20 nanoseconds, (which is still quite short, but long enough to show off the some of the techniques.)
+We have prepared some HIV simulation files that ran for a total of 20 nanoseconds (which is still quite short, but long enough to show off the some of the techniques).
 
 Copy to your desktop the precomputed data in the Snowy folder: **/vlsci/examples/namd/Namd_intermediate_template_finished**
 
@@ -561,7 +547,7 @@ Start VMD and load in your starting psf and pdb HIV protease files. (We will com
 
 > File → Load Data Into Molecule → example.namd_job_extended_run_1.0.dcd
 
-Now display only the protein backbone. You will notice the protein jiggles around quite when you play the trajectory. This is Brownian motion, now more prominent due to longer sampling.
+Now display only the protein backbone. You will notice the protein jiggles around when you play the trajectory. This is Brownian motion, now more prominent due to longer sampling.
 
 The first thing we might try to ease the jiggling is to increase the **trajectory smoothing window size**. In the VMD Graphical representations window, select your protein representation and toggle the **Trajectory** tab. At the bottom of the tab, increase the Trajectory Smoothing value to 5 and replay the trajectory. This should be much smoother. Try increasing to higher values.
 
@@ -575,24 +561,25 @@ In the VMD main panel, open:
 
 This should open up a new window. Towards the top left we have the selection, for the 'Selection modifiers' tick 'Backbone'. In the top right, click **“RMSD”**.
 
-When you do so, it will calculate the RMSD, of the protein backbone over the course of the simulation. The average value can be quite large depending on how much you selection drifts through space. At this point nothing has changed in the trajectory yet.
+When you do so, it will calculate the RMSD, of the protein backbone over the course of the simulation. The average value can be quite large depending on how much your selection drifts through space. At this point nothing has changed in the trajectory yet.
 
-Next, click the **“ALIGN”** button. This will translate each frame to minimize the RMSD of the selection based on the first frame, (In this case, our original input files).
+Next, click the **“ALIGN”** button. This will translate each frame to minimize the RMSD of the selection based on the first frame (in this case, our original input files).
 
-In other word, the protein has been centered on a reference frame, but now the water box appears to rotate about the axis. This makes it much more useful for analysis.
+In other words, the protein has been centered on a reference frame, but now the water box appears to rotate about the axis. This makes it much more useful for analysis.
+
 Click **“RMSD”** again and you'll see the value becomes much smaller.
 
 You may notice that the loop regions (residues 45 to 55) of the HIV protease dimer almost come apart in the longer simulations. This is an important part of the HIV protease kinetics, as the loops need to open for the substrate to enter the active site. We are getting a glimpse here of proteins in action.
 
 ### b) Using Volmap to map ligand density.
 
-Now that we have a nicely centered protein data set we can do something useful like plot the water density. In the VMD main panel, open:
+Now that we have a nicely centered protein dataset we can do something useful like plot the water density. In the VMD main panel, open:
 
-> Extensions → Analysis → VolMap Tool.
+> Extensions → Analysis → VolMap Tool
 
 A new VolMap window should open up.
 
-In the selection box type: “water” and tick the box “compute for all frames”.
+In the selection box type: “water” and tick the box “compute for all frames”, click "Create Map".
 
 This will calculate a density map based on your water selection and create a new graphical selection. You should see a big white box around your molecule. Open up your graphical selection window and select the new **“Isosurface”** representation. Under the “Draw style” tab use the Isovalue slider to scale back the density to just a few points.
 
@@ -604,7 +591,7 @@ If all goes well you might see something like this. The red and blue lines are t
 
 > **Exercise**: see if you can identify any ordered waters near the catalytic residues of HIV protease (Asp 25). You may change the resolution of Volmap to 0.5 for more detail.
 
-You can also do this sort of view for ligands too, to show where they bind. Always make sure you first center your target protein or else this sort of representation will not make sense!
+You can also do this sort of view for ligands to show where they bind. Always make sure you first center your target protein or else this sort of representation will not make sense!
 
 ## 8 - Including a non-standard ligand
 
