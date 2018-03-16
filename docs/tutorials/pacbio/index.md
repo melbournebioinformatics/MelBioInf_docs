@@ -40,6 +40,15 @@ If you are using Windows 10, you might be able to use the Ubuntu Subsystem. Othe
 - Under "Login as:" enter "researcher"
 - Type in the password provided. 
 
+### Activate the conda environment
+
+Type in:
+```
+source /mnt/gvl/apps/conda/bin/activate
+```
+
+(This points us to some different directories for the software we need). 
+
 ### Create a new working directory on your remote computer.
 
 Because we are starting a new analysis it is always good practice to start in a new empty directory. Therefore, we will create a new directory and change to it for the rest of the workshop.
@@ -91,18 +100,19 @@ wget [paste file link here]
 
 ## 3. Assemble<a name="assemble"></a>
 
-We will use the assembly software called [Canu](http://canu.readthedocs.io/en/stable/), version 1.6.
+We will use the assembly software called [Canu](http://canu.readthedocs.io/en/stable/), version 1.7.
 
 Run Canu with these commands:
 
 ```text
-canu -p canu -d canu_outdir genomeSize=0.03m -pacbio-raw pacbio.fq
+canu -p canu -d canu_outdir genomeSize=0.03m corThreads=3 -pacbio-raw pacbio.fq
 ```
 
 - the first `canu` tells the program to run
 - `-p canu` names prefix for output files ("canu")
 - `-d canu_outdir` names output directory ("canu_outdir")
 - `genomeSize` only has to be approximate. (In this case we are using a partial genome of expected size 30,000 base pairs). 
+- `corThreads=3` sets the number of available threads. 
 - Canu will correct, trim and assemble the reads.
 - Various output will be displayed on the screen.
 - *Note*: Canu could say "Finished" but may still be running. In this case, type `squeue` to see if jobs are still running. 
@@ -142,9 +152,9 @@ Display summary information about the contigs: (`infoseq` is a tool from [EMBOSS
 infoseq canu.contigs.fasta
 ```
 
-- This will show the contigs found by Canu. e.g.,  tig00000001	39136
+- This will show the contigs found by Canu. e.g.,  tig00000001	42107
 - "tig00000001" is the name given to the contig
-- "39136" is the number of base pairs in that contig.
+- "42107" is the number of base pairs in that contig.
 
 This matches what we were expecting for this sample (approximately 30,000 base pairs). For other data, Canu may not be able to join all the reads into one contig, so there may be several contigs in the output.
 
@@ -273,7 +283,7 @@ infoseq 06.fixstart.fasta
 ```
 
 * The contig "tig00000001" has a length of 30019.
-* This is about 9000 bases shorter than before circularisation. This was the "overhang" and has now been trimmed. 
+* This is about 12,000 bases shorter than before circularisation. This was the "overhang" and has now been trimmed. 
 
 Copy the circularised contigs file to the main analysis directory with a new name:
 
@@ -654,7 +664,7 @@ Look at the details of the fasta file:
 infoseq pilon1.fasta
 ```
 
-- chromosome - 30060 (net +41 bases)
+- chromosome - 30059 (net +40 bases)
 - plasmid - 2252 (no change)
 
 
@@ -703,7 +713,7 @@ Yes, if accuracy adequate.
 
 ## 8. Comparative Genomics
 
-In the workshop so far, we used a partial bacterial genome so that the exercises could run in the time available. As a demonstration, to better see the effect of long and short reads on the assembly, we will examine complete bacterial genome. 
+In the workshop so far, we used a partial bacterial genome so that the exercises could run in the time available. As a demonstration, to better see the effect of long and short reads on the assembly, we will examine a complete bacterial genome. 
 
 
 ### Assemblies
