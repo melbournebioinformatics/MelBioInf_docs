@@ -41,8 +41,12 @@ The workshop is based on analysis of short read data from the exome of chromosom
 ## 1. Preparation
 
 1. **Make sure you have an instance of Galaxy ready to go.**
-    *  If you are not using your own Galaxy instance, you can use our [Galaxy Tutorial server] or [Galaxy Melbourne server].
-2. **Import data for the tutorial.**
+    * For example, you can use the [Galaxy Melbourne server].
+2. **Create a new history for this tutorial.**
+    * In the history pane, click on the cog icon at the top right. 
+    * Click *Create New*.
+    * Click on *Unnamed history* and re-name it. 
+3. **Import data for the tutorial.**
     * In this case, we are uploading a [FASTQ] file.
     * **Method 1**  
         *Paste/Fetch data from a URL to Galaxy.*
@@ -109,7 +113,7 @@ For more details see [FASTQ].
    <li> red = tried to run and failed
    </ul>
 
-When the job has finished, click on the eye icon to view the newly generated data (in this case a set of quality metrics for the FASTQ data).
+When the job has finished, click on the eye icon to view the newly generated data (in this case a set of quality metrics for the FASTQ data). This will be a file called *FastQC on data 1: Web page*. 
 Look at the various quality scores. The data looks pretty good - *high Per base sequence quality* (avg. above 30).
 
 *Note that the 'Sequence Duplication Levels' are marked as high. Normally we would run another tool to remove duplicates (technical PCR artifacts) but for the sake of brevity we will omit this step.*
