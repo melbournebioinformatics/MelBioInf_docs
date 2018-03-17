@@ -57,7 +57,7 @@ pages:
     - 'Protein Prophet' : 'tutorials/proteomics_basic/background_protein_prophet.md'
 - 'Molecular Modelling Tutorials':
   - 'Molecular Dynamics - Introduction to cluster computing': 'tutorials/molecular_dynamics_101/molecular_dynamics_101.md'
-  - 'Molecular Dynamics - Building input files': 'tutorials/molecular_dynamics_201/molecular_dynamics_201.md'
+  - 'Molecular Dynamics - Building input files, visualising the trajectory': 'tutorials/molecular_dynamics_201/molecular_dynamics_201.md'
 - 'Protocols':
   - 'De Novo Genome Assembly for Illumina Data': 'tutorials/assembly/assembly-protocol.md'
 

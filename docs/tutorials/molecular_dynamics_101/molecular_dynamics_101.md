@@ -12,6 +12,12 @@ In the following tutorials we will be logging on a high performance computer (HP
 
 As we will be working from a terminal on the cluster and later downloading data back to our local desktop for visualization and analysis, we will be assuming that the users have basic knowledge of Unix/Linux. If you are unfamiliar with these, we suggest you first work through this [Unix tutorial](https://melbournebioinformatics.github.io/MelBioInf_docs/tutorials/unix/robinson-unix-link/).
 
+**Important**: NAMD has specific licencing requirements. Users are required to agree to these requirements to use NAMD on the Melbourne Bioinformatics HPC clusters. Login on [https://my.vlsci.org.au/](https://my.vlsci.org.au/), select 'Software agreement', 'Add software', 'NAMD'.
+
+> **Note**: this tutorial describes the use of Snowy, but all these steps can be carried out on Barcoo by substituting every instance of `snowy` for `barcoo`.
+
+*Tutorials created by Mike Kuiper, edited by Thomas Coudrat.*
+
 -----
 
 ## 1 - Overview
@@ -213,7 +219,7 @@ Now on to part 2, visualizing the results with VMD.
 
 ## 3 - Visualizing NAMD results with VMD
 
-Welcome to part 2 of the NAMD tutorial, where you will be using the [molecular visualization program VMD](http://www.ks.uiuc.edu/Research/vmd/) to look at the trajectory data of the ubiquitin protein you generated in part 1 of the tutorial. If you haven't already done so, download and install VMD to your local computer (make sure to pick the right flavour: Windows, Mac or Linux).
+In this section you will be using the [molecular visualization program VMD](http://www.ks.uiuc.edu/Research/vmd/) to look at the trajectory data of the ubiquitin protein you generated in the first part of the tutorial. If you haven't already done so, download and install VMD to your local computer (make sure to pick the right flavour: Windows, Mac or Linux).
 
 > **Tip**: the most confusing part of this exercise seems to be remembering to use the right terminal! That is, either one is connected to the cluster, or one is running on your local computer. The exercises we just ran were on the cluster. That is, a terminal which we used to connect to the **Snowy** cluster using the program **ssh**.
 
@@ -241,7 +247,7 @@ What to do if your simulations didn’t run.
 If for some reason your simulations didn’t run properly you can download a copy of the precomputed data to your local computer by using the following command command from a local terminal:
 
 ```
-scp -r <username>@snowy.vlsci.unimelb.edu.au:vlsci/examples/namd/Namd_simple_example_01_finished .  
+scp -r <username>@snowy.vlsci.unimelb.edu.au:/vlsci/examples/namd/Namd_simple_example_01_finished .  
 ```
 
 You can now start VMD **locally** and load up the trajectory data. In a new local terminal type:
@@ -276,12 +282,12 @@ From the *main panel*:
 > File → New molecule → (browse: 1ubq_example.psf) → load
 
 You should see nothing in the display, but an entry in the Main panel.
-Next load the coordinates from the **.pdb** file:
+Next load the coordinates from the **.pdb** file. First, select the 1ubq_example.psf entry in the VMD main panel, then:
 
 > File → Load data onto molecule → (browse: 1ubq_example.pdb) → load
 
 Now you should have the model in the display that can be moved around with the mouse.
-This is the initial starting position of the simulation. Next load in the trajectory data into VMD:
+This is the initial starting position of the simulation. Next load in the trajectory data into VMD (again, select the entry in the VMD main panel):
 
 > File → Load data onto molecule → (browse:1ubq_output.dcd) → load
 
@@ -289,8 +295,7 @@ This data represents the “molecular movie” or trajectory of how the atoms in
 
 What you are seeing represents the molecular motion of the protein on an extremely small time scale. The NAMD program calculates how the molecule moves over time given certain parameters such as temperature. These models and simulations can give insight into how proteins behave and their role in biological function and certain diseases.
 
-From the *main panel* you can bring up the Representations dialogue
-to play with more rendering types: - try them out!
+From the *main panel* you can bring up the graphical representations window to play with more rendering types: - try them out!
 
 > Graphics → Representations
 

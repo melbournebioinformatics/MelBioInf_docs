@@ -1,6 +1,6 @@
 ![](../../../img/melbioinf_logo.png)
 
-# Molecular Dynamics Tutorial - Building input files
+# Molecular Dynamics Tutorial - Building input files, visualising the trajectory
 
 -----
 
@@ -11,6 +11,12 @@ In the following tutorials we will be logging on a high performance computer (HP
 * **MD tutorial - Building input files (this tutorial)**: In this tutorial we will be introducing a more sophisticated directory structure using scripts to direct the output and run the job. We initially download a copy of the directory to our local computer where we then build up the input files using VMD. We then upload this directory to the cluster where we submit the job. Finally we will download the results back to our local computer to visualize with VMD.
 
 As we will be working from a terminal on the cluster and later downloading data back to our local desktop for visualization and analysis, we will be assuming that the users have basic knowledge of Unix/Linux. If you are unfamiliar with these, we suggest you first work through this [Unix tutorial](https://melbournebioinformatics.github.io/MelBioInf_docs/tutorials/unix/robinson-unix-link/).
+
+**Important**: NAMD has specific licencing requirements. Users are required to agree to these requirements to use NAMD on the Melbourne Bioinformatics HPC clusters. Login on [https://my.vlsci.org.au/](https://my.vlsci.org.au/), select 'Software agreement', 'Add software', 'NAMD'.
+
+> **Note**: this tutorial describes the use of Snowy, but all these steps can be carried out on Barcoo by substituting every instance of `snowy` for `barcoo`.
+
+*Tutorials created by Mike Kuiper, edited by Thomas Coudrat.*
 
 -----
 
@@ -477,6 +483,11 @@ Now that you have your data, we are ready to visualize the results.
 
 Hopefully by now you have successfully built a model, completed a small run with the template directory on the cluster and downloaded the results on to your local computer. We will now have a look at the data you generated.
 
+> **Note**: if for some reason you didn't manage to run a successful MD simulation, you can copy a directory containing the precomputed data from the folowing Snowy folder: **/vlsci/examples/namd/Namd_intermediate_template_finished**. You can do this with the command below:
+```
+scp -r <username>@snowy.vlsci.unimelb.edu.au:/vlsci/examples/namd/Namd_intermediate_template_finished .
+```
+
 ### a) Combining the trajectory files
 
 When we run segmented jobs as in this template, we end up with a series of output files in **/OutputFiles** such as:
@@ -519,39 +530,25 @@ Click on the "play" button at the bottom right hand corner of the VMD main panel
 
 > **Note**: it is possible to restart the simulations of any segment as the restart files are saved under **/RestartFiles**.
 
-## 7 - Looking at longer simulations
+### b) Molecular dynamics trajectory smoothing
 
-The previous examples have not run for a particularly long period of time, barely a few hundred picoseconds, thus the relative movement in the molecule is small. For simulations that run on longer timescales there will be an amount of drifting making the analysis and visualization difficult.
+The MD example presented here has not run for a particularly long period of time, barely a few hundred picoseconds, thus the relative movement in the molecule is small. For simulations that run on longer timescales there will be an amount of drifting making the analysis and visualization difficult.
 
-Luckily, there is an easy way to center and visualize our simulations which we will cover next.
+Luckily, there is an easy way to center and visualize our simulations which we will cover next. Now display only the protein backbone, in the VMD main panel:
 
-### a) Copy across extended files to your local machine
+> Graphics → Representations...
 
-We have prepared some HIV simulation files that ran for a total of 20 nanoseconds (which is still quite short, but long enough to show off the some of the techniques).
+In the graphical representations window:
 
-Copy to your desktop the precomputed data in the Snowy folder: **/vlsci/examples/namd/Namd_intermediate_template_finished**
+> Selected Atoms (protein) + Drawing method (NewRibbons)
 
-```
-scp -r <username>@snowy.vlsci.unimelb.edu.au:/vlsci/examples/namd/Namd_intermediate_template_finished .
-```
-
-In the **/OutputFiles** it has additional data which ran for a longer time, 10 x 2 ns simulations, with data points every 100 ps. The data has the extension **example.namd_job_extended_run_1.X.dcd** etc...
-
-Start VMD and load in your starting psf and pdb HIV protease files. (We will come to why we used the starting files shortly). Next, load up the 10 new trajectory data files onto the model in VMD. i.e.:
-
-> File → Load Data Into Molecule → example.namd_job_extended_run_1.9.dcd
-
-> File → Load Data Into Molecule → example.namd_job_extended_run_1.8.dcd
-
-> ...
-
-> File → Load Data Into Molecule → example.namd_job_extended_run_1.0.dcd
-
-Now display only the protein backbone. You will notice the protein jiggles around when you play the trajectory. This is Brownian motion, now more prominent due to longer sampling.
+You may notice the protein jiggles around when you play the trajectory. This is Brownian motion, and this is more prominent in longer sampling.
 
 The first thing we might try to ease the jiggling is to increase the **trajectory smoothing window size**. In the VMD Graphical representations window, select your protein representation and toggle the **Trajectory** tab. At the bottom of the tab, increase the Trajectory Smoothing value to 5 and replay the trajectory. This should be much smoother. Try increasing to higher values.
 
 Although this view is smoother, it still can be difficult to visualize what relative motion is going on, due to the motion of the protein in the simulation box.
+
+### c) Centering the protein for analysis
 
 We will now use the **RMSD Trajectory Tool** to center our protein frames.
 
@@ -569,9 +566,7 @@ In other words, the protein has been centered on a reference frame, but now the 
 
 Click **“RMSD”** again and you'll see the value becomes much smaller.
 
-You may notice that the loop regions (residues 45 to 55) of the HIV protease dimer almost come apart in the longer simulations. This is an important part of the HIV protease kinetics, as the loops need to open for the substrate to enter the active site. We are getting a glimpse here of proteins in action.
-
-### b) Using Volmap to map ligand density.
+### d) Using Volmap to map ligand density.
 
 Now that we have a nicely centered protein dataset we can do something useful like plot the water density. In the VMD main panel, open:
 
@@ -581,7 +576,7 @@ A new VolMap window should open up.
 
 In the selection box type: “water” and tick the box “compute for all frames”, click "Create Map".
 
-This will calculate a density map based on your water selection and create a new graphical selection. You should see a big white box around your molecule. Open up your graphical selection window and select the new **“Isosurface”** representation. Under the “Draw style” tab use the Isovalue slider to scale back the density to just a few points.
+This will calculate a density map based on your water selection and create a new graphical selection. You should see a big white box around your molecule. Open up your graphical representation window and select the new **“Isosurface”** representation. Under the “Draw style” tab use the Isovalue slider to scale back the density to just a few points (try 1.2).
 
 What you are seeing here are bound water molecules relative to the protein structure. These water molecules stay relatively still compared to the bulk water so create an area of high water density. These can be quite important for drug interactions, protein stability and catalytic centers. We often don't display waters in simulations for clarity, and often forget that they are there.
 
@@ -593,56 +588,6 @@ If all goes well you might see something like this. The red and blue lines are t
 
 You can also do this sort of view for ligands to show where they bind. Always make sure you first center your target protein or else this sort of representation will not make sense!
 
-## 8 - Including a non-standard ligand
+So concludes the intermediate tutorial.
 
-The difficulty with simulating new ligands in molecular dynamics simulations is about finding the right parameter files. Your simulation is only as good as the parameters they use, so it is worthwhile trying to validate them. Most of the common residues, such as amino acids, nucleotides and glycosides have decent parameters for the main MD codes, but finding suitable parameters for new drug molecules can be arduous.
-
-For this exercise, we won't go to excessive trouble. We are going to add a drug molecule Amprenavir (APV), a protease inhibitor, into the binding site of our HIV protease using parameters from a website service [SwissParam](http://www.swissparam.ch/).
-
-First of all we need a representative drug molecule for APV and convert it to a mol2 format. This is just a different molecular format to pdb. An easy way to do this is use the program [Chimera](https://www.cgl.ucsf.edu/chimera/) (similar to VMD).
-
-The pdb structure **3NU3** provides a high resolution structure of a wild type HIV protease with APV. You will see there are two APV molecules in the model plus alternative side chain structures. This is the result of crystallography with high resolution data on a symmetrical dimer.
-
-In the **Namd_intermediate_template_finished** build directory, we have an edited version of the
-3nu3 pdb file, taking out the artifacts. From this we can extract chain A, B of the protease and the APV as separate molecules. The APV does not have hydrogens attached so these need to be added and a mol2 version made if we are to use SwissParam.
-
-This can be intuitively done with the Chimera program. (We won't cover all the details here, but it shouldn't be too much trouble. Extract and save a pdb version of the APV molecule from the edited 3nu3 pdb file, - (in this case edited to chain C). Open the APV pdb file in Chimera, add hydrogens and save as a mol2 file.
-
-If you submit the APV.mol2 file to the **SwissParam** website, you will receive a lig.zip file containing the following files:
-
-```
-lig.crd
-lig.itp
-lig.mol2
-lig.par 		← this is the parameter file to run the APV ligand simulation
-lig.pdb 		← we need this pdb file to build the APV in the model
-lig.psf
-lig.rtf 		← we need this topology file to build the model
-```
-
-This is stored in the **/BUILD_DIR/lig** folder.
-
-In the build script **build_hiv_3nu3_APV** there are some changes to include the new structure such as the lines:
-
-```
-topology  lig/lig.rtf			
-segment   C {pdb lig/lig.pdb}
-coordpdb  lig/lig.pdb C
-```
-
-The model has been already built, solvated and ionized, and stored under: **/InputFiles/hiv_prot_APV.psf**
-
-Changes also have to be made to the configuration files to include the new parameters for APV.
-In the configuration file **sim_opt_3nu3_APV.conf** we can see the added line:
-
-```
-parameters InputFiles/Parameters/lig.par
-```
-
-This is to tell NAMD how to treat the new APV molecule in the simulation.
-
-A small sample of data is already precomputed and stored under **/OutputFiles/** as **hiv_prot_APV.dcd**. You can view this using VMD, with the **/InputFiles/hiv_prot_APV.psf** file.
-
-> **Exercise**: With the simulation data, try to visualize the APV alone. Does the molecule behave as you might expect? Do the charges on the atoms seem reasonable? Look up some mutations associated with Amprenavir resistance. Does this make sense in the model?
-
-So concludes the intermediate tutorial. A more advanced workflow called [MD_workflow_py](https://github.com/mkuiper/MD_workflow_py) was written with using the Python programming language. This new workflow uses a similar structure to what was shown in this tutorial and has additional capability to manage thousands of independent jobs and generate molecular animations.
+> **Note**: a more advanced template that can be used to organise the MD simulations ran on HPC clusters called [MD_workflow_py](https://github.com/mkuiper/MD_workflow_py) was written with using the Python programming language. This new workflow uses a similar structure to what was shown in this tutorial and has additional capability to manage thousands of independent jobs and generate molecular animations.
