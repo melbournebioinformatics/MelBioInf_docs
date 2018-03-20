@@ -21,19 +21,72 @@ class: center, middle
 ]
 ---
 # What is Docker? 
-> Docker containers wrap a piece of software in a complete filesystem that contains everything needed to run: code, runtime, system tools, system libraries – anything that can be installed on a server. This guarantees that the software will always run the same, regardless of its environment 
-\- https://www.docker.com/what-docker 
+> A container image is a lightweight, stand-alone, executable package of a piece of software that includes everything needed to run it: code, runtime, system tools, system libraries, settings
+
+> — https://www.docker.com/what-container
+
+.img-half[
+![](assets/container_stack.png)
+]
+---
+# Use-cases
+* Docker is the ideal way of deploying applications such as:
+    * Web applications that need a proxy server, database and application code, and a consistent
+    operating environment
+        * Examples: Galaxy (a bioinformatics platform), GitLab (a git host), Ghost (blogging platform)
+    * Analysis pipelines or pipeline stages that require many runtimes (Python, Perl, Java etc.) and
+    many tools (Samtools, GATK, VEP)
+        * Examples: Pipelines written in CWL, WDL
+    * Testing and continuous integration, allowing your tests to run in a consistent
+    environment with a very precisely defined set of dependencies
+        * Examples: Jenkins, Drone CI
+    * Complex or fragile applications that would be difficult to compile locally
+        * Examples: PennCNV, hap.py
 
 .columns[
-  .column.content[
-  * This is the ideal way of deploying applications such as:
-    * Web applications with a proxy server, database and application code
-    * Analysis pipelines that require many runtimes (Python, perl, Java etc.) and many tools (Samtools, GATK, VEP)
-  ]
+.column[
+]
+.column[
+.image.is-128x128[
+![](assets/galaxy.png)
+]
+]
+.column[
+.image.is-128x128[
+![](assets/cwl.svg)
+]
+]
+.column[
+.image.is-64x64[
+![](assets/jenkins.svg)
+]
+]
+.column[
+]
+]
+---
+# Use-cases
+* Docker is not ideal for (but can still be used for):
+    * Command-line utilities or tools that manipulate files or use the filesystem
+        * Examples: samtools, bwa, vim
+    * Graphical/GUI applications
+        * Examples: Atom (text editor), Firefox, fastqc
 
-  .column[
-    ![](assets/container_stack.png)
-  ]
+.columns[
+.column[
+]
+.column[
+.image.is-128x128[
+![](assets/vim.svg)
+]
+]
+.column[
+.image.is-128x128[
+![](assets/firefox.svg)
+]
+]
+.column[
+]
 ]
 ---
 # Advantages
@@ -101,17 +154,17 @@ This message shows that your installation appears to be working correctly.
 ]
 ---
 # Docker Hub
-* When you ran this command, Docker first looked for the image on your local machine, and when it couldn't find it, pulled it down from Docker Hub, the cloud registry of Docker images
-* Docker Hub is located here: https://hub.docker.com/
+* When you ran this command, Docker first looked for the image on your local machine, and when it couldn't find it, pulled it down from a cloud registry of Docker images called Docker Hub
 * You can find an image for most applications and runtimes on Docker Hub
-* On Docker Hub, images without a prefix (e.g. `hello-world`) are official images, while those with a prefix (e.g. `bgruening/galaxy-stable`) are community-made images
+* You can search Docker Hub using a website called the Docker Store: <https://store.docker.com/>
 
 .message.is-info[
 .message-header[
 Exercise
 ]
 .message-body[
-Search on Docker Hub for the official `java` image. What is its name?
+Search on Docker Hub for the best docker image for the `galaxy` platform. What name would you use
+if you wanted to run this container? Hint: the right one links to <https://www.galaxyproject.org/>
 ]
 ]
 ---
@@ -121,7 +174,7 @@ Search on Docker Hub for the official `java` image. What is its name?
 Answer
 ]
 .message-body[
-    ![](assets/java.png)
+    ![](assets/docker_store.png)
 ]
 ]
 ---
@@ -136,6 +189,18 @@ Exercise
 Run the following command to view all images installed on your machine:
 ```bash
 docker images
+```
+]
+]
+--
+.message.is-success[
+.message-header[
+Answer
+]
+.message-body[
+```
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+hello-world         latest              f2a91732366c        3 months ago        1.85kB
 ```
 ]
 ]
@@ -179,6 +244,18 @@ Stop the container using `Ctrl+C`, just like any process
 ]
 ]
 ---
+# Detached Mode
+* If you ever need a container to run in the background, use the `-d` docker flag. For instance, we
+could have run:
+```bash
+docker run -d -p 80:80 nginx
+```
+
+* Docker then prints out the ID of the container, allowing you to access it later:
+```
+e0d19a8b903015d01a1456a8c9b2351f540b240c0f596030e1d4cd85f9d6956a
+```
+---
 # Exercise - Galaxy
 Galaxy is a web-based platform for running bioinformatics analysis
 
@@ -190,6 +267,7 @@ Exercise
 * You want to run a Galaxy server on your NeCTAR instance
 * The image is called `bgruening/galaxy-stable`
 * The galaxy image listens on port 80 inside the container
+* You want to run the container in the background
 * What is the correct `docker run` command to use?
 * Once you have done this, check it was correct by visiting your instance IP address in a browser
 ]
@@ -202,14 +280,10 @@ Answer
 ]
 .message-body[
 ```
-docker run -p 80:80 bgruening/galaxy-stable
+docker run -d -p 80:80 bgruening/galaxy-stable
 ```
 ]
 ]
----
-# Exercise - Galaxy
-* If you try to `Ctrl+C` to close this container, it probably won't work
-* In order to stop it, we'll have to start another SSH session, and use some different commands...
 ---
 # Listing running containers
 * `docker ps` lists all currently running containers
@@ -221,27 +295,21 @@ docker run -p 80:80 bgruening/galaxy-stable
 Exercise
 ]
 .message-body[
-If your Galaxy image is still running, you might have to SSH in for a second time.
-Then, try running the command:
+Try running the command:
 ```bash
 docker ps
 ```
 ]
 ]
----
-# Listing running containers
+
 .message.is-success[
 .message-header[
 Answer
 ]
 .message-body[
 ```
-CONTAINER ID        IMAGE                      COMMAND                  CREATED             STATUS                   PORTS                                                       NAMES
-4a594d121fa9        bgruening/galaxy-stable   "/usr/bin/startup"       26 minutes ago      Up 26 minutes            21/tcp, 443/tcp, 8800/tcp, 9002/tcp, 0.0.0.0:8080->80/tcp   suspicious_albattani
-3a519be38d87        bwa_mem                    "./align.py --refe..."   2 weeks ago         Exited (1) 2 weeks ago                                                               angry_jennings
-64ad604535fd        bwa_mem                    "bash"                   2 weeks ago         Exited (0) 2 weeks ago                                                               nervous_lichterman
-6cdc73c5699a        bwa_mem                    "./align.py --refe..."   2 weeks ago         Exited (0) 2 weeks ago                                                               elegant_morse
-```
+CONTAINER ID        IMAGE                     COMMAND              CREATED             STATUS              PORTS                                                     NAMES
+e0d19a8b9030        bgruening/galaxy-stable   "/usr/bin/startup"   2 minutes ago       Up 2 minutes        21/tcp, 443/tcp, 8800/tcp, 9002/tcp, 0.0.0.0:80->80/tcp   zen_leakey```
 ]
 ]
 ---
@@ -257,7 +325,8 @@ docker stop <CONTAINER ID>
 Exercise
 ]
 .message-body[
-Use `docker ps` and `docker stop` to close the currently running Galaxy Docker container
+* Use `docker stop` if you to close the currently running Galaxy Docker container
+* Hint: use `docker ps` if you've forgotten the container's ID
 ]
 ]
 ---
@@ -282,6 +351,7 @@ Exercise
 * You need to store the logs for your Galaxy image on your host system using a bind mount
 * The Galaxy container stores its logs in `/home/galaxy/logs`
 * What command do you run?
+* *Hint: You will want to run the container in detached mode*
 * Once you have done this, `ls` the directory you mounted into the container to verify that you have the logs
 ]
 ]
@@ -293,8 +363,7 @@ Answer
 ]
 .message-body[
 ```bash
-docker run \
-    -v `pwd`/galaxy_logs:/home/galaxy/logs bgruening/galaxy-stable
+docker run -d -v `pwd`/galaxy_logs:/home/galaxy/logs bgruening/galaxy-stable
 ```
 ]
 ]
@@ -354,7 +423,7 @@ Exercise
 ---
 # Summary
 The Docker commands we've covered so far are:
-* `docker [-p host:container] [-v /host/path:/container/path] run <IMAGE NAME>`, which runs a Docker image
+* `docker [-d] [-p host:container] [-v /host/path:/container/path] run <IMAGE NAME>`, which runs a Docker image
 * `docker images`, which displays all installed images
 * `docker ps [-a]`, which displays all containers on the system
 * `docker exec <CONTAINER ID> <COMMAND>`, which lets you run a command inside a running container
@@ -451,8 +520,6 @@ docker build -t my_samtools my_samtools/
 ]
 ]
 
-
-
 ---
 # Exercise - Dockerizing BWA
 * bwa can be installed in much the same way as samtools
@@ -546,6 +613,8 @@ cwltool cwl_workflow/workflow.cwl \
 ```
 ]
 ]
+
+And while that's running, we'll move onto the next topic...
 ---
 class: center, middle
 # Part 4
