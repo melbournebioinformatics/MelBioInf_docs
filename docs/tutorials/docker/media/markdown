@@ -91,12 +91,13 @@ class: center, middle
 ---
 # Advantages
 
-Distributing software as a Docker container gives you:
-* **No Dependencies** – Docker images contain all their own dependencies, which means you don’t have to do any installation yourself (compared to an application that is just source code or a .deb installer)
-* **Cross platform** – Docker containers contain their own operating system, so they will run on any platform (even Windows!)
-* **Easily distributable** - Can be distributed as a single .tar image file, or put on docker hub so they can docker pull your-image
-* **Safe** – Files in a container can’t access files on the host machine, so you can trust dockerized applications
-* **Easy To Use** – Docker containers can always be run using one single docker run command
+Distributing and using software as a Docker image gives you:
+* **Bundled Dependencies** – Docker images contain all their own dependencies, which means you don’t have to do any installation yourself (compared to an application that is just source code or a .deb installer)
+* **Cross-platform Installation** – Docker containers contain their own operating system, so they will run on any platform (even Windows!)
+* **Easy Distribution** - Can be distributed as a single .tar image file, or put on docker hub so it can be `docker pull`'d
+* **Safety** – Files in a container can’t access files on the host machine, so users can trust dockerized applications
+* **Ease-of-Use** – Docker containers can always be run using one single docker run command
+* **Easy Upgrades** – Docker containers can be easily swapped out for newer versions, while all persistent data can be retained in a data volume
 ---
 # Docker vs VMs
 * Virtual machines solve the same problem as docker, but are much less lightweight
@@ -303,6 +304,8 @@ docker ps
 ```
 ]
 ]
+
+--
 
 .message.is-success[
 .message-header[
