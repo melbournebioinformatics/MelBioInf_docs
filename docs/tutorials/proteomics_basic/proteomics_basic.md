@@ -45,7 +45,7 @@ Import mass spec data
     
     After opening the tool select _Paste/Fetch data_ and paste the following URL into the box that appears.  Then click _Start_ to initiate the download.
 
-        https://swift.rc.nectar.org.au:8888/v2/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mzML
+        https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mzML
 
     After the download is finished you should have a single item in your history.
 
@@ -150,7 +150,7 @@ Another format you are likely to encounter for tandem mass spectrometry data is 
 
     Use the _Paste/Fetch data_ tool again and paste the following URL into the box that appears.  Then click _Start_ to initiate the download.
 
-        https://swift.rc.nectar.org.au:8888/v2/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mgf
+        https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mgf
 
 2. Inspect the data manually by viewing it in Galaxy. Try to get a feel for the way data is organised within the file.
 
@@ -193,7 +193,7 @@ More details are provided [here](background_protein_databases.md).
 
     Use the _Paste/Fetch data_ tool again and paste the following URL into the box that appears.  Then click _Start_ to initiate the download.
 
-        https://swift.rc.nectar.org.au:8888/v2/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/UniprotMouseD_20140716.fasta
+        https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/UniprotMouseD_20140716.fasta
 
 2. Inspect the first few items in the database in Galaxy.  The file is in [Fasta](https://en.wikipedia.org/wiki/FASTA_format) format which means that each entry has a single description line that starts with a ">" followed by a unique identifier and then some general descriptive information.  The actual sequence of amino acids is given after the description line. Take note of the format of the database identifiers. They are in Uniprot format and look like this;
 
