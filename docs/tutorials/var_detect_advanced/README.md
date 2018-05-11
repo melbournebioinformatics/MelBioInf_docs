@@ -1,5 +1,5 @@
 
-PR reviewers and advice: Clare Sloggett, Khalid Mahmood, Simon Gladman
+PR reviewers and advice: Clare Sloggett, Khalid Mahmood, Simon Gladman, Jessica Chung
 
 Current slides: TBD
 
