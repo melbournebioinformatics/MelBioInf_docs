@@ -1,5 +1,5 @@
 
-PR reviewers and advice: Simon Gladman, Torsten Seeman, Dieter Bulach, Anna Syme
+PR reviewers and advice: Simon Gladman, Torsten Seemann, Dieter Bulach, Anna Syme
 
 Current slides: in folder https://drive.google.com/drive/u/0/folders/0B2iomOA3e6SuZHNxNjlPWG9hdTQ
 
