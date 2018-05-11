@@ -1,5 +1,5 @@
 
-PR reviewers and advice: Clare Sloggett, Khalid Mahmood, Jessica Chung
+PR reviewers and advice: Clare Sloggett, Khalid Mahmood, Jessica Chung, Simon Gladman
 
 Current slides: https://docs.google.com/presentation/d/18rjOlb3Q_i_IY65_4cA2UWp76uzAyrrcS6YJS2AzquE
 (these are Clare's from May 2017 workshop round - fairly cut-down)
