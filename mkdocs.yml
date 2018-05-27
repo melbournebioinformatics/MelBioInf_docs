@@ -21,7 +21,7 @@ pages:
 - 'General Tutorials':
   - 'Python Overview': 'tutorials/python_overview/python_overview.md'
   - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
-  - 'Introduction to HPC': 'tutorials/hpc/robinson-hpc-link.md'
+  - 'Introduction to HPC': 'tutorials/hpc/hpc.md'
   - 'Introduction to Unix': 'tutorials/unix/robinson-unix-link.md'
   - 'Launching a Personal GVL Server': 'tutorials/gvl_launch/gvl_launch.md'
   - 'Introduction to Galaxy': 'tutorials/galaxy_101/galaxy_101.md'
