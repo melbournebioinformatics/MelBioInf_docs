@@ -6,9 +6,9 @@ Both Mac OS X and Linux come with a version of ssh (called OpenSSH) that can be 
 first start a terminal program on your computer.  On OS X the standard terminal is called Terminal, and it is installed by default. 
 On Linux there are many popular terminal programs including: xterm, gnome-terminal, konsole (if you aren't sure, then xterm is a good 
 default).  When you've started the terminal you should see a command prompt.  To log into *barcoo*, for example, type this command at 
-the prompt and press return (where the word username is replaced with your *barcoo* username):
+the prompt and press return (where the word *username* is replaced with your *barcoo* username):
 
-*$ ssh trainXX@barcoo.vlsci.org.au*
+*$ ssh username@barcoo.vlsci.org.au*
 
 The same procedure works for any other machine where you have an account except that if your Unix computer uses a port other than 22 you will
 need to specify the port by adding the option *-p PORT* with PORT substituted with the port number.
