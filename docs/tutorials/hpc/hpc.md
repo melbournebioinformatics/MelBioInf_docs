@@ -30,7 +30,7 @@ The computer called *barcoo.vlsci.org.au* is the one that coordinates all the HP
 
 * **host**: barcoo.vlsci.org.au
 * **port**: 22 
-* **username**: trainXX
+* **username**: (provided at workshop)
 * **password**: (provided at workshop)
 
 **Connection instructions**:

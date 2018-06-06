@@ -1,130 +1,71 @@
 <style src="../../includes/media/tute.css" ></style>
 <style>em {font-style: normal; font-family: courier new;}</style>
 
+
 # Introduction to Unix
 
-A hands-on-workshop covering the basics of the Unix/Linux command line interface
+A hands-on workshop covering the basics of the Unix/Linux command line interface.
 
-## How to use this workshop
+## Introduction
 
-The workshop is broken up into a number of *Topics* each focusing on a particular aspect of Unix.  You should take a short break between 
-each to refresh and relax before tackling the next.
+Before we commence the hands-on part of this workshop we will first give a short 30 minute talk to introduce the Unix concepts. 
+The [slides](slides.html) are available if you would like.  Additionally the following reference material is available for later
+use.
 
-*Topic*s may start with some background followed by a number of *exercises*.  Each *exercise* begins with a *question*, then 
-sometimes a *hint* (or two) and finishes with the suggested *answer*.
+<details>
+  <summary>Reference Material</summary>
 
-### Question
+{!docs/tutorials/unix/intro.md!}
 
-An example question looks like:
-
-\showable{What is the Answer to Life?}{question}
-
-\endshowable
-
-### Hint
-
-Depending on how much of a challenge you like, you may choose to use hints.  Even if you work out the answer without hints, its a good 
-idea to read the hints afterwards because they contain extra information that is good to know.
-
-Note: *hint*s may be staged, that is, there may be a *more* section within a hint for further hints
-
-\showable{Hint}{hint} &lt;- click here to reveal hint
-
-What is the answer to everything?
-
-As featured in "The Hitchhiker's Guide to the Galaxy"
-
-\showable{More|Less} &lt;- and here to show more
-
-It is probably a two digit number
-
-\endshowable
-
-\endshowable
-
-### Answer
-
-Once you have worked out the answer to the question expand the Answer section to check if you got it correct.
-
-\showable{Answer}{answer} &lt;- click here to reveal answer
-
-**Answer**: 42
-
-Ref: [Number 42 (Wikipedia)](http://en.wikipedia.org/wiki/42_%28number%29)
-
-\endshowable
-
-### Usage Style
-
-This workshop attempts to cater for two usage styles:
-
-1. **Problem solver**: for those who like a challenge and learn best be trying to solve the problems by-them-selves (hints optional):
-	* Attempt to answer the question by yourself.
-	* Use hints when you get stuck.
-	* Once solved, reveal the answer and read through our suggested solution.
-	* Its a good idea to read the hints and answer description as they often contain extra useful information.
-2. **By example**:  for those who learn by following examples:  [Expand](?exp) all sections
-	* Expand the Answer section at the start of each question and follow along with the commands that are shown and check you get the
-	  same (or similar) answers.
-	* Its a good idea to read the hints and answer description as they often contain extra useful information.
-
-
-
-
-
+</details>
 
 ## Topic 1: Remote log in
 
-In this topic we will learn how to connect to a *Unix* computer via a method called *SSH* and run a few basic commands.
-
+In this topic we will learn how to connect to a *Unix* computer via a program called *ssh* and run a few basic commands.
 
 ### Connecting to a Unix computer
 
-To begin this workshop you will need to connect to an HPC.  Today we will use the LIMS-HPC.  The computer called 
-*lims-hpc-m* (m is for master which is another name for head node) is the one that coordinates all the HPCs tasks.
+To begin this workshop you will need to connect to an HPC.  Today we will use *barcoo*. 
+The computer called *barcoo.vlsci.org.au* is the one that coordinates all the HPC's tasks.
 
 **Server details**:
 
-* **host**: lims-hpc-m.latrobe.edu.au
-* **port**: 6022 
-* **username**: trainingXX (where XX is a two digit number, provided at workshop)
-* **password**: (provided at workshop) 
+* **host**: barcoo.vlsci.org.au
+* **port**: 22 
+* **username**: (provided at workshop)
+* **password**: (provided at workshop)
 
 {!docs/includes/connecting.md!}
-
 
 
 **Note**: for security reasons ssh will not display any characters when you enter your password. This 
 can be confusing because it appears as if your typing is not recognised by the computer. Don’t be 
 alarmed; type your password in and press return at the end.
 
-LIMS-HPC is a high performance computer for La Trobe Users.  Logging in connects your local computer 
-(e.g. laptop) to LIMS-HPC, and allows you to type commands into the Unix prompt which are run on 
+barcoo is a high performance computer for Melbourne Bioinformatics users.  Logging in connects your local computer 
+(e.g. laptop) to barcoo, and allows you to type commands into the Unix prompt which are run on 
 the HPC, and have the results displayed on your local screen.
 
-You will be allocated a training account on LIMS-HPC for the duration of the workshop. Your 
+You will be allocated a training account on barcoo for the duration of the workshop. Your 
 username and password will be supplied at the start of the workshop.
 
-Log out of LIMS-HPC, and log back in again (to make sure you can repeat the process).
+Log out of barcoo, and log back in again (to make sure you can repeat the process).
 
-All the remaining parts assume that you are logged into LIMS-HPC over ssh.
+All the remaining parts assume that you are logged into barcoo over ssh.
 
 ### Exercises
 
-\showable+{1.1) When you’ve logged into LIMS-HPC run the following commands and see what they do:}{question}
+#### 1.1) When you've logged into the Unix server, run the following commands and see what they do:
 
-```sh
-who
-whoami
-date
-cal
-hostname
-/home/group/common/training/Intro_to_Unix/hi
-```
+* *who*
+* *whoami*
+* *date*
+* *cal*
+* *hostname*
+* */vlsci/TRAINING/shared/Intro_to_Unix/hi*
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 * **who**: displays a list of the users who are currently using this Unix computer.
 * **whoami**: displays your username (i.e. they person currently logged in).
@@ -132,13 +73,9 @@ hostname
 * **cal**: displays a calendar on the terminal.  It can be configured to display more than just 
 the current month.
 * **hostname**: displays the name of the computer we are logged in to.
-* **/home/group/common/training/Intro_to_Unix/hi**: displays the text "Hello World"
+* **/vlsci/TRAINING/shared/Intro_to_Unix/hi**: displays the text "Hello World"
 
-\endshowable
-
-
-
-
+</details>
 
 
 ## Topic 2: Exploring your home directory
@@ -152,15 +89,17 @@ In this topic we will learn how to "look" at the filesystem and further expand o
 Your home directory contains your own private working space.  Your *current working directory* is automatically set 
 to your *home* directory when you log into a Unix computer.
 
-\showable{2.1) Use the *ls* command to list the files in your *home* directory.  How many files are there?}{question}\endshowable
+#### 2.1) Use the *ls* command to list the files in your *home* directory.  How many files are there?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Literally, type *ls* and press the *ENTER* key.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 ```sh
 $ ls
@@ -172,27 +111,30 @@ where you start when you first login is your *HOME* directory.
 
 **Answer**: 3 (exp01, file01 and muscle.fq)
 
-\endshowable
+</details>
 
 ---
 
 The above answer is not quite correct.  There are a number of *hidden* files in your home directory as well.
 
-\showable{2.2) What *flag* might you use to display *all* files with the *ls* command?  How many files are really there?}{question}\endshowable
+#### 2.2) What *flag* might you use to display *all* files with the *ls* command?  How many files are really there?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Take the *all* quite literally.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 Type *ls --all* and press the *ENTER* key.
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 **Answer 1**: *--all* (or *-a*) flag
 
@@ -212,37 +154,40 @@ for the current directory and *..* a shortcut for the directory above the curren
 
 **Answer 2**: 10 files (don't count *.* and *..*)
 
-\endshowable
+</details>
 
 ---
 
-\showable{2.3) What is the full path name of your *home* directory?}{question}\endshowable
+#### 2.3) What is the full path name of your *home* directory?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
-Remember your *Current Working Directory* start's in your *home* directory (and the hint from the slides).
+Remember your *Current Working Directory* starts in your *home* directory.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 Try a shortened version of *print working directory*
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 You can find out the full path name of the current working directory with the *pwd* command. Your home directory 
 will look something like this:
 
 ```sh
 $ pwd
-/home/trainingXY
+/home/trainingXX
 ```
 
-**Answer**: */home/trainingXY*
+**Answer**: */vlsci/TRAINING/trainXX*
 
-where *XY* is replaced by some 2 digit sequence.
+where *XX* is replaced by some 2 digit sequence.
 
 **Alternate method**:
 You can also find out the name of your home directory by printing the value of the *$HOME* shell variable:
@@ -251,19 +196,21 @@ You can also find out the name of your home directory by printing the value of t
 echo $HOME
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{2.4) Run *ls* using the long flag (*-l*), how did the output change?}{question}\endshowable
+#### 2.4) Run *ls* using the long flag (*-l*), how did the output change?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Run *ls -l*
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 **Answer**: it changed the output to place 1 file/directory per line.  It also added some extra information
 about each.
@@ -300,46 +247,51 @@ Where:
 * **name**: name of the file
 * **linkcount**: technical detail which represents the number of links this file has in the file system (safe to ignore)
 
-\endshowable
+</details>
 
 ---
 
-\showable{2.5) What type of file is *exp01* and *muscle.fq*?}{question}\endshowable
+#### 2.5) What type of file is *exp01* and *muscle.fq*?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Check the output from the *ls -l*.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 **Answer**:
 
 * *exp01*: Directory (given the 'd' as the first letter of its permissions)
 * *muscle.fq*: Regular File (given the '-')
 
-\endshowable
+</details>
 
 ---
 
 
-\showable{2.6) Who has permission to *read*, *write* and *execute* your *home* directory?}{question}\endshowable
+#### 2.6) Who has permission to *read*, *write* and *execute* your *home* directory?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 You can also give *ls* a filename as the first option.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 *ls -l* will show you the contents of the *CWD*; how might you see the contents of the *parent* directory? (remember
 the slides)
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 If you pass the *-l* flag to ls it will display a "long" listing of file information including file permissions.
 
@@ -385,7 +337,7 @@ drwxr-x--- 4 trainingXY training  512 Feb  9 14:18 trainingXY
 All 3 of the methods above mean the same thing.
 
 You will see a list of files and directories in the parent directory of your home directory. One of them will 
-be the name of your home directory, something like *trainingXY*.  Where *XY* is replaced by a two digit string
+be the name of your home directory, something like *trainXX*.  Where *XX* is replaced by a two digit string.
 
 **Altername**: using the *-a* flag and looking at the *.* (dot) special file.
 
@@ -410,7 +362,7 @@ The permission string is *"drwxr-x---"*. The *d* means it is a directory. The *r
 can *cd* into the directory. The *r-x* means that anyone in the same user group as *training* can read or execute the 
 directory. The *---* means that nobody else (other users on the system) can do anything with the directory.
 
-\endshowable
+</details>
 
 ---
 
@@ -428,21 +380,24 @@ occurance of <em>hello</em> etc.</p>
 
 ---
 
-\showable{2.7) Use the *man* command to find out what the *-h* flag does for *ls*}{question}\endshowable
+#### 2.7) Use the *man* command to find out what the *-h* flag does for *ls*
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Give *ls* as an option to *man* command.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 *man ls*
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the following command to view the *man* page for *ls*:
 
@@ -457,26 +412,29 @@ $ man ls
               with -l, print sizes in human readable format (e.g., 1K 234M 2G)
 ```
 
-\endshowable
+</details>
 
 
 ---
 
-\showable{2.8) Use the *-h*, how did the output change of *muscle.fq*?}{question}\endshowable
+#### 2.8) Use the *-h*, how did the output change of *muscle.fq*?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Don't forget the *-l* option too.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 Run *ls -lh*
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 ```sh
 $ ls -lh
@@ -486,7 +444,7 @@ $ ls -lh
 
 **Answer**: it changed the output so the *filesize* of *muscle.fq* is now *2.5K* instead of *2461*
 
-\endshowable
+</details>
 
 
 
@@ -504,9 +462,10 @@ In this topic we will learn how to move around the filesystem and see what is th
 
 **Relevant commands**: *pwd*, *cd*, *ls*, *file*
 
-\showable{3.1) Print the value of your current working directory.}{question}\endshowable
+#### 3.1) Print the value of your current working directory.
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 The *pwd* command prints the value of your current working directory.
 
@@ -515,20 +474,21 @@ $ pwd
 /home/training01
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{3.2) List the contents of the root directory, called '*/*' (forward 
-slash).}{question}\endshowable
+#### 3.2) List the contents of the root directory, called '*/*' (forward slash).
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
-*ls* expects a single option which is the directory to change too.
+*ls* expects one or more anonymous options which are the files/directories to list.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 ```sh
 $ ls /
@@ -542,20 +502,21 @@ dev                  lost+found  proc     sys
 Here we see that *ls* can take a filepath as its argument, which allows you to list the contents of directories 
 other than your current working directory.
 
-\endshowable
+</details>
 
 ---
 
-\showable{3.3) Use the *cd* command to change your working directory to the root directory.  Did your prompt 
-change?}{question}\endshowable
+#### 3.3) Use the *cd* command to change your working directory to the root directory.  Did your prompt change?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 *cd* expects a single option which is the directory to change to
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 The *cd* command changes the value of your current working directory. To change to the root directory use the 
 following command:
@@ -571,7 +532,7 @@ So people often say "move to", "go to" or "charge directory to" when they want t
 
 The root directory is special in Unix. It is the topmost directory in the whole file system.
 
-\endshowable
+</details>
 
 ---
 
@@ -582,15 +543,17 @@ such command.  However, it will get grumpy if something went wrong by way of an 
 
 ---
 
-\showable{3.4) List the contents of the CWD and verify it matches the list in 3.2}{question}\endshowable
+#### 3.4) List the contents of the CWD and verify it matches the list in 3.2
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 *ls*
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Assuming you have changed to the root directory then this can be achieved with *ls*, or *ls -a* (for all files) or 
 *ls -la* for a long listing of all files.
@@ -610,27 +573,29 @@ dev                  lost+found  proc     sys
 
 
 
-\endshowable
+</details>
 
 ---
 
-\showable{3.5) Change your current working directory back to your home directory. What is the simplest Unix command that 
-will get you back to your home directory from anywhere else in the file system?}{question}\endshowable
+#### 3.5) Change your current working directory back to your home directory. What is the simplest Unix command that will get you back to your home directory from anywhere else in the file system?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 The answer to exercise 2.6 might give some hints on how to get back to the home directory
 
-\showable{More|Less}
+</details>
 
-*$HOME*, *~*, */home/trainingXY* are all methods to name your home directory.  Yet there is a simpler method; the answer
-is buried in *man cd* however *cd* doesn't its own manpage so you will need to search for it.
+<details>
+  <summary>Additional Hint</summary>
 
-\endshowable
+*$HOME*, *~*, */vlsci/TRAINING/trainXX* are all methods to name your home directory.  Yet there is a simpler method; the answer
+is buried in *man cd* however *cd* doesn't have its own manpage so you will need to search for it.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the *cd* command to change your working directory to your home directory. There are a number of ways to refer 
 to your home directory:
@@ -656,31 +621,34 @@ cd
 
 This is a special-case behaviour which is built into *cd* for convenience.
 
-\endshowable
+</details>
 
 ---
 
-\showable{3.6) Change your working directory to */home/group/common/training/Intro_to_Unix/*}{question}\endshowable
+#### 3.6) Change your working directory to the following directory:
 
-\showable{Answer}{answer}
+*/vlsci/TRAINING/shared/Intro_to_Unix*
 
-```sh
-cd /home/group/common/training/Intro_to_Unix/
-```
+<details>
+  <summary>Answer</summary>
 
-\endshowable
+**Answer**: *cd /vlsci/TRAINING/shared/Intro_to_Unix*
+
+</details>
 
 ---
 
-\showable{3.7) List the contents of that directory. How many files does it contain?}{question}\endshowable
+#### 3.7) List the contents of that directory. How many files does it contain?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 *ls*
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 You can do this with *ls*
 
@@ -691,29 +659,32 @@ expectations.txt  hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy
 
 **Answer**: 7 files (expectations.txt  hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy)
 
-\endshowable
+</details>
 
 ---
 
-\showable{3.8) What kind of *file* is */home/group/common/training/Intro_to_Unix/sleepy*?}{question}\endshowable
+####3.8) What kind of *file* is */vlsci/TRAINING/shared/Intro_to_Unix/sleepy*?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Take the word *file* quite literally.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 *file sleepy*
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the *file* command to get extra information about the contents of a file:
 
-Assuming your current working directory is */home/group/common/training/Intro_to_Unix/*
+Assuming your current working directory is */vlsci/TRAINING/shared/Intro_to_Unix*
 
 ```sh
 $ file sleepy
@@ -723,7 +694,7 @@ Bourne-Again shell script text executable
 Otherwise specify the full path of sleepy:
 
 ```sh
-$ file /home/group/common/training/Intro_to_Unix/sleepy
+$ file /vlsci/TRAINING/shared/Intro_to_Unix/sleepy
 Bourne-Again shell script text executable
 ```
 
@@ -739,19 +710,21 @@ then read the Unix manual page like so:
 man file
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{3.9) What kind of *file* is */home/group/common/training/Intro_to_Unix/hi*?}{question}\endshowable
+3.9) What kind of *file* is */vlsci/TRAINING/shared/Intro_to_Unix/hi*?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Take the word *file* quite literally.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the file command again. If you are in the same directory as *hi* then:
 
@@ -766,20 +739,23 @@ ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses sh
 This rather complicated output is roughly saying that the file called *hi* contains a binary executable 
 program (raw instructions that the computer can execute directly).
 
-\endshowable
+</details>
 
 ---
 
-\showable{3.10) What are the file permissions of */home/group/common/training/Intro_to_Unix/sleepy*? 
-What do they mean?}{question}\endshowable
+#### 3.10) What are the file permissions of the following file and what do they mean? 
 
-\showable{Hint}{hint}
+*/vlsci/TRAINING/shared/Intro_to_Unix/sleepy*
+
+<details>
+  <summary>Hint</summary>
 
 Remember the *ls* command, and don't forget the *-l* flag
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 You can find the permissions of *sleepy* using the *ls* command with the *-l* flag. If you are in the same 
 directory as *sleepy* then:
@@ -789,26 +765,29 @@ $ ls -l sleepy
 -rw-r--r-- 1 arobinson common 183 Feb  9 16:36 sleepy
 ```
 
-**Answer**: We can see that this particular instance of sleepy is owned by the user arobinson, and is part of the common 
+**Answer**: The Answer is dependent on the computer you are connected too however will follow something like above. 
+We can see that this particular instance of sleepy is owned by the user arobinson, and is part of the common 
 user group. It is 183 bytes in size, and was last modified on the 9th of February at 4:36pm. The file is 
-readable to everyone, and writeable only to training01.  The digit '1' between the file permission string and 
+readable to everyone, and write-able only to arobinson.  The digit '1' between the file permission string and 
 the owner indicates that there is one link to the file. The Unix file system allows files to be referred to 
 by multiple "links". When you create a file it is referred to by one link, but you may add others later. For 
 future reference: links are created with the *ln* command.
 
-\endshowable
+</details>
 
 ---
 
-\showable{3.11) Change your working directory back to your home directory ready for the next topic.}{question}\endshowable
+#### 3.11) Change your working directory back to your home directory ready for the next topic.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 *cd*
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 You should know how to do this with the cd command:
 
@@ -816,7 +795,7 @@ You should know how to do this with the cd command:
 cd
 ```
 
-\endshowable
+</details>
 
 
 
@@ -842,21 +821,24 @@ command find out what they do, in particular the NAME, SYNOPSIS and DESCRIPTION 
 ---
 
 
-\showable{4.1) In your home directory make a sub-directory called test.}{question}\endshowable
+#### 4.1) In your home directory make a sub-directory called test.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 You are trying to *make a directory*, which of the above commands looks like a shortened version of this?
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 *mkdir*
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Make sure you are in your home directory first. If not *cd* to your home directory.
 
@@ -873,18 +855,23 @@ $ ls
 exp01  file01  muscle.fq  test
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.2) Copy all the files from */home/group/common/training/Intro_to_Unix/* into the newly created 
-test directory.}{question}\endshowable
+#### 4.2) Copy all the files from the following directory into the newly created test directory:
 
-\showable{Hint}{hint}
+*/vlsci/TRAINING/shared/Intro_to_Unix*
+
+<details>
+  <summary>Hint</summary>
 
 You are trying to *copy*, which of the above commands looks like a shortened version of this?
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 ```sh
 $ man cp
@@ -898,11 +885,10 @@ DESCRIPTION
 
 which means *cp* expects zero or more flags, a SOURCE file followed by a DEST file or directory 
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the *cp* command to copy files. 
 
@@ -916,50 +902,52 @@ paths to *cp*. You only need to perform one of these ways, but we show multiple 
 **Answer 1**: From your home directory:
 
 ```sh
-$ cp /home/group/common/training/Intro_to_Unix/* test
+$ cp /vlsci/TRAINING/shared/Intro_to_Unix/Intro_to_Unix/* test
 ```
 
 **Answer 2**: Change to the test directory and then copy (assuming you started in your home directory):
 
 ```sh
 $ cd test
-$ cp /home/group/common/training/Intro_to_Unix/* .
+$ cp /vlsci/TRAINING/shared/Intro_to_Unix/* .
 ```
 
 In the example above the '*.*' (dot) character refers to the current working directory. It should be 
 the test subdirectory of your home directory.
 
-**Answer 3**: Change to the /home/group/common/training/Intro_to_Unix/ directory and then copy:
+**Answer 3**: Change to the \end{UNIX_TRAINING_FILES_PATH} directory and then copy:
 
 ```sh
-cd /home/group/common/training/Intro_to_Unix/
+cd /vlsci/TRAINING/shared/Intro_to_Unix/
 cp * ~/test
 ```
 
 Remember that ~ is a shortcut reference to your home directory.
 
-\endshowable
+</details>
 
 ---
 
 **Note**: This exercise assumes that the copy command from the previous exercise was successful. 
 
-\showable{4.3) Check that the file size of *expectations.txt* is the same in both the directory that you copied 
-it from and the directory that you copied it to.}{question}\endshowable
+#### 4.3) Check that the file size of *expectations.txt* is the same in both the directory that you copied it from and the directory that you copied it to.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Remember *ls* can show you the file size (with one of its flags)
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 *ls -l*
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use *ls -l* to check the size of files.
 
@@ -967,7 +955,7 @@ You could do this in many ways depending on the value of your working directory.
 way for each file:
 
 ```sh
-$ ls -l /home/group/common/training/Intro_to_Unix/expectations.txt
+$ ls -l /vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
 
 $ ls -l ~/test/expectations.txt
 ```
@@ -981,65 +969,70 @@ are the same.
 true then try the *-h* option for ls:
 
 ```sh
-$ ls -lh /home/group/common/training/Intro_to_Unix/expectations.txt
--rw-r--r-- 1 arobinson common 1010K Mar 26  2012 /home/group/common/training/Intro_to_Unix/expectations.txt
+$ ls -lh /vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
+-rw-r--r-- 1 arobinson common 1010K Mar 26  2012 /vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
 ```
 
 In this case the size is reported in kilobytes as *1010K*. Larger files are reported in megabytes, gigabytes 
 etcetera.
 
-\endshowable
+</details>
 
 ---
 
 **Note**: this exercise assumes your working directory is *~/test*; if not run *cd ~/test*
 
-\showable{4.4) Check that the contents of expectations.txt are the same in both the directory that you copied 
-it from and the directory that you copied it to.}{question}\endshowable
+#### 4.4) Check that the contents of expectations.txt are the same in both the directory that you copied it from and the directory that you copied it to.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 What is the opposite of *same*?
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 *diff*erence
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the *diff* command to compare the contents of two files.
 
 ```sh
-$ diff /home/group/common/training/Intro_to_Unix/expectations.txt expectations.txt
+$ diff /vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt expectations.txt
 ```
 
 If the two files are identical the *diff* command will NOT produce any output)
 
 **Answer**: Yes, they are the same since no output was given.
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.5) How many lines, words and characters are in expectations.txt?}{question}\endshowable
+#### 4.5) How many lines, words and characters are in expectations.txt?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Initialisms are key
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 *w*ord *c*ount
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the *wc* (for "word count") to count the number of characters, lines and words in a file:
 
@@ -1061,90 +1054,98 @@ $ wc -c expectations.txt
 1033773 expectations.txt
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.6) Open *~/test/expectations.txt* in the *nano* text editor, delete the first line of text, and 
-save your changes to the file. Exit *nano*.}{question}\endshowable
+#### 4.6) Open *~/test/expectations.txt* in the *nano* text editor, delete the first line of text, and save your changes to the file. Exit *nano*.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 *nano FILENAME*
 
 Once *nano* is open it displays some command hints along the bottom of the screen.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 *^O* means hold the *Control* (or CTRL) key while pressing the *o*.  Dispite what it displays, you need to type 
 the lower-case letter that follows the *^* character.
 
 WriteOut is another name for Save.
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Take some time to play around with the *nano* text editor.
 
 *Nano* is a very simple text editor which is easy to use but limited in features. More powerful 
 editors exist such as *vim* and *emacs*, however they take a substantial amount of time to learn.
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.7) Did the changes you made to *~/test/expectations.txt* have any effect on 
-*/home/group/common/training/Intro_to_Unix/expectations.txt*? How can you tell if two files are the 
-same or different in their contents?}{question}\endshowable
+#### 4.7) Did the changes you made to *~/test/expectations.txt* have any effect on */vlsci/TRAINING/shared/Intro_to_Unix*? 
 
-\showable{Hint}{hint}
+How can you tell if two files are the same or different in their contents?
+
+<details>
+  <summary>Hint</summary>
 
 Remember exercise 4.4
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 Use *diff*
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use *diff* to check that the two files are different after you have made the change to the copy of 
 *expectations.txt* in your *~/test* directory.
 
 ```sh
 diff ~/test/expectations.txt \
-/home/group/common/training/Intro_to_Unix/expectations.txt
+/vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
 ```
 
 You could also use *ls* to check that the files have different sizes.
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.8) In your *test* subdirectory, rename *expectations.txt* to *foo.txt*.}{question}\endshowable
+#### 4.8) In your *test* subdirectory, rename *expectations.txt* to *foo.txt*.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Another way to think of it is *moving* it from *expectations.txt* to *foo.txt*
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 *mv*
 
 Use *man mv* if you need to work out how to use it.
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the *mv* command to rename the file:
 
@@ -1154,13 +1155,14 @@ $ ls
 foo.txt  hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.9) Rename foo.txt back to expectations.txt.}{question}\endshowable
+#### 4.9) Rename foo.txt back to expectations.txt.
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the *mv* command to rename the file:
 
@@ -1172,25 +1174,28 @@ expectations.txt  hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy
 
 Use *ls* to check that the file is in fact renamed.
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.10) Remove the file *expectations.txt* from your *test* directory.}{question}\endshowable
+#### 4.10) Remove the file *expectations.txt* from your *test* directory.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 We are trying to *remove* a file, check the commands at the top of this topic.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 *rm*
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the *rm* command to remove files (carefully):
 
@@ -1200,25 +1205,28 @@ $ ls
 hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.11) Remove the entire *test* directory and all the files within it.}{question}\endshowable
+#### 4.11) Remove the entire *test* directory and all the files within it.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 We are trying to *remove a directory*.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 You could use *rmdir* but there is an easier way using just *rm* and a flag.
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 You could use the *rm* command to remove each file individually, and then use the *rmdir* command 
 to remove the directory. Note that *rmdir* will only remove directories that are empty (i.e. do not 
@@ -1244,43 +1252,45 @@ rm -r test
 and all subdirectories underneath the specified directory. This could be catastrophic if you do it 
 in the wrong location! Now is a good moment to pause and think about file backup strategies.</div>
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.12) Recreate the test directory in your home directory and copy all the files from 
-*/home/group/common/training/Intro_to_Unix/* back into the test directory.}{question}\endshowable
+#### 4.12) Recreate the test directory in your home directory and copy all the files from */vlsci/TRAINING/shared/Intro_to_Unix* back into the test directory.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 See exercises 4.1 and 4.2
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Repeat exercises 4.1 and 4.2.
 
 ```sh
 $ cd ~
 $ mkdir test
-$ cp /home/group/common/training/Intro_to_Unix/* test
+$ cp /vlsci/TRAINING/shared/Intro_to_Unix/* test
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.13) Change directories to *~/test* and use the *cat* command to display the entire contents 
-of the file *hello.c*}{question}\endshowable
+#### 4.13) Change directories to *~/test* and use the *cat* command to display the entire contents of the file *hello.c*
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Use *man* if you can't guess how it might work.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 ```sh
 $ cd ~/test
@@ -1300,25 +1310,28 @@ $ ./hi
 Hello World
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.14) Use the *head* command to view the first *20* lines of the file *sample_1.fastq*}{question}\endshowable
+#### 4.14) Use the *head* command to view the first *20* lines of the file *sample_1.fastq*
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Remember your *best* friend!
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 Use *man* to find out what option you need to add to display a given number of *lines*.
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 ```sh
 $ head -20 sample_1.fastq
@@ -1344,19 +1357,21 @@ TGATGTACTATGCATATGAACTTGTATGCAAAGTGG
 abaabaa`aaaaaaa^ba_]]aaa^aaaaa_^][aa
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.15) Use the *tail* command to view the last *8* lines of the file *sample_1.fastq*}{question}\endshowable
+#### 4.15) Use the *tail* command to view the last *8* lines of the file *sample_1.fastq*
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
-Its very much like *head*.
+It's very much like *head*.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 ```sh
 tail -8 sample_1.fastq
@@ -1370,18 +1385,21 @@ CTGATGCCGAGGCACGCCGTTAGGCGCGTGCTGCAG
 `aaaaa``aaa`a``a`^a`a`a_[a_a`a`aa`__
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.16) Use the *grep* command to find out all the lines in *moby.txt* that contain the word 
-"Ahab"}{question}\endshowable
+#### 4.16) Use the *grep* command to find out all the lines in *moby.txt* that contain the word "Ahab"
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 One might say we are 'looking for the *pattern* "Ahab"'
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 ```sh
 $ man grep
@@ -1391,11 +1409,10 @@ SYNOPSIS
 ...
 ```
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 ```sh
 $ grep Ahab moby.txt
@@ -1415,19 +1432,21 @@ $ grep Ahab moby.txt | wc -l
 
 which shows that there are *491* lines in *moby.txt* that contain the word Ahab.
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.17) Use the *grep* command to find out all the lines in *expectations.txt* that contain the 
-word "the" with a case insensitive search (it should count "the" "The" "THE" "tHe" etcetera)
-.}{question}\endshowable
+#### 4.17) Use the *grep* command to find out all the lines in *expectations.txt* that contain the word "the" with a case insensitive search (it should count "the" "The" "THE" "tHe" etcetera).
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 One might say we are *ignoring case*.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 ```sh
 $ man grep
@@ -1437,11 +1456,10 @@ $ man grep
 ...
 ```
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the *-i* flag to *grep* to make it perform case insensitive search:
 
@@ -1461,20 +1479,21 @@ $ grep -i the expectations.txt  | wc -l
 8165
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{4.18) Use the *gzip* command to compress the file *sample_1.fastq*. Use *gunzip* to decompress it 
-back to the original contents.}{question}\endshowable
+#### 4.18) Use the *gzip* command to compress the file *sample_1.fastq*. Use *gunzip* to decompress it back to the original contents.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Use the above commands along with *man* and *ls* to see what happens to the file.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Check the file size of sample_1.fastq before compressing it:
 
@@ -1503,7 +1522,7 @@ original file.
 **Note**: in the above section the lines starting with *#* are comments so don't need to be copied but if you
 do then they wont do anything.
 
-\endshowable
+</details>
 
 
 
@@ -1521,21 +1540,24 @@ the power of Unix.  I say *start* because this is only the "tip of the iceberg".
 
 
 
-\showable{5.1) How many *reads* are contained in the file *sample_1.fastq*?}{question}\endshowable
+#### 5.1) How many *reads* are contained in the file *sample_1.fastq*?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Examine some of the file to work out how many lines each *read* takes up.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 Count the number of lines
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 We can answer this question by counting the number of lines in the file and dividing by 4:
 
@@ -1562,19 +1584,21 @@ another command. We'll see more examples soon.</div>
 you want to do more sophisticated calculations then we recommend to use a more general purpose 
 programming language (such as Python etcetera).
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.2) How many reads in *sample_1.fastq* contain the sequence *GATTACA*?}{question}\endshowable
+#### 5.2) How many reads in *sample_1.fastq* contain the sequence *GATTACA*?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Check out exercise 4.16
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use *grep* to find all the lines that contain *GATTACA* and "pipe" the output to *wc -l* to count them:
 
@@ -1588,25 +1612,28 @@ $ grep GATTACA sample_1.fastq | wc -l
 If you are unsure about the possibility of upper and lower case characters then consider using 
 the *-i* (ignore case option for grep).
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.3) On what line numbers do the sequences containing *GATTACA* occur?}{question}\endshowable
+#### 5.3) On what line numbers do the sequences containing *GATTACA* occur?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 We are looking for the *line numbers*.
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 Check out the manpage for *grep* and/or *nl*
 
-\endshowable
+</details>
 
-\endshowable
-
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 You can use the *-n* flag to grep to make it prefix each line with a line number:
 
@@ -1654,20 +1681,21 @@ $ grep -n GATTACA sample_1.fastq | cut -d: -f 1
 ... AND MUCH MUCH MORE ...
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.4) Use the *nl* command to print each line of *sample_1.fastq* with its corresponding line 
-number at the beginning.}{question}\endshowable
+#### 5.4) Use the *nl* command to print each line of *sample_1.fastq* with its corresponding line number at the beginning.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Check answer to 5.3.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 ```sh
 $ nl sample_1.fastq
@@ -1686,24 +1714,27 @@ There are a lot of lines in that file so this command might take a while to prin
 If you get tired of looking at the output you can kill the command with *control-c* (hold the 
 *control* key down and simultaneously press the "*c*" character).
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.5) Redirect the output of the previous command to a file called *sample_1.fastq.nl*. Check 
-the first *20* lines of *sample_1.fastq.nl* with the *head* command. Use the *less* command to 
+#### 5.5) Redirect the output of the previous command to a file called *sample_1.fastq.nl*. 
+
+Check the first *20* lines of *sample_1.fastq.nl* with the *head* command. Use the *less* command to 
 interactively view the contents of *sample_1.fastq.nl* (use the arrow keys to navigate up and down, 
 *q* to quit and '*/*' to search). Use the search facility in less to find occurrences of 
-*GATTACA*.}{question}\endshowable
+*GATTACA*.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Ok that one was tough, *> FILENAME* is how you do it if you didn't break out an internet search for 
 "redirect the output in Unix"
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 ```sh
 $ nl sample_1.fastq > sample_1.fastq.nl
@@ -1739,35 +1770,32 @@ that the *less* command is used by default to display man pages.
 $ less sample_1.fastq.nl
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable+{5.6) The four-lines-per-read format of FASTQ is cumbersome to deal with. Often it would be 
-preferable if we could convert it to tab-separated-value (TSV) format, such that each read appears 
-on a single line with each of its fields separated by tabs. Use the following command to convert 
-sample_1.fastq.nl into TSV format:}{question}
+#### 5.6) The four-lines-per-read format of FASTQ is cumbersome to deal with. Often it would be preferable if we could convert it to tab-separated-value (TSV) format, such that each read appears on a single line with each of its fields separated by tabs. Use the following command to convert sample_1.fastq into TSV format:
 
 ```sh
 $ cat sample_1.fastq | paste - - - - > sample_1.tsv
 ```
-\endshowable
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 The *'-'* (dash) character has a special meaning when used in place of a file; it means use the standard
-input instead of a real file.  Note: while it is fairly common in most Unix programs, not all wil support it.
+input instead of a real file.  Note: while it is fairly common in most Unix programs, not all will support it.
 
 The *paste* command is useful for merging multiple files together line-by-line, such that the *Nth* 
 line from each file is joined together into one line in the output, separated by default with a 
 *tab* character. In the above example we give paste 4 copies of the contents of *sample_1.fastq*, 
 which causes it to join consecutive groups of 4 lines from the file into one line of output.
 
-\endshowable
+</details>
 
 ---
 
-\showable+{5.7) Do you expect the output of the following command to produce the same output as above? and why?}{question}
+#### 5.7) Do you expect the output of the following command to produce the same output as above? and why?
 
 ```sh
 $ paste sample_1.fastq sample_1.fastq sample_1.fastq sample_1.fastq > sample_1b.tsv
@@ -1775,15 +1803,15 @@ $ paste sample_1.fastq sample_1.fastq sample_1.fastq sample_1.fastq > sample_1b.
 
 Try it, see what ends up in sample_1b.tsv (maybe use *less*)
 
-\endshowable
-
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Use *less* to examine it.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 **Answer**: No, in the second instance we get 4 copies of each line.
 
@@ -1792,20 +1820,21 @@ command will only give one copy of the file to *paste*, where as, in the second 
 the file 4 times.  Note: this is quite confusing and is not necessory to remember; its just an interesting
 side point.
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.8) Check that *sample_1.tsv* has the correct number of lines. Use the *head* command to view 
-the first *20* lines of the file.}{question}\endshowable
+#### 5.8) Check that *sample_1.tsv* has the correct number of lines. Use the *head* command to view the first *20* lines of the file.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Remember the *wc* command.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 We can count the number of lines in *sample_1.tsv* using *wc*:
 
@@ -1821,20 +1850,21 @@ To view the first *20* lines of *sample_1.tsv* use the *head* command:
 $ head -20 sample_1.tsv
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.9) Use the *cut* command to print out the second column of *sample_1.tsv*. Redirect the 
-output to a file called *sample_1.dna.txt*.}{question}\endshowable
+#### 5.9) Use the *cut* command to print out the second column of *sample_1.tsv*. Redirect the output to a file called *sample_1.dna.txt*.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 See exercise 5.3 (for cut) and 5.5 (redirection)
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 The file sample_1.tsv is in column format. The cut command can be used to select certain columns 
 from the file. The DNA sequences appear in column 2, we select that column using the -f 2 flag 
@@ -1846,21 +1876,21 @@ cut -f 2 sample_1.tsv > sample_1.dna.txt
 
 Check that the output file looks reasonable using *head* or *less*.
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.10) Use the *sort* command to sort the lines of *sample_1.dna.txt* and redirect the output to 
-*sample_1.dna.sorted.txt*. Use *head* to look at the first few lines of the output file. You should 
-see a lot of repeated sequences of As.}{question}\endshowable
+#### 5.10) Use the *sort* command to sort the lines of *sample_1.dna.txt* and redirect the output to *sample_1.dna.sorted.txt*. Use *head* to look at the first few lines of the output file. You should see a lot of repeated sequences of As.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Use *man* (sort) and see exercise 5.5 (redirection)
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 ```sh
 $ sort sample_1.dna.txt > sample_1.dna.sorted.txt
@@ -1869,22 +1899,22 @@ $ sort sample_1.dna.txt > sample_1.dna.sorted.txt
 Running *head* on the output file reveals that there are duplicate DNA sequences in the input FASTQ 
 file.
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.11) Use the *uniq* command to remove duplicate consecutive lines from *sample_1.dna.sorted.txt*, 
-redirect the result to *sample_1.dna.uniq.txt*. Compare the number of lines in sample1_dna.txt to 
-the number of lines in *sample_1.dna.uniq.txt*.}{question}\endshowable
+#### 5.11) Use the *uniq* command to remove duplicate consecutive lines from *sample_1.dna.sorted.txt*, redirect the result to *sample_1.dna.uniq.txt*. Compare the number of lines in sample1_dna.txt to the number of lines in *sample_1.dna.uniq.txt*.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 I am pretty sure you have already used *man* (or just guessed how to use *uniq*).  You're also a gun at 
 redirection now.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 ```sh
 $ uniq sample_1.dna.sorted.txt > sample_1.dna.uniq.txt
@@ -1902,26 +1932,28 @@ $ wc -l sample_1.dna.uniq.txt
 View the contents of *sample_1.dna.uniq.txt* to check that the duplicate DNA sequences have been 
 removed.
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.12) Can you modify the command from above to produce *only* those sequences of DNA which were 
-duplicated in *sample_1.dna.sorted.txt*?}{question}\endshowable
+#### 5.12) Can you modify the command from above to produce *only* those sequences of DNA which were duplicated in *sample_1.dna.sorted.txt*?
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Checkout the *uniq* manpage
 
-\endshowable
+</details>
 
-\showable{Hint}{hint}
+<details>
+  <summary>Additional Hint</summary>
 
 Look at the man page for uniq.
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Use the *-d* flag to *uniq* to print out only the duplicated lines from the file:
 
@@ -1929,26 +1961,28 @@ Use the *-d* flag to *uniq* to print out only the duplicated lines from the file
 $ uniq -d sample_1.dna.sorted.txt > sample_1.dna.dup.txt
 ```
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.13) Write a *shell pipeline* which will print the number of duplicated DNA sequences in 
-sample_1.fastq.}{question}\endshowable
+#### 5.13) Write a *shell pipeline* which will print the number of duplicated DNA sequences in sample_1.fastq.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 That is, *piping* most of the commands you used above instead of redirecting to file
 
-\showable{More|Less}
+</details>
 
-I.e. 6 commands (*cat*, *paste*, *cut*, *sort*, *uniq*, *wc*)
+<details>
+  <summary>Additional Hint</summary>
 
-\endshowable
+i.e. 6 commands (*cat*, *paste*, *cut*, *sort*, *uniq*, *wc*)
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Finally we can 'pipe' all the pieces together into a sophisticated pipeline which starts with a 
 FASTQ file and ends with a list of duplicated DNA sequences:
@@ -1961,22 +1995,23 @@ $ cat sample_1.fastq | paste - - - - | cut -f 2 | sort | uniq -d | wc -l
 
 The output file should have *56079* lines.
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.14) (Advanced) Write a shell script which will print the number of duplicated DNA sequences 
-in sample_1.fastq.}{question}\endshowable
+#### 5.14) (Advanced) Write a shell script which will print the number of duplicated DNA sequences in sample_1.fastq.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Check out the *sleepy* file (with *cat* or *nano*); there is a bit of magic on the first line that you will need. 
 
 You also need to tell bash that this file can be executed (check out *chmod* command).
 
-\endshowable
+</details>
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Put the answer to *5.13* into a file called *sample_1_dups.sh* (or whatever you want). Use *nano* to 
 create the file. 
@@ -2007,29 +2042,31 @@ $ ./sample_1_dups.sh
 
 If all goes well the script should behave in exactly the same way as the answer to 5.13.
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.15) (Advanced) Modify your shell script so that it accepts the name of the input FASTQ file 
-as a command line parameter.}{question}\endshowable
+#### 5.15) (Advanced) Modify your shell script so that it accepts the name of the input FASTQ file as a command line parameter.
 
-\showable{Hint}{hint}
+<details>
+  <summary>Hint</summary>
 
 Shell scripts can refer to command line arguments by their position using special variables called 
 *$0*, *$1*, *$2* and so on. 
 
-\showable{More|Less}
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
 
 *$0* refers to the name of the script as it was called on the command line. 
 *$1* refers to the first command line argument, and so on.
 
-\endshowable
-
-\endshowable
+</details>
 
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 Copy the shell script from *5.14* into a new file:
 
@@ -2079,7 +2116,7 @@ The '*fi*' line means: this marks the end of the current *if* or *else* section.
 The '*[ $# -eq 1 ]*' part is the condition:
   
 * *$#*: is a special shell variable that indicates how many command line arguments were given. 
-* *-eq*: checks if the numbers on either side if it are equal.
+* *-eq*: checks if the numbers on either side of it are equal.
 * *1*: is a number one
 
 <div class="warning"><b>Spaces in conditions</b>:
@@ -2094,14 +2131,14 @@ and return a *non-zero* exit status.  The *exit status* is a standard way for ot
 our program ran correctly; 0 means everything went as expected, any other number is an error.  If you don't
 provide an *exit ..* line then it automatically returns a 0 for you.</div>
 
-\endshowable
+</details>
 
 ---
 
-\showable{5.16) (Advanced) Modify your shell script so that it accepts zero or more FASTQ files on the 
-command line argument and outputs the number of duplicated DNA sequences in each file.}{question}\endshowable
+#### 5.16) (Advanced) Modify your shell script so that it accepts zero or more FASTQ files on the command line argument and outputs the number of duplicated DNA sequences in each file.
 
-\showable{Answer}{answer}
+<details>
+  <summary>Answer</summary>
 
 We can add a loop to our script to accept multiple input FASTQ files:
 
@@ -2137,27 +2174,21 @@ sample_2.fastq XXXXX
 sample_3.fastq YYYYY
 ```
 
-\endshowable
-
-
-
-
-
-
+</details>
 
 ## Finished
 
 Well done, you learnt a lot over the last 5 topics and you should be proud of your achievement; it 
 was a lot to take in.
 
-From here you should be confortable around the Unix command line and ready to take on the HPC 
+From here you should be comfortable around the Unix command line and ready to take on the HPC 
 Workshop.
 
 You will no-doubt forget a lot of what you learnt here so I encourage you to save a link to this 
-Workshop for later reference.
+workshop for later reference.
 
-Thank you for your attendance, please don't forget to complete the Melbourne Bioinformatics training survey and give it
-back to the Workshop facilitators.
+Thank you for your attendance, please don't forget to complete the training survey and give it
+back to the workshop facilitators.
 
 
 
