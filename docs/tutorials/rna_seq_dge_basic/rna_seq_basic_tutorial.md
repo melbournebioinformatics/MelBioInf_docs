@@ -99,7 +99,7 @@ At the end of this tutorial you should:
 ## The data
 
 The sequencing data you will be working with is simulated from Drosophila
-melanogaster. The experiment has two conditioins, WT (wildtype) and KO
+melanogaster. The experiment has two conditions, WT (wildtype) and KO
 (knockout), and three samples in each condition. The sequencing data is
 paired-end, so there are two files for each of the six samples. Your aim will
 be to find differentially expressed genes in WT vs KO.

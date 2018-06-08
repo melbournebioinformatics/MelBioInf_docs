@@ -15,18 +15,18 @@ We cover the concepts of detecting small variants (SNVs and indels) in human gen
 
 ## Learning Objectives
 
-At the end of this tutorial you should:
+At the end of the course, you will be able to:
 
- - Be familiar with the FASTQ format and base quality scores
- - Be able to align reads to generate a BAM file and subsequently generate a pileup file
- - Be able to run the FreeBayes variant caller to find SNVs and indels
- - Be able to visualise BAM files using the [Integrative Genomics Viewer (IGV)] and identify likely SNVs and indels by eye
+* Work with the FASTQ format and base quality scores
+* Align reads to generate a BAM file and subsequently generate a pileup file
+* Run the FreeBayes variant caller to find SNVs and indels
+* Visualise BAM files using the Integrative Genomics Viewer (IGV) and identify likely SNVs and indels by eye
 
- ## Requirements
+## Requirements
 
- This workshop uses Galaxy as a platform. It is recommended that participants who have not used Galaxy before either sign up for our Intro to GVL workshop, or work through this tutorial themselves beforehand.
+This workshop uses Galaxy as a platform. It is recommended that participants who have not used Galaxy before either sign up for our Intro to GVL workshop, or work through this tutorial themselves beforehand.
 
- This is a hands-on workshop and attendees are required to bring their own laptops.
+This is a hands-on workshop and attendees are required to bring their own laptops.
 
 ------
 
