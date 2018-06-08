@@ -70,7 +70,7 @@ In this tutorial we will:
 - use a number of different methods to find differentially expressed genes
 - understand the importance of replicates for differential expression analysis
 
-This tutorial does not cover the following steps that might do in a real
+This tutorial does not cover the following steps that we might do in a real
 RNA-seq DGE analysis:  
 
 - QC (quality control) of the raw sequence data
@@ -80,19 +80,24 @@ RNA-seq DGE analysis:
 These steps have been omitted because the data we use in this tutorial is
 synthetic and has no quality issues, unlike real data.
 
------
-
 ## Learning Objectives
 
-At the end of this tutorial you should:
+At the end of this tutorial you will be able to:
 
- - Be familiar with basic workflow of alignment, quantification, and testing,
+ - understand the basic workflow of alignment, quantification, and testing,
    for RNA-seq differential expression analysis
- - Be able to process raw RNA sequence data into a list of differentially
+ - process raw RNA sequence data into a list of differentially
    expressed genes
- - Be aware of how the relationship between the number of biological replicates
+ - understand the relationship between the number of biological replicates
    in an experiment and the statistical power available to detect differentially
    expressed genes
+
+## Requirements
+
+Participants with no previous Galaxy experience are strongly recommended to attend the "Introduction to Galaxy" workshop first.
+
+Attendees are required to bring their own laptop computers.
+
 
 -----
 
