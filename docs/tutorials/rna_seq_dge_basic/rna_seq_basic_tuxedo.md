@@ -127,7 +127,7 @@ More information about the Tuxedo protocol can be found [here](rna_seq_basic_bac
 1.  Open a browser and go to a Galaxy server. This can either be your
     personal GVL server you [started previously](http://genome.edu.au/get/get#launch),
     the public [Galaxy Tutorial server](http://galaxy-tut.genome.edu.au)
-    or the public [Galaxy Melbourne server](http://galaxy-mel.genome.edu.au).  
+    or the public [Galaxy Australia](https://usegalaxy.org.au/).  
     Recommended browsers include Firefox and Chrome. Internet Explorer
     is not supported.
 2.  Register as a new user by clicking **User > Register** on the top

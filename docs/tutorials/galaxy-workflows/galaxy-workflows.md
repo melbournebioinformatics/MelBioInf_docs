@@ -32,7 +32,7 @@ This workshop/tutorial will familiarise you with the Galaxy workflow engine. It 
 
 ## Section 1: Preparation.
 
-The purpose of this section is to get you to log in to the server.. For this workshop, you can use a Galaxy server that you have created by following the steps outlined in: [Launch a GVL Galaxy Instance]() or you can use the public [Galaxy-mel](http://galaxy-mel.genome.edu.au)
+The purpose of this section is to get you to log in to the server.. For this workshop, you can use a Galaxy server that you have created by following the steps outlined in: [Launch a GVL Galaxy Instance]() or you can use the public [Galaxy Australia](https://usegalaxy.org.au/)
 
 
 **Go to Galaxy URL of your server in Firefox or Chrome (your choice, please don't use IE or Safari.)**

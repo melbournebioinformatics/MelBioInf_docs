@@ -72,7 +72,7 @@ The purpose of this section is to get you to log in to the server.
 
 1. Open your browser. We recommend Firefox or Chrome (please don't use Internet Explorer or Safari).
 
-    * Go to the [Galaxy-Mel](https://galaxy-mel.genome.edu.au/galaxy/) server.
+    * Go to the [Galaxy Australia](https://usegalaxy.org.au/) server.
     * Alternatively, you can use a different Galaxy server - a list of available servers is [here](https://galaxyproject.org/galaxy-services/).
 
 2. If you have previously registered on this server just log in:
