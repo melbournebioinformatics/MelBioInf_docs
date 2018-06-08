@@ -5,12 +5,32 @@
 
 A hands-on-workshop covering High-Performance Computing (HPC).
 
-This workshop assumes you have a basic understanding of the Unix Operating System.  If not, then you should refer
-to the [Hands-on Unix Workshop](../unix/robinson-unix-link/).
+## Overview
+
+Using High Performance Computing (HPC) resources such as Melbourne Bioinformatics in an effective and efficient manner is key to modern research. This workshop will introduce you to HPC environments and assist you to get on with your research.
+
+## Learning Objectives
+
+At the end of the course, you will be able to:
+
+* Define 'What is HPC?'
+* Load software modules
+* Submit jobs
+* Select job queues
+* Monitor your job’s progress
+* Know what resources you can request
+* Select appropriate resources
+
+## Requirements
+
+You will need a basic understanding of Unix, or you should have attended an [Introduction to Unix](../unix/unix.md) workshop in the past.
+
+All participants are required to bring their own laptop computers.
+
 
 ## Introduction
 
-Before we commence the hands-on part of this workshop we will first give a short 30 minute talk to introduce the main concepts of High-Performance Computing. 
+Before we commence the hands-on part of this workshop we will first give a short 30 minute talk to introduce the main concepts of High-Performance Computing.
 The [slides](slides.html) are available if you would like.  
 
 Additionally the following reference material is available for later use:
@@ -22,14 +42,14 @@ Additionally the following reference material is available for later use:
 
 ### Connecting to the HPC
 
-To begin this workshop you will need to connect to the HPC. 
+To begin this workshop you will need to connect to the HPC.
 Today we will use *barcoo*.
 The computer called *barcoo.vlsci.org.au* is the one that coordinates all the HPC's tasks.
 
 **Server details**:
 
 * **host**: barcoo.vlsci.org.au
-* **port**: 22 
+* **port**: 22
 * **username**: (provided at workshop)
 * **password**: (provided at workshop)
 
@@ -52,8 +72,8 @@ An HPC (short for 'High-Performance Computer') is simply a collection of Server 
 <details>
   <summary>Hint</summary>
 
-When you login, you will be presented with a message; this is called the *Message Of The Day* and usually includes lots of useful 
-information.  On *barcoo* this includes a list of useful commands, the last login details for your account and 
+When you login, you will be presented with a message; this is called the *Message Of The Day* and usually includes lots of useful
+information.  On *barcoo* this includes a list of useful commands, the last login details for your account and
 the contact email of the system administrator
 
 </details>
@@ -101,7 +121,7 @@ NOTE: the above list will vary depending on the HPC setup.
 <details>
   <summary>Answer</summary>
 
-The *sinfo* command lists all available partitions and the status of each node within them.  If you count up the names of nodes 
+The *sinfo* command lists all available partitions and the status of each node within them.  If you count up the names of nodes
 (uniquely) you will get the total nodes in this cluster.  
 
 * BARCOO: **70** (*barcoo001* through *barcoo070*)
@@ -263,7 +283,7 @@ to reach the section where the it describes the *avail* subcommand.
 > If an argument is given, then each directory in the MODULEPATH is searched for modulefiles
 > whose pathname match the argument
 
-This is a quote from the manual page for the module command explaining the avail subcommand.  It uses rather technical 
+This is a quote from the manual page for the module command explaining the avail subcommand.  It uses rather technical
 language but basically it's saying you can put search terms after the avail subcommand when entering the command.
 
 </details>
@@ -376,7 +396,7 @@ $ module load pear-gcc/0.9.4
 
 <div class="info"><b>-gcc | -intel</b>: Lots of modules will have either <i>-gcc</i> or <i>-intel</i> after the software name.  This refers to the compiler that
 was used to make the software.  If you have a choice then usually the <i>-intel</i> one will be faster.</div>
-<div class="info"><b>VERSIONS</b>: <u>module load pear-gcc</u> would have been sufficient to load the module however it is best-practice (in science) to specify the 
+<div class="info"><b>VERSIONS</b>: <u>module load pear-gcc</u> would have been sufficient to load the module however it is best-practice (in science) to specify the
 version number so that the answer you get today will be the answer you get in 1 year time.  Some software will produce different results with different versions
 of the software.</div>
 
@@ -399,7 +419,7 @@ The paper citation gives a clue.
 ```sh
 $ module load pear-gcc/0.9.4
 [15:59:19] training21@lims-hpc-m ~ $ pear
- ____  _____    _    ____ 
+ ____  _____    _    ____
 |  _ \| ____|  / \  |  _ \
 | |_) |  _|   / _ \ | |_) |
 |  __/| |___ / ___ \|  _ <
@@ -446,7 +466,7 @@ Currently Loaded Modulefiles:
 
 You may have noticed when we loaded *pear-gcc* the module called *gcc* was also loaded; this gives a hint as to where the others come from.
 
-**Answer**: They are *dependencies*; that is, they are supporting software that is used by the module we loaded.  Additionally, some HPC's 
+**Answer**: They are *dependencies*; that is, they are supporting software that is used by the module we loaded.  Additionally, some HPC's
 automatically load some modules for you when you login.
 
 </details>
@@ -476,7 +496,7 @@ $ module unload pear-gcc
 **List the loaded modules again, did they all disapear?**
 
 **Answer**: Unfortunately not, the module command is not smart enough to determine if any of the other modules that were loaded are still
-needed or not so we will need to do it manually (or see next question) 
+needed or not so we will need to do it manually (or see next question)
 
 </details>
 
@@ -505,7 +525,7 @@ We will *purge* the list of loaded modules.
   <summary>Answer</summary>
 
 ```sh
-$ module purge 
+$ module purge
 ```
 
 **Answer**: running the *purge* sub-command will unload all modules you loaded (and all dependencies).
@@ -531,23 +551,23 @@ In this topic we will start to learn how to make use of the rest of the HPCs imm
 On conventional Unix computers (such as the HPC headnode) we enter the commands we want to run at the terminal and see the results directly output
 in front of us.  On an HPC this type of computation will only make use of one node, namely, the *Head Node*.  To make use of the remaining (*compute*) nodes
 we need to use the SLURM software package (called an HPC Scheduler).  The purpose of SLURM is to manage all user jobs and distribute the available resources
-(i.e. time on the compute nodes) to each job in a fair manner.  You can think of the SLURM software as like an electronic *calendar* and the user jobs like 
+(i.e. time on the compute nodes) to each job in a fair manner.  You can think of the SLURM software as like an electronic *calendar* and the user jobs like
 *meetings*.  Users *say* to SLURM "I want XX CPUS for YY hours" and SLURM will look at its current bookings and find the next available time it can fit the job.
 
 **Terminology**:
 
 * **Node**: a server grade computer which is part of an HPC
 * **Batch Job**: a group of one or more related Unix commands that need to be run (executed) for a user.  e.g. run fastqc on all my samples
-* **Partition (or Queue)**: a list of jobs that need to be run.  There is often more than one partition on an HPC which usually have specific requirements 
+* **Partition (or Queue)**: a list of jobs that need to be run.  There is often more than one partition on an HPC which usually have specific requirements
 for the jobs that can be added to them.  e.g. *8hour* will accept jobs less than or equal to 8hours long
 * **Runtime**: the amount of time a job is expected (or actually) runs
 * **Resources**: computation resources that can be given to our jobs in order to run them.  e.g. CPU Cores, Memory, and Time.
-* **Job Script**: a special BASH script that SLURM uses to run a job on our behalf once resources become available.  Job scripts contain details of the 
+* **Job Script**: a special BASH script that SLURM uses to run a job on our behalf once resources become available.  Job scripts contain details of the
 resources that our commands need to run.
-* **Output (or Results) file**: When SLURM runs our batch job it will save the results that would normally be output on the terminal (screen) to a file; this file 
+* **Output (or Results) file**: When SLURM runs our batch job it will save the results that would normally be output on the terminal (screen) to a file; this file
 is called the output file.
 * **Reservation**: much like a reservation for a resturant holds a table for you, the administrator can give you an HPC reservation which holds various resources
-for a period of time exclusively for you. 
+for a period of time exclusively for you.
 
 
 
@@ -570,7 +590,7 @@ Try the *sinfo* command
 <details>
   <summary>Additional Hint</summary>
 
-Have a look at the PARTITION and NODELIST columns.  The *barcoo[2-4]* is shorthand for *barcoo2 barcoo3 
+Have a look at the PARTITION and NODELIST columns.  The *barcoo[2-4]* is shorthand for *barcoo2 barcoo3
 and barcoo4*
 
 ```sh
@@ -591,8 +611,8 @@ Note: the output to the sinfo command will look different depending on which HPC
 <details>
   <summary>Answer</summary>
 
-The *sinfo* command will list the *partitions*.  It summaries the nodes by their current status so there may be more 
-than one line with *main* in the partition column.  It lists the nodes in shorthand i.e. barcoo[1,3-5] means 
+The *sinfo* command will list the *partitions*.  It summaries the nodes by their current status so there may be more
+than one line with *main* in the partition column.  It lists the nodes in shorthand i.e. barcoo[1,3-5] means
 barcoo1, barcoo3, barcoo4, barcoo5.
 
 **Answer**: barcoo001, barcoo002, ..., barcoo070
@@ -609,7 +629,7 @@ Use the *cat* command to view the contents of *task01*, *task02* and *task03* jo
 <details>
   <summary>Hint</summary>
 
-Lookup the man page for *sbatch* command.  *sbatch*'s options match up with the *#SBATCH* comments at the top of each job 
+Lookup the man page for *sbatch* command.  *sbatch*'s options match up with the *#SBATCH* comments at the top of each job
 script.  Some will be affected by more than one option
 
 </details>
@@ -648,7 +668,7 @@ However, since we know that all nodes on *barcoo* have 16, we know it will get 1
 <details>
   <summary>Hint</summary>
 
-Lookup the man page for *sbatch* command.  *sbatch*'s options match up with the *#SBATCH* comments at the top of each job 
+Lookup the man page for *sbatch* command.  *sbatch*'s options match up with the *#SBATCH* comments at the top of each job
 script.  Some will be affected by more than one option
 
 </details>
@@ -674,15 +694,15 @@ For task01 and task02 the calculation is *--mem-per-cpu x --ntasks x --cpus-per-
 
 For task03, like with the cpus cores question, we get all the memory available on the node we get allocated
 
-<div class="warning"><b>NOTE</b>: it might be tempting to use the <em>--mem</em> option on non-exclusive (i.e. <em>--share</em>) jobs 
-however this will <b>NOT</b> work since the meaning of <em>--mem</em> is <em>"go on a node with at least X MB of memory"</em>; it does 
+<div class="warning"><b>NOTE</b>: it might be tempting to use the <em>--mem</em> option on non-exclusive (i.e. <em>--share</em>) jobs
+however this will <b>NOT</b> work since the meaning of <em>--mem</em> is <em>"go on a node with at least X MB of memory"</em>; it does
 not actually allocate any of it to you so your job will get terminated once it tries to use any memory.</div>
 
 **Answer**:
 
 * task01: **1024MB** (1GB) i.e. 1024 x 1 x 1
 * task02: **12288MB** (12GB) i.e. 2048 x 3 x 2
-* task03: **at least 1024MB** (1GB).  The actual amount could be a lot more as most HPCs have 100GB+ per node 
+* task03: **at least 1024MB** (1GB).  The actual amount could be a lot more as most HPCs have 100GB+ per node
 
 </details>
 
@@ -693,7 +713,7 @@ not actually allocate any of it to you so your job will get terminated once it t
 <details>
   <summary>Hint</summary>
 
-Use the *man sbatch* command to look up the time specification.  If you search for *--time* it will describe the formats it uses (i.e. type 
+Use the *man sbatch* command to look up the time specification.  If you search for *--time* it will describe the formats it uses (i.e. type
 */--time* and press enter)
 
 </details>
@@ -718,7 +738,7 @@ The *--time* option is what tells slurm how long your job will run for.
 <details>
   <summary>Hint</summary>
 
-Use the *man sbatch* command to look up the time specification.  If you search for *--time* it will describe the formats it uses (i.e. type 
+Use the *man sbatch* command to look up the time specification.  If you search for *--time* it will describe the formats it uses (i.e. type
 */--time* and press enter)
 
 </details>
@@ -726,10 +746,10 @@ Use the *man sbatch* command to look up the time specification.  If you search f
 <details>
   <summary>Answer</summary>
 
-This is a maximum time.  Your job may finish early, at which point it hands back the resources for the next job.  However if it 
+This is a maximum time.  Your job may finish early, at which point it hands back the resources for the next job.  However if it
 tries to run longer the HPC will terminate the job.
-<div class="info"><b>HINT</b>: when selecting a time for your job its best to estimate your job runtime to be close to 
-what it actually uses as it can help the HPC scheduler 'fit' your job in between other jobs though be careful to allow enough 
+<div class="info"><b>HINT</b>: when selecting a time for your job its best to estimate your job runtime to be close to
+what it actually uses as it can help the HPC scheduler 'fit' your job in between other jobs though be careful to allow enough
 time.  If you think your job may not complete in time you can ask the system administrator of your HPC to add more time.</div>
 
 </details>
@@ -746,7 +766,7 @@ time.  If you think your job may not complete in time you can ask the system adm
 <details>
   <summary>Hint</summary>
 
-Use the *man sbatch* command to look up the time specification.  If you search for *--time* it will describe the formats it uses (i.e. type 
+Use the *man sbatch* command to look up the time specification.  If you search for *--time* it will describe the formats it uses (i.e. type
 */--time* and press enter)
 
 </details>
@@ -774,7 +794,7 @@ Use the *man sbatch* command to look up the time specification.  If you search f
 <details>
   <summary>Hint</summary>
 
-Use the *man sbatch* command to look up the time specification.  If you search for *--time* it will describe the formats it uses (i.e. type 
+Use the *man sbatch* command to look up the time specification.  If you search for *--time* it will describe the formats it uses (i.e. type
 */--time* and press enter)
 
 </details>
@@ -792,7 +812,7 @@ Use the *man sbatch* command to look up the time specification.  If you search f
 
 ### Reservations
 
-Before we continue, a quick note on reservations.  Reservations are not normally needed however sometimes we will, particularly 
+Before we continue, a quick note on reservations.  Reservations are not normally needed however sometimes we will, particularly
 when the HPC is busy.  To make use of a reservation you need to know its name and provide it with the *--reservation* option
 
 Today we use the *training* reservation so that we have resources available to run our jobs.  Your
@@ -819,7 +839,7 @@ Use the man page for the sbatch command.  The *Synopsis* at the top will give yo
   <summary>Answer</summary>
 
 ```sh
-$ sbatch task01 
+$ sbatch task01
 Submitted batch job 9998
 ```
 
@@ -843,7 +863,7 @@ The *squeue* command shows you the currently running jobs.  If it's been longer 
 
 Use the *squeue* command to show all jobs.  Search for your *jobid* and look in the *NODELIST* column.
 
-<div class="info"><b>NOTE</b>: if there are lots of jobs you can use <b>squeue -u YOUR_USERNAME</b> to only show your jobs, where 
+<div class="info"><b>NOTE</b>: if there are lots of jobs you can use <b>squeue -u YOUR_USERNAME</b> to only show your jobs, where
 YOUR_USERNAME is replaced with your actual username.</div>
 
 ```sh
@@ -892,12 +912,12 @@ prime 20
 echo "Finished at: $(date)"
 ```
 
-Where *RESERVATION* is replaced with *training* and 
+Where *RESERVATION* is replaced with *training* and
 *PARTITION* is replaced with *main*
 
-<div class="info"><b>Repeatable Science</b>: It's good scientific practice to include the version number of the module when loading it as this will 
+<div class="info"><b>Repeatable Science</b>: It's good scientific practice to include the version number of the module when loading it as this will
 ensure that the same version is loaded next time you run this script which will mean you get the same results.</div>
-<div class="info"><b>Date your work</b>: It's also good practice to include the date command in the output so you have a permanent record 
+<div class="info"><b>Date your work</b>: It's also good practice to include the date command in the output so you have a permanent record
 of when this job was run.  If you have one before and after your main program you will get a record of how long it ran for as well.</div>
 
 </details>
@@ -917,12 +937,12 @@ The output from the program will provide the results that we are after.  For HPC
 <details>
   <summary>Answer</summary>
 
-You should get results similar to below however the actual numbers will vary as amount of computations performed will be affected by 
+You should get results similar to below however the actual numbers will vary as amount of computations performed will be affected by
 the amount of other jobs running on the HPC
 ```bash
 $ sbatch prime_numbers
 Submitted batch job 9304
-$ cat slurm-9304.out 
+$ cat slurm-9304.out
 Starting at: Fri May  8 16:11:07 AEST 2015
 
 Primes:        710119
@@ -981,14 +1001,14 @@ Where *RESERVATION* is replaced with *training*, *PARTITION* is replaced with *m
 **Answers**:
 
 * **Did it start immediately or have some delay?** The *Queued time* value in the subject of start email will tell you how long it waited.
-* **How long did it actually run for?** The *Run time* value in the subject of the end email will tell you how long it ran for which should 
+* **How long did it actually run for?** The *Run time* value in the subject of the end email will tell you how long it ran for which should
 be ~20 seconds.
 
 </details>
 
 ##Topic 4: Job Monitoring
 
-It is often difficult to predict how a software tool may utilise HPC System Resources (CPU/Memory) as it can vary quite widely based 
+It is often difficult to predict how a software tool may utilise HPC System Resources (CPU/Memory) as it can vary quite widely based
 on a number of factors (data set, number of CPU's, processing step etc.).
 
 In this topic we will cover some of the tools that are available that enable you to *watch* what is happening so we can make better predictions
@@ -1016,13 +1036,13 @@ DESCRIPTION
 ...
 ```
 
-**Answer**: in lay-person terms *"Continually updating CPU and Memory usage"* 
+**Answer**: in lay-person terms *"Continually updating CPU and Memory usage"*
 
 </details>
 
 ---------------
 
-Run the *top* command.  Above the black line it shows some *system-wide statistics* and below are statistics specific to a single 
+Run the *top* command.  Above the black line it shows some *system-wide statistics* and below are statistics specific to a single
 process (a.k.a, tasks OR software applications).
 
 #### 4.2) How much total memory does this HPC (head-node) have?
@@ -1092,7 +1112,7 @@ It's not PID but from time to time it might be ordered sequentially.
 
 ---------------
 
-Add up the top few CPU usages of processes and compare this to the system-wide CPU usage at that time.  NOTE: you may need to quit 
+Add up the top few CPU usages of processes and compare this to the system-wide CPU usage at that time.  NOTE: you may need to quit
 *top* (by pressing q) so you can compare before it updates.
 
 #### 4.5) Why might the numbers disagree?
@@ -1107,8 +1127,8 @@ It might have something to do with the total number of CPU Cores on the system.
 <details>
   <summary>Answer</summary>
 
-**Answer**: *%CPU* column gives you an indication of how much this process uses of 1 CPU Core, where as the system-wide values at the top 
-are exactly that, how much the entire system is utilised.  i.e. if you could see all processes in *top* (excluding round errors) 
+**Answer**: *%CPU* column gives you an indication of how much this process uses of 1 CPU Core, where as the system-wide values at the top
+are exactly that, how much the entire system is utilised.  i.e. if you could see all processes in *top* (excluding round errors)
 they would add up 100% x the number of cpu cores available.
 On BARCOO it is 0-2400% and SNOWY it is 0-3200% for individual processes.
 
@@ -1174,7 +1194,7 @@ Use the *top* manpage.
 It changes the COMMAND column (right most) to show the complete command (or as much that fits) including the flags and options.
 
 **How might this be helpful?**  
-Sometimes you might be running a lot of commands with the same name that only differ by the command-line options.  In this case it is hard 
+Sometimes you might be running a lot of commands with the same name that only differ by the command-line options.  In this case it is hard
 to tell which ones are still running unless you use the *-c* flag to show the complete command.
 
 **NOTE**:  
@@ -1206,7 +1226,7 @@ Use the *top* manpage.
 
 **How can you get *top* to only show your processes?**  
 **Answer 1**: *top -u YOURUSERNAME*  
-**Answer 2**: while running *top* press the *u* key, type YOURUSERNAME and press <ENTER> key 
+**Answer 2**: while running *top* press the *u* key, type YOURUSERNAME and press <ENTER> key
 
 **Why might this be useful?**  
 When you are looking to see how much CPU or Memory you are using on a node that has other user jobs running it can be hard
@@ -1232,21 +1252,21 @@ Write a job script that requests the following resources:
 
 * **Filename**: monINITIALS.slurm
 	* where INITIALS is replaced with your initials.  e.g. for me it would be monAR.slurm
-* **Tasks**: 1 
+* **Tasks**: 1
 * **CPUs**: 1
-* **Partition**: main 
-* **Time**: 5 mins 
+* **Partition**: main
+* **Time**: 5 mins
 * **Memory**: 1 GB (remember to specify it in MB)
 * **Reservation**: training
 
 ### Task 2: Load/use software module
 
-Edit your job script so that it: 
+Edit your job script so that it:
 
 * Loads the *training-gcc/1.0* module
 * Runs the *fakejob* command with your name as the first parameter.  
     * FYI: *fakejob* is a command that was made to demonstrate what real commands
-      might do in terms of CPU and Memory usage.  It does not perform any useful task; if you must know, it just calculates prime numbers for 5 minutes 
+      might do in terms of CPU and Memory usage.  It does not perform any useful task; if you must know, it just calculates prime numbers for 5 minutes
       and consumes some memory
 
 <div class="info">
@@ -1267,7 +1287,7 @@ read ahead before hand.  Don't stress if you don't complete it in time, you can 
 
 ### Task 4: Monitor the job
 
-Use the *top* command to check how much CPU and Memory the job is using.  Given that SLURM is running the job on your behalf on one of the compute 
+Use the *top* command to check how much CPU and Memory the job is using.  Given that SLURM is running the job on your behalf on one of the compute
 nodes, *top* won't be able to see the job.  To be able to use top, you will first need to login to the compute node that is running your job.
 
 To login:
@@ -1296,7 +1316,7 @@ Changes to:
 [USERNAME@barcooXXX USERNAME]$
 ```
 
-Once logged in to the relevent compute node you can run *top* to view your job.  Remember the *u* and *c* options we learnt earlier; they will be helpful 
+Once logged in to the relevent compute node you can run *top* to view your job.  Remember the *u* and *c* options we learnt earlier; they will be helpful
 here when everyone is running the same jobs.
 
 ----------------
@@ -1314,7 +1334,7 @@ It should vary (within the limits you set in the job script)
 <details>
   <summary>Answer</summary>
 
-The *fakejob* program should vary its CPU usage between 50 and 100% CPU and 500 and 1000MB of memory.  The percentage that it shows is based on the total 
+The *fakejob* program should vary its CPU usage between 50 and 100% CPU and 500 and 1000MB of memory.  The percentage that it shows is based on the total
 memory of the node that runs your job; check Topic 4, Question 4.2 to remember how to find the total memory.
 
 </details>
@@ -1323,28 +1343,14 @@ memory of the node that runs your job; check Topic 4, Question 4.2 to remember h
 
 ## Finished
 
-Well done, you learnt a lot over the last 5 topics and you should be proud of your achievement; it 
+Well done, you learnt a lot over the last 5 topics and you should be proud of your achievement; it
 was a lot to take in.
 
-From here you should be comfortable to begin submitting real jobs to the HPC (in your real account, 
+From here you should be comfortable to begin submitting real jobs to the HPC (in your real account,
 not the training one).
 
-You will no-doubt forget a lot of what you learnt here so I encourage you to save a link to this 
+You will no-doubt forget a lot of what you learnt here so I encourage you to save a link to this
 workshop for later reference.
 
 Thank you for your attendance, please don't forget to complete the training survey and return it
 to the workshop facilitators.
-
-
-
-
-
-
-
-
-
-
-
-
-
-

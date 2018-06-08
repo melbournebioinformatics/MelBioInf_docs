@@ -22,6 +22,31 @@
 
 Written and maintained by [Simon Gladman](mailto:simon.gladman@unimelb.edu.au) - Melbourne Bioinformatics (formerly VLSCI)
 
+## Overview
+
+This beginners tutorial will introduce Galaxy's interface, tool use, histories, and get new users of the Genomics Virtual Laboratory up and running. You can follow this tutorial with the [Galaxy Workflows](../galaxy-workflows/galaxy-workflows.md) tutorial to learn about workflows.
+
+Galaxy is an open source, web-based platform for accessible, reproducible, and transparent computational biomedical research. It allows users without programming experience to easily specify parameters and run individual tools as well as larger workflows. It also captures run information so that any user can repeat and understand a complete computational analysis. Finally, it allows users to share and publish analyses via the web.
+
+
+## Learning Objectives
+
+At the end of the course, you will be able to:
+
+* login to a Galaxy server.
+* upload data to a Galaxy server from:
+  - A file on your local computer
+  - A file on a remote datastore with an accessible URL.
+* use tools in Galaxy by:
+  - Accessing the tool via the tool menu
+  - Using the tool interface to run the particular tool
+  - Viewing/accessing the tool output.
+
+## Requirements
+
+This is a hands-on workshop and attendees should bring their own laptops.
+
+
 ## Background
 
 Galaxy is a web based analysis and workflow platform designed for biologists to analyse their own data. It comes with most of the popular bioinformatics tools already installed and ready for use. There are many Galaxy servers around the world and some are tailored with specific toolsets and reference data for analysis of human genomics, microbial genomics, proteomics etc.
@@ -41,28 +66,13 @@ This workshop/tutorial will familiarize you with the Galaxy interface. It will c
 
 -------------------------------
 
-## Learning Objectives
-
-At the end of this tutorial you should:
-
-1. Be able to register on and login to a Galaxy server.
-2. Be able to upload data to a Galaxy server from:
-    * A file on your local computer
-    * A file on a remote datastore with an accessible URL.
-3. Be able use tools in Galaxy by:
-    * Accessing the tool via the tool menu
-    * Using the tool interface to run the particular tool
-    * Viewing/accessing the tool output.
-
--------------------------------
-
 ## Section 1: Preparation.
 
 The purpose of this section is to get you to log in to the server.
 
-1. Open your browser. We recommend Firefox or Chrome (please don't use Internet Explorer or Safari). 
+1. Open your browser. We recommend Firefox or Chrome (please don't use Internet Explorer or Safari).
 
-    * Go to the [Galaxy-Mel](https://galaxy-mel.genome.edu.au/galaxy/) server. 
+    * Go to the [Galaxy-Mel](https://galaxy-mel.genome.edu.au/galaxy/) server.
     * Alternatively, you can use a different Galaxy server - a list of available servers is [here](https://galaxyproject.org/galaxy-services/).
 
 2. If you have previously registered on this server just log in:
@@ -256,7 +266,7 @@ This example shows how to use a tool called “barrnap” to search for rRNAs in
 * "Fasta file": MRSA252.fna
 * Click **Execute**
 
-A new file called *barrnap on data 3* will be produced. It is a gff3 file. (This stands for genome feature format - version 3. It is a file format for describing features contained by a DNA sequence.) Change its name to something more appropriate (click on the <img src="../media/Galaxy-edit.png" width=20 /> icon.) 
+A new file called *barrnap on data 3* will be produced. It is a gff3 file. (This stands for genome feature format - version 3. It is a file format for describing features contained by a DNA sequence.) Change its name to something more appropriate (click on the <img src="../media/Galaxy-edit.png" width=20 /> icon.)
 
 Now let's say you only want the lines of the file for the 23S rRNA annotations. We can do this using a Filter tool.
 

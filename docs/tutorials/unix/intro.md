@@ -13,7 +13,7 @@
 
 ### User interface
 
-The Unix interface is a text-based command driven one; often known as a Command Line Interface (CLI).  This means 
+The Unix interface is a text-based command driven one; often known as a Command Line Interface (CLI).  This means
 that you control it by issuing (i.e. typing) commands at the command prompt.  Consequently, the Mouse does not perform
 any function in the unix environment.
 
@@ -33,7 +33,7 @@ There are several parts that make up the command prompt:
 * **Username**: the username that you are logged in as
 * **Hostname**: the name of the computer that your are connected to
 * **Current working directory**: the current position within the file system that your are working.  More to follow
-* **Prompt**: this is simply a sign to the user that the computer is ready to accept the next command 
+* **Prompt**: this is simply a sign to the user that the computer is ready to accept the next command
 
 From this point forward in this document, the command prompt will be simply represented as a '$' rather than
 the full command prompt as shown above.  When copying and pasting commands you should NOT copy the '$' sign.
@@ -53,15 +53,15 @@ There are a number of parts which may be included in a command; each is separate
 * **Long flag**: same as flag except they are generally two dashes (--) followed by a word (or two)
 * **Option**: set the value of a configurable option.  They are a flag (or long flag) followed by a value
 * **Anonymous options**: these are one or more options that are specified in the required order
-* **Quoted value**: if you need to specify a space (or tab) in an option then you will need to use double (") or 
-  single (') quotes on each side of the value. 
+* **Quoted value**: if you need to specify a space (or tab) in an option then you will need to use double (") or
+  single (') quotes on each side of the value.
 
 
 ### File system
 
 The file-system of a unix computer can be thought of as an up-side-down tree.  The topmost directory has a special name
-called 'root'; it contains all files and directories that are on the computer system.  It is represented by a single 
-slash (/).  The figure below shows an example file system with directories (black outline boxes) and files (grey dashed 
+called 'root'; it contains all files and directories that are on the computer system.  It is represented by a single
+slash (/).  The figure below shows an example file system with directories (black outline boxes) and files (grey dashed
 boxes).
 
 <img src="../media/file-system.png" title="File system" alt="File system" width="400px" />
@@ -92,8 +92,8 @@ character and follow all the parent directories above the file/directory.
 
 #### Current working directory
 
-The *current working directory* is the current location within the file system that you are currently using. 
-When you first login to a unix computer it will begin with the current working directory set to your home directory, that 
+The *current working directory* is the current location within the file system that you are currently using.
+When you first login to a unix computer it will begin with the current working directory set to your home directory, that
 is, a place that is unique to you and generally nobody else will have access to it.
 
 <img src="../media/unix-cwd.png" title="Current working directory" alt="Current working directory" width="500px" />
@@ -122,8 +122,8 @@ There are a few further short cuts for typing relative file names:
 * *~* (Tilde): is a short cut to your home directory
 * *.* (dot): is a short cut for the current directory
 * *..* (2x dot): means the parent (or one directory up) from current directory
-* *...* (3x dot): does not mean anything (a gotcha for new users).  If you want 2 directories up then chain two 
-double dot's  e.g. *../..* 
+* *...* (3x dot): does not mean anything (a gotcha for new users).  If you want 2 directories up then chain two
+double dot's  e.g. *../..*
 
 **Note**: the special file names above can be used within absolute and relative file name and used multiple times.
 
@@ -133,4 +133,3 @@ double dot's  e.g. *../..*
 Now, if the current working directory is changed to */home/user2* the relative path to muscle.fq is different.
 
 **Relative file name**: *../user1/muscle.fq*
-
