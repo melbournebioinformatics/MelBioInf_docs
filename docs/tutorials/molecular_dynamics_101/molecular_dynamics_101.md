@@ -10,7 +10,7 @@ In the following tutorials we will be logging on a high performance computer (HP
 
 * **[MD tutorial - Building input files](../molecular_dynamics_201/molecular_dynamics_201/)**: In this tutorial we will be introducing a more sophisticated directory structure using scripts to direct the output and run the job. We initially download a copy of the directory to our local computer where we then build up the input files using VMD. We then upload this directory to the cluster where we submit the job. Finally we will download the results back to our local computer to visualize with VMD.
 
-As we will be working from a terminal on the cluster and later downloading data back to our local desktop for visualization and analysis, we will be assuming that the users have basic knowledge of Unix/Linux. If you are unfamiliar with these, we suggest you first work through this [Unix tutorial](https://melbournebioinformatics.github.io/MelBioInf_docs/tutorials/unix/robinson-unix-link/).
+As we will be working from a terminal on the cluster and later downloading data back to our local desktop for visualization and analysis, we will be assuming that the users have basic knowledge of Unix/Linux. If you are unfamiliar with these, we suggest you first work through this [Unix tutorial](../unix/unix.md).
 
 **Important**: NAMD has specific licencing requirements. Users are required to agree to these requirements to use NAMD on the Melbourne Bioinformatics HPC clusters. Login on [https://my.vlsci.org.au/](https://my.vlsci.org.au/), select 'Software agreement', 'Add software', 'NAMD'.
 

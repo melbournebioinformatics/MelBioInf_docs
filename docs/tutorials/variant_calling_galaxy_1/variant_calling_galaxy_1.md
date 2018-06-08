@@ -7,15 +7,11 @@
 
 # Introduction to Variant Calling using Galaxy
 
------
+## Overview
 
-## Tutorial Overview
+This tutorial is designed to introduce the tools, data types and workflow of variant detection. We will align reads to the genome, look for differences between reads and reference genome sequence, and filter the detected genomic variation manually to understand the computational basis of variant calling.
 
-In this tutorial we cover the concepts of detecting small variants (SNVs and indels) in human genomic DNA using a small set of reads from chromosome 22.
-
-Note: The tutorial is designed to introduce the tools, datatypes and workflow of variation detection. We filter the variants manually to understand what is actually happening in variant calling. In practice the datasets would be much larger and you would carry out some extra steps to improve the quality of the called variants.
-
------
+We cover the concepts of detecting small variants (SNVs and indels) in human genomic DNA using a small set of reads from chromosome 22.
 
 ## Learning Objectives
 
@@ -26,7 +22,13 @@ At the end of this tutorial you should:
  - Be able to run the FreeBayes variant caller to find SNVs and indels
  - Be able to visualise BAM files using the [Integrative Genomics Viewer (IGV)] and identify likely SNVs and indels by eye
 
------
+ ## Requirements
+
+ This workshop uses Galaxy as a platform. It is recommended that participants who have not used Galaxy before either sign up for our Intro to GVL workshop, or work through this tutorial themselves beforehand.
+
+ This is a hands-on workshop and attendees are required to bring their own laptops.
+
+------
 
 ## Background
 
@@ -43,9 +45,9 @@ The workshop is based on analysis of short read data from the exome of chromosom
 1. **Make sure you have an instance of Galaxy ready to go.**
     * For example, you can use the [Galaxy Melbourne server].
 2. **Create a new history for this tutorial.**
-    * In the history pane, click on the cog icon at the top right. 
+    * In the history pane, click on the cog icon at the top right.
     * Click *Create New*.
-    * Click on *Unnamed history* and re-name it. 
+    * Click on *Unnamed history* and re-name it.
 3. **Import data for the tutorial.**
     * In this case, we are uploading a [FASTQ] file.
     * **Method 1**  
@@ -115,7 +117,7 @@ For more details see [FASTQ].
    <li> red = tried to run and failed
    </ul>
 
-When the job has finished, click on the eye icon to view the newly generated data (in this case a set of quality metrics for the FASTQ data). This will be a file called *FastQC on data 1: Web page*. 
+When the job has finished, click on the eye icon to view the newly generated data (in this case a set of quality metrics for the FASTQ data). This will be a file called *FastQC on data 1: Web page*.
 Look at the various quality scores. The data looks pretty good - *high Per base sequence quality* (avg. above 30).
 
 

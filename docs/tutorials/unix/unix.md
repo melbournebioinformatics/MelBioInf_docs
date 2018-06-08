@@ -6,9 +6,36 @@
 
 A hands-on workshop covering the basics of the Unix/Linux command line interface.
 
+## Overview
+
+Knowledge of the Unix operating system is fundamental to being
+productive on HPC systems. This workshop will introduce you to the
+fundamental Unix concepts by way of a series of hands-on exercises.
+
+The workshop is facilitated by experienced Unix users who will be able
+to guide you through the exercises and offer assistance where needed.
+
+## Learning Objectives
+
+At the end of the course, you will be able to:
+
+* Log into a Unix machine remotely
+* Organise your files into directories
+* Change file permissions to improve security and safety
+* Create and edit files with a text editor
+* Copy files between directories
+* Use command line programs to manipulate files
+* Automate your workflow using shell scripts
+
+## Requirements
+
+* The workshop is intended for beginners with no prior experience in Unix.
+* Attendees are required to bring their own laptop computers.
+
+
 ## Introduction
 
-Before we commence the hands-on part of this workshop we will first give a short 30 minute talk to introduce the Unix concepts. 
+Before we commence the hands-on part of this workshop we will first give a short 30 minute talk to introduce the Unix concepts.
 The [slides](slides.html) are available if you would like.  Additionally the following reference material is available for later
 use.
 
@@ -25,28 +52,28 @@ In this topic we will learn how to connect to a *Unix* computer via a program ca
 
 ### Connecting to a Unix computer
 
-To begin this workshop you will need to connect to an HPC.  Today we will use *barcoo*. 
+To begin this workshop you will need to connect to an HPC.  Today we will use *barcoo*.
 The computer called *barcoo.vlsci.org.au* is the one that coordinates all the HPC's tasks.
 
 **Server details**:
 
 * **host**: barcoo.vlsci.org.au
-* **port**: 22 
+* **port**: 22
 * **username**: (provided at workshop)
 * **password**: (provided at workshop)
 
 {!docs/includes/connecting.md!}
 
 
-**Note**: for security reasons ssh will not display any characters when you enter your password. This 
-can be confusing because it appears as if your typing is not recognised by the computer. Don’t be 
+**Note**: for security reasons ssh will not display any characters when you enter your password. This
+can be confusing because it appears as if your typing is not recognised by the computer. Don’t be
 alarmed; type your password in and press return at the end.
 
-barcoo is a high performance computer for Melbourne Bioinformatics users.  Logging in connects your local computer 
-(e.g. laptop) to barcoo, and allows you to type commands into the Unix prompt which are run on 
+barcoo is a high performance computer for Melbourne Bioinformatics users.  Logging in connects your local computer
+(e.g. laptop) to barcoo, and allows you to type commands into the Unix prompt which are run on
 the HPC, and have the results displayed on your local screen.
 
-You will be allocated a training account on barcoo for the duration of the workshop. Your 
+You will be allocated a training account on barcoo for the duration of the workshop. Your
 username and password will be supplied at the start of the workshop.
 
 Log out of barcoo, and log back in again (to make sure you can repeat the process).
@@ -70,7 +97,7 @@ All the remaining parts assume that you are logged into barcoo over ssh.
 * **who**: displays a list of the users who are currently using this Unix computer.
 * **whoami**: displays your username (i.e. they person currently logged in).
 * **date**: displays the current date and time.
-* **cal**: displays a calendar on the terminal.  It can be configured to display more than just 
+* **cal**: displays a calendar on the terminal.  It can be configured to display more than just
 the current month.
 * **hostname**: displays the name of the computer we are logged in to.
 * **/vlsci/TRAINING/shared/Intro_to_Unix/hi**: displays the text "Hello World"
@@ -80,13 +107,13 @@ the current month.
 
 ## Topic 2: Exploring your home directory
 
-In this topic we will learn how to "look" at the filesystem and further expand our repertoire of Unix commands. 
+In this topic we will learn how to "look" at the filesystem and further expand our repertoire of Unix commands.
 
 **Duration**: 20 minutes. <!-- See "The shell and the command line" and "The file system" section of the workshop notes. -->
 
 **Relevant commands**: *ls*, *pwd*, *echo*, *man*
 
-Your home directory contains your own private working space.  Your *current working directory* is automatically set 
+Your home directory contains your own private working space.  Your *current working directory* is automatically set
 to your *home* directory when you log into a Unix computer.
 
 #### 2.1) Use the *ls* command to list the files in your *home* directory.  How many files are there?
@@ -106,7 +133,7 @@ $ ls
 exp01  file01  muscle.fq
 ```
 
-When running the *ls* command with no options it will list files in your current working directory.  The place 
+When running the *ls* command with no options it will list files in your current working directory.  The place
 where you start when you first login is your *HOME* directory.
 
 **Answer**: 3 (exp01, file01 and muscle.fq)
@@ -138,8 +165,8 @@ Type *ls --all* and press the *ENTER* key.
 
 **Answer 1**: *--all* (or *-a*) flag
 
-Now you should see several files in your home directory whose names all begin with a dot. All these files are 
-created automatically for your user account. They are mostly configuration options for various programs including 
+Now you should see several files in your home directory whose names all begin with a dot. All these files are
+created automatically for your user account. They are mostly configuration options for various programs including
 the shell. It is safe to ignore them for the moment.
 
 ```sh
@@ -177,7 +204,7 @@ Try a shortened version of *print working directory*
 <details>
   <summary>Answer</summary>
 
-You can find out the full path name of the current working directory with the *pwd* command. Your home directory 
+You can find out the full path name of the current working directory with the *pwd* command. Your home directory
 will look something like this:
 
 ```sh
@@ -309,7 +336,7 @@ drwxr-x--- 4 trainingXY training  512 Feb  9 14:18 trainingXY
 The *..* refers to the parent directory.
 
 
-**Method 2**: using $HOME.  This works no matter what our *CWD* is set to. 
+**Method 2**: using $HOME.  This works no matter what our *CWD* is set to.
 
 You could list the permissions of all files and directories in the parent directory of your home:
 
@@ -336,7 +363,7 @@ drwxr-x--- 4 trainingXY training  512 Feb  9 14:18 trainingXY
 
 All 3 of the methods above mean the same thing.
 
-You will see a list of files and directories in the parent directory of your home directory. One of them will 
+You will see a list of files and directories in the parent directory of your home directory. One of them will
 be the name of your home directory, something like *trainXX*.  Where *XX* is replaced by a two digit string.
 
 **Altername**: using the *-a* flag and looking at the *.* (dot) special file.
@@ -357,9 +384,9 @@ drwxr-x--- 4 trainingXY training  512 Feb  9 14:18 .
 
 **Discussion on Permissions**:
 
-The permission string is *"drwxr-x---"*. The *d* means it is a directory. The *rwx* means that the owner of the directory 
-(your user account) can *read*, *write* and *execute* the directory. Execute permissions on a directory means that you 
-can *cd* into the directory. The *r-x* means that anyone in the same user group as *training* can read or execute the 
+The permission string is *"drwxr-x---"*. The *d* means it is a directory. The *rwx* means that the owner of the directory
+(your user account) can *read*, *write* and *execute* the directory. Execute permissions on a directory means that you
+can *cd* into the directory. The *r-x* means that anyone in the same user group as *training* can read or execute the
 directory. The *---* means that nobody else (other users on the system) can do anything with the directory.
 
 </details>
@@ -368,12 +395,12 @@ directory. The *---* means that nobody else (other users on the system) can do a
 
 <div class="info">
 <p><b><em>man</em> is for manual</b>: and it will be your best friend!</p>
-<p>Manual pages include a lot of detail about a command and its available flags/options.  It should be your first (or second) 
+<p>Manual pages include a lot of detail about a command and its available flags/options.  It should be your first (or second)
 port of call when you are trying to work out what a command or option does.</p>
 <p>You can scroll <em>up</em> and <em>down</em> in the man page using the <em>arrow</em> keys.</p>
-<p>You can search in the man page using the forward 
-slash followed by the search text followed by the <em>ENTER</em> key. e.g. 
-type <em>/hello</em> and press <em>ENTER</em> to search for the word <em>hello</em>.  Press <em>n</em> key to find next 
+<p>You can search in the man page using the forward
+slash followed by the search text followed by the <em>ENTER</em> key. e.g.
+type <em>/hello</em> and press <em>ENTER</em> to search for the word <em>hello</em>.  Press <em>n</em> key to find next
 occurance of <em>hello</em> etc.</p>
 <p>You can <em>quit</em> the man page by pressing <em>q</em>.</p>
 </div>
@@ -499,7 +526,7 @@ data                 lib64       opt      srv
 dev                  lost+found  proc     sys
 ```
 
-Here we see that *ls* can take a filepath as its argument, which allows you to list the contents of directories 
+Here we see that *ls* can take a filepath as its argument, which allows you to list the contents of directories
 other than your current working directory.
 
 </details>
@@ -518,7 +545,7 @@ other than your current working directory.
 <details>
   <summary>Answer</summary>
 
-The *cd* command changes the value of your current working directory. To change to the root directory use the 
+The *cd* command changes the value of your current working directory. To change to the root directory use the
 following command:
 
 ```sh
@@ -527,7 +554,7 @@ $ cd /
 
 **Answer**: Yes, it now says the CWD is */* instead of *~*.
 
-Some people imagine that changing the working directory is akin to moving your focus within the file system. 
+Some people imagine that changing the working directory is akin to moving your focus within the file system.
 So people often say "move to", "go to" or "charge directory to" when they want to change the working directory.
 
 The root directory is special in Unix. It is the topmost directory in the whole file system.
@@ -555,7 +582,7 @@ such command.  However, it will get grumpy if something went wrong by way of an 
 <details>
   <summary>Answer</summary>
 
-Assuming you have changed to the root directory then this can be achieved with *ls*, or *ls -a* (for all files) or 
+Assuming you have changed to the root directory then this can be achieved with *ls*, or *ls -a* (for all files) or
 *ls -la* for a long listing of all files.
 
 If you are not currently in the root directory then you can list its contents by passing it as an argument to ls:
@@ -597,7 +624,7 @@ is buried in *man cd* however *cd* doesn't have its own manpage so you will need
 <details>
   <summary>Answer</summary>
 
-Use the *cd* command to change your working directory to your home directory. There are a number of ways to refer 
+Use the *cd* command to change your working directory to your home directory. There are a number of ways to refer
 to your home directory:
 
 ```sh
@@ -610,7 +637,7 @@ is equivalent to:
 cd ~
 ```
 
-The simplest way to change your current working directory to your home directory is to run the *cd* command with 
+The simplest way to change your current working directory to your home directory is to run the *cd* command with
 no arguments:
 
 **Answer**: the simplest for is cd with NO options.
@@ -700,10 +727,10 @@ Bourne-Again shell script text executable
 
 **Answer**: Bourne-Again shell script text executable
 
-The "Bourne-Again shell" is more commonly known as BASH. The *file* command is telling us that sleepy 
+The "Bourne-Again shell" is more commonly known as BASH. The *file* command is telling us that sleepy
 is (probably) a shell script written in the language of BASH.
 
-The file command uses various heuristics to guess the "type" of a file. If you want to know how it works 
+The file command uses various heuristics to guess the "type" of a file. If you want to know how it works
 then read the Unix manual page like so:
 
 ```sh
@@ -730,20 +757,20 @@ Use the file command again. If you are in the same directory as *hi* then:
 
 ```sh
 $ file hi
-ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 
+ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux
 2.6.9, not stripped
 ```
 
-**Answer**: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 
+**Answer**: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux
 
-This rather complicated output is roughly saying that the file called *hi* contains a binary executable 
+This rather complicated output is roughly saying that the file called *hi* contains a binary executable
 program (raw instructions that the computer can execute directly).
 
 </details>
 
 ---
 
-#### 3.10) What are the file permissions of the following file and what do they mean? 
+#### 3.10) What are the file permissions of the following file and what do they mean?
 
 */vlsci/TRAINING/shared/Intro_to_Unix/sleepy*
 
@@ -757,7 +784,7 @@ Remember the *ls* command, and don't forget the *-l* flag
 <details>
   <summary>Answer</summary>
 
-You can find the permissions of *sleepy* using the *ls* command with the *-l* flag. If you are in the same 
+You can find the permissions of *sleepy* using the *ls* command with the *-l* flag. If you are in the same
 directory as *sleepy* then:
 
 ```sh
@@ -765,12 +792,12 @@ $ ls -l sleepy
 -rw-r--r-- 1 arobinson common 183 Feb  9 16:36 sleepy
 ```
 
-**Answer**: The Answer is dependent on the computer you are connected too however will follow something like above. 
-We can see that this particular instance of sleepy is owned by the user arobinson, and is part of the common 
-user group. It is 183 bytes in size, and was last modified on the 9th of February at 4:36pm. The file is 
-readable to everyone, and write-able only to arobinson.  The digit '1' between the file permission string and 
-the owner indicates that there is one link to the file. The Unix file system allows files to be referred to 
-by multiple "links". When you create a file it is referred to by one link, but you may add others later. For 
+**Answer**: The Answer is dependent on the computer you are connected too however will follow something like above.
+We can see that this particular instance of sleepy is owned by the user arobinson, and is part of the common
+user group. It is 183 bytes in size, and was last modified on the 9th of February at 4:36pm. The file is
+readable to everyone, and write-able only to arobinson.  The digit '1' between the file permission string and
+the owner indicates that there is one link to the file. The Unix file system allows files to be referred to
+by multiple "links". When you create a file it is referred to by one link, but you may add others later. For
 future reference: links are created with the *ln* command.
 
 </details>
@@ -883,20 +910,20 @@ DESCRIPTION
        Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.
 ```
 
-which means *cp* expects zero or more flags, a SOURCE file followed by a DEST file or directory 
+which means *cp* expects zero or more flags, a SOURCE file followed by a DEST file or directory
 
 </details>
 
 <details>
   <summary>Answer</summary>
 
-Use the *cp* command to copy files. 
+Use the *cp* command to copy files.
 
-<div class="info"><b>Wildcards</b>: You could copy them one-by-one, but that would be tedious, so use 
+<div class="info"><b>Wildcards</b>: You could copy them one-by-one, but that would be tedious, so use
 the <em>*</em> wildcard to specify that you want to copy all the files.
 </div>
 
-There are a number of ways you could do this depending on how you specify the source and destination 
+There are a number of ways you could do this depending on how you specify the source and destination
 paths to *cp*. You only need to perform one of these ways, but we show multiple ones for your reference.
 
 **Answer 1**: From your home directory:
@@ -912,7 +939,7 @@ $ cd test
 $ cp /vlsci/TRAINING/shared/Intro_to_Unix/* .
 ```
 
-In the example above the '*.*' (dot) character refers to the current working directory. It should be 
+In the example above the '*.*' (dot) character refers to the current working directory. It should be
 the test subdirectory of your home directory.
 
 **Answer 3**: Change to the \end{UNIX_TRAINING_FILES_PATH} directory and then copy:
@@ -928,7 +955,7 @@ Remember that ~ is a shortcut reference to your home directory.
 
 ---
 
-**Note**: This exercise assumes that the copy command from the previous exercise was successful. 
+**Note**: This exercise assumes that the copy command from the previous exercise was successful.
 
 #### 4.3) Check that the file size of *expectations.txt* is the same in both the directory that you copied it from and the directory that you copied it to.
 
@@ -951,7 +978,7 @@ Remember *ls* can show you the file size (with one of its flags)
 
 Use *ls -l* to check the size of files.
 
-You could do this in many ways depending on the value of your working directory. We just show one possible 
+You could do this in many ways depending on the value of your working directory. We just show one possible
 way for each file:
 
 ```sh
@@ -960,12 +987,12 @@ $ ls -l /vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
 $ ls -l ~/test/expectations.txt
 ```
 
-From the output of the above commands you should be able to see the size of each file and check that they 
-are the same. 
+From the output of the above commands you should be able to see the size of each file and check that they
+are the same.
 
 **Answer**: They should each be *1033773* bytes
 
-**Alternate**: Sometimes it is useful to get file sizes reported in more "human friendly" units than bytes. If this is 
+**Alternate**: Sometimes it is useful to get file sizes reported in more "human friendly" units than bytes. If this is
 true then try the *-h* option for ls:
 
 ```sh
@@ -973,7 +1000,7 @@ $ ls -lh /vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
 -rw-r--r-- 1 arobinson common 1010K Mar 26  2012 /vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
 ```
 
-In this case the size is reported in kilobytes as *1010K*. Larger files are reported in megabytes, gigabytes 
+In this case the size is reported in kilobytes as *1010K*. Larger files are reported in megabytes, gigabytes
 etcetera.
 
 </details>
@@ -1072,7 +1099,7 @@ Once *nano* is open it displays some command hints along the bottom of the scree
 <details>
   <summary>Additional Hint</summary>
 
-*^O* means hold the *Control* (or CTRL) key while pressing the *o*.  Dispite what it displays, you need to type 
+*^O* means hold the *Control* (or CTRL) key while pressing the *o*.  Dispite what it displays, you need to type
 the lower-case letter that follows the *^* character.
 
 WriteOut is another name for Save.
@@ -1084,14 +1111,14 @@ WriteOut is another name for Save.
 
 Take some time to play around with the *nano* text editor.
 
-*Nano* is a very simple text editor which is easy to use but limited in features. More powerful 
+*Nano* is a very simple text editor which is easy to use but limited in features. More powerful
 editors exist such as *vim* and *emacs*, however they take a substantial amount of time to learn.
 
 </details>
 
 ---
 
-#### 4.7) Did the changes you made to *~/test/expectations.txt* have any effect on */vlsci/TRAINING/shared/Intro_to_Unix*? 
+#### 4.7) Did the changes you made to *~/test/expectations.txt* have any effect on */vlsci/TRAINING/shared/Intro_to_Unix*?
 
 How can you tell if two files are the same or different in their contents?
 
@@ -1112,7 +1139,7 @@ Use *diff*
 <details>
   <summary>Answer</summary>
 
-Use *diff* to check that the two files are different after you have made the change to the copy of 
+Use *diff* to check that the two files are different after you have made the change to the copy of
 *expectations.txt* in your *~/test* directory.
 
 ```sh
@@ -1228,11 +1255,11 @@ You could use *rmdir* but there is an easier way using just *rm* and a flag.
 <details>
   <summary>Answer</summary>
 
-You could use the *rm* command to remove each file individually, and then use the *rmdir* command 
-to remove the directory. Note that *rmdir* will only remove directories that are empty (i.e. do not 
+You could use the *rm* command to remove each file individually, and then use the *rmdir* command
+to remove the directory. Note that *rmdir* will only remove directories that are empty (i.e. do not
 contain files or subdirectories).
 
-A faster way is to pass the *-r* (for recursive) flag to *rm* to remove all the files and the 
+A faster way is to pass the *-r* (for recursive) flag to *rm* to remove all the files and the
 directory in one go:
 
 **Logical Answer**:
@@ -1248,8 +1275,8 @@ cd ~
 rm -r test
 ```
 
-<div class="error"><b>Warning</b>: Be very careful with <em>rm -r</em>, it will remove all files 
-and all subdirectories underneath the specified directory. This could be catastrophic if you do it 
+<div class="error"><b>Warning</b>: Be very careful with <em>rm -r</em>, it will remove all files
+and all subdirectories underneath the specified directory. This could be catastrophic if you do it
 in the wrong location! Now is a good moment to pause and think about file backup strategies.</div>
 
 </details>
@@ -1302,7 +1329,7 @@ int main(void) {
 }
 ```
 
-*hello.c* contains the source code of a C program. The compiled executable version of this code 
+*hello.c* contains the source code of a C program. The compiled executable version of this code
 is in the file called *hi*, which you can run like so:
 
 ```sh
@@ -1422,7 +1449,7 @@ $ grep Ahab moby.txt
 ... AND MUCH MUCH MORE ...
 ```
 
-If you want to know how many lines are in the output of the above command you can "pipe" it 
+If you want to know how many lines are in the output of the above command you can "pipe" it
 into the *wc -l* command:
 
 ```sh
@@ -1516,7 +1543,7 @@ $ ls -l sample_1.fastq
 -rw-r--r-- 1 training01 training 90849644 Jun 14 20:03 sample_1.fastq
 ```
 
-You will see that when it was compressed it is *26997595* bytes in size, making it about *0.3* times the size of the 
+You will see that when it was compressed it is *26997595* bytes in size, making it about *0.3* times the size of the
 original file.
 
 **Note**: in the above section the lines starting with *#* are comments so don't need to be copied but if you
@@ -1568,7 +1595,7 @@ $ wc -l sample_1.fastq
 
 **Answer**: There are *3000000* lines in the file representing *750000* reads.
 
-If you want to do simple arithmetic at the command line then you can use the "basic calculator" 
+If you want to do simple arithmetic at the command line then you can use the "basic calculator"
 called *bc*:
 
 ```sh
@@ -1576,12 +1603,12 @@ $ echo "3000000 / 4" | bc
 750000
 ```
 
-<div class="info"><b>Note</b>: that the vertical bar character "|" is the Unix pipe (and is often 
-called the "pipe symbol"). It is used for connecting the output of one command into the input of 
+<div class="info"><b>Note</b>: that the vertical bar character "|" is the Unix pipe (and is often
+called the "pipe symbol"). It is used for connecting the output of one command into the input of
 another command. We'll see more examples soon.</div>
 
-*bc* is suitable for small calculations, but it becomes cumbersome for more complex examples. If 
-you want to do more sophisticated calculations then we recommend to use a more general purpose 
+*bc* is suitable for small calculations, but it becomes cumbersome for more complex examples. If
+you want to do more sophisticated calculations then we recommend to use a more general purpose
 programming language (such as Python etcetera).
 
 </details>
@@ -1609,7 +1636,7 @@ $ grep GATTACA sample_1.fastq | wc -l
 
 **Answer**: *1119*
 
-If you are unsure about the possibility of upper and lower case characters then consider using 
+If you are unsure about the possibility of upper and lower case characters then consider using
 the *-i* (ignore case option for grep).
 
 </details>
@@ -1637,7 +1664,7 @@ Check out the manpage for *grep* and/or *nl*
 
 You can use the *-n* flag to grep to make it prefix each line with a line number:
 
-**Answer 1**: 
+**Answer 1**:
 ```sh
 $ grep -n GATTACA sample_1.fastq
 5078:AGGAAGATTACAACTCCAAGACACCAAACAAATTCC
@@ -1646,7 +1673,7 @@ $ grep -n GATTACA sample_1.fastq
 ... AND MUCH MUCH MORE ...
 ```
 
-**Answer 2**: Or you can use the *nl* command to number each line of sample_1.fastq and then search for *GATTACA* 
+**Answer 2**: Or you can use the *nl* command to number each line of sample_1.fastq and then search for *GATTACA*
 in the numbered lines:
 
 ```sh
@@ -1659,7 +1686,7 @@ $ nl sample_1.fastq | grep GATTACA
 
 **Just the line numbers**:
 
-If you just want to see the line numbers then you can "pipe" the output of the above command into 
+If you just want to see the line numbers then you can "pipe" the output of the above command into
 *cut -f 1*:
 
 ```sh
@@ -1710,25 +1737,25 @@ $ nl sample_1.fastq
 ... AND MUCH MUCH MORE ...
 ```
 
-There are a lot of lines in that file so this command might take a while to print all its output. 
-If you get tired of looking at the output you can kill the command with *control-c* (hold the 
+There are a lot of lines in that file so this command might take a while to print all its output.
+If you get tired of looking at the output you can kill the command with *control-c* (hold the
 *control* key down and simultaneously press the "*c*" character).
 
 </details>
 
 ---
 
-#### 5.5) Redirect the output of the previous command to a file called *sample_1.fastq.nl*. 
+#### 5.5) Redirect the output of the previous command to a file called *sample_1.fastq.nl*.
 
-Check the first *20* lines of *sample_1.fastq.nl* with the *head* command. Use the *less* command to 
-interactively view the contents of *sample_1.fastq.nl* (use the arrow keys to navigate up and down, 
-*q* to quit and '*/*' to search). Use the search facility in less to find occurrences of 
+Check the first *20* lines of *sample_1.fastq.nl* with the *head* command. Use the *less* command to
+interactively view the contents of *sample_1.fastq.nl* (use the arrow keys to navigate up and down,
+*q* to quit and '*/*' to search). Use the search facility in less to find occurrences of
 *GATTACA*.
 
 <details>
   <summary>Hint</summary>
 
-Ok that one was tough, *> FILENAME* is how you do it if you didn't break out an internet search for 
+Ok that one was tough, *> FILENAME* is how you do it if you didn't break out an internet search for
 "redirect the output in Unix"
 
 </details>
@@ -1740,11 +1767,11 @@ Ok that one was tough, *> FILENAME* is how you do it if you didn't break out an 
 $ nl sample_1.fastq > sample_1.fastq.nl
 ```
 
-The greater-than sign "*>*" is the file redirection operator. It causes the standard output of the 
+The greater-than sign "*>*" is the file redirection operator. It causes the standard output of the
 command on the left-hand-side to be written to the file on the right-hand-side.
 
-You should notice that the above command is much faster than printing the output to the screen. 
-This is because writing to disk can be performed much more quickly than rendering the output on 
+You should notice that the above command is much faster than printing the output to the screen.
+This is because writing to disk can be performed much more quickly than rendering the output on
 a terminal.
 
 To check that the first 20 lines of the file look reasonable you can use the *head* command like so:
@@ -1762,8 +1789,8 @@ $ head -20 sample_1.fastq.nl
 ...
 ```
 
-The *less* command allows you to interactively view a file. The arrow keys move the page up and 
-down. You can search using the '*/*' followed by the search term. You can quit by pressing "*q*". Note 
+The *less* command allows you to interactively view a file. The arrow keys move the page up and
+down. You can search using the '*/*' followed by the search term. You can quit by pressing "*q*". Note
 that the *less* command is used by default to display man pages.
 
 ```sh
@@ -1786,9 +1813,9 @@ $ cat sample_1.fastq | paste - - - - > sample_1.tsv
 The *'-'* (dash) character has a special meaning when used in place of a file; it means use the standard
 input instead of a real file.  Note: while it is fairly common in most Unix programs, not all will support it.
 
-The *paste* command is useful for merging multiple files together line-by-line, such that the *Nth* 
-line from each file is joined together into one line in the output, separated by default with a 
-*tab* character. In the above example we give paste 4 copies of the contents of *sample_1.fastq*, 
+The *paste* command is useful for merging multiple files together line-by-line, such that the *Nth*
+line from each file is joined together into one line in the output, separated by default with a
+*tab* character. In the above example we give paste 4 copies of the contents of *sample_1.fastq*,
 which causes it to join consecutive groups of 4 lines from the file into one line of output.
 
 </details>
@@ -1815,8 +1842,8 @@ Use *less* to examine it.
 
 **Answer**: No, in the second instance we get 4 copies of each line.
 
-**Why**: In the first command *paste* will use the input file (standard input) 4 times since the *cat* 
-command will only give one copy of the file to *paste*, where as, in the second command *paste* will open 
+**Why**: In the first command *paste* will use the input file (standard input) 4 times since the *cat*
+command will only give one copy of the file to *paste*, where as, in the second command *paste* will open
 the file 4 times.  Note: this is quite confusing and is not necessory to remember; its just an interesting
 side point.
 
@@ -1866,8 +1893,8 @@ See exercise 5.3 (for cut) and 5.5 (redirection)
 <details>
   <summary>Answer</summary>
 
-The file sample_1.tsv is in column format. The cut command can be used to select certain columns 
-from the file. The DNA sequences appear in column 2, we select that column using the -f 2 flag 
+The file sample_1.tsv is in column format. The cut command can be used to select certain columns
+from the file. The DNA sequences appear in column 2, we select that column using the -f 2 flag
 (the f stands for "field").
 
 ```sh
@@ -1896,7 +1923,7 @@ Use *man* (sort) and see exercise 5.5 (redirection)
 $ sort sample_1.dna.txt > sample_1.dna.sorted.txt
 ```
 
-Running *head* on the output file reveals that there are duplicate DNA sequences in the input FASTQ 
+Running *head* on the output file reveals that there are duplicate DNA sequences in the input FASTQ
 file.
 
 </details>
@@ -1908,7 +1935,7 @@ file.
 <details>
   <summary>Hint</summary>
 
-I am pretty sure you have already used *man* (or just guessed how to use *uniq*).  You're also a gun at 
+I am pretty sure you have already used *man* (or just guessed how to use *uniq*).  You're also a gun at
 redirection now.
 
 </details>
@@ -1929,7 +1956,7 @@ $ wc -l sample_1.dna.uniq.txt
 614490
 ```
 
-View the contents of *sample_1.dna.uniq.txt* to check that the duplicate DNA sequences have been 
+View the contents of *sample_1.dna.uniq.txt* to check that the duplicate DNA sequences have been
 removed.
 
 </details>
@@ -1984,7 +2011,7 @@ i.e. 6 commands (*cat*, *paste*, *cut*, *sort*, *uniq*, *wc*)
 <details>
   <summary>Answer</summary>
 
-Finally we can 'pipe' all the pieces together into a sophisticated pipeline which starts with a 
+Finally we can 'pipe' all the pieces together into a sophisticated pipeline which starts with a
 FASTQ file and ends with a list of duplicated DNA sequences:
 
 **Answer**:
@@ -2004,7 +2031,7 @@ The output file should have *56079* lines.
 <details>
   <summary>Hint</summary>
 
-Check out the *sleepy* file (with *cat* or *nano*); there is a bit of magic on the first line that you will need. 
+Check out the *sleepy* file (with *cat* or *nano*); there is a bit of magic on the first line that you will need.
 
 You also need to tell bash that this file can be executed (check out *chmod* command).
 
@@ -2013,8 +2040,8 @@ You also need to tell bash that this file can be executed (check out *chmod* com
 <details>
   <summary>Answer</summary>
 
-Put the answer to *5.13* into a file called *sample_1_dups.sh* (or whatever you want). Use *nano* to 
-create the file. 
+Put the answer to *5.13* into a file called *sample_1_dups.sh* (or whatever you want). Use *nano* to
+create the file.
 
 **Answer**: the contents of the file will look like this:
 
@@ -2024,14 +2051,14 @@ create the file.
 cat sample_1.fastq | paste - - - - | cut -f 2 | sort | uniq -d | wc -l
 ```
 
-<div class="info"><b>Note</b>: the first line has special meaning.  If it starts with '<em>#!</em>' (Hash 
-then exclamation mark) then it tells bash this file is a script that can be interpreted.  The command 
+<div class="info"><b>Note</b>: the first line has special meaning.  If it starts with '<em>#!</em>' (Hash
+then exclamation mark) then it tells bash this file is a script that can be interpreted.  The command
 (including full path) used to intepret the script is placed right after the magic code.</div>
 
 Give everyone execute permissions on the file with chmod:
 
 ```sh
-$ chmod +x sample_1_dups.sh 
+$ chmod +x sample_1_dups.sh
 ```
 
 You can run the script like so:
@@ -2051,15 +2078,15 @@ If all goes well the script should behave in exactly the same way as the answer 
 <details>
   <summary>Hint</summary>
 
-Shell scripts can refer to command line arguments by their position using special variables called 
-*$0*, *$1*, *$2* and so on. 
+Shell scripts can refer to command line arguments by their position using special variables called
+*$0*, *$1*, *$2* and so on.
 
 </details>
 
 <details>
   <summary>Additional Hint</summary>
 
-*$0* refers to the name of the script as it was called on the command line. 
+*$0* refers to the name of the script as it was called on the command line.
 *$1* refers to the first command line argument, and so on.
 
 </details>
@@ -2088,13 +2115,13 @@ You can run the new script like so:
 $ ./fastq_dups.sh sample_1.fastq
 ```
 
-In the above example the script takes *sample_1.fastq* as input and prints the number of duplicated 
+In the above example the script takes *sample_1.fastq* as input and prints the number of duplicated
 sequences as output.
 
 **A better Answer**:
 
-Ideally we would write our shell script to be more robust. At the moment it just assumes there 
-will be at least one command line argument. However, it would be better to check and produce an 
+Ideally we would write our shell script to be more robust. At the moment it just assumes there
+will be at least one command line argument. However, it would be better to check and produce an
 error message if insufficient arguments were given:
 
 ```sh
@@ -2114,19 +2141,19 @@ The '*else*' line means: otherwise do the following line(s) instead.  Note: it i
 The '*fi*' line means: this marks the end of the current *if* or *else* section.
 
 The '*[ $# -eq 1 ]*' part is the condition:
-  
-* *$#*: is a special shell variable that indicates how many command line arguments were given. 
+
+* *$#*: is a special shell variable that indicates how many command line arguments were given.
 * *-eq*: checks if the numbers on either side of it are equal.
 * *1*: is a number one
 
 <div class="warning"><b>Spaces in conditions</b>:
-Bash is VERY picky about the spaces within the conditions; if you get it wrong it will just behave strangely 
+Bash is VERY picky about the spaces within the conditions; if you get it wrong it will just behave strangely
 (without warning).  You MUST put a space near the share brackets and between each part of the condition!</div>
 
 So in words our script is saying "if user provided 1 filename, then count the duplicates, otherwise print an error".
 
 <div class="info"><b>Exit-status</b>:
-It is a Unix standard that when the user provides incorrect commandline arguments we print a usage message 
+It is a Unix standard that when the user provides incorrect commandline arguments we print a usage message
 and return a *non-zero* exit status.  The *exit status* is a standard way for other programs to know if
 our program ran correctly; 0 means everything went as expected, any other number is an error.  If you don't
 provide an *exit ..* line then it automatically returns a 0 for you.</div>
@@ -2154,10 +2181,10 @@ There's a lot going on in this script.
 
 The *$@* is a sequence of all command line arguments.
 
-The '*for ...; do*' (a.k.a. for loop) iterates over that sequence one argument at a time, assigning the current argument in 
+The '*for ...; do*' (a.k.a. for loop) iterates over that sequence one argument at a time, assigning the current argument in
 the sequence to the variable called *file*.
 
-The *$(...)* allow us to capture the output of another command (in-place of the *...*).  In this 
+The *$(...)* allow us to capture the output of another command (in-place of the *...*).  In this
 case we capture the output of the pipeline and save it to the variable called *dups*.
 
 If you had multiple FASTQ files available you could run the script like so:
@@ -2178,24 +2205,14 @@ sample_3.fastq YYYYY
 
 ## Finished
 
-Well done, you learnt a lot over the last 5 topics and you should be proud of your achievement; it 
+Well done, you learnt a lot over the last 5 topics and you should be proud of your achievement; it
 was a lot to take in.
 
-From here you should be comfortable around the Unix command line and ready to take on the HPC 
+From here you should be comfortable around the Unix command line and ready to take on the HPC
 Workshop.
 
-You will no-doubt forget a lot of what you learnt here so I encourage you to save a link to this 
+You will no-doubt forget a lot of what you learnt here so I encourage you to save a link to this
 workshop for later reference.
 
 Thank you for your attendance, please don't forget to complete the training survey and give it
 back to the workshop facilitators.
-
-
-
-
-
-
-
-
-
-
