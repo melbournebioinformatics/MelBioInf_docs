@@ -29,7 +29,7 @@ The data has been produced from human whole genomic DNA. Only reads that have ma
 ## Preparation
 
 1. **Make sure you have an instance of Galaxy ready to go.**
-    * If you don't have your own - go to our [Galaxy-Tut](http://galaxy-tut.genome.edu.au/galaxy) or [Galaxy-Melbourne](http://galaxy-mel.genome.edu.au/galaxy) server.
+    * If you don't have your own - go to our [Galaxy-Tut](http://galaxy-tut.genome.edu.au/galaxy) or [Galaxy Australia](https://usegalaxy.org.au/) server.
     * Log in so that your work will be saved.
     If you don't already have an account on this server, select from the menu *User -> Register* and create one.
 
