@@ -27,8 +27,8 @@ It is recommended that participants attend Introduction to [High Performance Com
 
 Please bring along your laptops with the following installed before arriving:
 
-* VMD (http://www.ks.uiuc.edu/Research/vmd/)
-* Putty (https://www.putty.org/) – only if you use Windows.
+* VMD ([http://www.ks.uiuc.edu/Research/vmd/](http://www.ks.uiuc.edu/Research/vmd/))
+* Putty ([https://www.putty.org/](https://www.putty.org/)) – only if you use Windows.
 
 **Important**: NAMD has specific licencing requirements. Users are required to agree to these requirements to use NAMD on the Melbourne Bioinformatics HPC clusters. Login on [https://my.vlsci.org.au/](https://my.vlsci.org.au/), select 'Software agreement', 'Add software', 'NAMD'.
 
