@@ -305,17 +305,7 @@ fastStructure-gcc/20150320   freetype-gcc/2.5.3
 fastx_toolkit-gcc/0.0.14
 ```
 
-\if{HPC_HOSTSHORT == lims-hpc}
-
-**Answer**: 9 modules
-
-\endif
-
-\if{HPC_HOSTSHORT == barcoo}
-
 **Answer**: 26 modules
-
-\endif
 
 NOTE: this was correct at time of writing this workshop and might increase over time so don't be alarmed if you got more
 
@@ -1006,7 +996,7 @@ be ~20 seconds.
 
 </details>
 
-##Topic 4: Job Monitoring
+## Topic 4: Job Monitoring
 
 It is often difficult to predict how a software tool may utilise HPC System Resources (CPU/Memory) as it can vary quite widely based
 on a number of factors (data set, number of CPU's, processing step etc.).
@@ -1014,7 +1004,7 @@ on a number of factors (data set, number of CPU's, processing step etc.).
 In this topic we will cover some of the tools that are available that enable you to *watch* what is happening so we can make better predictions
 in the future.
 
-###Exercises
+### Exercises
 
 #### 4.1) What does the *top* command show?
 
@@ -1234,7 +1224,7 @@ to quickly identify yours.
 
 </details>
 
-##Topic 5: All Together
+## Topic 5: All Together
 
 This topic will allow you to put all the skills that you learnt in this workshop to the test.  You might need to refer back to
 the earlier topics if you have forgotten how to do these tasks.
