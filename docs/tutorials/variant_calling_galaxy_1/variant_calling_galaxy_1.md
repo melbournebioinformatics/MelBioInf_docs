@@ -43,7 +43,7 @@ The workshop is based on analysis of short read data from the exome of chromosom
 ## 1. Preparation
 
 1. **Make sure you have an instance of Galaxy ready to go.**
-    * For example, you can use the [Galaxy Melbourne server].
+    * For example, you can use the [Galaxy Australia server](https://usegalaxy.org.au/).
 2. **Create a new history for this tutorial.**
     * In the history pane, click on the cog icon at the top right.
     * Click *Create New*.
@@ -84,7 +84,7 @@ The first step is to evaluate the quality of the raw sequence data. If the quali
 
 #### 1. Take a look at the FASTQ file
 
-Click on the eye icon to the top right of the fastq file to view the a snippet of the file.
+Click on the eye icon to the top right of the FASTQ file to view the a snippet of the file.
 
 Note that each read is represented by 4 lines:
     * read identifier
@@ -104,7 +104,9 @@ For more details see [FASTQ].
 
 #### 2. Assessing read quality from the FASTQ files
 
-1.  From the Galaxy tools panel, select `NGS: QC and manipulation > FastQC: Read Quality reports`.
+1. From the Galaxy tools panel, in the search box at the top, type in "FastQC".
+2. Click on <ss>FastQC</ss>
+
 <br>The input FASTQ file will be selected by default. Keep the other defaults and click execute.
 
    >  <img src="../media/tips.png" alt="Tip" height="42" width="42"/>
@@ -131,8 +133,9 @@ The basic process here to map individual reads - from the input sample FASTQ fil
 
 We will map (align) the reads with the [BWA] tool to the human reference genome. For this tutorial, use *Human reference genome 19 (hg19)* - this is [hg19 from UCSC].
 
-1. Align the reads [3-5mins]: from the Galaxy tools panel, select `NGS: Mapping > Map with BWA-MEM`<br>
+1. Align the reads [3-5mins]: from the Galaxy tools panel, search for <ss>Map with BWA-MEM</ss><br>
    From the options:<br>
+    * *Will you selection a reference genome...:* Use a built-in genome index
     * *Using reference genome:* set to hg19
     * *Single or Paired-end reads:* set to Single
     * Make sure your fastq file is the input file.
@@ -140,16 +143,16 @@ We will map (align) the reads with the [BWA] tool to the human reference genome.
 
     *Note: This is the longest step in the workshop and will take a few minutes, possibly more depending on how many people are also scheduling mappings*
 
-2.  Sort the BAM file: from the Galaxy tools panel, select `NGS: SAM Tools > Sort BAM dataset`
+2.  Sort the BAM file: from the Galaxy tools panel, search for <ss>SortSam</ss>
     <br>From the options:<br>
     * Set the input file to be the output BAM file from the previous step.
-    * *Sort by:* set to Chromosomal coordinates
+    * *Sort by:* set to Coordinate
     * Keep other options as default and click execute
 
 #### 2. Examine the alignment
 
 1. To examine the output sorted BAM file, we need to first convert it into readable [SAM] format.
-   From the Galaxy tools panel, select `NGS: SAM Tools > BAM-to-SAM`
+   From the Galaxy tools panel, search for <ss>BAM-to-SAM</ss>
    <br>From the options:<br>
        * *BAM File to Convert:* select your sorted BAM file
        * Keep all options as default and click execute
@@ -174,7 +177,7 @@ Galaxy auto-generates a name for all outputs. Therefore, it is advisable to choo
 
 We can generate some mapping statistics from the BAM file to assess the quality of our alignment.
 
-1.  Run IdxStats. From the Galaxy tools panel, select `NGS: SAM Tools > IdxStats`
+1.  Run IdxStats. From the Galaxy tools panel, search for the tool <ss>IdxStats</ss>
     * Select the sorted BAM file as input.
     * Keep other options as default and click execute.
 
@@ -185,7 +188,7 @@ We can generate some mapping statistics from the BAM file to assess the quality 
 
     We can see that most of the reads are aligning to chromosome 22 as expected.
 
-2.  Run Flagstat. From the Galaxy tools panel, select `NGS: Sam Tools > Flagstat`
+2.  Run Flagstat. From the Galaxy tools panel, search for <ss>Flagstat</ss>
     * Select the sorted BAM file as input.
     * Keep other options as default and click execute.
 
@@ -225,7 +228,7 @@ The current generation of variant calling tools do not output pileup files, and 
 
 #### 1. Generate a pileup file
 
-From the Galaxy tools panel, select `NGS: SAMtools > Generate Pileup`<br>
+From the Galaxy tools panel, search for <ss>Generate pileup</ss><br>
 From the options:
 
 * *Call consensus according to MAQ model:* set to Yes<br>
@@ -271,7 +274,7 @@ Galaxy tries to assign a datatype attribute to every output file. In this case, 
 
 If you click the eye icon to view the contents of your pileup file, you'll see that the visible rows of the file aren't very interesting as they are outside chromosome 22 and have very low coverage. Let's filter to regions with coverage of at least 10 reads.
 
-From the Galaxy tools panel, select `NGS: SAM Tools > Filter Pileup`<br>
+From the Galaxy tools panel, search for <ss>Filter Pileup</ss><br>
 From the options:
 
 * *which contains:* set to Pileup with ten columns (with consensus).
@@ -292,11 +295,11 @@ FreeBayes is a Bayesian variant caller which assesses the likelihood of each pos
 
 #### 1. Call variants with FreeBayes.
 
-Under `NGS ANALYSIS`, select the tool `NGS: Variant Analysis -> FreeBayes`.
+In the tool panel search for <ss>FreeBayes</ss>.
 
 * Select your sorted BAM file as input, and select the correct reference genome.
 * Under *Choose parameter selection level*, select "Simple diploid calling with filtering and coverage". This will consider only aligned reads with sufficient mapping quality and base quality. You can see the exact parameters this sets by scrolling down in the main Galaxy window to the Galaxy FreeBayes documentation section on *Galaxy-specific options*.
-* *Execute* FreeBayes.
+* *Execute* FreeBayes. (This may take a while.)
 
 #### 2. Check the generated list of variants
 
