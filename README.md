@@ -137,6 +137,7 @@ git clone https://github.com/melbournebioinformatics/MelBioInf_docs
 cd MelBioInf_docs
 mkdocs gh-deploy
 ```
+Note: this is a direct copy of the repository, not a clone of your copy of the repository. 
 
 Check that the updated tutorial appears under http://melbournebioinformatics.github.io/MelBioInf_docs/
 
