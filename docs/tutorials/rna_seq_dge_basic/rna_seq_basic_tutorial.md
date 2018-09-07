@@ -55,8 +55,8 @@
 ## Tutorial Overview
 
 In this tutorial we cover the concepts of RNA-seq differential gene expression
-(DGE) analysis using a simulated dataset from the common fruit fly, Drosophila
-melanogaster.
+(DGE) analysis using a simulated dataset from the common fruit fly, *Drosophila
+melanogaster*.
 
 The tutorial is designed to introduce the tools, datatypes and workflows of an
 RNA-seq DGE analysis. In practice, real datasets would be much larger and
@@ -117,27 +117,30 @@ be to find differentially expressed genes in WT vs KO.
 
 **1.  Register as a new user in Galaxy if you don’t already have an account**
 
-1.  Open a browser and go to a Galaxy server. This can either be your
+* Open a browser and go to a Galaxy server. For example, you could use [Galaxy Australia](https://usegalaxy.org.au/). Recommended browsers include Firefox and Chrome. Internet Explorer is not supported.
+* Register as a new user by clicking **User > Register** on the top dark-grey bar. Alternatively, if you already have an account, login by clicking **User > Login**.
+
+<!-- This can either be your
     personal GVL server you [started previously](http://genome.edu.au/get/get#launch),
     the public [Galaxy Tutorial server](http://galaxy-tut.genome.edu.au)
-    or the public [Galaxy Australia](https://usegalaxy.org.au/).  
-    Recommended browsers include Firefox and Chrome. Internet Explorer
-    is not supported.
-2.  Register as a new user by clicking **User > Register** on the top
-    dark-grey bar. Alternatively, if you already have an account, login by
-    clicking **User > Login**.
+    or the public [Galaxy Australia](https://usegalaxy.org.au/).  -->
+
 
 **2.  Import the RNA-seq data for the workshop.**
 
-If you are using the public Galaxy Tutorial server or Galaxy Melbourne server,
+<!-- If you are using the public Galaxy Tutorial server or Galaxy Melbourne server,
 you can import the data directly from Galaxy. You can do this by going to
 **Shared Data > Published Histories** on the top toolbar, and selecting
 the history called **RNA-Seq_Basic_2017**. Then click on "Import History" on
 the top right and "start using this history" to switch to the newly imported
 history.
+-->
 
-Alternatively, if you are using your own personal Galaxy server, you can import
-the data by:
+If you are using Galaxy Australia, go to **Shared Data > Data Libraries** in the top toolbar, and select **Galaxy Australia Training Material: RNA-Seq: Fly RNA-Seq**. Select (tick) all of the files and click **To History**, and choose **as Datasets**, then **Import**.
+
+
+Alternatively, if you are using your own personal Galaxy server or a different Galaxy server, you can import
+the data like this:
 
 1.  In the tool panel located on the left, under Basic Tools select **Get
     Data > Upload File**. Click on the **Paste/Fetch data** button on the
@@ -264,10 +267,17 @@ HISAT2 can be found [here](https://ccb.jhu.edu/software/hisat2/index.shtml).
 In the left tool panel menu, under NGS Analysis, select
 **NGS: RNA Analysis > HISAT2** and set the parameters as follows:  
 
-- **Input data format** FASTQ
-- **Single end or paired reads?** Individual paired reads
+
+- **Source for the reference genome to align against:** Use
+built-in genome
+
+- **Select a reference genome:** Fruit Fly (Drosophila melanogaster): dm3
+
+<!-- - **Input data format** FASTQ-->
+
+- **Single end or paired reads?** Paired end
 - **Forward reads:**  
-(Click on the **multiple datasets icon** and select all six of the forward
+(Click on the **multiple datasets icon** (which looks like two pieces of paper in a stack) and select all six of the forward
 FASTQ files ending in \*1.fastq. This should be correspond to every
 second file (1,3,5,7,9,11). This can be done by holding down the
 ctrl key (Windows) or the command key (OSX) to select multiple files.)
@@ -287,12 +297,11 @@ FASTQ files ending in \*2.fastq.)
     - KO_01_R2.fastq
     - KO_02_R2.fastq
     - KO_03_R2.fastq
-- **Source for the reference genome to align against:** Use
-built-in genome
-- **Select a reference genome:** D. melanogaster Apr. 2006 (BDGP R5/dm3)
-  (dm3)
+
 - Use defaults for the other fields
 - Execute
+
+Your tool interface panel will look similar to this (although the options may be in a different order):
 
 <img src="../media/rna_basic_hisat2.png"/>
 
@@ -306,9 +315,13 @@ by using the **pen icon** next to the file.
 
 These files are BAM files (short for
 [Binary Alignment Map](https://en.wikipedia.org/wiki/Binary_Alignment_Map))
-and like the name suggests, is a binary file. This means we can't use the
+and like the name suggests, is a binary file. Galaxy automatically converts these to a plain-text equivalent (SAM) file to view, when you click on the eye icon.
+
+<!-- This means we can't use the
 eye icon to view the data in Galaxy; we need to use software that can read the
 file or convert it into it's plain-text equivalent (SAM) to view it as text.
+-->
+
 In section 3, we'll use a genome viewer to view our alignments.
 
 HISAT2 also outputs some information to stderr which we can preview by
@@ -347,10 +360,63 @@ The purpose of this step is to :
 - visualise the quantitative, exon-based nature of RNA-seq data
 - visualise the expression differences between samples represented by the
   quantity of reads, and
+- become familiar with interactive visualisation tools such as JBrowse.   
+
+<!--
 - become familiar with the [Integrative Genomics Viewer
   (IGV)](https://www.broadinstitute.org/igv/)-- an interactive
   visualisation tool by the Broad Institute.  
+-->
 
+### Viewing in JBrowse
+
+To visualise the alignment data:
+
+* search for "JBrowse" in the tool panel search bar
+* for "Reference genome to display": *Use a built-in genome*
+* for "Select a reference genome": *Fruit Fly dm3*
+* leave other settings as default, except:
+
+**Set up a track for mapped RNA-seq reads:**
+
+* click "Insert Track Group" and then "Insert Annotation Track"
+* for "Track Type": *BAM pileups*
+* for "BAM Track Data": select the multiple datasets icon, then select a bam from each condition, e.g., WT_01.bam and KO_01.bam (your files may be named differently)
+* for "Autogenerate SNP Track": *Yes*
+
+**Set up a track for the annotated genome:**
+
+* click "Insert Track Group" and then "Insert Annotation Track"
+* for "Track Type": *GFF/GFF3/BED/GBK Features*
+* for "GFF/GFF3/BED Track Data": select the reference genome, e.g. ensembl_dm3.chr4.gtf (your files may be named differently)
+* *Execute*
+
+
+JBrowse will create a single file with this visualization (this may take a while).
+
+* When it is ready, click the eye icon to display in the centre panel.
+* Make sure all "Available Tracks" on the left are ticked.
+* Zoom in and out with the plus and minus buttons.
+* Select "Chr4".
+
+
+![JBrowse](media/jbrowse.png)
+
+The aim of this tutorial is to statistically test
+differential expression, but first it’s useful to reassure ourselves
+that the data looks right at this stage by comparing the aligned reads
+for condition 1 (WT) and condition 2 (KO).
+
+If you can't find any, try changing the location to
+**chr4:816349-830862** using the field on the top toolbar.
+The 'Sox102F' gene in this area looks like it has many more reads
+mapped in WT than in KO. Hover over the coverage track to view the read
+depth of the area. But, of course, it may be that there are many more
+reads in the library for WT than KO. So we need to statistically
+normalise the read counts before we can say anything definitive,
+which we will do in the next section.
+
+### Viewing in IGV
 
 To visualise the alignment data:
 
