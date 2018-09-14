@@ -251,7 +251,18 @@ the data like this:
     More information on the GTF format can be found
     [here](http://asia.ensembl.org/info/website/upload/gff.html).
 
+
+### Convert the GTF to a GFF file
+
+This is needed for downstream analysis.
+
+In the tools panel, search for "GTF" and click on "GTF-to-GFF converter".
+
+Select the GTF file and click "Execute".
+
 -----
+
+
 
 ## Section 2: Alignment with HISAT2
 
@@ -388,7 +399,7 @@ To visualise the alignment data:
 
 * click "Insert Track Group" and then "Insert Annotation Track"
 * for "Track Type": *GFF/GFF3/BED/GBK Features*
-* for "GFF/GFF3/BED Track Data": select the reference genome, e.g. ensembl_dm3.chr4.gtf (your files may be named differently)
+* for "GFF/GFF3/BED Track Data": select the reference genome in GFF format, e.g. the converted GTF file (ensembl_dm3.chr4.gtf) - your files may be named differently
 * *Execute*
 
 
@@ -459,6 +470,7 @@ To visualise the alignment data:
     normalise the read counts before we can say anything definitive,
     which we will do in the next section.
 
+<!--
 **[Optional]** Visualise the aligned reads in Trackster  
 If you have trouble getting IGV to work, you can also use the inbuilt
 Galaxy genome browser, Trackster, to visualise alignments. Trackster has fewer
@@ -479,6 +491,8 @@ requires the browser.
 Before starting the next section, leave the Trackster interface and return
 to the analysis view of Galaxy by clicking 'Analyze Data' on the top
 Galaxy toolbar.
+-->
+
 
 -----
 
