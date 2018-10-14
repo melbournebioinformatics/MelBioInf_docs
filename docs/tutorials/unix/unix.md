@@ -690,7 +690,7 @@ expectations.txt  hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy
 
 ---
 
-####3.8) What kind of *file* is */vlsci/TRAINING/shared/Intro_to_Unix/sleepy*?
+#### 3.8) What kind of *file* is */vlsci/TRAINING/shared/Intro_to_Unix/sleepy*?
 
 <details>
   <summary>Hint</summary>
@@ -929,7 +929,7 @@ paths to *cp*. You only need to perform one of these ways, but we show multiple 
 **Answer 1**: From your home directory:
 
 ```sh
-$ cp /vlsci/TRAINING/shared/Intro_to_Unix/Intro_to_Unix/* test
+$ cp /vlsci/TRAINING/shared/Intro_to_Unix/* test
 ```
 
 **Answer 2**: Change to the test directory and then copy (assuming you started in your home directory):
@@ -1099,7 +1099,7 @@ Once *nano* is open it displays some command hints along the bottom of the scree
 <details>
   <summary>Additional Hint</summary>
 
-*^O* means hold the *Control* (or CTRL) key while pressing the *o*.  Dispite what it displays, you need to type
+*^O* means hold the *Control* (or CTRL) key while pressing the *o*.  Despite what it displays, you need to type
 the lower-case letter that follows the *^* character.
 
 WriteOut is another name for Save.
