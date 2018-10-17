@@ -132,26 +132,19 @@ If a file exists on a web resource somewhere and you know its URL (Unique resour
 
 Note that Galaxy is smart enough to recognize that this is a compressed file and so it will uncompress it as it loads it.
 
-### Method 2 (again): Get data from a public URL
+### Method 2 (again): Get data from a Data Library
 
-Now we are going to upload another file from the remote data source.
+Now we are going to get another file from a shared Data Library.
 
-Repeat the above for: *https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/MRSA0252.fna*
+* Go to the menu at the top of the screen and click **Shared Data -> Data Libraries**.
 
-Note that this file is a *fasta* file and not a *fastqsanger* file.
+* Click on the Library: "Galaxy Australia Training Material" then "Galaxy_101"
 
-<details>
-
-<summary>Reveal detailed instructions</summary>
-
-* From the tool panel, click on **Get Data -> Upload File**
-* Click on the **Paste/Fetch Data** button
-* Copy and paste the following web address into the URL/Text box: https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/MRSA0252.fna
-* Set the file format to *fasta*.
-* Click **Start**
-* Once the progress bar has reached 100%, click **Close**
-
-</details>
+* To add the MRSA0252.fa file to our history
+  * click on the checkbox next to it
+  * Then click the "To History" button at the top of the page and select "As Datasets"
+  * Click the "Import" button
+  * Finally, click "Analyse Data" in the menu at the top of the screen to return to your history.
 
 The DNA sequence of *Staphlococcus aureus MRSA252* will be loaded into your history as a fasta file.
 
@@ -242,7 +235,6 @@ Click on the <img src="../media/Galaxy-view.png" width=20 /> icon of the histogr
 * "Column or expression": *c2*
 * Click **Execute**
 
-You’ll note that the summary statistics tool failed and is red in the history. There was an error! If you click on the filename, and then the bug <img src="../media/Galaxy-bug.png" width=20 /> symbol, it will tell you what went wrong. (There is a missing python library.) At this point, you would normally contact your Galaxy server administrator.
 
 ### Example 2: Convert Fastq to Fasta
 
