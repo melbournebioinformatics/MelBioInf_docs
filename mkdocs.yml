@@ -18,6 +18,10 @@ copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioin
 
 pages:
 - 'Home': 'index.md'
+- 'Guides':
+    - 'What is bioinformatics?': 'guides/bioinfo.md'
+    - 'The Galaxy platform': 'guides/galaxy.md'
+
 - 'General Tutorials':
   - 'Python Overview': 'tutorials/python_overview/python_overview.md'
   - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
