@@ -34,6 +34,7 @@ pages:
     - 'History Creation': 'tutorials/galaxy-workflows/history_creation.md'
   - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
   - 'Common Workflow Language for Bioinformatics': 'tutorials/cwl/cwl.md'
+  - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
 - 'Genomics Tutorials':
   - 'Introduction to Variant Calling': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
   - 'Variant Calling Advanced':
