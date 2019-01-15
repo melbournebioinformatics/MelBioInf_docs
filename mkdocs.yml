@@ -21,8 +21,6 @@ pages:
 - 'Guides':
     - 'What is bioinformatics?': 'guides/bioinfo.md'
     - 'The Galaxy platform': 'guides/galaxy.md'
-    - 'Data storage': 'guides/data-storage.md'
-    - 'Data analysis': 'guides/data-analysis.md'
 
 - 'General Tutorials':
   - 'Python Overview': 'tutorials/python_overview/python_overview.md'
