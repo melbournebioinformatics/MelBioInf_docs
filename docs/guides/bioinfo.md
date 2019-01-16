@@ -14,6 +14,12 @@ Bioinformatics is the analysis of biologial data using computational methods. It
 
 - Melbourne Bioinformatics tutorials: see the left hand panel for tutorials covering computing, genomics, RNA-seq, and proteomics.
 
+- EMBL Australian Bioinformatics Resource: [https://www.embl-abr.org.au/](https://www.embl-abr.org.au/)
+
+- ELIXIR - European life science resources: [https://www.elixir-europe.org/](https://www.elixir-europe.org/)
+
+- TESS - Elixir's training portal: [https://tess.elixir-europe.org/](https://tess.elixir-europe.org/)
+
 - Australian Bioinformatics and Computational Biology Society:
 [www.abacbs.org](www.abacbs.org)
 
@@ -24,8 +30,8 @@ Bioinformatics is the analysis of biologial data using computational methods. It
 
 - BioInfo Summer: [www.bis.amsi.org.au](www.bis.amsi.org.au)
 
+- GOBLET - Bioinformatics training: [https://www.mygoblet.org/](https://www.mygoblet.org/)
+
 - Software Carpentry: [www.software-carpentry.org](www.software-carpentry.org)
 
-- Bioinformatics problem solving challenges: [www.rosalind.info](www.rosalind.info)
-
-- A selelection of key journal papers published recently in [BMC Bioinformatics](http://blogs.biomedcentral.com/bmcseriesblog/2018/01/24/a-year-in-bioinformatics/).
+- Bioinformatics problem solving challenges: [www.rosalind.info](www.rosalind.info), and an associated course in algorithms: [https://stepik.org/course/2/syllabus](https://stepik.org/course/2/syllabus.)
