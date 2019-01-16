@@ -47,7 +47,7 @@ pages:
   - 'RNA-seq DGE Advanced': 'tutorials/rna_seq_dge_advanced/rna_seq_advanced_tutorial.md'
   - 'RNA-seq DGE Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
   - 'Single cell data analysis': 'tutorials/singlecell/index.md'
-  - 'Microbial assembly: Spades': 'tutorials/assembly/spades.md'
+  - 'Microbial assembly: Spades': 'tutorials/assembly/spades-galaxy.md'
   - 'Long read assembly': 'tutorials/pacbio/index.md'
 - 'Proteomics Tutorials':
   - 'Identifying proteins from mass spectrometry data':
