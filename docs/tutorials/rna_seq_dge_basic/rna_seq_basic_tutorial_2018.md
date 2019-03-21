@@ -55,20 +55,18 @@
 ## Tutorial Overview
 
 In this tutorial we cover the concepts of RNA-seq differential gene expression
-(DGE) analysis using a dataset from the common fruit fly, *Drosophila
+(DGE) analysis using a simulated dataset from the common fruit fly, *Drosophila
 melanogaster*.
 
 The tutorial is designed to introduce the tools, datatypes and workflows of an
-RNA-seq DGE analysis. Here, we'll be using a subset of the data from a
-[published experiment](https://www.ncbi.nlm.nih.gov/pubmed/27621057) by Hateley
-et. al. in 2016. In practice, full-sized datasets would be much larger and
-take longer to run.
+RNA-seq DGE analysis. In practice, real datasets would be much larger and
+contain sequencing and alignment errors that make analysis more difficult.
 
 In this tutorial we will:  
 
 - introduce the types of files typically used in RNA-seq analysis
-- align RNA-seq reads with an aligner, HISAT2
-- visualise RNA-seq alignment data with IGV or JBrowse
+- align RNA-seq reads with an aligner (HISAT2)
+- visualise RNA-seq alignment data with IGV
 - use a number of different methods to find differentially expressed genes
 - understand the importance of replicates for differential expression analysis
 
@@ -78,6 +76,9 @@ RNA-seq DGE analysis:
 - QC (quality control) of the raw sequence data
 - Trimming the reads for quality and for adaptor sequences
 - QC of the RNA-seq alignment data  
+
+These steps have been omitted because the data we use in this tutorial is
+synthetic and has no quality issues, unlike real data.
 
 ## Learning Objectives
 
@@ -93,8 +94,7 @@ At the end of this tutorial you will be able to:
 
 ## Requirements
 
-Participants with no previous Galaxy experience are strongly recommended to
-attend the "Introduction to Galaxy" workshop first.
+Participants with no previous Galaxy experience are strongly recommended to attend the "Introduction to Galaxy" workshop first.
 
 Attendees are required to bring their own laptop computers.
 
@@ -103,18 +103,13 @@ Attendees are required to bring their own laptop computers.
 
 ## The data
 
-The sequencing data you will be working with is from Drosophila
-melanogaster pupae from the study,
-[*Transcriptomic response of Drosophila melanogaster pupae developed in hypergravity*](https:/www.ncbi.nlm.nih.gov/pubmed/27621057).
-The experiment has two conditions, **g3** where pupae underwent development in
-three times Earth's gravity (i.e. 3 *g*), and **g1**, the control, where pupae
-developed in the standard gravitational acceleration felt on the surface of
-Earth (i.e. 1 *g*). There are three samples in each condition and the
-sequencing data is paired-end so you will have two files for each of the six
-samples. Your aim will be to find differentially expressed genes in
-**g1** vs **g3**.
+The sequencing data you will be working with is simulated from Drosophila
+melanogaster. The experiment has two conditions, WT (wildtype) and KO
+(knockout), and three samples in each condition. The sequencing data is
+paired-end, so there are two files for each of the six samples. Your aim will
+be to find differentially expressed genes in WT vs KO.
 
-<img src="../media/3_vs_3_fruit_fly_pupae.png" height=50%/>
+<img src="../media/dm_data.png" height=500px/>
 
 -----
 
@@ -141,7 +136,8 @@ the top right and "start using this history" to switch to the newly imported
 history.
 -->
 
-If you are using Galaxy Australia, go to **Shared Data > Data Libraries** in the top toolbar, and select **Data for RNA-Seq tutorial - Hypergravity**. Select (tick) all of the files and click **To History**, and choose **as Datasets**, then **Import**.
+If you are using Galaxy Australia, go to **Shared Data > Data Libraries** in the top toolbar, and select **Galaxy Australia Training Material: RNA-Seq: Fly RNA-Seq**. Select (tick) all of the files and click **To History**, and choose **as Datasets**, then **Import**.
+
 
 Alternatively, if you are using your own personal Galaxy server or a different Galaxy server, you can import
 the data like this:
@@ -151,41 +147,43 @@ the data like this:
     bottom section of the pop-up window.
 2.  Upload the sequence data by pasting the following links into the text
     input area.
-    These six files are three paired-end samples from the *g1* group. Keep the
-    type as "Auto-detect" when uploading these files.
+    These six files are three paired-end samples from the WT flies. Make sure
+    the type is specified as 'fastqsanger' when uploading.
     <div class="code">
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_01_R1.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/WT_01_R1.fastq
     <br>
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_01_R2.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/WT_01_R2.fastq
     <br>
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_02_R1.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/WT_02_R1.fastq
     <br>
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_02_R2.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/WT_02_R2.fastq
     <br>
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_03_R1.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/WT_03_R1.fastq
     <br>
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_03_R2.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/WT_03_R2.fastq
     <br>
     </div>
-    These six files are three paired-end samples from the *g3* group.
+    These six files are three paired-end samples from the KO flies.
+    Make sure the type is specified as 'fastqsanger' when uploading.
     <div class="code">
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_01_R1.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/KO_01_R1.fastq
     <br>
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_01_R2.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/KO_01_R2.fastq
     <br>
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_02_R1.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/KO_02_R1.fastq
     <br>
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_02_R2.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/KO_02_R2.fastq
     <br>
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_03_R1.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/KO_03_R1.fastq
     <br>
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_03_R2.fastq.gz
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/KO_03_R2.fastq
     <br>
     </div>
-    Then, upload this file of gene definitions. Keep the type as "Auto-detect"
-    when this file as Galaxy will auto-detect the file as a GTF file.
+    Then, upload this file of gene definitions. You don't need to specify
+    the type for this file as Galaxy will auto-detect the file as a GTF
+    file.
     <div class="code">
-    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/ensembl_dm3.chr4.gtf
+    https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_basic/ensembl_dm3.chr4.gtf
     </div>
     You should now have 13 files in your history.
 
@@ -198,27 +196,27 @@ the data like this:
 
 1.  You should now have the following files in your Galaxy history:
 
-    6 files containing paired-ended reads for the 3 samples that developed in 1 *g*:
+    6 files containing paired-ended reads for the WT samples:
     <ul>
-    <li>g1_01_R1.fastq.gz  
-    <li>g1_01_R2.fastq.gz  
-    <li>g1_02_R1.fastq.gz  
-    <li>g1_02_R2.fastq.gz  
-    <li>g1_03_R1.fastq.gz  
-    <li>g1_03_R2.fastq.gz  
+    <li>WT_01_R1.fastq  
+    <li>WT_01_R2.fastq  
+    <li>WT_02_R1.fastq  
+    <li>WT_02_R2.fastq  
+    <li>WT_03_R1.fastq  
+    <li>WT_03_R2.fastq  
     </ul>
 
-    6 files containing paired-ended reads for the 3 samples that developed in 3 *g*:
+    6 files containing paired-ended reads for the KO samples:
     <ul>
-    <li>g3_01_R1.fastq.gz  
-    <li>g3_01_R2.fastq.gz  
-    <li>g3_02_R1.fastq.gz  
-    <li>g3_02_R2.fastq.gz  
-    <li>g3_03_R1.fastq.gz  
-    <li>g3_03_R2.fastq.gz  
+    <li>KO_01_R1.fastq  
+    <li>KO_01_R2.fastq  
+    <li>KO_02_R1.fastq  
+    <li>KO_02_R2.fastq  
+    <li>KO_03_R1.fastq  
+    <li>KO_03_R2.fastq  
     </ul>
 
-    And 1 gene annotation file for chromosome 4 of the Drosophila genome:
+    And 1 gene annotation file:
     <ul>
     <li>ensembl_dm3.chr4.gtf  
     </ul>
@@ -226,12 +224,8 @@ the data like this:
     These files can be renamed by clicking the **pen icon** if you wish.
 
 2.  These 12 sequencing files are in FASTQ format and have the file
-    extension: ".fastq.gz". If you are not familiar with the FASTQ format,
-    [click here for an overview](https://en.wikipedia.org/wiki/FASTQ_format).
-    The ".gz" extension indicates these files have been compressed by
-    [gzip](https://en.wikipedia.org/wiki/Gzip). FASTQ files are typically
-    stored as compressed files to save disk space as they are usually
-    gigabytes in size.
+    extension: .fastq. If you are not familiar with the FASTQ format, [click
+    here for an overview](https://en.wikipedia.org/wiki/FASTQ_format).  
 
     Each condition has three samples, and each sample has two files (an R1
     file containing forward reads and an R2 file containing reverse reads).
@@ -239,8 +233,11 @@ the data like this:
     Click on the **eye icon** to the top right of any FASTQ file to view the
     first part of the file.
 
-    **Note:** The reads are paired-end, i.e. g1_01_R1.fastq.gz and
-    g1_01_R2.fastq.gz are paired reads from one sequencing run. If you're
+    **Note:** Since the reads in this dataset are synthetic, they do not have
+    real quality scores.
+
+    **Note:** The reads are paired-end, i.e. WT_01_R1.fastq and
+    WT_01_R2.fastq are paired reads from one sequencing run. If you're
     unfamiliar with paired-end sequencing, you can read about it
     [here](https://www.illumina.com/science/technology/next-generation-sequencing/paired-end-vs-single-read-sequencing.html).
 
@@ -254,14 +251,24 @@ the data like this:
     More information on the GTF format can be found
     [here](http://asia.ensembl.org/info/website/upload/gff.html).
 
+
+### Convert the GTF to a GFF file
+
+This is needed for downstream analysis.
+
+In the tools panel, search for "GTF" and click on "GTF-to-GFF converter".
+
+Select the GTF file and click "Execute".
+
 -----
+
 
 
 ## Section 2: Alignment with HISAT2
 
 In this section we map the reads in our FASTQ files to a reference genome. As
 these reads originate from mRNA, we expect some of them will cross exon/intron
-boundaries when we align them to the reference genome. We will use HISAT2 to
+boundaries when we align them to the reference genome. We will use HISAT to
 perform our alignment. HISAT2 is a fast, splice-aware, alignment program that
 is a successor to TopHat2. More information on
 HISAT2 can be found [here](https://ccb.jhu.edu/software/hisat2/index.shtml).
@@ -282,73 +289,78 @@ built-in genome
 - **Single end or paired reads?** Paired end
 - **Forward reads:**  
 (Click on the **multiple datasets icon** (which looks like two pieces of paper in a stack) and select all six of the forward
-FASTQ files ending in \*\_R1.fastq.gz. This should be correspond to every
-second dataset (e.g. 1,3,5,7,9,11). This can be done by holding down the
+FASTQ files ending in \*1.fastq. This should be correspond to every
+second file (1,3,5,7,9,11). This can be done by holding down the
 ctrl key (Windows) or the command key (OSX) to select multiple files.)
-    - g1_01_R1.fastq.gz
-    - g1_02_R1.fastq.gz
-    - g1_03_R1.fastq.gz
-    - g3_01_R1.fastq.gz
-    - g3_02_R1.fastq.gz
-    - g3_03_R1.fastq.gz
+    - WT_01_R1.fastq
+    - WT_02_R1.fastq
+    - WT_03_R1.fastq
+    - KO_01_R1.fastq
+    - KO_02_R1.fastq
+    - KO_03_R1.fastq
 
 - **Reverse reads:**  
 (Click on the **multiple datasets icon** and select all six of the reverse
-FASTQ files ending in \*\_R2.fastq.gz.)  
-    - g1_01_R2.fastq.gz
-    - g1_02_R2.fastq.gz
-    - g1_03_R2.fastq.gz
-    - g3_01_R2.fastq.gz
-    - g3_02_R2.fastq.gz
-    - g3_03_R2.fastq.gz
+FASTQ files ending in \*2.fastq.)  
+    - WT_01_R2.fastq
+    - WT_02_R2.fastq
+    - WT_03_R2.fastq
+    - KO_01_R2.fastq
+    - KO_02_R2.fastq
+    - KO_03_R2.fastq
 
 - Use defaults for the other fields
 - Execute
 
-Your tool interface panel will look similar to this:
+Your tool interface panel will look similar to this (although the options may be in a different order):
 
-<img src="../media/hypergravity_hisat.png"/>
+<img src="../media/rna_basic_hisat2.png"/>
 
 Note: This may take a few minutes, depending on how busy the server is.
 
 **2.  Examine the alignment stats**
 
 HISAT2 outputs one bam file for each set of paired-end read files. Rename the 6
-files into a more meaningful name (e.g. 'HISAT on data 2 and data 1' to 'g1_01.bam')
+files into a more meaningful name (e.g. 'HISAT on data 2 and data 1' to 'WT_01.bam')
 by using the **pen icon** next to the file.
 
 These files are BAM files (short for
 [Binary Alignment Map](https://en.wikipedia.org/wiki/Binary_Alignment_Map))
-and like the name suggests, is a binary file. Galaxy automatically converts
-these to a plain-text equivalent (SAM) file to view when you click on the eye
-icon.
+and like the name suggests, is a binary file. Galaxy automatically converts these to a plain-text equivalent (SAM) file to view, when you click on the eye icon.
+
+<!-- This means we can't use the
+eye icon to view the data in Galaxy; we need to use software that can read the
+file or convert it into it's plain-text equivalent (SAM) to view it as text.
+-->
+
+In section 3, we'll use a genome viewer to view our alignments.
 
 HISAT2 also outputs some information to stderr which we can preview by
 clicking on the dataset name. To view the raw file, click the "info" button
-(view details) of a dataset, say g1_01.bam, and find the "Tool Standard Error"
+(view details) of a dataset, say WT_01.bam, and find the "Tool Standard Error"
 row under "Job Information" in the table. Click the "stderr" link to view
 the alignment summary output.
 
 ```
-50000 reads; of these:
-  50000 (100.00%) were paired; of these:
-    321 (0.64%) aligned concordantly 0 times
-    45766 (91.53%) aligned concordantly exactly 1 time
-    3913 (7.83%) aligned concordantly >1 times
+16046 reads; of these:
+  16046 (100.00%) were paired; of these:
+    104 (0.65%) aligned concordantly 0 times
+    13558 (84.49%) aligned concordantly exactly 1 time
+    2384 (14.86%) aligned concordantly >1 times
     ----
-    321 pairs aligned concordantly 0 times; of these:
-      0 (0.00%) aligned discordantly 1 time
+    104 pairs aligned concordantly 0 times; of these:
+      1 (0.96%) aligned discordantly 1 time
     ----
-    321 pairs aligned 0 times concordantly or discordantly; of these:
-      642 mates make up the pairs; of these:
-        529 (82.40%) aligned 0 times
-        77 (11.99%) aligned exactly 1 time
-        36 (5.61%) aligned >1 times
-99.47% overall alignment rate
+    103 pairs aligned 0 times concordantly or discordantly; of these:
+      206 mates make up the pairs; of these:
+        106 (51.46%) aligned 0 times
+        91 (44.17%) aligned exactly 1 time
+        9 (4.37%) aligned >1 times
+99.67% overall alignment rate
 ```
 
 Here we see we have a very high alignment rate, which is expected since the
-reads in this dataset have been pre-selected to align to chromosome 4.
+data we have is simulated and has no contamination.
 
 -----
 
@@ -359,7 +371,7 @@ The purpose of this step is to :
 - visualise the quantitative, exon-based nature of RNA-seq data
 - visualise the expression differences between samples represented by the
   quantity of reads, and
-- become familiar with interactive visualisation tools such as JBrowse and IGV.   
+- become familiar with interactive visualisation tools such as JBrowse.   
 
 <!--
 - become familiar with the [Integrative Genomics Viewer
@@ -367,21 +379,7 @@ The purpose of this step is to :
   visualisation tool by the Broad Institute.  
 -->
 
-JBrowse and IGV are both interactive tools that can visualise BAM files. You
-can pick either one to use in this section. JBrowse is run on Galaxy which means
-you can view your BAM file in your browser, but it takes a while to run the job
-(~30 mins). IGV is a separate application you'll need to download to your
-computer and run locally.
-
 ### Viewing in JBrowse
-
-Before using JBrowse, you'll need to convert your GTF file to a GFF file.
-
-In the left tool panel menu, select the "GTF-to-GFF converter" tool, then
-provide your GTF file and click "execute".
-
-GTF and GFF are similar representations of the same information, but JBrowse
-requires the annotation information to be in GFF format.
 
 To visualise the alignment data:
 
@@ -394,7 +392,7 @@ To visualise the alignment data:
 
 * click "Insert Track Group" and then "Insert Annotation Track"
 * for "Track Type": *BAM pileups*
-* for "BAM Track Data": select the multiple datasets icon, then select a bam from each condition, e.g., g1_01.bam and g3_01.bam (your files may be named differently)
+* for "BAM Track Data": select the multiple datasets icon, then select a bam from each condition, e.g., WT_01.bam and KO_01.bam (your files may be named differently)
 * for "Autogenerate SNP Track": *Yes*
 
 **Set up a track for the annotated genome:**
@@ -415,23 +413,33 @@ JBrowse will create a single file with this visualization (this may take a while
 
 ![JBrowse](media/jbrowse.png)
 
+The aim of this tutorial is to statistically test
+differential expression, but first it’s useful to reassure ourselves
+that the data looks right at this stage by comparing the aligned reads
+for condition 1 (WT) and condition 2 (KO).
+
+If you can't find any, try changing the location to
+**chr4:816349-830862** using the field on the top toolbar.
+The 'Sox102F' gene in this area looks like it has many more reads
+mapped in WT than in KO. Hover over the coverage track to view the read
+depth of the area. But, of course, it may be that there are many more
+reads in the library for WT than KO. So we need to statistically
+normalise the read counts before we can say anything definitive,
+which we will do in the next section.
 
 ### Viewing in IGV
 
-An alternative to JBrowse is IGV. If you don't already have IGV installed on
-your computer, [download and install](https://software.broadinstitute.org/software/igv/download)
-it now. You will also need Java installed to run IGV.
-
 To visualise the alignment data:
 
-1.  Open the IGV application (this may take a few seconds). Once opened, use
-    the top left drop-down menu bar to select the correct Drosophila genome
-    (dm3). You may need to select the "More..." option, and select
-    "D. melanogaster (dm3)".
-2.  In Galaxy, click on one of the BAM files, for example 'g1_01.bam', to
-    expand the available options. Click on "display with IGV **local**" and
-    the BAM file should be loaded into IGV.
-3.  Select **chr4** from the second drop box under the toolbar. Zoom in to
+1.  Click on one of the BAM files, for example 'WT_01.bam'.
+2.  Click on Display with IGV **'webcurrent'** (or 'local' if you have IGV
+    installed on your computer. You will need to open IGV before you click on
+    'local'). This should download a .jnlp Java Web Start file to your
+    computer. Open this file to run IGV. (You will need Java installed on your
+    computer to run IGV)
+3.  Once IGV opens, it will show you the BAM file. (Note:
+    this may take a bit of time as the data is downloaded to IGV)
+4.  Select **chr4** from the second drop box under the toolbar. Zoom in to
     view alignments of reads to the reference genome.
     You should see the characteristic distribution of RNA-seq reads across
     the exons of the genes, with some gaps at intron/exon boundaries.
@@ -440,11 +448,27 @@ To visualise the alignment data:
     (Note that IGV already has a list of known genes of most major organisms
     including Drosophila, which is why you can see the genes in the bottom
     panel of IGV.)
-4.  Open another BAM file from the other condition (e.g. 'g3_01.bam') by
-    clicking on the dataset in Galaxy and clicking on
-    "display with IGV **local**".
+5.  View differentially expressed genes by viewing two alignment files
+    simultaneously. The aim of this tutorial is to statistically test
+    differential expression, but first it’s useful to reassure ourselves
+    that the data looks right at this stage by comparing the aligned reads
+    for condition 1 (WT) and condition 2 (KO).
+
+    Select 'KO_02.bam' and click on 'display with IGV local'. This time we are
+    using the **'local'** link, as we already have an IGV window up and running
+    locally from the last step. Once the file has loaded, try to find some
+    genes that look differentially expressed.
 
     <img src="../media/rna_igv.png" height=400px/>
+
+    If you can't find any, try changing the location to
+    **chr4:816349-830862** using the field on the top toolbar.
+    The 'Sox102F' gene in this area looks like it has many more reads
+    mapped in WT than in KO. Hover over the coverage track to view the read
+    depth of the area. But, of course, it may be that there are many more
+    reads in the library for WT than KO. So we need to statistically
+    normalise the read counts before we can say anything definitive,
+    which we will do in the next section.
 
 <!--
 **[Optional]** Visualise the aligned reads in Trackster  
@@ -503,12 +527,12 @@ the 92 known genes on chromosome 4 of Drosophila melanogaster.
     **NGS: RNA Analysis > htseq-count** and set the parameters as follows:  
     - **Aligned SAM/BAM File:**  
       (Select 'Multiple datasets', then select all six bam files using the shift key.)
-        - g1_01.bam
-        - g1_02.bam
-        - g1_03.bam
-        - g3_01.bam
-        - g3_02.bam
-        - g3_03.bam
+        - WT_01.bam
+        - WT_02.bam
+        - WT_03.bam
+        - KO_01.bam
+        - KO_02.bam
+        - KO_03.bam
     - **GFF File:** ensembl_dm3.chr4.gtf
     - **Stranded:** No
     - **ID Attribute:** gene_name
@@ -522,7 +546,7 @@ the 92 known genes on chromosome 4 of Drosophila melanogaster.
     files so we can remove then with the delete "X" button on the top right.
 
 3.  Rename the remaining six files from htseq-count to meaningful names,
-    such as g1_01, g1_02, etc.
+    such as WT_01, WT_02, etc.
 
 **3.  Generate a count matrix**
 
@@ -531,12 +555,12 @@ the 92 known genes on chromosome 4 of Drosophila melanogaster.
     **NGS: RNA Analysis > Generate count matrix** and set the parameters as follows:  
     - **Count files from your history:**  
         (Select all six count files using the shift key.)
-        - g1_01
-        - g1_02
-        - g1_03
-        - g3_01
-        - g3_02
-        - g3_03
+        - WT_01
+        - WT_02
+        - WT_03
+        - KO_01
+        - KO_02
+        - KO_03
     - Use defaults for the other fields
     - Execute
 
@@ -546,7 +570,7 @@ sight, see if you can find a gene you think is differentially expressed
 just by looking at the counts.
 
 We now have a count matrix which we will now use to find differentially
-expressed genes between g1 samples and g3 samples.
+expressed genes between WT samples and KO samples.
 
 -----
 
@@ -570,12 +594,12 @@ web service and can be found at [degust.erc.monash.edu/](http://degust.erc.monas
 
 1.  Give your visualisation a name.
 2.  For the Info column, select "gene_id".
-3.  Add two conditions: g1 and g3. For each condition, select the three
+3.  Add two conditions: WT and KO. For each condition, select the three
     samples which correspond with the condition.
-4.  Set min gene CPM to 0.5 in at least 3 samples.
+4.  Set min gene CPM to 1 in at least 3 samples.
 4.  Click **Save changes** and view your data.
 
-<img src="../media/hypergravity_degust.png" style="display:block; margin-left: auto; margin-right:auto;">
+<img src="../media/degust_02.png" style="display:block; margin-left: auto; margin-right:auto;">
 
 \endshowable
 
@@ -601,13 +625,6 @@ can play with the demo dataset by clicking on the "Try the demo" button on the
 Degust homepage. The demo dataset includes a column with an EC number for each
 gene. This means genes can be displayed on Kegg pathways using the module on
 the right.
-
-**5. Explore the full dataset**
-
-The FASTQ files we started with is only a small proportion of the full dataset.
-If you wish, you can download the full count matrix
-[here](https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/GSE80323_counts.tsv),
-upload it to Degust, and explore the results.
 
 
 -----
@@ -636,23 +653,23 @@ our data, DESeq2 will:
     In the left tool panel menu, under NGS Analysis, select **NGS: RNA Analysis
     > DESeq2** and set the parameters as follows:
     - **1: Factor**
-        - **Specify a factor name:** gravity
+        - **Specify a factor name:** condition
         - **1: Factor level:**
-            - **Specify a factor level:** g1  
-            (Select the three g1 htseq-count files.)
-                - g1_01
-                - g1_02
-                - g1_03
+            - **Specify a factor level:** WT  
+            (Select the three WT htseq-count files.)
+                - WT_01
+                - WT_02
+                - WT_03
         - **2: Factor level:**
-            - **Specify a factor level:** g3  
-            (Select the three g3 htseq-count files.)
-                - g3_01
-                - g3_02
-                - g3_03
+            - **Specify a factor level:** KO  
+            (Select the three KO htseq-count files.)
+                - KO_01
+                - KO_02
+                - KO_03
         - Use defaults for the other fields
         - Execute
 
-<img src="../media/hypergravity_deseq2.png"/>
+<img src="../media/rna_basic_deseq2.png"/>
 
 2.  Have a look at the outputs of DESeq2. We will now filter significant
     (adjusted p-value < 0.05) genes from the DESeq2 result file.  
@@ -689,15 +706,15 @@ of the difference in expression and the variance observed across multiple
 replicates. This demonstrates how important it is to have biological replicates
 in differential gene expression experiments.
 
-CG1674 is an example of a gene that showed up as differentially expressed
+Myoglianin is an example of a gene that showed up as differentially expressed
 when we did a 3 vs 3 comparsion but not with a 2 vs 2 comparsion.
-If we say that genes like CG1674 was **truly** differentially expressed, we
+If we say that genes like Myoglianin was **truly** differentially expressed, we
 can call these instances where the true differentially expressed genes are not
 identified as false negatives. Generally, increasing replicates decreases the
 number of false negatives.
 
 It is also more likely to see more false positives when using an insufficient
-number of replicates. False positives can be defined as identifying a gene as
+number of replicates. False positives can be defined as identifiying a gene as
 differentially expressed when it is, in reality, not.
 
 -----
