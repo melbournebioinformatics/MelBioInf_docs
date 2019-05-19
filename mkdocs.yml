@@ -21,9 +21,9 @@ pages:
 - 'Guides':
     - 'What is bioinformatics?': 'guides/bioinfo.md'
     - 'The Galaxy platform': 'guides/galaxy.md'
-
 - 'General Tutorials':
   - 'Python Overview': 'tutorials/python_overview/python_overview.md'
+  - 'Data tidying with Python and Pandas': 'tutorials/python_pandas_tidy_data/python_pandas_tidy_data.md'
   - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
   - 'Introduction to HPC': 'tutorials/hpc/hpc.md'
   - 'Introduction to Unix': 'tutorials/unix/unix.md'
@@ -71,8 +71,7 @@ extra_templates: [
   'tutorials/hpc/slides.html',
   'tutorials/unix/slides.html',
 ]
-markdown_extensions: [
-  'markdown_include.include',
-  'showable',
-  'markdown.extensions.fenced_code',
-]
+markdown_extensions:
+  - 'markdown_include.include'
+  - 'mdx_showable'
+  - 'markdown.extensions.fenced_code'
