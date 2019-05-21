@@ -24,6 +24,7 @@ pages:
 - 'General Tutorials':
   - 'Python Overview': 'tutorials/python_overview/python_overview.md'
   - 'Data tidying with Python and Pandas': 'tutorials/python_pandas_tidy_data/python_pandas_tidy_data.md'
+  - 'Data visualisation with Python': 'tutorials/python_viz/python_viz.md'
   - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
   - 'Introduction to HPC': 'tutorials/hpc/hpc.md'
   - 'Introduction to Unix': 'tutorials/unix/unix.md'
