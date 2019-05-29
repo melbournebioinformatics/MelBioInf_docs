@@ -1,3 +1,4 @@
+<!--TODO: Use singularity not docker2singularity, use bacteria data from Simon, update image to 18, update singularity, make sure they use ubuntu 18 as a base image for samtools version-->
 # Containerised Bioinformatics
 ##  Docker and other tools for reproducible analysis
 .img-half[
@@ -36,12 +37,7 @@ class: center, middle
         * Examples: Galaxy (a bioinformatics platform), GitLab (a git host), Ghost (blogging platform)
     * Analysis pipelines or pipeline stages that require many runtimes (Python, Perl, Java etc.) and
     many tools (Samtools, GATK, VEP)
-        * Examples: Pipelines written in CWL, WDL
-    * Testing and continuous integration, allowing your tests to run in a consistent
-    environment with a very precisely defined set of dependencies
-        * Examples: Jenkins, Drone CI
-    * Complex or fragile applications that would be difficult to compile locally
-        * Examples: PennCNV, hap.py
+        * Examples: Pipelines written in CWL, WDL, Snakemake, Nextflow
 
 .columns[
 .column[
@@ -57,8 +53,31 @@ class: center, middle
 ]
 ]
 .column[
-.image.is-64x64[
+]
+]
+---
+# Use-cases
+
+* Testing and continuous integration, allowing your tests to run in a consistent
+environment with a very precisely defined set of dependencies
+    * Examples: Jenkins, Drone CI
+* Complex or fragile applications that would be difficult to compile locally
+    * Examples: PennCNV, hap.py
+* Self-contained analyses that need a specific and reproducible environment
+    * Examples: Jupyter notebooks
+
+
+.columns[
+.column[
+]
+.column[
+.image.is-128x128[
 ![](assets/jenkins.svg)
+]
+]
+.column[
+.image.is-128x128[
+    ![](assets/jupyter.png)
 ]
 ]
 .column[
