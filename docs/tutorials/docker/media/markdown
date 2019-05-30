@@ -1,4 +1,3 @@
-<!--TODO: Use singularity not docker2singularity, use bacteria data from Simon, update image to 18, update singularity, make sure they use ubuntu 18 as a base image for samtools version-->
 # Containerised Bioinformatics
 ##  Docker and other tools for reproducible analysis
 .img-half[
@@ -64,7 +63,7 @@ environment with a very precisely defined set of dependencies
 * Complex or fragile applications that would be difficult to compile locally
     * Examples: PennCNV, hap.py
 * Self-contained analyses that need a specific and reproducible environment
-    * Examples: Jupyter notebooks
+    * Examples: Jupyter notebooks, particularly [Docker Stacks](https://jupyter-docker-stacks.readthedocs.io/)
 
 
 .columns[
@@ -177,8 +176,7 @@ This message shows that your installation appears to be working correctly.
 ---
 # Docker Hub
 * When you ran this command, Docker first looked for the image on your local machine, and when it couldn't find it, pulled it down from a cloud registry of Docker images called Docker Hub
-* You can find an image for most applications and runtimes on Docker Hub
-* You can search Docker Hub using a website called the Docker Store: <https://store.docker.com/>
+* You can find an image for most applications and runtimes on Docker Hub, which has a web interface located at: <https://hub.docker.com/>
 
 .message.is-info[
 .message-header[
@@ -186,7 +184,7 @@ Exercise
 ]
 .message-body[
 Search on Docker Hub for the best docker image for the `galaxy` platform. What name would you use
-if you wanted to run this container? Hint: the right one links to <https://www.galaxyproject.org/>
+if you wanted to run this container? Hint: the right one links to <https://www.galaxyproject.org/>, and has a high download count
 ]
 ]
 ---
@@ -566,10 +564,16 @@ Exercise
 Exercise
 ]
 .message-body[
+`my_bwa/Dockerfile`:
 ```
 FROM ubuntu
 RUN apt-get update && apt-get install -y bwa
 ENTRYPOINT ["bwa"]
+```
+
+Building:
+```bash
+docker build -t my_bwa my_bwa/
 ```
 ]
 ]
@@ -597,6 +601,7 @@ Exercise
 Solution
 ]
 .message-body[
+`my_bwa/freebayes`:
 ```
 FROM ubuntu
 RUN apt-get update && apt-get install -y git build-essential zlib1g-dev libbz2-dev liblzma-dev
@@ -606,6 +611,11 @@ WORKDIR freebayes
 RUN make 
 RUN make install
 ENTRYPOINT ["freebayes"]
+```
+
+Building:
+```bash
+docker build -t my_freebayes my_freebayes/
 ```
 ]
 ]
@@ -650,21 +660,22 @@ class: center, middle
 	* This works fine on the cloud, where instances are rarely shared between multiple users
 	* However on HPC (computing clusters etc), this would allow Docker users to access each other's files
 	* For this reason, it is unlikely you will find Docker installed on an HPC system
-* Two main alternatives exist for running containers on HPC:
-	* [Shifter](https://github.com/NERSC/shifter) - Generally uses the same API as Docker, but with some key missing features like writeable containers. Not actively developed.
+* A few alternatives exist for running containers on HPC, but there's only one that really matters
 	* [Singularity](http://singularity.lbl.gov/) - A ground-up reimplementation of Docker, with a fairly different CLI. Actively developed.
+
+.columns.is-centered[
+.column.is-narrow[
+.image.is-128x128[
+![](assets/singularity.png)
+]
+]
+]
 ---
 # Converting a Docker Image
 * Unlike Docker, Singularity stores its images as individual files
-* You can convert a docker image to a singularity image using a docker container:
+* You can convert a docker image to a singularity image using Singularity:
 ```bash
-docker run \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v [OUTPUT DIRECTORY]:/output \
-    --privileged \
-    -t --rm \
-    singularityware/docker2singularity \
-	[IMAGE NAME]
+singularity build [IMAGE NAME].sif docker-daemon://[IMAGE NAME]:latest
 ```
 
 .message.is-info[
@@ -685,7 +696,7 @@ Exercise
 .message-body[
 Test out that your singularity image works properly using:
 ```bash
-singularity run [IMAGE FILE] view -HS - < data/alignment.sam
+singularity run [IMAGE FILE] view < data/alignment.sam
 ```
 ]
 ]
