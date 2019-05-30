@@ -517,7 +517,7 @@ Exercise
 * Once it's finished, try testing it using the SAM file provided:
 
 ```bash
-docker run -i my_samtools view -S -H - < data/alignment.sam
+docker run -i my_samtools view -H - < data/alignment.sam
 ```
 ]
 ]
@@ -696,7 +696,7 @@ Exercise
 .message-body[
 Test out that your singularity image works properly using:
 ```bash
-singularity run [IMAGE FILE] view < data/alignment.sam
+singularity run [IMAGE FILE] view -H < data/alignment.sam
 ```
 ]
 ]
