@@ -16,6 +16,7 @@
 	- [Making changes to tutorial instructions](#making-changes-to-tutorial-instructions)
 	- [Making changes to slides](#making-changes-to-slides)
 	- [Adding a new tutorial](#adding-a-new-tutorial)
+- [Travis configuration](#travis-configuration)
 
 <!-- /TOC -->
 
@@ -181,3 +182,16 @@ Once you've created your content:
 * Before committing changes, add all newly created files to git with `git add`.
 * Follow the [How to contribute](#how-to-contribute) instructions above to create a pull request. When previewing your changes, check that the new tutorial appears in the menu and renders correctly.
 * Tell Christina that there is a new workshop available.
+
+# Travis configuration
+
+A Travis hook to automatically re-deploy documentation from the master branch to the gh-pages branch is configured in `.travis.yml`. This uses a GitHub personal access token for permission to re-deploy. If you need to alter the Travis setup, you may find you need to generate a new personal access token using the account of a https://github.com/melbournebioinformatics member with write permission to this repository. This can be done by:
+
+* Generating a new GitHub personal access token at https://github.com/settings/tokens
+* If necessary, installing Ruby on the machine you will be using (this is operating-system dependent)
+* Installing the Travis-CI command line tools - on Linux and Mac, this is `sudo gem install travis`
+* Cloning this repository in order update `.travis.yml`
+* Running `travis encrypt GH_TOKEN=<your_token_here> -r melbournebioinformatics/MelBioInf_docs --add`. This will add your encrypted access token to `.travis.yml`.
+* Committing the updated `.travis.yml` and pushing up to this repository.
+
+This will allow you to use [Travis](http://travis-ci.org) to manage the build, using the GitHub account used to generate the new access token.
