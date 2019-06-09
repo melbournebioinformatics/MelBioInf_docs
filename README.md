@@ -123,23 +123,22 @@ Preferably, change one major thing per pull request - e.g. edit one tutorial in 
 
 ## Merging and deploying a pull request
 
-If someone has asked you to merge their PR, or if you are merging in your own:
+If someone has asked you to merge their PR, or if you are merging in your own, you can simply merge it and the documentation will be re-deployed. Best practice is:
 
 * Check the changes in github to spot any errors. You should be able to see the diff for the changes if the requester has sent you a link to their Pull Request.
 * Optionally, to view the new docs in their final form:
-	- view the deployed site at the requester's fork. This will be at `http://<requesters_account>.github.io/MelBioInf_docs/` *if* the author has run `mkdocs gh-deploy` on their fork. Or,
-	- clone and build the requester's fork locally, using the [instructions above](#set-up-your-environment-and-build-the-documentation).
+	- view the deployed site at the requester's fork. This will be at `http://<requesters_account>.github.io/MelBioInf_docs/` *if* the author has run `mkdocs gh-deploy` on their fork.
+	- or, clone and build the requester's fork locally, using the [instructions above](#set-up-your-environment-and-build-the-documentation).
 * Merge the PR in github. If there are merge conflicts, ask the issuer of the pull request to bring their fork up to date (see [Sync with upstream](#sync-with-upstream)) and re-issue the pull request.
-* Clone or update a local copy of this repository, and re-deploy the updated documentation, like so:
 
+It should no longer be necessary to manually re-deploy the documentation to the gh-pages branch. We have a Travis hook configured in `.travis.yml` which will automatically run `mkdocs gh-deploy` whenever the master branch changes. After merging a PR or modifying the master branch, after a short delay, the updated tutorial should automatically appear at http://melbournebioinformatics.github.io/MelBioInf_docs/ .
+
+If you do need to manually re-deploy the documentation to the gh-pages branch, you can clone or update a local copy of this repository, and re-deploy the updated documentation, like so:
 ```
 git clone https://github.com/melbournebioinformatics/MelBioInf_docs
 cd MelBioInf_docs
 mkdocs gh-deploy
 ```
-Note: this is a direct copy of the repository, not a clone of your copy of the repository. 
-
-Check that the updated tutorial appears under http://melbournebioinformatics.github.io/MelBioInf_docs/
 
 ## Making changes to tutorial instructions
 
