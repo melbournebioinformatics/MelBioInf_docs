@@ -7,7 +7,7 @@ install:
 script:
 - git config user.name "Travis CI"
 - git config user.email "travis@travis-ci.org";
-- git remote add authenticated "https://${GH_TOKEN}@github.com/melbournebioinformatics/MelBioInf_docs_test";
+- git remote add authenticated "https://${GH_TOKEN}@github.com/melbournebioinformatics/MelBioInf_docs";
 - git fetch authenticated && git fetch authenticated gh-pages:gh-pages;
 - mkdocs gh-deploy --clean --remote-name authenticated;
 env:
