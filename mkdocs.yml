@@ -41,12 +41,13 @@ pages:
   - 'Variant Calling Advanced':
     - 'Tutorial': 'tutorials/var_detect_advanced/var_detect_advanced.md'
     - 'Background': 'tutorials/var_detect_advanced/var_detect_advanced_background.md'
-  - 'RNA-seq DGE Basic':
-    - 'Tutorial': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tutorial.md'
+  - 'RNA-seq DGE in Galaxy':
+    - 'Basic Tutorial': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tutorial.md'
     - 'Tuxedo Protocol Tutorial': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tuxedo.md'
     - 'Background': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
-  - 'RNA-seq DGE Advanced': 'tutorials/rna_seq_dge_advanced/rna_seq_advanced_tutorial.md'
+    - 'Advanced Tutorial': 'tutorials/rna_seq_dge_advanced/rna_seq_advanced_tutorial.md'
   - 'RNA-seq DGE Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
+  - 'RNA-seq DGE in R': 'tutorials/rna_seq_dge_in_r/rna_seq_r.md'
   - '10X single-cell RNA-seq analysis in R': 'tutorials/singlecell/index.md'
   - 'Microbial de novo Assembly for Illumina Data: Velvet':
     - 'Tutorial': 'tutorials/assembly/assembly.md'
