@@ -195,3 +195,5 @@ A Travis hook to automatically re-deploy documentation from the master branch to
 * Committing the updated `.travis.yml` and pushing up to this repository.
 
 This will allow you to use [Travis](http://travis-ci.org) to manage the build, using the GitHub account used to generate the new access token.
+
+Note that to avoid Travis attempting to build un-merged PRs to "test" them, you should turn off the Travis setting "Build pushed pull requests".
