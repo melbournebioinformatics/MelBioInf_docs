@@ -79,19 +79,20 @@ tutorial a suitable length. This has implications, as discussed in section 8.
 
 ## Section 1: Preparation [15 min]
 #### 1.  Register as a new user in Galaxy if you don’t already have an account
-1.  Open a browser and go to a Galaxy server. This can either be your
-    personal GVL server you [started previously](http://genome.edu.au/get/get#launch),
-    the public [Galaxy Tutorial server](http://galaxy-tut.genome.edu.au)
-    or the public [Galaxy Melbourne server](http://galaxy-mel.genome.edu.au).  
-    Recommended browsers include Firefox and Chrome. Internet Explorer
-    is not supported.
-2.  Register as a new user by clicking **User > Register** on the top
-    dark-grey bar. Alternatively, if you already have an account, login by
-    clicking **User > Login**.
+
+* Open a browser and go to a Galaxy server. For example, you could use [Galaxy Australia](https://usegalaxy.org.au/). Recommended browsers include Firefox and Chrome. Internet Explorer is not supported.
+* Register as a new user by clicking **User > Register** on the top dark-grey bar. Alternatively, if you already have an account, login by clicking **User > Login**.
 
 #### 2.  Import the RNA-seq data for the workshop.
-If you are using the public Galaxy Tutorial server or Galaxy Melbourne server,
-you can import the data directly from Galaxy. You can do this by going to
+
+If you are using Galaxy Australia, go to **Shared Data > Data Libraries** in the top toolbar, and select **Galaxy Australia Training Material: RNA-Seq: Yeast RNA-Seq**. Select (tick) all of the files and click **To History**, and choose **as Datasets**, then **Import**.
+
+Alternatively, if you are using your own personal Galaxy server or a different Galaxy server, you can import
+the data like this:
+
+<!-- If you are using the Galaxy Australia server, you can import the data directly from Galaxy.
+
+You can do this by going to
 **Shared Data > Published Histories** on the top toolbar, and selecting
 the history called **RNA-Seq_Adv_Sec_1**. Then click on "Import History" on
 the top right and "start using this history" to switch to the newly imported
@@ -99,6 +100,8 @@ history.
 
 Alternatively, if you are using your own personal Galaxy server, you can import
 the data by:
+-->
+
 
 1.  In the tool panel located on the left, under Basic Tools select **Get
     Data > Upload File**. Click on the **Paste/Fetch data** button on the
@@ -166,6 +169,15 @@ the data by:
     batch1_chrI_2.fastq are paired reads from one sequencing run. Low quality
     reads have already been trimmed.
 
+
+### Convert the GTF to a GFF file
+
+This is needed for downstream analysis.
+
+In the tools panel, search for "GTF" and click on "GTF-to-GFF converter".
+
+Select the GTF file and click "Execute".
+
 -----
 
 ## Section 2: Alignment [30 mins]
@@ -211,12 +223,14 @@ built-in genome
 - Use defaults for the other fields
 - Execute
 
-
+<!--
 \showable{Show screenshot}{hint}
 
 <img src="../media/rna_advanced_tophat.png" height=800px>
 
 \endshowable
+-->
+<img src="../media/rna_advanced_tophat.png" height=800px>
 
 Note: This may take a few minutes, depending on how busy the server is.
 
@@ -243,7 +257,7 @@ Rename the 6 accepted_hits files into a more meaningful name (e.g.
 'Tophat on data 2 and data 1: accepted_hits' to 'batch1-accepted_hits.bam')
 by using the **pen icon** next to the file.
 
-#### 3.  Visualise the aligned reads with Trackster  
+<!-- #### 3.  Visualise the aligned reads with Trackster  
 1.  On the top bar of Galaxy, select **Visualization > New Track Browser**.
 2.  Name your new visualization and select S. cerevisiae (sacCer2) as the
     reference genome build.
@@ -274,6 +288,41 @@ to the analysis view of Galaxy by clicking 'Analyze Data' on the top
 Galaxy toolbar.
 
 -----
+-->
+
+#### 3.  Visualise the aligned reads with JBrowse
+
+In the tool panel search bar, search for "JBrowse" and click on it.
+
+- For "Reference genome to display": *Use a built-in genome*
+- "Select a reference genome": *Yeast: sacCer2*
+- "Genetic Code": *1. The Standard Code*
+
+Set up a track for the mapped reads:
+
+- Insert Track Group
+- Insert Annotation Track
+- Track Type: *Bam Pileups*
+- Select two bam files, one from each condition, e.g. *batch1_acceptedhits.bam* and *chem1_acceptedhits.bam*
+
+Set up a track for the annotations:
+
+- Insert Track Group
+- Insert Annotation Track
+- Select the GFF file (that we converted from the GTF file earlier on)
+
+- Execute
+
+When the file is ready, click the eye icon.
+
+- Select chr1 in the drop down box.
+- Tick all the track names in the left hand side.
+- Zoom in and out with the plus and minus buttons.
+- Go to position 87500 to see a splice junction.
+
+![jbrowse](media/jbrowse.png)
+
+
 
 ## Section 3. Cuffdiff [40 min]
 
@@ -303,12 +352,15 @@ In the left tool panel menu, under NGS Analysis, select
 - Use defaults for the other fields
 - Execute
 
-
+<!--
 \showable{Show screenshot}{hint}
 
 <img src="../media/rna_advanced_cuffdiff.png" height=700px>
 
 \endshowable
+-->
+
+<img src="../media/rna_advanced_cuffdiff.png" height=700px>
 
 Note: This step may take a while, depending on how busy the server is.
 
@@ -346,8 +398,7 @@ gene for example) a count matrix shows how many reads were mapped to this
 feature.
 
 1.  Use HTSeq-count to count the number of reads for each feature.  
-    In the left tool panel menu, under NGS Analysis, select
-    **NGS: RNA Analysis > SAM/BAM to count matrix** and set the parameters as follows:  
+    In the left tool panel menu search bar, search for "count matrix". Click on **SAM/BAM to count matrix** and set the parameters as follows:  
     - **Gene model (GFF) file to count reads over from your current history:** genes.gtf
     - **bam/sam file from your history:**  
       (Select all six bam files using the shift key.)
@@ -649,7 +700,7 @@ web service and can be found at [vicbioinformatics.com/degust/](http://www.vicbi
 
 1.  In Galaxy, download the count data "bams to DGE count matrix_htseqsams2mx.xls"
     generated in Section 4 using the **disk icon**.
-2.  Go to [vicbioinformatics.com/degust/](http://www.vicbioinformatics.com/degust/)
+2.  Go to [http://degust.erc.monash.edu/](http://degust.erc.monash.edu/)
     and click on "Upload your counts file".
 3.  Click "Choose file" and upload the recently downloaded Galaxy tabular file
     containing your RNA-seq counts.
@@ -662,12 +713,15 @@ web service and can be found at [vicbioinformatics.com/degust/](http://www.vicbi
     samples which correspond with the condition.
 4.  Click **Save changes** and view your data.
 
+<!--
 \showable{Show screenshot}{hint}
 
 <img src="../media/rna_advanced_degust_2.png" height=700px style="display:block; margin-left: auto; margin-right:auto;">
 
 \endshowable
+-->
 
+<img src="../media/rna_advanced_degust_2.png" height=700px style="display:block; margin-left: auto; margin-right:auto;">
 #### 3. Explore your data
 
 Read through the Degust tour of features. Explore the parallel coordinates plot,

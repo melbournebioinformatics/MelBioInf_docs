@@ -18,18 +18,24 @@ copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioin
 
 pages:
 - 'Home': 'index.md'
+- 'Guides':
+    - 'What is bioinformatics?': 'guides/bioinfo.md'
+    - 'The Galaxy platform': 'guides/galaxy.md'
 - 'General Tutorials':
   - 'Python Overview': 'tutorials/python_overview/python_overview.md'
+  - 'Data tidying with Python and Pandas': 'tutorials/python_pandas_tidy_data/python_pandas_tidy_data.md'
+  - 'Data visualisation with Python': 'tutorials/python_viz/python_viz.md'
   - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
   - 'Introduction to HPC': 'tutorials/hpc/hpc.md'
-  - 'Introduction to Unix': 'tutorials/unix/robinson-unix-link.md'
+  - 'Introduction to Unix': 'tutorials/unix/unix.md'
   - 'Launching a Personal GVL Server': 'tutorials/gvl_launch/gvl_launch.md'
   - 'Introduction to Galaxy': 'tutorials/galaxy_101/galaxy_101.md'
   - 'Galaxy Workflows':
     - 'Tutorial': 'tutorials/galaxy-workflows/galaxy-workflows.md'
     - 'History Creation': 'tutorials/galaxy-workflows/history_creation.md'
-  - 'Introduction to GenomeSpace' : 'tutorials/genomespace/genomespace.md'
   - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
+  - 'Common Workflow Language for Bioinformatics': 'tutorials/cwl/cwl.md'
+  - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
 - 'Genomics Tutorials':
   - 'Introduction to Variant Calling': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
   - 'Variant Calling Advanced':
@@ -41,6 +47,7 @@ pages:
     - 'Background': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
   - 'RNA-seq DGE Advanced': 'tutorials/rna_seq_dge_advanced/rna_seq_advanced_tutorial.md'
   - 'RNA-seq DGE Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
+  - '10X single-cell RNA-seq analysis in R': 'tutorials/singlecell/index.md'
   - 'Microbial de novo Assembly for Illumina Data: Velvet':
     - 'Tutorial': 'tutorials/assembly/assembly.md'
     - 'Method Background': 'tutorials/assembly/assembly-background.md'
@@ -65,8 +72,7 @@ extra_templates: [
   'tutorials/hpc/slides.html',
   'tutorials/unix/slides.html',
 ]
-markdown_extensions: [
-  'markdown_include.include',
-  'showable',
-  'markdown.extensions.fenced_code',
-]
+markdown_extensions:
+  - 'markdown_include.include'
+  - 'mdx_showable'
+  - 'markdown.extensions.fenced_code'

@@ -7,25 +7,12 @@
       @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
       @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
       @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
-      @import url(http://andrewjrobinson.github.io/python-md-showable/media/mdx_showable.css);
-      @import url(../../includes/media/mdx_showable_user.css);
       @import url(../../includes/media/slides.css);
-      
-      /* */
-      /* */
      
-	div.showable-container.hint div.showable-header a {color: #18bc9c; font-weight: bold;}
-	div.showable-container.indent div.showable-header a {color: #18bc9c; font-weight: bold;}
-	div.showable-container.answer div.showable-header a {color: #18bc9c; font-weight: bold;}
-    
-    div.showable-container p {font-size: 14pt;}
-    div.showable-container div {font-size: 16pt;}
-    
     span.spacer {display: block; height: 20px;}
     
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="http://andrewjrobinson.github.io/python-md-showable/media/mdx_showable.js"></script>
   </head>
   <body>
     <textarea id="source">
@@ -33,30 +20,33 @@
 class: center, middle, title
 
 .header[
-.header-left[<img height="70px" src="http://www.latrobe.edu.au/__data/assets/image/0011/545987/logo.png"/>]
-.header-right[<img height="70px" style="padding-right: 30px;" src="../../img/melbioinf_logo.png"/>]
+.header-left[<img height="70px" style="padding-right: 30px; margin-top: -30px;" src="../../img/melbioinf_logo.png"/>]
 ]
 
 # Introduction to Unix
 ## Hands-on workshop
 
----
-# Melbourne Bioinformatics (formerly VLSCI)
-
-**V**ictorian **L**ife **S**ciences **C**omputation **I**nitiative
-.header[
-.header-right[<img height="70px" style="padding-right: 30px;" src="../../img/melbioinf_logo.png"/>]
-]
-
 ???
 
-* Big Compute
-* Bioinformaticians (3x LTU)
-* Members
-	* University of Melbourne
-	* La Trobe University
-	* RMIT University
-	* Monash University (former member)
+**p**: toggles **presenter** mode
+
+**c**: creates a **clone** for dual screen
+
+---
+# Melbourne
+# Bioinformatics
+
+.header[
+.header-right[<img height="70px" style="padding-right: 30px; margin-top: -30px;" src="../../img/melbioinf_logo.png"/>]
+]
+
+* High-end Computing
+* Life Science Computing Expertise
+
+<u>melbournebioinformatics.org.au</u>
+
+
+???
 
 ---
 # Why Unix?
@@ -100,6 +90,8 @@ class: center, middle, title
 # Command prompt
 
 <img width="100%" src="media/cli-parts.png" />
+
+<img width="70%" src="media/cli-parts-barcoo.png" />
 
 ???
 
@@ -198,7 +190,9 @@ class: center, middle, title
 * Position in filesystem
 * Starts at *Home*
 
-<img width="100%" src="media/unix-cwd.png" />
+<br/>
+<img width="100%" src="media/unix-cwd.png" /> <br/><br/><br/>
+<img width="100%" src="media/unix-cwd-barcoo.png" />
 <!-- <img width="100%" src="media/windows-cwd.png" /> -->
 
 ???
@@ -265,57 +259,22 @@ class: center, middle, title
 * Incremental Hints
 * Think > Hint > Answer
 
-.spacer[]
+#### What is the answer to Life?
 
-<div class="showable-container question showable-hidden" id="showable0">
-	<div class="showable-inner">
-		<div class="showable-header question" id="showabletitle0">
-			<span class="link-like" id="showablelink0">What is the Answer to Life?</span>
-		</div>
-	</div>
-</div>
+<div class="md-typeset">
+<details>
+  <summary>Hint</summary>
+  What is the answer to everything?
+  <br/>
+  As featured in <em>The Hitchhiker's Guide to the Galaxy</em>
+</details>
 
-<div class="showable-container hint showable-hidden" id="showable1">
-	<div class="showable-inner">
-		<div class="showable-header hint" id="showabletitle1">
-			<a href="#7" id="showablelink1">Hint</a>
-		</div>
-		<div class="showable-body hint" id="showablebody1">
-			<p>
-				What is the answer to everything?
-			</p>
-			<p>
-				As featured in <em>"The Hitchhiker's Guide to the Galaxy"</em>
-			</p>
-			<div class="showable-container showable-hidden" id="showable2">
-				<div class="showable-inner">
-					<div class="showable-header" id="showabletitle2">
-						<a href="#7" id="showablelink2">More</a>
-					</div>
-					<div class="showable-body" id="showablebody2">
-						<p>
-							It is probably a two digit number
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="showable-container answer showable-hidden" id="showable3">
-	<div class="showable-inner">
-		<div class="showable-header answer" id="showabletitle3">
-			<a href="#7" id="showablelink3">Answer</a>
-		</div>
-		<div class="showable-body answer" id="showablebody3">
-			<p>
-				<strong>Answer</strong>: 42
-			</p>
-			<p>
-				Ref: <a href="http://en.wikipedia.org/wiki/42_%28number%29">Number 42 (Wikipedia)</a>
-			</p>
-		</div>
-	</div>
+<details>
+  <summary>Answer</summary>
+  <strong>Answer</strong>: 42
+  <br/>
+  Ref: <a href="http://en.wikipedia.org/wiki/42_%28number%29">Number 42 (Wikipedia)</a>
+</details>
 </div>
 
 ???
@@ -325,9 +284,13 @@ class: center, middle, title
 ---
 # Ready, Set, Go
 
+.header[
+.header-right[<img height="70px" style="padding-right: 30px; margin-top: -30px;" src="../../img/melbioinf_logo.png"/>]
+]
+
 * Pairs?
 
-.giant-url2[goo.gl/jjNs9i]
+.giant-url2[bit.ly/2J82JH1]
 
 ???
 
@@ -344,30 +307,5 @@ class: center, middle, title
     </script>
     
     
-<script>
-    $(document).ready(function(){
-        $("#showablelink2").click(function(){
-            $("#showable2").toggleClass("showable-hidden");
-            if ($("#showable2").hasClass("showable-hidden")) {
-                $("#showablelink2").text("More");
-            } else {
-                $("#showablelink2").text("Less");
-            }
-            return false;
-        });
-    });
-    $(document).ready(function(){
-        $("#showablelink1").click(function(){
-            $("#showable1").toggleClass("showable-hidden");
-            return false;
-        });
-    });
-    $(document).ready(function(){
-        $("#showablelink3").click(function(){
-            $("#showable3").toggleClass("showable-hidden");
-            return false;
-        });
-    });
-    </script>
   </body>
 </html>

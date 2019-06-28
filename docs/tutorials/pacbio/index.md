@@ -1,8 +1,8 @@
 # Long read assembly workshop
 
-This is a tutorial for a workshop on long-read (PacBio) genome assembly. 
+This is a tutorial for a workshop on long-read (PacBio) genome assembly.
 
-It demonstrates how to use long PacBio sequencing reads to assemble a bacterial genome, and includes additional steps for circularising, trimming, finding plasmids, and correcting the assembly with short-read Illumina data. 
+It demonstrates how to use long PacBio sequencing reads to assemble a bacterial genome, and includes additional steps for circularising, trimming, finding plasmids, and correcting the assembly with short-read Illumina data.
 
 ## Overview
 
@@ -12,33 +12,33 @@ Simplified version of workflow:
 
 ## 1. Get started
 
-Your workshop trainers will provide you with the address of a virtual machine. 
+Your workshop trainers will provide you with the address of a virtual machine.
 
 
 ### Mac users
-Open the Terminal. 
+Open the Terminal.
 
-- Type in 
+- Type in
 
 ```
 ssh researcher@[your virtual machine address]
 ```
 
-- Type in the password provided. 
+- Type in the password provided.
 
 
 ### Windows users
 
-If you are using Windows 10, you might be able to use the Ubuntu Subsystem. Otherwise, install and open Putty. 
+If you are using Windows 10, you might be able to use the Ubuntu Subsystem. Otherwise, install and open Putty.
 
 - Download putty [here](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html).
-- Open. A configuration window will appear. 
-- Under "Host Name (or IP address)" enter in the address of your virtual machine. 
+- Open. A configuration window will appear.
+- Under "Host Name (or IP address)" enter in the address of your virtual machine.
 - Under "Port" type in 22
 - Under "Connection Type" select "SSH"
 - Click "Open"
 - Under "Login as:" enter "researcher"
-- Type in the password provided. 
+- Type in the password provided.
 
 ### Activate the conda environment
 
@@ -47,7 +47,7 @@ Type in:
 source /mnt/gvl/apps/conda/bin/activate
 ```
 
-(This points us to some different directories for the software we need). 
+(This points us to some different directories for the software we need).
 
 ### Create a new working directory on your remote computer.
 
@@ -78,7 +78,7 @@ pwd
 
 ## 2. Get data
 
-The sample used in this tutorial is from a bacteria called *Staphylococcus aureus*. We have used a small section of its real genome so that the programs can run in the workshop time. 
+The sample used in this tutorial is from a bacteria called *Staphylococcus aureus*. We have used a small section of its real genome so that the programs can run in the workshop time.
 
 The files we need are:
 
@@ -86,17 +86,28 @@ The files we need are:
 - <fn>R1.fq</fn>: the Illumina forward reads
 - <fn>R2.fq</fn>: the Illumina reverse reads
 
-In a new tab, go to [https://doi.org/10.5281/zenodo.1009308](https://doi.org/10.5281/zenodo.1009308). 
+In a new tab, go to [https://doi.org/10.5281/zenodo.1009308](https://doi.org/10.5281/zenodo.1009308).
 
 - Next to the first file, right-click (or control-click) the "Download" button, and select "Copy link address".
-- Back in your terminal, enter 
+- Back in your terminal, enter
 ```text
 wget [paste file link here]
 ```
-- The file should download. 
+- The file should download.
 - *Note:* paste the link to the file, not to the webpage.
-- Repeat this for the other two files. 
+- Repeat this for the other two files.
 
+Shorten each of these files names with the `mv` command:
+
+```
+mv R1.fq\?download\=1 R1.fq
+mv R2.fq\?download\=1 R2.fq
+mv pacbio.fq\?download\=1 pacbio.fq
+```
+
+Type in `ls` to check the files are present and correctly-named.
+
+We should have <fn>R1.fq</fn>, <fn>R2.fq</fn> and <fn>pacbio.fq</fn>.
 
 ## 3. Assemble<a name="assemble"></a>
 
@@ -111,11 +122,11 @@ canu -p canu -d canu_outdir genomeSize=0.03m corThreads=3 -pacbio-raw pacbio.fq
 - the first `canu` tells the program to run
 - `-p canu` names prefix for output files ("canu")
 - `-d canu_outdir` names output directory ("canu_outdir")
-- `genomeSize` only has to be approximate. (In this case we are using a partial genome of expected size 30,000 base pairs). 
-- `corThreads=3` sets the number of available threads. 
+- `genomeSize` only has to be approximate. (In this case we are using a partial genome of expected size 30,000 base pairs).
+- `corThreads=3` sets the number of available threads.
 - Canu will correct, trim and assemble the reads.
 - Various output will be displayed on the screen.
-- *Note*: Canu could say "Finished" but may still be running. In this case, type `squeue` to see if jobs are still running. 
+- *Note*: Canu could say "Finished" but may still be running. In this case, type `squeue` to see if jobs are still running.
 
 If you run `squeue` you will see something like this:
 
@@ -125,16 +136,16 @@ If you run `squeue` you will see something like this:
                5_1      main cormhap_ research  R       0:29      1 master
 ```
 
-You will know if **Canu** has completely finished when `squeue` shows no jobs listed under the header row. 
+You will know if **Canu** has completely finished when `squeue` shows no jobs listed under the header row.
 
 ## 4. Check assembly output
 
-Move into the canu output folder: 
+Move into the canu output folder:
 ```
 cd canu_outdir
 ```
 
-View the list of files: 
+View the list of files:
 ```
 ls
 ```
@@ -152,9 +163,9 @@ Display summary information about the contigs: (`infoseq` is a tool from [EMBOSS
 infoseq canu.contigs.fasta
 ```
 
-- This will show the contigs found by Canu. e.g.,  tig00000001	42107
+- This will show the contigs found by Canu. e.g.,  tig00000001	47997
 - "tig00000001" is the name given to the contig
-- "42107" is the number of base pairs in that contig.
+- "47997" is the number of base pairs in that contig.
 
 This matches what we were expecting for this sample (approximately 30,000 base pairs). For other data, Canu may not be able to join all the reads into one contig, so there may be several contigs in the output.
 
@@ -165,11 +176,11 @@ less canu.report
 ```
 
 * "less" is a command to display the file on the screen.
-* Use the up and down arrows to scroll up and down. 
-* You will see lots of histograms of read lengths before and after processing, final contig construction, etc. 
+* Use the up and down arrows to scroll up and down.
+* You will see lots of histograms of read lengths before and after processing, final contig construction, etc.
 * For a description of the outputs that Canu produces, see: [http://canu.readthedocs.io/en/latest/tutorial.html#outputs](http://canu.readthedocs.io/en/latest/tutorial.html#outputs)
-* Type `q` to exit viewing the report. 
- 
+* Type `q` to exit viewing the report.
+
 ### Questions
 
 
@@ -187,7 +198,7 @@ Where can we find out the what the approximate genome size should be for the spe
 Go to NCBI Genomes, enter species name, click on Genome Assembly and Annotation report, sort table by clicking on the column header Size (Mb), look at range of sizes in this column.
 </details>
 
-In the assembly output, what are the unassembled reads? 
+In the assembly output, what are the unassembled reads?
 
 <details>
 <summary>Answer (click to reveal)</summary>
@@ -198,30 +209,30 @@ What are the corrected reads? How did canu correct the reads?
 
 <details>
 <summary>Answer (click to reveal)</summary>
-Canu builds overlaps between reads. The consensus is used to correct the reads. 
+Canu builds overlaps between reads. The consensus is used to correct the reads.
 </details>
 
-    
-        
+
+
 
 
 Where could you view the output .gfa and what would it show?
 
 <details>
 <summary>Answer (click to reveal)</summary>
-A useful program is [Bandage](https://rrwick.github.io/Bandage/). If the assembly has multiple contigs, the assembly graph shows how these are connected. 
+A useful program is [Bandage](https://rrwick.github.io/Bandage/). If the assembly has multiple contigs, the assembly graph shows how these are connected.
 </details>
 
-    
-        
+
+
 
 
 ## 5. Trim and circularise
 
-Bacteria have circular chromosomes. 
+Bacteria have circular chromosomes.
 
-- Because of sequencing errors, there may be some "overhang" in the assembled linear sequence. 
-- Our assembly may have some overhang because it is 9000 bases longer than expected. 
+- Because of sequencing errors, there may be some "overhang" in the assembled linear sequence.
+- Our assembly may have some overhang because it is 9000 bases longer than expected.
 
 ![circlator](images/circlator_diagram.png)
 *Adapted from Figure 1. Hunt et al. Genome Biology 2015*
@@ -229,7 +240,7 @@ Bacteria have circular chromosomes.
 
 A tool called [Circlator](http://sanger-pathogens.github.io/circlator/) identifies and trims overhangs (on chromosomes and plasmids). It takes in the assembled contigs from Canu, as well as the corrected reads prepared by Canu.
 
-Move back into your main analysis folder: 
+Move back into your main analysis folder:
 ```
 cd ..
 ```
@@ -253,18 +264,18 @@ Some output will print to screen. When finished, it should say "Circularized x o
 
 ### Check the output
 
-Move into the Circlator output directory: 
+Move into the Circlator output directory:
 
 ```
 cd circlator_outdir
 ```
 
-List the files: 
+List the files:
 ```
 ls
 ```
 
-Circlator has named the output files with numbers as prefixes. 
+Circlator has named the output files with numbers as prefixes.
 
 Were the contigs circularised?
 
@@ -273,17 +284,17 @@ less 04.merge.circularise.log
 ```
 
 - "less" is a command to display the file on the screen.
-- <fn>04.merge.circularise.log</fn> is the name of the file. 
+- <fn>04.merge.circularise.log</fn> is the name of the file.
 - Yes, the contig was circularised (last column).
 - Type `q` to exit.
 
-What are the trimmed contig sizes? 
+What are the trimmed contig sizes?
 ```
 infoseq 06.fixstart.fasta
 ```
 
 * The contig "tig00000001" has a length of 30019.
-* This is about 12,000 bases shorter than before circularisation. This was the "overhang" and has now been trimmed. 
+* This is about 18,000 bases shorter than before circularisation. This was the "overhang" and has now been trimmed.
 
 Copy the circularised contigs file to the main analysis directory with a new name:
 
@@ -291,7 +302,7 @@ Copy the circularised contigs file to the main analysis directory with a new nam
 cp 06.fixstart.fasta ../contig1.fasta
 ```
 
-Move back into the main folder: 
+Move back into the main folder:
 ```
 cd ..
 ```
@@ -299,7 +310,7 @@ cd ..
 ### Questions
 
 
-Were all the contigs circularised? 
+Were all the contigs circularised?
 
 <details>
 <summary>Answer (click to reveal)</summary>
@@ -307,8 +318,8 @@ In this example, yes, the contig was circularised.
 </details>
 
 
-    
-         
+
+
 
 
 Circlator can set the start of the sequence at a particular gene. Which gene does it use? Is this appropriate for all contigs?
@@ -318,8 +329,8 @@ Circlator can set the start of the sequence at a particular gene. Which gene doe
 Circlator uses dnaA (if present) for the chromosomal contig. For other contigs, it uses a centrally-located gene. However, ideally, plasmids would be oriented on a gene such as repA. It is possible to provide a file to Circlator to do this.
 </details>
 
-    
-       
+
+
 
 
 ## 6. Find smaller plasmids
@@ -393,19 +404,19 @@ spades.py -1 unmapped.R1.fastq -2 unmapped.R2.fastq -s unmapped.RS.fastq --caref
 - `--cov-cutoff auto` computes the coverage threshold (rather than the default setting, "off")
 - `-o` is the output directory
 
-Move into the output directory: 
+Move into the output directory:
 ```
 cd spades_assembly
 ```
 
-Look at the contigs: 
+Look at the contigs:
 ```
 infoseq contigs.fasta
 ```
 
-- 1 contig has been assembled with a length of 2359 bases. 
+- 1 contig has been assembled with a length of 2359 bases.
 
-Copy it to a new file: 
+Copy it to a new file:
 ```
 cp contigs.fasta contig2.fasta
 ```
@@ -415,7 +426,7 @@ cp contigs.fasta contig2.fasta
 To trim any overhang on this plasmid, we will blast the start of contig2 against itself.
 
 
-Take the start of the contig: 
+Take the start of the contig:
 
 ```
 head -n 10 contig2.fasta > contig2.fa.head
@@ -426,7 +437,7 @@ head -n 10 contig2.fasta > contig2.fa.head
 - We want to see if the start of the contig matches the end (overhang).
 
 
-Format the assembly file for blast: 
+Format the assembly file for blast:
 ```
 makeblastdb -in contig2.fasta -dbtype nucl
 ```
@@ -436,51 +447,51 @@ makeblastdb -in contig2.fasta -dbtype nucl
 - `-dbtype nucl` sets the type to nucleotide (rather than protein)
 
 
-Blast the start of the assembly (.head file) against all of the assembly: 
+Blast the start of the assembly (.head file) against all of the assembly:
 ```
 blastn -query contig2.fa.head -db contig2.fasta -evalue 1e-3 -dust no -out contig2.bls
 ```
 
 - `blastn` is the tool Blast, set as blast**n** to compare sequences of nucleotides to each other
 - `-query` sets the input sequence as <fn>contig2.fa.head</fn>
-- `-db` sets the database as that of the original sequence <fn>contig2.fasta</fn>. We don't have to specify the other files that were created when we formatted this file, but they need to present in our current directory. 
+- `-db` sets the database as that of the original sequence <fn>contig2.fasta</fn>. We don't have to specify the other files that were created when we formatted this file, but they need to present in our current directory.
 - `-evalue` is the number of hits expected by chance, here set as 1e-3
 - `-dust no` turns off the masking of low-complexity regions
 - `-out` sets the output file as <fn>contig2.bls</fn>
 
 
-Look at the hits (the matches): 
+Look at the hits (the matches):
 ```
 less contig2.bls
 ```
 
 - The first hit is at the start, as expected. We can see that "Query 1" (the start of the contig) is aligned to "Sbject 1" (the whole contig), for the first 540 bases.
-- Scroll down with the down arrow. 
-- The second hit shows "Query 1" (the start of the contig) also matches to "Sbject 1" (the whole contig) at position 2253, all the way to the end, position 2359. 
+- Scroll down with the down arrow.
+- The second hit shows "Query 1" (the start of the contig) also matches to "Sbject 1" (the whole contig) at position 2253, all the way to the end, position 2359.
 
 ![blast](images/blasthits.png)
 
 
 - This is the overhang.
 - Therefore, in the next step, we need to trim the contig to position 2252.
-- Type `q` to exit. 
- 
+- Type `q` to exit.
+
 First, change the name of the contig within the file:
 
 ```
 nano contig2.fasta
 ```
 
-- `nano` opens up a text editor. 
+- `nano` opens up a text editor.
 - Use the arrow keys to navigate. (The mouse won't work.)
 - At the first line, delete the text, which will be something like ">NODE_1_length_2359_cov_3.320333"
-- Type in ">contig2" 
+- Type in ">contig2"
 - Don't forget the `>` symbol
 - Press Control-X
 - "Save modified buffer ?" - type `Y`
 - Press the Enter key
 
-Index the file (this will allow samtools to edit the file as it will have an index): 
+Index the file (this will allow samtools to edit the file as it will have an index):
 
 ```
 samtools faidx contig2.fasta
@@ -501,13 +512,13 @@ samtools faidx contig2.fasta contig2:1-2252 > plasmid.fasta
 - We now have a trimmed plasmid.
 
 
-Copy the plasmid file into the main folder: 
+Copy the plasmid file into the main folder:
 
 ```
 cp plasmid.fasta ../
 ```
 
-Move file back into main folder: 
+Move file back into main folder:
 
 ```
 cd ..
@@ -516,7 +527,7 @@ cd ..
 
 ### Collect contigs
 
-Collect the chromosome and the plasmid in one fasta file (they will be 2 records in the file): 
+Collect the chromosome and the plasmid in one fasta file (they will be 2 records in the file):
 
 ```text
 cat contig1.fasta plasmid.fasta > genome.fasta
@@ -542,8 +553,8 @@ Why is this section so complicated?
 Finding small plasmids is difficult for many reasons! This paper has a nice summary: On the (im)possibility to reconstruct plasmids from whole genome short-read sequencing data. doi: https://doi.org/10.1101/086744
 </details>
 
-    
-        
+
+
 
 
 Why can PacBio sequencing miss small plasmids?
@@ -553,8 +564,8 @@ Why can PacBio sequencing miss small plasmids?
 Library prep size selection.
 </details>
 
-    
-        
+
+
 
 
 We extract unmapped Illumina reads and assemble these to find small plasmids. What could they be missing?
@@ -564,8 +575,8 @@ We extract unmapped Illumina reads and assemble these to find small plasmids. Wh
 Repeats that have mapped to the PacBio assembly.
 </details>
 
-    
-        
+
+
 
 
 How do you find a plasmid in a Bandage graph?
@@ -575,8 +586,8 @@ How do you find a plasmid in a Bandage graph?
 It is probably circular, matches the size of a known plasmid, and has a rep gene.
 </details>
 
-    
-        
+
+
 
 
 Are there easier ways to find plasmids?
@@ -586,13 +597,13 @@ Are there easier ways to find plasmids?
 Possibly. One option is the program called Unicycler which may automate many of these steps. https://github.com/rrwick/Unicycler
 </details>
 
-    
-        
+
+
 
 
 ## 7. Correct the assembly
 
-Sequences from PacBio can have more errors than those from Illumina. Therefore, although it is useful to use the long PacBio reads to assemble the genome, we can also use the shorter and more accurate Illumina reads to correct errors in the PacBio assembly. 
+Sequences from PacBio can have more errors than those from Illumina. Therefore, although it is useful to use the long PacBio reads to assemble the genome, we can also use the shorter and more accurate Illumina reads to correct errors in the PacBio assembly.
 
 ### Make an alignment file
 
@@ -608,7 +619,7 @@ Align the Illumina reads:
 bwa mem -t 4 genome.fasta R1.fq R2.fq | samtools sort > pilon_aln.bam
 ```
 
-- Aligns Illumina <fn>R1.fq</fn> and <fn>R2.fq</fn> to the PacBio assembly <fn>genome.fasta</fn>. 
+- Aligns Illumina <fn>R1.fq</fn> and <fn>R2.fq</fn> to the PacBio assembly <fn>genome.fasta</fn>.
 - This produces a .bam file
 - `| ` pipes the output to samtools to sort (required for downstream processing)
 - `> pilon_aln.bam` redirects the sorted bam to this file
@@ -645,7 +656,7 @@ pilon --genome genome.fasta --frags pilon_aln.bam --output pilon1 --fix all --mi
 - `--threads`: number of cores
 
 
-Look at the changes file: 
+Look at the changes file:
 ```
 less pilon1.changes
 ```
@@ -656,10 +667,10 @@ less pilon1.changes
 
 
 - We can see lots of cases where a deletion (represented by a dot) has been corrected to a base.  
-- Type `q` to exit. 
+- Type `q` to exit.
 
 
-Look at the details of the fasta file: 
+Look at the details of the fasta file:
 ```
 infoseq pilon1.fasta
 ```
@@ -668,7 +679,7 @@ infoseq pilon1.fasta
 - plasmid - 2252 (no change)
 
 
-Change the file name: 
+Change the file name:
 ```
 cp pilon1.fasta assembly.fasta
 ```
@@ -685,8 +696,8 @@ Why don't we correct earlier in the assembly process?
 We need to circularise the contigs and trim overhangs first.
 </details>
 
-    
-        
+
+
 
 
 Why can we use some reads (Illumina) to correct other reads (PacBio) ?
@@ -696,8 +707,8 @@ Why can we use some reads (Illumina) to correct other reads (PacBio) ?
 Illumina reads have higher accuracy.
 </details>
 
-    
-        
+
+
 
 
 Could we just use PacBio reads to assemble the genome?
@@ -707,18 +718,18 @@ Could we just use PacBio reads to assemble the genome?
 Yes, if accuracy adequate.
 </details>
 
-    
-        
+
+
 
 
 ## 8. Comparative Genomics
 
-In the workshop so far, we used a partial bacterial genome so that the exercises could run in the time available. As a demonstration, to better see the effect of long and short reads on the assembly, we will examine a complete bacterial genome. 
+In the workshop so far, we used a partial bacterial genome so that the exercises could run in the time available. As a demonstration, to better see the effect of long and short reads on the assembly, we will examine a complete bacterial genome.
 
 
 ### Assemblies
 
-This bacterial genome has been assembled from either long PacBio reads (using Canu) or shorter Illumina reads (using Spades). 
+This bacterial genome has been assembled from either long PacBio reads (using Canu) or shorter Illumina reads (using Spades).
 
 Assembly graphs:
 
@@ -732,7 +743,7 @@ The assembly graph from PacBio reads (Canu assembly) - this is missing the small
 
 ![canu assembly graph](images/25747_canu_pacbio_graph.png)
 
-Here we can see that the long read data results in a more contiguous assembly - one complete chromosome versus many smaller contigs with ambiguous placement. 
+Here we can see that the long read data results in a more contiguous assembly - one complete chromosome versus many smaller contigs with ambiguous placement.
 
 
 Does it matter that an assembly is in many contigs?
@@ -742,13 +753,13 @@ Does it matter that an assembly is in many contigs?
 Yes and No. Yes: broken genes can lead to missing/incorrect annotations; fragmented assemblies provide less information about the genomic structure (*e.g.* the number of plasmids) and the location of genes of interest (*e.g.* gene A is located on plasmid X). No: many or all genes may still be annotated correctly. Gene location is useful (e.g. chromosome, plasmid1) but not always essential (e.g. presence/absence of particular resistance genes may be enough information).
 </details>
 
-    
-        
+
+
 
 
 ### Annotations
 
-Genomic features such as genes can be identified with annotation tools. We have used a tool called [Prokka](https://github.com/tseemann/prokka) to annotate the two genomes described above. 
+Genomic features such as genes can be identified with annotation tools. We have used a tool called [Prokka](https://github.com/tseemann/prokka) to annotate the two genomes described above.
 
 Some of the output data is displayed here:
 
@@ -766,33 +777,33 @@ Some of the output data is displayed here:
 
 
 
-Why are there more CDS identified in the PacBio assembly? 
+Why are there more CDS identified in the PacBio assembly?
 
 <details>
 <summary>Answer (click to reveal)</summary>
 The PacBio assembly may have errors (usually a one base indel) which will cause a frame shift, which can result in three things: a longer CDS, a shorter CDS, or a shorter CDS plus an additional CDS. In addition, the Illumina assembly is about 33 kb smaller than the PacBio assembly. In bacteria, a rule of thumb is that 1 kb is roughly equal to one gene. Thus, we would probably expect about 33 fewer identified genes, which fits with these results.  
 </details>
 
-    
-        
 
 
 
-Why are there more rRNA identified in the PacBio assembly? 
+
+
+Why are there more rRNA identified in the PacBio assembly?
 
 <details>
 <summary>Answer (click to reveal)</summary>
-There may be multiple copies of the rRNAs and these could have been collapsed as repeats in the Illumina assembly. 
+There may be multiple copies of the rRNAs and these could have been collapsed as repeats in the Illumina assembly.
 </details>
 
-    
-        
+
+
 
 ## 9. Summary
 
-In this workshop, we used bacterial sequencing data from long and short reads to produce a polished genome. 
+In this workshop, we used bacterial sequencing data from long and short reads to produce a polished genome.
 
-Procedure and tools: 
+Procedure and tools:
 
 - Canu to assemble long-read PacBio data
 - Circlator to trim and circularise contigs
@@ -816,6 +827,4 @@ Melbourne Bioinformatics tutorials:
 
 Additional microbial genomics tutorials:
 
-- http://sepsis-omics.github.io/tutorials/
-
-
+- http://sepsis-omics.github.io/tutorials/ and https://galaxy-au-training.github.io/tutorials/

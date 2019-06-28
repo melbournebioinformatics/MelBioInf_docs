@@ -2,15 +2,33 @@
 
 # Molecular Dynamics Tutorial - Introduction to cluster computing
 
------
+## Overview
 
-In the following tutorials we will be logging on a high performance computer (HPC) to submit [NAMD](http://www.ks.uiuc.edu/Research/namd/) molecular dynamics (MD) jobs and visualising the results with the molecular visualization program [VMD](http://www.ks.uiuc.edu/Research/vmd/). As students have a vast range of skill levels and requirements, the tutorials are divided into two parts described below. Each tutorial is designed to be stand alone, start where you feel most comfortable and skip the exercises that are too simple.
+In the following tutorials we will be logging on to a high performance computer (HPC) to submit [NAMD](http://www.ks.uiuc.edu/Research/namd/) molecular dynamics (MD) jobs and visualising the results with the molecular visualization program [VMD](http://www.ks.uiuc.edu/Research/vmd/). As students have a vast range of skill levels and requirements, the tutorials are divided into two parts described below. Each tutorial is designed to be stand alone, start where you feel most comfortable and skip the exercises that are too simple.
 
 * **MD tutorial - Introduction to cluster computing (this tutorial)**: If you have never launched a job on a cluster before, this tutorial is for you. Here we will simply copy across a bare minimum directory containing input files ready to go for a short NAMD simulation. Once the job is finished, we will download the data to your local computer and visualize the trajectory with VMD.
 
 * **[MD tutorial - Building input files](../molecular_dynamics_201/molecular_dynamics_201/)**: In this tutorial we will be introducing a more sophisticated directory structure using scripts to direct the output and run the job. We initially download a copy of the directory to our local computer where we then build up the input files using VMD. We then upload this directory to the cluster where we submit the job. Finally we will download the results back to our local computer to visualize with VMD.
 
-As we will be working from a terminal on the cluster and later downloading data back to our local desktop for visualization and analysis, we will be assuming that the users have basic knowledge of Unix/Linux. If you are unfamiliar with these, we suggest you first work through this [Unix tutorial](https://melbournebioinformatics.github.io/MelBioInf_docs/tutorials/unix/robinson-unix-link/).
+## Learning Objectives
+
+At the end of the course, you will be able to:
+
+* Log onto a high performance computer cluster
+* Upload files to the cluster
+* Submit a basic molecular dynamics job on the cluster
+* Download the output and visualise the preliminary results
+
+## Requirements
+
+This workshop is intended for scientists interested in learning the basics of running molecular dynamics on a HPC cluster.
+
+It is recommended that participants attend Introduction to [High Performance Computing](../hpc/hpc.md) prior to this workshop. If you are not familiar with using the command line, please also attend the [Introduction to Unix](../unix/unix.md) workshop.
+
+Please bring along your laptops with the following installed before arriving:
+
+* VMD ([http://www.ks.uiuc.edu/Research/vmd/](http://www.ks.uiuc.edu/Research/vmd/))
+* Putty ([https://www.putty.org/](https://www.putty.org/)) – only if you use Windows.
 
 **Important**: NAMD has specific licencing requirements. Users are required to agree to these requirements to use NAMD on the Melbourne Bioinformatics HPC clusters. Login on [https://my.vlsci.org.au/](https://my.vlsci.org.au/), select 'Software agreement', 'Add software', 'NAMD'.
 

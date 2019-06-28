@@ -69,7 +69,7 @@ A private GVL server is a virtual machine running on the cloud and contains a
 pre-installed suite of tools for performing bioinformatics analyses. It differs
 from public GVL servers (such as the
 [Galaxy Tutorial Server](http://galaxy-tut.genome.edu.au/),
-[Galaxy Melbourne](http://galaxy-mel.genome.edu.au/), and
+[Galaxy Australia](https://usegalaxy.org.au/), and
 [Galaxy Queensland](http://galaxy-qld.genome.edu.au/)) by providing full
 administrative access to the server, as well as the full suite of GVL services,
 whereas public GVL servers provide restricted access for security reasons.
