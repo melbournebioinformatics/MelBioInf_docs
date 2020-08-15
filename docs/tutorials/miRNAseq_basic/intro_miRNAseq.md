@@ -1,4 +1,4 @@
-<img src="../media/melbioinf_logo.png" width="350"> <img src="../media/PRIMARY_A_Vertical_Housed_RGB.png" width="85">
+<img src="../../img/melbioinf_logo.png" width="350"> <img src="media/PRIMARY_A_Vertical_Housed_RGB.png" width="85">
 
 # Basic miRNA-seq data analysis
 
@@ -104,7 +104,7 @@ The first QC is for checking the sequencing quality. Popular FASTQ quality asses
 The second QC checks more specifically for the library quality. At this stage, 3'-adapter sequence should be removed from the sequencing data. Without 3'-adapter sequence, each read should contains only the mature miRNA sequence, the length of which typically ranges 20-25nt. If the trimmed sequences include a large quantity of sequence reads that are outside of this size-range, it may mean high level of contamination at the library construction stage.</br>
 After two-steps of QC, when all look good, the trimmed reads will be mapped to the genome. From this alignment result, the expression level known miRNAs can be  measured, and novel miRNAs can be also identified and quantified.</br>
 Known/unknown miRNAs were identified and quantified across samples from multiple groups (e.g., disease vs control), differential expression analysis can follow using other popular tools, such as [edgeR](https://bioconductor.org/packages/release/bioc/html/edgeR.html).
-<img src="images/miRNA_procedure.png" width="600">
+<img src="media/miRNA_procedure.png" width="600">
 
 
 -------------------------------
@@ -131,12 +131,12 @@ Raw FASTQ files for the 4 small RNA-seq samples need to be downloaded to Galaxy.
 Galaxy has a functionality to directly retrieve data from SRA using the accession IDs.</br>
 **a.** 'Get Data' -> 'Download and Extract Reads in FASTA/Q'</br>
 Put a SRR ID (e.g, SRR1240812) in the 'Accession' box </br>
-<img src="images/GetData_SRR1240812.png" width="600">
+<img src="media/GetData_SRR1240812.png" width="600">
 
 **b.** Repeat for three other SRR IDs.</br>
 It may take some time to complete this task.</br>
 When completed the downloaded FASTQ files will appear in the 'History' panel on the right-hand side of the screen. Clicking on the 'View data' icon show top lines of the imported FASTQ file as below.</br>
-<img src="images/GetData_preview.png" width="600">
+<img src="media/GetData_preview.png" width="600">
 
 **c.** Rename the uploaded data to more appropriate names by clicking on 'Edit attributes' icon
 
@@ -146,7 +146,7 @@ When completed the downloaded FASTQ files will appear in the 'History' panel on 
 'SRR1240814' to 'A549 repA FASTQ',<br/>
 'SRR1240815' to 'A549 repB FASTQ'<br/>
 
-<img src="images/GetData_Edit_attributes.png" width="600"> </br>
+<img src="media/GetData_Edit_attributes.png" width="600"> </br>
 
 **d.** Alternatively, the raw FASTQ files can be downloaded to local computer and be uploaded using <b>'Get Data'</b> -> <b>'Upload File'</b>.</br>
 (need a screenshot)
@@ -162,7 +162,7 @@ Copy and paste the URLs below into the text box, and set the 'Type' to 'fasta.gz
 <fn>ftp://mirbase.org/pub/mirbase/CURRENT/hairpin.fa.gz</fn></br>
 <fn>ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz</fn>
 
-<img src="images/GetData.miRBase.png" width="600">
+<img src="media/GetData.miRBase.png" width="600">
 
 
 -------------------------------
@@ -175,13 +175,13 @@ Quality control and pre-processing include the checking of general sequencing qu
 **a.** 'FASTQ Quality Control' -> 'FastQC'<br/>
 All four FASTQ files can be selected at once.</br>
 
-<img src="images/QC.FastQC.01.png" width="600">
+<img src="media/QC.FastQC.01.png" width="600">
 
 
 **b.** In most cases, the sequence reads are longer than mature miRNA sequences. In consequence, 3'-adapter sequence is left in the FASTQ file. In contrast, 5'-adapter sequence should not be present in the FASTQ file. It this is from one's own analysis, the information of 3'-adapter sequence would be probably provided. However, if the adapter sequence is unknown, it could be identified from FastQC reports.<br/>
 Among the over-represented sequences, the sequence in the first row takes up ~64% of all sequences of Hela_repA. Also, the whole 50bp region is identical to a known RNA PCR primer sequence with 100% identity. This is likely the adapter sequence to be removed before further analysis.</br>
 
-<img src="images/QC.FastQC.01.result_01.png" width="600"></br>
+<img src="media/QC.FastQC.01.result_01.png" width="600"></br>
 
 #### 2. Trim out adapter sequence and low-quality region
 **a.** ‘FASTA/FASTQ' -> ‘Trimmomatic’<br/>
@@ -192,26 +192,26 @@ Among the over-represented sequences, the sequence in the first row takes up ~64
 \>primer<br/>
 TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACATCACGATCTCGTATGC<br/>
 
-<img src="images/QC.Trimmomatic.png" width="600"></br>
+<img src="media/QC.Trimmomatic.png" width="600"></br>
 
 **e.** 'Execute'
 
 **f.** Rename Trimmomatic results to more appropriate names<br/>
 *e.g.,* 'Trimmomatic on Hela repA FASTQ' to 'Hela repA trimmed'</br>
 
-<img src="images/QC.trimmomatic.rename.png" width="600"></br>
+<img src="media/QC.trimmomatic.rename.png" width="600"></br>
 
 
 #### 3. Run FastQC again on the trimmed
 It is always a good idea to check the quality of the pre-processed data, which are the result files from Trimmomatic, in this case. Thus, FastQC run at this stage is mainly for checking on read-length distribution.<br/>
 **a.** 'FASTQ Quality Control' -> 'FastQC'</br>
-<img src="images/QC.FastQC.on_trimmed.png" width="600">
+<img src="media/QC.FastQC.on_trimmed.png" width="600">
 
 **b.** 'Execute'</br>
 
 **c.** After adapter-trimming, sequences of typical miRNA-sizes are enriched.<br/>
 Note that this sample contains miRNAs and other types of small RNAs. So, we should expect to see peaks at the sizes outside of typical miRNA lengths. </br>
-<img src="images/QC.FastQC.02.read_length.png" width="600">
+<img src="media/QC.FastQC.02.read_length.png" width="600">
 
 
 -------------------------------
@@ -222,11 +222,11 @@ First, the pre-processed sequencing data will be mapped to the reference genome 
 
 #### 1. Run ‘MiRDeep2 Mapper’ on built-in genome (hg38) with trimmed sequences
 **a.** Select all 4 trimmed results<br/>
-<img src="images/MirDeep2_Mapper.01.png" width="600">
+<img src="media/MirDeep2_Mapper.01.png" width="600">
 
 **b.** Select 'Clip Sequence' to clip 3'-Adapter Sequence and insert the adapter sequence used for Trimmomatic.<br/>
 **c.** Select ‘Human (Homo sapiens) (b38): hg38’ in 'Select a reference genome'<br/>
-<img src="images/MirDeep2_Mapper.02.png" width="600"> </br>
+<img src="media/MirDeep2_Mapper.02.png" width="600"> </br>
 
 **d.** 'Execute'</br>
 This may take a while.</br>
@@ -239,13 +239,13 @@ This may take a while.</br>
 **b.** Select ‘ftp://mirbase.org/pub/mirbase/CURRENT/hairpin.fa.gz’ for ‘Precursor sequences’<br/>
 **c.** Select ‘ftp://mirbase.org/pub/mirbase/CURRENT/mature.fa.gz’ for ‘Mature miRNA sequences’<br/>
 **d.** Select ‘human’ for ‘Search in species’<br/>
-<img src="images/MirDeep2_Quantifier.01.png" width="600">
+<img src="media/MirDeep2_Quantifier.01.png" width="600">
 
 **e.** 'Execute'</br>
 This may take a while.</br>
 
 **f.** Rename the quantification results to more appropriate names</br>
-<img src="images/MirDeep2_Quantifier.02.rename.png" width="600">
+<img src="media/MirDeep2_Quantifier.02.rename.png" width="600">
 *e.g.,* 'output of MiRDeep2 Quantifier on data 7, data 6, and data 20' to 'MiRDeep2 Quantifier on Hela repA'</br>
 'MiRDeep2 Quantifier on data 7, data 6, and data 20 (html report)' to 'MiRDeep2 Quantifier on Hela repA (html report)'</br>
 
@@ -254,10 +254,10 @@ This may take a while.</br>
 ‘MirDeep2 Quantifier’ generates two output files: quantification table and detailed HTML report of the miRNA quantification.<br/>
 **a.** ‘MiRDeep2 Quantifier on A549 repB’ shows the number of reads associated to each of known miRNA in the reference data.<br/>
 In this example, ‘read_count’, ‘total’ and ‘seq’ columns have the same raw-read counts, which could be used for the subsequent differential expression analysis.<br/>
-<img src="images/MirDeep2_Quantifier.output.tab.png" width="600">
+<img src="media/MirDeep2_Quantifier.output.tab.png" width="600">
 
 **b.** ‘MiRDeep2 Quantifier on A549 repB (html report)’ show the same read-count table with links to detailed information.</br>
-<img src="images/MirDeep2_Quantifier.output.html.png" width="600">
+<img src="media/MirDeep2_Quantifier.output.html.png" width="600">
 
 
 -------------------------------
@@ -269,15 +269,15 @@ In this section we will merge the individual quantification results into one rea
 #### 1. Merge read-count columns from four quantification results into one table.
 **a.** ‘Text Manipulation’ -> ‘Paste’.<br/>
 Select ‘output of MiRDeep2 Quantifier on Hela repA’ for the first drop-down box, and ‘output of MiRDeep2 Quantifier on Hela repB’ for the second drop-down box.</br>
-<img src="images/TextManipulation.01.paste.01.png" width="600">
+<img src="media/TextManipulation.01.paste.01.png" width="600">
 
 **b.** Repeat the ‘Paste’ with the previous ‘Paste’ result and another quantification output:<br/>
 ‘Paste on data 39 and data 37’ for the first drop-box’ and ‘output of MiRDeep2 Quantifier on A549 repA’</br>
-<img src="images/TextManipulation.03.paste.02.png" width="600">
+<img src="media/TextManipulation.03.paste.02.png" width="600">
 
 **c.** Repeat ‘b’ for ‘output of MiRDeep2 Quantifier on A549 repB’<br/>
 The result is a table of 24 columns, because 4 tables of 6 columns were merged side-by-side.</br>
-<img src="images/TextManipulation.04.paste.03.merged.png" width="600">
+<img src="media/TextManipulation.04.paste.03.merged.png" width="600">
 
 
 #### 2. Extract the read-count matrix
@@ -286,30 +286,30 @@ The merged table from the previous step has lots of redundant columns. So, we’
 **a.** ‘Text Manipulation’ -> ‘Add column’<br/>
 ‘Add this value’: ‘.’</br>
 'to Dataset': '38: Paste on data 34 and data 37'
-<img src="images/TextManipulation.05.add_column.01.png" width="600"></br>
+<img src="media/TextManipulation.05.add_column.01.png" width="600"></br>
 
 The resulting table has a column on '.' at the right-most end (column 25).</br>
-<img src="images/TextManipulation.05.add_column.02.png" width="600"></br>
+<img src="media/TextManipulation.05.add_column.02.png" width="600"></br>
 
 **b.** ‘Merge Columns’-> ‘+Insert Columns’ button (we’re merging 3 columns).<br/>
 ‘Select data’: result of the previous step (e.g., ‘48: Add column on data 47’)<br/>
 ‘Merge column’: ‘column: 3’ (column for ‘precursor’)<br/>
 ‘with column’: ‘column: 25’ (added column in the previous step, containing only ‘.’)<br/>
 ‘Add column’: ‘Column: 1’ (column for ‘mature miRNA’)</br>
-<img src="images/TextManipulation.06.merge_columns.01.png" width="600">
+<img src="media/TextManipulation.06.merge_columns.01.png" width="600">
 
 **c.** ‘Cut’<br/>
 Input ‘c26,c2,c8,c14,c20’<br/>
 ‘c26’ (Column 26) is the newly added column containing the new ID, which is precursor name followed by ‘.’ and mature miRNA name. c2, c8, c14 and c20 are columns for read-counts.</br>
-<img src="images/TextManipulation.07.cut.01.png" width="600">
+<img src="media/TextManipulation.07.cut.01.png" width="600">
 
 **d.** The resulting table has only the new IDs and four read-count columns.</br>
-<img src="images/TextManipulation.08.cut.02.png" width="600">
+<img src="media/TextManipulation.08.cut.02.png" width="600">
 
 **e.** The merged table include all known miRNAs in the reference data. But they aren’t always expressed. We’re keeping in miRNAs that were expressed at least in one sample.<br/>
 ‘Filter and Sort’ -> ‘Filter’<br/>
 Insert ‘(c2+c3+c4+c5) > 0’ in ‘With following condition’</br>
-<img src="images/Filter.01.png" width="600">
+<img src="media/Filter.01.png" width="600">
 
 
 #### 3. Add column names to the filtered read-count matrix
@@ -318,14 +318,14 @@ The filtered table has no column names. The easiest way to add them in is downlo
 **b.** Use any text editor to add the header line as below:<br/>
 ‘precursor.miRNA	Hela_repA	Hela_repB	A549_repA	A549_repB’<br/>
 ***Remember to use ‘tab’ as separator***<br/>
-<img src="images/NotePad.header_line.png" width="600">
+<img src="media/NotePad.header_line.png" width="600">
 
 **c.** Save and upload the edited table file<br/>
 ‘Get Data’ -> ‘Upload File’<br/>
-<img src="images/GetData.filtered_table.png" width="600">
+<img src="media/GetData.filtered_table.png" width="600">
 
 **d.** Rename the uploaded table to ‘GSE56862 miRNAs read-counts’<br/>
-<img src="images/GetData.filtered_table.rename.png" width="600">
+<img src="media/GetData.filtered_table.rename.png" width="600">
 
 
 -------------------------------
@@ -342,19 +342,20 @@ Now, we have miRNA expression data from a subset of GSE56862 dataset. The miRNA 
 
 **a.**	‘NGA: RNA Analysis’ -> ‘edgeR’<br/>
 ‘Single Count Matrix’<br/>
-‘Factor Name’: ‘cell-line’<br/>
+‘Factor Name’: ‘cell_line’<br/>
 ‘Groups’: HeLa,HeLa,A549,A549<br/>
 ‘Contrast of Interest’: HeLa-A549<br/>
-<img src="images/RNA.edgeR.01.png" width="600">
+<img src="media/RNA.edgeR.01.png" width="600">
 
 **b.** Before the execution, we can choose to obtain the normalised counts, R scripts and R dataset from this edgeR analysis.<br/>
-<img src="images/RNA.edgeR.02.png" width="600">
+<img src="media/RNA.edgeR.02.png" width="600">
 
 **c.** 'edgeR' report<br/>
-<img src="images/RNA.edgeR.05.report.png" width="600">
+<img src="media/RNA.edgeR.05.report.new_01.png" width="600"></br>
+<img src="media/RNA.edgeR.05.report.new_02.png" width="600"></br>
 
 **d.** Summary of differential expression test for each miRNA<br/>
-<img src="images/RNA.edgeR.06.result_files.png" width="600">
+<img src="media/RNA.edgeR.06.result_files.png" width="600">
 
 
 -------------------------------
@@ -362,5 +363,5 @@ Now, we have miRNA expression data from a subset of GSE56862 dataset. The miRNA 
 
 Once differentially expressed miRNAs are identified, one of the common subsequent analyses is looking for the (potential) target genes, which are the genes that  are regulated by miRNAs. Target gene analysis tools include [miRanda](http://www.microrna.org/microrna/home.do) and [TargetScan](http://www.targetscan.org/) among many.</br>
 For example, 'miRanda' takes in a list of miRNAs of interest and retrieves the list of genes that have the target sites. Two miRNAs "let-7e" and "mir-1" were among the differentially expressed miRNAs in this tutorial. Searching for the target sites of these two miRNAs retrieved thousands of genes as below.</br>
-<img src="images/miRanda.02.search.png" width="600"></br>
-<img src="images/miRanda.02.search_result.png" width="600">
+<img src="media/miRanda.02.search.png" width="600"></br>
+<img src="media/miRanda.02.search_result.png" width="600">
