@@ -285,7 +285,7 @@ The merged table from the previous step has lots of redundant columns. So, we’
 
 **a.** ‘Text Manipulation’ -> ‘Add column’<br/>
 ‘Add this value’: ‘.’</br>
-'to Dataset': '38: Paste on data 34 and data 37'
+'to Dataset': '38: Paste on data 34 and data 37'</br>
 <img src="media/TextManipulation.05.add_column.01.png" width="600"></br>
 
 The resulting table has a column on '.' at the right-most end (column 25).</br>
