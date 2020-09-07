@@ -114,7 +114,7 @@ Our process will be:
 
 -------------------------------
 ## Additional reading
-Links to additional recommended reading and suggestions for related tutorials.
+Links to additional recommended reading and suggestions for related tutorials.<br>
 Flye: https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#algorithm<br>
 Pilon: https://github.com/broadinstitute/pilon/wiki/Methods-of-Operation<br>
 Unicycler: https://github.com/rrwick/Unicycler<br>
