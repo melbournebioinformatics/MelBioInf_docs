@@ -115,8 +115,8 @@ Our process will be:
 -------------------------------
 ## Additional reading
 Links to additional recommended reading and suggestions for related tutorials.
-Flye: https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#algorithm
-Pilon: https://github.com/broadinstitute/pilon/wiki/Methods-of-Operation
-Unicycler: https://github.com/rrwick/Unicycler
-Quast: https://academic.oup.com/bioinformatics/article/29/8/1072/228832
-BUSCO analysis: https://academic.oup.com/bioinformatics/article/31/19/3210/211866
+Flye: https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#algorithm<br>
+Pilon: https://github.com/broadinstitute/pilon/wiki/Methods-of-Operation<br>
+Unicycler: https://github.com/rrwick/Unicycler<br>
+Quast: https://academic.oup.com/bioinformatics/article/29/8/1072/228832<br>
+BUSCO analysis: https://academic.oup.com/bioinformatics/article/31/19/3210/211866<br>
