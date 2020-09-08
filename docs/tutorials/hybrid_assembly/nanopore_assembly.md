@@ -89,8 +89,8 @@ Most bacteria are unculturable. The genomes of these organisms must be assembled
 
 ## Section 1: Nanopore draft assembly, Illumina polishing
 
-In this section you will use Flye to create a draft genome assembly from nanopore reads. <br />
-We will look at some features of our nanopore read set, perform assembly, then assess the quality of our assembly. 
+In this section you will use Flye to create a draft genome assembly from Nanopore reads. <br />
+We will perform assembly, then assess the quality of our assembly using two tools: Quast, and BUSCO. 
 
 ### Getting the data
 
@@ -104,64 +104,199 @@ We will look at some features of our nanopore read set, perform assembly, then a
     * Will we use this reference genome to assess the quality of our assemblies and judge which methods work best. 
 
 ### Draft assembly with Flye + Nanopore reads
-1. **Create the first draft assembly**<br><br>
-We can use Flye to create an assembly from Nanopore reads.<br><br>
-    * Making sure you are on the 'Analyse Data' tab of Galaxy, look for the tool search bar at the top of the left panel. 
-    * Search for 'Flye' and select the tool 
-    * We need to provide some information to Flye. Set the 'Input reads' parameter to nanopore_reads.fastq and 'estimated genome size' to 4m. Leave all else defualt. 
-    * Run Flye by clicking 'execute' at the bottom of the page. 
-    * Flye produces a number of outputs. We only need the 'consensus' fasta file. You can delete the other outputs. 
-    * For clarity, the consensus draft assembly can be renamed to something which makes sense, like 'nanopore draft assembly'
-<br><br>
-2. **Assess draft assembly quality**<br><br>
-We need to check if our assembly is good quality or not. It is paramount that genome assemblies are high-quality for them to be useful. <br> <br>
-The supplied reference genome allows a direct comparison. We can use a tool call 'Quast' to compare our assembly to the reference genome.<br><br>
-    * Search for the Quast tool in the tools panel. 
-    * Parameters:
-        - Contigs/scaffolds file = the nanopore draft assembly you just created
-        - Use a reference genome? = Yes
-        - Reference genome = reference_genome.fasta
-        - All else default
-    * Execute Quast by clicking 'execute' at the bottom of the page. 
-    * We are mainly interested in one of the outputs - the HTML report
-    * Open the report. It may look something like this:<br><br>
-    <img src="../media/quast_draft_assembly.PNG" width="300">
-    * Note the Genome fraction (%), # mismatches per 100 kbp, # indels per 100 kbp and # contigs information. 
-<br><br>
-We seem to have good coverage and not too many contigs, but our error rate is quite high.  We should be able to improve the error rate by polishing our assembly with high-accuracy Illumina reads by aligning them to our draft assembly and error correcting.
-<br><br>
-In this case we have a reference genome available, but this is not always the case. When our sample organism is unknown, we need another method to assess assembly quality. BUSCO analysis is one way to do this. 
-<br><br>
+<p>
+We can use Flye to create an assembly from Nanopore reads.
+</p>
+
+* Making sure you are on the 'Analyse Data' tab of Galaxy, look for the tool search bar at the top of the left panel. 
+* Search for 'Flye' and select the tool 
+* We need to provide some information to Flye. Set the 'Input reads' parameter to nanopore_reads.fastq and 'estimated genome size' to 4m. Leave all else defualt. 
+* Run Flye by clicking 'execute' at the bottom of the page. 
+* Flye produces a number of outputs. We only need the 'consensus' fasta file. You can delete the other outputs. 
+* For clarity, the consensus draft assembly can be renamed to something which makes sense, like 'nanopore draft assembly'
+
+
+### Assessing draft assembly quality
+
+<br>
+
+**Quast**
+<p>
+We need to check if our assembly is good quality or not. It is paramount that genome assemblies are high-quality for them to be useful. 
+The supplied reference genome allows a direct comparison. We can use a tool call 'Quast' to compare our assembly to the reference genome.
+</p>
+
+* Search for the Quast tool in the tools panel. 
+* Parameters:
+    - Contigs/scaffolds file = the nanopore draft assembly you just created
+    - Use a reference genome? = Yes
+    - Reference genome = reference_genome.fasta
+    - All else default
+* Execute Quast by clicking 'execute' at the bottom of the page. 
+* We are mainly interested in one of the outputs - the HTML report
+* Open the report. It may look something like this:<br><br>
+<img src="../media/quast_draft_assembly.PNG" width="300">
+* Note the Genome fraction (%), # mismatches per 100 kbp, # indels per 100 kbp and # contigs information. 
+
+<p>
+We seem to have good coverage and not too many contigs, but our error rate is quite high.
+</p>
+<br>
+
+**BUSCO**
+<p>
+In this case we were able to use a reference genome to assess assembly quality, but this is not always the case. When our sample organism is unknown, we need another method to assess assembly quality. BUSCO analysis is one way to do this. 
+</p><p>
 BUSCO analysis uses the presence, absence, or fragmentation of key genes in an assembly to determine is quality. <br>
 BUSCO genes are specifically selected for each taxonomic clade, and represent a group of genes which each organism in the clade is expected to possess. At higher clades, 'housekeeping genes' are the only members, while at more refined taxa such as order or family, lineage-specific genes can also be used. 
-<br><br>
-    * Find and select the Busco tool in the tools panel using the search bar.
-    * We will assess our Nanopore draft assembly created by Flye.
-    * In this tutorial, we will suspect that our organism is within the 'Bacillales' order. 
-    * Parameters:
-        * Sequences to analyse = our Nanopore draft assembly
-        * Lineage = Bacillales
+</p>
+
+* Find and select the Busco tool in the tools panel using the search bar.
+* We will assess our Nanopore draft assembly created by Flye.
+* In this tutorial, we will suspect that our organism is within the 'Bacillales' order. 
+* Parameters:
+    * Sequences to analyse = our Nanopore draft assembly
+    * Lineage = Bacillales
+* Leave all else default and execute the program.
+
+After the program has run, look at the 'short summary' output. It may look something like this:<br><br>
+<img src="../media/busco_draft_assembly.PNG" width="400">
+<p>
+The 'full table' is also useful. It gives a detailed list of the genes we are searching for, and information about whether they would missing, fragmented, or complete in our assembly.
+</p>
+<img src="../media/busco_table_draft_assembly.PNG">
+<p>
+It seems that most expected genes are missing or fragmented in our assembly. It is likely that the frequent errors in our draft assembly are causing this result. We should be able improve our assembly with the Illumina reads available and correct some of these errors.
+</p><p>
+This process involves two steps. We will first align the Illumina reads to our draft assembly, then supply the mapping information to Pilon which will use this alignment information to error-correct our assembly.
+</p>
+
+### Assembly Polishing with Pilon
+<p>
+Illumina reads have much higher per-base accuracy than Nanopore reads. We will map the Illumina read sets to our draft assembly using a short-read aligner called BWA-MEM, then can give Pilon this alignment file to polish our draft assembly.
+</p>
+<br>
+
+**Map Illumina reads to draft assembly**
+
+
+* Search for 'Map with BWA-MEM' in the tools panel and select
+* Parameters:
+    * ***Will you select a reference genome from your history or use a built-in index?*** - Use a genome from history and build index
+    * ***Use the following dataset as the reference sequence*** - Select your Nanopore draft assembly
+    * ***Single or Paired-end reads*** - Paired
+    * ***Select first set of reads*** - illumina_reads_1.fastq
+    * ***Select second set of reads*** - illumina_reads_2.fastq
     * Leave all else default and execute the program.
 
+<p>
+The output will be a .BAM file (Binary Alignment Map). This is tabular data recording information about how reads were aligned to the draft assembly.
+</p>
+<p>
+We can now use this output .BAM file as an input to Pilon. 
+</p>
+<br>
 
+**Polish assembly with Pilon**
 
+* Search for 'pilon' in the tools panel and select
+* Parameters:
+    * ***Select a reference genome*** - Your Nanopore draft assembly
+    * ***Input BAM file*** - The output .BAM file of BWA-MEM alignment
+    * ***Variant calling mode*** - No
+    * Leave all else default and execute the program.
 
+<p>
+Pilon gives a single output file - the polished assembly.
+</p>
+<br>
 
-        
+**Compare draft and polished assemblies**
 
+We are now interested to see how much pilon improved our draft assembly. 
 
+* Run Quast as before with the new, polished assembly - Make note of # mismatches per 100 kbp and # indels per 100 kbp. How much has our base accuracy improved?
+* Run BUSCO as before with the new, polished assembly - Have we identified more expected genes?
+
+<p>
+All going well, the polished assembly should be much higher quality than our draft. 
+</p>
+<p>
+The per-base accuracy of our assembly contigs should have markedly improved. This is reflected in the lower mismatches and indels per 100kbp reported by Quast, and the higher number of complete BUSCO genes. Our contiguity and coverage (as measured by the genome fraction (%) statistic reported by Quast) may not show the same level of improvement, as the polishing step is mainly aimed at improving per-base contig accuracy.
+</p>
+<p>
+Our next step is to use a purpose-built hybrid de novo assembly tool, and compare its performance with our sequential draft + polishing approach. 
+</p>
 
 -------------------------------
 ## Section 2: Purpose-built hybrid assembly tool - Unicycler
 
+<p>
 In this section we will use a purpose-built tool called Unicycler to perform hybrid assembly.
+</p><p>
+Unicycler uses our Nanopore and Illumina read sets together as input, and returns an assembly. Once we have created the assembly, we will assess its quality using Quast and BUSCO and compare with our previous polished assembly. We will also perform BUSCO analysis on the supplied reference genome itself, to record a baseline for our theoretical best BUSCO report. 
+</p>
 
-Our process will be:
+### Hybrid de novo assembly with Unicycler
 
-1. Perform assembly with Nanopore reads, Illumina reads + Unicycler
-2. Assess assembly quality using Quast (compare to reference genome) and BUSCO analysis
-3. Compare our two approaches
+<p>
+Unicycler performs assembly in the opposite manner to our approach. Illumina reads are used to create an assembly graph, then Nanopore reads are used to disentangle problems in the graph. The Nanopore reads serve to bridge Illumina contigs, and to reveal how the contigs are arranged sequentially in the genome. 
+</p>
+<br>
 
+**Run Unicycler**
+
+* Find Unicycler in the tools panel. It is listed as 'Create assemblies with Unicycler'
+* Run Unicycler using the Nanopore and Illumina read sets. 
+* Parameters:
+    * ***Paired or Single end data?*** - Paired
+    * ***Select first set of reads*** - illumina_reads_1.fastq
+    * ***Select second set of reads*** - illumina_reads_2.fastq
+    * ***Select long reads*** - nanopore_reads.fastq <br>
+    (if nanopore_reads.fastq does not appear in the dropdown, its datatype needs to be changed - click then pencil icon next to nanopore_reads.fastq in the history panel -> 'Datatypes' tab -> 'New Type' - fastqsanger)
+    * Leave all else default and execute the program.
+
+<p>
+Unicycler will output two files - a Final Assembly, and a Final Assembly Graph. We are interested in the Final Assembly. 
+</p>
+<br>
+
+**Comparing Unicycler assembly to Nanopore + Illumina polished assembly**
+
+<p>
+BUSCO and Quast can be used again to assess this assembly. As a purpose-built tool, it generally produces much better assemblies than our sequential approach. This is reflected as (Quast) a lower number of contigs, lower mismatches and indels per 100kb, and (BUSCO) greater number of BUSCO genes complete. 
+</p>
+<p>
+It is important to put perspective on the BUSCO analysis results. By running BUSCO on our supplied high-quality reference genome for this organism, we will gather the BUSCO analysis results for a 'theoretically' perfect assembly of the organism. This can provide more confidence in our quality esimates when using BUSCO. 
+</p>
+
+* Run BUSCO on the supplied, high-quality reference genome. 
+
+<p>
+At time of writing, these were the BUSCO results: 
+</p>
+<img src="../media/busco_reference_genome.PNG", width="400">
+
+<p>
+It seems that one BUSCO gene has two copies in the reference genome, and one other gene is fragmented. 
+</p>
+<p>
+Copy number variation is not uncommon, and so the duplicated BUSCO may not represent an assembly error.
+</p><p>
+Similarly, the fragmented BUSCO may be due to the appearence of multiple SNPs rather than sequencing error. Our organism may have experienced some mutation relative to the reference sequence for the BUSCO in question, causing it to appear 'fragmented'. 
+</p>
+
+-------------------------------
+## Conclusion
+
+<p>
+We have learned two methods for hybrid de novo assembly. The combination of long- and short-read technology is clearly powerful, represented by our ability to create a good assembly with only 25x coverage (100Mb) of Nanopore, and 50x coverage of Illumina reads (200Mb). 
+</p><p>
+To further improve our assembly, extra Nanopore read data may provide most benefit. At 50x coverage (200Mb), we may achieve a single, or few contig assembly with high per-base accuracy.
+</p><p>
+The development of new purpose-built tools for hybrid de novo assembly like Unicycler have improved the quality of assemblies we can produce. These tools are of great importance and while they already produce great results, they will continue to improve over time. 
+</p>
+<br>
 
 -------------------------------
 ## Additional reading
