@@ -2,4 +2,4 @@
 
 # Tutorials and protocols
 
-These tutorials have been developed by bioinformaticians at Melbourne Bioinformatics (formerly VLSCI). They are regularly delivered on-site or may be run in-house for your group. Many of the training materials were developed for use on the [Australian-made Genomics Virtual Laboratory](https://www.genome.edu.au/learn/) and these are used in our formal workshops and are also available for use to deliver your own workshops or for self-directed learning.
+These tutorials have been developed by bioinformaticians at Melbourne Bioinformatics where they are regularly delivered as in-house workshops. They are designed to be used for self-directed learning. Many of the training materials were developed for use on Galaxy Australia , enabling learners to easily transition from learning to doing their own data analysis. 
