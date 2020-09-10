@@ -29,7 +29,7 @@ BiocManager::install(c(“scran”, “monocle”, “vcd”))
 
 3. Download the 10X single-cell RNA-seq data from GEO (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2510617). The three data files required for the workshop are: GSM2510617_P7-barcodes.tsv.gz, GSM2510617_P7-genes.tsv.gz and GSM2510617_P7-matrix.mtx.gz, of which the download links are available at the bottom of the web page. Unzip the three data files and store them in the working directory (or a sub-folder under the working directory).
 4. Download the mouse gene annotation file from [http://bioinf.wehi.edu.au/edgeR/Mus_musculus.gene_info.gz](http://bioinf.wehi.edu.au/edgeR/Mus_musculus.gene_info.gz) and save it under the working directory. Note there is no need to unzip the file.
-5. Download gene signatures from [http://bioinf.wehi.edu.au/edgeR/BulkSignatures.RData](http://bioinf.wehi.edu.au/edgeR/BulkSignatures.RData) and save it under the working directory.
+5. Download gene signatures from [WEHI](https://protect-au.mimecast.com/s/Csc3CmOxr6sgOONRiOsSQt?domain=bioinf.wehi.edu.au) and save it under the working directory.
 6. Check downloads are correct by looking for any error messages when running the commands:
 
 ```
@@ -47,7 +47,7 @@ Important: If you have any trouble installing the software or packages, please c
 
 ## Workshop syllabus
 
-This workshop will follow [this analysis guide](http://bioinf.wehi.edu.au/edgeR/10X.pdf).
+This workshop will follow [this analysis guide](http://bioinf.wehi.edu.au/edgeR/10XWorkshop/10X.pdf).
 
 ## Additional single-cell analysis links
 
