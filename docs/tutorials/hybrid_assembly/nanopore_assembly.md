@@ -1,4 +1,4 @@
-<img src="../media/melbioinf_logo.png" width="350"> <img src="../media/PRIMARY_A_Vertical_Housed_RGB.png" width="150">
+<img src="media/melbioinf_logo.png" width="350"> <img src="media/PRIMARY_A_Vertical_Housed_RGB.png" width="150">
 
 # Hybrid genome assembly - nanopore and illumina
 
@@ -98,7 +98,7 @@ We will perform assembly, then assess the quality of our assembly using two tool
     * Navigate to the [Galaxy Australia server](https://usegalaxy.org.au/) and sign in if you have an account. 
 2. **Copy an existing history**
     * The data you will need is available in an existing Galaxy history. You can create a copy of this history by clicking [here](https://usegalaxy.org.au/u/graceh1024/h/hybrid-de-novo-assembly) and using the import history '+' icon at the top right of the page. <br>
-    <img src="../media/import_history.PNG" width="700">
+    <img src="media/import_history.PNG" width="700">
 3. **Look at the history you imported**
     * There are 4 files - Nanopore reads, a set of paired-end Illumina reads, and a reference genome for the organism we will assemble.
     * Will we use this reference genome to assess the quality of our assemblies and judge which methods work best. 
@@ -135,7 +135,7 @@ The supplied reference genome allows a direct comparison. We can use a tool call
 * Execute Quast by clicking 'execute' at the bottom of the page. 
 * We are mainly interested in one of the outputs - the HTML report
 * Open the report. It may look something like this:<br><br>
-<img src="../media/quast_draft_assembly.PNG" width="300">
+<img src="media/quast_draft_assembly.PNG" width="300">
 * Note the Genome fraction (%), # mismatches per 100 kbp, # indels per 100 kbp and # contigs information. 
 
 <p>
@@ -160,11 +160,11 @@ BUSCO genes are specifically selected for each taxonomic clade, and represent a 
 * Leave all else default and execute the program.
 
 After the program has run, look at the 'short summary' output. It may look something like this:<br><br>
-<img src="../media/busco_draft_assembly.PNG" width="400">
+<img src="media/busco_draft_assembly.PNG" width="400">
 <p>
 The 'full table' is also useful. It gives a detailed list of the genes we are searching for, and information about whether they would missing, fragmented, or complete in our assembly.
 </p>
-<img src="../media/busco_table_draft_assembly.PNG">
+<img src="media/busco_table_draft_assembly.PNG">
 <p>
 It seems that most expected genes are missing or fragmented in our assembly. It is likely that the frequent errors in our draft assembly are causing this result. We should be able improve our assembly with the Illumina reads available and correct some of these errors.
 </p><p>
@@ -275,7 +275,7 @@ It is important to put perspective on the BUSCO analysis results. By running BUS
 <p>
 At time of writing, these were the BUSCO results: 
 </p>
-<img src="../media/busco_reference_genome.PNG", width="400">
+<img src="media/busco_reference_genome.PNG", width="400">
 
 <p>
 It seems that one BUSCO gene has two copies in the reference genome, and one other gene is fragmented. 
