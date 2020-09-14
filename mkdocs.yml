@@ -18,6 +18,46 @@ copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioin
 
 pages:
 - 'Home': 'index.md'
+- 'Introduction to tools and basic skills':
+  - 'What is bioinformatics?': 'guides/bioinfo.md'
+  - 'Introduction to the Galaxy Platform': 'guides/galaxy.md'
+  - 'Introduction to Galaxy Workflows': 'tutorials/galaxy-workflows/galaxy-workflows.md'
+  - 'Introduction to Python': 'tutorials/python_overview/python_overview.md'
+  - 'Introduction to Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
+  - 'Introduction to HPC': 'tutorials/hpc/hpc.md'
+  - 'Introduction to Unix': 'tutorials/unix/unix.md'
+  - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
+- 'Data skills development':
+  - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
+  - 'Common Workflow Language for Bioinformatics': 'tutorials/cwl/cwl.md'
+  - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
+- 'Genomics':
+  -'Variant detection':
+    - 'Introduction to Variant detection': 'tutorials/var_detect_advanced/var_detect_advanced_background.md'
+    - 'Variant Calling part 1 (Galaxy)': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
+    - 'Variant Calling part 2 (Galaxy)': 'tutorials/var_detect_advanced/var_detect_advanced.md'
+  -'de novo assembly':
+    - 'Introduction to de novo assembly with Velvet': 'tutorials/assembly/assembly-background.md'
+    - 'Introduction to de novo genome assembly for Illumina reads': 'tutorials/assembly/assembly-protocol.md'
+    - 'de novo assembly of Illumina reads using Velvet (Galaxy)': 'tutorials/assembly/assembly.md'
+    - 'de novo assembly of Illumina reads using Spades (Galaxy)': 'tutorials/assembly/spades.md'
+    - 'de novo assembly of PacBio reads (unix)': 'tutorials/pacbio/index.md'
+- 'Transcriptomics':
+  - 'RNAseq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
+  - 'Bulk RNAseq':
+    - 'Introduction to bulk RNAseq analysis': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
+    - 'RNAseq analysis using HISAT2 in Galaxy': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tutorial.md'
+    - 'RNAseq analysis using Tuxedo in Galaxy': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tuxedo.md'
+    - 'RNAseq differential expression tool comparision': 'tutorials/rna_seq_dge_advanced/rna_seq_advanced_tutorial.md'
+    - 'RNAseq differential expression in R': 'tutorials/rna_seq_dge_in_r/rna_seq_r.md'
+  - 'Singlecell RNAseq':
+    - '10X single-cell RNA-seq analysis in R': 'tutorials/singlecell/index.md'
+- 'Proteomics':
+- 'Metabolomics':
+- 'Statistics and Visualisation':
+  - 'Data visualisation with Python': 'tutorials/python_viz/python_viz.md'
+- 'Structural Modelling'
+
 - 'Guides':
     - 'What is bioinformatics?': 'guides/bioinfo.md'
     - 'The Galaxy platform': 'guides/galaxy.md'
