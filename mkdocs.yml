@@ -37,6 +37,7 @@ pages:
   - 'Common Workflow Language for Bioinformatics': 'tutorials/cwl/cwl.md'
   - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
 - 'Genomics Tutorials':
+  - 'Hybrid genome assembly - Nanopore and Illumina': 'tutorials/hybrid_assembly/nanopore_assembly.md'
   - 'Introduction to Variant Calling': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
   - 'Variant Calling Advanced':
     - 'Tutorial': 'tutorials/var_detect_advanced/var_detect_advanced.md'

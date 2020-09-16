@@ -6,3 +6,4 @@ site/
 mkdocs/
 .DS_Store
 mkdocs_dev/
+mkdocs.yml
