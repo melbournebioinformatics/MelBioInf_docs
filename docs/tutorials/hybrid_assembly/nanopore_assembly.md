@@ -92,6 +92,8 @@ Most bacteria are unculturable. The genomes of these organisms must be assembled
 In this section you will use Flye to create a draft genome assembly from Nanopore reads. <br />
 We will perform assembly, then assess the quality of our assembly using two tools: Quast, and BUSCO. 
 
+<img src="media/nanopore_illumina_hybrid_assembly.png">
+
 ### Getting the data
 
 1. **Make sure you have an instance of Galaxy ready to go.**
@@ -160,7 +162,7 @@ BUSCO genes are specifically selected for each taxonomic clade, and represent a 
 * Leave all else default and execute the program.
 
 After the program has run, look at the 'short summary' output. It may look something like this:<br><br>
-<img src="media/busco_draft_assembly.PNG" width="400">
+<img src="media/busco_draft_assembly.PNG" width="400"> 
 <p>
 The 'full table' is also useful. It gives a detailed list of the genes we are searching for, and information about whether they would missing, fragmented, or complete in our assembly.
 </p>
@@ -236,6 +238,9 @@ In this section we will use a purpose-built tool called Unicycler to perform hyb
 </p><p>
 Unicycler uses our Nanopore and Illumina read sets together as input, and returns an assembly. Once we have created the assembly, we will assess its quality using Quast and BUSCO and compare with our previous polished assembly. We will also perform BUSCO analysis on the supplied reference genome itself, to record a baseline for our theoretical best BUSCO report. 
 </p>
+
+<img src="media/unicycler_hybrid_assembly.png">
+
 
 ### Hybrid de novo assembly with Unicycler
 
