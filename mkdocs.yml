@@ -16,59 +16,53 @@ extra_css:
 
 copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
 
-pages:
-- 'Home': 'index.md'
-- 'Guides':
-    - 'What is bioinformatics?': 'guides/bioinfo.md'
-    - 'The Galaxy platform': 'guides/galaxy.md'
-- 'General Tutorials':
-  - 'Python Overview': 'tutorials/python_overview/python_overview.md'
-  - 'Data tidying with Python and Pandas': 'tutorials/python_pandas_tidy_data/python_pandas_tidy_data.md'
-  - 'Data visualisation with Python': 'tutorials/python_viz/python_viz.md'
-  - 'Using Git and Github for revision control': 'tutorials/using_git/Using_Git.md'
-  - 'Introduction to HPC': 'tutorials/hpc/hpc.md'
-  - 'Introduction to Unix': 'tutorials/unix/unix.md'
-  - 'Launching a Personal GVL Server': 'tutorials/gvl_launch/gvl_launch.md'
-  - 'Introduction to Galaxy': 'tutorials/galaxy_101/galaxy_101.md'
-  - 'Galaxy Workflows':
-    - 'Tutorial': 'tutorials/galaxy-workflows/galaxy-workflows.md'
-    - 'History Creation': 'tutorials/galaxy-workflows/history_creation.md'
-  - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
-  - 'Common Workflow Language for Bioinformatics': 'tutorials/cwl/cwl.md'
-  - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
-- 'Genomics Tutorials':
-  - 'Hybrid genome assembly - Nanopore and Illumina': 'tutorials/hybrid_assembly/nanopore_assembly.md'
-  - 'Introduction to Variant Calling': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
-  - 'Variant Calling Advanced':
-    - 'Tutorial': 'tutorials/var_detect_advanced/var_detect_advanced.md'
-    - 'Background': 'tutorials/var_detect_advanced/var_detect_advanced_background.md'
-  - 'RNA-seq DGE in Galaxy':
-    - 'Basic Tutorial': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tutorial.md'
-    - 'Tuxedo Protocol Tutorial': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tuxedo.md'
-    - 'Background': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
-    - 'Advanced Tutorial': 'tutorials/rna_seq_dge_advanced/rna_seq_advanced_tutorial.md'
-  - 'RNA-seq DGE Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
-  - 'RNA-seq DGE in R': 'tutorials/rna_seq_dge_in_r/rna_seq_r.md'
-  - '10X single-cell RNA-seq analysis in R': 'tutorials/singlecell/index.md'
-  - 'Microbial de novo Assembly for Illumina Data: Velvet':
-    - 'Tutorial': 'tutorials/assembly/assembly.md'
-    - 'Method Background': 'tutorials/assembly/assembly-background.md'
-  - 'Microbial assembly: Spades': 'tutorials/assembly/spades.md'
-  - 'Long read assembly': 'tutorials/pacbio/index.md'
-- 'Proteomics Tutorials':
-  - 'Identifying proteins from mass spectrometry data':
-    - 'Tutorial' : 'tutorials/proteomics_basic/proteomics_basic.md'
-    - 'Galaxy Background' : 'tutorials/proteomics_basic/background_galaxy.md'
-    - 'Data Formats Background' : 'tutorials/proteomics_basic/background_data_formats.md'
-    - 'Create find count items workflow' : 'tutorials/proteomics_basic/background_findcountitems_workflow.md'
-    - 'Protein Databases' : 'tutorials/proteomics_basic/background_protein_databases.md'
-    - 'Search Engines' : 'tutorials/proteomics_basic/background_search_engines.md'
-    - 'Protein Prophet' : 'tutorials/proteomics_basic/background_protein_prophet.md'
-- 'Molecular Modelling Tutorials':
-  - 'Molecular Dynamics - Introduction to cluster computing': 'tutorials/molecular_dynamics_101/molecular_dynamics_101.md'
-  - 'Molecular Dynamics - Building input files, visualising the trajectory': 'tutorials/molecular_dynamics_201/molecular_dynamics_201.md'
-- 'Protocols':
-  - 'De Novo Genome Assembly for Illumina Data': 'tutorials/assembly/assembly-protocol.md'
+nav:
+    - Home: 'index.md'
+    - 'Tools and basic skills':
+        - 'What is Bioinformatics?': 'guides/bioinfo.md'
+        - 'Introduction to the Galaxy Platform': 'guides/galaxy.md'
+        - 'Introduction to Galaxy Workflows': 'tutorials/galaxy-workflows/galaxy-workflows.md'
+        - 'Introduction to Python': 'tutorials/python_overview/python_overview.md'
+        - 'Introduction to Git and Github': 'tutorials/using_git/Using_Git.md'
+        - 'Introduction to HPC': 'tutorials/hpc/hpc.md'
+        - 'Introduction to Unix': 'tutorials/unix/unix.md'
+        - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
+    - 'Skills development':
+        - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
+        - 'Common Workflow Language for Bioinformatics': 'tutorials/cwl/cwl.md'
+        - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
+    - 'Genomics':
+        - 'Variant detection':
+            - 'Introduction to Variant detection': 'tutorials/var_detect_advanced/var_detect_advanced_background.md'
+            - 'Variant Calling part 1 (Galaxy)': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
+            - 'Variant Calling part 2 (Galaxy)': 'tutorials/var_detect_advanced/var_detect_advanced.md'
+        - 'de novo assembly':
+            - 'Introduction to de novo assembly with Velvet': 'tutorials/assembly/assembly-background.md'
+            - 'Introduction to de novo genome assembly for Illumina reads': 'tutorials/assembly/assembly-protocol.md'
+            - 'de novo assembly of Illumina reads using Velvet (Galaxy)': 'tutorials/assembly/assembly.md'
+            - 'de novo assembly of Illumina reads using Spades (Galaxy)': 'tutorials/assembly/spades.md'
+            - 'de novo assembly of PacBio reads (unix)': 'tutorials/pacbio/index.md'
+    - 'Transcriptomics':
+        - 'RNAseq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
+        - 'Bulk RNAseq':
+            - 'Introduction to bulk RNAseq analysis': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
+            - 'RNAseq analysis using HISAT2 (Galaxy)': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tutorial.md'
+            - 'RNAseq analysis using Tuxedo (Galaxy)': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tuxedo.md'
+            - 'RNAseq differential expression tool comparision (Galaxy)': 'tutorials/rna_seq_dge_advanced/rna_seq_advanced_tutorial.md'
+            - 'RNAseq differential expression in R': 'tutorials/rna_seq_dge_in_r/rna_seq_r.md'
+        - 'Singlecell RNAseq':
+            - '10X single-cell RNA-seq analysis in R': 'tutorials/singlecell/index.md'
+    - 'Proteomics':
+        - 'Identifying proteins from mass spectrometry data': 'tutorials/proteomics_basic/proteomics_basic.md'
+        - 'Data Formats Background' : 'tutorials/proteomics_basic/background_data_formats.md'
+        - 'Protein Databases' : 'tutorials/proteomics_basic/background_protein_databases.md'
+        - 'Search Engines' : 'tutorials/proteomics_basic/background_search_engines.md'
+        - 'Protein Prophet' : 'tutorials/proteomics_basic/background_protein_prophet.md'
+    - 'Statistics and Visualisation':
+        - 'Data visualisation with Python': 'tutorials/python_viz/python_viz.md'
+    - 'Structural Modelling':
+        - 'Molecular Dynamics - Introduction to cluster computing': 'tutorials/molecular_dynamics_101/molecular_dynamics_101.md'
+        - 'Molecular Dynamics - Building input files, visualising the trajectory': 'tutorials/molecular_dynamics_201/molecular_dynamics_201.md'
 
 extra_templates: [
   'tutorials/hpc/slides.html',
