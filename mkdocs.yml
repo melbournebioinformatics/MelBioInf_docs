@@ -18,7 +18,7 @@ copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioin
 
 nav:
     - Home: 'index.md'
-    - 'Tools and basic skills':
+    - 'Tools and skill development':
         - 'What is Bioinformatics?': 'guides/bioinfo.md'
         - 'Introduction to the Galaxy Platform': 'guides/galaxy.md'
         - 'Introduction to Galaxy Workflows': 'tutorials/galaxy-workflows/galaxy-workflows.md'
@@ -27,7 +27,6 @@ nav:
         - 'Introduction to HPC': 'tutorials/hpc/hpc.md'
         - 'Introduction to Unix': 'tutorials/unix/unix.md'
         - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
-    - 'Skills development':
         - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
         - 'Common Workflow Language for Bioinformatics': 'tutorials/cwl/cwl.md'
         - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
@@ -42,6 +41,7 @@ nav:
             - 'de novo assembly of Illumina reads using Velvet (Galaxy)': 'tutorials/assembly/assembly.md'
             - 'de novo assembly of Illumina reads using Spades (Galaxy)': 'tutorials/assembly/spades.md'
             - 'de novo assembly of PacBio reads (unix)': 'tutorials/pacbio/index.md'
+            - 'Hybrid genome assembly - Nanopore and Illumina': 'tutorials/hybrid_assembly/nanopore_assembly.md'
     - 'Transcriptomics':
         - 'RNAseq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
         - 'Bulk RNAseq':
