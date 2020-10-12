@@ -1,4 +1,4 @@
-<img src="../media/melbioinf_logo.png" width="350"> <img src="../media/PRIMARY_A_Vertical_Housed_RGB.png" width="150">
+<img src="media/melbioinf_logo.png" width="350"> <img src="media/PRIMARY_A_Vertical_Housed_RGB.png" width="150">
 
 # Introduction to Genome Browsers
 
@@ -162,7 +162,7 @@ Toolbar / Help / Training /
 ### Getting started
 1. **Open the Browser interface:**
     * Navigate to the [UCSC genome Browser](https://genome.ucsc.edu/) and sign in if you have an account.
-        <img src="../media/UCSC_home.PNG" width="700">
+<img src="media/UCSC_home.PNG" width="700">
 2. **First reset the browser, so that we all see the same screen:**
     * Toolbar / Genome Browser / Reset all user settings
 3. **Select and open the human Genome Hg38 at the default position, there are a few different ways to do this**
@@ -171,7 +171,7 @@ Toolbar / Help / Training /
     * Toolbar / Genomes / Human GRCh38hg38 (takes you directly to the genome)
 
     You should see this screen, opening at a position on the X chromosome of Human genome version GRCh38 showing the gene model for the ACE2 gene.
-<img src="../media/UCSC_Hg38_opening.PNG" width="700">
+<img src="media/UCSC_Hg38_opening.PNG" width="700">
 
 4. **Familiarise yourself with the main areas of the interface and locate:**
     * The main Toolbar
