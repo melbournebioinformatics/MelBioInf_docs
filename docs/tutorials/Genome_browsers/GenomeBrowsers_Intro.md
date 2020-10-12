@@ -170,9 +170,8 @@ Toolbar / Help / Training /
         *  Ensure that GRCh38 is selected in 'human assembly' box and click on the blue "GO" box
     * Toolbar / Genomes / Human GRCh38hg38 (takes you directly to the genome)
 
-
     You should see this screen, opening at a position on the X chromosome of Human genome version GRCh38 showing the gene model for the ACE2 gene.
-    <img src="../media/UCSC_Hg38_opening.PNG" width="700">
+<img src="../media/UCSC_Hg38_opening.PNG" width="700">
 
 4. **Familiarise yourself with the main areas of the interface and locate:**
     * The main Toolbar
@@ -195,7 +194,7 @@ Toolbar / Help / Training /
     * Turn off individual tracks by right clicking on the grey bar for the track, or the track title in the genome view, and selecting 'hide'. If you accidentally hide the 'Alt haplotype' track you can turn it on again from the 'Mapping and Sequencing' Blue bar collection. (Don't forget to click on 'refresh' when turning on tracks)
     * As you are zooming out note the change in the red line in the chromosome ideogram and how many bp are covered in the genome view.
     * if you zoom out so that you are viewing the whole chromosome X in the genome view, how many alternate haplotypes are included in the datatrack. Hint: switch between the 'dense' and 'full' view of the track.
-        <img src="../media/UCSC_trackview.PNG" width="700">
+<img src="../media/UCSC_trackview.PNG" width="700">
     * Zoom in one one of these haplotypes by selecting the region in the number track at the top. then find out what the different colours signify in the colouring scheme by viewing the configuration page specific to this track.  The configuration page gives you a lot of information about the data track and its colouring. You can open the configuration page for a track by:
         * clicking on the grey bar for the track or,
         * clicking on the track title in the Blue bar collection.
@@ -224,7 +223,7 @@ Toolbar / Help / Training /
     * Turn on only the Genecode v32 Genemodels in 'Full' viewing mode by selecting from the blue bar group labeled 'Genes and Gene predictions'. (Dont forget to click 'refresh')
     * Type NTRK2 in the position box.
     * navigate to the NTRK2 gene, zoom out until you can view all of the 5' UTRs and 3' UTRs for all transcript variants for this gene. Then drag the view left and right to center (like in Google maps) or select the region to center the gene in the Genome view.
-        <img src="../media/UCSC_NTRK2_GENCODE.PNG" width="700">
+<img src="../media/UCSC_NTRK2_GENCODE.PNG" width="700">
 
     * Which strand is the gene encoded on / transcribed from? (+ or - strand)
     * Identify the exons, introns and UTRs
@@ -293,30 +292,10 @@ Most obvious in the images above is the high level of expression signal using Pr
 
 In this section we will ...
 
-Examine the new file by clicking on its <img src="../media/Galaxy-view.png" width=20 /> icon. We now have 2 columns instead of the 18 in the original file.
-
 **1. Subheadding.**
 
 * From the tool panel, click on **Text Manipulation -> Remove beginning** and set the following:
 * "Remove First": *1*
-
-Note the the new file is the same as the previous one without the header line.
-
-**2. Make a histogram.**
-
-* From the tool panel, click on **Graph/Display Data -> Histogram** and set the following:
-* "Dataset": *Remove beginning on Data X*
-* "Numerical column for X axis": *c2*
-
-
-Click on the <img src="../media/Galaxy-view.png" width=20 /> icon of the histogram to have a look at it. Note there are a few peaks. Maybe these correspond to single, double and triple copy number of these contigs.
-
-**3. Calculate summary statistics for contig coverage depth.**
-
-* From the tool panel, click on **Statistics -> Summary Statisitics** and set the following:
-* "Summary statistics on": *Remove beginning on Data X*
-
-
 
 ### Example 2: Convert Fastq to Fasta
 
