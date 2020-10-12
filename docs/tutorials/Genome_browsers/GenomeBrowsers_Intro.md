@@ -162,7 +162,7 @@ Toolbar / Help / Training /
 ### Getting started
 1. **Open the Browser interface:**
     * Navigate to the [UCSC genome Browser](https://genome.ucsc.edu/) and sign in if you have an account.<br>
-<img src="../media/UCSC_home.PNG" width="700">
+<img src="../media/UCSC_Home.png" width="700">
 2. **First reset the browser, so that we all see the same screen:**
     * Toolbar / Genome Browser / Reset all user settings
 3. **Select and open the human Genome Hg38 at the default position, there are a few different ways to do this**
@@ -171,7 +171,7 @@ Toolbar / Help / Training /
     * Toolbar / Genomes / Human GRCh38hg38 (takes you directly to the genome)
 
     You should see this screen, opening at a position on the X chromosome of Human genome version GRCh38 showing the gene model for the ACE2 gene.
-<img src="../media/UCSC_Hg38_opening.PNG" width="700">
+<img src="../media/UCSC_Hg38_opening.png" width="700">
 
 4. **Familiarise yourself with the main areas of the interface and locate:**
     * The main Toolbar
@@ -194,7 +194,7 @@ Toolbar / Help / Training /
     * Turn off individual tracks by right clicking on the grey bar for the track, or the track title in the genome view, and selecting 'hide'. If you accidentally hide the 'Alt haplotype' track you can turn it on again from the 'Mapping and Sequencing' Blue bar collection. (Don't forget to click on 'refresh' when turning on tracks)
     * As you are zooming out note the change in the red line in the chromosome ideogram and how many bp are covered in the genome view.
     * if you zoom out so that you are viewing the whole chromosome X in the genome view, how many alternate haplotypes are included in the datatrack. Hint: switch between the 'dense' and 'full' view of the track.
-<img src="../media/UCSC_trackview.PNG" width="700">
+<img src="../media/UCSC_trackview.png" width="700">
     * Zoom in one one of these haplotypes by selecting the region in the number track at the top. then find out what the different colours signify in the colouring scheme by viewing the configuration page specific to this track.  The configuration page gives you a lot of information about the data track and its colouring. You can open the configuration page for a track by:
         * clicking on the grey bar for the track or,
         * clicking on the track title in the Blue bar collection.
@@ -223,7 +223,7 @@ Toolbar / Help / Training /
     * Turn on only the Genecode v32 Genemodels in 'Full' viewing mode by selecting from the blue bar group labeled 'Genes and Gene predictions'. (Dont forget to click 'refresh')
     * Type NTRK2 in the position box.
     * navigate to the NTRK2 gene, zoom out until you can view all of the 5' UTRs and 3' UTRs for all transcript variants for this gene. Then drag the view left and right to center (like in Google maps) or select the region to center the gene in the Genome view.
-<img src="../media/UCSC_NTRK2_GENCODE.PNG" width="700">
+<img src="../media/UCSC_NTRK2_GENCODE.png" width="700">
 
     * Which strand is the gene encoded on / transcribed from? (+ or - strand)
     * Identify the exons, introns and UTRs
@@ -255,12 +255,12 @@ Below are sequences of two hybridisation probes that were use in a microarray us
 ***NTRK2 Probe A_23_P216779 sequence:***</br>
 **TTCTATACTCTAATCAGCACTGAATTCAGAGGGTTTGACTTTTTCATCTATAACACAGTG**</br>
 Z score of expression level in Human brain (blue = low expression, red = high expression)
-<img src="../media/ABA_P216779.PNG" width="700">
+<img src="../media/ABA_P216779.png" width="700">
 
 ***NTRK2 Probe A_24_P343559 sequence***</br>
 **AAGCTGCTCTCCTTCACTCTGACAGTATTAACATCAAAGACTCCGAGAAGCTCTCGAGGG**</br>
 Z score of expression level in Human brain (blue = low expression, red = high expression)
-<img src="../media/ABA_P343559.PNG" width="700">
+<img src="../media/ABA_P343559.png" width="700">
 
 ***The images above are of one of the six donors included in the atlas, and typical of the expression pattern for NTRK2. These images are taken from the [NTRK2 gene page of Human Brain Atlas](http://human.brain-map.org/microarray/gene/show/4884).***
 
