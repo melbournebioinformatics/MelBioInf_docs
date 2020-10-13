@@ -399,7 +399,7 @@ For each SRA run in the table below open the link to the run to down load the da
         * Select the tracks you want in your final image.
         * There are some data filtering and style adjustments you can make to the Sashimi plot. Right click on each track to access the menu options. Some changes apply to each track individually and some to all tracks.
             *
-<img src="../media/sashimi.png" width="700">
+<img src="../media/Sashimi.png" width="700">
 
 5. **Download and install the Gencode gene model annotation track**
     * The refseq gene model track is not as comprehensive as GeneGode gene models. For both Human and Mouse the Gencode gene model gtf annotaion files can be downloaded form [Gencode](https://www.gencodegenes.org/mouse/). If you wish to do this be aware that it takes a little time and is not  done as part of a workshop.
