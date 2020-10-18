@@ -81,8 +81,9 @@ This workshop has been developed collaboratively by training specialists at Pete
 -------------------------------
 
 ## Workshop Material
-
-Download the PDF with detailed workshop instructions [here](https://raw.githubusercontent.com/melbournebioinformatics/r-intro-biologists/master/intro_r_biologists.pdf). Hyperlinks to the required data are also included in the PDF.
+Detailed workshop material, including links for data download, are available as both:
+* [HTML version](https://melbournebioinformatics.github.io/r-intro-biologists/intro_r_biologists.html)
+* [PDF version](https://raw.githubusercontent.com/melbournebioinformatics/r-intro-biologists/master/intro_r_biologists.pdf)
 
 -------------------------------
 ## Additional reading
