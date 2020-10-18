@@ -26,6 +26,7 @@ nav:
         - 'Introduction to Git and Github': 'tutorials/using_git/Using_Git.md'
         - 'Introduction to HPC': 'tutorials/hpc/hpc.md'
         - 'Introduction to Unix': 'tutorials/unix/unix.md'
+        - 'Introduction to R for Biologists': 'tutorials/intro_R_biologists/intro_R_biologists.md'
         - 'Introduction to Genome Browsers': 'tutorials/Genome_browsers/GenomeBrowsers_Intro.md'
         - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
         - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
