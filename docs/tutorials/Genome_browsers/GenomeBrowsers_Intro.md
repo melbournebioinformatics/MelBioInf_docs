@@ -412,3 +412,77 @@ For each SRA run in the table below open the link to the run to down load the da
 
 **IGV**
 https://rockefelleruniversity.github.io/IGV_course/presentations/singlepage/IGV.html
+
+## Formatting
+
+## Questions and Answers
+
+It is useful to number questions with the section number they appear in so participants can easily refer to the number when asking a question.
+Indentation is important to display correctly.
+
+
+!!! question "Question 1.1"
+    What is the full path name of your home directory?
+
+    ??? hint "Hint"
+        Remember your Current Working Directory starts in your home directory.
+
+    ??? success "Answer"
+        You can find out the full path name of the current working directory with the `pwd` command. Your home directory will look something like this:
+
+        ```Bash
+        $ pwd
+        /home/trainingXX
+
+        ```
+
+!!! question "Question 1.1"
+    What is the full path name of your home directory?
+
+    ??? success "Answer"
+        You can find out the full path name of the current working directory with the `pwd` command. Your home directory will look something like this:
+
+
+-------------------------------
+## Blockquotes
+
+> This is a quote. Two spaces are needed at the end of this to make next line of quote appear on a different line.    
+> This is the second line of quote.
+
+
+-------------------------------
+## Text including commands to type
+
+Type `ls` and press `ENTER`.
+
+
+------------------------------
+## When referring to a filename
+
+<fn>canu.contigs.fasta</fn> contains the assembled sequences.
+
+
+## Showing that a button needs clicking
+
+Click <ss>Start</ss>
+
+-------------------------------
+## Highlighting text
+
+==This text is highlighted.==
+
+
+## Text formatting
+
+**Bold**  
+*Italics*  
+***Bold Italics***
+
+
+-------------------------------
+## Headings (This is 2nd level)
+
+### The 3rd level
+#### The 4th level
+##### The 5th level
+###### The 6th level
