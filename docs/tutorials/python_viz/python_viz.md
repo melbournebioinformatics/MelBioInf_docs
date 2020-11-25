@@ -29,4 +29,4 @@ You should install the Anaconda Python distribution before attending:
 
 This workshop is implemented as a set of Jupyter Notebooks, and we will use (and introduce) Jupyter during the workshop.
 
-You can find all notebooks and data in [this github repository](https://github.com/claresloggett/data_tidying_and_visualisation). For this workshop, we will use the Seaborn_Matplotlib.ipynb and Altair.ipynb notebooks.
+You can find all notebooks and data in this github [repository](https://github.com/melbournebioinformatics/data_tidying_and_visualisation.git). For this workshop, we will use the Seaborn_Matplotlib.ipynb and Altair.ipynb notebooks.
