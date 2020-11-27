@@ -30,15 +30,16 @@ This workshop is designed for participants with no command line knowledge. A web
 
 ### Description
 
-*Assemble a genome!<br>Learn how to create and assess the quality of high-quality genome assemblies using the powerful combination of nanopore and illumina reads*
+*Assemble a genome!<br>Learn how to create and assess genome assemblies using the powerful combination of nanopore and illumina reads* 
 
-This tutorial explores how long and short read data can be combined to produce a high-quality 'finished' bacterial genome sequence. We will use read data produced from two different sequencing platforms, Illumina (short read) and Nanopore (long read) to reconstruct the bacterial genome sequence, hence the term 'hybrid assembly'.  Differences in genetic content between bacterial isolates means that it not possible to use the reference based assembly methods used for human genomics (read mapping methods); the reference-free approach is termed '*de novo* assembly'.
+This tutorial explores how long and short read data can be combined to produce a high-quality 'finished' bacterial genome sequence. Termed 'hybrid assembly', we will use read data produced from two different sequencing platforms, Illumina (short read) and Oxford Nanopore Technologies (long read), to reconstruct a bacterial genome sequence.
 
-Using short read data (Illumina) alone for *de novo* assembly will produce a complete genome, but in pieces (commonly called a 'draft genome'). For the genome to be assembled into a single chromosome (plus a sequence for each plasmid), reads would need to be longer than the longest repeated element on the genome (usually ~7,000 base pairs, Note: Illumina reads are 350 base maximum).
+In this tutorial we will perform '*de novo* assembly'. De novo assembly is the process of assembling a genome from scratch using only the sequenced reads as input - no reference genome is used.  This approach is common practise when working with microorganisms, and has seen increasing use for eukaryotes (including humans) in recent times.  
 
-Draft bacterial genome sequences are cheap to produce (less than AUD$60) and useful (>300,000 draft *Salmonella enterica* genome sequences published at NCBI https://www.ncbi.nlm.nih.gov/pathogens/organisms/), but sometimes you need a high-quality 'finished' bacterial genome sequence e.g. comparative genomics (there are <1,000 are 'finished' or 'closed' *Salmonella enterica* genome sequences).
+Using short read data (Illumina) alone for *de novo* assembly will produce a complete genome, but in pieces (commonly called a 'draft genome'). For the genome to be assembled into a single chromosome (plus a sequence for each plasmid), reads would need to be longer than the longest repeated element on the genome (usually ~7,000 base pairs, Note: Illumina reads are 350 base maximum).   Draft bacterial genome sequences are cheap to produce (less than AUD$60) and useful (>300,000 draft *Salmonella enterica* genome sequences published at NCBI https://www.ncbi.nlm.nih.gov/pathogens/organisms/), but sometimes you need a high-quality 'finished' bacterial genome sequence.  There are <1,000 are 'finished' or 'closed' *Salmonella enterica* genome sequences.
 
-Nanopore long reads (commonly >40,000 bases and upto 1,000,000 bases) easily span the longest repeated elements and de novo assembly will result in a single contig for each replicon (chromosome and plasmids), but the nanopore reads have more errors (systematic errors - often homopolymer sequence errors) than occur in Illumina reads (Illumina errors are usually random).
+
+In these cases, long reads can be used together with short reads to produce a high-quality assembly.  Nanopore long reads (commonly >40,000 bases and upto 1,000,000 bases) easily span the longest repeated elements, and reveal how all the genome fragments should be arranged. Long reads currently have higher error rate than short reads, so the combination of technologies allows each to shine. Long reads provide information on the genome structure, and short reads provide high base-level accuracy.  
 
 Combining read data from the long and short read sequencing platforms allows the production of a complete genome sequence with very few sequence errors, but the cost of the read data is about AUD$ 1,000 to produce the sequence. Understanably, we usually produce a draft genome sequence with very few sequence errors using the Illumina sequencing platform.
 
@@ -54,7 +55,7 @@ Nanopore sequencing technology is rapidly improving, expect the cost difference 
 -------------------------------
 ## Learning Objectives
 
-At the end of this introductory workshop, you will :
+At the end of this introductory workshop, you will:
 
 * Understand how Nanopore and Illumina reads can be used together to produce a high quality assembly
 * Be familiar with genome assembly and polishing programs
@@ -92,7 +93,7 @@ Created/Reviewed: September 2020
 
 ### How do we produce the genomic DNA for a bacterial isolate?
 
-Traditional *in vitro* culture techniques are important. Take a sample (e.g. a swab specimen from an infected sore) and streak a 'loopful' on to solid growth medium that suppoprts the growth of the bacterial pathogen. **Technology from the time of Louis Pasteur!**
+Traditional *in vitro* culture techniques are important. Take a sample (e.g. a swab specimen from an infected sore) and streak a 'loopful' on to solid growth medium that suppoprts the growth of the bacteria. **Technology from the time of Louis Pasteur!**
 
 Mixtures of bacterial types can be sequenced e.g. prepare genomic DNA from environmental samples containing bacteria - water, soil, faecal samples etc. (Whole Metagenome Sequencing)
 
