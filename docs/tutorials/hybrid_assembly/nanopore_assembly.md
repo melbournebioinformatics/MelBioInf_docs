@@ -28,6 +28,8 @@ For queries relating to this workshop, contact Melbourne Bioinformatics (bioinfo
 This workshop is designed for participants with no command line knowledge. A web-based platform called Galaxy will be used to run our analysis.
 
 
+How do long- and short-read assembly methods differ?
+
 ### Description
 
 *Assemble a genome!<br>Learn how to create and assess genome assemblies using the powerful combination of nanopore and illumina reads* 
@@ -257,6 +259,39 @@ The per-base accuracy of our assembly contigs should have markedly improved. Thi
 Our next step is to use a purpose-built hybrid de novo assembly tool, and compare its performance with our sequential draft + polishing approach.
 </p>
 
+<br>
+
+## Section Questions
+
+Which read set - short or long - was used to create our draft?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+Long reads (Nanopore) were used to create the draft. Nanopore reads allow excellent recreation of the proper structure of the genome, and adequately handle repeat regions.  
+</details>
+
+How was the draft polished?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+Illumina reads have higher per-base accuracy than Nanopore. Illumina reads were aligned to the draft assembly, then Pilon used this alignment information to improve locations with errors in the assembly. 
+</details>
+
+How does Quast inform on assembly quality?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+Quast shows summary information about the assembly contigs. If a reference genome is given, it informs the genome fraction (how much of the reference is covered by the assembly), if any genomic regions appear duplicated, and error information including the rate of mismatches and indels.
+</details>
+
+How does BUSCO inform on assembly quality?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+BUSCO does not use a reference genome to compare. It attempts to locate key genes which should be present in the assembly, and reports whether it could/could not find those genes. If a key gene is found, it reports whether the gene was fragmented (errors) or complete. 
+</details>
+
+<br>
 -------------------------------
 ## Section 2: Purpose-built hybrid assembly tool - Unicycler
 
@@ -317,6 +352,36 @@ Copy number variation is not uncommon, and so the duplicated BUSCO may not repre
 </p><p>
 Similarly, the fragmented BUSCO may be due to the appearence of multiple SNPs rather than sequencing error. Our organism may have experienced some mutation relative to the reference sequence for the BUSCO in question, causing it to appear 'fragmented'.
 </p>
+
+
+<br>
+
+## Section Questions
+
+Why did we select 'Paired' for our Illumina reads in the Unicycler tool? 
+
+<details>
+<summary>Answer (click to reveal)</summary>
+Our short read set was 'paired-end'. Short read technology can only sequence a few hundred base-pairs in a single read. To provide better structural information, paired-end sequencing was created, where longer fragments (fixed length) are used. A few hundred bp is sequenced at both ends of the fragment, leaving the middle section unsequenced. The reads produced (the mate-pair) from a single fragment are separated by a fixed length, so we know they are nearby in the genome. 
+</details>
+
+Does Unicycler begin by using the Long or Short reads?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+Unicycler uses short reads first. It creates an assembly graph from short reads, then uses the long reads to provide better structural information of the genome. 
+</details>
+
+How does Unicycler use long reads to improve its assembly graph?
+
+<details>
+<summary>Answer (click to reveal)</summary>
+The assembly graph produced by short reads has tangled regions. When we don't know how sections of the genome are arranged, tangled regions appear in the graph.  Unicycler uses Nanopore reads which overlap these tangled regions to resolve the proper structure of the genome. 
+</details>
+
+
+<br>
+
 
 -------------------------------
 ## Conclusion
