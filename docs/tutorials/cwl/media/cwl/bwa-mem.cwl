@@ -1,7 +1,5 @@
 class: CommandLineTool
 cwlVersion: v1.0
-$namespaces:
-  sbg: 'https://www.sevenbridges.com'
 baseCommand:
   - bwa
   - mem
@@ -27,5 +25,5 @@ outputs:
       glob: output.bam
 requirements:
   - class: DockerRequirement
-    dockerPull: biocontainers/bwa
+    dockerPull: quay.io/biocontainers/bwa:0.7.8--hed695b0_5
 stdout: output.bam
