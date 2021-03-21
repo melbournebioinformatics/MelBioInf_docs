@@ -66,7 +66,7 @@ At the end of this introductory workshop, you will :
 
 
 ### Required Software
-* Zoom
+* No additional software needs to be installed for this workshop.
 
 ### Required Data
 * No additional data needs to be downloaded for this workshop.
@@ -317,7 +317,7 @@ The above will remove any reads which are less than 1000 bp, or those where a se
 
 Sniffles requires an alignment file when calling variants. It searches the alignments for split reads, alignments containing patches of high error rate, and soft clipping of reads to identify structural variation.  Below we can see how different isolate reads capturing an inversion might be aligned to the reference genome.
 
-<img src="media/sniffles_method.png" style="display: block;
+<img src="../media/sniffles_method.png" style="display: block;
   margin-left: auto;
   margin-right: auto;
   width: 95%;"> 
@@ -356,6 +356,8 @@ Sniffles requires alignments to contain the ‘MD tag’ in our BAM file. This i
 Rename output to “isolate mapped reads MD”
 
 
+<br>
+
 ### SV calling with sniffles
 
 Now we have our alignments (BAM) in the correct format, we can call variants with sniffles. Sniffles generally has good defaults, so we will leave everything as-is for now. Later, we will tweak the settings based on our read set for better results. 
@@ -370,12 +372,12 @@ Now we have our alignments (BAM) in the correct format, we can call variants wit
 
 Rename the output to ‘sniffles variant calls’
 
-Have a look at the VCF output of sniffles. It contains header lines providing metadata and definitions, followed by variant call lines. VCF stands for 'Variant Call Format' and is the standard format for recording variant information - both *sequence variants*, and *structural variants.* Click the eye icon <img src="media/eye_icon.png" width="20px"> to view.
+Have a look at the VCF output of sniffles. It contains header lines providing metadata and definitions, followed by variant call lines. VCF stands for 'Variant Call Format' and is the standard format for recording variant information - both *sequence variants*, and *structural variants.* Click the eye icon <img src="../media/eye_icon.png" width="20px"> to view.
 
 
 **Sort VCF output**
 
-For ease of viewing, we can sort the variant calls so they are in coordinate order. This will help us compare against the truth SV record for our simulated isolates (provided SV records are sorted by coordinate).  
+Before continuing, we weill sort the variant calls so they are in coordinate order. This will help us compare against the truth SV record for our simulated isolates (provided SV records are sorted by coordinate), and in future will allow us to view the variants using a genome browser.  
 
 **Tool:** VCFsort
 
@@ -383,11 +385,19 @@ For ease of viewing, we can sort the variant calls so they are in coordinate ord
 
 Rename the output to ‘sniffles variant calls sorted’
 
+
 <br>
 
 ### Creating a summary (awk)
 
-Unfortunately, the VCF file format was not created to store structural variant information, and generally does a poor job. We would prefer a summary which identifies the contig, location, type, and size of each variant call. We can create such a summary using text processing - specifically by using the ‘awk’ tool.
+Unfortunately, the VCF file format was not created to store structural variant information, and generally does a poor job. In its current state, is not very easy to quickly summarise our variant calls, as a lot of the important informaiton is shoved in the 'INFO' field.  
+
+<img src="../media/vcf_info.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;">
+
+We would prefer a format which identifies the contig, location, type, and size of each variant call in an easy to read manner. We can create such a summary using text processing - specifically by using the ‘awk’ tool. For each variant call we will extract the value for the #CHROM, #POS, and #ID fields, and from the #INFO field we will extract the remaining information we need. 
 
 Awk processes the input file line-by-line.  For each line, it follows the following approach:
 
@@ -430,8 +440,6 @@ Awk is a highly versatile tool for text processing, and can perform all the comm
 
 From here the awk programs will be supplied, but if you wish to learn more, here is a good place to start: https://zetcode.com/lang/awk/
 
-<br>
-
 **Process VCF with awk**
 
 **Tool:** Text reformatting with awk
@@ -444,25 +452,145 @@ From here the awk programs will be supplied, but if you wish to learn more, here
 
 Rename output to “sniffles VCF summary”
 
+Your output may look something like this:
+
+<img src="../media/sniffles_calls_rs10.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;">
+
+
 <br>
 
-We now have both files we need to measure the performance of sniffles - the variant calls provided by sniffles, and the ground SV truth. Open both files in new tabs and compare them. Specifically, record the following:
-How many real SVs did sniffles identify
-How many did it miss? 
-How many false positives are present? (SVs called by sniffles but which were not added to the reference genome)
+### Calculating sniffles Performance Metrics
 
-Add this information to the excel sheet we obtained our isolate reads and SV records from. There are columns for true positives (TP - correct calls), false positives (FP - how many incorrect variants were called), and false negatives (how many SVs were missed) in the sheet. From these figures, the accuracy, precision, and recall for sniffles will be automatically calculated. 
+We now have both files we need to measure the performance of sniffles - the variant calls provided by sniffles, and the ground SV truth. Open both files in new tabs and compare them by righ-clicking the eye icon <img src="../media/eye_icon.png" width="20px"> then selecting 'open link in new tab'. Specifically, note the following:
+
+* How many real SVs did sniffles identify (true positives)
+* How many did it miss? (false negatives)
+* How many SVs were called by sniffles which were not actually addded to the reference genome? (false positives)
+
+<br>From this information we can calculate performance metrics for sniffles. The following formulas for accuracy, precision and recall are commonly used when benchmarking bioinformatics software.
+
+<img src="../media/metrics.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;">
+
+<br>
+
+!!! question "What was sniffles recall?"
+
+    ??? hint "answer"
+        ____ bp
+
+
+While the accuracy and precision of sniffles was good, the recall is low. This is due to a key setting in sniffles which relates to our read set - read support. 
+
+<br>
+
+### Tuning sniffles Settings
+
+Sniffles has a default setting called 'read support' which requires 10 reads to support a possible SV for it to be accepted as genuine. Reducing this number allows more SVs to be discovered, but may also cause some false positives (SV calls for variants which do not actually exist). Conversely, we can be more strict by increasing this number. The best choice for this setting depends on the biological question you wish to answer, and the amount of read depth your dataset has. 
+
+<br>
+
+<img src="../media/read_support.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;">
+
+
+<br>Our filtered read set fastq file was 139 mb, so we have approximately 70 mbp worth of long read data. As the genome size of our isolate is approximately 5 mbp, this equates to only around 12x mean read depth for a given location in the reference genome. Read depth is not uniform, so we expect some regions to have less than 12x depth, resulting in some structural variants being missed by sniffles if not enough reads supported the call.
+
+As our mean depth is 12x, but the quality of our reads is good, we will reduce the 'read support' setting to 4.
+
+**Re-run sniffles**
+
+Run sniffles again by clicking the re-run <img src="../media/rerun_icon.png" width="20px"> button on the sniffles VCF output. By clicking the re-run button, all the settings previously used will already be filled.
+
+Change the following:
+
+* ***Set general options***
+	* ***Minimum Support:*** 4
+
+Leave all else default and click 'execute'
+
+Rename the output to 'sniffles variant calls RS4'
+
+**Re-run VCFsort**
+
+Run VCFsort again by clicking the re-run <img src="../media/rerun_icon.png" width="20px"> button.
+
+Change the following:
+
+* ***Select VCF dataset:*** 'sniffles variant calls RS4'
+
+Leave all else default and click 'execute'
+
+Rename the output to 'sniffles variant calls RS4 sorted'
+
+**Re-run awk**
+
+Run awk again to create a summary by clicking the re-run <img src="../media/rerun_icon.png" width="20px"> button.
+
+Change the following:
+
+* ***File to process:*** 'sniffles variant calls RS4 sorted'
+
+Leave all else default and click 'execute'
+
+Rename the output to 'sniffles VCF summary RS4'
+
+<br>
+
+Our new variant calls should be an improvement on the original settings. You may see something similar to the following:
+
+(img here - side by side calls and report)
 
 
 <br>
 
 ### Visualising SV calls
 
-<br>
+Visualisation and interpretation is an important part of any analysis. Now we have our SV calls, we can view them on a genome-wide scale using a type of visualisation called a ***circos*** plot. Circos plots are often featured on the cover of academic journals as they can communicate a large amount of genomic information at a glance.
+
+We will now make a circos plot which displays our variant calls. Similar to genome browsers, circos plots are built from data tracks. When dealing with genomic data, the outer coordinate system (called the ***ideogram***) is usually the chromosomes of a genome, and the tracks pin data to their genomic positions. For this workshop, we will use a ***galaxy workflow*** to create our circos plot, but if you would like to learn how to create these plots yourself, see the following tutorial: 
+
+https://training.galaxyproject.org/training-material/topics/visualisation/tutorials/circos/tutorial.html 
 
 **Create Circos plot**
-* Circos
 
+We will be using a workflow to create circos plots for us. This will process our sniffles VCF summary and SV truth report, and produce a plot. 
+
+Invoke the workflow using this link: <br>
+https://usegalaxy.org.au/workflows/run?id=6588e175004aba38
+
+!!! question "Optional: importing a galaxy workflow"
+
+    ??? hint "importing rather than running"
+        Galaxy workflows can be directly run, or can be imported as a workflow. The benefit to importing a workflow is that you can see all the tools that are being run, and can customise the workflow to suit your needs. Like shared histories, workflows can be also be found in the 'Shared Data' tab of the top navigation bar. Once you find a workflow you want to import, press the '+' icon at the top right of the page to import the workflow. The circos plot workflow can be imported using the following link: https://usegalaxy.org.au/u/graceh1024/w/long-read-sv-calling---circos-plots 
+
+Set the following:
+
+* ***sniffles VCF summary:*** sniffles VCF summary RS4
+* ***Reference Genome:*** ecoli_sakai.fna
+* ***SV truth record:*** ecoli_sakai_isolate_record.tsv
+
+Click the blue 'Run Workflow' button on the top right to execute the workflow. Your output might be similar to the following figure:
+
+<br>
+
+<img src="../media/circos.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;">
+
+<br>
+
+The circos plot has been formatted so both the variant calls (sniffles) and the true SVs are displayed. The ideogram (outer coordinate system) is displaying the bacterial chromosome and two plasmids. One plasmid is reasonable size, while the other is tiny.  
+
+The outer tile track displays sniffles calls, and the inner track is the true added variants. Link tracks (lines connecting regions of the plot) have been added which show the translocation breakends called by sniffles in yellow, and any undetected breakends in red.  From this plot, we can quickly see that sniffles detected most of the variants, but a few were still missed. 
 
 <br>
 
@@ -471,16 +599,222 @@ Add this information to the excel sheet we obtained our isolate reads and SV rec
 
 ### Introduction
 
-In this section we will ...
+Pathogenic structural variation has become more thoroughly understood in recent years, partly driven by the advent of long-read sequencing technologies. For the remainder of this workshop, we will use a dataset which emulates a patient case. 
+
+In this example, long-read sequence data was able to identify a causal SV, where short-read sequencing had previously reported a negative result. The dataset was simulated according to the findings of Merker et al (2018) and can be found at https://dx.doi.org/10.1038%2Fgim.2017.86.
+
+<br>
+
+### Patient Case
+
+The patient is a male who had numerous recurring tumerous growths over their development. At age 7, an atrial myxoma of the heart was discovered and removed, followed by a Sertoli-Leydig cell tumor at age 10, a pituitary tumor at 13, more growths on the heart at 16 and 18 which were surgically removed. After the heart surgery at 18 years old, he sufferred from a cardiac arrest which he eventually recovered from. At 18, the possibility of a [Carney complex](https://rarediseases.org/rare-diseases/carney-complex/#:~:text=Carney%20complex%20is%20a%20rare,the%20skin%20of%20affected%20areas.) was suggested, but short read sequencing and analysis of the PRKAR1A gene returned negative for pathogenic variation. 
+
+The patient continued to develop tumors over the following years, prompting another round of sequencing - this time, whole genome sequencing (WGS) using long reads. 26.7 Gb of reads were produced using the PacBio Sequel system, equating to an average read depth of 8.6x. 
+
+The following dataset is simulated reads from a section of chr17 which emulate the patient case. 
+
+<br>
+
+### Getting the data
+
+To start, we need reads from our section of chr17 (pos 66,000,000 - 69,000,000) for variant calling against hg38, and a file listing genomic features (GFF) for automated annotation later on. 
+
+Import the following Galaxy history to get started:  
+https://usegalaxy.org.au/u/graceh1024/h/carney-complex---chr17-reads
+
+<br>
+
+### SV Calling using Workflow
+
+Rather than manually running each tool again using our chr17 reads and human reference genome hg38 as reference, we will use a workflow to do the analysis for us. hg38 is a built-in genome in galaxy, so we do not need to provide it ourselves. The workflow will perform the following:
+
+* Read QC (Filtlong)
+* Produce a summary report of filtered reads (NanoPlot)
+* Align reads to hg38 (minimap2)
+* Calculate the MD tag (CalMD) and sort the BAM file by coordinate (SortSam)
+* Call variants (sniffles)
+* Sort the variant calls (VCFsort)
+* Create a summary of the variant calls (awk) 
+
+
+<br>
+
+<img src="../media/workflow1.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;">
+
+<br>
+
+As we are aligning reads to hg38, the alignment step will take longer than for the bacterial dataset. The human genome is approximately 640x larger than *E. coli sakai*, so this is understandable. Reads may take 15 minutes to map during the workflow. 
+
+Invoke the workflow using this link: <br>
+https://usegalaxy.org.au/workflows/run?id=d69a765cfc82a399
+
+Set the following:
+
+* ***Long reads:*** chr17_reads.fastq
+* ***CalMD***
+	* ***Using reference genome:*** 'hg38'
+
+Click the blue 'Run Workflow' button on the top right to execute the workflow.
+
+<br>
+
+This workflow produces the key outputs we need. The ***NanoPlot HTML report*** summarises our reads after filtering, which we can view to determine the quality of our read set. The ***sorted alignments*** contain the alignment information, which we can download to view using a genome browser. ***variant calls sorted*** is the sorted VCF file produced by sniffles, and ***variant calls summary*** is our simplified awk summary of the variant calls.  Use the eye icon <img src="../media/eye_icon.png" width="20px"> to view these outputs for your own interest.
+
+All going well, your final variant calls summary will look similar to the following:
+
+<img src="../media/chr17_calls.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;">
+
+<br>
+
+As our reads are from a 3 mbp segment of chr17, the variants are all located on chr17, between position 6,600,000 and 6,900,000. 19 structural variants have been detected, which is a reasonable number for this segment given that multiple thousand variants are generally detected between any individiual and hg38.  
+
+One of these variants is causing patient disease, and we will identify the culprit using IGV.  
+
+<br>
+
+### Visualising Alignments with IGV
+
+We will use IGV to inspect the variant calls, and determine which may be causing disease. In particular, we are looking for structural variation which spans or interrupts gene coding sequences, as these are most likely to cause a disease phenotype. 
+
+We wish to view the alignments and variant calls, so will download the sorted alignment files (BAM and BAI) and the variant calls (VCF). We can then upload this data to the IGV webapp to visualise. 
+
+<br>
+
+**Download Alignments and Variant Calls Data**
+
+Click the save <img src="../media/save_icon.png" width="20px"> icon in the 'sorted alignments' output, and download both the dataset (BAM) and the bam_index (BAI) files. The BAM contains read alignment information, and the BAI contains an index which allows IGV to load this data. 
+
+<img src="../media/alignment_save.png" width="300px">
+
+Do the same for the 'variant calls sorted' VCF output. This time, simply clicking the save <img src="../media/save_icon.png" width="20px"> icon will download the VCF as there is only 1 piece of data.
+
+<br>
+
+**Open IGV and set to hg38**
+
+Navigate to https://igv.org/app/ to open IGV. 
+
+Genome browsers use a reference genome as a coordinate system, and anchor data to these coordinates.  Datasets are loaded as ‘tracks’, and use the selected reference genome as coordinates. 
+
+The first thing we need to do is ensure the correct genome is loaded.  By default, this is human reference genome hg19.  We used hg38 as reference genome when aligning our chr17 reads. 
+
+In the top toolbar, click ‘Genome’ then select Human (GRCh38/hg38)
+
+<br>
+
+<img src="../media/load_hg38.png" width="300px">
+
+<br>
+
+Now we have the current version of the human genome loaded and ready to use. The genome is divided by chromosome markers which you will see as sections marked at the top of the screen. Below that, we have a single ‘track’ - RefSeq gene annotations. 
+
+We now need add our two tracks - the variant calls, and alignments. 
+
+<br>
+
+<img src="../media/load_data.png" width="300px">
+
+<br>
+
+To add the variant calls, click ‘Tracks’ then ‘Local File’ in the top navigation bar, and select the sorted variant_calls_sorted VCF file.
+
+To add the read alignments, click ‘Tracks’ then ‘Local File’ in the top navigation bar, then upload the sorted_alignments BAM and BAI files we  downloaded from the SortSam output. Both the .BAM and .BAI files must be selected together. 
+
+Currently, there is too much data to load the alignments and variant calls. We will need to zoom in to see this information. In the grey bar at the top of the genome browser, next to hg38, use the dropdown to select chr17. Now that chr17 is selected, we will investigate our variant calls. 
+
+One of the variants  was located approximately between position 66270000 and 66276000. We can view this region by typing coordinates in the box next to the chromosome selector. Set it to the following:
+
+<img src="../media/region1.png" width="500px">
+
+This is what we can see in the region:
+
+<br>
+
+<img src="../media/variant1.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;">
+
+<br>
+
+A deletion is evident. No reads are aligned in this region, and the coverage is high enough to support this variant call. 
+
+While this is clearly a variant, it is not spanning any known RefSeq genes. We are looking for a variant which is causing tumors, so genes involved in cell signalling such as PRKAR1A, tumor supression, or growth factos may be implicated. 
+
+Once you have looked at some variant calls in detail, expand the below to reveal the variant causing disease: 
+
+!!! question "Disease causing variant location"
+
+    ??? hint "Reveal"
+        chr17:68,509,063-68,520,941
+
+<br>Enter the coordinates above to view the disease variant. Your IGV may look similar to the following:
+
+<br>
+
+<img src="../media/igv.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;">
+
+<br>
+
+There is a clear deletion spanning the first coding exon of the PRKAR1A gene. This deletion would likely have a large impact on protein function, as the start codon and an entire exon has been deleted.
+
+After obtaining this result, managing doctors diagnosed the patient with Carney complex due to the pathogenic deletion in PRKAR1A. This shows an early example of how SV detection can be used in a clinical setting to diagnose patient disease, and that long reads have an advantage over short reads for structural variation detection.  
+
+<br>
+
+### Genomic Feature Annotation of Variant Calls
+
+As a final summary, we will annotate our variant calls with the genomic features they intersect with.  Rather than manually inspect each variant call with a genome browser, we can automate this process. Genome annotations provide locations and descriptions for important genomic features which have been discovered.  Genome annotations are available for most assemblies on RefSeq, and the hg38 annotations are naturally very good. 
+
+Today we will use genome annotations in the ***general feature format*** (GFF) format. We will invoke a workflow which uses a GFF file and our variant calls VCF file as input, then annotates the variant calls with any features they intersect with. 
+
+A GFF has been provided for chr17, and includes a vast amount of information. We will just look at coding sequences (CDS) intersecting our variants, as distruptions in these regions are likely to have functional impact.  
+
+Invoke the workflow using this link: <br>
+https://usegalaxy.org.au/workflows/run?id=d69a765cfc82a399
+
+Set the following:
+
+* ***Genome Annotations (GFF):*** chr17_annotations.gff
+* ***Sniffles Variant Calls (VCF):*** variant calls sorted
+* ***Extract features***
+	* ***Extract features:*** select 'CDS' from the list
+
+Click the blue 'Run Workflow' button on the top right to execute the workflow. View the 'variant calls summary (annotated)' output. Yours may be similar to the following:
+
+<br><img src="../media/final_human_calls.png" style="display: block;
+  margin-left: 0;	
+  margin-right: auto;
+  width: 90%;">
+
+<br>Considering we may have thousands of structural variants between an individual and hg38, this process can drastically cut down on time. In the associated paper, authors reduced the initial > 13,500 variant calls down to only 3, by filtering for variants which overlap a disease gene coding exon, and those which are not present in a healthy control sample.   
+
 
 <br>
 
 -------------------------------
+## Conclusion
+
+
+
+<br>
+
+
+
 ## Additional reading
 Links to additional recommended reading and suggestions for related tutorials.
 
 <br>
 
-# Graveyard
+## Graveyard
 
 In the example above, the isolate genome contains an insertion relative to the reference. Sections of reads which have sampled this insertion (shown in grey) cannot be mapped to the reference genome, as this sequence does not exist. This is a problem for the short reads as they only capture a small genomic region, whereas the long read can still be correcly mapped to the reference due to the large interval it has sampled. The presence of an insertion is easily detectable as it has been completely captured by a long read. 
