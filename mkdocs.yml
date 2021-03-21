@@ -37,6 +37,7 @@ nav:
             - 'Introduction to Variant detection': 'tutorials/var_detect_advanced/var_detect_advanced_background.md'
             - 'Variant Calling part 1 (Galaxy)': 'tutorials/variant_calling_galaxy_1/variant_calling_galaxy_1.md'
             - 'Variant Calling part 2 (Galaxy)': 'tutorials/var_detect_advanced/var_detect_advanced.md'
+            - 'Long-read Structural Variant Calling': 'tutorials/longread_sv_calling/longread_sv_calling.md'
         - 'de novo assembly':
             - 'Introduction to de novo assembly with Velvet': 'tutorials/assembly/assembly-background.md'
             - 'Introduction to de novo genome assembly for Illumina reads': 'tutorials/assembly/assembly-protocol.md'
