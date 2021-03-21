@@ -416,10 +416,10 @@ BUSCO does not use a reference genome to compare. It attempts to locate key gene
 ## Conclusion
 
 <p>
-Today we have learned one workflow for performing hybrid de novo genome assembly. The combination of long- and short-read technology is clearly powerful, represented by our ability to create a good assembly with only 25x coverage (100Mb) of Nanopore, and 50x coverage of Illumina reads (200Mb).
+Today we have learned one workflow for performing hybrid de novo genome assembly. The combination of long- and short-read technology is clearly powerful, represented by our ability to create a good assembly with only approximately 20x coverage (87Mb) of Nanopore, and 25x coverage of Illumina reads (100Mb).
 </p>
 <p>
-To further improve our assembly, extra Nanopore read data may provide most benefit. At 50x coverage (200Mb), we may achieve a single, or few contig assembly with high per-base accuracy.
+To further improve our assembly, extra read data may provide most benefit. For bacterial genomes, we often prefer 100x or greater coverage, with which we may achieve a high per-base accuracy assembly with the correct number of contigs (number of replicons in the genome).
 </p>
 <p>
 The development of new purpose-built tools for hybrid de novo assembly like Unicycler have improved the quality of assemblies we can produce. These tools are of great importance and while they already produce great results, they will continue to improve over time.
