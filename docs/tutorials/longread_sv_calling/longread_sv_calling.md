@@ -31,9 +31,9 @@ This workshop is designed for participants with no command line knowledge. A web
 
 *Long reads have turbo-charged structural variant detection - be part of the renaissance!*
 
-This tutorial uses ***sniffles*** to implement a structural variant calling pipeline. 
+Structural variation has historically been hard to detect. The advent of long reads, and improvements to the quality of reference genomes over time has recently enabled new discoveries in the field.  This tutorial uses ***sniffles*** to implement a structural variant calling pipeline. Structural variant calling will be performed on a bacterial dataset to benchmark sniffles, then using a human clinical dataset to identify patient disease. We will explore one workflow for structural variant detection, then will visualise and summarise our results using multiple methods.   
 
-(short summary) Structural Variants (SVs)...
+
 
 <br>
 
@@ -89,7 +89,7 @@ Created/Reviewed: March 2021
 
 ### What is Structural Variation?
 
-Genetic variation is always relative. In general, we have a reference sequence which we know lots about, and query sequences to compare against this reference.  Given we know lots about the reference, the ***impact*** of any variation we find in the query sequences can be inferred. The query sequences by originate from a single individual or a group, depending on the biological question.  
+Genetic variation is always relative. In general, we have a reference sequence which we know lots about, and query sequences to compare against this reference.  Given we know lots about the reference, the ***impact*** of any variation we find in the query sequences can be inferred. The query sequences can originate from a single individual or a group, depending on the biological question.  
 <br>
 
 <img src="../media/snv_vs_sv.png" style="display: block; margin-left: auto; margin-right: auto; width: 65%;">
@@ -114,7 +114,7 @@ Structural variation has historically been hard to detect. This is because struc
 
 In general, long reads have greater mappability. Mappability is the ability to unambiguously align reads to a reference. In the example above, a short read sampled from a tandem repeat cannot be accurately mapped, as it is equally likely it came from 3 different locations. On the other hand, a long read sampled from this region can be uniquely mapped to a single location. The extra repeat found in the isolate could also be detected given such a read. 
 
-This is highly pertinent when working with the human genome, ***as more than 60% appears to be repetitive sequence***.  This repetitive sequence consists of 2 main elements: mobile elements, and repeats. Mobile elements are sections of DNA which copy or move themselves throughout our genome and including retrotransposons (LINE, SINE, LTR, and SVA) and DNA transposons. Repeats are genomic regions which contain the same sequence repeated many times, and consist of Short Tandem Repeats (STRs / microsatellites) which are 1-6 bp tandem repeats, or Variable Number of Tandem Repeats (VNTRs / minisatellites) which are tandem repeats where the repeat length is greater than 7 bp.  
+This is highly pertinent when working with the human genome, ***as more than 60% appears to be repetitive sequence***.  This repetitive sequence consists of 2 main elements: mobile elements, and repeats. Mobile elements are sections of DNA which copy or move themselves throughout our genome and include retrotransposons (LINE, SINE, LTR, and SVA) and DNA transposons. Repeats are genomic regions which contain the same sequence repeated many times, and consist of Short Tandem Repeats (STRs / microsatellites) which are 1-6 bp tandem repeats, or Variable Number of Tandem Repeats (VNTRs / minisatellites) which are tandem repeats where the repeat length is greater than 7 bp.  
 
 
 ### Applications of Structural Variant Detection
@@ -139,8 +139,8 @@ The importance of structural variation has become more apparent in recent years.
 **The Microbial World**
 
 * Understanding the relationship between microbiome SVs and human health
-* Studing phylogeny and evolution of microbes (including horizontal gene transfer)
-* Researching the spread of mobile elements and plasmids which convey virulence or antibiotic resistence genes
+* Studying phylogeny and evolution of microbes (including horizontal gene transfer)
+* Researching the spread of mobile elements and plasmids which convey virulence or antibiotic resistance genes
 
 
 ### Structural Variant Types
@@ -163,12 +163,12 @@ A section of genetic material swaps its orientation
 
 * **Duplications** (interspersed or tandem)<br>
 A section of genetic material is copied, then inserted. 
-Can be seperated into:
+Can be separated into:
 	* Interspersed duplications, where the insertion site is away from the copied section
 	* Tandem duplications, where the insertion site is directly beside the copied section
 
 * **Translocations** (intra- or inter-chromosomal)<br>
-A section of genetic material is cut out, then inserted somewhere else. Can be seperated into:
+A section of genetic material is cut out, then inserted somewhere else. Can be separated  into:
 	* Intra-chromosomal translocations, where the insertion site is within the same chromosome
 	* Inter-chromosomal translocations, where the insertion site is on another chromosome
 
@@ -200,7 +200,7 @@ We will use the workflow below to explore structural variation. This workflow ha
 Our SV calling workflow will consist of 5 key steps:
 
 1. **Read QC**<br>
-The length an quality distribution of long-read data is highly variable. We will summarise our read set using ***Nanoplot***, to understand what quality of results to expect during analysis.  ***Filtlong*** will then be used to remove short reads, or those with patches of low quality. This will reduce erroneous read mapping and will improve our results. 
+The length and quality distribution of long-read data is highly variable. We will summarise our read set using ***NanoPlot***, to understand what quality of results to expect during analysis.  ***Filtlong*** will then be used to remove short reads, or those with patches of low quality. This will reduce erroneous read mapping and will improve our results. 
 
 2. **Alignment**<br>
 Structural variation is always relative to a reference. Our isolate reads will act as the query, and an appropriate reference genome will be selected to measure structural variation against. We will align our isolate reads using ***minimap2*** to the chosen reference genome, then will pass the output alignment BAM file to our SV caller.  
@@ -240,7 +240,7 @@ We will employ a number of tools in our pipeline, so let's get to it!
 <br>
 
 ### Getting the data
-To start, we need a the set of reads of our synthetic isolate, a reference genome to call SVs against, and a 'ground truth' list of variants which have been added to our isolate. 
+To start, we need a set of reads from our synthetic isolate, a reference genome to call SVs against, and a 'ground truth' list of variants which have been added to our isolate. 
 
 Import the following Galaxy history to get started:  
 https://usegalaxy.org.au/u/graceh1024/h/sniffles-benchmarking-ecoli-sakai
@@ -377,7 +377,7 @@ Have a look at the VCF output of sniffles. It contains header lines providing me
 
 **Sort VCF output**
 
-Before continuing, we weill sort the variant calls so they are in coordinate order. This will help us compare against the truth SV record for our simulated isolates (provided SV records are sorted by coordinate), and in future will allow us to view the variants using a genome browser.  
+Before continuing, we well sort the variant calls so they are in coordinate order. This will help us compare against the truth SV record for our simulated isolates (provided SV records are sorted by coordinate), and in future will allow us to view the variants using a genome browser.  
 
 **Tool:** VCFsort
 
@@ -390,7 +390,7 @@ Rename the output to ‘sniffles variant calls sorted’
 
 ### Creating a summary (awk)
 
-Unfortunately, the VCF file format was not created to store structural variant information, and generally does a poor job. In its current state, is not very easy to quickly summarise our variant calls, as a lot of the important informaiton is shoved in the 'INFO' field.  
+Unfortunately, the VCF file format was not created to store structural variant information, and generally does a poor job. In its current state, it is not very easy to quickly summarise our variant calls, as a lot of the important information is shoved in the 'INFO' field.  
 
 <img src="../media/vcf_info.png" style="display: block;
   margin-left: auto;
@@ -464,11 +464,11 @@ Your output may look something like this:
 
 ### Calculating sniffles Performance Metrics
 
-We now have both files we need to measure the performance of sniffles - the variant calls provided by sniffles, and the ground SV truth. Open both files in new tabs and compare them by righ-clicking the eye icon <img src="../media/eye_icon.png" width="20px"> then selecting 'open link in new tab'. Specifically, note the following:
+We now have both files we need to measure the performance of sniffles - the variant calls provided by sniffles, and the ground SV truth. Open both files in new tabs and compare them by right-clicking the eye icon <img src="../media/eye_icon.png" width="20px"> then selecting 'open link in new tab'. Specifically, note the following:
 
 * How many real SVs did sniffles identify (true positives)
 * How many did it miss? (false negatives)
-* How many SVs were called by sniffles which were not actually addded to the reference genome? (false positives)
+* How many SVs were called by sniffles which were not actually added to the reference genome? (false positives)
 
 <br>From this information we can calculate performance metrics for sniffles. The following formulas for accuracy, precision and recall are commonly used when benchmarking bioinformatics software.
 
@@ -569,7 +569,7 @@ https://usegalaxy.org.au/workflows/run?id=6588e175004aba38
 !!! question "Optional: importing a galaxy workflow"
 
     ??? hint "importing rather than running"
-        Galaxy workflows can be directly run, or can be imported as a workflow. The benefit to importing a workflow is that you can see all the tools that are being run, and can customise the workflow to suit your needs. Like shared histories, workflows can be also be found in the 'Shared Data' tab of the top navigation bar. Once you find a workflow you want to import, press the '+' icon at the top right of the page to import the workflow. The circos plot workflow can be imported using the following link: https://usegalaxy.org.au/u/graceh1024/w/long-read-sv-calling---circos-plots 
+        Galaxy workflows can be directly run, or can be imported as a workflow. The benefit to importing a workflow is that you can see all the tools that are being run, and can customise the workflow to suit your needs. Like shared histories, workflows can also be found in the 'Shared Data' tab of the top navigation bar. Once you find a workflow you want to import, press the '+' icon at the top right of the page to import the workflow. The circos plot workflow can be imported using the following link: https://usegalaxy.org.au/u/graceh1024/w/long-read-sv-calling---circos-plots 
 
 Set the following:
 
@@ -607,7 +607,7 @@ In this example, long-read sequence data was able to identify a causal SV, where
 
 ### Patient Case
 
-The patient is a male who had numerous recurring tumerous growths over their development. At age 7, an atrial myxoma of the heart was discovered and removed, followed by a Sertoli-Leydig cell tumor at age 10, a pituitary tumor at 13, more growths on the heart at 16 and 18 which were surgically removed. After the heart surgery at 18 years old, he sufferred from a cardiac arrest which he eventually recovered from. At 18, the possibility of a [Carney complex](https://rarediseases.org/rare-diseases/carney-complex/#:~:text=Carney%20complex%20is%20a%20rare,the%20skin%20of%20affected%20areas.) was suggested, but short read sequencing and analysis of the PRKAR1A gene returned negative for pathogenic variation. 
+The patient is a male who had numerous recurring tumorous growths over their development. At age 7, an atrial myxoma of the heart was discovered and removed, followed by a Sertoli-Leydig cell tumor at age 10, a pituitary tumor at 13, more growths on the heart at 16 and 18 which were surgically removed. After the heart surgery at 18 years old, he suffered from a cardiac arrest which he eventually recovered from. At 18, the possibility of a [Carney complex](https://rarediseases.org/rare-diseases/carney-complex/#:~:text=Carney%20complex%20is%20a%20rare,the%20skin%20of%20affected%20areas.) was suggested, but short read sequencing and analysis of the PRKAR1A gene returned negative for pathogenic variation. 
 
 The patient continued to develop tumors over the following years, prompting another round of sequencing - this time, whole genome sequencing (WGS) using long reads. 26.7 Gb of reads were produced using the PacBio Sequel system, equating to an average read depth of 8.6x. 
 
@@ -672,7 +672,7 @@ All going well, your final variant calls summary will look similar to the follow
 
 <br>
 
-As our reads are from a 3 mbp segment of chr17, the variants are all located on chr17, between position 6,600,000 and 6,900,000. 19 structural variants have been detected, which is a reasonable number for this segment given that multiple thousand variants are generally detected between any individiual and hg38.  
+As our reads are from a 3 mbp segment of chr17, the variants are all located on chr17, between position 6,600,000 and 6,900,000. 19 structural variants have been detected, which is a reasonable number for this segment given that multiple thousand variants are generally detected between any individual and hg38.  
 
 One of these variants is causing patient disease, and we will identify the culprit using IGV.  
 
@@ -714,7 +714,7 @@ In the top toolbar, click ‘Genome’ then select Human (GRCh38/hg38)
 
 Now we have the current version of the human genome loaded and ready to use. The genome is divided by chromosome markers which you will see as sections marked at the top of the screen. Below that, we have a single ‘track’ - RefSeq gene annotations. 
 
-We now need add our two tracks - the variant calls, and alignments. 
+We now need to add our two tracks - the variant calls, and alignments. 
 
 <br>
 
@@ -745,7 +745,7 @@ This is what we can see in the region:
 
 A deletion is evident. No reads are aligned in this region, and the coverage is high enough to support this variant call. 
 
-While this is clearly a variant, it is not spanning any known RefSeq genes. We are looking for a variant which is causing tumors, so genes involved in cell signalling such as PRKAR1A, tumor supression, or growth factos may be implicated. 
+While this is clearly a variant, it is not spanning any known RefSeq genes. We are looking for a variant which is causing tumors, so genes involved in cell signalling such as PRKAR1A, tumor suppression, or growth factors may be implicated. 
 
 Once you have looked at some variant calls in detail, expand the below to reveal the variant causing disease: 
 
@@ -804,17 +804,14 @@ Click the blue 'Run Workflow' button on the top right to execute the workflow. V
 -------------------------------
 ## Conclusion
 
+Today, we have covered a large amount of theory and analysis. Structural variant detection is a growing area, and will no doubt yield many discoveries in the near future. As with any bioinformatic analysis, we first explored our input data,  performed our analysis, then finished by visualising and interpreting our findings. 
 
+For those wishing to learn more about human clinical SV calling, dbVar (https://www.ncbi.nlm.nih.gov/dbvar/) and other repositories which contain information linking structural variants and disease is a good place to start.  
 
 <br>
-
 
 
 ## Additional reading
 Links to additional recommended reading and suggestions for related tutorials.
 
 <br>
-
-## Graveyard
-
-In the example above, the isolate genome contains an insertion relative to the reference. Sections of reads which have sampled this insertion (shown in grey) cannot be mapped to the reference genome, as this sequence does not exist. This is a problem for the short reads as they only capture a small genomic region, whereas the long read can still be correcly mapped to the reference due to the large interval it has sampled. The presence of an insertion is easily detectable as it has been completely captured by a long read. 
