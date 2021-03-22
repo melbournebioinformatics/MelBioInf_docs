@@ -309,6 +309,8 @@ Long reads can have a wide range of lengths and qualities. Filtering of long rea
 	* ***Min. Length*** 1000
 	* ***Min. window quality*** 9
 
+rename the output to 'isolate_reads_filtered.fastq'
+
 The above will remove any reads which are less than 1000 bp, or those where a section (250bp) of the read has mean quality below Q9. Our readset will now be ready for structural variant calling.
 
 <br>
@@ -335,7 +337,7 @@ To provide this file, we need to map our read set to our reference genome of cho
 * ***Use the following dataset as the reference sequence*** ecoli_sakai.fna
 
 * ***Single or Paired-end reads*** single
-* ***Select fastq dataset*** isolate_reads.fastq
+* ***Select fastq dataset*** isolate_reads_filtered.fastq
 	* ***Select a profile of preset options*** Oxford Nanopore read to reference mapping...
 
 * ***Set advanced output options***
@@ -444,7 +446,7 @@ From here the awk programs will be supplied, but if you wish to learn more, here
 
 **Tool:** Text reformatting with awk
 
-* ***File to process:*** sniffles variant calls
+* ***File to process:*** sniffles variant calls sorted
 * ***AWK Program:*** 
 ```
 /SVTYPE=/ {split($8,infoArr,";"); print substr(infoArr[9],8), $3, $1, substr(infoArr[3],6), $2, substr(infoArr[4],5), substr(infoArr[11],7)}
@@ -452,9 +454,9 @@ From here the awk programs will be supplied, but if you wish to learn more, here
 
 Rename output to “sniffles VCF summary”
 
-Your output may look something like this:
+<br>Your output may look something like this:
 
-<img src="../media/sniffles_calls_rs10.png" style="display: block;
+<br><img src="../media/sniffles_calls_rs10.png" style="display: block;
   margin-left: auto;
   margin-right: auto;
   width: 60%;">
@@ -503,7 +505,7 @@ Sniffles has a default setting called 'read support' which requires 10 reads to 
 
 <br>Our filtered read set fastq file was 139 mb, so we have approximately 70 mbp worth of long read data. As the genome size of our isolate is approximately 5 mbp, this equates to only around 12x mean read depth for a given location in the reference genome. Read depth is not uniform, so we expect some regions to have less than 12x depth, resulting in some structural variants being missed by sniffles if not enough reads supported the call.
 
-As our mean depth is 12x, but the quality of our reads is good, we will reduce the 'read support' setting to 4.
+As our mean depth is 12x, but the quality of our reads is good, we will reduce the 'read support' setting to 5.
 
 **Re-run sniffles**
 
@@ -512,11 +514,11 @@ Run sniffles again by clicking the re-run <img src="../media/rerun_icon.png" wid
 Change the following:
 
 * ***Set general options***
-	* ***Minimum Support:*** 4
+	* ***Minimum Support:*** 5
 
 Leave all else default and click 'execute'
 
-Rename the output to 'sniffles variant calls RS4'
+Rename the output to 'sniffles variant calls RS5'
 
 **Re-run VCFsort**
 
@@ -524,11 +526,11 @@ Run VCFsort again by clicking the re-run <img src="../media/rerun_icon.png" widt
 
 Change the following:
 
-* ***Select VCF dataset:*** 'sniffles variant calls RS4'
+* ***Select VCF dataset:*** 'sniffles variant calls RS5'
 
 Leave all else default and click 'execute'
 
-Rename the output to 'sniffles variant calls RS4 sorted'
+Rename the output to 'sniffles variant calls RS5 sorted'
 
 **Re-run awk**
 
@@ -536,18 +538,22 @@ Run awk again to create a summary by clicking the re-run <img src="../media/reru
 
 Change the following:
 
-* ***File to process:*** 'sniffles variant calls RS4 sorted'
+* ***File to process:*** 'sniffles variant calls RS5 sorted'
 
 Leave all else default and click 'execute'
 
-Rename the output to 'sniffles VCF summary RS4'
+Rename the output to 'sniffles VCF summary RS5'
 
 <br>
 
 Our new variant calls should be an improvement on the original settings. You may see something similar to the following:
 
-(img here - side by side calls and report)
+<br><img src="../media/sniffles_calls_rs5.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;">
 
+<br>We have increased our recall by lowering our read support threshold to 5, rather than 10. While being less conservative in this manner will increase recall, it also may result in greater false positives (sniffles calling variants that don't exist). Whether we maximise precision or recall depends on the task at hand - in this case, we want to discover all the variants and prefer high recall, and should therefore treat our variant calls with more scepticism.  
 
 <br>
 
@@ -575,7 +581,7 @@ Set the following:
 
 * ***sniffles VCF summary:*** sniffles VCF summary RS4
 * ***Reference Genome:*** ecoli_sakai.fna
-* ***SV truth record:*** ecoli_sakai_isolate_record.tsv
+* ***SV truth record:*** isolate_sv_record.tsv
 
 Click the blue 'Run Workflow' button on the top right to execute the workflow. Your output might be similar to the following figure:
 
@@ -780,7 +786,7 @@ Today we will use genome annotations in the ***general feature format*** (GFF) f
 A GFF has been provided for chr17, and includes a vast amount of information. We will just look at coding sequences (CDS) intersecting our variants, as distruptions in these regions are likely to have functional impact.  
 
 Invoke the workflow using this link: <br>
-https://usegalaxy.org.au/workflows/run?id=d69a765cfc82a399
+https://usegalaxy.org.au/workflows/run?id=142e5f7c1f340838
 
 Set the following:
 
