@@ -166,11 +166,14 @@ Don't be afraid to replace the current slides with your version if you think it 
 
 To create your new tutorial:
 
+* The layout and formatting templates are located here: https://github.com/melbournebioinformatics/MB_training_template (docs/layout_template.md and docs/formatting_template.md).
+
 * Create a new subdirectory under `docs/tutorials` with a meaningful name, e.g. `docs/tutorials/molecular_modelling`
-* Create a main Markdown document within that folder, containing the tutorial instructions, e.g. `docs/tutorials/molecular_modelling/molecular_modelling.md`. You can use other tutorials as a template for the layout.
+* Copy the layout template into the new subdirectory, rename and edit it to contain the tutorial instructions, e.g. `docs/tutorials/molecular_modelling/molecular_modelling.md`.
 * Add your main Markdown document to `mkdocs.yml` in the correct section. This will cause a link to it to appear in the menu of tutorials.
 * Create a `media` subdirectory, e.g. `docs/tutorials/molecular_modelling/media`. Copy in any images you need from other tutorials (e.g. logos). You can add any images here that you want to link into your Markdown documents.
 * Create a `README.md` file in your tutorial subdirectory, e.g. `docs/tutorials/molecular_modelling/README.md`. You can copy the format of this file from another tutorial. Add your own name as a PR reviewer for future changes.
+
 
 Add slides:
 
