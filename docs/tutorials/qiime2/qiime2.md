@@ -79,7 +79,7 @@ At the end of this introductory workshop, you will:
 
 * No additional data needs to be downloaded for this workshop. It is located in the directory `raw_data` located in the home directory of the Nectar instance that you will log in to.
 
-* If you wish to analyse the data independently at a later stage, it can be downloaded from:   
+* If you wish to analyse the data independently at a later stage, it can be downloaded from [here](https://github.com/melbournebioinformatics/MelBioInf_docs/blob/29266406cb16cf376ef5f3d48e9bf8ac3578f1b0/docs/tutorials/qiime2/raw_data.zip). This zipped folder contains both the FASTQs and associated metadata file.    
 
 
 --------------------------------
