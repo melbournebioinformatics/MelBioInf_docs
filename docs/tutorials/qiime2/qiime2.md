@@ -1,3 +1,10 @@
+![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
+
+
+
+###**Caution**
+**This new workshop is currently undergoing testing and may contain bugs**
+
 # QIIME2
 
 Anticipated workshop duration when delivered to a group of participants is **4 hours**.  
