@@ -3,7 +3,7 @@
 # Introduction to Genome Browsers
 
 Anticipated workshop duration when delivered to a group of participants is **4 hours**.<br>
-Note that not all exercises are expected to be completed during the workshop.  
+Note that not all the exercises are expected to be completed during the workshop.  
 
 For queries relating to this workshop, contact Melbourne Bioinformatics at:</br> bioinformatics-training@unimelb.edu.au.
 
