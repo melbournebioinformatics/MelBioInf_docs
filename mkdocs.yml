@@ -4,7 +4,7 @@ site_name: Bioinformatics Documentation
 repo_name: melbournebioinformatics/MelBioInf_docs
 repo_url: https://github.com/melbournebioinformatics/MelBioInf_docs
 
-# Comment below - old universal analytics tracking. No longer used.  
+# Comment below - old universal analytics tracking. No longer used.
 # google_analytics: ['UA-21794901-5', 'www.melbournebioinformatics.org.au/tutorials/']
 
 # needs pip install mkdocs-material
@@ -52,6 +52,8 @@ nav:
             - 'de novo assembly of Illumina reads using Spades (Galaxy)': 'tutorials/assembly/spades.md'
             - 'de novo assembly of PacBio reads (unix)': 'tutorials/pacbio/index.md'
             - 'Hybrid genome assembly - Nanopore and Illumina': 'tutorials/hybrid_assembly/nanopore_assembly.md'
+        - 'Metagenomics':
+            - 'Introduction to Metagenomics using Qiime2': 'tutorials/qiime2/qiime2.md'
     - 'Transcriptomics':
         - 'RNAseq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
         - 'Bulk RNAseq':
