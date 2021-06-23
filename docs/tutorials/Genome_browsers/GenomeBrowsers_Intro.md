@@ -1,8 +1,8 @@
-<img src="../media/melbioinf_logo.png" width="350"> <img src="../media/PRIMARY_A_Vertical_Housed_RGB.png" width="150">
+![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
 
 # Introduction to Genome Browsers
 
-Anticipated workshop duration when delivered to a group of participants is **3 hours**.<br>
+Anticipated workshop duration when delivered to a group of participants is **4 hours**.<br>
 Note that not all exercises are expected to be completed during the workshop.  
 
 For queries relating to this workshop, contact Melbourne Bioinformatics at:</br> bioinformatics-training@unimelb.edu.au.
@@ -69,22 +69,29 @@ At the end of this introductory workshop, you will :
 
 If delivered as a workshop, participants should install the software and data files below prior to the workshop. Ensure that you provide sufficient time to liaise with your own IT support should you encounter any IT problems with installing software. Unless stated otherwise, recommended browsers are Firefox or Chrome.
 
-
 ### Preparing you and your laptop prior to starting this workshop
+
 1. Required software: Download and install [IGV](https://software.broadinstitute.org/software/igv/download) (Free)
  * Ensure that ([Chrome](https://www.google.com/chrome/) or [FireFox](https://www.mozilla.org/en-US/) are installed and upto date)</br>
  * Create a user account in the [UCSC genome browser](https://genome.ucsc.edu/).
  * Required data is downloaded as part of the tutorial exercises.
 
 ### Required Data
-* No additional data needs to be downloaded prior to this workshop.
+
+No additional data needs to be downloaded prior to this workshop.
 
 -------------------------------
-### Author(s) and review date
+
+### Mode of Delivery
+
+This workshop will be run using freely available Web interfaces and free software using graphical user interfaces. see above.
+
+-------------------------------
+## Author(s) and review date
 **Written by:** Victoria Perreau | Melbourne Bioinformatics, University of Melbourne.</br>
 
 **Created:** October 2020</br>
-**Reviewed and revised:** November 1st 2020</br>
+**Reviewed and revised:** June 2021</br>
 
 -------------------------------
 ## Genome Browser background
@@ -175,7 +182,7 @@ This workshop the UCSC genome browser is supported by rich training resource whi
 ### Getting started
 1. **Open the Browser interface:**  
     * Navigate to the [UCSC genome Browser](https://genome.ucsc.edu/) and sign in if you have an account.<br>
-<img src="../media/UCSC_Home.png" width="700">
+![ucsc_homepage](./media/UCSC_Home.png)
 2. **First reset the browser, so that we all see the same screen:**  
     <ss>Toolbar</ss> <ss>Genome Browser</ss> <ss>Reset all user settings</ss>
 3. **Select and open the human Genome Hg38 at the default position, there are a few different ways to do this**  
@@ -184,7 +191,7 @@ This workshop the UCSC genome browser is supported by rich training resource whi
     * <ss>Toolbar</ss> <ss>Genomes</ss> <ss>Human GRCh38hg38</ss> (takes you directly to the genome)
 
     You should see this screen, opening at a position on the X chromosome of Human genome version GRCh38 showing the gene model for the ACE2 gene.
-<img src="../media/UCSC_Hg38_opening.png" width="700">
+![ace2_ucsc](./media/UCSC_Hg38_opening.png)
 
 4. **Familiarise yourself with the main areas of the interface and locate:**
     * The main Toolbar
@@ -216,10 +223,10 @@ This workshop the UCSC genome browser is supported by rich training resource whi
         * using your mouse select a region of interest by clicking the ruler (position track) at the very top of the genome view window.
     * This is also how to access the **'highlight tool'** which you will use in a later exercise to highlight a region of interest.
         * Click on the down arrow next to the highlight colour to select a different colour.
-<img src="../media/UCSC_drag-and-select.png" width="700">
+![highlight_ucsc](./media/UCSC_drag-and-select.png)
 
 ###Understanding the gene models
-<img src="../media/gene_model.png" width="700"><br>
+![genemodel](./media/gene_model.png)
 
 #### NTRK2
 First we are going to familiarise ourselves with the gene model representation of the different transcripts of NTRK2.  
@@ -234,7 +241,7 @@ First we are going to familiarise ourselves with the gene model representation o
     * Turn on 'Conservation' track to 'full'
         * Dont forget to click <ss>refresh</ss>.
     * When you have navigated to the NTRK2 gene, zoom out until you can view all of the 5' UTRs and 3' UTRs for all transcript variants for this gene. Then drag the view left and right to center (like in Google maps) or 'drag and select' the region to center the gene in the Genome view. You should see something like the image below.
-<img src="../media/UCSC_NTRK2_GENCODE.png" width="700">
+![ntrk_transcripts](./media/UCSC_NTRK2_GENCODE.png)
 
     * Which strand is the gene encoded on / transcribed from? (+ or - strand)
     * Identify the exons, introns and UTRs
@@ -257,11 +264,11 @@ First we are going to familiarise ourselves with the gene model representation o
 Now we look at the gene model for BDNF in the same genome. There are some differences that enable us to demonstrate some more tools.
 
 1.  **Navigate to the BDNF gene position in GRCh38 and view the gene models**  
-<img src="../media/BDNF_genemodel.png" width="700">
+![bdnf_ucsc](./media/BDNF_genemodel.png)
 
     * Note that there are black transcript models encoded on the + strand and blue BDNS-AS transcript models on the - strand. BDNF-AS is the antisense gene.
     * Colouring info for a track can be obtained form the configuration page, below if the colouring for this track.
-  <img src="../media/Gencode_colour.png" width="500">
+  ![genecode_colours](./media/Gencode_colour.png)
 
     * Since the convention is to display genes in the 5' to 3' orientation it can be useful for our own interpretation, and also for presentation purposes, to flip the orientation of a gene when viewing it in a Genome Browser.
         * Use the white <ss>reverse</ss> button under the genome view window to flip the orientation of the gene.
@@ -269,7 +276,7 @@ Now we look at the gene model for BDNF in the same genome. There are some differ
         * Apply the Multi-Region view from the mail tool bar of the white buttons under the Genome window.
             * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE v32'
 
-<img src="../media/BDNF_multiregion.png" width="700">
+![bdnf_multiregionview](./media/BDNF_multiregion.png)
 
 It is now a lot easier to view a number of interesting features in the BDNF transcript models:
 
@@ -289,12 +296,12 @@ Microarray expression data is not commonly used now, but some of the data genera
 ***NTRK2 Probe A_23_P216779 sequence:***</br>
 **TTCTATACTCTAATCAGCACTGAATTCAGAGGGTTTGACTTTTTCATCTATAACACAGTG**</br>
 Z score of expression level in Human brain (blue = low expression, red = high expression)
-<img src="../media/ABA_P216779.png" width="700">
+![hbrain_A_23_P216779](./media/ABA_P216779.png)
 
 ***NTRK2 Probe A_24_P343559 sequence***</br>
 **AAGCTGCTCTCCTTCACTCTGACAGTATTAACATCAAAGACTCCGAGAAGCTCTCGAGGG**</br>
 Z score of expression level in Human brain (blue = low expression, red = high expression)
-<img src="../media/ABA_P343559.png" width="700">
+![hbrain_A_23_P343559](./media/ABA_P343559.png)
 
 ***The images above are of one of the six donors included in the atlas, and typical of the expression pattern for NTRK2. These images are taken from the [NTRK2 gene page of Human Brain Atlas](http://human.brain-map.org/microarray/gene/show/4884).***
 
@@ -325,7 +332,7 @@ Most obvious in the images above is the high level of expression signal using Pr
 
 
 ###Gene expression data
-<img src="../media/coverage_plot.png" width="700">
+![coverage_plot](./media/coverage_plot.png)
 
 1. **Human tissue specific expression data from the [GTEX project](https://gtexportal.org/home/) is available in UCSC genome browser**
     * Gene level expression data from GTEx V6 (570) donors, and GTEx V8 (948) donors can be turned on from Blue bar title for more detailed configuration page. These are displayed as coloured bar plots.
@@ -333,12 +340,12 @@ Most obvious in the images above is the high level of expression signal using Pr
     * Transcript level expression data for GTEx V6 is available as coverage plots and is accessed from the **'Track hubs'**.
         * click on the white 'track hubs' under the genome view window or access from the toolbar under 'My data'.
         * scroll down and select 'GTEx RNA-seq Signal Hub'.  This can be viewed in either hg19 or hg38 so can be compared with a wide variety of other datasets.
-<img src="../media/trackhubs_GTEx.png" width="700">
+![trackhubs](./media/trackhubs_GTEx.png)
     * The default settings are:
         * that all the available data from one individual is loaded. Other samples from other subjects in the study can be loaded.  For example you could load all available samples for one tissue region only.
         * the data is 'autoscale to data view' with a track height or 12 pixels for each samples. You can change the height of the track or add a transformation.
         * you can also change it from a points plot into a density plot by clicking on the track title.
-<img src="../media/GTEx_V6_settings.png" width="600">
+![gtex_settings](./media/GTEx_V6_settings.png)
 
 2. **The FACS derived data from the [Tabular Muris](https://tabula-muris.ds.czbiohub.org/) cell type data can be visualised as a coverage plot**
     * Start at the view of the NTRK2 gene in the human genome and navigate to the Ntrk2 gene in the mouse genome using the 'View in other genomes tool'.
@@ -363,18 +370,23 @@ Most obvious in the images above is the high level of expression signal using Pr
     * Which cell type has the highest level expression in this dataset?
     * Change the 'Data view scaling' to autoscale to dataview.
         * Export a PDF image of the genome view: <ss>Toolbar</ss> <ss>View</ss> <ss>PDF/PS</ss> select 'Download the current browser graphic in PDF'
-    <img src="../media/mm10_Ntrk2.png" width="600">
+    ![browser_pdf](./media/mm10_Ntrk2.png)
     * Which cell type(s) express the long and short transcripts for NTRK2?
 
 3. **Mouse CNS cell type expression data can also be validated using an independent single cell dataset of mouse cortex from the [Linnarsson lab](http://linnarssonlab.org/)**.
     * The data that is publicly available for viewing in the UCCS genome browser but is not housed in the UCSC genome browser. You must first access it from the the Linnarsson lab data page.
-    * THis RNAseq data is stranded, meaning you can see if the transcrpt data is from the + or - strand.
+    * This RNAseq data is stranded, meaning you can see if the transcript data is from the + or - strand.
     * Go to the [Public data page](http://linnarssonlab.org/cortex/) where you can search for cell expression profiles for individual genes.
     * Click on the 'Browse the genome' blue text near the bottom of the page.
-    * This loads 18 different tracks, one for each cell type. The default setting for expression range is quite high and most gene expression cannot be visualised with these settings. Each track must be configured individually rather than as a group, which takes a lot of time. I have created a version of this data where each track autoscales which can make it quicker to Determine what expression range would be ideal for visualising the expression of an individual gene.  You can access this custom track set at the link below.  
-    * For an exercise, select 2 or three cell types and adjust the scale to best reflect differences in gene expression of Ntrk2 between these cells. Save this session and share it.
+    * This loads 18 different tracks, one for each cell type. The default setting for expression range is quite high and most gene expression cannot be visualised with these settings. Each track must be configured individually rather than as a group, which takes a lot of time. I have created a version of this data as a public session in the UCSC genome browser. Where each track is autoscaled which can make it quicker to determine which expression range would be ideal for visualising the expression of an individual gene.  The data is also viewed using 'Multi-Region' which hides the introns in the gene models. THe sessopn is illustrated in a screen shot below and you can access this custom track set by clicking on the title in blue text.
 
-**[Linnarsson lab collapsed mouse cortex single cell data autoscale](https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10&lastVirtModeType=exonMostly&lastVirtModeExtraState=&emGeneTable=knownGene&virtModeType=exonMostly&virtMode=1&nonVirtPosition=chr13%3A58807697%2D59133970&position=chr13%3A58807697%2D59133970&hgsid=934998079_avsgVoOzSJintErsCjEIcwdiQOQc)**
+      **[Linnarsson lab mouse cortex single cell data as autoscaled datatracks](https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10&lastVirtModeType=exonMostly&lastVirtModeExtraState=&emGeneTable=knownGene&virtModeType=exonMostly&virtMode=1&nonVirtPosition=chr13%3A58807697%2D59133970&position=chr13%3A58807697%2D59133970&hgsid=1130613507_A81QmYr4dhsQBuI4PbXkGTxoEaZH)**
+
+      ![Linnarsson_ntrk2](./media/linnarsson_ntrk2.png)
+
+    * As an exercise, select 2 or three cell types and adjust the scale to best reflect differences in gene expression of Ntrk2 between these cells. Save this session and share it.
+
+
 
 
 
@@ -411,7 +423,7 @@ For each SRA run in the table below open the link to the run to down load the da
     * The resulting index file will have the file name : SRR2138661_astrocyte_chr13.sorted.bam.bai
         * It is essential that the index file for a BAM file has the same name and is located in the same folder as its BAM file. If not the IVG software will not be able to open the BAM file.<br>
 
-<img src="../media/BAM_bai_files.png" width="300">
+        ![bam_filenames](./media/BAM_bai_files.png){: style="width:450px"}
 
 3. **View the BAM files in IGV**
     * Select the Mouse (mm10) genome from the genome box in the top right hand corner.
@@ -425,11 +437,11 @@ For each SRA run in the table below open the link to the run to down load the da
     * Go to View / Preferences and select the 'Alignments tab'.
     * Change the visibility range threshold to 400kb.
 
-<img src="../media/IGV_preferences.png" width="400">
+![igv_settings](./media/IGV_preferences.png)
 
 **You may need to change this back to a smaller range in the future if you are working with large datasets and/or small amounts of memory on your computer.**
 
-<img src="../media/igv_Ntrk2.png" width="700">
+![junction_plot](./media/igv_Ntrk2.png)
 
 4. **Export images**
     * The Genome view above can be exported by selecting 'File / Save image...'  from the tool bar.
@@ -437,8 +449,8 @@ For each SRA run in the table below open the link to the run to down load the da
         * Right click on one of the junction tracks and select 'Sashimi Plot' from the poll down menu.
         * Select the tracks you want in your final image.
         * There are some data filtering and style adjustments you can make to the Sashimi plot. Right click on each track to access the menu options. Some changes apply to each track individually and some to all tracks.
-            *
-<img src="../media/Sashimi.png" width="700">
+
+![sashimi_plot](./media/Sashimi.png)
 
 5. **Download and install the Gencode gene model annotation track**
     * The refseq gene model track is not as comprehensive as GeneGode gene models. For both Human and Mouse the Gencode gene model gtf annotaion files can be downloaded form [Gencode](https://www.gencodegenes.org/mouse/). If you wish to do this be aware that it takes a little time and is not  done as part of a workshop.
