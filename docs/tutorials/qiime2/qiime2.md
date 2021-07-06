@@ -1,11 +1,8 @@
 ![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
 
-
-
-###**Caution**
-**This new workshop is currently undergoing testing and may contain bugs**
-
 # QIIME2
+
+{​==**This new workshop is currently undergoing testing and may contain bugs**==}
 
 Anticipated workshop duration when delivered to a group of participants is **4 hours**.  
 
@@ -94,23 +91,36 @@ At the end of this introductory workshop, you will:
 
 This workshop will be run on a [Nectar](https://cloud.nectar.org.au/) Instance. An “Instance” is Nectar terminology for a virtual machine running on the Nectar Cloud OpenStack infrastructure. An “Instance” runs on a “compute node”; i.e. a physical computer populated with processor chips, memory chips and so on.
 
-You will be given an individual IP address and password to log on to using the SSH client tool on your computer (Terminal on Mac or PuTTY on Windows).
+You will be given an individual username, IP address and password to log on to using the SSH client tool on your computer (Terminal on Mac or PuTTY on Windows).
 
 ```bash
-ssh ubuntu@ip-address
+ssh username@ip-address
 ```
 
 <br>
 Should you wish to do this tutorial at a later stage independently, it is possible to apply for your own instance directly through a [Nectar allocation](https://support.ehelp.edu.au/support/solutions/articles/6000068044-managing-an-allocation). There are also many helpful [Nectar Research Cloud tutorials](https://tutorials.rc.nectar.org.au/).
 
--------------------------------
 
+-------------------------------
+### How this tutorial works
+
+```
+These grey coloured boxes are code blocks. The rectangular boxes in the top
+right hand corner of this code block/grey box can be used to copy the code to
+the clipboard.
+```
+
+??? example "Coloured boxes like these with > on the far right hand side, can be clicked to reveal the contents."
+    REVEALED!
+
+
+-------------------------------
 ## Author Information
 Written by: Ashley Dungan and Gayle Philip  
 School of Biosciences, University of Melbourne; Melbourne Bioinformatics
 
 
-Created/Reviewed: May 2021
+Created/Reviewed: July 2021
 
 -------------------------------
 
@@ -152,12 +162,14 @@ As this workshop is being run on a remote Nectar Instance, you will need to down
     We will be doing this step multiple times throughout this workshop to view visualisation files as they are generated.
 
 
+**Mac Users**
+
 The syntax to do this depends on whether you are running the copying command on your local computer, or on the remote computer (Nectar cloud).
 
 1. When running the command from your local computer, the syntax for copying a file *from* Nectar is:
 
     ```bash
-    scp ubuntu@your_IP_address:FILENAME /PATH/TO/TARGET/FOLDER/
+    scp username@nectar_IP_address:FILENAME /PATH/TO/TARGET/FOLDER/
     ```
 
 2. Running the command on the remote computer, the syntax for copying a file *to* your local computer is:
@@ -165,13 +177,20 @@ The syntax to do this depends on whether you are running the copying command on 
     scp FILENAME username@your_IP_address:/PATH/TO/TARGET/FOLDER/
     ```
 
+
+**Windows Users**
+
+Using WinSCP or FileZilla
+
+1. Host: The IP address of the Nectar instance
+
+2. Username:
+
+3. Port:
+
+
 <br>
-Alternatively, ***if you have QIIME2 installed and are running it on your own computer***, you can use `qiime tools view` to view the results from the command line. `qiime tools view` opens a browser window with your visualization loaded in it. When you are done, you can close the browser window and press `ctrl-c` on the keyboard to terminate the command.
-
-
-```python
-qiime tools view filename.qzv
-```
+Alternatively, ***if you have QIIME2 installed and are running it on your own computer***, you can use `qiime tools view` to view the results from the command line (e.g. `qiime tools view filename.qzv`). `qiime tools view` opens a browser window with your visualization loaded in it. When you are done, you can close the browser window and press `ctrl-c` on the keyboard to terminate the command.
 
 
 ------------------------------
@@ -179,7 +198,7 @@ qiime tools view filename.qzv
 ## Section 1: Importing, cleaning and quality control of the data
 
 ### Import data
-These samples were sequenced on a single Illumina MiSeq run using v3 (2 × 300 bp) reagents at the Walter and Eliza Hall Institute (WEHI), Melbourne, Australia. Data from WEHI came as paired-end, demultiplexed, unzipped <fn>*.fastq</fn> files with adapters still attached. Following the [QIIME2 importing tutorial](https://docs.qiime2.org/2021.2/tutorials/importing/), this is the Casava One Eight format. The files have been renamed to satisfy the Casava format as <fn>SampleID_FWDXX-REVXX_L001_R[1 or 2]_001.fastq</fn> e.g. CTRLA_Fwd04-Rev25_L001_R1_001.fastq.gz. The files were then zipped (.gzip).
+These [samples](#the-study) were sequenced on a single Illumina MiSeq run using v3 (2 × 300 bp) reagents at the Walter and Eliza Hall Institute (WEHI), Melbourne, Australia. Data from WEHI came as paired-end, demultiplexed, unzipped <fn>*.fastq</fn> files with adapters still attached. Following the [QIIME2 importing tutorial](https://docs.qiime2.org/2021.2/tutorials/importing/), this is the Casava One Eight format. The files have been renamed to satisfy the Casava format as <fn>SampleID_FWDXX-REVXX_L001_R[1 or 2]_001.fastq</fn> e.g. CTRLA_Fwd04-Rev25_L001_R1_001.fastq.gz. The files were then zipped (.gzip).
 
 Here, the data files (two per sample i.e. forward and reverse reads `R1` and `R2` respectively) will be imported and exported as a single QIIME 2 artefact file. These samples are already demultiplexed (i.e. sequences from each sample have been written to separate files), so a metadata file is not initially required.
 
@@ -262,11 +281,7 @@ Copy `analysis/visualisations/trimmed_sequences.qzv` to your local computer and 
     ![demux_summary](./media/demux_summary.png)
 
 <br>
-Alternatively, *if you have QIIME2 locally installed and are running it on your own computer*, you can view the visualisation from the command-line:
-
-```python
-qiime tools view analysis/visualisations/trimmed_sequences.qzv
-```
+Alternatively, *if you have QIIME2 locally installed and are running it on your own computer*, you can view the visualisation from the command-line (e.g. `qiime tools view analysis/visualisations/trimmed_sequences.qzv`).  
 
 
 ###  Denoising the data
@@ -283,7 +298,7 @@ Trimmed sequences are now quality assessed using the `dada2` [plugin](https://pu
 !!! question "Question: Based on your assessment of the quality plots from the <fn>trimmed_sequences.qzv</fn> file generated in the previous step, what values would you select for `p-trunc-len-f` and `p-trunc-len-r` in the command below?"
 
     ??? answer
-        `p-trunc-len-f 212` and `p-trunc-len-r 167`
+        `p-trunc-len-f 211` and `p-trunc-len-r 172`
 
 
 *The specified output directory must not pre-exist.*  
@@ -308,7 +323,21 @@ A [metadata file](https://docs.qiime2.org/2021.4/tutorials/metadata/) is require
     2. Do BLAST searches of the representative sequences make sense? Are the features what you would expect e.g. marine or terrestrial?
     3. Have a large number (e.g. >50%) of sequences been lost during denoising/filtering? If so, the settings might be too stringent.
 
+<br>
+```python
+qiime metadata tabulate \
+--m-input-file analysis/dada2out/denoising_stats.qza \
+--o-visualization analysis/visualisations/16s_denoising_stats.qzv \
+--verbose
+```
 
+Copy `analysis/visualisations/16s_denoising_stats.qzv` to your local computer and view in QIIME 2 View (q2view).
+
+??? example "Visualisation: Denoising Stats"
+    ![dada2output](./media/dada2output.png)
+
+
+<br>
 ```python
 qiime feature-table summarize \
 --i-table analysis/dada2out/table.qza \
@@ -320,9 +349,10 @@ qiime feature-table summarize \
 Copy `analysis/visualisations/16s_table.qzv` to your local computer and view in QIIME 2 View (q2view).
 
 
-??? example "Visualisations: ASVs summary"
+??? example "Visualisations: Feature/ASV summary"
     ![ASV_overviewPNG](./media/ASV_overview.png)
     ![ASV_detailPNG](./media/ASV_detail.png)
+
 
 <br>
 ```python
@@ -332,24 +362,10 @@ qiime feature-table tabulate-seqs \
 --verbose
 ```
 
-Copy `analysis/visualisations/16s_rep_seqs.qzv` to your local computer and view in QIIME 2 View (q2view).
+Copy `analysis/visualisations/16s_representative_seqs.qzv` to your local computer and view in QIIME 2 View (q2view).
 
 ??? example "Visualisation: Representative Sequences"
     ![rep_seqs](./media/rep_seqs.png)
-
-
-<br>
-```python
-qiime metadata tabulate \
---m-input-file analysis/dada2out/denoising_stats.qza \
---o-visualization analysis/visualisations/16s_denoising_stats.qzv \
---verbose
-```
-
-Copy `analysis/visualisations/16s_denoising_stats.qzv` to your local computer and view in QIIME 2 View (q2view).
-
-??? example "Visualisation: `dada2` output"
-    ![dada2output](./media/dada2output.png)
 
 
 ------------
@@ -368,12 +384,12 @@ A classifier has already been trained for you for the V5V6 region of the bacteri
 n_jobs = 1  This runs the script using all available cores
 
 !!! note
-    The classifier used here is only appropriate for the specific 16S rRNA region that *this* data represents. You will need to train your own - no worries, QIIME2 has a tutorial for that.
+    The classifier used here is only appropriate for the specific 16S rRNA region that *this* data represents. It has also been trained specifically for the QIIME2 version that we are using in this workshop. You will need to train your own - no worries, QIIME2 has a tutorial for that.
 
 
 ```python
 qiime feature-classifier classify-sklearn \
---i-classifier silva_132_16s_v5v6_classifier.qza \
+--i-classifier silva_138_16s_v5v6_classifier_2021-4.qza \
 --i-reads analysis/dada2out/representative_sequences.qza \
 --p-n-jobs 1 \
 --output-dir analysis/taxonomy \
