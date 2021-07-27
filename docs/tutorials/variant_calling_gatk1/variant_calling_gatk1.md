@@ -6,7 +6,8 @@
 
 # Variant calling using GATK4
 
-<mark>This workshop is under development and testing and may contain bugs.</mark>
+<!-- <mark>This workshop is under development and testing and may contain bugs.</mark> -->
+{​==**This workshop is under development and testing and may contain bugs.**==}
 
 Anticipated workshop duration when delivered to a group of participants is **4 hours**.
 
@@ -118,7 +119,7 @@ The setting for this tutorial is as follows: you receive some germline sequencin
 
 ### The Genome Analysis Toolkit (GATK)
 
-The anemone-associated bacterial communities or *microbiome* - these bacteria live on, or within *E. diaphana*, and likely consist of a combination of commensals, transients, and long-term stable members, and combined with their host, form a mutually beneficial, stable symbiosis.
+GATK is the industry standard toolkit for analysis of germline DNA to identify SNVs and indels. The GATK tool is mainly designed fo the human whole genome and exome analysis. The current version (GATK4) has expanded scope now and includes more complex analysis such copy number (CNV), structural variant (SV) and somatic variants. The current version of GATK also includes several utility functions for processing alignment files, VCF files and other complex processing workflows. The Picard toolkit is also now incorporated with GATK4.
 
 Van der Auwera GA & O'Connor BD. (2020). Genomics in the Cloud: Using Docker, GATK, and WDL in Terra (1st Edition). O'Reilly Media.
 
