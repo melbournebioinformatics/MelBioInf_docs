@@ -48,14 +48,32 @@ What is the influence of genotype (intrinsic) and environment (extrinsic) on ane
 *Section 5:* Exporting data for further analysis in R  
 
 
--------------------------------
-
+-------------------
 ## Learning Objectives
 
 At the end of this introductory workshop, you will:
 
 * Take raw data from a sequencing facility and end with publication quality graphics and statistics
 * Answer the question *What is the influence of genotype (intrinsic) and environment (extrinsic) on anemone-associated bacterial communities?*
+
+
+-------------------------------
+## Tutorial layout
+
+* There is a `Table of contents` on the right-hand side which can be used to easily navigate through the tutorial by clicking the relevant section.
+
+```
+These grey coloured boxes are code blocks. The rectangular boxes in the top
+right hand corner of this code block/grey box can be used to copy the code to
+the clipboard.
+```
+
+??? example "Coloured boxes like these with > on the far right hand side, can be clicked to reveal the contents."
+    REVEALED!
+
+
+!!! attention "Attention: Pay attention to the information in these boxes."
+    Important information, hints and tips.
 
 -------------------------------
 
@@ -74,16 +92,14 @@ At the end of this introductory workshop, you will:
 **Mac Users:** No additional software needs to be installed for this workshop.
 
 **Windows Users:**  
-1. A terminal emulator such as [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)(free and open-source) will need to be downloaded.  
+1. A terminal emulator such as [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) (free and open-source) will need to be downloaded.
+
+??? example "Putty Example"
+    ![FilezillaPNG](./media/Putty.png)
+
+
 2. Software for file transfers between a local computer and remote server such as [WinSCP](https://winscp.net/eng/index.php) or [FileZilla](https://filezilla-project.org/).
 
-
---------------------------------
-### Required Data
-
-* No additional data needs to be downloaded for this workshop. It is located in the directory `raw_data` located in the home directory of the Nectar instance that you will log in to.
-
-* If you wish to analyse the data independently at a later stage, it can be downloaded from [here](https://github.com/melbournebioinformatics/MelBioInf_docs/blob/29266406cb16cf376ef5f3d48e9bf8ac3578f1b0/docs/tutorials/qiime2/raw_data.zip). This zipped folder contains both the FASTQs and associated metadata file.    
 
 
 --------------------------------
@@ -94,24 +110,38 @@ This workshop will be run on a [Nectar](https://cloud.nectar.org.au/) Instance. 
 You will be given an individual username, IP address and password to log on to using the SSH client tool on your computer (Terminal on Mac or PuTTY on Windows).
 
 ```bash
-ssh username@ip-address
+ssh username@nectar_ip-address
 ```
 
 <br>
 Should you wish to do this tutorial at a later stage independently, it is possible to apply for your own instance directly through a [Nectar allocation](https://support.ehelp.edu.au/support/solutions/articles/6000068044-managing-an-allocation). There are also many helpful [Nectar Research Cloud tutorials](https://tutorials.rc.nectar.org.au/).
 
 
+--------------------------------
+### Required Data
+
+* No additional data needs to be downloaded for this workshop - it is all located on the Nectar Instance. FASTQs are located in the directory `raw_data` and a metadata (`metadata.tsv`) file has also been provided.
+
+* If you wish to analyse the data independently at a later stage, it can be downloaded from [hereFIX](LINK). This zipped folder contains both the FASTQs and associated metadata file.    
+
+
+#### Symbolic links to workshop data
+Data for this workshop is stored in a central location (`/mnt/shared_data/`) on the Nectar file system that we will be using. We will use symbolic links (`ln -s`) to point to it. Symbolic links (or symlinks) are just "virtual" files or folders (they only take up a very little space) that point to a physical file or folder located elsewhere in the file system. Sequencing data can be large, and rather than unnecessarily having multiple copies of the data which can quickly take up a lot of space, we will simply point to the files needed in the `shared_data` folder.
+
+
+```Bash
+cd
+ln -s /mnt/shared_data/raw_data raw_data
+ln -s /mnt/shared_data/metadata.tsv metadata.tsv
+ln -s /mnt/shared_data/silva_138_16s_v5v6_classifier_2021-4.qza silva_138_16s_v5v6_classifier_2021-4.qza
+```
+
+
 -------------------------------
-### How this tutorial works
 
-```
-These grey coloured boxes are code blocks. The rectangular boxes in the top
-right hand corner of this code block/grey box can be used to copy the code to
-the clipboard.
-```
+### Slides
 
-??? example "Coloured boxes like these with > on the far right hand side, can be clicked to reveal the contents."
-    REVEALED!
+Slides for this tutorial can be found [hereFIX](LinkToSlides).
 
 
 -------------------------------
@@ -151,6 +181,10 @@ Quantitative Insights Into Microbial Ecology 2 ([QIIME 2™](https://www.nature.
 * Easily share results without QIIME 2 installed
 * Plugin-based system — researchers can add in tools as they wish
 
+<br>
+
+!!! attention
+    The version used in this workshop is qiime2-2021.4. Other versions of QIIME2 may result in minor differences in results.
 
 <br>
 #### Viewing QIIME2 visualisations
@@ -162,7 +196,7 @@ As this workshop is being run on a remote Nectar Instance, you will need to down
     We will be doing this step multiple times throughout this workshop to view visualisation files as they are generated.
 
 
-**Mac Users**
+***Mac Users***
 
 The syntax to do this depends on whether you are running the copying command on your local computer, or on the remote computer (Nectar cloud).
 
@@ -178,20 +212,21 @@ The syntax to do this depends on whether you are running the copying command on 
     ```
 
 
-**Windows Users**
+***Windows Users***
 
-Using WinSCP or FileZilla
+Using WinSCP or FileZilla:
 
-1. Host: The IP address of the Nectar instance
+  **Host:** The IP address of the Nectar instance  
+  **Username:** alpha | beta | gamma | delta  
+  **Port:** 22  
 
-2. Username:
 
-3. Port:
+??? example "Filezilla Example"
+    ![FilezillaPNG](./media/Filezilla.png)
 
 
 <br>
 Alternatively, ***if you have QIIME2 installed and are running it on your own computer***, you can use `qiime tools view` to view the results from the command line (e.g. `qiime tools view filename.qzv`). `qiime tools view` opens a browser window with your visualization loaded in it. When you are done, you can close the browser window and press `ctrl-c` on the keyboard to terminate the command.
-
 
 ------------------------------
 
@@ -280,9 +315,6 @@ Copy `analysis/visualisations/trimmed_sequences.qzv` to your local computer and 
     ![Rev_reads_quality_scoresPNG](./media/Rev_reads_quality_scores.png)
     ![demux_summary](./media/demux_summary.png)
 
-<br>
-Alternatively, *if you have QIIME2 locally installed and are running it on your own computer*, you can view the visualisation from the command-line (e.g. `qiime tools view analysis/visualisations/trimmed_sequences.qzv`).  
-
 
 ###  Denoising the data
 
@@ -290,7 +322,7 @@ Trimmed sequences are now quality assessed using the `dada2` [plugin](https://pu
 
 
 !!! note
-    This step may long time to run (i.e. days), depending on files sizes and computational power.
+    This step may long time to run (i.e. hours), depending on files sizes and computational power.
 
     Remember to adjust `p-trunc-len-f` and `p-trunc-len-r` values according to your own data.
 
@@ -333,9 +365,9 @@ qiime metadata tabulate \
 
 Copy `analysis/visualisations/16s_denoising_stats.qzv` to your local computer and view in QIIME 2 View (q2view).
 
+
 ??? example "Visualisation: Denoising Stats"
     ![dada2output](./media/dada2output.png)
-
 
 <br>
 ```python
@@ -353,7 +385,6 @@ Copy `analysis/visualisations/16s_table.qzv` to your local computer and view in 
     ![ASV_overviewPNG](./media/ASV_overview.png)
     ![ASV_detailPNG](./media/ASV_detail.png)
 
-
 <br>
 ```python
 qiime feature-table tabulate-seqs \
@@ -366,7 +397,6 @@ Copy `analysis/visualisations/16s_representative_seqs.qzv` to your local compute
 
 ??? example "Visualisation: Representative Sequences"
     ![rep_seqs](./media/rep_seqs.png)
-
 
 ------------
 ## Section 2: Taxonomic Analysis
@@ -400,6 +430,7 @@ qiime feature-classifier classify-sklearn \
     This step often runs out of memory on full datasets. Some options are to change the number of cores you are using (adjust `--p-n-jobs`) or add `--p-reads-per-batch 10000` and try again. The QIIME 2 forum has many threads regarding this issue so always check there was well.
 
 
+
 ### Generate a viewable summary file of the taxonomic assignments.
 
 
@@ -414,7 +445,6 @@ Copy `analysis/visualisations/taxonomy.qzv` to your local computer and view in Q
 
 ??? example "Visualisation: Taxonomy"
     ![taxonomy](./media/taxonomy.png)
-
 
 
 ### Filtering
@@ -447,7 +477,6 @@ Copy `analysis/visualisations/16s_table_filtered.qzv` to your local computer and
 
 ??? example "Visualisation: 16s_table_filtered"
     ![16s_table_filtered](./media/16s_table_filtered.png)
-
 
 ---------------------------------------
 ## Section 3: Build a phylogenetic tree
@@ -483,44 +512,6 @@ qiime phylogeny align-to-tree-mafft-fasttree \
 ----------
 ## Section 4: Basic visualisations and statistics
 
-### Rarefaction curves
-Generate rarefaction curves to determine whether the samples have been sequenced deeply enough to capture all the community members. The max depth setting will depend on the number of sequences in your samples.
-
-
-!!! info "**Things to look for:**"
-    1. Do the curves for each sample plateau? If they don’t, the samples haven’t been sequenced deeply enough to capture the full diversity of the bacterial communities, which is shown on the y-axis.
-    2. At what sequencing depth (x-axis) do your curves plateau? This value will be important for downstream analyses, particularly for alpha diversity analyses.
-
-
-Make a directory for downstream analysis results.
-
-```Bash
-mkdir analysis/downstream
-```
-
-!!! note
-    The value that you provide for --p-max-depth should be determined by reviewing the “Frequency per sample” information presented in the  <fn>16s_table_filtered.qzv</fn> file that was created above. In general, choosing a value that is somewhere around the median frequency seems to work well, but you may want to increase that value if the lines in the resulting rarefaction plot don’t appear to be leveling out, or decrease that value if you seem to be losing many of your samples due to low total frequencies closer to the minimum sampling depth than the maximum sampling depth.
-
-
-```python
-qiime diversity alpha-rarefaction \
---i-table analysis/taxonomy/16s_table_filtered.qza \
---i-phylogeny analysis/tree/16s_rooted_tree.qza \
---p-max-depth 9062 \
---m-metadata-file metadata.tsv \
---o-visualization analysis/visualisations/16s_alpha_rarefaction.qzv \
---verbose
-```
-
-
-Copy `analysis/visualisations/16s_alpha_rarefaction.qzv` to your local computer and view in QIIME 2 View (q2view).
-
-
-
-??? example "Visualisation: Rarefaction"
-    ![rarefaction](./media/rarefaction.png)
-
-
 ### ASV relative abundance bar charts
 Create bar charts to compare the relative abundance of ASVs across samples.
 
@@ -546,6 +537,37 @@ Copy `analysis/visualisations/barchart.qzv` to your local computer and view in Q
     ![barplot3](./media/barplot_level5.png)
 
 
+### Rarefaction curves
+Generate rarefaction curves to determine whether the samples have been sequenced deeply enough to capture all the community members. The max depth setting will depend on the number of sequences in your samples.
+
+
+!!! info "**Things to look for:**"
+    1. Do the curves for each sample plateau? If they don’t, the samples haven’t been sequenced deeply enough to capture the full diversity of the bacterial communities, which is shown on the y-axis.
+    2. At what sequencing depth (x-axis) do your curves plateau? This value will be important for downstream analyses, particularly for alpha diversity analyses.
+
+
+!!! note
+    The value that you provide for --p-max-depth should be determined by reviewing the “Frequency per sample” information presented in the  <fn>16s_table_filtered.qzv</fn> file that was created above. In general, choosing a value that is somewhere around the median frequency seems to work well, but you may want to increase that value if the lines in the resulting rarefaction plot don’t appear to be leveling out, or decrease that value if you seem to be losing many of your samples due to low total frequencies closer to the minimum sampling depth than the maximum sampling depth.
+
+
+```python
+qiime diversity alpha-rarefaction \
+--i-table analysis/taxonomy/16s_table_filtered.qza \
+--i-phylogeny analysis/tree/16s_rooted_tree.qza \
+--p-max-depth 9062 \
+--m-metadata-file metadata.tsv \
+--o-visualization analysis/visualisations/16s_alpha_rarefaction.qzv \
+--verbose
+```
+
+
+Copy `analysis/visualisations/16s_alpha_rarefaction.qzv` to your local computer and view in QIIME 2 View (q2view).
+
+
+
+??? example "Visualisation: Rarefaction"
+    ![rarefaction](./media/rarefaction.png)
+
 
 ### Alpha and beta diversity analysis
 The following is taken directly from the [Moving Pictures tutorial](https://docs.qiime2.org/2021.2/tutorials/moving-pictures/) and adapted for this data set. QIIME 2’s diversity analyses are available through the `q2-diversity` plugin, which supports computing alpha- and beta- diversity metrics, applying related statistical tests, and generating interactive visualisations. We’ll first apply the core-metrics-phylogenetic method, which rarefies a FeatureTable[Frequency] to a user-specified depth, computes several alpha- and beta- diversity metrics, and generates principle coordinates analysis (PCoA) plots using Emperor for each of the beta diversity metrics.
@@ -570,7 +592,7 @@ An important parameter that needs to be provided to this script is `--p-sampling
 qiime diversity core-metrics-phylogenetic \
   --i-phylogeny analysis/tree/16s_rooted_tree.qza \
   --i-table analysis/taxonomy/16s_table_filtered.qza \
-  --p-sampling-depth 5588 \
+  --p-sampling-depth 5583 \
   --m-metadata-file metadata.tsv \
   --output-dir analysis/diversity_metrics
 ```
@@ -581,17 +603,15 @@ Copy the `.qzv` files created from the above command into the `visualisations` s
 cp analysis/diversity_metrics/*.qzv analysis/visualisations
 ```
 
-To view the differences between sample composition using unweighted UniFrac in ordination space, copy `analysis/visualisations/weighted_unifrac_emperor.qzv` to your local computer and view in QIIME 2 View (q2view).
+To view the differences between sample composition using unweighted UniFrac in ordination space, copy `analysis/visualisations/unweighted_unifrac_emperor.qzv` to your local computer and view in QIIME 2 View (q2view).
 
 
-??? example "Visualisations: Weighted UniFrac Emperor Ordination"
-    ![weighted_unifrac_emperor1](./media/weighted_unifrac_emperor1.png)
-
+??? example "Visualisations: Unweighted UniFrac Emperor Ordination"
+    ![unweighted_unifrac_emperor1](./media/unweighted_unifrac_emperor1.png)
 
     On q2view, select the "Colour" tab and the heading "Environment" in the dropdown menu and then by "Genotype" in the "Shape" tab.  
 
-    ![weighted_unifrac_emperor2](./media/weighted_unifrac_emperor2.png)
-
+    ![unweighted_unifrac_emperor2](./media/unweighted_unifrac_emperor2.png)
 
 Next, we’ll test for associations between categorical metadata columns and alpha diversity data. We’ll do that here for the Faith Phylogenetic Diversity (a measure of community richness) and evenness metrics.
 
@@ -621,7 +641,6 @@ Copy `analysis/visualisations/evenness-group-significance.qzv` to your local com
 
 ??? example "Visualisation: Evenness output"
     ![evenness](./media/evenness.png)
-
 
 Finally, we’ll analyse sample composition in the context of categorical metadata using a permutational multivariate analysis of variance (PERMANOVA, first described in Anderson (2001)) test using the beta-group-significance command. The following commands will test whether distances between samples within a group, such as samples from the same genotype, are more similar to each other then they are to samples from the other groups. If you call this command with the `--p-pairwise` parameter, as we’ll do here, it will also perform pairwise tests that will allow you to determine which specific pairs of groups (e.g., AIMS1 and AIMS4) differ from one another, if any. This command can be slow to run, especially when passing `--p-pairwise`, since it is based on permutation tests. So, unlike the previous commands, we’ll run beta-group-significance on specific columns of metadata that we’re interested in exploring, rather than all metadata columns to which it is applicable. Here we’ll apply this to our unweighted UniFrac distances, using two sample metadata columns, as follows.
 
@@ -658,6 +677,9 @@ Copy `analysis/visualisations/unweighted-unifrac-environment-significance.qzv` t
 ??? example "Visualisation: Environmental significance output"
     ![env_sig](./media/env_sig.png)
 
+
+??? example "Provenance"
+    ![provenance](./media/provenance.png)
 
 ------------------------------------------
 ## Section 5: Exporting data for further analysis in R
