@@ -1,4 +1,4 @@
-<img src="../media/melbioinf_logo.png" width="350"> <img src="../media/PRIMARY_A_Vertical_Housed_RGB.png" width="150">
+![melbioinf_logo](/img/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](/img/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
 
 # Introduction to R for Biologists
 

@@ -1,3 +1,6 @@
+
+![melbioinf_logo](/img/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](/img/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
+
 # RNA-Seq Experimental Design
 
 ## What is RNA-seq?
@@ -124,20 +127,20 @@ using multiple observations in each condition.
 Variability is present in two forms: technical variability and biological
 variability.
 
-Combined biological and technical variability is measured using biological 
-replicates. Biological variability is the main source of variability and is 
-due to natural variation in the population and within cells. This includes 
-different individuals having different levels of a particular gene and the 
+Combined biological and technical variability is measured using biological
+replicates. Biological variability is the main source of variability and is
+due to natural variation in the population and within cells. This includes
+different individuals having different levels of a particular gene and the
 stochastic nature of expression levels in different cells.
 
 Technical variability is measured using technical replicates. Technical
 variability is often very small compared to biological variability.  Usually
-the question is whether an observed difference is greater than the total 
-variability (i.e. significant).  As combined variability is measured by 
+the question is whether an observed difference is greater than the total
+variability (i.e. significant).  As combined variability is measured by
 biological replicates technical replicates are only important if you need to
 know the degree of biological variability or technical variability.  An
 example of wanting technical variability would be method development. The
-main source of technical variation comes from RNA processing and from 
+main source of technical variation comes from RNA processing and from
 library prep. Variability from sequencing in different flow cells or different
 lanes is usually minimal. Generally, creating technical replicates from multiple
 library preps is unnecessary for RNA-seq experiments.
@@ -192,17 +195,17 @@ For a basic RNA-seq differential expression experiment, 10M to 20M reads per
 sample is usually enough.  If similar data exists it can be helpful to check
 the read counts for key genes of interest to estimate the required depth.
 
-Biological variability is usually the largest effect limiting the power of 
-RNA-seq analysis.  The most improvement in an experiment will usually be 
-achieved by increasing the biological replication to improve estimation of 
+Biological variability is usually the largest effect limiting the power of
+RNA-seq analysis.  The most improvement in an experiment will usually be
+achieved by increasing the biological replication to improve estimation of
 the biological variation.
 
-It is often possible to design experiments where the analysis is done 
+It is often possible to design experiments where the analysis is done
 incrementally such that a pilot study is added to with an additional block of
 samples or a pool of libraries is sequenced to additional depth. In these cases
 care must be taken to balance the design in a manner that each stage is a
-valid experiment in its own right.  This can allow a focused question to be 
-answered in the first stage, with an ability to either address issues or 
+valid experiment in its own right.  This can allow a focused question to be
+answered in the first stage, with an ability to either address issues or
 progress to a second stage with additional questions.
 
 
