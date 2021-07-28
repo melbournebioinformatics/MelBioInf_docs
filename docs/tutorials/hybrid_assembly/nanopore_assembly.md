@@ -1,6 +1,6 @@
 ![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
 
-# Hybrid genome assembly - nanopore and illumina
+# Hybrid genome assembly - Nanopore and Illumina
 
 Anticipated workshop duration when delivered to a group of participants is **2 hours**.  
 
