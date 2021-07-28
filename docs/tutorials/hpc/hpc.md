@@ -1,6 +1,6 @@
 <style src="../media/tute.css" ></style>
 <style>em {font-style: normal; font-family: courier new;}</style>
-![melbioinf_logo](/img/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](/img/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
+![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
 
 # High-Performance Computing
 
