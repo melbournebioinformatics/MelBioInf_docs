@@ -51,10 +51,10 @@ This tutorial runs through the GATK4 best practices workflow for variant calling
 
 **Pipeline:**  
 
-*Section 1:* Map raw mapped reads to reference genome  
+*Section 1:* Map raw mapped reads to reference genome
 *Section 2:* Prepare analysis ready reads
-*Section 3:* Variant calling  
-*Section 4:* Filter and prepare analysis ready variants  
+*Section 3:* Variant calling
+*Section 4:* Filter and prepare analysis ready variants
 *Section 5:* Exporting variant data and visualisation
 
 
