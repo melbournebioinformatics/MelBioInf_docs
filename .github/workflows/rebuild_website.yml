@@ -2,7 +2,7 @@ name: rebuild website
 on:
   push:
     branches: 
-      - github_actions_deploy
+      - master
 
 jobs:
   deploy:
