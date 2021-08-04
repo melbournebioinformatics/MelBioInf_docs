@@ -28,5 +28,5 @@ jobs:
       
       # builds our website and deploys to github-pages. 
       - name: Generate + deploy website
-        run: mkdocs gh-deploy
+        run: mkdocs gh-deploy --force
         
