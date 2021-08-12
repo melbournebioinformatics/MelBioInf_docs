@@ -201,7 +201,7 @@ cp -p /mnt/shared_data/NA12878.chr20.region_2.fastq.gz data/.
 Next, we need to prepare the reference data. Luckily, we have downloaded the data and all we need to do is to create a [symbolic link](https://kb.iu.edu/d/abbe) to the data folder as follows:
 
 ```Bash
-ln -s /mnt/shared_data/ reference/hg38/.
+ln -s /mnt/shared_data/* reference/hg38/.
 ```
 
 There are several files in the reference directory. **insert some description of the reference data here**
@@ -215,36 +215,18 @@ Run BWA as follows, but first navigate to the scripts folder:
 
 ```bash
 
-bwa mem -M -t 4 \
+bwa mem -M -t 2 \
 -R "@RG\tID:SRR622461.7\tSM:NA12878\tLB:ERR194147\tPL:ILLUMINA" \
 reference/hg38/Homo_sapiens_assembly38.fasta \
 data/NA12878.chr20.region_1.fastq.gz \
 data/NA12878.chr20.region_2.fastq.gz | \
 samtools view -b -h -o output/NA12878.bam -
+
 ```
 
 There are two parts to the command here. The first part uses BWA to perform the alignment and the second part take the output from BWA and uses Samtools to convert the output to the BAM format.
 
 At the end of this step you should have a file called `#!bash NA12878.bam` in the `#!bash output` directory.
-
-But before we proceed, let's take a detour and run some summary statistics of the alignment data and QC.
-
-??? example "**BAM statistics and QC** "
-    The commands below uses FastQC and Picard to generate QC metrics followed by multiQC tools then aggregating the data to produce an HTML report.    
-
-    ```bash
-    # FastQC
-    fastqc ../data/NA12878.chr20.region_1.fastq.gz ../data/NA12878.chr20.region_2.fastq.gz -o ../output/
-
-    # CollectInsertSizeMetrics
-    picard CollectMultipleMetrics -R ../reference/hg38/Homo_sapiens_assembly38.fasta -I ../output/NA12878.sort.dup.bqsr.bam -O ../output/
-
-    # MultiQC
-    multiqc ../output/. -o ../output/.
-
-    View the MultiQC report [here](files/multiqc_report.html).
-
-    ```
 
 ------------
 ## Section 2: Prepare analysis ready reads
@@ -253,15 +235,14 @@ But before we proceed, let's take a detour and run some summary statistics of th
 The alignment file `#!bash NA12878.bam` is not sorted. Before proceeding, we should sort the BAM file using the [Picard](https://broadinstitute.github.io/picard/) tools.
 
 ```bash
-cd scripts
 
-java -Xmx7g -jar picard.jar SortSam \
-    -INPUT output/NA12878.bam \
-    -OUTPUT output/NA12878.sort.bam \
-    -VALIDATION_STRINGENCY LENIENT \
-    -SORT_ORDER coordinate \
-    -MAX_RECORDS_IN_RAM 3000000 \
-    -CREATE_INDEX True
+picard -Xmx7g SortSam \
+    I=output/NA12878.bam \
+    O=output/NA12878.sort.bam \
+    VALIDATION_STRINGENCY=LENIENT \
+    SORT_ORDER=coordinate \
+    MAX_RECORDS_IN_RAM=3000000 \
+    CREATE_INDEX=True    
 ```
 
 The above command will create a coordinate sorted BAM file and an index (`#!bash .bai`) file.
@@ -273,7 +254,7 @@ The above command will create a coordinate sorted BAM file and an index (`#!bash
 # lets go to the home directory
 cd
 
-samtools flagstat ../output/NA12878.sort.bam
+samtools flagstat output/NA12878.sort.bam
 
 ```
 
@@ -303,17 +284,17 @@ samtools flagstat ../output/NA12878.sort.bam
 The aim of this step is to locate and tag duplicate reads in the BAM file. Duplicate reads can arise due to several reasons, for more details go to [MarkDuplicates](https://gatk.broadinstitute.org/hc/en-us/articles/360037052812-MarkDuplicates-Picard-).
 
 ```bash
-java -Xmx7g -jar picard.jar MarkDuplicates \
-    -INPUT output/NA12878.sort.bam \
-    -OUTPUT output/NA12878.sort.dup.bam \
-    -METRICS_FILE output/marked_dup_metrics.txt
+picard -Xmx7g MarkDuplicates \
+    I=output/NA12878.sort.bam \
+    O=output/NA12878.sort.dup.bam \
+    METRICS_FILE=output/marked_dup_metrics.txt
 ```
 
 !!! question "Question: How many duplicate reads are in the duplicate marked BAM file?"
 
     ??? answer
         ```bash
-        samtools flagstat ../output/NA12878.sort.dup.bam
+        samtools flagstat output/NA12878.sort.dup.bam
 
         2032568 + 0 in total (QC-passed reads + QC-failed reads)
         2030516 + 0 primary
@@ -364,6 +345,24 @@ gatk --java-options "-Xmx7g" ApplyBQSR \
 
 We now have a pre-processed BAM file (`#!bash NA12878.sort.dup.bqsr.bam`) ready for variant calling.
 
+But before we proceed, let's take a detour and run some summary statistics of the alignment data and QC.
+
+??? example "**BAM statistics and QC** "
+    The commands below uses FastQC and Picard to generate QC metrics followed by multiQC tools then aggregating the data to produce an HTML report.    
+
+    ```bash
+    # FastQC
+    fastqc data/NA12878.chr20.region_1.fastq.gz data/NA12878.chr20.region_2.fastq.gz -o output/
+
+    # CollectInsertSizeMetrics
+    picard CollectMultipleMetrics R=reference/hg38/Homo_sapiens_assembly38.fasta I=output/NA12878.sort.dup.bqsr.bam O=output/NA12878.sort.dup.bqsr.CollectMultipleMetrics
+
+    # MultiQC
+    multiqc output/. -o output/.
+
+    View the MultiQC report [here](files/multiqc_report.html).
+
+    ```
 
 ------------
 ## Section 3: Variant calling
@@ -391,7 +390,7 @@ gatk --java-options "-Xmx7g" HaplotypeCaller \
     -L chr20 \
     -O output/NA12878.g.vcf.gz
 ```
-The output of this step is a GVCF file. The format for the GVCF file is similar to a VCF file. The key difference is that the GVCF file contains records for each sequenced genomic coordinate. The `#!bash --emit-ref-confidence` or `#!bash -ERC` parameter let you select a method to summerize confidence in the genomic site being homozygous-referece. The option `#!bash -ERC GVCF` is more efficient and recommended for large samples and therefore more scalable.
+The output of this step is a GVCF file. The format for the GVCF file is similar to a VCF file. The key difference is that the GVCF file contains records for each sequenced genomic coordinate. The `#!bash --emit-ref-confidence` or `#!bash -ERC` parameter let you select a method to summarise confidence in the genomic site being homozygous-reference. The option `#!bash -ERC GVCF` is more efficient and recommended for large samples and therefore more scalable.
 
 
 ### Apply CombineGVCFs
@@ -437,8 +436,11 @@ The raw VCF file from the previous step (`#!bash output.vcf.gz`) contains 1895 v
     There are number of ways to count the variants in a VCF file. A very straigt forward way using the GATK4 tools is as follows:
     ```bash
     gatk CountVariants -V output/output.vcf.gz
+    ```
+
+    ```
     Tool returned:
-    1895
+    7520
     ```
 
 This is a two step process:
@@ -469,7 +471,7 @@ gatk --java-options "-Xmx7g" FilterVariantTranches \
     BCFtools is a useful tool to manipulate, filter and query VCF files. More details from [BCFtools](https://samtools.github.io/bcftools/). BCFtools can be combined with linux command line tools as well to summerise data. For example, the command below can used extract and print the 'FILTER' column from the VCF file.
 
     ```bash
-        bcftools query -f'%FILTER\n' output.cnns.cnnfilter.vcf
+        bcftools query -f'%FILTER\n' output/output.cnns.cnnfilter.vcf
     ```
 
 ### Additional filtering
@@ -488,32 +490,35 @@ gatk --java-options "-Xmx7g" VariantFiltration \
 
     ??? answer
         ```bash
-            bcftools query -f'%FILTER\n' output.cnns.cnnfilter.varfilter.vcf | sort | uniq -c
-
-            10 CNN_1D_INDEL_Tranche_99.40_100.00
-            39 CNN_1D_SNP_Tranche_99.95_100.00
-            4 Low_depth10
-            1842 PASS
+            bcftools query -f'%FILTER\n' output/output.cnns.cnnfilter.varfilter.vcf | sort | uniq -c
         ```
 
+        ```
+            76 CNN_1D_INDEL_Tranche_99.40_100.00
+            4 CNN_1D_INDEL_Tranche_99.40_100.00;Low_depth10
+            132 CNN_1D_SNP_Tranche_99.95_100.00
+            3 CNN_1D_SNP_Tranche_99.95_100.00;Low_depth10
+            51 Low_depth10
+            7254 PASS
+        ```
 
 ------------------------------------------
 ## Section 5: Exporting variant data and visualisation
 VCF files, although in tabular format, are not user friendly. We will go through a couple of ways to share share and visualise variant data. This is important for downstream analysis as well as sharing data. First, we will convert the VCF file in to a TSV file (ready for Excel for example) in a manner where we extract data fields of interest.
 
 ### VariantsToTable
-This GATK4 tool extracts fields of intesrest from each record in a VCF file. [VariantsToTable](https://gatk.broadinstitute.org/hc/en-us/articles/360056968292-VariantsToTable) can extract field from both the INFO and FORMAT columns in the VCF file.
+This GATK4 tool extracts fields of interest from each record in a VCF file. [VariantsToTable](https://gatk.broadinstitute.org/hc/en-us/articles/360056968292-VariantsToTable) can extract field from both the INFO and FORMAT columns in the VCF file.
 
 !!! note
     VariantsToTable, by default, only extracts PASS or . (no filtering applied) variants. Use the `#!bash --show-filtered` parameter to show all variants.
 
 ```bash
-    gatk VariantsToTable \
+    gatk VariantsToTable
     -R reference/hg38/Homo_sapiens_assembly38.fasta \
-    -V output/output.cnns.cnnfilter.vcf \
-    -O output/output.cnns.cnnfilter.varfilter.vcf \
-    --filter-name "Low_depth10" \
-    --filter-expression "DP < 10"
+    -V output/output.cnns.cnnfilter.varfilter.vcf \
+    -F CHROM -F POS -F FILTER -F TYPE -GF AD -GF DP \
+    --show-filtered \
+    -O output/output.cnns.cnnfilter.varfilter.tsv
 ```
 
 ### HTML report
