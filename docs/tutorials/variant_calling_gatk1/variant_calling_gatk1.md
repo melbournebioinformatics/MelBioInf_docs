@@ -178,6 +178,7 @@ cd
 mkdir -p data
 mkdir -p output
 mkdir -p reference
+mkdir -p reference/hg38
 mkdir -p scripts
 mkdir -p slurm_scripts
 mkdir -p temp
@@ -190,22 +191,22 @@ mkdir -p tools
 The data for this tutorial is sourced from the [International Genome Sample Resources](https://www.internationalgenome.org/data-portal/sample/NA12878). Raw sequencing reads from chromosome 20 are used in this tutorial. We have prepared the files which can be copied as follows:
 
 ```Bash
-cp -p <insert_path>/NA12878.chr20.region_1.fastq.gz data/.
-cp -p <insert_path>/NA12878.chr20.region_2.fastq.gz data/.
+cp -p /mnt/shared_data/NA12878.chr20.region_1.fastq.gz data/.
+cp -p /mnt/shared_data/NA12878.chr20.region_2.fastq.gz data/.
 ```
 
 !!! note
-    To perform quality control checks on the raw fastq data use the tool [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). Another useful QC tool output aggregator is the [MultiQC](https://multiqc.info/) tool. MultiQC aggregates the output from several tools and outputs a single QC report for all samples.
+    To perform quality control checks on the raw fastq data use the tool [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). Another useful QC tool output aggregator is the [MultiQC](https://multiqc.info/) tool. MultiQC aggregates the output from several tools and outputs a single QC report for all samples. We will have a look at some of the QC data later in this section.
 
 Next, we need to prepare the reference data. Luckily, we have downloaded the data and all we need to do is to create a [symbolic link](https://kb.iu.edu/d/abbe) to the data folder as follows:
 
 ```Bash
-ln -s <ref_data_source>/hg38/ reference/.
+ln -s /mnt/shared_data/ reference/hg38/.
 ```
 
 There are several files in the reference directory. **insert some description of the reference data here**
 
-<!-- INSERT DESCRIPTION OF THE REFERCEN DATA _ BWA INDEX -->
+<!-- INSERT DESCRIPTION OF THE REFERENCE DATA _ BWA INDEX -->
 
 ### Align genome
 Run the command below to map the raw sequencing data to the Homo sapiens (human) genome assembly GRCh38 (hg38). We are using the [BWA-MEM](https://github.com/lh3/bwa) algorithms for mapping DNA sequences against large reference genomes. Note that we have already run the created the BWA index files by running the command `#!bash bwa index reference/hg38/Homo_sapiens_assembly38.fasta`.
@@ -225,6 +226,25 @@ samtools view -b -h -o output/NA12878.bam -
 There are two parts to the command here. The first part uses BWA to perform the alignment and the second part take the output from BWA and uses Samtools to convert the output to the BAM format.
 
 At the end of this step you should have a file called `#!bash NA12878.bam` in the `#!bash output` directory.
+
+But before we proceed, let's take a detour and run some summary statistics of the alignment data and QC.
+
+??? example "**BAM statistics and QC** "
+    The commands below uses FastQC and Picard to generate QC metrics followed by multiQC tools then aggregating the data to produce an HTML report.    
+
+    ```bash
+    # FastQC
+    fastqc ../data/NA12878.chr20.region_1.fastq.gz ../data/NA12878.chr20.region_2.fastq.gz -o ../output/
+
+    # CollectInsertSizeMetrics
+    picard CollectMultipleMetrics -R ../reference/hg38/Homo_sapiens_assembly38.fasta -I ../output/NA12878.sort.dup.bqsr.bam -O ../output/
+
+    # MultiQC
+    multiqc ../output/. -o ../output/.
+
+    View the MultiQC report [here](files/multiqc_report.html).
+
+    ```
 
 ------------
 ## Section 2: Prepare analysis ready reads
@@ -253,27 +273,29 @@ The above command will create a coordinate sorted BAM file and an index (`#!bash
 # lets go to the home directory
 cd
 
-samtools flagstat output/NA12878.sort.bam
+samtools flagstat ../output/NA12878.sort.bam
 
 ```
 
 ```bash
 # output
 
-494685 + 0 in total (QC-passed reads + QC-failed reads)
-467 + 0 secondary
+2032568 + 0 in total (QC-passed reads + QC-failed reads)
+2030516 + 0 primary
+2052 + 0 secondary
 0 + 0 supplementary
 0 + 0 duplicates
-494684 + 0 mapped (100.00% : N/A)
-494218 + 0 paired in sequencing
-247109 + 0 read1
-247109 + 0 read2
-494182 + 0 properly paired (99.99% : N/A)
-494216 + 0 with itself and mate mapped
+0 + 0 primary duplicates
+2032563 + 0 mapped (100.00% : N/A)
+2030511 + 0 primary mapped (100.00% : N/A)
+2030516 + 0 paired in sequencing
+1015258 + 0 read1
+1015258 + 0 read2
+2030298 + 0 properly paired (99.99% : N/A)
+2030510 + 0 with itself and mate mapped
 1 + 0 singletons (0.00% : N/A)
-18 + 0 with mate mapped to a different chr
-8 + 0 with mate mapped to a different chr (mapQ>=5)
-
+182 + 0 with mate mapped to a different chr
+124 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
 
 
@@ -291,23 +313,26 @@ java -Xmx7g -jar picard.jar MarkDuplicates \
 
     ??? answer
         ```bash
-        samtools flagstat output/NA12878.sort.dup.bam
+        samtools flagstat ../output/NA12878.sort.dup.bam
 
-        494685 + 0 in total (QC-passed reads + QC-failed reads)
-        467 + 0 secondary
+        2032568 + 0 in total (QC-passed reads + QC-failed reads)
+        2030516 + 0 primary
+        2052 + 0 secondary
         0 + 0 supplementary
-        1742 + 0 duplicates
-        494684 + 0 mapped (100.00% : N/A)
-        494218 + 0 paired in sequencing
-        247109 + 0 read1
-        247109 + 0 read2
-        494182 + 0 properly paired (99.99% : N/A)
-        494216 + 0 with itself and mate mapped
+        7207 + 0 duplicates
+        7207 + 0 primary duplicates
+        2032563 + 0 mapped (100.00% : N/A)
+        2030511 + 0 primary mapped (100.00% : N/A)
+        2030516 + 0 paired in sequencing
+        1015258 + 0 read1
+        1015258 + 0 read2
+        2030298 + 0 properly paired (99.99% : N/A)
+        2030510 + 0 with itself and mate mapped
         1 + 0 singletons (0.00% : N/A)
-        18 + 0 with mate mapped to a different chr
-        8 + 0 with mate mapped to a different chr (mapQ>=5)
+        182 + 0 with mate mapped to a different chr
+        124 + 0 with mate mapped to a different chr (mapQ>=5)
         ```
-        Looks like there are **1742** duplicate reads.
+        Looks like there are **7207** duplicate reads.
 
 
 ###  Base quality recalibration
@@ -495,6 +520,10 @@ This GATK4 tool extracts fields of intesrest from each record in a VCF file. [Va
 Generate HTML report from the VCF file. Copy across the VCF to you local computer using the `#!bash scp` command. This is useful way to visualise variant for review or sharing with colleagues and collaborators.
 
 ![fig2](./media/fig2.png)
+
+
+(Link)[] to variant HTML report.
+
 
 TODO...
 
