@@ -1,4 +1,4 @@
-![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
+summarise![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
 
 <!---
 //![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
@@ -15,7 +15,7 @@ For queries relating to this workshop, contact Melbourne Bioinformatics (bioinfo
 
 Written by: Khalid Mahmood (Melbourne Bioinformatics)
 Developed: July 2021
-Reviewed: July 2021
+Reviewed: August 2021
 
 ## Overview
 
@@ -358,11 +358,9 @@ But before we proceed, let's take a detour and run some summary statistics of th
     picard CollectMultipleMetrics R=reference/hg38/Homo_sapiens_assembly38.fasta I=output/NA12878.sort.dup.bqsr.bam O=output/NA12878.sort.dup.bqsr.CollectMultipleMetrics
 
     # MultiQC
-    multiqc output/. -o output/.
-
-    View the MultiQC report [here](files/multiqc_report.html).
-
+    multiqc output/. -o output/.    
     ```
+    View the MultiQC report [here](files/multiqc_report.html){:target="_blank"}.
 
 ------------
 ## Section 3: Variant calling
@@ -468,7 +466,7 @@ gatk --java-options "-Xmx7g" FilterVariantTranches \
 ```
 
 !!! Hint
-    BCFtools is a useful tool to manipulate, filter and query VCF files. More details from [BCFtools](https://samtools.github.io/bcftools/). BCFtools can be combined with linux command line tools as well to summerise data. For example, the command below can used extract and print the 'FILTER' column from the VCF file.
+    BCFtools is a useful tool to manipulate, filter and query VCF files. More details from [BCFtools](https://samtools.github.io/bcftools/). BCFtools can be combined with linux command line tools as well to summarise data. For example, the command below can used extract and print the 'FILTER' column from the VCF file.
 
     ```bash
         bcftools query -f'%FILTER\n' output/output.cnns.cnnfilter.vcf
@@ -527,8 +525,7 @@ Generate HTML report from the VCF file. Copy across the VCF to you local compute
 ![fig2](./media/fig2.png)
 
 
-(Link)[] to variant HTML report.
-
+Link to the variant [HTML](files/NA12878.html){:target="_blank"} report.
 
 TODO...
 
