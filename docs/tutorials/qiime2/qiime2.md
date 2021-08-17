@@ -2,8 +2,6 @@
 
 # QIIME2
 
-{​==**This new workshop is currently undergoing testing and may contain bugs**==}
-
 Anticipated workshop duration when delivered to a group of participants is **4 hours**.  
 
 For queries relating to this workshop, contact Melbourne Bioinformatics (bioinformatics-training@unimelb.edu.au).
@@ -89,13 +87,13 @@ the clipboard.
 
 ### Required Software
 
-**Mac Users:** No additional software needs to be installed for this workshop.
+**Mac Users:** No additional software needs to be installed for this workshop.  
 
 **Windows Users:**  
 1. A terminal emulator such as [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) (free and open-source) will need to be downloaded.
 
 ??? example "Putty Example"
-    ![FilezillaPNG](./media/Putty.png)
+    ![PuttyPNG](./media/Putty.png)
 
 
 2. Software for file transfers between a local computer and remote server such as [WinSCP](https://winscp.net/eng/index.php) or [FileZilla](https://filezilla-project.org/).
@@ -122,7 +120,7 @@ Should you wish to do this tutorial at a later stage independently, it is possib
 
 * No additional data needs to be downloaded for this workshop - it is all located on the Nectar Instance. FASTQs are located in the directory `raw_data` and a metadata (`metadata.tsv`) file has also been provided.
 
-* If you wish to analyse the data independently at a later stage, it can be downloaded from [hereFIX](LINK). This zipped folder contains both the FASTQs and associated metadata file.    
+* If you wish to analyse the data independently at a later stage, it can be downloaded from [here](https://github.com/melbournebioinformatics/MelBioInf_docs/blob/35d58488f4567156e1aced3f5f3a181d291cc1c8/docs/tutorials/qiime2/data_files.zip). This zipped folder contains both the FASTQs and associated metadata file.    
 
 
 #### Symbolic links to workshop data
@@ -141,7 +139,7 @@ ln -s /mnt/shared_data/silva_138_16s_v5v6_classifier_2021-4.qza silva_138_16s_v5
 
 ### Slides
 
-Slides for this tutorial can be found [hereFIX](LinkToSlides).
+Slides for this tutorial can be found [here](https://github.com/melbournebioinformatics/MelBioInf_docs/blob/68525930ec8f50c951b2b32fa0cb20aa9d027d8f/docs/tutorials/qiime2/media/QIIME2_workshop_MelbBioinformatics.pdf).
 
 
 -------------------------------
@@ -160,7 +158,7 @@ What is the influence of genotype (intrinsic) and environment (extrinsic) on ane
 
 ### The Players
 
-* *Exaiptasia diaphana* - a shallow-water, marine anemone that is often used in research as a model organism for corals. In this experiment, two genotypes (AIMS1 and AIMS4) of *E. diaphana* were grown in each of two different environments:  
+* [*Exaiptasia diaphana*](https://www.flickr.com/photos/oregonstateuniversity/37602685205/in/photolist-9bvKtu-ZhPAfH-4whbde-2KAa34-2gLpRbY-7XQ8rs-itNBnM-MAREk7-8dseKh-d4ANrm-BGK165-d4B18m-MHUMrs-2kNLuhY-a9a8KH-fXoAbp-7t8d24-fXowPo-VmKukv-7XLRPt-7XLRJn-7XQ8kA-YYY7YD-7XQ8jh-7XLREX-GF37up-7XLRCc-GF37mP-7XLRDg-XKk2di-7XQ8bm-7XLRBz-7XLRvR-7XLRAv-7XLRuv-7XQ861-7XQ849-7XLRs8-7XLRxz-7XLRwP-21UJ1HC-7XQ8h7) - a shallow-water, marine anemone that is often used in research as a model organism for corals. In this experiment, two genotypes (AIMS1 and AIMS4) of *E. diaphana* were grown in each of two different environments:  
     1. sterile seawater ***OR***  
     2. unfiltered control seawater  
 
@@ -200,6 +198,7 @@ As this workshop is being run on a remote Nectar Instance, you will need to down
 
 The syntax to do this depends on whether you are running the copying command on your local computer, or on the remote computer (Nectar cloud).
 
+
 1. When running the command from your local computer, the syntax for copying a file *from* Nectar is:
 
     ```bash
@@ -211,13 +210,15 @@ The syntax to do this depends on whether you are running the copying command on 
     scp FILENAME username@your_IP_address:/PATH/TO/TARGET/FOLDER/
     ```
 
+Less experienced Unix users may want to use FileZilla.
+
 
 ***Windows Users***
 
 Using WinSCP or FileZilla:
 
   **Host:** The IP address of the Nectar instance  
-  **Username:** alpha | beta | gamma | delta  
+  **Username:** alpha | beta | gamma | delta | epsilon | delta  
   **Port:** 22  
 
 
@@ -484,7 +485,7 @@ Copy `analysis/visualisations/16s_table_filtered.qzv` to your local computer and
 The next step does the following:
 
 1. Perform an alignment on the representative sequences.
-2. Mask highly variable regions of the alignment.
+2. Mask sites in the alignment that are not phylogenetically informative.
 3. Generate a phylogenetic tree.
 4. Apply mid-point rooting to the tree.
 
