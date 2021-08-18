@@ -186,6 +186,10 @@ Click here for slides presented during this workshop. <a href="media/QIIME2_work
 
 Click here for a printer friendly PDF version of this workshop.<a href="qiime2.pdf" class="image fit"><img src="media/pdf.png" width="60" height ="60" alt="here"></a>
 
+<a href="vperreau.github.io/MelBioInf_docs/tutorials/qiime2/qiime2/media/QIIME2_workshop_MelbBioinformatics.pdf" target="_blank">SLIDES.</a>
+
+<a href="vperreau.github.io/MelBioInf_docs/tutorials/qiime2/qiime2/media/QIIME2_workshop_MelbBioinformatics.pdf" target="_blank">PDF.</a>
+
 -------------------------------
 ## Author Information
 Written by: Ashley Dungan and Gayle Philip  
