@@ -114,6 +114,49 @@ ssh username@nectar_ip-address
 <br>
 Should you wish to do this tutorial at a later stage independently, it is possible to apply for your own instance directly through a [Nectar allocation](https://support.ehelp.edu.au/support/solutions/articles/6000068044-managing-an-allocation). There are also many helpful [Nectar Research Cloud tutorials](https://tutorials.rc.nectar.org.au/).
 
+#### Byobu-screen
+
+Some of the commands in this tutorial take a while to run. Should your connection drop and the SSH session on Nectar terminates, any commands that are running will terminate too. To mitigate this, once logged on to the Nectar Instance, we'll run `byobu-screen` (an enhancement for the `screen` terminal multiplexer) which allows us to resume a session. In other words, processes running in `byobu-screen` will continue to run when their window is not visible, even if you get disconnected.
+
+
+On Nectar, to start a `byobu-screen` session called `workshop`, type  
+
+```bash
+byobu-screen -S workshop
+```
+
+??? example "Byobu Example"
+    ![Byobu](./media/byobu.png)
+
+
+You can then proceed to run the commands in the workshop as normal.
+
+<br>
+Should your SSH session on Nectar terminate, once you log back in to your Nectar instance, list running sessions/screens:
+
+```bash
+byobu-screen -ls
+```
+
+If it says (Detached) next to the `workshop` session in the list, reattach to `workshop` by:
+
+```bash
+byobu-screen -r workshop
+```
+
+If it says (Attached) next to the `workshop` session in the list, you can access `workshop` which is already attached by:
+
+```bash
+byobu-screen -r -d workshop
+```
+
+<br>
+Some other useful `byobu-screen` commands:
+
+* To detach from `workshop`, type `ctrl-a ctrl-d` while inside the `workshop` session.
+(You will need to configure Byobu's ctrl-a behaviour if it hasn't already been configured (text will appear on the screen telling you this). Follow the information on the screen and select `1` for Screen mode).
+
+* To terminate `workshop`, type `ctrl-d` while inside the `workshop` session.
 
 --------------------------------
 ### Required Data
@@ -240,6 +283,11 @@ Here, the data files (two per sample i.e. forward and reverse reads `R1` and `R2
 
 !!! note
     To check the input syntax for any QIIME2 command, enter the command, followed by `--help` e.g. `qiime tools import --help`
+
+
+!!! attention
+    If you haven't already done so, make sure you are running the workshop in [byobu-screen](#byobu-screen) and have created the symbolic links to the [workshop data](#symbolic-links-to-workshop-data).
+
 
 
 Start by making a new directory `analysis` to store all the output files from this tutorial. In addition, we will create a subdirectory called `seqs` to store the exported sequences.
@@ -727,7 +775,7 @@ Delete the header lines of the .tsv files
 
 ``` bash
 sed '1d' analysis/export/taxonomy.tsv > analysis/export/taxonomy_noHeader.tsv
-sed '1,2d' analysis/export/feature-table.tsv > analysis/export/feature-table_noHeader.tsv
+sed '1d' analysis/export/feature-table.tsv > analysis/export/feature-table_noHeader.tsv
 ```
 
 Some packages require your data to be in a consistent order, i.e. the order of your ASVs in the taxonomy table rows to be the same order of ASVs in the columns of your ASV table. It's recommended to clean up your taxonomy file. You can have blank spots where the level of classification was not completely resolved.
