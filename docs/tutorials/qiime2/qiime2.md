@@ -182,19 +182,11 @@ ln -s /mnt/shared_data/silva_138_16s_v5v6_classifier_2021-4.qza silva_138_16s_v5
 
 ### Slides and workshop instructions
 
-Click here for slides presented during this workshop. <a href="media/QIIME2_workshop_MelbBioinformatics.pdf" class="image fit"><img src="media/slideshow_icon.png" width="60" height ="60" alt="here"></a>
 
-Click here for slides presented during this workshop. <a href="media/QIIME2_workshop_MelbBioinformatics.pdf" type="application/pdf" target="_blank">PDF using type</a>
+Click <a href="../media/QIIME2_workshop_MelbBioinformatics.pdf" type="application/pdf" target="_blank">here</a> for slides presented during this workshop.
 
-Click here for slides presented during this workshop. <a href="../media/QIIME2_workshop_MelbBioinformatics.pdf" type="application/pdf" target="_blank">PDF using type and up one dir</a>
+Click <a href="../qiime2.pdf" type="application/pdf" target="_blank">here</a> for a printer friendly PDF version of this workshop.
 
-Click here for slides presented during this workshop. <a href="../qiime2/media/QIIME2_workshop_MelbBioinformatics.pdf" type="application/pdf" target="_blank">PDF using type and up one dir down to qiime2</a>
-
-Click here for a printer friendly PDF version of this workshop.<a href="qiime2.pdf" class="image fit"><img src="media/pdf.png" width="60" height ="60" alt="here"></a>
-
-<a href="vperreau.github.io/qiime2/media/QIIME2_workshop_MelbBioinformatics.pdf" target="_blank">SLIDES.</a>
-
-<a href="vperreau.github.io/MelBioInf_docs/tutorials/qiime2/qiime2/media/QIIME2_workshop_MelbBioinformatics.pdf" target="_blank">PDF.</a>
 
 -------------------------------
 ## Author Information
