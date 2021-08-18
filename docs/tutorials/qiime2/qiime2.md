@@ -180,10 +180,11 @@ ln -s /mnt/shared_data/silva_138_16s_v5v6_classifier_2021-4.qza silva_138_16s_v5
 
 -------------------------------
 
-### Slides
+### Slides and workshop instructions
 
-Slides for this tutorial can be found [here](https://github.com/melbournebioinformatics/MelBioInf_docs/blob/68525930ec8f50c951b2b32fa0cb20aa9d027d8f/docs/tutorials/qiime2/media/QIIME2_workshop_MelbBioinformatics.pdf).
+Click here for slides presented during this workshop. <a href="media/QIIME2_workshop_MelbBioinformatics.pdf" class="image fit"><img src="media/slideshow_icon.png" width="60" height ="60" alt="here"></a>
 
+Click here for a printer friendly PDF version of this workshop.<a href="qiime2.pdf" class="image fit"><img src="media/pdf.png" width="60" height ="60" alt="here"></a>
 
 -------------------------------
 ## Author Information
@@ -191,7 +192,7 @@ Written by: Ashley Dungan and Gayle Philip
 School of Biosciences, University of Melbourne; Melbourne Bioinformatics
 
 
-Created/Reviewed: July 2021
+Created/Reviewed: August 2021
 
 -------------------------------
 
