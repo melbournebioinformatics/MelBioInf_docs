@@ -525,8 +525,4 @@ Generate HTML report from the VCF file. Copy across the VCF to you local compute
 ![fig2](./media/fig2.png)
 
 
-Link to the variant [HTML](files/NA12878.html){:target="_blank"} report.
-
-TODO...
-
-Concluding remarks.
+Click here to to visualise the variant in an [HTML](files/NA12878.html){:target="_blank"} report genereated with jigv.
