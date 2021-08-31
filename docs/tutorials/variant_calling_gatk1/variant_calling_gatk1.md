@@ -1,21 +1,21 @@
-summarise![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
-
-<!---
-//![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
--->
+![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
 
 # Variant calling using GATK4
 
 <!-- <mark>This workshop is under development and testing and may contain bugs.</mark> -->
-{​==**This workshop is under development and testing and may contain bugs.**==}
+<!-- {​==**This workshop is under development and testing and may contain bugs.**==} -->
 
 Anticipated workshop duration when delivered to a group of participants is **4 hours**.
 
 For queries relating to this workshop, contact Melbourne Bioinformatics (bioinformatics-training@unimelb.edu.au).
 
-Written by: Khalid Mahmood (Melbourne Bioinformatics)
-Developed: July 2021
+-------------------------------
+## Author Information
+Khalid Mahmood  
+Melbourne Bioinformatics, University of Melbourne  
+Developed: July 2021  
 Reviewed: August 2021
+-------------------------------
 
 ## Overview
 
@@ -29,9 +29,7 @@ Reviewed: August 2021
 * [ ] Structural Modelling
 * [ ] Basic skills
 
-
 ### Skill level
-
 * [ ] Beginner  
 * [x] Intermediate  
 * [ ] Advanced  
@@ -43,20 +41,19 @@ This workshop is designed for participants with some command-line knowledge. You
 
 This tutorial runs through the GATK4 best practices workflow for variant calling. The workflow starts and a pair of sequencing reads and performs a series of steps to determine a set to genetic variants.
 
-**Data:** Illumina HiSeq paired-end (2 × 100 bp) reads (FASTQ).
+**Data:** Illumina HiSeq paired-end (2×100 bp) reads (FASTQ).
 
-**Tools:** GATK4, picard, bcftools, jigv
+**Tools:** GATK4, Picard, Bcftools and jigv
 
 **Reference data:** GATK4 hg38 reference bundle and hg38 refGene annotation (hg38.refGene.gtf.gz)
 
 **Pipeline:**  
 
-*Section 1:* Map raw mapped reads to reference genome
-*Section 2:* Prepare analysis ready reads
-*Section 3:* Variant calling
-*Section 4:* Filter and prepare analysis ready variants
-*Section 5:* Exporting variant data and visualisation
-
+* Section 1: Map raw mapped reads to reference genome
+* Section 2: Prepare analysis ready reads
+* Section 3: Variant calling
+* Section 4: Filter and prepare analysis ready variants
+* Section 5: Exporting variant data and visualisation
 
 -------------------------------
 
@@ -76,9 +73,6 @@ At the end of this workshop, you will be able to:
 
     At least one week before the workshop, if required, participants should install the software below.  This should provide sufficient time for participants to liaise with their own IT support should they encounter any IT problems.  
 
-
-----------------------------
-
 ### Required Software
 
 **Mac Users:** No additional software needs to be installed for this workshop.
@@ -87,16 +81,12 @@ At the end of this workshop, you will be able to:
 1. A terminal emulator such as [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)(free and open-source) will need to be downloaded.  
 2. Software for file transfers between a local computer and remote server such as [WinSCP](https://winscp.net/eng/index.php) or [FileZilla](https://filezilla-project.org/).
 
-
---------------------------------
 ### Required Data
 
 * All required data will be made available on the workshop virtual machines (hosted at the Melbourne Research Cloud). Login details will be provided closer to the tutorial data.
 
 <!-- * If you wish to analyse the data independently at a later stage, it can be downloaded from [here](https://github.com/melbournebioinformatics/MelBioInf_docs/blob/29266406cb16cf376ef5f3d48e9bf8ac3578f1b0/docs/tutorials/qiime2/raw_data.zip). This zipped folder contains both the FASTQs and associated metadata file.     -->
 
-
---------------------------------
 ### Mode of Delivery
 
 This workshop will be run on a [Nectar](https://cloud.nectar.org.au/) Instance. An “Instance” is Nectar terminology for a virtual machine running on the Nectar Cloud OpenStack infrastructure. An “Instance” runs on a “compute node”; i.e. a physical computer populated with processor chips, memory chips and so on.
@@ -110,7 +100,7 @@ ssh username@ip-address
 <!-- <br>
 Should you wish to do this tutorial at a later stage independently, it is possible to apply for your own instance directly through a [Nectar allocation](https://support.ehelp.edu.au/support/solutions/articles/6000068044-managing-an-allocation). There are also many helpful [Nectar Research Cloud tutorials](https://tutorials.rc.nectar.org.au/). -->
 
-#### Byobu-screen
+### Byobu-screen
 
 Some of the commands in this tutorial take a while to run. Should your ssh connection drop and the SSH session on Nectar terminates, any commands that are running will terminate too. To mitigate this, once logged on to the Nectar Instance, we'll run `byobu-screen` (an enhancement for the `screen` terminal multiplexer) which allows us to resume a session. In other words, processes running in `byobu-screen` will continue to run when their window is not visible, even if you get disconnected.
 
@@ -138,7 +128,7 @@ You can then proceed to run the commands in the workshop as normal.
     byobu-screen -r workshop
     ```
 
-    If it says (Attached) next to the `workshop` session in the list, you can access `workshop` which is already attached by:
+    If it says (Attached) next to the `workshop` session in the list, you can access the `workshop` session which is already attached by:
 
     ```bash
     byobu-screen -r -d workshop
@@ -203,7 +193,6 @@ the clipboard.
     REVEALED!
     Coloured boxes like these when clicked will reveal their content.
 
-
 ------------------------------
 
 ## Section 1: Map raw mapped reads to reference genome
@@ -219,7 +208,7 @@ byobu-screen -S workshop
 
 ```
 
-Create the directories as follows:
+Create workshop directories:
 ```
 mkdir data
 mkdir output
@@ -491,21 +480,47 @@ gatk --java-options "-Xmx7g" GenotypeGVCFs \
 ---------------------------------------
 ## Section 4: Filter and prepare analysis ready variants
 
-The raw VCF file from the previous step (`#!bash output.vcf.gz`) contains 10467 variants. Not all of these are real, therefore, the aim here is to filter out artifacts or false positive variants. Here we will go through the Convolutional Neural Net based protocol to annotate and filter the VCF file.
+The raw VCF file from the previous step (`#!bash output.vcf.gz`) contains 10467 variants. Not all of these are real, therefore, the aim here is to filter out artifacts or false positive variants. **The first pass consists of building a model that describes how variant annotation values co-vary with the truthfulness of variant calls in a training set, and then scoring all input variants according to the model. The second pass simply consists of specifying a target sensitivity value (which corresponds to an empirical VQSLOD cutoff) and applying filters to each variant call according to their ranking. The result is a VCF file in which variants have been assigned a score and filter status.**
+
+```bash
+#Step 1 - VariantRecalibrator
+gatk --java-options "-Xmx7g" VariantRecalibrator \
+    -V output/output.vcf.gz \
+    --trust-all-polymorphic \
+    -mode INDEL \
+    --max-gaussians 4 \
+    --resource:mills,known=false,training=true,truth=true,prior=12 reference/hg38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz \
+    --resource:axiomPoly,known=false,training=true,truth=false,prior=10 reference/hg38/Axiom_Exome_Plus.genotypes.all_populations.poly.hg38.vcf.gz \
+    --resource:dbsnp,known=true,training=false,truth=false,prior=2 reference/hg38/dbsnp_138.hg38.vcf.gz \
+    -an FS -an ReadPosRankSum -an MQRankSum -an QD -an SOR -an DP \
+    -O output/cohort_indels.recal \
+    --tranches-file output/cohort_indels.tranches
+
+#Step 2 - ApplyVQSR
+gatk --java-options "-Xmx7g" ApplyVQSR \
+    -R ../reference/hg38/Homo_sapiens_assembly38.fasta \
+    -V ../output/output.vcf.gz \
+    -O ../output/output.vqsr.vcf.gz \
+    --truth-sensitivity-filter-level 99.0 \
+    --tranches-file ../output/cohort_snps.tranches \
+    --recal-file ../output/cohort_snps.recal \
+    -mode SNP
+```
+
+!!! CountVariants
+    There are number of ways to count the variants in a VCF file. A very straight forward way using the GATK4 tools is as follows:
+    ```bash
+    gatk CountVariants -V output/output.vcf.gz
+    ```
+
+    ```
+    Tool returned:
+    10467
+    ```
 
 
 ??? example "For a single sample VCF file"
-    Consider the following method to filter a single sample VCF file.
-    !!! CountVariants
-        There are number of ways to count the variants in a VCF file. A very straight forward way using the GATK4 tools is as follows:
-        ```bash
-        gatk CountVariants -V output/output.vcf.gz
-        ```
-
-        ```
-        Tool returned:
-        10467
-        ```
+    Consider the following method to filter a single sample VCF file. Here we will go through the Convolutional Neural Net based protocol to annotate and filter the VCF file.
 
     This is a two step process:
 
@@ -535,7 +550,7 @@ The raw VCF file from the previous step (`#!bash output.vcf.gz`) contains 10467 
     BCFtools is a useful tool to manipulate, filter and query VCF files. More details from [BCFtools](https://samtools.github.io/bcftools/). BCFtools can be combined with linux command line tools as well to summarise data. For example, the command below can used extract and print the 'FILTER' column from the VCF file.
 
     ```bash
-        bcftools query -f'%FILTER\n' output/output.cnns.cnnfilter.vcf
+        bcftools query -f'%FILTER\n' output/output.vqsr.vcf.gz
     ```
 
 ### Additional filtering
