@@ -110,6 +110,47 @@ ssh username@ip-address
 <!-- <br>
 Should you wish to do this tutorial at a later stage independently, it is possible to apply for your own instance directly through a [Nectar allocation](https://support.ehelp.edu.au/support/solutions/articles/6000068044-managing-an-allocation). There are also many helpful [Nectar Research Cloud tutorials](https://tutorials.rc.nectar.org.au/). -->
 
+#### Byobu-screen
+
+Some of the commands in this tutorial take a while to run. Should your ssh connection drop and the SSH session on Nectar terminates, any commands that are running will terminate too. To mitigate this, once logged on to the Nectar Instance, we'll run `byobu-screen` (an enhancement for the `screen` terminal multiplexer) which allows us to resume a session. In other words, processes running in `byobu-screen` will continue to run when their window is not visible, even if you get disconnected.
+
+On Nectar, to start a `byobu-screen` session called `workshop`, type  
+
+```bash
+byobu-screen -S workshop
+```
+
+You can then proceed to run the commands in the workshop as normal.
+
+??? example "Byobu basics"
+    The screen should look like
+    ![Byobu](./media/byobu.png)
+    <br>
+    Should your SSH session on Nectar terminate, once you log back in to your Nectar instance, list running sessions/screens:
+
+    ```bash
+    byobu-screen -ls
+    ```
+
+    If it says (Detached) next to the `workshop` session in the list, reattach to `workshop` by:
+
+    ```bash
+    byobu-screen -r workshop
+    ```
+
+    If it says (Attached) next to the `workshop` session in the list, you can access `workshop` which is already attached by:
+
+    ```bash
+    byobu-screen -r -d workshop
+    ```
+
+    <br>
+    Some other useful `byobu-screen` commands:
+
+    * To detach from `workshop`, type `ctrl-a ctrl-d` while inside the `workshop` session.
+    (You will need to configure Byobu's ctrl-a behaviour if it hasn't already been configured (text will appear on the screen telling you this). Follow the information on the screen and select `1` for Screen mode).
+
+    * To terminate `workshop`, type `ctrl-d` while inside the `workshop` session.
 
 -------------------------------
 
@@ -171,18 +212,23 @@ the clipboard.
 Lets start by setting up the directory structure for this analysis.
 The `#!bash data` directory is where the raw sequencing reads will be. All output files will be directed to the `#!bash output` directory. All reference files will be pointed to the `#!bash reference` directory. The command-line scripts are stored in simple bash script format in the `#!bash scripts` directory. For those interested, equivalent slurm scripts to run on Spartan are available in the `#!bash slurm_scripts` directory. Although all tools are installed on the server, we will create a `#!bash tools` directory.    
 
-Create the directories as follows:
-
+Lets begin by creating a byobu-screen session (see above sections for more help):
 ```Bash
 cd
-mkdir -p data
-mkdir -p output
-mkdir -p reference
-mkdir -p reference/hg38
-mkdir -p scripts
-mkdir -p slurm_scripts
-mkdir -p temp
-mkdir -p tools
+byobu-screen -S workshop
+
+```
+
+Create the directories as follows:
+```
+mkdir data
+mkdir output
+mkdir reference
+mkdir reference/hg38
+mkdir scripts
+mkdir slurm_scripts
+mkdir temp
+mkdir tools
 ```
 
 !!! note
@@ -204,9 +250,7 @@ Next, we need to prepare the reference data. Luckily, we have downloaded the dat
 ln -s /mnt/shared_data/* reference/hg38/.
 ```
 
-There are several files in the reference directory. **insert some description of the reference data here**
-
-<!-- INSERT DESCRIPTION OF THE REFERENCE DATA _ BWA INDEX -->
+There are several files in the reference directory. These included the GATK bundle of reference files downloaded from (ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/). Additional files include in the directory are the BWA index files generated for the reference genome.
 
 ### Align genome
 Run the command below to map the raw sequencing data to the Homo sapiens (human) genome assembly GRCh38 (hg38). We are using the [BWA-MEM](https://github.com/lh3/bwa) algorithms for mapping DNA sequences against large reference genomes. Note that we have already run the created the BWA index files by running the command `#!bash bwa index reference/hg38/Homo_sapiens_assembly38.fasta`.
@@ -341,7 +385,7 @@ gatk --java-options "-Xmx7g" ApplyBQSR \
 ```
 
 !!! note
-    In a workflow such as this it is a good practice to given output files an appropriate name. In this case, we are append the workflow step metadata to the filenames.
+    In a workflow such as this it is a good practice to give the output files an appropriate name. In this case, we are appending the workflow step details to the filenames. For example, append `dup` after running the mark duplicates step.
 
 We now have a pre-processed BAM file (`#!bash NA12878.sort.dup.bqsr.bam`) ready for variant calling.
 
@@ -360,7 +404,7 @@ But before we proceed, let's take a detour and run some summary statistics of th
     # MultiQC
     multiqc output/. -o output/.    
     ```
-    View the MultiQC report [here](files/multiqc_report.html){:target="_blank"}.
+    We have precomputed this and the resulting MultiQC report is [here](files/multiqc_report.html){:target="_blank"}.
 
 ------------
 ## Section 3: Variant calling
@@ -388,22 +432,41 @@ gatk --java-options "-Xmx7g" HaplotypeCaller \
     -L chr20 \
     -O output/NA12878.g.vcf.gz
 ```
-The output of this step is a GVCF file. The format for the GVCF file is similar to a VCF file. The key difference is that the GVCF file contains records for each sequenced genomic coordinate. The `#!bash --emit-ref-confidence` or `#!bash -ERC` parameter let you select a method to summarise confidence in the genomic site being homozygous-reference. The option `#!bash -ERC GVCF` is more efficient and recommended for large samples and therefore more scalable.
 
+The output of this step is a GVCF file. The format for the GVCF file is similar to a VCF file. The key difference is that the GVCF file contains records for each sequenced genomic coordinate. The `#!bash --emit-ref-confidence` or `#!bash -ERC` parameter lets you select a method to summarise confidence in the genomic site being homozygous-reference. The option `#!bash -ERC GVCF` is more efficient and recommended for large samples and therefore more scalable.
 
 ### Apply CombineGVCFs
-The CombineGVCFs tool is applied to combine per-sample GVCF files. In this case there is a single GVCF file, but in the case of multiple samples in a study (many GVCF files), this tool can be applied to merge these in to a single multi-sample GVCF file.
+The CombineGVCFs tool is applied to combine multiple single sample GVCF files to merge these in to a single multi-sample GVCF file.
+
+We have pre-processed two additional samples (NA12891 and NA12892) up to the HaplotypeCaller step (above). Lets first copy the gvcf files to the output directory.
+
+```bash
+#lets make sure that we are in the apropriate directory
+cd
+cd test/
+cp /mnt/shared_data/NA12891.g.vcf.gz* output/.
+cp /mnt/shared_data/NA12892.g.vcf.gz* output/.
+
+```
 
 ```bash
 gatk --java-options "-Xmx7g" CombineGVCFs \
-    -R reference/hg38/Homo_sapiens_assembly38.fasta \
+    -R reference/hg38/Homo_sapiens_assembly38.fasta \    
     -V output/NA12878.g.vcf.gz \
+    -V output/NA12891.g.vcf.gz \
+    -V output/NA12892.g.vcf.gz \
     -L chr20 \
     -O output/cohort.g.vcf.gz
 ```
 
-Now that we have a merged GVCF file, we are ready to perform genotyping.
+??? example "Lets look at the combined gvcf file"
+    ```bash
+    less output/cohort.g.vcf.gz
+    ```
+    Work your way down to the variant records? How many samples do you see in the VCF file?
+    Hint: look at the header row.
 
+Now that we have a merged GVCF file, we are ready to perform genotyping.
 
 ### Apply GenotypeGVCFs
 GenotypeGVCFs
@@ -428,42 +491,45 @@ gatk --java-options "-Xmx7g" GenotypeGVCFs \
 ---------------------------------------
 ## Section 4: Filter and prepare analysis ready variants
 
-The raw VCF file from the previous step (`#!bash output.vcf.gz`) contains 1895 variants. Not all of these are real or there is insufficient evidence. Therefore, the aim here is to filter likely artifactual variants. Here we will go through the Convolutional Neural Net based protocol to annotate and filter the VCF file.
+The raw VCF file from the previous step (`#!bash output.vcf.gz`) contains 10467 variants. Not all of these are real, therefore, the aim here is to filter out artifacts or false positive variants. Here we will go through the Convolutional Neural Net based protocol to annotate and filter the VCF file.
 
-!!! CountVariants
-    There are number of ways to count the variants in a VCF file. A very straigt forward way using the GATK4 tools is as follows:
+
+??? example "For a single sample VCF file"
+    Consider the following method to filter a single sample VCF file.
+    !!! CountVariants
+        There are number of ways to count the variants in a VCF file. A very straight forward way using the GATK4 tools is as follows:
+        ```bash
+        gatk CountVariants -V output/output.vcf.gz
+        ```
+
+        ```
+        Tool returned:
+        10467
+        ```
+
+    This is a two step process:
+
+    (i) CNNScoreVariants will annotate the variant with pre-computed single-sample derived model scores in the INFO field CNN_1D (the neural network performs convolutions over the reference sequence surrounding the variant and combines those features with a multilayer perceptron on the variant annotations).
+
     ```bash
-    gatk CountVariants -V output/output.vcf.gz
+    gatk --java-options "-Xmx7g" CNNScoreVariants  \
+       -R reference/hg38/Homo_sapiens_assembly38.fasta \
+       -V output/output.vcf.gz \
+       -O output/output.cnns.vcf
     ```
 
+    (ii) FilterVariantTranches takes as input the percent sensitivities (0-100) to known sites to apply the filter. Variants with scores higher than for e.g. 99th percentile of variants in the resources pass through the filter and will have `PASS` in the filter. Others will have a filter values like 'CNN_1D_INDEL_Tranche_99.40_100.00' or 'CNN_1D_SNP_Tranche_99.95_100.00'.
+
+    ```bash
+    gatk --java-options "-Xmx7g" FilterVariantTranches \
+        -V output/output.cnns.vcf \
+        --resource reference/hg38/hapmap_3.3.hg38.vcf.gz \
+        --resource reference/hg38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz \
+        --info-key CNN_1D \
+        --snp-tranche 99.95 \
+        --indel-tranche 99.4 \
+        -O output/output.cnns.cnnfilter.vcf
     ```
-    Tool returned:
-    7520
-    ```
-
-This is a two step process:
-
-(i) CNNScoreVariants will annotate the variant with pre-computed single-sample derived model scores in the INFO field CNN_1D (the neural network performs convolutions over the reference sequence surrounding the variant and combines those features with a multilayer perceptron on the variant annotations).
-
-```bash
-gatk --java-options "-Xmx7g" CNNScoreVariants  \
-   -R reference/hg38/Homo_sapiens_assembly38.fasta \
-   -V output/output.vcf.gz \
-   -O output/output.cnns.vcf
-```
-
-(ii) FilterVariantTranches takes as input the percent sensitivities (0-100) to known sites to apply the filter. Variants with scores higher than for e.g. 99th percentile of variants in the resources pass through the filter and will have `PASS` in the filter. Others will have a filter values like 'CNN_1D_INDEL_Tranche_99.40_100.00' or 'CNN_1D_SNP_Tranche_99.95_100.00'.
-
-```bash
-gatk --java-options "-Xmx7g" FilterVariantTranches \
-    -V output/output.cnns.vcf \
-    --resource reference/hg38/hapmap_3.3.hg38.vcf.gz \
-    --resource reference/hg38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz \
-    --info-key CNN_1D \
-    --snp-tranche 99.95 \
-    --indel-tranche 99.4 \
-    -O output/output.cnns.cnnfilter.vcf
-```
 
 !!! Hint
     BCFtools is a useful tool to manipulate, filter and query VCF files. More details from [BCFtools](https://samtools.github.io/bcftools/). BCFtools can be combined with linux command line tools as well to summarise data. For example, the command below can used extract and print the 'FILTER' column from the VCF file.
