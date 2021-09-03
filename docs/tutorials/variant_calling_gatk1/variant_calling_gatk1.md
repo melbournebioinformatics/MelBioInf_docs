@@ -480,7 +480,7 @@ gatk --java-options "-Xmx7g" GenotypeGVCFs \
 ---------------------------------------
 ## Section 4: Filter and prepare analysis ready variants
 
-The raw VCF file from the previous step (`#!bash output.vcf.gz`) contains 10467 variants. Not all of these are real, therefore, the aim of this step is to filter out artifacts or false positive variants. GATK has provided different workflows for variant filtering. Here we will walk through the Variant Quality Score Recalibration or the VQSR strategy. VQSR is a two step process (1) the first step builds a model that describes how variant metric or quality measures co-vary with the known variants in the training set. (2) The second step then ranks each variant according to the target sensitivity and applies a filter expression.
+The raw VCF file from the previous step (`#!bash output.vcf.gz`) contains 10467 variants. Not all of these are real, therefore, the aim of this step is to filter out artifacts or false positive variants. GATK has provided different workflows for variant filtering. Here we will walk through the Variant Quality Score Recalibration or the VQSR strategy. VQSR is a two step process (1) the first step builds a model that describes how variant metric or quality measures co-vary with the known variants in the training set. (2) The second step then ranks each variant according to the target sensitivity cutoff and applies a filter expression.
 
 ```bash
 #Step 1 - VariantRecalibrator
@@ -635,7 +635,11 @@ tabix -p vcf output/subset.vcf.gz
 
 Now, we will call the jigv tool command to generate the report.
 ```bash
-jigv --sample NA12878 --sites output/subset.vcf.gz output/NA12878.sort.dup.bqsr.bam > output/NA12878.jigv.html
+jigv --sample NA12878 --sites output/subset.vcf.gz --fasta reference/hg38/Homo_sapiens_assembly38.fasta output/NA12878.sort.dup.bqsr.bam > output/NA12878.jigv.html
 ```
 
 Here is an example [report](files/NA12878.html){:target="_blank"} we created earlier.
+
+<!-- ```bash
+jigv --sample NA12878 --ped family.ped --sites output/subset.vcf.gz --fasta reference/hg38/Homo_sapiens_assembly38.fasta output/*.sort.dup.bqsr.bam > output/NA12878.jigv.html
+``` -->
