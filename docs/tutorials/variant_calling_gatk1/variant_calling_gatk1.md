@@ -480,37 +480,38 @@ gatk --java-options "-Xmx7g" GenotypeGVCFs \
 ---------------------------------------
 ## Section 4: Filter and prepare analysis ready variants
 
-The raw VCF file from the previous step (`#!bash output.vcf.gz`) contains 10467 variants. Not all of these are real, therefore, the aim here is to filter out artifacts or false positive variants. **The first pass consists of building a model that describes how variant annotation values co-vary with the truthfulness of variant calls in a training set, and then scoring all input variants according to the model. The second pass simply consists of specifying a target sensitivity value (which corresponds to an empirical VQSLOD cutoff) and applying filters to each variant call according to their ranking. The result is a VCF file in which variants have been assigned a score and filter status.**
+The raw VCF file from the previous step (`#!bash output.vcf.gz`) contains 10467 variants. Not all of these are real, therefore, the aim of this step is to filter out artifacts or false positive variants. GATK has provided different workflows for variant filtering. Here we will walk through the Variant Quality Score Recalibration or the VQSR strategy. VQSR is a two step process (1) the first step builds a model that describes how variant metric or quality measures co-vary with the known variants in the training set. (2) The second step then ranks each variant according to the target sensitivity and applies a filter expression.
 
 ```bash
 #Step 1 - VariantRecalibrator
 gatk --java-options "-Xmx7g" VariantRecalibrator \
     -V output/output.vcf.gz \
     --trust-all-polymorphic \
-    -mode INDEL \
-    --max-gaussians 4 \
-    --resource:mills,known=false,training=true,truth=true,prior=12 reference/hg38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz \
-    --resource:axiomPoly,known=false,training=true,truth=false,prior=10 reference/hg38/Axiom_Exome_Plus.genotypes.all_populations.poly.hg38.vcf.gz \
-    --resource:dbsnp,known=true,training=false,truth=false,prior=2 reference/hg38/dbsnp_138.hg38.vcf.gz \
-    -an FS -an ReadPosRankSum -an MQRankSum -an QD -an SOR -an DP \
-    -O output/cohort_indels.recal \
-    --tranches-file output/cohort_indels.tranches
+    -mode SNP \
+    --max-gaussians 6 \
+    --resource:hapmap,known=false,training=true,truth=true,prior=15 reference/hg38/hapmap_3.3.hg38.vcf.gz \
+    --resource:omni,known=false,training=true,truth=true,prior=12 reference/hg38/1000G_omni2.5.hg38.vcf.gz \
+    --resource:1000G,known=false,training=true,truth=false,prior=10 reference/hg38/1000G_phase1.snps.high_confidence.hg38.vcf.gz \
+    --resource:dbsnp,known=true,training=false,truth=false,prior=7 reference/hg38/dbsnp_138.hg38.vcf.gz \
+    -an QD -an MQRankSum -an ReadPosRankSum -an FS -an MQ -an SOR -an DP \
+    -O output/cohort_snps.recal \
+    --tranches-file output/cohort_snps.tranches
 
 #Step 2 - ApplyVQSR
 gatk --java-options "-Xmx7g" ApplyVQSR \
-    -R ../reference/hg38/Homo_sapiens_assembly38.fasta \
-    -V ../output/output.vcf.gz \
-    -O ../output/output.vqsr.vcf.gz \
+    -R reference/hg38/Homo_sapiens_assembly38.fasta \
+    -V output/output.vcf.gz \
+    -O output/output.vqsr.vcf \
     --truth-sensitivity-filter-level 99.0 \
-    --tranches-file ../output/cohort_snps.tranches \
-    --recal-file ../output/cohort_snps.recal \
+    --tranches-file output/cohort_snps.tranches \
+    --recal-file output/cohort_snps.recal \
     -mode SNP
 ```
 
 !!! CountVariants
     There are number of ways to count the variants in a VCF file. A very straight forward way using the GATK4 tools is as follows:
     ```bash
-    gatk CountVariants -V output/output.vcf.gz
+    gatk CountVariants -V output/output.vqsr.vcf.gz
     ```
 
     ```
@@ -519,7 +520,9 @@ gatk --java-options "-Xmx7g" ApplyVQSR \
     ```
 
 
-??? example "For a single sample VCF file"
+There are several protocols for filtering VCF files. We have walked throught the VQSR strategy above and for other options please visit this [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by-hard-filtering).
+
+??? example "Filtering strategy for a single sample VCF file"
     Consider the following method to filter a single sample VCF file. Here we will go through the Convolutional Neural Net based protocol to annotate and filter the VCF file.
 
     This is a two step process:
@@ -559,26 +562,44 @@ The VariantFiltration tools is designed for hard-filtering variant calls based o
 ```bash
 gatk --java-options "-Xmx7g" VariantFiltration \
 -R reference/hg38/Homo_sapiens_assembly38.fasta \
--V output/output.cnns.cnnfilter.vcf \
--O output/output.cnns.cnnfilter.varfilter.vcf \
+-V output/output.vqsr.vcf \
+-O output/output.vqsr.varfilter.vcf \
 --filter-name "Low_depth10" \
 --filter-expression "DP < 10"
 ```
 
-!!! question "Question: How many variants have a low sequencing depth (DP<10) in the file output.cnns.cnnfilter.varfilter.vcf."
+!!! question "Question: How many variants have a low sequencing depth (DP<10) in the file output.vqsr.varfilter.vcf."
 
     ??? answer
         ```bash
-            bcftools query -f'%FILTER\n' output/output.cnns.cnnfilter.varfilter.vcf | sort | uniq -c
+            bcftools query -f'%FILTER\n' output/output.vqsr.varfilter.vcf | sort | uniq -c
         ```
 
         ```
-            76 CNN_1D_INDEL_Tranche_99.40_100.00
-            4 CNN_1D_INDEL_Tranche_99.40_100.00;Low_depth10
-            132 CNN_1D_SNP_Tranche_99.95_100.00
-            3 CNN_1D_SNP_Tranche_99.95_100.00;Low_depth10
-            51 Low_depth10
-            7254 PASS
+          6 Low_depth10
+          2 Low_depth10;VQSRTrancheSNP99.00to99.90
+          9 Low_depth10;VQSRTrancheSNP99.90to100.00
+          9068 PASS
+          1275 VQSRTrancheSNP99.00to99.90
+          107 VQSRTrancheSNP99.90to100.00
+        ```
+
+### Final analysis ready VCF file
+
+Given we have a filter annotated VCF files (), we can now create an analysis ready VCF file.
+
+!!! question "Question: Create a VCF file called `#!bash output/output.vqsr.varfilter.pass.vcf.gz` that contains only PASS variants? The input VCF file is `#!bash output/output.vqsr.varfilter.vcf`." Hint: trying using the Bcftools application.
+    ??? answer
+        Use the bcftools to filter PASS variants.
+        ```bash
+            bcftools view -f 'PASS,.' -O vcf -o output/output.vqsr.varfilter.pass.vcf output/output.vqsr.varfilter.vcf            
+        ```
+
+        We have now created an analysis ready version of the VCF file. It is also a good practice to compress and index the file.
+
+        ```bash
+            bgzip -c output/output.vqsr.varfilter.pass.vcf > output/output.vqsr.varfilter.pass.vcf.gz
+            tabix -p vcf output/output.vqsr.varfilter.pass.vcf.gz
         ```
 
 ------------------------------------------
@@ -592,18 +613,29 @@ This GATK4 tool extracts fields of interest from each record in a VCF file. [Var
     VariantsToTable, by default, only extracts PASS or . (no filtering applied) variants. Use the `#!bash --show-filtered` parameter to show all variants.
 
 ```bash
-    gatk VariantsToTable
+    gatk VariantsToTable \
     -R reference/hg38/Homo_sapiens_assembly38.fasta \
-    -V output/output.cnns.cnnfilter.varfilter.vcf \
+    -V output/output.vqsr.varfilter.pass.vcf.gz \
     -F CHROM -F POS -F FILTER -F TYPE -GF AD -GF DP \
     --show-filtered \
-    -O output/output.cnns.cnnfilter.varfilter.tsv
+    -O output/output.vqsr.varfilter.pass.tsv
 ```
 
 ### HTML report
-Generate HTML report from the VCF file. Copy across the VCF to you local computer using the `#!bash scp` command. This is useful way to visualise variant for review or sharing with colleagues and collaborators.
+Another useful method for sharing data is an interactive HTML file. This is suited for sharing a smaller subset of variants along with sequencing data. Here we will go through a simple example using the [jigv](https://github.com/brentp/jigv) tool.
 
 ![fig2](./media/fig2.png)
 
+We will start with creating a subset of variants to report.
 
-Click here to to visualise the variant in an [HTML](files/NA12878.html){:target="_blank"} report genereated with jigv.
+```bash
+bcftools view output/output.vqsr.varfilter.pass.vcf.gz chr20:3822018-3999324 | bgzip -c > output/subset.vcf.gz
+tabix -p vcf output/subset.vcf.gz
+```
+
+Now, we will call the jigv tool command to generate the report.
+```bash
+jigv --sample NA12878 --sites output/subset.vcf.gz output/NA12878.sort.dup.bqsr.bam > output/NA12878.jigv.html
+```
+
+Here is an example [report](files/NA12878.html){:target="_blank"} we created earlier.
