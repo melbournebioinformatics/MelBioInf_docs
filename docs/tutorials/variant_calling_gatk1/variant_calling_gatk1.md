@@ -16,10 +16,9 @@ Melbourne Bioinformatics, University of Melbourne
 Developed: July 2021  
 Reviewed: August 2021
 -------------------------------
-
 ## Overview
 
-### Topic
+*Topic*
 
 * [x] Genomics
 * [ ] Transcriptomics
@@ -29,7 +28,8 @@ Reviewed: August 2021
 * [ ] Structural Modelling
 * [ ] Basic skills
 
-### Skill level
+*Skill level*
+
 * [ ] Beginner  
 * [x] Intermediate  
 * [ ] Advanced  
@@ -37,35 +37,24 @@ Reviewed: August 2021
 <br>
 This workshop is designed for participants with some command-line knowledge. You will need to be able to `ssh` into a remote machine, navigate the directory structure and `scp` files from a remote computer to your local computer.
 
-### Description
-
-This tutorial runs through the GATK4 best practices workflow for variant calling. The workflow starts and a pair of sequencing reads and performs a series of steps to determine a set to genetic variants.
-
-**Data:** Illumina HiSeq paired-end (2×100 bp) reads (FASTQ).
-
-**Tools:** GATK4, Picard, Bcftools and jigv
-
-**Reference data:** GATK4 hg38 reference bundle and hg38 refGene annotation (hg38.refGene.gtf.gz)
-
-**Pipeline:**  
-
-* Section 1: Map raw mapped reads to reference genome
-* Section 2: Prepare analysis ready reads
-* Section 3: Variant calling
-* Section 4: Filter and prepare analysis ready variants
-* Section 5: Exporting variant data and visualisation
-
 -------------------------------
-
 ## Learning Objectives
 
 At the end of this workshop, you will be able to:
 
-* Take raw reads from a sequencing facility and perform variant calling to produce a variant list using GATK4.
+* Take raw DNA sequencing reads and perform variant calling to produce a variant list using GATK4.
 * Perform basic exploration of variants.
 
 -------------------------------
+## Description
 
+This tutorial runs through the GATK4 best practices workflow for variant calling. The workflow starts and a pair of sequencing reads and performs a series of steps to determine a set to genetic variants.
+
+**Data:** Illumina HiSeq paired-end (2×100 bp) reads in FASTQ format.
+**Tools:** GATK4, Picard, Bcftools and jigv
+**Reference data:** GATK4 hg38 reference bundle and hg38 refGene annotation (hg38.refGene.gtf.gz)
+
+-------------------------------
 ## Requirements and preparation
 
 !!! attention "Important"
@@ -73,15 +62,15 @@ At the end of this workshop, you will be able to:
 
     At least one week before the workshop, if required, participants should install the software below.  This should provide sufficient time for participants to liaise with their own IT support should they encounter any IT problems.  
 
-### Required Software
+**Software**  
 
-**Mac Users:** No additional software needs to be installed for this workshop.
+*Mac Users:* No additional software needs to be installed for this workshop.
 
-**Windows Users:**  
+*Windows Users:*  
 1. A terminal emulator such as [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)(free and open-source) will need to be downloaded.  
 2. Software for file transfers between a local computer and remote server such as [WinSCP](https://winscp.net/eng/index.php) or [FileZilla](https://filezilla-project.org/).
 
-### Required Data
+**Data**
 
 * All required data will be made available on the workshop virtual machines (hosted at the Melbourne Research Cloud). Login details will be provided closer to the tutorial data.
 
@@ -112,7 +101,7 @@ byobu-screen -S workshop
 
 You can then proceed to run the commands in the workshop as normal.
 
-??? example "Byobu basics"
+??? example "Help: Byobu basics"
     The screen should look like
     ![Byobu](./media/byobu.png)
     <br>
@@ -143,7 +132,6 @@ You can then proceed to run the commands in the workshop as normal.
     * To terminate `workshop`, type `ctrl-d` while inside the `workshop` session.
 
 -------------------------------
-
 ## Tutorial setting
 
 The setting for this tutorial is as follows: you receive some germline sequencing data from an individual [NA12878](https://www.internationalgenome.org/data-portal/sample/NA12878) (chr20 from sample NA12878 is sourced from the International Genome Sample Resource). Your aim is to identify small genetic variants from this data.
@@ -151,11 +139,23 @@ The setting for this tutorial is as follows: you receive some germline sequencin
 ### The Genome Analysis Toolkit (GATK)
 
 GATK is the industry standard toolkit for analysis of germline DNA to identify SNVs and indels. The GATK tool is mainly designed fo the human whole genome and exome analysis. The current version (GATK4) has expanded scope now and includes more complex analysis such copy number (CNV), structural variant (SV) and somatic variants. The current version of GATK also includes several utility functions for processing alignment files, VCF files and other complex processing workflows. The Picard toolkit is also now incorporated with GATK4.
-
 Van der Auwera GA & O'Connor BD. (2020). Genomics in the Cloud: Using Docker, GATK, and WDL in Terra (1st Edition). O'Reilly Media.
 
+### How this tutorial works
 
-**Mac Users**
+```
+These grey coloured boxes are code blocks. The rectangular boxes in the top
+right hand corner of this code block/grey box can be used to copy the code to
+the clipboard.
+```
+
+??? example "**Click here** "
+    REVEALED!
+    Coloured boxes like these when clicked will reveal their content.
+
+To copy data from the remote workshop computer to your local computer.
+
+**Command line/Mac Users**
 
 The syntax to do this depends on whether you are running the copying command on your local computer, or on the remote computer (Nectar cloud).
 
@@ -170,34 +170,27 @@ The syntax to do this depends on whether you are running the copying command on 
     scp FILENAME username@your_IP_address:/PATH/TO/TARGET/FOLDER/
     ```
 
+**SFTP clients**
 
-**Windows Users**
-
-Using WinSCP or FileZilla
+Using WinSCP or FileZilla or CyberDuck you will need the following details to connect and browse.
 
 1. Host: The IP address of the Nectar instance
-
 2. Username:
-
 3. Port:
 
-### How this tutorial works
-
-```
-These grey coloured boxes are code blocks. The rectangular boxes in the top
-right hand corner of this code block/grey box can be used to copy the code to
-the clipboard.
-```
-
-??? example "**Click here** "
-    REVEALED!
-    Coloured boxes like these when clicked will reveal their content.
-
 ------------------------------
+## Table of contents
 
+* [Section 1: Map raw mapped reads to reference genome](#section-1-map-raw-mapped-reads-to-reference-genome)
+* [Section 2: Prepare analysis ready reads](#section-2-prepare-analysis-ready-reads)
+* [Section 3: Variant calling](#section-3-variant-calling)
+* [Section 4: Filter and prepare analysis ready variants](#section-4-filter-and-prepare-analysis-ready-variants)
+* [Section 5: Exporting variant data and visualisation](#section-5-exporting-variant-data-and-visualisation)
+
+-------------------------------
 ## Section 1: Map raw mapped reads to reference genome
 
-### Preparation and data import
+### 1. Preparation and data import
 Lets start by setting up the directory structure for this analysis.
 The `#!bash data` directory is where the raw sequencing reads will be. All output files will be directed to the `#!bash output` directory. All reference files will be pointed to the `#!bash reference` directory. The command-line scripts are stored in simple bash script format in the `#!bash scripts` directory. For those interested, equivalent slurm scripts to run on Spartan are available in the `#!bash slurm_scripts` directory. Although all tools are installed on the server, we will create a `#!bash tools` directory.    
 
@@ -241,7 +234,7 @@ ln -s /mnt/shared_data/* reference/hg38/.
 
 There are several files in the reference directory. These included the GATK bundle of reference files downloaded from (ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/). Additional files include in the directory are the BWA index files generated for the reference genome.
 
-### Align genome
+### 2. Align genome
 Run the command below to map the raw sequencing data to the Homo sapiens (human) genome assembly GRCh38 (hg38). We are using the [BWA-MEM](https://github.com/lh3/bwa) algorithms for mapping DNA sequences against large reference genomes. Note that we have already run the created the BWA index files by running the command `#!bash bwa index reference/hg38/Homo_sapiens_assembly38.fasta`.
 
 Run BWA as follows, but first navigate to the scripts folder:
@@ -264,7 +257,7 @@ At the end of this step you should have a file called `#!bash NA12878.bam` in th
 ------------
 ## Section 2: Prepare analysis ready reads
 
-### Sort SAM/BAM
+### 1. Sort SAM/BAM
 The alignment file `#!bash NA12878.bam` is not sorted. Before proceeding, we should sort the BAM file using the [Picard](https://broadinstitute.github.io/picard/) tools.
 
 ```bash
@@ -313,7 +306,7 @@ samtools flagstat output/NA12878.sort.bam
 ```
 
 
-### Mark duplicate reads
+### 2. Mark duplicate reads
 The aim of this step is to locate and tag duplicate reads in the BAM file. Duplicate reads can arise due to several reasons, for more details go to [MarkDuplicates](https://gatk.broadinstitute.org/hc/en-us/articles/360037052812-MarkDuplicates-Picard-).
 
 ```bash
@@ -349,7 +342,7 @@ picard -Xmx7g MarkDuplicates \
         Looks like there are **7207** duplicate reads.
 
 
-###  Base quality recalibration
+###  3. Base quality recalibration
 The last step of pre-processing mapped reads is the base quality score recalibration (BQSR) stage. The GATK tools detects systematic errors made by the sequencing machine while estimating the accuracy of each base. The systematic errors can be have various sources ranging from technical machine errors to the variability in the sequencing chemical reactions. The two step BQSR process applies machine learning to model the possible errors and adjust the base quality scores accordingly. More details [here](https://gatk.broadinstitute.org/hc/en-us/articles/360035890531-Base-Quality-Score-Recalibration-BQSR-).
 
 ```bash
@@ -402,7 +395,7 @@ The next step in the GATK best practices workflow is to proceed with the variant
 There are a couple of workflows to call variants using GATK4. Here we will follow the Genomic Variant Call Format (GVCF) workflow which is more suited for scalable variant calling i.e. allows incremental addition of samples for joint genotyping.
 
 
-### Apply HaplotypeCaller
+### 1. Apply HaplotypeCaller
 HaplotypeCaller is the focal tool within GATK4 to simultaneously call germline SNVs and small Indels using local de-novo assembly of haplotype regions.
 
 !!! Algorithm
@@ -424,7 +417,7 @@ gatk --java-options "-Xmx7g" HaplotypeCaller \
 
 The output of this step is a GVCF file. The format for the GVCF file is similar to a VCF file. The key difference is that the GVCF file contains records for each sequenced genomic coordinate. The `#!bash --emit-ref-confidence` or `#!bash -ERC` parameter lets you select a method to summarise confidence in the genomic site being homozygous-reference. The option `#!bash -ERC GVCF` is more efficient and recommended for large samples and therefore more scalable.
 
-### Apply CombineGVCFs
+### 2. Apply CombineGVCFs
 The CombineGVCFs tool is applied to combine multiple single sample GVCF files to merge these in to a single multi-sample GVCF file.
 
 We have pre-processed two additional samples (NA12891 and NA12892) up to the HaplotypeCaller step (above). Lets first copy the gvcf files to the output directory.
@@ -432,7 +425,7 @@ We have pre-processed two additional samples (NA12891 and NA12892) up to the Hap
 ```bash
 #lets make sure that we are in the apropriate directory
 cd
-cd test/
+
 cp /mnt/shared_data/NA12891.g.vcf.gz* output/.
 cp /mnt/shared_data/NA12892.g.vcf.gz* output/.
 
@@ -440,7 +433,7 @@ cp /mnt/shared_data/NA12892.g.vcf.gz* output/.
 
 ```bash
 gatk --java-options "-Xmx7g" CombineGVCFs \
-    -R reference/hg38/Homo_sapiens_assembly38.fasta \    
+    -R reference/hg38/Homo_sapiens_assembly38.fasta \
     -V output/NA12878.g.vcf.gz \
     -V output/NA12891.g.vcf.gz \
     -V output/NA12892.g.vcf.gz \
@@ -457,7 +450,7 @@ gatk --java-options "-Xmx7g" CombineGVCFs \
 
 Now that we have a merged GVCF file, we are ready to perform genotyping.
 
-### Apply GenotypeGVCFs
+### 3. Apply GenotypeGVCFs
 GenotypeGVCFs
 
 ```bash
@@ -476,9 +469,10 @@ gatk --java-options "-Xmx7g" GenotypeGVCFs \
     Screenshot from output.vcf.gz
     ![fig1](./media/fig1.png)
 
-
 ---------------------------------------
 ## Section 4: Filter and prepare analysis ready variants
+
+### 1. Variant Quality Score Recalibration
 
 The raw VCF file from the previous step (`#!bash output.vcf.gz`) contains 10467 variants. Not all of these are real, therefore, the aim of this step is to filter out artifacts or false positive variants. GATK has provided different workflows for variant filtering. Here we will walk through the Variant Quality Score Recalibration or the VQSR strategy. VQSR is a two step process (1) the first step builds a model that describes how variant metric or quality measures co-vary with the known variants in the training set. (2) The second step then ranks each variant according to the target sensitivity cutoff and applies a filter expression.
 
@@ -511,14 +505,13 @@ gatk --java-options "-Xmx7g" ApplyVQSR \
 !!! CountVariants
     There are number of ways to count the variants in a VCF file. A very straight forward way using the GATK4 tools is as follows:
     ```bash
-    gatk CountVariants -V output/output.vqsr.vcf.gz
+    gatk CountVariants -V output/output.vqsr.vcf
     ```
 
     ```
     Tool returned:
     10467
     ```
-
 
 There are several protocols for filtering VCF files. We have walked throught the VQSR strategy above and for other options please visit this [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by-hard-filtering).
 
@@ -556,16 +549,16 @@ There are several protocols for filtering VCF files. We have walked throught the
         bcftools query -f'%FILTER\n' output/output.vqsr.vcf.gz
     ```
 
-### Additional filtering
+### 2. Additional filtering
 The VariantFiltration tools is designed for hard-filtering variant calls based on custom quality criteria such as sequencing depth, mapping quality etc. The two parameters are the filter-name and filter-expression. The parameter filter-name is the name of the filter to be used in the FILTER column if the expression in filter-expression is true. In the example below, if the sequencing depth at the variant site (VCF field DP) is less than 10, the FILTER field will be populated with the value 'Low_depth10'. Users can add multiple filter expression/name combinations.
 
 ```bash
 gatk --java-options "-Xmx7g" VariantFiltration \
--R reference/hg38/Homo_sapiens_assembly38.fasta \
--V output/output.vqsr.vcf \
--O output/output.vqsr.varfilter.vcf \
---filter-name "Low_depth10" \
---filter-expression "DP < 10"
+    -R reference/hg38/Homo_sapiens_assembly38.fasta \
+    -V output/output.vqsr.vcf \
+    -O output/output.vqsr.varfilter.vcf \
+    --filter-name "Low_depth10" \
+    --filter-expression "DP < 10"
 ```
 
 !!! question "Question: How many variants have a low sequencing depth (DP<10) in the file output.vqsr.varfilter.vcf."
@@ -579,41 +572,43 @@ gatk --java-options "-Xmx7g" VariantFiltration \
           6 Low_depth10
           2 Low_depth10;VQSRTrancheSNP99.00to99.90
           9 Low_depth10;VQSRTrancheSNP99.90to100.00
-          9068 PASS
-          1275 VQSRTrancheSNP99.00to99.90
-          107 VQSRTrancheSNP99.90to100.00
+          9064 PASS
+          1278 VQSRTrancheSNP99.00to99.90
+          108 VQSRTrancheSNP99.90to100.00
         ```
 
-### Final analysis ready VCF file
+### 3. Final analysis ready VCF file
 
 Given we have a filter annotated VCF files (), we can now create an analysis ready VCF file.
 
-!!! question "Question: Create a VCF file called `#!bash output/output.vqsr.varfilter.pass.vcf.gz` that contains only PASS variants? The input VCF file is `#!bash output/output.vqsr.varfilter.vcf`." Hint: trying using the Bcftools application.
+
+!!! question "Question: Create a VCF file called `output/output.vqsr.varfilter.pass.vcf.gz` that contains only PASS variants? The input VCF file is `output/output.vqsr.varfilter.vcf`." Hint: try using the Bcftools application."
+
     ??? answer
         Use the bcftools to filter PASS variants.
         ```bash
-            bcftools view -f 'PASS,.' -O vcf -o output/output.vqsr.varfilter.pass.vcf output/output.vqsr.varfilter.vcf            
+        bcftools view -f 'PASS,.' -O vcf -o output/output.vqsr.varfilter.pass.vcf output/output.vqsr.varfilter.vcf            
         ```
 
         We have now created an analysis ready version of the VCF file. It is also a good practice to compress and index the file.
 
         ```bash
-            bgzip -c output/output.vqsr.varfilter.pass.vcf > output/output.vqsr.varfilter.pass.vcf.gz
-            tabix -p vcf output/output.vqsr.varfilter.pass.vcf.gz
+        bgzip -c output/output.vqsr.varfilter.pass.vcf > output/output.vqsr.varfilter.pass.vcf.gz
+        tabix -p vcf output/output.vqsr.varfilter.pass.vcf.gz
         ```
 
 ------------------------------------------
 ## Section 5: Exporting variant data and visualisation
 VCF files, although in tabular format, are not user friendly. We will go through a couple of ways to share share and visualise variant data. This is important for downstream analysis as well as sharing data. First, we will convert the VCF file in to a TSV file (ready for Excel for example) in a manner where we extract data fields of interest.
 
-### VariantsToTable
+### 1. VariantsToTable
 This GATK4 tool extracts fields of interest from each record in a VCF file. [VariantsToTable](https://gatk.broadinstitute.org/hc/en-us/articles/360056968292-VariantsToTable) can extract field from both the INFO and FORMAT columns in the VCF file.
 
 !!! note
     VariantsToTable, by default, only extracts PASS or . (no filtering applied) variants. Use the `#!bash --show-filtered` parameter to show all variants.
 
 ```bash
-    gatk VariantsToTable \
+gatk VariantsToTable \
     -R reference/hg38/Homo_sapiens_assembly38.fasta \
     -V output/output.vqsr.varfilter.pass.vcf.gz \
     -F CHROM -F POS -F FILTER -F TYPE -GF AD -GF DP \
@@ -621,7 +616,7 @@ This GATK4 tool extracts fields of interest from each record in a VCF file. [Var
     -O output/output.vqsr.varfilter.pass.tsv
 ```
 
-### HTML report
+### 2. HTML report
 Another useful method for sharing data is an interactive HTML file. This is suited for sharing a smaller subset of variants along with sequencing data. Here we will go through a simple example using the [jigv](https://github.com/brentp/jigv) tool.
 
 ![fig2](./media/fig2.png)
