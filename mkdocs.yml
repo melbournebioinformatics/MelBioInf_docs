@@ -31,7 +31,6 @@ nav:
         - 'Introduction to Galaxy Workflows': 'tutorials/galaxy-workflows/galaxy-workflows.md'
         - 'Introduction to Python': 'tutorials/python_overview/python_overview.md'
         - 'Introduction to Git and Github': 'tutorials/using_git/Using_Git.md'
-        - 'Introduction to HPC': 'tutorials/hpc/hpc.md'
         - 'Introduction to Unix': 'tutorials/unix/unix.md'
         - 'Introduction to R for Biologists': 'tutorials/intro_R_biologists/intro_R_biologists.md'
         - 'Introduction to Genome Browsers': 'tutorials/Genome_browsers/GenomeBrowsers_Intro.md'
