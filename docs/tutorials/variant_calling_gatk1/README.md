@@ -4,5 +4,10 @@ PR reviewers and advice: Khalid Mahmood
 
 Current slides: TBD
 
-Other information: TBD
+Print friendly version of the tutorial in [pdf](file/variant_calling_gatk1.pdf).
 
+Note: the pdf is created as below
+
+```bash
+pandoc --from markdown -o files/variant_calling_gatk1.pdf variant_calling_gatk1_print.md
+```
