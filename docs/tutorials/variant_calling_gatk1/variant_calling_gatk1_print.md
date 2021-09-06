@@ -1,4 +1,4 @@
-![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
+![melbioinf_logo](../media/melbioinf_logo.png){ style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){ style="width:150px"}
 
 <!-- pre code {
   white-space: pre-wrap;
@@ -13,13 +13,13 @@ Anticipated workshop duration when delivered to a group of participants is **4 h
 
 For queries relating to this workshop, contact Melbourne Bioinformatics (bioinformatics-training@unimelb.edu.au).
 
--------------------------------
+
 ## Author Information
 Khalid Mahmood  
 Melbourne Bioinformatics, University of Melbourne  
 Developed: July 2021  
 Reviewed: August 2021
--------------------------------
+
 ## Overview
 
 *Topic*
@@ -41,7 +41,7 @@ Reviewed: August 2021
 <br>
 This workshop is designed for participants with some command-line knowledge. You will need to be able to `ssh` into a remote machine, navigate the directory structure and `scp` files from a remote computer to your local computer.
 
--------------------------------
+
 ## Learning Objectives
 
 At the end of this workshop, you will be able to:
@@ -49,7 +49,7 @@ At the end of this workshop, you will be able to:
 * Take raw DNA sequencing reads and perform variant calling to produce a variant list using GATK4.
 * Perform basic exploration of variants.
 
--------------------------------
+
 ## Description
 
 This tutorial runs through the GATK4 best practices workflow for variant calling. The workflow starts and a pair of sequencing reads and performs a series of steps to determine a set to genetic variants.
@@ -58,11 +58,7 @@ This tutorial runs through the GATK4 best practices workflow for variant calling
 **Tools:** GATK4, Picard, Bcftools and jigv  
 **Reference data:** GATK4 hg38 reference bundle and hg38 refGene annotation (hg38.refGene.gtf.gz)
 
-Slides and workshop instructions  
-Click here for slides presented during this workshop.  
-Click [here](files/variant_calling_gatk1.pdf){:target="_blank"} for a printer friendly PDF version of this workshop.
 
--------------------------------
 ## Requirements and preparation
 
 !!! attention "Important"
@@ -139,7 +135,7 @@ You can then proceed to run the commands in the workshop as normal.
 
     * To terminate `workshop`, type `ctrl-d` while inside the `workshop` session.
 
--------------------------------
+
 ## Tutorial setting
 
 The setting for this tutorial is as follows: you receive some germline sequencing data from an individual [NA12878](https://www.internationalgenome.org/data-portal/sample/NA12878) (chr20 from sample NA12878 is sourced from the International Genome Sample Resource). Your aim is to identify small genetic variants from this data.
@@ -186,7 +182,7 @@ Using WinSCP or FileZilla or CyberDuck you will need the following details to co
 2. Username:
 3. Port:
 
-------------------------------
+
 ## Tutorial contents table
 
 * [Section 1: Map raw mapped reads to reference genome](#section-1-map-raw-mapped-reads-to-reference-genome)
@@ -195,7 +191,7 @@ Using WinSCP or FileZilla or CyberDuck you will need the following details to co
 * [Section 4: Filter and prepare analysis ready variants](#section-4-filter-and-prepare-analysis-ready-variants)
 * [Section 5: Exporting variant data and visualisation](#section-5-exporting-variant-data-and-visualisation)
 
--------------------------------
+
 ## Section 1: Map raw mapped reads to reference genome
 
 ### 1. Preparation and data import
@@ -249,7 +245,7 @@ Run BWA as follows, but first navigate to the scripts folder:
 
 ```bash
 bwa mem -M -t 2 \
--R "@RG\tID:SRR622461.7\tSM:NA12878\tLB:ERR194147\tPL:ILLUMINA" \
+-R "@RG\\tID:SRR622461.7\\tSM:NA12878\\tLB:ERR194147\\tPL:ILLUMINA" \
 reference/hg38/Homo_sapiens_assembly38.fasta \
 data/NA12878.chr20.region_1.fastq.gz \
 data/NA12878.chr20.region_2.fastq.gz | \
@@ -261,7 +257,7 @@ There are two parts to the command here. The first part uses BWA to perform the 
 
 At the end of this step you should have a file called `#!bash NA12878.bam` in the `#!bash output` directory.
 
-------------
+
 ## Section 2: Prepare analysis ready reads
 
 ### 1. Sort SAM/BAM
@@ -399,7 +395,7 @@ But before we proceed, let's take a detour and run some summary statistics of th
     ```
     We have precomputed this and the resulting MultiQC report is [here](files/multiqc_report.html){:target="_blank"}.
 
-------------
+
 ## Section 3: Variant calling
 The next step in the GATK best practices workflow is to proceed with the variant calling.
 
@@ -480,7 +476,7 @@ gatk --java-options "-Xmx7g" GenotypeGVCFs \
     Screenshot from output.vcf.gz
     ![fig1](./media/fig1.png)
 
----------------------------------------
+
 ## Section 4: Filter and prepare analysis ready variants
 
 ### 1. Variant Quality Score Recalibration
@@ -608,7 +604,7 @@ Given we have a filter annotated VCF files (), we can now create an analysis rea
         tabix -p vcf output/output.vqsr.varfilter.pass.vcf.gz
         ```
 
-------------------------------------------
+
 ## Section 5: Exporting variant data and visualisation
 VCF files, although in tabular format, are not user friendly. We will go through a couple of ways to share share and visualise variant data. This is important for downstream analysis as well as sharing data. First, we will convert the VCF file in to a TSV file (ready for Excel for example) in a manner where we extract data fields of interest.
 
