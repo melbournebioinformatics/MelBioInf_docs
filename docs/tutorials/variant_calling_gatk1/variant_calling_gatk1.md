@@ -52,7 +52,8 @@ At the end of this workshop, you will be able to:
 -------------------------------
 ## Description
 
-This tutorial runs through the GATK4 best practices workflow for variant calling. The workflow starts and a pair of sequencing reads and performs a series of steps to determine a set to genetic variants.
+This tutorial runs through the GATK4 best practices workflow for variant calling. The workflow starts with pairs of sequencing reads and performs a series of steps to determine a set of genetic variants.
+
 
 **Data:** Illumina HiSeq paired-end (2×100 bp) reads in FASTQ format.  
 **Tools:** GATK4, Picard, Bcftools and jigv  
