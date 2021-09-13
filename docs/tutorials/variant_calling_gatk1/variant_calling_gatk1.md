@@ -558,7 +558,7 @@ There are several protocols for filtering VCF files. We have walked throught the
     BCFtools is a useful tool to manipulate, filter and query VCF files. More details from [BCFtools](https://samtools.github.io/bcftools/). BCFtools can be combined with linux command line tools as well to summarise data. For example, the command below can used extract and print the 'FILTER' column from the VCF file.
 
     ```bash
-        bcftools query -f'%FILTER\n' output/output.vqsr.vcf.gz
+        bcftools query -f'%FILTER\n' output/output.vqsr.vcf
     ```
 
 ### 2. Additional filtering
