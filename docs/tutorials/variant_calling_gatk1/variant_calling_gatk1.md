@@ -200,10 +200,10 @@ Using WinSCP or FileZilla or CyberDuck you will need the following details to co
 ## Section 1: Map raw mapped reads to reference genome
 
 ### 1. Preparation and data import
-Lets start by setting up the directory structure for this analysis.
+Let's start by setting up the directory structure for this analysis.
 The `#!bash data` directory is where the raw sequencing reads will be. All output files will be directed to the `#!bash output` directory. All reference files will be pointed to the `#!bash reference` directory. The command-line scripts are stored in simple bash script format in the `#!bash scripts` directory. For those interested, equivalent slurm scripts to run on Spartan are available in the `#!bash slurm_scripts` directory. Although all tools are installed on the server, we will create a `#!bash tools` directory.    
 
-Lets begin by creating a byobu-screen session (see above sections for more help):
+Let's begin by creating a byobu-screen session (see above sections for more help):
 ```Bash
 cd
 byobu-screen -S workshop
@@ -233,7 +233,7 @@ cp -p /mnt/shared_data/NA12878.chr20.region_2.fastq.gz data/.
 ```
 
 !!! note
-    To perform quality control checks on the raw fastq data use the tool [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). Another useful QC tool output aggregator is the [MultiQC](https://multiqc.info/) tool. MultiQC aggregates the output from several tools and outputs a single QC report for all samples. We will have a look at some of the QC data later in this section.
+    To perform quality control checks on the raw fastq data, use the tool [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). Another useful QC tool output aggregator is the [MultiQC](https://multiqc.info/) tool. MultiQC aggregates the output from several tools and outputs a single QC report for all samples. We will have a look at some of the QC data later in this section.
 
 Next, we need to prepare the reference data. Luckily, we have downloaded the data and all we need to do is to create a [symbolic link](https://kb.iu.edu/d/abbe) to the data folder as follows:
 
@@ -244,7 +244,7 @@ ln -s /mnt/shared_data/* reference/hg38/.
 There are several files in the reference directory. These included the GATK bundle of reference files downloaded from (ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/). Additional files include in the directory are the BWA index files generated for the reference genome.
 
 ### 2. Align genome
-Run the command below to map the raw sequencing data to the Homo sapiens (human) genome assembly GRCh38 (hg38). We are using the [BWA-MEM](https://github.com/lh3/bwa) algorithms for mapping DNA sequences against large reference genomes. Note that we have already run the created the BWA index files by running the command `#!bash bwa index reference/hg38/Homo_sapiens_assembly38.fasta`.
+Run the command below to map the raw sequencing data to the *Homo sapiens* (human) genome assembly GRCh38 (hg38). We are using the [BWA-MEM](https://github.com/lh3/bwa) algorithms for mapping DNA sequences against large reference genomes. Note that we have already run the created the BWA index files by running the command `#!bash bwa index reference/hg38/Homo_sapiens_assembly38.fasta`.
 
 Run BWA as follows, but first navigate to the scripts folder:
 
@@ -258,7 +258,7 @@ samtools view -b -h -o output/NA12878.bam -
 
 ```
 
-There are two parts to the command here. The first part uses BWA to perform the alignment and the second part take the output from BWA and uses Samtools to convert the output to the BAM format.
+There are two parts to the command here. The first part uses BWA to perform the alignment and the second part takes the output from BWA and uses Samtools to convert the output to the BAM format.
 
 At the end of this step you should have a file called `#!bash NA12878.bam` in the `#!bash output` directory.
 
@@ -284,7 +284,7 @@ The above command will create a coordinate sorted BAM file and an index (`#!bash
     Given we now have a sorted BAM file, we can now generate some useful statistics. To do so we can use the `#!bash samtools flagstat` command. More details are available [here](http://www.htslib.org/doc/samtools-flagstat.html).
 
 ```bash
-# lets go to the home directory
+# let's go to the home directory
 cd
 
 samtools flagstat output/NA12878.sort.bam
@@ -314,7 +314,7 @@ samtools flagstat output/NA12878.sort.bam
 
 
 ### 2. Mark duplicate reads
-The aim of this step is to locate and tag duplicate reads in the BAM file. Duplicate reads can arise due to several reasons, for more details go to [MarkDuplicates](https://gatk.broadinstitute.org/hc/en-us/articles/360037052812-MarkDuplicates-Picard-).
+The aim of this step is to locate and tag duplicate reads in the BAM file. Duplicate reads can arise due to several reasons. For more details go to [MarkDuplicates](https://gatk.broadinstitute.org/hc/en-us/articles/360037052812-MarkDuplicates-Picard-).
 
 ```bash
 picard -Xmx7g MarkDuplicates \
@@ -350,10 +350,10 @@ picard -Xmx7g MarkDuplicates \
 
 
 ###  3. Base quality recalibration
-The last step of pre-processing mapped reads is the base quality score recalibration (BQSR) stage. The GATK tools detects systematic errors made by the sequencing machine while estimating the accuracy of each base. The systematic errors can be have various sources ranging from technical machine errors to the variability in the sequencing chemical reactions. The two step BQSR process applies machine learning to model the possible errors and adjust the base quality scores accordingly. More details [here](https://gatk.broadinstitute.org/hc/en-us/articles/360035890531-Base-Quality-Score-Recalibration-BQSR-).
+The last step of pre-processing mapped reads is the base quality score recalibration (BQSR) stage. The GATK tools detects systematic errors made by the sequencing machine while estimating the accuracy of each base. The systematic errors can have various sources ranging from technical machine errors to the variability in the sequencing chemical reactions. The two step BQSR process applies machine learning to model the possible errors and adjust the base quality scores accordingly. More details [here](https://gatk.broadinstitute.org/hc/en-us/articles/360035890531-Base-Quality-Score-Recalibration-BQSR-).
 
 ```bash
-# lets go to the home directory again
+# let's go to the home directory again
 cd
 
 # step 1  - Build the model
@@ -374,14 +374,14 @@ gatk --java-options "-Xmx7g" ApplyBQSR \
 ```
 
 !!! note
-    In a workflow such as this it is a good practice to give the output files an appropriate name. In this case, we are appending the workflow step details to the filenames. For example, append `dup` after running the mark duplicates step.
+    In a workflow such as this, it is a good practice to give the output files an appropriate name. In this case, we are appending the workflow step details to the filenames. For example, append `dup` after running the mark duplicates step.
 
 We now have a pre-processed BAM file (`#!bash NA12878.sort.dup.bqsr.bam`) ready for variant calling.
 
 But before we proceed, let's take a detour and run some summary statistics of the alignment data and QC.
 
 ??? example "**BAM statistics and QC** "
-    The commands below uses FastQC and Picard to generate QC metrics followed by multiQC tools then aggregating the data to produce an HTML report.    
+    The commands below use FastQC and Picard to generate QC metrics, followed by multiQC to aggregate the data, producing an HTML report.    
 
     ```bash
     # FastQC
@@ -408,7 +408,7 @@ There are a couple of workflows to call variants using GATK4. Here we will follo
 
 
 ### 1. Apply HaplotypeCaller
-HaplotypeCaller is the focal tool within GATK4 to simultaneously call germline SNVs and small Indels using local de-novo assembly of haplotype regions.
+HaplotypeCaller is the focal tool within GATK4 to simultaneously call germline SNVs and small Indels using local *de novo* assembly of haplotype regions.
 
 !!! Algorithm
     Briefly, the HaplotypeCaller works by:
@@ -430,12 +430,12 @@ gatk --java-options "-Xmx7g" HaplotypeCaller \
 The output of this step is a GVCF file. The format for the GVCF file is similar to a VCF file. The key difference is that the GVCF file contains records for each sequenced genomic coordinate. The `#!bash --emit-ref-confidence` or `#!bash -ERC` parameter lets you select a method to summarise confidence in the genomic site being homozygous-reference. The option `#!bash -ERC GVCF` is more efficient and recommended for large samples and therefore more scalable.
 
 ### 2. Apply CombineGVCFs
-The CombineGVCFs tool is applied to combine multiple single sample GVCF files to merge these in to a single multi-sample GVCF file.
+The CombineGVCFs tool is applied to combine multiple single sample GVCF files, merging them into a single multi-sample GVCF file.
 
-We have pre-processed two additional samples (NA12891 and NA12892) up to the HaplotypeCaller step (above). Lets first copy the gvcf files to the output directory.
+We have pre-processed two additional samples (NA12891 and NA12892) up to the HaplotypeCaller step (above). Let's first copy the GVCF files to the output directory.
 
 ```bash
-#lets make sure that we are in the apropriate directory
+#let's make sure that we are in the apropriate directory
 cd
 
 cp /mnt/shared_data/NA12891.g.vcf.gz* output/.
@@ -453,7 +453,7 @@ gatk --java-options "-Xmx7g" CombineGVCFs \
     -O output/cohort.g.vcf.gz
 ```
 
-??? example "Lets look at the combined gvcf file"
+??? example "Let's look at the combined GVCF file"
     ```bash
     less output/cohort.g.vcf.gz
     ```
@@ -474,7 +474,7 @@ gatk --java-options "-Xmx7g" GenotypeGVCFs \
 ```
 
 ??? Information
-    An alternative to CombineGVCFs is [GenomicsDBImport](https://gatk.broadinstitute.org/hc/en-us/articles/360057439331-GenomicsDBImport), which is more efficient for sample numbers and stores the content in a a GenomicsDB data store. Therefore, CombineGVCFs could be slow and inefficient for more than a few samples. A possible work around is to split up the tasks per interval regions such as chromosomes.
+    An alternative to CombineGVCFs is [GenomicsDBImport](https://gatk.broadinstitute.org/hc/en-us/articles/360057439331-GenomicsDBImport), which is more efficient for large sample numbers and stores the content in a GenomicsDB data store. Therefore, CombineGVCFs could be slow and inefficient for more than a few samples. A possible work around is to split up the tasks into per interval regions such as chromosomes.
 
 
 ??? example "Visualisations: VCF file"
@@ -525,7 +525,7 @@ gatk --java-options "-Xmx7g" ApplyVQSR \
     10467
     ```
 
-There are several protocols for filtering VCF files. We have walked throught the VQSR strategy above and for other options please visit this [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by-hard-filtering).
+There are several protocols for filtering VCF files. We have walked through just one of them. For other options please visit this [link](https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by-hard-filtering).
 
 ??? example "Filtering strategy for a single sample VCF file"
     Consider the following method to filter a single sample VCF file. Here we will go through the Convolutional Neural Net based protocol to annotate and filter the VCF file.
