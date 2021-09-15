@@ -18,7 +18,7 @@ For queries relating to this workshop, contact Melbourne Bioinformatics (bioinfo
 Khalid Mahmood  
 Melbourne Bioinformatics, University of Melbourne  
 Developed: July 2021  
-Reviewed: August 2021
+Reviewed: September 2021
 -------------------------------
 ## Overview
 
@@ -60,7 +60,7 @@ This tutorial runs through the GATK4 best practices workflow for variant calling
 **Reference data:** GATK4 hg38 reference bundle and hg38 refGene annotation (hg38.refGene.gtf.gz)
 
 Slides and workshop instructions  
-Click here for slides presented during this workshop.  
+Click [here](files/VariantCallingUsingGATK4.pdf){:target="_blank"} for the slides.  
 Click [here](files/variant_calling_gatk1.pdf){:target="_blank"} for a printer friendly PDF version of this workshop.
 
 -------------------------------
@@ -281,7 +281,7 @@ CREATE_INDEX=True
 The above command will create a coordinate sorted BAM file and an index (`#!bash .bai`) file.
 
 !!! Alignment statistics
-    Given we now have a sorted BAM file, we can now generate some useful statistics. To do so we can use the `#!bash samtools flagstat` command. More details are available [here](http://www.htslib.org/doc/samtools-flagstat.html).
+    Given we now have a sorted BAM file, we can now generate some useful statistics. To do so we can use the `#!bash samtools flagstat` command. More details are available [here](http://www.htslib.org/doc/samtools-flagstat.html). To decode the SAM flags visit [Decoding SAM flags website](https://broadinstitute.github.io/picard/explain-flags.html).  
 
 ```bash
 # let's go to the home directory
@@ -305,7 +305,7 @@ samtools flagstat output/NA12878.sort.bam
 2030516 + 0 paired in sequencing
 1015258 + 0 read1
 1015258 + 0 read2
-2030298 + 0 properly paired (99.99% : N/A)
+2030284 + 0 properly paired (99.99% : N/A)
 2030510 + 0 with itself and mate mapped
 1 + 0 singletons (0.00% : N/A)
 182 + 0 with mate mapped to a different chr
@@ -463,7 +463,7 @@ gatk --java-options "-Xmx7g" CombineGVCFs \
 Now that we have a merged GVCF file, we are ready to perform genotyping.
 
 ### 3. Apply GenotypeGVCFs
-GenotypeGVCFs
+GATK uses a modified version (to include multi-allelic variants) to calculate the posterior probability of a non-reference allele. More details [here](https://gatk.broadinstitute.org/hc/en-us/articles/360035890511-Assigning-per-sample-genotypes-HaplotypeCaller-).
 
 ```bash
 gatk --java-options "-Xmx7g" GenotypeGVCFs \
@@ -558,7 +558,7 @@ There are several protocols for filtering VCF files. We have walked through just
     BCFtools is a useful tool to manipulate, filter and query VCF files. More details from [BCFtools](https://samtools.github.io/bcftools/). BCFtools can be combined with linux command line tools as well to summarise data. For example, the command below can used extract and print the 'FILTER' column from the VCF file.
 
     ```bash
-        bcftools query -f'%FILTER\n' output/output.vqsr.vcf
+    bcftools query -f'%FILTER\n' output/output.vqsr.vcf
     ```
 
 ### 2. Additional filtering
@@ -577,7 +577,7 @@ gatk --java-options "-Xmx7g" VariantFiltration \
 
     ??? answer
         ```bash
-            bcftools query -f'%FILTER\n' output/output.vqsr.varfilter.vcf | sort | uniq -c
+        bcftools query -f'%FILTER\n' output/output.vqsr.varfilter.vcf | sort | uniq -c
         ```
 
         ```
