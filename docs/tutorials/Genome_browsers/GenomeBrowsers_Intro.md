@@ -2,10 +2,11 @@
 
 # Introduction to Genome Browsers
 
-Anticipated workshop duration when delivered to a group of participants is **4 hours**.<br>
+Anticipated workshop duration when delivered to a group of participants is **4 hours**.  
 Note that not all the exercises are expected to be completed during the workshop.  
 
-For queries relating to this workshop, contact Melbourne Bioinformatics at:</br> bioinformatics-training@unimelb.edu.au.
+For queries relating to this workshop, contact Melbourne Bioinformatics at:  
+bioinformatics-training@unimelb.edu.au.
 
 ## Overview
 This tutorial will introduce you to the genome browser format and illustrate how some freely available genome browsers can be used to interrogate a variety of data types, such as gene expression, genomic variation, methylation and many more.
@@ -32,27 +33,30 @@ This workshop is designed for participants with no previous experience of using 
 
 ## Description
 
-*Learn how to make the most of Genome Browsers !*
+*Learn how to make the most of Genome Browsers!*
 
 By focusing on gene expression, this hands on tutorial will provide beginners with an introduction to both the UCSC Genome browser and IGV (Integrated Genome Viewer).  Tools and public datasets will be used to illustrate how the expression of transcript variants can be investigated in different, tissues and cell types using public data, including human RNAseq data from GTEX and mouse cell type RNAseq data from Tabula Muris, as viewed within the UCSC genome browser. A subset of Single cell RNAseq data from the Allen Brain Atlas Celltax study will also be downloaded from SRA and visualised in IGV.
 The data and genes used in this workshop are taken from the neuroscience field, however the analysis approaches and tools illustrated can be applied to many research areas.
 
-***This tutorial is in three parts:***
+<br>
+This tutorial is in three parts:
 
-* Section 1 Introduction to the general features of genome browsers. </br>
-* Section 2 Hands on tutorial of the [UCSC Genome Browser](https://genome.ucsc.edu/)
-* Section 3 Hands on tutorials of the [Integrative Genomics Viewer](https://software.broadinstitute.org/software/igv/home)
+*Section 1:* Introduction to the general features of genome browsers.  
+*Section 2:* Hands on tutorial of the [UCSC Genome Browser](https://genome.ucsc.edu/).  
+*Section 3:* Hands on tutorials of the [Integrative Genomics Viewer](https://software.broadinstitute.org/software/igv/home).  
 
 
-This tutorial was developed for use as part a series of workshops for neuroscience researchers, hence the data and example genes are drawn from neuroscience field and focused on analysis and visualisation  of expression data. However, the skills taught in this tutorial are applicable to all areas of research.
+This tutorial was developed for use as part a series of workshops for neuroscience researchers, hence the data and example genes are drawn from neuroscience field and focused on analysis and visualisation of expression data. However, the skills taught in this tutorial are applicable to all areas of research.
 
-**Data:** [GTEX](https://gtexportal.org/home/) and [Tabular Muris](https://tabula-muris.ds.czbiohub.org/) data as represented in the UCSC Genome Browser, and [Celltax single cell expression atlas data](http://casestudies.brain-map.org/celltax) downloaded from [SRA](https://www.ncbi.nlm.nih.gov/sra)</br>
-**Tools:** [UCSC genome Browser](https://genome.ucsc.edu/), [Integrative Genomics Viewer](https://software.broadinstitute.org/software/igv/home)
+**Data:** [GTEX](https://gtexportal.org/home/) and [Tabular Muris](https://tabula-muris.ds.czbiohub.org/) data as represented in the UCSC Genome Browser, and [Celltax single cell expression atlas data](http://casestudies.brain-map.org/celltax) downloaded from [SRA](https://www.ncbi.nlm.nih.gov/sra).  
+
+**Tools:** [UCSC Genome Browser](https://genome.ucsc.edu/), [Integrative Genomics Viewer (IGV)](https://software.broadinstitute.org/software/igv/home).
+
 
 -------------------------------
 ## Learning Objectives
 
-At the end of this introductory workshop, you will :
+At the end of this introductory workshop, you will:
 
 * Understand the how some types of genomics and expression data are represented in Genome browsers.
 * Understand gene models and identify differences between transcripts variants.
@@ -71,51 +75,58 @@ If delivered as a workshop, participants should install the software and data fi
 
 ### Preparing you and your laptop prior to starting this workshop
 
-1. Required software: Download and install [IGV](https://software.broadinstitute.org/software/igv/download) (Free)
- * Ensure that ([Chrome](https://www.google.com/chrome/) or [FireFox](https://www.mozilla.org/en-US/) are installed and upto date)</br>
- * Create a user account in the [UCSC genome browser](https://genome.ucsc.edu/).
- * Required data is downloaded as part of the tutorial exercises.
+#### Required software:
 
-### Required Data
+1. Download and install [IGV](https://software.broadinstitute.org/software/igv/download) (Free).
+2. Ensure that [Chrome](https://www.google.com/chrome/) or [FireFox](https://www.mozilla.org/en-US/) are installed and up-to-date.
+3. Create a user account in the [UCSC genome browser](https://genome.ucsc.edu/).
 
-No additional data needs to be downloaded prior to this workshop.
+
+#### Required Data
+
+No additional data needs to be downloaded prior to this workshop. Required data will be downloaded as part of the tutorial exercises.
 
 -------------------------------
 
 ### Mode of Delivery
 
-This workshop will be run using freely available Web interfaces and free software using graphical user interfaces. see above.
+This workshop will be run using freely available Web interfaces and free software using graphical user interfaces. See above.
+
 
 -------------------------------
 ## Author(s) and review date
-**Written by:** Victoria Perreau | Melbourne Bioinformatics, University of Melbourne.</br>
+**Written by:** Victoria Perreau | Melbourne Bioinformatics, University of Melbourne.  
 
-**Created:** October 2020</br>
-**Reviewed and revised:** June 2021</br>
+**Created:** October 2020  
+**Reviewed and revised:** June 2021  
 
 -------------------------------
-## Genome Browser background
+## Background
 
-Genome browsers are invaluable for viewing and interpreting the many different types of data that can be anchored to genomic positions.  These include variation, transcription, the many types regulatory data such as methylation and transcription factor binding, and disease associations. The larger genome browsers serve as data archives for valuable public datasets facilitating visualisation and analysis of different data types. It is also possible to load your own data into some of the public genome browsers.
+### Genome Browser background
+
+Genome browsers are invaluable for viewing and interpreting the many different types of data that can be anchored to genomic positions. These include variation, transcription, the many types regulatory data such as methylation and transcription factor binding, and disease associations. The larger genome browsers serve as data archives for valuable public datasets facilitating visualisation and analysis of different data types. It is also possible to load your own data into some of the public genome browsers.
 
 By enabling viewing of one type of data in the context of another, the use of Genome browsers can reveal important information about gene regulation in both normal development and disease, assist hypothesis development relating to genotype phenotype relationships.
 
 All researchers are therefore encouraged to become familiar with the use of some of the main browsers such as:
 
-* [The UCSC Genome Browser](https://genome.ucsc.edu/), (RRID:SCR_005780)
-* [ESEMBL Genome Browser](https://www.ensembl.org/index.html), (RRID:SCR_013367)
-* [Epigenome browser at WashU](https://epigenomegateway.wustl.edu/browser/), (RRID:SCR_006208)
-* [Integrative Genomics Viewer (IGV)](http://software.broadinstitute.org/software/igv/), RRID:SCR_011793).
+* [The UCSC Genome Browser](https://genome.ucsc.edu/) (RRID:SCR_005780)
+* [ESEMBL Genome Browser](https://www.ensembl.org/index.html) (RRID:SCR_013367)
+* [Epigenome browser at WashU](https://epigenomegateway.wustl.edu/browser/) (RRID:SCR_006208)
+* [Integrative Genomics Viewer (IGV)](http://software.broadinstitute.org/software/igv/) (RRID:SCR_011793)
+
 
 They are designed for use by researchers without programming experience and the developers often provide extensive tutorials and cases studies demonstrating the myriad of ways in which data can be loaded and interpreted to assist in develop and supporting your research hypothesis.
+
 
 Many large genomic projects also incorporate genome browsers into their web portals to enable users to easily search and view the data. These include:
 
 * [GTEx](https://gtexportal.org/home/)
 * [gnomAD](https://gnomad.broadinstitute.org/)
 
--------------------------------
-## BDNF and TrkB signalling
+
+### BDNF and TrkB signalling
 
 This tutorial uses the a well known and important signalling pathway in the central nervous system (CNS) to illustrate some of the Genome browser tools and utility.
 
@@ -127,19 +138,20 @@ The NRK2 gene expresses a number of different transcript variants in different c
 
 Since the transcript variants are differently expressed in different cell types within the CNS the NTRK2 gene is a very useful example for exploring cell type specific transcript expression in available public data.
 
+<br>
+**Major CNS cell types:**
 
-**Major CNS cell types:**</br>
+![1209 Glial Cells of the CNS-02](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/1209_Glial_Cells_of_the_CNS-02.jpg/512px-1209_Glial_Cells_of_the_CNS-02.jpg){: align=left }  
 
-* Neuron  (yellow cell in the image below)
+<br><br>
+
+* Neuron (yellow cell in the image)
 * Astrocyte  
 * Oligodendrocyte  
 * Microglia  
 * Ependymal  
 
-
-![1209 Glial Cells of the CNS-02](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/1209_Glial_Cells_of_the_CNS-02.jpg/512px-1209_Glial_Cells_of_the_CNS-02.jpg)
-
-
+<br><br><br><br><br>
 
 -------------------------------
 
@@ -149,14 +161,15 @@ Genome browsers rely on a common reference genome for each species in order to m
 
 The sequence for the human reference genome was accumulated up over many years from sequence data from many different sources and does not represent the sequence of one single person. Instead it is a composite of fragments of the genome from many different people.  Also, unlike the human genome which is diploid, the human genome is haploid.  That is there is only one copy of each chromosome. It therefore does not reflect the variation on the population, or even the most common variants in the human genome. Exploring variation within human genome is very important and facilitated by genome browsers but not covered in this workshop.
 
-### Genome Build version number- further reading
-* [The Genome reference consortium](https://www.ncbi.nlm.nih.gov/grc)</br>
-* [What does the nomenclature mean?](https://genome.ucsc.edu/FAQ/FAQreleases.html)
+!!! info "**Genome Build version number - further reading**"
+    * [The Genome reference consortium](https://www.ncbi.nlm.nih.gov/grc)  
+    * [What does the nomenclature mean?](https://genome.ucsc.edu/FAQ/FAQreleases.html)
 
-For further info on Human Genome version updates I recommend you look at the updates and [blog pages on the UCSC genome browser](https://genome.ucsc.edu/goldenPath/newsarch.html#2019).
+    For further info on Human Genome version updates I recommend you look at the updates and [blog pages on the UCSC genome browser](https://genome.ucsc.edu/goldenPath/newsarch.html#2019).
+
 
 -------------------------------
-## Section 2: The UCSC genome Browser interface
+## Section 2: The UCSC Genome Browser Interface
 
 In this section we will become familiar with the web interface of the UCSC genome browser and explore some of the tools and public datasets available.
 
@@ -169,22 +182,24 @@ In this section we will become familiar with the web interface of the UCSC genom
 
 Weekly maintenance of the browser is at 5-6 pm Thursdays Pacific time, which is equivalent to 11am-12pm AEST time. During this time the browser may be down for a few minutes. To ensure uninterrupted browser services for your research during UCSC server maintenance and power outages, bookmark one of the mirror sites that replicates the UCSC genome browser.
 
+
 **Accessing the tools**:
 Many of the tools that we will explore can be selected via multiple different routes within the browser interface. One way to access many tools is via from the top toolbar on a pull down list, other tools can be accessed from within the browser window.  In the following instructions a series of <ss>blue boxes</ss> is used to indicate successive lower levels from the pull down menu when starting with the top toolbar.  For example, the notation below indicates that you should select 'Genome Browser' from the top tool bar and then click on 'Reset all user settings'.
 
 <ss>Toolbar</ss> <ss>Genome Browser</ss> <ss>Reset all user settings</ss>
 
+
 **Accessing help and training**:
-This workshop the UCSC genome browser is supported by rich training resource which has new material added regularly [youtube channel](https://www.youtube.com/channel/UCQnUJepyNOw0p8s2otX4RYQ/videos). To access training to further develop your skills and go to:
+This workshop the UCSC genome browser is supported by rich training resource which has new material added regularly [YouTube channel](https://www.youtube.com/channel/UCQnUJepyNOw0p8s2otX4RYQ/videos). To access training to further develop your skills and go to:
 <ss>Toolbar</ss>  <ss>Help</ss> <ss>Training</ss>
 
 
 ### Getting started
 1. **Open the Browser interface:**  
     * Navigate to the [UCSC genome Browser](https://genome.ucsc.edu/) and sign in if you have an account.<br>
-![ucsc_homepage](./media/UCSC_Home.png)
+![ucsc_homepage](./media/UCSC_Home.png)  
 2. **First reset the browser, so that we all see the same screen:**  
-    <ss>Toolbar</ss> <ss>Genome Browser</ss> <ss>Reset all user settings</ss>
+    <ss>Toolbar</ss> <ss>Genome Browser</ss> <ss>Reset all user settings</ss>  
 3. **Select and open the human Genome Hg38 at the default position, there are a few different ways to do this**  
     * <ss>Toolbar</ss> <ss>Genomes</ss> (this takes you to the Genome gateway page)  
         * Check that GRCh38 is selected in 'human assembly' and click on the blue <ss>GO</ss> box  
@@ -225,8 +240,10 @@ This workshop the UCSC genome browser is supported by rich training resource whi
         * Click on the down arrow next to the highlight colour to select a different colour.
 ![highlight_ucsc](./media/UCSC_drag-and-select.png)
 
+
 ###Understanding the gene models
 ![genemodel](./media/gene_model.png)
+
 
 #### NTRK2
 First we are going to familiarise ourselves with the gene model representation of the different transcripts of NTRK2.  
@@ -239,20 +256,30 @@ First we are going to familiarise ourselves with the gene model representation o
     * <ss>Hide all</ss> tracks by selecting the white button below the genome view.
     * Turn on only the 'Genecode v32 Genemodels' in 'full' viewing mode by selecting from the blue bar group labelled 'Genes and Gene predictions'.
     * Turn on 'Conservation' track to 'full'
-        * Dont forget to click <ss>refresh</ss>.
+        * Don't forget to click <ss>refresh</ss>.
     * When you have navigated to the NTRK2 gene, zoom out until you can view all of the 5' UTRs and 3' UTRs for all transcript variants for this gene. Then drag the view left and right to center (like in Google maps) or 'drag and select' the region to center the gene in the Genome view. You should see something like the image below.
-![ntrk_transcripts](./media/UCSC_NTRK2_GENCODE.png)
 
-    * Which strand is the gene encoded on / transcribed from? (+ or - strand)
-    * Identify the exons, introns and UTRs
-        * *Do regions of conservation only occur were there are coding regions?*
-        * *How many different transcripts variants are there for this gene?*
-        * *How do they differ?*
+    ![ntrk_transcripts](./media/UCSC_NTRK2_GENCODE.png)
+
+    !!! question "Which strand is the gene encoded on / transcribed from? (+ or - strand)"
+
+    * Identify the exons, introns and UTRs  
+
+        !!! question "Do regions of conservation only occur were there are coding regions?"
+
+        !!! question "How many different transcripts variants are there for this gene?"
+
+        !!! question "How do they differ?"
+
     * Select a coding region (full height boxes) towards the 3'UTR of the gene.
         * zoom in to the region until you can see the letters of the amino acid sequence.
-            * *Why are some amino acid boxes red or green?*
-        * Zoom in again until you can see each amino acid number.  
-            * *Why do different transcripts have different amino acid numbers?*
+
+        !!! question "Why are some amino acid boxes red or green?"
+
+        * Zoom in again until you can see each amino acid number.
+
+        !!! question "Why do different transcripts have different amino acid numbers?"
+
     * Note that one of the transcript names is in white text with a black background, this is the transcript you selected from the autocompleted list or the search results.
     * Change the **'view settings'** for the track. Switch between <ss>dense</ss> <ss>squish</ss> <ss>pack</ss> <ss>full</ss> to see how it changes the representation of the models.
         * Right click on the track grey bar in the left of the genome window to access view settings.
@@ -260,21 +287,23 @@ First we are going to familiarise ourselves with the gene model representation o
     * The transcript names are now too long to fit on the screen. Go to the genome view configuration page (like you did to chane the font size at the beginning of the workshop) and change the number of characters in the label so that you can see the entire transcript label.  
     * Test your understanding of gene model representation by attempting this 6 questions in this [quiz](https://forms.gle/AnqR2igkm2xgEqEs6).
 
+
 #### BDNF
 Now we look at the gene model for BDNF in the same genome. There are some differences that enable us to demonstrate some more tools.
 
-1.  **Navigate to the BDNF gene position in GRCh38 and view the gene models**  
+1. **Navigate to the BDNF gene position in GRCh38 and view the gene models**
+
 ![bdnf_ucsc](./media/BDNF_genemodel.png)
 
-    * Note that there are black transcript models encoded on the + strand and blue BDNS-AS transcript models on the - strand. BDNF-AS is the antisense gene.
-    * Colouring info for a track can be obtained form the configuration page, below if the colouring for this track.
+  * Note that there are black transcript models encoded on the + strand and blue BDNS-AS transcript models on the - strand. BDNF-AS is the antisense gene.
+  * Colouring info for a track can be obtained form the configuration page, below if the colouring for this track.
   ![genecode_colours](./media/Gencode_colour.png)
 
-    * Since the convention is to display genes in the 5' to 3' orientation it can be useful for our own interpretation, and also for presentation purposes, to flip the orientation of a gene when viewing it in a Genome Browser.
-        * Use the white <ss>reverse</ss> button under the genome view window to flip the orientation of the gene.
-    * When a gene are many large introns taking up a lot of white space in an image it can be difficult to see if exons in different transcript models or other data tracks align.  The **'Multi-Region'** view tool can be used to fold the intronic regions in the view out of the view like a concertina. The Broswer seletcs which regiosn to fold out based on the gene model track(s) that you have turned on at the time.
-        * Apply the Multi-Region view from the mail tool bar of the white buttons under the Genome window.
-            * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE v32'
+  * Since the convention is to display genes in the 5' to 3' orientation it can be useful for our own interpretation, and also for presentation purposes, to flip the orientation of a gene when viewing it in a Genome Browser.
+    * Use the white <ss>reverse</ss> button under the genome view window to flip the orientation of the gene.
+  * When a gene are many large introns taking up a lot of white space in an image it can be difficult to see if exons in different transcript models or other data tracks align.  The **'Multi-Region'** view tool can be used to fold the intronic regions in the view out of the view like a concertina. The Broswer seletcs which regiosn to fold out based on the gene model track(s) that you have turned on at the time.
+    * Apply the Multi-Region view from the mail tool bar of the white buttons under the Genome window.
+        * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE v32'
 
 ![bdnf_multiregionview](./media/BDNF_multiregion.png)
 
@@ -293,22 +322,27 @@ Microarray expression data is not commonly used now, but some of the data genera
  The study was [the Human Brain gene expression atlas](http://human.brain-map.org/) generated by the [Allen Institute](https://alleninstitute.org/about/).  Below are sequences of two hybridisation probes that were use in a microarray used to detect expression of the gene NTRK2.
  These two probes result in very different hybridisation and expression patterns across different regions of the brain. As we observed in the exercise above NTRK2 has a number of different transcript variants.  The question we have is whether these probes are detecting different or multiple transcripts of NTRK2, and if so which ones?
 
-***NTRK2 Probe A_23_P216779 sequence:***</br>
-**TTCTATACTCTAATCAGCACTGAATTCAGAGGGTTTGACTTTTTCATCTATAACACAGTG**</br>
+***NTRK2 Probe A_23_P216779 sequence:***  
+**TTCTATACTCTAATCAGCACTGAATTCAGAGGGTTTGACTTTTTCATCTATAACACAGTG**  
+
 Z score of expression level in Human brain (blue = low expression, red = high expression)
 ![hbrain_A_23_P216779](./media/ABA_P216779.png)
 
-***NTRK2 Probe A_24_P343559 sequence***</br>
-**AAGCTGCTCTCCTTCACTCTGACAGTATTAACATCAAAGACTCCGAGAAGCTCTCGAGGG**</br>
+
+***NTRK2 Probe A_24_P343559 sequence***  
+**AAGCTGCTCTCCTTCACTCTGACAGTATTAACATCAAAGACTCCGAGAAGCTCTCGAGGG**  
+
 Z score of expression level in Human brain (blue = low expression, red = high expression)
 ![hbrain_A_23_P343559](./media/ABA_P343559.png)
+
 
 ***The images above are of one of the six donors included in the atlas, and typical of the expression pattern for NTRK2. These images are taken from the [NTRK2 gene page of Human Brain Atlas](http://human.brain-map.org/microarray/gene/show/4884).***
 
 Most obvious in the images above is the high level of expression signal using Probe A_23_P216779 and low level for A_24_P343559 in the corpus callosum (CC) which is a region of white matter in the brain with relatively few neurons and relatively high proportion of myelinating oligodendrocytes. This expression profile is reversed in the the cortical regions, eg. frontal lobe (FL) and parietal lobe (PL), which have a relatively high density of neuronal cells.
 
+
 1. **Use Blat tool to find region of homology**
-    * Select: <ss>Toolbar</ss. <ss>tools</ss> <ss>blat</ss>
+    * Select: <ss>Toolbar</ss> <ss>tools</ss> <ss>blat</ss>
     * Copy the sequence of the first probe above and paste into the search box
     * Select the human GRCh38  for 'Assembly' and click <ss>Submit</ss>
         * A_23_P216779 returns 2 hits for different chromosomes.  One of these has 100% homology over the whole 60 base sequence, the other has 87% homology over a 24 base region.
@@ -320,8 +354,11 @@ Most obvious in the images above is the high level of expression signal using Pr
 
 2. **Use the 'highlight' tool to keep track of region of interest in the Genome view**
     * Using your mouse select in the position track at the top to activate 'Drag-and-select'. Select only the region of homology for each probe within the NTRK2 gene and use a different highlight for each region. Then zoom out to view the whole gene again.
-    * Do the probes detect coding regions of the NTRK2 gene?
-    * Do the probes detect different transcripts?
+
+    !!! question "Do the probes detect coding regions of the NTRK2 gene?"  
+
+    !!! question "Do the probes detect different transcripts?"  
+
 
 3. **Use 'Multiregion view' to make it easier to compare coding regions of different transcripts**
     * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE v32'
@@ -349,14 +386,14 @@ Most obvious in the images above is the high level of expression signal using Pr
 
 2. **The FACS derived data from the [Tabular Muris](https://tabula-muris.ds.czbiohub.org/) cell type data can be visualised as a coverage plot**
     * Start at the view of the NTRK2 gene in the human genome and navigate to the Ntrk2 gene in the mouse genome using the 'View in other genomes tool'.
-        * <ss>Toolbar</ss> <ss>View</ss> <ss>In Other Genomes,/ss> (Convert)
+        * <ss>Toolbar</ss> <ss>View</ss> <ss>In Other Genomes</ss> (Convert)
         * select New Genome:Mouse , New Assembly:GRC38/mm10, click on 'Submit'
         * select the region with the greatest homology
     * Configure the Tabular Muris track by selecting it from the blue bar collection.
         * Hide 'Cell expression'
         * Select 'Genome coverage' to full
         * Select 'submit'<br>
-**This can look like a bit too much data to manage as there are very many tracks and the default track height is set very high. But its easy to simplify it by focusing on cell types of interest.**<br>
+**This can look like a bit too much data to manage as there are very many tracks and the default track height is set very high. But it's easy to simplify it by focusing on cell types of interest.**  
     * Right click on the grey bar to 'configure the track set'.
         * Change track height to 30
         * for 'data view scaling' select group autoscale
@@ -367,11 +404,15 @@ Most obvious in the images above is the high level of expression signal using Pr
             * neuron Cv
             * oligodendrocyte Cv
             * OPC Cv
-    * Which cell type has the highest level expression in this dataset?
+
+    !!! question "Which cell type has the highest level expression in this dataset?"
+
     * Change the 'Data view scaling' to autoscale to dataview.
         * Export a PDF image of the genome view: <ss>Toolbar</ss> <ss>View</ss> <ss>PDF/PS</ss> select 'Download the current browser graphic in PDF'
     ![browser_pdf](./media/mm10_Ntrk2.png)
-    * Which cell type(s) express the long and short transcripts for NTRK2?
+
+    !!! question "Which cell type(s) express the long and short transcripts for NTRK2?"
+
 
 3. **Mouse CNS cell type expression data can also be validated using an independent single cell dataset of mouse cortex from the [Linnarsson lab](http://linnarssonlab.org/)**.
     * The data that is publicly available for viewing in the UCCS genome browser but is not housed in the UCSC genome browser. You must first access it from the the Linnarsson lab data page.
@@ -389,14 +430,13 @@ Most obvious in the images above is the high level of expression signal using Pr
 
 
 
-
 ## Section 3: IGV
 
-In this section we will download a BAM file of gene expression data from SRA and view it in the Integrated Genome Viewer (IGV).  BAM files must first be sorted and indexed before they can be loaded into genome viewers and IGV has tools to do this without having to use command line.
+In this section we will download a BAM file of gene expression data from SRA, and view it in the Integrated Genome Viewer (IGV). BAM files must first be sorted and indexed before they can be loaded into genome viewers and IGV has tools to do this without having to use the command line.
 
-The express ion data we are using for this exercise is from the mouse [Celltax single cell expression atlas](http://casestudies.brain-map.org/celltax) published by the Allen Brain Institute.  The cell tax vignette has an expression browser that displays gene level expression as a heat map for any gene of interest,  The readsets (fastq files) and aligned data (BAM files) for 1809 runs on single cells are also available for down load from SRA.
+The expression data we are using for this exercise is from the mouse [Celltax single cell expression atlas](http://casestudies.brain-map.org/celltax) published by the Allen Brain Institute. The cell tax vignette has an expression browser that displays gene level expression as a heat map for any gene of interest. The readsets (fastq files) and aligned data (BAM files) for 1809 runs on single cells are also available for download from SRA.
 
-The SRA study ID for this study is [SRP061902](https://www.ncbi.nlm.nih.gov/sra?term=SRP061902) and individual runs from this study are easily selected by viewing the samples in the 'RunSelector'. If you wish to identify particular cell types of interest.  For this exercise I have already identified a few samples that we will download in order to illustrate navigating in IGV by looking at the expression of NTRK2 in the same cell types we have discussed in earlier exercises.<br>
+The SRA study ID for this study is [SRP061902](https://www.ncbi.nlm.nih.gov/sra?term=SRP061902) and individual runs from this study are easily selected by viewing the samples in the 'RunSelector'. If you wish to identify particular cell types of interest.  For this exercise I have already identified a few samples that we will download in order to illustrate navigating in IGV by looking at the expression of NTRK2 in the same cell types we have discussed in earlier exercises.  
 
 For each cell type we will down load a .BAM file containing only the reads from the chromosome of interest.
 
@@ -408,6 +448,7 @@ For each SRA run in the table below open the link to the run to down load the da
 | **astrocyte**   | [SRR2139935](https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?run=SRR2139935)  | A1643_VL |
 | **neuron** | [SRR2139989](https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?run=SRR2139989)  | S467_V4 |
 | **neuron** | [SRR2140047](https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?run=SRR2140047) | S1282_V |
+
 
 1. **Download BAM files from SRA**
     * Click on the 'Alignment' tab
@@ -457,9 +498,12 @@ For each SRA run in the table below open the link to the run to down load the da
         * Create a folder called 'annotations/Mouse' in the main 'igv' folder that was installed on your computer when you downloaded IGV.
         * Download the GTF file from the link above and save it in this folder.
         * Unpack and then **SORT** and **INDEX** the .gtf file using igvtools.
+
         * in IGV, before you load you data files, load this annotation file and it will replace the refseq one.
+
+
 -------------------------------
 ## Additional reading
 
-**IGV**
+**IGV**  
 https://rockefelleruniversity.github.io/IGV_course/presentations/singlepage/IGV.html
