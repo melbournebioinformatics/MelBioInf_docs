@@ -295,17 +295,17 @@ Now we look at the gene model for BDNF in the same genome. There are some differ
 
 ![bdnf_ucsc](./media/BDNF_genemodel_2021.png)
 
-  * Note that there are black transcript models encoded on the + strand and blue BDNS-AS transcript models on the - strand. BDNF-AS is the antisense gene.
+  * Note that there are blue transcript models encoded on the - strand and green BDNS-AS transcript models on the + strand. BDNF-AS is the antisense gene.
   * Colouring info for a track can be obtained form the configuration page, below if the colouring for this track.
-  ![genecode_colours](./media/Gencode_colour.png)
+  ![genecode_colours](./media/Gencode_V36_colour.png)
 
   * Since the convention is to display genes in the 5' to 3' orientation it can be useful for our own interpretation, and also for presentation purposes, to flip the orientation of a gene when viewing it in a Genome Browser.
-    * Use the white <ss>reverse</ss> button under the genome view window to flip the orientation of the gene.
-  * When a gene are many large introns taking up a lot of white space in an image it can be difficult to see if exons in different transcript models or other data tracks align.  The **'Multi-Region'** view tool can be used to fold the intronic regions in the view out of the view like a concertina. The Broswer seletcs which regiosn to fold out based on the gene model track(s) that you have turned on at the time.
-    * Apply the Multi-Region view from the mail tool bar of the white buttons under the Genome window.
-        * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE v32'
+    * Use the <ss>reverse</ss> button under the genome view window to flip the orientation of the gene.
+  * When a gene has many large introns taking up a lot of white space in an image it can be difficult to see if exons in different transcript models or other data tracks align.  The **'Multi-Region'** view tool can be used to fold the intronic regions out of the view like a concertina. The Broswer selects which region to fold out based on the gene model track(s) that you have turned on at the time.
+    * Apply the Multi-Region view from the main tool bar view options.
+        * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE V36'
 
-![bdnf_multiregionview](./media/BDNF_multiregion.png)
+![bdnf_multiregionview](./media/BDNF_multiregion_2021.png)
 
 It is now a lot easier to view a number of interesting features in the BDNF transcript models:
 
