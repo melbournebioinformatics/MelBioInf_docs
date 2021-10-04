@@ -296,8 +296,8 @@ Now we look at the gene model for BDNF in the same genome. There are some differ
 ![bdnf_ucsc](./media/BDNF_genemodel_2021.png)
 
   * Note that there are blue transcript models encoded on the - strand and green BDNS-AS transcript models on the + strand. BDNF-AS is the antisense gene.
-  * Colouring info for a track can be obtained form the configuration page, below if the colouring for this track.
-  ![genecode_colours](./media/Gencode_V36_colour.png)
+  * Colouring info is specific for each trackand can be obtained from the configuration page, below is the colouring legend for the GENCODE V36 track.
+  ![legend_colours](./media/Gencode_V36_colour.png)
 
   * Since the convention is to display genes in the 5' to 3' orientation it can be useful for our own interpretation, and also for presentation purposes, to flip the orientation of a gene when viewing it in a Genome Browser.
     * Use the <ss>reverse</ss> button under the genome view window to flip the orientation of the gene.
