@@ -348,9 +348,10 @@ Most obvious in the images above is the high level of expression signal using Pr
         * A_23_P216779 returns 2 hits for different chromosomes.  One of these has 100% homology over the whole 60 base sequence, the other has 87% homology over a 24 base region.
     * Copy and paste the probe name to use as the label for the **'Custom track name'** and **'Custom track description'** and click on <ss>Build a custom track with these results</ss>. It's not necessary to build a custom track, you could simply click on the <ss>browser</ss> link to view the results, but creating a 'custom track' from the blat result enables you to give it a unique name.  This is important if you are doing multiple blat searches as you wont be able to tell which one is which.
     * Select <ss>browser</ss> option for the hit with the highest homology to view the result. Observe which region of the NTRK2 gene this probe will target. Zoom out for context.
+    * Note that a new 'Blue bar' heading has appeared for your custom tracks.
     * Repeat for the other probe sequence.
 
-2. **Use the 'highlight' tool to keep track of region of interest in the Genome view** It is easy to loose track of a region you are investigating when navigating around the genome in a browser. So we are going to highlight each region of probe homology within the NTRK2 gene, using a different colour for each probe. Highlight is also useful if you have lots of different tracks loaded and you want to check that a feature on one track lines up with another.
+2. **Use the 'highlight' tool to keep track of region of interest in the Genome view.** It is easy to loose track of a region you are investigating when navigating around the genome in a browser. So we are going to highlight each region of probe homology within the NTRK2 gene, using a different colour for each probe. Highlight is also useful if you have lots of different tracks loaded and you want to check that a feature on one track lines up with another.
     * Using your mouse select in the position track at the top to activate 'Drag-and-select'. Select only the region of homology for each probe within the NTRK2 gene and use a different highlight for each region. Then zoom out to view the whole gene again.
 
     !!! question "Do the probes detect coding regions of the NTRK2 gene?"  
@@ -359,7 +360,7 @@ Most obvious in the images above is the high level of expression signal using Pr
 
 
 3. **Use 'Multiregion view' to make it easier to compare coding regions of different transcripts**
-    * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE v32'
+    * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE V36'
 
 
 **I have created a 'public session' of the Blat NTRK2 exercise you can view it from the link in the sessions**  
@@ -373,14 +374,20 @@ Most obvious in the images above is the high level of expression signal using Pr
     * Gene level expression data from GTEx V6 (570) donors, and GTEx V8 (948) donors can be turned on from Blue bar title for more detailed configuration page. These are displayed as coloured bar plots.
     * Transcript level data is also available for GTEx V6, this is also displayed as bar plots.
     * Transcript level expression data for GTEx V6 is available as coverage plots and is accessed from the **'Track hubs'**.
-        * click on the white 'track hubs' under the genome view window or access from the toolbar under 'My data'.
+        * click on the 'track hubs' under the genome view window or access from the toolbar under 'My data'.
         * scroll down and select 'GTEx RNA-seq Signal Hub'.  This can be viewed in either hg19 or hg38 so can be compared with a wide variety of other datasets.
 ![trackhubs](./media/trackhubs_GTEx.png)
     * The default settings are:
-        * that all the available data from one individual is loaded. Other samples from other subjects in the study can be loaded.  For example you could load all available samples for one tissue region only.
-        * the data is 'autoscale to data view' with a track height or 12 pixels for each samples. You can change the height of the track or add a transformation.
+        * that all the available data from one individual only is loaded. Data from other subjects in the study can be loaded as desired.  For example you could load all available samples for one tissue region only.
+        * the data is 'autoscale to data view' with a track height or 12 pixels for each samples. You can change the height of the track or add a data transformation.
         * you can also change it from a points plot into a density plot by clicking on the track title.
 ![gtex_settings](./media/GTEx_V6_settings.png)
+
+        * Using the selection matrix for female donors aged 2-49 years, deselect the default samples and select only Brain cortex and Pancreas samples. Then navigate to the location for the gene MYRF. You can increase the height of the datatrack to improve visualisation.
+
+    !!! question "Can you locate an exon in the MYRF gene that is present in transcripts expressed in the brain but not in the pancreas?"  
+    
+    !!! question "Does this alternative splicing event result in a frame shife of the coding sequence?" 
 
 2. **The FACS derived data from the [Tabular Muris](https://tabula-muris.ds.czbiohub.org/) cell type data can be visualised as a coverage plot**
     * Start at the view of the NTRK2 gene in the human genome and navigate to the Ntrk2 gene in the mouse genome using the 'View in other genomes tool'.
