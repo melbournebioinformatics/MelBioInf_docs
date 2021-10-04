@@ -253,13 +253,13 @@ First we are going to familiarise ourselves with the gene model representation o
         * If you know the specific location you are interested in type in the location using the format "chr#:1234-1234".
         * If you have a gene of interest you can type in the gene name (eg: NTRK2). Note the autocompleted suggestions that appear when  you start typing.  You can select from one of the suggestions or click <ss>go</ss> and select from a wider range of options.
         * Type (or copy and paste) **NTRK2** or **chr9:84,665,760-85,030,334** into the position box.
-    * <ss>Hide all</ss> tracks by selecting the white button below the genome view.
-    * Turn on only the 'Genecode v32 Genemodels' in 'full' viewing mode by selecting from the blue bar group labelled 'Genes and Gene predictions'.
-    * Turn on 'Conservation' track to 'full'
+    * <ss>Hide all</ss> tracks by selecting the button below the genome view.
+    * Turn on only the **Gencode V36** Genemodels in 'full' viewing mode by selecting from the blue bar group labelled 'Genes and Gene predictions'.
+    * Turn on the 'Conservation' track to 'full'
         * Don't forget to click <ss>refresh</ss>.
     * When you have navigated to the NTRK2 gene, zoom out until you can view all of the 5' UTRs and 3' UTRs for all transcript variants for this gene. Then drag the view left and right to center (like in Google maps) or 'drag and select' the region to center the gene in the Genome view. You should see something like the image below.
 
-    ![ntrk_transcripts](./media/UCSC_NTRK2_GENCODE.png)
+    ![ntrk_transcripts](./media/UCSC_NTRK2_GENCODE_V36.png)
 
     !!! question "Which strand is the gene encoded on / transcribed from? (+ or - strand)"
 
