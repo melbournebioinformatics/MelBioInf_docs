@@ -283,8 +283,8 @@ First we are going to familiarise ourselves with the gene model representation o
     * Note that one of the transcript names is in white text with a black background, this is the transcript you selected from the autocompleted list or the search results.
     * Change the **'view settings'** for the track. Switch between <ss>dense</ss> <ss>squish</ss> <ss>pack</ss> <ss>full</ss> to see how it changes the representation of the models.
         * Right click on the track grey bar in the left of the genome window to access view settings.
-    * Go to the configuration  page for the Gencode v32 track and change the gene names to also reveal the 'Gencode transcript ID' in the label.
-    * The transcript names are now too long to fit on the screen. Go to the genome view configuration page (like you did to chane the font size at the beginning of the workshop) and change the number of characters in the label so that you can see the entire transcript label.  
+    * Go to the configuration  page for the **GENCODE V36** track and change check the box to also reveal the 'Ensembl ID' in the label.
+    * The transcript names are now too long to fit on the screen. You can use the configuration page (like you did to chane the font size at the beginning of the workshop) and change the number of characters in the label so that you can see the entire transcript label.  
     * Test your understanding of gene model representation by attempting this 6 questions in this [quiz](https://forms.gle/AnqR2igkm2xgEqEs6).
 
 
