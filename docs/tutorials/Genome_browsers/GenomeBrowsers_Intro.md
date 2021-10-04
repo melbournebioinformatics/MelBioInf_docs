@@ -206,7 +206,7 @@ The UCSC genome browser is supported by a rich training resource which has new m
     * <ss>Toolbar</ss> <ss>Genomes</ss> <ss>Human GRCh38hg38</ss> (takes you directly to the genome)
 
     You should see a view of the browser similar to the image below, opening at a position on the X chromosome of Human genome version GRCh38 showing the gene model for the ACE2 gene. Some of the default tracks may have been updated since this screen shot was made. 
-![ace2_ucsc](./media/UCSC_Hg38_opening.png)
+![ace2_ucsc](./media/UCSC_Hg38_opening_2021.png)
 
 4. **Familiarise yourself with the main areas of the interface and locate:**
     * The main Toolbar
