@@ -190,7 +190,7 @@ Many of the tools that we will explore can be selected via multiple different ro
 
 
 **Accessing help and training**:
-This workshop the UCSC genome browser is supported by rich training resource which has new material added regularly [YouTube channel](https://www.youtube.com/channel/UCQnUJepyNOw0p8s2otX4RYQ/videos). To access training to further develop your skills and go to:
+The UCSC genome browser is supported by a rich training resource which has new material added regularly to the [YouTube channel](https://www.youtube.com/channel/UCQnUJepyNOw0p8s2otX4RYQ/videos). To access training and develop your skills further go to:
 <ss>Toolbar</ss>  <ss>Help</ss> <ss>Training</ss>
 
 
@@ -205,8 +205,8 @@ This workshop the UCSC genome browser is supported by rich training resource whi
         * Check that GRCh38 is selected in 'human assembly' and click on the blue <ss>GO</ss> box  
     * <ss>Toolbar</ss> <ss>Genomes</ss> <ss>Human GRCh38hg38</ss> (takes you directly to the genome)
 
-    You should see this screen, opening at a position on the X chromosome of Human genome version GRCh38 showing the gene model for the ACE2 gene.
-![ace2_ucsc](./media/UCSC_Hg38_opening.png)
+    You should see a view of the browser similar to the image below, opening at a position on the X chromosome of Human genome version GRCh38 showing the gene model for the ACE2 gene. Some of the default tracks may have been updated since this screen shot was made. 
+![ace2_ucsc](./media/UCSC_Hg38_opening_2021.png)
 
 4. **Familiarise yourself with the main areas of the interface and locate:**
     * The main Toolbar
@@ -221,20 +221,20 @@ This workshop the UCSC genome browser is supported by rich training resource whi
         * You can change the order of the tracks by dragging these grey bars up and down.
     * Turn tracks on and off:
         * You can hide tracks by right clicking on the grey bar or by turning them off in the Blue bar collections.
-        * You have to click on a 'refresh' button to the changes to be reflected in the the genome view window.
-    * View the **configuration page** specific to a track.  The configuration page gives you a lot of information about the data track and its colouring. You can open the configuration page for a track by:
+        * You have to click on a 'refresh' button for changes to be reflected in the genome view window.
+    * View the **configuration page** for one of the tracks.  The configuration page gives you a lot of information about the data track and its colouring. You can open the configuration page for a track by:
         * clicking on the grey bar for the track or,
-        * clicking on the track title in the Blue bar collection. More information and options is usually available by selecting the configuration page for a track via the track title in the Blue Bar collections.
-    * Select white 'resize' button to fit the genome view window to your screen
+        * clicking on the track title in the Blue bar collection. More information and options are usually available by selecting the configuration page for a track via the track title in the Blue Bar collections.
+    * Select 'resize' button under the genome view to fit the genome view window to your screen
 
 5. **Customise your view by using the 'Configure' tool to change the font size to 12.** Use either method below to open the Configure tool.
     * <ss>Toolbar</ss> <ss>View</ss> <ss>Configure browser</ss> <ss>text size 12</ss> <ss>submit</ss>
-    * or start by clicking on white <ss>configure</ss> button below the genome view window.
+    * or start by clicking on the <ss>configure</ss> button below the genome view window.
 
 6. **Practice navigating around the genome view.**
-    * move left and right both the navigation buttons and your mouse
-    * zoom in and out using navigation buttons
-    * zoom in to a region of interest using **'Drag-and-select'**:
+    * move left and right- using both the navigation buttons and your mouse
+    * zoom in and out- using navigation buttons
+    * zoom in to a region of interest- using **'Drag-and-select'**:
         * using your mouse select a region of interest by clicking the ruler (position track) at the very top of the genome view window.
     * This is also how to access the **'highlight tool'** which you will use in a later exercise to highlight a region of interest.
         * Click on the down arrow next to the highlight colour to select a different colour.
@@ -253,13 +253,13 @@ First we are going to familiarise ourselves with the gene model representation o
         * If you know the specific location you are interested in type in the location using the format "chr#:1234-1234".
         * If you have a gene of interest you can type in the gene name (eg: NTRK2). Note the autocompleted suggestions that appear when  you start typing.  You can select from one of the suggestions or click <ss>go</ss> and select from a wider range of options.
         * Type (or copy and paste) **NTRK2** or **chr9:84,665,760-85,030,334** into the position box.
-    * <ss>Hide all</ss> tracks by selecting the white button below the genome view.
-    * Turn on only the 'Genecode v32 Genemodels' in 'full' viewing mode by selecting from the blue bar group labelled 'Genes and Gene predictions'.
-    * Turn on 'Conservation' track to 'full'
+    * <ss>Hide all</ss> tracks by selecting the button below the genome view.
+    * Turn on only the **Gencode V36** Genemodels in 'full' viewing mode by selecting from the blue bar group labelled 'Genes and Gene predictions'.
+    * Turn on the 'Conservation' track to 'full'
         * Don't forget to click <ss>refresh</ss>.
     * When you have navigated to the NTRK2 gene, zoom out until you can view all of the 5' UTRs and 3' UTRs for all transcript variants for this gene. Then drag the view left and right to center (like in Google maps) or 'drag and select' the region to center the gene in the Genome view. You should see something like the image below.
 
-    ![ntrk_transcripts](./media/UCSC_NTRK2_GENCODE.png)
+    ![ntrk_transcripts](./media/UCSC_NTRK2_GENCODE_V36.png)
 
     !!! question "Which strand is the gene encoded on / transcribed from? (+ or - strand)"
 
@@ -283,8 +283,8 @@ First we are going to familiarise ourselves with the gene model representation o
     * Note that one of the transcript names is in white text with a black background, this is the transcript you selected from the autocompleted list or the search results.
     * Change the **'view settings'** for the track. Switch between <ss>dense</ss> <ss>squish</ss> <ss>pack</ss> <ss>full</ss> to see how it changes the representation of the models.
         * Right click on the track grey bar in the left of the genome window to access view settings.
-    * Go to the configuration  page for the Gencode v32 track and change the gene names to also reveal the 'Gencode transcript ID' in the label.
-    * The transcript names are now too long to fit on the screen. Go to the genome view configuration page (like you did to chane the font size at the beginning of the workshop) and change the number of characters in the label so that you can see the entire transcript label.  
+    * Go to the configuration  page for the **GENCODE V36** track and change check the box to also reveal the 'Ensembl ID' in the label.
+    * The transcript names are now too long to fit on the screen. You can use the configuration page (like you did to chane the font size at the beginning of the workshop) and change the number of characters in the label so that you can see the entire transcript label.  
     * Test your understanding of gene model representation by attempting this 6 questions in this [quiz](https://forms.gle/AnqR2igkm2xgEqEs6).
 
 
@@ -293,19 +293,19 @@ Now we look at the gene model for BDNF in the same genome. There are some differ
 
 1. **Navigate to the BDNF gene position in GRCh38 and view the gene models**
 
-![bdnf_ucsc](./media/BDNF_genemodel.png)
+![bdnf_ucsc](./media/BDNF_genemodel_2021.png)
 
-  * Note that there are black transcript models encoded on the + strand and blue BDNS-AS transcript models on the - strand. BDNF-AS is the antisense gene.
-  * Colouring info for a track can be obtained form the configuration page, below if the colouring for this track.
-  ![genecode_colours](./media/Gencode_colour.png)
+  * Note that there are blue transcript models encoded on the - strand and green BDNS-AS transcript models on the + strand. BDNF-AS is the antisense gene.
+  * Colouring info is specific for each trackand can be obtained from the configuration page, below is the colouring legend for the GENCODE V36 track.
+  ![legend_colours](./media/Gencode_V36_colour.png)
 
   * Since the convention is to display genes in the 5' to 3' orientation it can be useful for our own interpretation, and also for presentation purposes, to flip the orientation of a gene when viewing it in a Genome Browser.
-    * Use the white <ss>reverse</ss> button under the genome view window to flip the orientation of the gene.
-  * When a gene are many large introns taking up a lot of white space in an image it can be difficult to see if exons in different transcript models or other data tracks align.  The **'Multi-Region'** view tool can be used to fold the intronic regions in the view out of the view like a concertina. The Broswer seletcs which regiosn to fold out based on the gene model track(s) that you have turned on at the time.
-    * Apply the Multi-Region view from the mail tool bar of the white buttons under the Genome window.
-        * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE v32'
+    * Use the <ss>reverse</ss> button under the genome view window to flip the orientation of the gene.
+  * When a gene has many large introns taking up a lot of white space in an image it can be difficult to see if exons in different transcript models or other data tracks align.  The **'Multi-Region'** view tool can be used to fold the intronic regions out of the view like a concertina. The Broswer selects which region to fold out based on the gene model track(s) that you have turned on at the time.
+    * Apply the Multi-Region view from the main tool bar view options.
+        * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE V36'
 
-![bdnf_multiregionview](./media/BDNF_multiregion.png)
+![bdnf_multiregionview](./media/BDNF_multiregion_2021.png)
 
 It is now a lot easier to view a number of interesting features in the BDNF transcript models:
 
@@ -317,7 +317,7 @@ You may find that using the multi-region tool facilitates visualisation and inte
 ###Blat tool exercise
 The [Blat tool](https://genome.ucsc.edu/FAQ/FAQblat.html) is a sequence similarity tool similar to Blast. It can quickly identify region(s) of homology between a genome and a sequence of interest. Due to the presence of [orthologs and paralogs](https://en.wikipedia.org/wiki/Sequence_homology) a target sequence may have similarity to more than one region in the genome. In this exercise you will use Blat to map the sequences of two different expression probes to their target regions and determine which gene transcripts the probes are likely to detect in an expression study.
 
-Microarray expression data is not commonly used now, but some of the data generated from large well orchestrated studies still provide valuable information to researchers. Microarray probes, like *in situ* hybridisation probes, target a small region of the RNA and do not measure the whole RNA transcript. If you are measuring gene expression it is important to know exactly which region of the gene you are detecting.  IN this exercise we will employ the blat tool to determine which region of the NTRK2 gene the microarray probes in the following study are detecting.
+Microarray expression data is not commonly used now, but some of the data generated from large well orchestrated studies still provide valuable information to researchers. Microarray probes, like *in situ* hybridisation probes, target a small region of the RNA and do not measure the whole RNA transcript. If you are measuring gene expression it is important to know exactly which region of the gene you are detecting.  In this exercise we will employ the blat tool to determine which region of the NTRK2 gene the microarray probes in the following study are detecting.
 
  The study was [the Human Brain gene expression atlas](http://human.brain-map.org/) generated by the [Allen Institute](https://alleninstitute.org/about/).  Below are sequences of two hybridisation probes that were use in a microarray used to detect expression of the gene NTRK2.
  These two probes result in very different hybridisation and expression patterns across different regions of the brain. As we observed in the exercise above NTRK2 has a number of different transcript variants.  The question we have is whether these probes are detecting different or multiple transcripts of NTRK2, and if so which ones?
@@ -346,22 +346,21 @@ Most obvious in the images above is the high level of expression signal using Pr
     * Copy the sequence of the first probe above and paste into the search box
     * Select the human GRCh38  for 'Assembly' and click <ss>Submit</ss>
         * A_23_P216779 returns 2 hits for different chromosomes.  One of these has 100% homology over the whole 60 base sequence, the other has 87% homology over a 24 base region.
-    * Copy and paste the probe name to use as the label for the **'Custom track name'** and **'Custon track description'** and click on <ss>Build a custom track with these results</ss>. It's not necessary to build a custom track, you could simply click on the <ss>browser</ss> link to view the results, but creating a 'custom track' from the blat result enables you to give it a unique name.  This is important if you are doing multiple blat searches as you wontg be able to tell which one is which.
-    * Select <ss>browser</ss> option for the hit with the highest homology to view the result.
+    * Copy and paste the probe name to use as the label for the **'Custom track name'** and **'Custom track description'** and click on <ss>Build a custom track with these results</ss>. It's not necessary to build a custom track, you could simply click on the <ss>browser</ss> link to view the results, but creating a 'custom track' from the blat result enables you to give it a unique name.  This is important if you are doing multiple blat searches as you wont be able to tell which one is which.
+    * Select <ss>browser</ss> option for the hit with the highest homology to view the result. Observe which region of the NTRK2 gene this probe will target. Zoom out for context.
+    * Note that a new 'Blue bar' heading has appeared for your custom tracks.
     * Repeat for the other probe sequence.
 
-    It is easy to loose track of a region you are investigating when navigating around the genome. So we are going to highlight each region of probe homology within the NTRK2 gene, using a different colour for each probe. Highlight is also useful if you have lots of different tracks loaded and you want to check that a feature on one track lines up with another.
-
-2. **Use the 'highlight' tool to keep track of region of interest in the Genome view**
+2. **Use the 'highlight' tool to keep track of region of interest in the Genome view.** It is easy to loose track of a region you are investigating when navigating around the genome in a browser. So we are going to highlight each region of probe homology within the NTRK2 gene, using a different colour for each probe. Highlight is also useful if you have lots of different tracks loaded and you want to check that a feature on one track lines up with another.
     * Using your mouse select in the position track at the top to activate 'Drag-and-select'. Select only the region of homology for each probe within the NTRK2 gene and use a different highlight for each region. Then zoom out to view the whole gene again.
 
     !!! question "Do the probes detect coding regions of the NTRK2 gene?"  
 
-    !!! question "Do the probes detect different transcripts?"  
+    !!! question "Are the probes likely to detect different transcripts?"  
 
 
 3. **Use 'Multiregion view' to make it easier to compare coding regions of different transcripts**
-    * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE v32'
+    * <ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE V36'
 
 
 **I have created a 'public session' of the Blat NTRK2 exercise you can view it from the link in the sessions**  
@@ -375,51 +374,61 @@ Most obvious in the images above is the high level of expression signal using Pr
     * Gene level expression data from GTEx V6 (570) donors, and GTEx V8 (948) donors can be turned on from Blue bar title for more detailed configuration page. These are displayed as coloured bar plots.
     * Transcript level data is also available for GTEx V6, this is also displayed as bar plots.
     * Transcript level expression data for GTEx V6 is available as coverage plots and is accessed from the **'Track hubs'**.
-        * click on the white 'track hubs' under the genome view window or access from the toolbar under 'My data'.
+        * click on the 'track hubs' under the genome view window or access from the toolbar under 'My data'.
         * scroll down and select 'GTEx RNA-seq Signal Hub'.  This can be viewed in either hg19 or hg38 so can be compared with a wide variety of other datasets.
 ![trackhubs](./media/trackhubs_GTEx.png)
     * The default settings are:
-        * that all the available data from one individual is loaded. Other samples from other subjects in the study can be loaded.  For example you could load all available samples for one tissue region only.
-        * the data is 'autoscale to data view' with a track height or 12 pixels for each samples. You can change the height of the track or add a transformation.
+        * that all the available data from one individual only is loaded. Data from other subjects in the study can be loaded as desired.  For example you could load all available samples for one tissue region only.
+        * the data is 'autoscale to data view' with a track height or 12 pixels for each samples. You can change the height of the track or add a data transformation.
         * you can also change it from a points plot into a density plot by clicking on the track title.
 ![gtex_settings](./media/GTEx_V6_settings.png)
+
+        * Using the selection matrix for female donors aged 2-49 years, deselect the default samples and select only Brain cortex and Pancreas samples. Then navigate to the location for the gene MYRF. You can increase the height of the datatrack to improve visualisation.
+
+    !!! question "Can you locate an exon in the MYRF gene that is present in transcripts expressed in the brain but not in the pancreas?"  
+    
+    !!! question "Does this alternative splicing event result in a frame shift of the coding sequence?" 
+    
+    !!! question "How many amino acids are there in the protein products for each MYRF transcript?"
+    
 
 2. **The FACS derived data from the [Tabular Muris](https://tabula-muris.ds.czbiohub.org/) cell type data can be visualised as a coverage plot**
     * Start at the view of the NTRK2 gene in the human genome and navigate to the Ntrk2 gene in the mouse genome using the 'View in other genomes tool'.
         * <ss>Toolbar</ss> <ss>View</ss> <ss>In Other Genomes</ss> (Convert)
         * select New Genome:Mouse , New Assembly:GRC38/mm10, click on 'Submit'
         * select the region with the greatest homology
-    * Configure the Tabular Muris track by selecting it from the blue bar collection.
+    * Click on the bar chart icon for the Tabular muris data in the default view to see a summary bar chart of the cell type data.
+    * To see a copverage plot of the expression data we have to configure the Tabular Muris track by selecting it from the blue bar collection.
         * Hide 'Cell expression'
         * Select 'Genome coverage' to full
         * Select 'submit'<br>
-**This can look like a bit too much data to manage as there are very many tracks and the default track height is set very high. But it's easy to simplify it by focusing on cell types of interest.**  
+**This can look a bit overwhelming as there are very many tracks and the default track height is set very high. But it's easy to simplify it by focusing on a few cell types of interest.**  
     * Right click on the grey bar to 'configure the track set'.
-        * Change track height to 30
-        * for 'data view scaling' select group autoscale
-        * clear all the subtracks and then manually select only a few cell types of interest:
-            *  astrocyte Cv
+        * Change **Track height:** to 30
+        * for **Data view scaling:** select 'group auto-scale'
+        * clear all the subtracks and then manually select only these few cell types of interest:
+            * astrocyte Cv
             * Bergmann glial Cv
             * microglia Cv
             * neuron Cv
             * oligodendrocyte Cv
             * OPC Cv
 
-    !!! question "Which cell type has the highest level expression in this dataset?"
+    !!! question "Which cell type has the highest level expression of Ntrk2 in this dataset?"
 
     * Change the 'Data view scaling' to autoscale to dataview.
         * Export a PDF image of the genome view: <ss>Toolbar</ss> <ss>View</ss> <ss>PDF/PS</ss> select 'Download the current browser graphic in PDF'
     ![browser_pdf](./media/mm10_Ntrk2.png)
 
-    !!! question "Which cell type(s) express the long and short transcripts for NTRK2?"
+    !!! question "Which cell type(s) express the long and short transcripts of Ntrk2?"
 
 
 3. **Mouse CNS cell type expression data can also be validated using an independent single cell dataset of mouse cortex from the [Linnarsson lab](http://linnarssonlab.org/)**.
     * The data that is publicly available for viewing in the UCCS genome browser but is not housed in the UCSC genome browser. You must first access it from the the Linnarsson lab data page.
     * This RNAseq data is stranded, meaning you can see if the transcript data is from the + or - strand.
-    * Go to the [Public data page](http://linnarssonlab.org/cortex/) where you can search for cell expression profiles for individual genes.
+    * Click here for [the Linnarsson lab public data page for this dataset](http://linnarssonlab.org/cortex/) where you can search for cell expression profiles for individual genes.
     * Click on the 'Browse the genome' blue text near the bottom of the page.
-    * This loads 18 different tracks, one for each cell type. The default setting for expression range is quite high and most gene expression cannot be visualised with these settings. Each track must be configured individually rather than as a group, which takes a lot of time. I have created a version of this data as a public session in the UCSC genome browser. Where each track is autoscaled which can make it quicker to determine which expression range would be ideal for visualising the expression of an individual gene.  The data is also viewed using 'Multi-Region' which hides the introns in the gene models. THe sessopn is illustrated in a screen shot below and you can access this custom track set by clicking on the title in blue text.
+    * This loads 18 different tracks, one for each cell type investigated. The default setting for expression range is quite high and most gene expression is not observed with these settings. Each track must be configured individually rather than as a group, which takes a lot of time. I have created a version of this data as a public session in the UCSC genome browser. Where each track is autoscaled which can make it quicker to determine which expression range would be ideal for visualising the expression of an individual gene.  The data is also viewed using 'Multi-Region' which hides the introns in the gene models. The session is illustrated in the screen shot below and you can access this custom track set by clicking on the title in blue text. It is also a publically shared session called **mm10 Linnarsson Celltype autoscale** which you can access from the database of public sessions.
 
       **[Linnarsson lab mouse cortex single cell data as autoscaled datatracks](https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10&lastVirtModeType=exonMostly&lastVirtModeExtraState=&emGeneTable=knownGene&virtModeType=exonMostly&virtMode=1&nonVirtPosition=chr13%3A58807697%2D59133970&position=chr13%3A58807697%2D59133970&hgsid=1130613507_A81QmYr4dhsQBuI4PbXkGTxoEaZH)**
 
