@@ -98,7 +98,7 @@ This workshop will be run using freely available Web interfaces and free softwar
 **Written by:** Victoria Perreau | Melbourne Bioinformatics, University of Melbourne.  
 
 **Created:** October 2020  
-**Reviewed and revised:** June 2021  
+**Reviewed and revised:** October 2021  
 
 -------------------------------
 ## Background
