@@ -387,36 +387,39 @@ Most obvious in the images above is the high level of expression signal using Pr
 
     !!! question "Can you locate an exon in the MYRF gene that is present in transcripts expressed in the brain but not in the pancreas?"  
     
-    !!! question "Does this alternative splicing event result in a frame shife of the coding sequence?" 
+    !!! question "Does this alternative splicing event result in a frame shift of the coding sequence?" 
+    
+    !!! question "How many amino acids are there in the protein products for each MYRF transcript?"
 
 2. **The FACS derived data from the [Tabular Muris](https://tabula-muris.ds.czbiohub.org/) cell type data can be visualised as a coverage plot**
     * Start at the view of the NTRK2 gene in the human genome and navigate to the Ntrk2 gene in the mouse genome using the 'View in other genomes tool'.
         * <ss>Toolbar</ss> <ss>View</ss> <ss>In Other Genomes</ss> (Convert)
         * select New Genome:Mouse , New Assembly:GRC38/mm10, click on 'Submit'
         * select the region with the greatest homology
-    * Configure the Tabular Muris track by selecting it from the blue bar collection.
+    * Click on the bar chart icon for the Tabular muris data in the default view to see a summary bar chart of the cell type data.
+    * To see a copverage plot of the expression data we have to configure the Tabular Muris track by selecting it from the blue bar collection.
         * Hide 'Cell expression'
         * Select 'Genome coverage' to full
         * Select 'submit'<br>
-**This can look like a bit too much data to manage as there are very many tracks and the default track height is set very high. But it's easy to simplify it by focusing on cell types of interest.**  
+**This can look a bit overwhelming as there are very many tracks and the default track height is set very high. But it's easy to simplify it by focusing on a few cell types of interest.**  
     * Right click on the grey bar to 'configure the track set'.
-        * Change track height to 30
-        * for 'data view scaling' select group autoscale
-        * clear all the subtracks and then manually select only a few cell types of interest:
-            *  astrocyte Cv
+        * Change **Track height:** to 30
+        * for **Data view scaling:** select 'group auto-scale'
+        * clear all the subtracks and then manually select only these few cell types of interest:
+            * astrocyte Cv
             * Bergmann glial Cv
             * microglia Cv
             * neuron Cv
             * oligodendrocyte Cv
             * OPC Cv
 
-    !!! question "Which cell type has the highest level expression in this dataset?"
+    !!! question "Which cell type has the highest level expression of NTRK2 in this dataset?"
 
     * Change the 'Data view scaling' to autoscale to dataview.
         * Export a PDF image of the genome view: <ss>Toolbar</ss> <ss>View</ss> <ss>PDF/PS</ss> select 'Download the current browser graphic in PDF'
     ![browser_pdf](./media/mm10_Ntrk2.png)
 
-    !!! question "Which cell type(s) express the long and short transcripts for NTRK2?"
+    !!! question "Which cell type(s) express the long and short transcripts of NTRK2?"
 
 
 3. **Mouse CNS cell type expression data can also be validated using an independent single cell dataset of mouse cortex from the [Linnarsson lab](http://linnarssonlab.org/)**.
