@@ -293,7 +293,7 @@ Now we look at the gene model for BDNF in the same genome. There are some differ
 
 1. **Navigate to the BDNF gene position in GRCh38 and view the gene models**
 
-![bdnf_ucsc](./media/BDNF_genemodel.png)
+![bdnf_ucsc](./media/BDNF_genemodel_2021.png)
 
   * Note that there are black transcript models encoded on the + strand and blue BDNS-AS transcript models on the - strand. BDNF-AS is the antisense gene.
   * Colouring info for a track can be obtained form the configuration page, below if the colouring for this track.
