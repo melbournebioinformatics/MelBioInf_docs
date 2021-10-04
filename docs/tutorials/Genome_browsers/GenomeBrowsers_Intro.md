@@ -350,9 +350,7 @@ Most obvious in the images above is the high level of expression signal using Pr
     * Select <ss>browser</ss> option for the hit with the highest homology to view the result. Observe which region of the NTRK2 gene this probe will target. Zoom out for context.
     * Repeat for the other probe sequence.
 
-2. **Use the 'highlight' tool to keep track of region of interest in the Genome view**
-
-It is easy to loose track of a region you are investigating when navigating around the genome in a browser. So we are going to highlight each region of probe homology within the NTRK2 gene, using a different colour for each probe. Highlight is also useful if you have lots of different tracks loaded and you want to check that a feature on one track lines up with another.
+2. **Use the 'highlight' tool to keep track of region of interest in the Genome view** It is easy to loose track of a region you are investigating when navigating around the genome in a browser. So we are going to highlight each region of probe homology within the NTRK2 gene, using a different colour for each probe. Highlight is also useful if you have lots of different tracks loaded and you want to check that a feature on one track lines up with another.
     * Using your mouse select in the position track at the top to activate 'Drag-and-select'. Select only the region of homology for each probe within the NTRK2 gene and use a different highlight for each region. Then zoom out to view the whole gene again.
 
     !!! question "Do the probes detect coding regions of the NTRK2 gene?"  
