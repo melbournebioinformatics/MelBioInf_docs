@@ -190,7 +190,7 @@ Many of the tools that we will explore can be selected via multiple different ro
 
 
 **Accessing help and training**:
-This workshop the UCSC genome browser is supported by rich training resource which has new material added regularly [YouTube channel](https://www.youtube.com/channel/UCQnUJepyNOw0p8s2otX4RYQ/videos). To access training to further develop your skills and go to:
+The UCSC genome browser is supported by a rich training resource which has new material added regularly to the [YouTube channel](https://www.youtube.com/channel/UCQnUJepyNOw0p8s2otX4RYQ/videos). To access training and develop your skills further go to:
 <ss>Toolbar</ss>  <ss>Help</ss> <ss>Training</ss>
 
 
@@ -205,7 +205,7 @@ This workshop the UCSC genome browser is supported by rich training resource whi
         * Check that GRCh38 is selected in 'human assembly' and click on the blue <ss>GO</ss> box  
     * <ss>Toolbar</ss> <ss>Genomes</ss> <ss>Human GRCh38hg38</ss> (takes you directly to the genome)
 
-    You should see this screen, opening at a position on the X chromosome of Human genome version GRCh38 showing the gene model for the ACE2 gene.
+    You should see a view of the browser similar to the image below, opening at a position on the X chromosome of Human genome version GRCh38 showing the gene model for the ACE2 gene. Some of the default tracks may have been updated since this screen shot was made. 
 ![ace2_ucsc](./media/UCSC_Hg38_opening.png)
 
 4. **Familiarise yourself with the main areas of the interface and locate:**
@@ -221,20 +221,20 @@ This workshop the UCSC genome browser is supported by rich training resource whi
         * You can change the order of the tracks by dragging these grey bars up and down.
     * Turn tracks on and off:
         * You can hide tracks by right clicking on the grey bar or by turning them off in the Blue bar collections.
-        * You have to click on a 'refresh' button to the changes to be reflected in the the genome view window.
-    * View the **configuration page** specific to a track.  The configuration page gives you a lot of information about the data track and its colouring. You can open the configuration page for a track by:
+        * You have to click on a 'refresh' button for changes to be reflected in the genome view window.
+    * View the **configuration page** for one of the tracks.  The configuration page gives you a lot of information about the data track and its colouring. You can open the configuration page for a track by:
         * clicking on the grey bar for the track or,
-        * clicking on the track title in the Blue bar collection. More information and options is usually available by selecting the configuration page for a track via the track title in the Blue Bar collections.
-    * Select white 'resize' button to fit the genome view window to your screen
+        * clicking on the track title in the Blue bar collection. More information and options are usually available by selecting the configuration page for a track via the track title in the Blue Bar collections.
+    * Select 'resize' button under the genome view to fit the genome view window to your screen
 
 5. **Customise your view by using the 'Configure' tool to change the font size to 12.** Use either method below to open the Configure tool.
     * <ss>Toolbar</ss> <ss>View</ss> <ss>Configure browser</ss> <ss>text size 12</ss> <ss>submit</ss>
-    * or start by clicking on white <ss>configure</ss> button below the genome view window.
+    * or start by clicking on the <ss>configure</ss> button below the genome view window.
 
 6. **Practice navigating around the genome view.**
-    * move left and right both the navigation buttons and your mouse
-    * zoom in and out using navigation buttons
-    * zoom in to a region of interest using **'Drag-and-select'**:
+    * move left and right- using both the navigation buttons and your mouse
+    * zoom in and out- using navigation buttons
+    * zoom in to a region of interest- using **'Drag-and-select'**:
         * using your mouse select a region of interest by clicking the ruler (position track) at the very top of the genome view window.
     * This is also how to access the **'highlight tool'** which you will use in a later exercise to highlight a region of interest.
         * Click on the down arrow next to the highlight colour to select a different colour.
