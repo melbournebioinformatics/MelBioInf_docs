@@ -390,6 +390,7 @@ Most obvious in the images above is the high level of expression signal using Pr
     !!! question "Does this alternative splicing event result in a frame shift of the coding sequence?" 
     
     !!! question "How many amino acids are there in the protein products for each MYRF transcript?"
+    
 
 2. **The FACS derived data from the [Tabular Muris](https://tabula-muris.ds.czbiohub.org/) cell type data can be visualised as a coverage plot**
     * Start at the view of the NTRK2 gene in the human genome and navigate to the Ntrk2 gene in the mouse genome using the 'View in other genomes tool'.
@@ -413,21 +414,21 @@ Most obvious in the images above is the high level of expression signal using Pr
             * oligodendrocyte Cv
             * OPC Cv
 
-    !!! question "Which cell type has the highest level expression of NTRK2 in this dataset?"
+    !!! question "Which cell type has the highest level expression of Ntrk2 in this dataset?"
 
     * Change the 'Data view scaling' to autoscale to dataview.
         * Export a PDF image of the genome view: <ss>Toolbar</ss> <ss>View</ss> <ss>PDF/PS</ss> select 'Download the current browser graphic in PDF'
     ![browser_pdf](./media/mm10_Ntrk2.png)
 
-    !!! question "Which cell type(s) express the long and short transcripts of NTRK2?"
+    !!! question "Which cell type(s) express the long and short transcripts of Ntrk2?"
 
 
 3. **Mouse CNS cell type expression data can also be validated using an independent single cell dataset of mouse cortex from the [Linnarsson lab](http://linnarssonlab.org/)**.
     * The data that is publicly available for viewing in the UCCS genome browser but is not housed in the UCSC genome browser. You must first access it from the the Linnarsson lab data page.
     * This RNAseq data is stranded, meaning you can see if the transcript data is from the + or - strand.
-    * Go to the [Public data page](http://linnarssonlab.org/cortex/) where you can search for cell expression profiles for individual genes.
+    * Click here for [the Linnarsson lab public data page for this dataset](http://linnarssonlab.org/cortex/) where you can search for cell expression profiles for individual genes.
     * Click on the 'Browse the genome' blue text near the bottom of the page.
-    * This loads 18 different tracks, one for each cell type. The default setting for expression range is quite high and most gene expression cannot be visualised with these settings. Each track must be configured individually rather than as a group, which takes a lot of time. I have created a version of this data as a public session in the UCSC genome browser. Where each track is autoscaled which can make it quicker to determine which expression range would be ideal for visualising the expression of an individual gene.  The data is also viewed using 'Multi-Region' which hides the introns in the gene models. THe sessopn is illustrated in a screen shot below and you can access this custom track set by clicking on the title in blue text.
+    * This loads 18 different tracks, one for each cell type investigated. The default setting for expression range is quite high and most gene expression is not observed with these settings. Each track must be configured individually rather than as a group, which takes a lot of time. I have created a version of this data as a public session in the UCSC genome browser. Where each track is autoscaled which can make it quicker to determine which expression range would be ideal for visualising the expression of an individual gene.  The data is also viewed using 'Multi-Region' which hides the introns in the gene models. The session is illustrated in the screen shot below and you can access this custom track set by clicking on the title in blue text. It is also a publically shared session called **mm10 celltype NTRK2** which you can access from the database of public sessions.
 
       **[Linnarsson lab mouse cortex single cell data as autoscaled datatracks](https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10&lastVirtModeType=exonMostly&lastVirtModeExtraState=&emGeneTable=knownGene&virtModeType=exonMostly&virtMode=1&nonVirtPosition=chr13%3A58807697%2D59133970&position=chr13%3A58807697%2D59133970&hgsid=1130613507_A81QmYr4dhsQBuI4PbXkGTxoEaZH)**
 
