@@ -53,6 +53,9 @@ Nanopore sequencing technology is rapidly improving, expect the cost difference 
 **Pipeline:** Hybrid de novo genome assembly - Unicycler<br>
 
 
+Slides and workshop instructions <br>
+Click [here](https://www.melbournebioinformatics.org.au/tutorials/tutorials/hybrid_assembly/media/hybrid_assembly_slides.pdf) for the slides. <br>
+Click [here](https://www.melbournebioinformatics.org.au/tutorials/tutorials/hybrid_assembly/media/tutorial.pdf) for a printer friendly PDF version of this workshop. <br>
 
 -------------------------------
 ## Learning Objectives
