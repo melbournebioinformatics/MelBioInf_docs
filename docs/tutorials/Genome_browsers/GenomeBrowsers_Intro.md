@@ -52,6 +52,8 @@ This tutorial was developed for use as part a series of workshops for neuroscien
 
 **Tools:** [UCSC Genome Browser](https://genome.ucsc.edu/), [Integrative Genomics Viewer (IGV)](https://software.broadinstitute.org/software/igv/home).
 
+Workshop instructions <br>
+Click [here](./media/UCSC_intro_tutorial.pdf) for a printer friendly PDF version of this workshop. <br>
 
 -------------------------------
 ## Learning Objectives
