@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GenomeBrowsers_Intro.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p><img src="../media/melbioinf_logo.png" alt="melbioinf_logo">{: style=&quot;width:350px; padding-right:50px&quot;}       <img src="../media/PRIMARY_A_Vertical_Housed_RGB.png" alt="unimelb_logo">{: style=&quot;width:150px&quot;}</p>
+<h1 id="introduction-to-genome-browsers">Introduction to Genome Browsers</h1>
+<p>Anticipated workshop duration when delivered to a group of participants is <strong>4 hours</strong>.<br>
+Note that not all the exercises are expected to be completed during the workshop.</p>
+<p>For queries relating to this workshop, contact Melbourne Bioinformatics at:<br>
+bioinformatics-training@unimelb.edu.au.</p>
+<h2 id="overview">Overview</h2>
+<p>This tutorial will introduce you to the genome browser format and illustrate how some freely available genome browsers can be used to interrogate a variety of data types, such as gene expression, genomic variation, methylation and many more.</p>
+<h3 id="topic">Topic</h3>
+<ul>
+<li><input type="checkbox" id="checkbox0" checked="true"><label for="checkbox0">Genomics</label></li>
+<li><input type="checkbox" id="checkbox1" checked="true"><label for="checkbox1">Transcriptomics</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">Proteomics</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Metabolomics</label></li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4">Statistics and visualisation</label></li>
+<li><input type="checkbox" id="checkbox5"><label for="checkbox5">Structural Modelling</label></li>
+<li><input type="checkbox" id="checkbox6" checked="true"><label for="checkbox6">Basic skills</label></li>
+</ul>
+<h3 id="skill-level">Skill level</h3>
+<ul>
+<li><input type="checkbox" id="checkbox7" checked="true"><label for="checkbox7">Beginner</label></li>
+<li><input type="checkbox" id="checkbox8"><label for="checkbox8">Intermediate</label></li>
+<li><input type="checkbox" id="checkbox9"><label for="checkbox9">Advanced</label></li>
+</ul>
+<p>This workshop is designed for participants with no previous experience of using Genome Browsers and no programming experience.</p>
+<h2 id="description">Description</h2>
+<p><em>Learn how to make the most of Genome Browsers!</em></p>
+<p>By focusing on gene expression, this hands on tutorial will provide beginners with an introduction to both the UCSC Genome browser and IGV (Integrated Genome Viewer).  Tools and public datasets will be used to illustrate how the expression of transcript variants can be investigated in different, tissues and cell types using public data, including human RNAseq data from GTEX and mouse cell type RNAseq data from Tabula Muris, as viewed within the UCSC genome browser. A subset of Single cell RNAseq data from the Allen Brain Atlas Celltax study will also be downloaded from SRA and visualised in IGV.
+The data and genes used in this workshop are taken from the neuroscience field, however the analysis approaches and tools illustrated can be applied to many research areas.</p>
+<br>
+This tutorial is in three parts:
+<p><em>Section 1:</em> Introduction to the general features of genome browsers.<br>
+<em>Section 2:</em> Hands on tutorial of the <a href="https://genome.ucsc.edu/">UCSC Genome Browser</a>.<br>
+<em>Section 3:</em> Hands on tutorials of the <a href="https://software.broadinstitute.org/software/igv/home">Integrative Genomics Viewer</a>.</p>
+<p>This tutorial was developed for use as part a series of workshops for neuroscience researchers, hence the data and example genes are drawn from neuroscience field and focused on analysis and visualisation of expression data. However, the skills taught in this tutorial are applicable to all areas of research.</p>
+<p><strong>Data:</strong> <a href="https://gtexportal.org/home/">GTEX</a> and <a href="https://tabula-muris.ds.czbiohub.org/">Tabular Muris</a> data as represented in the UCSC Genome Browser, and <a href="http://casestudies.brain-map.org/celltax">Celltax single cell expression atlas data</a> downloaded from <a href="https://www.ncbi.nlm.nih.gov/sra">SRA</a>.</p>
+<p><strong>Tools:</strong> <a href="https://genome.ucsc.edu/">UCSC Genome Browser</a>, <a href="https://software.broadinstitute.org/software/igv/home">Integrative Genomics Viewer (IGV)</a>.</p>
+<p>Workshop instructions <br>
+Click <a href="./media/UCSC_intro_tutorial.pdf">here</a> for a printer friendly PDF version of this workshop. <br></p>
+<hr>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>At the end of this introductory workshop, you will:</p>
+<ul>
+<li>Understand the how some types of genomics and expression data are represented in Genome browsers.</li>
+<li>Understand gene models and identify differences between transcripts variants.</li>
+<li>Determine the tissue/cell type expression profiles of a gene of interest in mouse and human expression data.</li>
+<li>Know some basic files types used in Genome browsers and upload and view local BAM files.</li>
+<li>Use the 'Blat' tool to locate genomic regions with similarity to a sequence of interest.</li>
+<li>Create custom interactive views with multiple datatypes to share with colleagues and generate images for publications.</li>
+</ul>
+<hr>
+<h2 id="requirements-and-preparation">Requirements and preparation</h2>
+<p><strong>Attendees are required to provide their own laptop computers.</strong></p>
+<p>If delivered as a workshop, participants should install the software and data files below prior to the workshop. Ensure that you provide sufficient time to liaise with your own IT support should you encounter any IT problems with installing software. Unless stated otherwise, recommended browsers are Firefox or Chrome.</p>
+<h3 id="preparing-you-and-your-laptop-prior-to-starting-this-workshop">Preparing you and your laptop prior to starting this workshop</h3>
+<h4 id="required-software">Required software:</h4>
+<ol>
+<li>Download and install <a href="https://software.broadinstitute.org/software/igv/download">IGV</a> (Free).</li>
+<li>Ensure that <a href="https://www.google.com/chrome/">Chrome</a> or <a href="https://www.mozilla.org/en-US/">FireFox</a> are installed and up-to-date.</li>
+<li>Create a user account in the <a href="https://genome.ucsc.edu/">UCSC genome browser</a>.</li>
+</ol>
+<h4 id="required-data">Required Data</h4>
+<p>No additional data needs to be downloaded prior to this workshop. Required data will be downloaded as part of the tutorial exercises.</p>
+<hr>
+<h3 id="mode-of-delivery">Mode of Delivery</h3>
+<p>This workshop will be run using freely available Web interfaces and free software using graphical user interfaces. See above.</p>
+<hr>
+<h2 id="authors-and-review-date">Author(s) and review date</h2>
+<p><strong>Written by:</strong> Victoria Perreau | Melbourne Bioinformatics, University of Melbourne.</p>
+<p><strong>Created:</strong> October 2020<br>
+<strong>Reviewed and revised:</strong> October 2021</p>
+<hr>
+<h2 id="background">Background</h2>
+<h3 id="genome-browser-background">Genome Browser background</h3>
+<p>Genome browsers are invaluable for viewing and interpreting the many different types of data that can be anchored to genomic positions. These include variation, transcription, the many types regulatory data such as methylation and transcription factor binding, and disease associations. The larger genome browsers serve as data archives for valuable public datasets facilitating visualisation and analysis of different data types. It is also possible to load your own data into some of the public genome browsers.</p>
+<p>By enabling viewing of one type of data in the context of another, the use of Genome browsers can reveal important information about gene regulation in both normal development and disease, assist hypothesis development relating to genotype phenotype relationships.</p>
+<p>All researchers are therefore encouraged to become familiar with the use of some of the main browsers such as:</p>
+<ul>
+<li><a href="https://genome.ucsc.edu/">The UCSC Genome Browser</a> (RRID:SCR_005780)</li>
+<li><a href="https://www.ensembl.org/index.html">ESEMBL Genome Browser</a> (RRID:SCR_013367)</li>
+<li><a href="https://epigenomegateway.wustl.edu/browser/">Epigenome browser at WashU</a> (RRID:SCR_006208)</li>
+<li><a href="http://software.broadinstitute.org/software/igv/">Integrative Genomics Viewer (IGV)</a> (RRID:SCR_011793)</li>
+</ul>
+<p>They are designed for use by researchers without programming experience and the developers often provide extensive tutorials and cases studies demonstrating the myriad of ways in which data can be loaded and interpreted to assist in develop and supporting your research hypothesis.</p>
+<p>Many large genomic projects also incorporate genome browsers into their web portals to enable users to easily search and view the data. These include:</p>
+<ul>
+<li><a href="https://gtexportal.org/home/">GTEx</a></li>
+<li><a href="https://gnomad.broadinstitute.org/">gnomAD</a></li>
+</ul>
+<h3 id="bdnf-and-trkb-signalling">BDNF and TrkB signalling</h3>
+<p>This tutorial uses the a well known and important signalling pathway in the central nervous system (CNS) to illustrate some of the Genome browser tools and utility.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/TrkB-schema-eng.png/256px-TrkB-schema-eng.png" alt="TrkB-schema-eng">{: align=left }</p>
+<p>Brain Derived Neurotrophic factor (BDNF) protein is an important neurotrophin responsible for regulating many aspects of growth and development in different cells within the CNS. TrkB is an important receptor that binds extracellular BDNF and propagates the intracellular signalling response via a tyrosine kinase. This TrkB receptor protein is encoded by the NTRK2 gene.</p>
+<p>The NRK2 gene expresses a number of different transcript variants in different cell types. The most well studied of these is the full length TrkB receptor referred to as TrkB, which is mainly expressed in neuronal cell types. The other transcript variants all express the same exons encoding the extracellular domain of the receptor (shown in the fugure here in green) but have truncated intracellular domains, which do not include the tyrosine kinase domain and thus activate different signalling pathways upon binding to BDNF.  None of these truncated protein products have been well studied, but the most highly expressed receptor variant is known as TrkB-T1, and is known to be highly expressed in astocytes.</p>
+<p>Since the transcript variants are differently expressed in different cell types within the CNS the NTRK2 gene is a very useful example for exploring cell type specific transcript expression in available public data.</p>
+<br>
+**Major CNS cell types:**
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/1209_Glial_Cells_of_the_CNS-02.jpg/512px-1209_Glial_Cells_of_the_CNS-02.jpg" alt="1209 Glial Cells of the CNS-02">{: align=left }</p>
+<p><br><br></p>
+<ul>
+<li>Neuron (yellow cell in the image)</li>
+<li>Astrocyte</li>
+<li>Oligodendrocyte</li>
+<li>Microglia</li>
+<li>Ependymal</li>
+</ul>
+<p><br><br><br><br><br></p>
+<hr>
+<h2 id="section-1-introduction-to-genome-browsers">Section 1: Introduction to Genome Browsers</h2>
+<p>Genome browsers rely on a common reference genome for each species in order to map data from different sources to the correct location. A consortium has agreed on a common numbering for each position on the genome for each species. However, this position will vary based on the version of the genome, as error correction and updates can change the numbering. Therefore it is very important to know which version of the genome your data of interest is aligned to.</p>
+<p>The sequence for the human reference genome was accumulated up over many years from sequence data from many different sources and does not represent the sequence of one single person. Instead it is a composite of fragments of the genome from many different people.  Also, unlike the human genome which is diploid, the human genome is haploid.  That is there is only one copy of each chromosome. It therefore does not reflect the variation on the population, or even the most common variants in the human genome. Exploring variation within human genome is very important and facilitated by genome browsers but not covered in this workshop.</p>
+<p>!!! info &quot;<strong>Genome Build version number - further reading</strong>&quot;
+* <a href="https://www.ncbi.nlm.nih.gov/grc">The Genome reference consortium</a><br>
+* <a href="https://genome.ucsc.edu/FAQ/FAQreleases.html">What does the nomenclature mean?</a></p>
+<pre><code>For further info on Human Genome version updates I recommend you look at the updates and [blog pages on the UCSC genome browser](https://genome.ucsc.edu/goldenPath/newsarch.html#2019).
+</code></pre>
+<hr>
+<h2 id="section-2-the-ucsc-genome-browser-interface">Section 2: The UCSC Genome Browser Interface</h2>
+<p>In this section we will become familiar with the web interface of the UCSC genome browser and explore some of the tools and public datasets available.</p>
+<ul>
+<li>Explore features of particular chromosomal regions</li>
+<li>Investigate specific genes as well as collections of genes</li>
+<li>Search for locations of sequences and markers</li>
+<li>Retrieve annotation information for specific regions or genome-wide</li>
+<li>View your own data in context of other annotations</li>
+<li>Compare a region of one genome to genomes of other species</li>
+</ul>
+<p>Weekly maintenance of the browser is at 5-6 pm Thursdays Pacific time, which is equivalent to 11am-12pm AEST time. During this time the browser may be down for a few minutes. To ensure uninterrupted browser services for your research during UCSC server maintenance and power outages, bookmark one of the mirror sites that replicates the UCSC genome browser.</p>
+<p><strong>Accessing the tools</strong>:
+Many of the tools that we will explore can be selected via multiple different routes within the browser interface. One way to access many tools is via from the top toolbar on a pull down list, other tools can be accessed from within the browser window.  In the following instructions a series of <ss>blue boxes</ss> is used to indicate successive lower levels from the pull down menu when starting with the top toolbar.  For example, the notation below indicates that you should select 'Genome Browser' from the top tool bar and then click on 'Reset all user settings'.</p>
+<p><ss>Toolbar</ss> <ss>Genome Browser</ss> <ss>Reset all user settings</ss></p>
+<p><strong>Accessing help and training</strong>:
+The UCSC genome browser is supported by a rich training resource which has new material added regularly to the <a href="https://www.youtube.com/channel/UCQnUJepyNOw0p8s2otX4RYQ/videos">YouTube channel</a>. To access training and develop your skills further go to:
+<ss>Toolbar</ss>  <ss>Help</ss> <ss>Training</ss></p>
+<h3 id="getting-started">Getting started</h3>
+<ol>
+<li>
+<p><strong>Open the Browser interface:</strong></p>
+<ul>
+<li>Navigate to the <a href="https://genome.ucsc.edu/">UCSC genome Browser</a> and sign in if you have an account.<br>
+<img src="./media/UCSC_Home.png" alt="ucsc_homepage"></li>
+</ul>
+</li>
+<li>
+<p><strong>First reset the browser, so that we all see the same screen:</strong><br>
+<ss>Toolbar</ss> <ss>Genome Browser</ss> <ss>Reset all user settings</ss></p>
+</li>
+<li>
+<p><strong>Select and open the human Genome Hg38 at the default position, there are a few different ways to do this</strong></p>
+<ul>
+<li><ss>Toolbar</ss> <ss>Genomes</ss> (this takes you to the Genome gateway page)
+<ul>
+<li>Check that GRCh38 is selected in 'human assembly' and click on the blue <ss>GO</ss> box</li>
+</ul>
+</li>
+<li><ss>Toolbar</ss> <ss>Genomes</ss> <ss>Human GRCh38hg38</ss> (takes you directly to the genome)</li>
+</ul>
+<p>You should see a view of the browser similar to the image below, opening at a position on the X chromosome of Human genome version GRCh38 showing the gene model for the ACE2 gene. Some of the default tracks may have been updated since this screen shot was made.
+<img src="./media/UCSC_Hg38_opening_2021.png" alt="ace2_ucsc"></p>
+</li>
+<li>
+<p><strong>Familiarise yourself with the main areas of the interface and locate:</strong></p>
+<ul>
+<li>The main Toolbar</li>
+<li>Blue bar track collections (data of similar types are collected together under the same 'Blue bar' heading). Scroll down to see additional data collections and which ones are turned on as default.</li>
+<li>Genome species and version number</li>
+<li>Position box</li>
+<li>Navigation tool buttons</li>
+<li>Chromosome ideogram</li>
+<li>Genome view window</li>
+<li>Pre loaded tracks, track titles:
+<ul>
+<li>The grey bars on the left of the genome view can be used for selecting and configuring the tracks.</li>
+<li>You can change the order of the tracks by dragging these grey bars up and down.</li>
+</ul>
+</li>
+<li>Turn tracks on and off:
+<ul>
+<li>You can hide tracks by right clicking on the grey bar or by turning them off in the Blue bar collections.</li>
+<li>You have to click on a 'refresh' button for changes to be reflected in the genome view window.</li>
+</ul>
+</li>
+<li>View the <strong>configuration page</strong> for one of the tracks.  The configuration page gives you a lot of information about the data track and its colouring. You can open the configuration page for a track by:
+<ul>
+<li>clicking on the grey bar for the track or,</li>
+<li>clicking on the track title in the Blue bar collection. More information and options are usually available by selecting the configuration page for a track via the track title in the Blue Bar collections.</li>
+</ul>
+</li>
+<li>Select 'resize' button under the genome view to fit the genome view window to your screen</li>
+</ul>
+</li>
+<li>
+<p><strong>Customise your view by using the 'Configure' tool to change the font size to 12.</strong> Use either method below to open the Configure tool.</p>
+<ul>
+<li><ss>Toolbar</ss> <ss>View</ss> <ss>Configure browser</ss> <ss>text size 12</ss> <ss>submit</ss></li>
+<li>or start by clicking on the <ss>configure</ss> button below the genome view window.</li>
+</ul>
+</li>
+<li>
+<p><strong>Practice navigating around the genome view.</strong></p>
+<ul>
+<li>move left and right- using both the navigation buttons and your mouse</li>
+<li>zoom in and out- using navigation buttons</li>
+<li>zoom in to a region of interest- using <strong>'Drag-and-select'</strong>:
+<ul>
+<li>using your mouse select a region of interest by clicking the ruler (position track) at the very top of the genome view window.</li>
+</ul>
+</li>
+<li>This is also how to access the <strong>'highlight tool'</strong> which you will use in a later exercise to highlight a region of interest.
+<ul>
+<li>Click on the down arrow next to the highlight colour to select a different colour.
+<img src="./media/UCSC_drag-and-select.png" alt="highlight_ucsc"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>###Understanding the gene models
+<img src="./media/gene_model.png" alt="genemodel"></p>
+<h4 id="ntrk2">NTRK2</h4>
+<p>First we are going to familiarise ourselves with the gene model representation of the different transcripts of NTRK2.</p>
+<ol>
+<li>
+<p><strong>Navigate to the NTRK2 gene position in GRCh38 and view the gene models</strong></p>
+<ul>
+<li>You can navigate to a different region by typing in the position box.
+<ul>
+<li>If you know the specific location you are interested in type in the location using the format &quot;chr#:1234-1234&quot;.</li>
+<li>If you have a gene of interest you can type in the gene name (eg: NTRK2). Note the autocompleted suggestions that appear when  you start typing.  You can select from one of the suggestions or click <ss>go</ss> and select from a wider range of options.</li>
+<li>Type (or copy and paste) <strong>NTRK2</strong> or <strong>chr9:84,665,760-85,030,334</strong> into the position box.</li>
+</ul>
+</li>
+<li><ss>Hide all</ss> tracks by selecting the button below the genome view.</li>
+<li>Turn on only the <strong>Gencode V36</strong> Genemodels in 'full' viewing mode by selecting from the blue bar group labelled 'Genes and Gene predictions'.</li>
+<li>Turn on the 'Conservation' track to 'full'
+<ul>
+<li>Don't forget to click <ss>refresh</ss>.</li>
+</ul>
+</li>
+<li>When you have navigated to the NTRK2 gene, zoom out until you can view all of the 5' UTRs and 3' UTRs for all transcript variants for this gene. Then drag the view left and right to center (like in Google maps) or 'drag and select' the region to center the gene in the Genome view. You should see something like the image below.</li>
+</ul>
+<p><img src="./media/UCSC_NTRK2_GENCODE_V36.png" alt="ntrk_transcripts"></p>
+<p>!!! question &quot;Which strand is the gene encoded on / transcribed from? (+ or - strand)&quot;</p>
+<ul>
+<li>
+<p>Identify the exons, introns and UTRs</p>
+<p>!!! question &quot;Do regions of conservation only occur were there are coding regions?&quot;</p>
+<p>!!! question &quot;How many different transcripts variants are there for this gene?&quot;</p>
+<p>!!! question &quot;How do they differ?&quot;</p>
+</li>
+<li>
+<p>Select a coding region (full height boxes) towards the 3'UTR of the gene.</p>
+<ul>
+<li>zoom in to the region until you can see the letters of the amino acid sequence.</li>
+</ul>
+<p>!!! question &quot;Why are some amino acid boxes red or green?&quot;</p>
+<ul>
+<li>Zoom in again until you can see each amino acid number.</li>
+</ul>
+<p>!!! question &quot;Why do different transcripts have different amino acid numbers?&quot;</p>
+</li>
+<li>
+<p>Note that one of the transcript names is in white text with a black background, this is the transcript you selected from the autocompleted list or the search results.</p>
+</li>
+<li>
+<p>Change the <strong>'view settings'</strong> for the track. Switch between <ss>dense</ss> <ss>squish</ss> <ss>pack</ss> <ss>full</ss> to see how it changes the representation of the models.</p>
+<ul>
+<li>Right click on the track grey bar in the left of the genome window to access view settings.</li>
+</ul>
+</li>
+<li>
+<p>Go to the configuration  page for the <strong>GENCODE V36</strong> track and change check the box to also reveal the 'Ensembl ID' in the label.</p>
+</li>
+<li>
+<p>The transcript names are now too long to fit on the screen. You can use the configuration page (like you did to chane the font size at the beginning of the workshop) and change the number of characters in the label so that you can see the entire transcript label.</p>
+</li>
+<li>
+<p>Test your understanding of gene model representation by attempting this 6 questions in this <a href="https://forms.gle/AnqR2igkm2xgEqEs6">quiz</a>.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="bdnf">BDNF</h4>
+<p>Now we look at the gene model for BDNF in the same genome. There are some differences that enable us to demonstrate some more tools.</p>
+<ol>
+<li><strong>Navigate to the BDNF gene position in GRCh38 and view the gene models</strong></li>
+</ol>
+<p><img src="./media/BDNF_genemodel_2021.png" alt="bdnf_ucsc"></p>
+<ul>
+<li>
+<p>Note that there are blue transcript models encoded on the - strand and green BDNS-AS transcript models on the + strand. BDNF-AS is the antisense gene.</p>
+</li>
+<li>
+<p>Colouring info is specific for each trackand can be obtained from the configuration page, below is the colouring legend for the GENCODE V36 track.
+<img src="./media/Gencode_V36_colour.png" alt="legend_colours"></p>
+</li>
+<li>
+<p>Since the convention is to display genes in the 5' to 3' orientation it can be useful for our own interpretation, and also for presentation purposes, to flip the orientation of a gene when viewing it in a Genome Browser.</p>
+<ul>
+<li>Use the <ss>reverse</ss> button under the genome view window to flip the orientation of the gene.</li>
+</ul>
+</li>
+<li>
+<p>When a gene has many large introns taking up a lot of white space in an image it can be difficult to see if exons in different transcript models or other data tracks align.  The <strong>'Multi-Region'</strong> view tool can be used to fold the intronic regions out of the view like a concertina. The Broswer selects which region to fold out based on the gene model track(s) that you have turned on at the time.</p>
+<ul>
+<li>Apply the Multi-Region view from the main tool bar view options.
+<ul>
+<li><ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE V36'</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./media/BDNF_multiregion_2021.png" alt="bdnf_multiregionview"></p>
+<p>It is now a lot easier to view a number of interesting features in the BDNF transcript models:</p>
+<ul>
+<li>The transcript variants for the BDNF vary mostly in the genomic position of the 5'UTR.</li>
+<li>The noncoding AS-BDNF gene transcript includes a region that would be antisense to the coding BDNF transcript.</li>
+</ul>
+<p>You may find that using the multi-region tool facilitates visualisation and interpretation of gene expression data later in the workshop.</p>
+<p>###Blat tool exercise
+The <a href="https://genome.ucsc.edu/FAQ/FAQblat.html">Blat tool</a> is a sequence similarity tool similar to Blast. It can quickly identify region(s) of homology between a genome and a sequence of interest. Due to the presence of <a href="https://en.wikipedia.org/wiki/Sequence_homology">orthologs and paralogs</a> a target sequence may have similarity to more than one region in the genome. In this exercise you will use Blat to map the sequences of two different expression probes to their target regions and determine which gene transcripts the probes are likely to detect in an expression study.</p>
+<p>Microarray expression data is not commonly used now, but some of the data generated from large well orchestrated studies still provide valuable information to researchers. Microarray probes, like <em>in situ</em> hybridisation probes, target a small region of the RNA and do not measure the whole RNA transcript. If you are measuring gene expression it is important to know exactly which region of the gene you are detecting.  In this exercise we will employ the blat tool to determine which region of the NTRK2 gene the microarray probes in the following study are detecting.</p>
+<p>The study was <a href="http://human.brain-map.org/">the Human Brain gene expression atlas</a> generated by the <a href="https://alleninstitute.org/about/">Allen Institute</a>.  Below are sequences of two hybridisation probes that were use in a microarray used to detect expression of the gene NTRK2.
+These two probes result in very different hybridisation and expression patterns across different regions of the brain. As we observed in the exercise above NTRK2 has a number of different transcript variants.  The question we have is whether these probes are detecting different or multiple transcripts of NTRK2, and if so which ones?</p>
+<p><em><strong>NTRK2 Probe A_23_P216779 sequence:</strong></em><br>
+<strong>TTCTATACTCTAATCAGCACTGAATTCAGAGGGTTTGACTTTTTCATCTATAACACAGTG</strong></p>
+<p>Z score of expression level in Human brain (blue = low expression, red = high expression)
+<img src="./media/ABA_P216779.png" alt="hbrain_A_23_P216779"></p>
+<p><em><strong>NTRK2 Probe A_24_P343559 sequence</strong></em><br>
+<strong>AAGCTGCTCTCCTTCACTCTGACAGTATTAACATCAAAGACTCCGAGAAGCTCTCGAGGG</strong></p>
+<p>Z score of expression level in Human brain (blue = low expression, red = high expression)
+<img src="./media/ABA_P343559.png" alt="hbrain_A_23_P343559"></p>
+<p><em><strong>The images above are of one of the six donors included in the atlas, and typical of the expression pattern for NTRK2. These images are taken from the <a href="http://human.brain-map.org/microarray/gene/show/4884">NTRK2 gene page of Human Brain Atlas</a>.</strong></em></p>
+<p>Most obvious in the images above is the high level of expression signal using Probe A_23_P216779 and low level for A_24_P343559 in the corpus callosum (CC) which is a region of white matter in the brain with relatively few neurons and relatively high proportion of myelinating oligodendrocytes. This expression profile is reversed in the the cortical regions, eg. frontal lobe (FL) and parietal lobe (PL), which have a relatively high density of neuronal cells.</p>
+<ol>
+<li>
+<p><strong>Use Blat tool to find region of homology</strong></p>
+<ul>
+<li>Select: <ss>Toolbar</ss> <ss>tools</ss> <ss>blat</ss></li>
+<li>Copy the sequence of the first probe above and paste into the search box</li>
+<li>Select the human GRCh38  for 'Assembly' and click <ss>Submit</ss>
+<ul>
+<li>A_23_P216779 returns 2 hits for different chromosomes.  One of these has 100% homology over the whole 60 base sequence, the other has 87% homology over a 24 base region.</li>
+</ul>
+</li>
+<li>Copy and paste the probe name to use as the label for the <strong>'Custom track name'</strong> and <strong>'Custom track description'</strong> and click on <ss>Build a custom track with these results</ss>. It's not necessary to build a custom track, you could simply click on the <ss>browser</ss> link to view the results, but creating a 'custom track' from the blat result enables you to give it a unique name.  This is important if you are doing multiple blat searches as you wont be able to tell which one is which.</li>
+<li>Select <ss>browser</ss> option for the hit with the highest homology to view the result. Observe which region of the NTRK2 gene this probe will target. Zoom out for context.</li>
+<li>Note that a new 'Blue bar' heading has appeared for your custom tracks.</li>
+<li>Repeat for the other probe sequence.</li>
+</ul>
+</li>
+<li>
+<p><strong>Use the 'highlight' tool to keep track of region of interest in the Genome view.</strong> It is easy to loose track of a region you are investigating when navigating around the genome in a browser. So we are going to highlight each region of probe homology within the NTRK2 gene, using a different colour for each probe. Highlight is also useful if you have lots of different tracks loaded and you want to check that a feature on one track lines up with another.</p>
+<ul>
+<li>Using your mouse select in the position track at the top to activate 'Drag-and-select'. Select only the region of homology for each probe within the NTRK2 gene and use a different highlight for each region. Then zoom out to view the whole gene again.</li>
+</ul>
+<p>!!! question &quot;Do the probes detect coding regions of the NTRK2 gene?&quot;</p>
+<p>!!! question &quot;Are the probes likely to detect different transcripts?&quot;</p>
+</li>
+<li>
+<p><strong>Use 'Multiregion view' to make it easier to compare coding regions of different transcripts</strong></p>
+<ul>
+<li><ss>Toolbar</ss> <ss>View</ss> <ss>Multi-Region</ss> select 'Show exons using GENCODE V36'</li>
+</ul>
+</li>
+</ol>
+<p><strong>I have created a 'public session' of the Blat NTRK2 exercise you can view it from the link in the sessions</strong><br>
+<ss>Toolbar</ss> <ss>My data</ss> <ss>Public session</ss> search for <strong>&quot;hg38_NTRK2_blat_probes&quot;</strong>.</p>
+<p>###Gene expression data
+<img src="./media/coverage_plot.png" alt="coverage_plot"></p>
+<ol>
+<li>
+<p><strong>Human tissue specific expression data from the <a href="https://gtexportal.org/home/">GTEX project</a> is available in UCSC genome browser</strong></p>
+<ul>
+<li>Gene level expression data from GTEx V6 (570) donors, and GTEx V8 (948) donors can be turned on from Blue bar title for more detailed configuration page. These are displayed as coloured bar plots.</li>
+<li>Transcript level data is also available for GTEx V6, this is also displayed as bar plots.</li>
+<li>Transcript level expression data for GTEx V6 is available as coverage plots and is accessed from the <strong>'Track hubs'</strong>.
+<ul>
+<li>click on the 'track hubs' under the genome view window or access from the toolbar under 'My data'.</li>
+<li>scroll down and select 'GTEx RNA-seq Signal Hub'.  This can be viewed in either hg19 or hg38 so can be compared with a wide variety of other datasets.
+<img src="./media/trackhubs_GTEx.png" alt="trackhubs"></li>
+</ul>
+</li>
+<li>The default settings are:
+<ul>
+<li>
+<p>that all the available data from one individual only is loaded. Data from other subjects in the study can be loaded as desired.  For example you could load all available samples for one tissue region only.</p>
+</li>
+<li>
+<p>the data is 'autoscale to data view' with a track height or 12 pixels for each samples. You can change the height of the track or add a data transformation.</p>
+</li>
+<li>
+<p>you can also change it from a points plot into a density plot by clicking on the track title.
+<img src="./media/GTEx_V6_settings.png" alt="gtex_settings"></p>
+</li>
+<li>
+<p>Using the selection matrix for female donors aged 2-49 years, deselect the default samples and select only Brain cortex and Pancreas samples. Then navigate to the location for the gene MYRF. You can increase the height of the datatrack to improve visualisation.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>!!! question &quot;Can you locate an exon in the MYRF gene that is present in transcripts expressed in the brain but not in the pancreas?&quot;</p>
+<p>!!! question &quot;Does this alternative splicing event result in a frame shift of the coding sequence?&quot;</p>
+<p>!!! question &quot;How many amino acids are there in the protein products for each MYRF transcript?&quot;</p>
+</li>
+<li>
+<p><strong>The FACS derived data from the <a href="https://tabula-muris.ds.czbiohub.org/">Tabular Muris</a> cell type data can be visualised as a coverage plot</strong></p>
+<ul>
+<li>Start at the view of the NTRK2 gene in the human genome and navigate to the Ntrk2 gene in the mouse genome using the 'View in other genomes tool'.
+<ul>
+<li><ss>Toolbar</ss> <ss>View</ss> <ss>In Other Genomes</ss> (Convert)</li>
+<li>select New Genome:Mouse , New Assembly:GRC38/mm10, click on 'Submit'</li>
+<li>select the region with the greatest homology</li>
+</ul>
+</li>
+<li>Click on the bar chart icon for the Tabular muris data in the default view to see a summary bar chart of the cell type data.</li>
+<li>To see a copverage plot of the expression data we have to configure the Tabular Muris track by selecting it from the blue bar collection.
+<ul>
+<li>Hide 'Cell expression'</li>
+<li>Select 'Genome coverage' to full</li>
+<li>Select 'submit'<br>
+<strong>This can look a bit overwhelming as there are very many tracks and the default track height is set very high. But it's easy to simplify it by focusing on a few cell types of interest.</strong></li>
+</ul>
+</li>
+<li>Right click on the grey bar to 'configure the track set'.
+<ul>
+<li>Change <strong>Track height:</strong> to 30</li>
+<li>for <strong>Data view scaling:</strong> select 'group auto-scale'</li>
+<li>clear all the subtracks and then manually select only these few cell types of interest:
+<ul>
+<li>astrocyte Cv</li>
+<li>Bergmann glial Cv</li>
+<li>microglia Cv</li>
+<li>neuron Cv</li>
+<li>oligodendrocyte Cv</li>
+<li>OPC Cv</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>!!! question &quot;Which cell type has the highest level expression of Ntrk2 in this dataset?&quot;</p>
+<ul>
+<li>Change the 'Data view scaling' to autoscale to dataview.
+<ul>
+<li>Export a PDF image of the genome view: <ss>Toolbar</ss> <ss>View</ss> <ss>PDF/PS</ss> select 'Download the current browser graphic in PDF'
+<img src="./media/mm10_Ntrk2.png" alt="browser_pdf"></li>
+</ul>
+</li>
+</ul>
+<p>!!! question &quot;Which cell type(s) express the long and short transcripts of Ntrk2?&quot;</p>
+</li>
+<li>
+<p><strong>Mouse CNS cell type expression data can also be validated using an independent single cell dataset of mouse cortex from the <a href="http://linnarssonlab.org/">Linnarsson lab</a></strong>.</p>
+<ul>
+<li>
+<p>The data that is publicly available for viewing in the UCCS genome browser but is not housed in the UCSC genome browser. You must first access it from the the Linnarsson lab data page.</p>
+</li>
+<li>
+<p>This RNAseq data is stranded, meaning you can see if the transcript data is from the + or - strand.</p>
+</li>
+<li>
+<p>Click here for <a href="http://linnarssonlab.org/cortex/">the Linnarsson lab public data page for this dataset</a> where you can search for cell expression profiles for individual genes.</p>
+</li>
+<li>
+<p>Click on the 'Browse the genome' blue text near the bottom of the page.</p>
+</li>
+<li>
+<p>This loads 18 different tracks, one for each cell type investigated. The default setting for expression range is quite high and most gene expression is not observed with these settings. Each track must be configured individually rather than as a group, which takes a lot of time. I have created a version of this data as a public session in the UCSC genome browser. Where each track is autoscaled which can make it quicker to determine which expression range would be ideal for visualising the expression of an individual gene.  The data is also viewed using 'Multi-Region' which hides the introns in the gene models. The session is illustrated in the screen shot below and you can access this custom track set by clicking on the title in blue text. It is also a publically shared session called <strong>mm10 Linnarsson Celltype autoscale</strong> which you can access from the database of public sessions.</p>
+<p><strong><a href="https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10&amp;lastVirtModeType=exonMostly&amp;lastVirtModeExtraState=&amp;emGeneTable=knownGene&amp;virtModeType=exonMostly&amp;virtMode=1&amp;nonVirtPosition=chr13%3A58807697%2D59133970&amp;position=chr13%3A58807697%2D59133970&amp;hgsid=1130613507_A81QmYr4dhsQBuI4PbXkGTxoEaZH">Linnarsson lab mouse cortex single cell data as autoscaled datatracks</a></strong></p>
+<p><img src="./media/linnarsson_ntrk2.png" alt="Linnarsson_ntrk2"></p>
+</li>
+<li>
+<p>As an exercise, select 2 or three cell types and adjust the scale to best reflect differences in gene expression of Ntrk2 between these cells. Save this session and share it.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="section-3-igv">Section 3: IGV</h2>
+<p>In this section we will download a BAM file of gene expression data from SRA, and view it in the Integrated Genome Viewer (IGV). BAM files must first be sorted and indexed before they can be loaded into genome viewers and IGV has tools to do this without having to use the command line.</p>
+<p>The expression data we are using for this exercise is from the mouse <a href="http://casestudies.brain-map.org/celltax">Celltax single cell expression atlas</a> published by the Allen Brain Institute. The cell tax vignette has an expression browser that displays gene level expression as a heat map for any gene of interest. The readsets (fastq files) and aligned data (BAM files) for 1809 runs on single cells are also available for download from SRA.</p>
+<p>The SRA study ID for this study is <a href="https://www.ncbi.nlm.nih.gov/sra?term=SRP061902">SRP061902</a> and individual runs from this study are easily selected by viewing the samples in the 'RunSelector'. If you wish to identify particular cell types of interest.  For this exercise I have already identified a few samples that we will download in order to illustrate navigating in IGV by looking at the expression of NTRK2 in the same cell types we have discussed in earlier exercises.</p>
+<p>For each cell type we will down load a .BAM file containing only the reads from the chromosome of interest.</p>
+<p>For each SRA run in the table below open the link to the run to down load the data. Not many raw data sets in SRA have aligned data available for down load but this data set does.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Cell type</th>
+<th style="text-align:left">SRA run</th>
+<th style="text-align:left">Vignette Cell ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>astrocyte</strong></td>
+<td style="text-align:left"><a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?run=SRR2138962">SRR2138962</a></td>
+<td style="text-align:left">D1319_V</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>astrocyte</strong></td>
+<td style="text-align:left"><a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?run=SRR2139935">SRR2139935</a></td>
+<td style="text-align:left">A1643_VL</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>neuron</strong></td>
+<td style="text-align:left"><a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?run=SRR2139989">SRR2139989</a></td>
+<td style="text-align:left">S467_V4</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>neuron</strong></td>
+<td style="text-align:left"><a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?run=SRR2140047">SRR2140047</a></td>
+<td style="text-align:left">S1282_V</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p><strong>Download BAM files from SRA</strong></p>
+<ul>
+<li>Click on the 'Alignment' tab</li>
+<li>Note that the data is aligned to the mouse GRCm38 genome (mm10).</li>
+<li>Select the chromosome of interest. For NTRK2 in mouse it is chr13</li>
+<li>For 'Output this run in:' select <strong>BAM</strong> and click on 'format to:' <strong>File</strong></li>
+<li>Rename the downloaded file to include the cell type, to avoid confusion. eg: <strong>SRR2138661_astrocyte_chr13.bam</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>Use IGV tools to SORT and INDEX the BAM files</strong> Store sorted BAM files and index files in the same folder.</p>
+<ul>
+<li>
+<p>Open IGV and select Tools / Run igvtools... from the pull town menus.</p>
+</li>
+<li>
+<p>Select <strong>'Sort'</strong> from the Command options and use the brows options to select the BAM file you just downloaded and click <strong>'Run'</strong></p>
+</li>
+<li>
+<p>Without closing the igvtools window now select the command <strong>'Index'</strong> and Browse to find the BAM file you just sorted.  It will have the same file name with 'sorted' added to the end. eg SRR2138661_astrocyte_chr13.sorted.bam</p>
+</li>
+<li>
+<p>The resulting index file will have the file name : SRR2138661_astrocyte_chr13.sorted.bam.bai</p>
+<ul>
+<li>It is essential that the index file for a BAM file has the same name and is located in the same folder as its BAM file. If not the IVG software will not be able to open the BAM file.<br></li>
+</ul>
+<p><img src="./media/BAM_bai_files.png" alt="bam_filenames">{: style=&quot;width:450px&quot;}</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>View the BAM files in IGV</strong></p>
+<ul>
+<li>Select the Mouse (mm10) genome from the genome box in the top right hand corner.</li>
+<li>Select File / Load from File... and select all 4 '_chr13.sorted.bam' files only (use command to select more then one file at a time).</li>
+<li>select open - but don't expect to see any data yet. The genome view window opens on a whole chromosome view as default but it wont show any data until the view region is small enough to show all data in the current view.</li>
+<li>Type the gene name 'NTRK2' into the search window.</li>
+<li>Expand the Refseq gene model track by right clicking it to see all the splice variants</li>
+<li>The gene and thus the genome view is 328kb and the default setting for viewing data is only 100kb.  So unless you have already changed your settings alignment data will not get be showing.</li>
+<li>zoom into the region of a coding exon by selecting in the numbered location track at the top of the genome view.</li>
+<li>To see the whole gene in the genome window at the same time you may need to change the preferences.</li>
+<li>Go to View / Preferences and select the 'Alignments tab'.</li>
+<li>Change the visibility range threshold to 400kb.</li>
+</ul>
+</li>
+</ol>
+<p><img src="./media/IGV_preferences.png" alt="igv_settings"></p>
+<p><strong>You may need to change this back to a smaller range in the future if you are working with large datasets and/or small amounts of memory on your computer.</strong></p>
+<p><img src="./media/igv_Ntrk2.png" alt="junction_plot"></p>
+<ol start="4">
+<li><strong>Export images</strong>
+<ul>
+<li>The Genome view above can be exported by selecting 'File / Save image...'  from the tool bar.</li>
+<li>To export the Sashimi plot below:
+<ul>
+<li>Right click on one of the junction tracks and select 'Sashimi Plot' from the poll down menu.</li>
+<li>Select the tracks you want in your final image.</li>
+<li>There are some data filtering and style adjustments you can make to the Sashimi plot. Right click on each track to access the menu options. Some changes apply to each track individually and some to all tracks.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="./media/Sashimi.png" alt="sashimi_plot"></p>
+<ol start="5">
+<li><strong>Download and install the Gencode gene model annotation track</strong>
+<ul>
+<li>The refseq gene model track is not as comprehensive as GeneGode gene models. For both Human and Mouse the Gencode gene model gtf annotaion files can be downloaded form <a href="https://www.gencodegenes.org/mouse/">Gencode</a>. If you wish to do this be aware that it takes a little time and is not  done as part of a workshop.
+<ul>
+<li>
+<p>Create a folder called 'annotations/Mouse' in the main 'igv' folder that was installed on your computer when you downloaded IGV.</p>
+</li>
+<li>
+<p>Download the GTF file from the link above and save it in this folder.</p>
+</li>
+<li>
+<p>Unpack and then <strong>SORT</strong> and <strong>INDEX</strong> the .gtf file using igvtools.</p>
+</li>
+<li>
+<p>in IGV, before you load you data files, load this annotation file and it will replace the refseq one.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="additional-reading">Additional reading</h2>
+<p><strong>IGV</strong><br>
+https://rockefelleruniversity.github.io/IGV_course/presentations/singlepage/IGV.html</p>
+
+</body>
+</html>
