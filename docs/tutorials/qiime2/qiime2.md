@@ -44,6 +44,7 @@ What is the influence of genotype (intrinsic) and environment (extrinsic) on ane
 *Section 3:* Building a phylogenetic tree  
 *Section 4:* Basic visualisations and statistics  
 *Section 5:* Exporting data for further analysis in R  
+*Section 6:* Extra Information
 
 
 -------------------
@@ -87,7 +88,7 @@ the clipboard.
 
 ### Required Software
 
-**Mac Users:** No additional software needs to be installed for this workshop.  
+**Mac Users:** No additional software needs to be installed for this workshop. Software for file transfers between a local computer and remote server such as [WinSCP](https://winscp.net/eng/index.php) or [FileZilla](https://filezilla-project.org/) can be used.
 
 **Windows Users:**  
 1. A terminal emulator such as [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) (free and open-source) will need to be downloaded.
@@ -163,7 +164,9 @@ Some other useful `byobu-screen` commands:
 
 * No additional data needs to be downloaded for this workshop - it is all located on the Nectar Instance. FASTQs are located in the directory `raw_data` and a metadata (`metadata.tsv`) file has also been provided.
 
-* If you wish to analyse the data independently at a later stage, it can be downloaded from [here](https://github.com/melbournebioinformatics/MelBioInf_docs/blob/35d58488f4567156e1aced3f5f3a181d291cc1c8/docs/tutorials/qiime2/data_files.zip). This zipped folder contains both the FASTQs and associated metadata file.    
+* If you wish to analyse the data independently at a later stage, it can be downloaded from [here](https://github.com/melbournebioinformatics/MelBioInf_docs/blob/35d58488f4567156e1aced3f5f3a181d291cc1c8/docs/tutorials/qiime2/data_files.zip). This zipped folder contains both the FASTQs and associated metadata file.
+
+* If you are running this tutorial independently, you can also access the classifier that has been trained specifically for this data from [here](https://www.dropbox.com/s/kqz9md0mawc7v8k/silva_138_16s_v5v6_classifier_2021-4.qza?dl=0).
 
 
 #### Symbolic links to workshop data
@@ -280,7 +283,7 @@ Alternatively, ***if you have QIIME2 installed and are running it on your own co
 ## Section 1: Importing, cleaning and quality control of the data
 
 ### Import data
-These [samples](#the-study) were sequenced on a single Illumina MiSeq run using v3 (2 × 300 bp) reagents at the Walter and Eliza Hall Institute (WEHI), Melbourne, Australia. Data from WEHI came as paired-end, demultiplexed, unzipped <fn>*.fastq</fn> files with adapters still attached. Following the [QIIME2 importing tutorial](https://docs.qiime2.org/2021.2/tutorials/importing/), this is the Casava One Eight format. The files have been renamed to satisfy the Casava format as <fn>SampleID_FWDXX-REVXX_L001_R[1 or 2]_001.fastq</fn> e.g. CTRLA_Fwd04-Rev25_L001_R1_001.fastq.gz. The files were then zipped (.gzip).
+These [samples](#the-study) were sequenced on a single Illumina MiSeq run using v3 (2 × 300 bp) reagents at the Walter and Eliza Hall Institute (WEHI), Melbourne, Australia. Data from WEHI came as paired-end, demultiplexed, unzipped <fn>*.fastq</fn> files with adapters still attached. Following the [QIIME2 importing tutorial](https://docs.qiime2.org/2021.11/tutorials/importing/), this is the Casava One Eight format. The files have been renamed to satisfy the Casava format as <fn>SampleID_FWDXX-REVXX_L001_R[1 or 2]_001.fastq</fn> e.g. CTRLA_Fwd04-Rev25_L001_R1_001.fastq.gz. The files were then zipped (.gzip).
 
 Here, the data files (two per sample i.e. forward and reverse reads `R1` and `R2` respectively) will be imported and exported as a single QIIME 2 artefact file. These samples are already demultiplexed (i.e. sequences from each sample have been written to separate files), so a metadata file is not initially required.
 
@@ -379,7 +382,7 @@ Trimmed sequences are now quality assessed using the `dada2` [plugin](https://pu
     Remember to adjust `p-trunc-len-f` and `p-trunc-len-r` values according to your own data.
 
 
-!!! question "Question: Based on your assessment of the quality plots from the <fn>trimmed_sequences.qzv</fn> file generated in the previous step, what values would you select for `p-trunc-len-f` and `p-trunc-len-r` in the command below?"
+!!! question "Question: Based on your assessment of the quality plots from the <fn>trimmed_sequences.qzv</fn> file generated in the previous step, what values would you select for `p-trunc-len-f` and `p-trunc-len-r` in the command below? *Hint: At what base pair does the median quality drop below 30?*"
 
     ??? answer
         `p-trunc-len-f 211` and `p-trunc-len-r 172`
@@ -400,7 +403,7 @@ qiime dada2 denoise-paired \
 
 ### Generate summary files
 
-A [metadata file](https://docs.qiime2.org/2021.4/tutorials/metadata/) is required which provides the key to gaining biological insight from your data. The file <fn>metadata.tsv</fn> is provided in the home directory of your Nectar instance. This spreadsheet has already been verified using the plugin for Google Sheets, [keemei](https://keemei.qiime2.org/).  
+A [metadata file](https://docs.qiime2.org/2021.11/tutorials/metadata/) is required which provides the key to gaining biological insight from your data. The file <fn>metadata.tsv</fn> is provided in the home directory of your Nectar instance. This spreadsheet has already been verified using the plugin for Google Sheets, [keemei](https://keemei.qiime2.org/).  
 
 !!! info "**Things to look for:**"
     1. How many features (*ASVs*) were generated? Are the communities high or low diversity?
@@ -463,13 +466,14 @@ Here we will classify each identical read or *Amplicon Sequence Variant (ASV)* t
 
 A classifier has already been trained for you for the V5V6 region of the bacterial 16S rRNA gene using the SILVA database. The next step will take a while to run. *The output directory cannot previously exist*.
 
+
 n_jobs = 1  This runs the script using all available cores
 
 !!! note
-    The classifier used here is only appropriate for the specific 16S rRNA region that *this* data represents. It has also been trained specifically for the QIIME2 version that we are using in this workshop. You will need to train your own - no worries, QIIME2 has a tutorial for that.
+    The classifier used here is only appropriate for the specific 16S rRNA region that *this* data represents. You will need to train your own classifier for your own data. For more information about training your own classifier, see [Section 6: Extra Information](#train-silva-v138-classifier-for-16s18s-rrna-gene-marker-sequences).
 
 !!! fail "STOP - Workshop participants only"
-    Due to time limitations in a workshop setting, please do NOT run the `qiime feature-classifier classify-sklearn` command below. You will access a pre-computed `classification.qza` file generated by the command as follows: `cd; mkdir analysis/taxonomy; cp /mnt/shared_data/classification.qza analysis/taxonomy`. If you have accidentally run the command below, `ctrl z` will terminate it.
+    Due to time limitations in a workshop setting, please do NOT run the `qiime feature-classifier classify-sklearn` command below. You will need to access a pre-computed `classification.qza` file that this command generates by running the following: `cd; mkdir analysis/taxonomy; cp /mnt/shared_data/classification.qza analysis/taxonomy`. If you have accidentally run the command below, `ctrl z` will terminate it.
 
 ```python
 qiime feature-classifier classify-sklearn \
@@ -624,7 +628,7 @@ Copy `analysis/visualisations/16s_alpha_rarefaction.qzv` to your local computer 
 
 
 ### Alpha and beta diversity analysis
-The following is taken directly from the [Moving Pictures tutorial](https://docs.qiime2.org/2021.2/tutorials/moving-pictures/) and adapted for this data set. QIIME 2’s diversity analyses are available through the `q2-diversity` plugin, which supports computing alpha- and beta- diversity metrics, applying related statistical tests, and generating interactive visualisations. We’ll first apply the core-metrics-phylogenetic method, which rarefies a FeatureTable[Frequency] to a user-specified depth, computes several alpha- and beta- diversity metrics, and generates principle coordinates analysis (PCoA) plots using Emperor for each of the beta diversity metrics.
+The following is taken directly from the [Moving Pictures tutorial](https://docs.qiime2.org/2021.11/tutorials/moving-pictures/) and adapted for this data set. QIIME 2’s diversity analyses are available through the `q2-diversity` plugin, which supports computing alpha- and beta- diversity metrics, applying related statistical tests, and generating interactive visualisations. We’ll first apply the core-metrics-phylogenetic method, which rarefies a FeatureTable[Frequency] to a user-specified depth, computes several alpha- and beta- diversity metrics, and generates principle coordinates analysis (PCoA) plots using Emperor for each of the beta diversity metrics.
 
 The metrics computed by default are:
 
@@ -784,3 +788,33 @@ sed '1d' analysis/export/feature-table.tsv > analysis/export/feature-table_noHea
 ```
 
 Some packages require your data to be in a consistent order, i.e. the order of your ASVs in the taxonomy table rows to be the same order of ASVs in the columns of your ASV table. It's recommended to clean up your taxonomy file. You can have blank spots where the level of classification was not completely resolved.
+
+## Section 6: Extra Information
+
+### Train SILVA v138 classifier for 16S/18S rRNA gene marker sequences.
+
+The newest version of the [SILVA](https://www.arb-silva.de/) database (v138) can be trained to classify marker gene sequences originating from the 16S/18S rRNA gene. Reference files `silva-138-99-seqs.qza` and `silva-138-99-tax.qza` were [downloaded from SILVA](https://www.arb-silva.de/download/archive/) and imported to get the artefact files. You can download both these files from [here](https://www.dropbox.com/s/x8ogeefjknimhkx/classifier_files.zip?dl=0):
+
+
+Reads for the region of interest are first extracted. **You will need to input your forward and reverse primer sequences**. See QIIME2 documentation for more [information](https://docs.qiime2.org/2021.11/plugins/available/feature-classifier/extract-reads/).
+
+
+```python
+qiime feature-classifier extract-reads \
+--i-sequences silva-138-99-seqs.qza \
+--p-f-primer FORWARD_PRIMER_SEQUENCE \
+--p-r-primer REVERSE_PRIMER_SEQUENCE \
+--o-reads silva_138_marker_gene.qza \
+--verbose
+```
+
+The classifier is then trained using a naive Bayes algorithm. See QIIME2 documentation for more [information](https://docs.qiime2.org/2021.11/plugins/available/feature-classifier/fit-classifier-naive-bayes/).
+
+
+```python
+qiime feature-classifier fit-classifier-naive-bayes \
+--i-reference-reads silva_138_marker_gene.qza \
+--i-reference-taxonomy silva-138-99-tax.qza \
+--o-classifier silva_138_marker_gene_classifier.qza \
+--verbose
+```
