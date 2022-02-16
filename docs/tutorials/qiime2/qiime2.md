@@ -186,7 +186,7 @@ ln -s /mnt/shared_data/silva_138_16s_v5v6_classifier_2021-4.qza silva_138_16s_v5
 ### Slides and workshop instructions
 
 
-Click <a href="../media/QIIME2_workshop_MelbBioinformatics.pdf" type="application/pdf" target="_blank">here</a> for slides presented during this workshop.
+Click <a href="../media/QIIME2_workshop_AustraliaBiocommons_220222.pdf" type="application/pdf" target="_blank">here</a> for slides presented during this workshop.
 
 Click <a href="../qiime2.pdf" type="application/pdf" target="_blank">here</a> for a printer friendly PDF version of this workshop.
 
