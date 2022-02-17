@@ -385,7 +385,7 @@ Trimmed sequences are now quality assessed using the `dada2` [plugin](https://pu
 !!! question "Question: Based on your assessment of the quality plots from the <fn>trimmed_sequences.qzv</fn> file generated in the previous step, what values would you select for `p-trunc-len-f` and `p-trunc-len-r` in the command below? *Hint: At what base pair does the median quality drop below 30?*"
 
     ??? answer
-        `p-trunc-len-f 211` and `p-trunc-len-r 172`
+        For version qiime2-2021.4: `p-trunc-len-f 211` and `p-trunc-len-r 172`. Other QIIME2 versions may slightly differ. Upload your `trimmed_sequences.qzv` file to QIIME2 view, change to the "Interactive Quality Plot" tab and zoom in on the plots to find the relevant base pairs.
 
 
 *The specified output directory must not pre-exist.*  
@@ -473,7 +473,7 @@ n_jobs = 1  This runs the script using all available cores
     The classifier used here is only appropriate for the specific 16S rRNA region that *this* data represents. You will need to train your own classifier for your own data. For more information about training your own classifier, see [Section 6: Extra Information](#train-silva-v138-classifier-for-16s18s-rrna-gene-marker-sequences).
 
 !!! fail "STOP - Workshop participants only"
-    Due to time limitations in a workshop setting, please do NOT run the `qiime feature-classifier classify-sklearn` command below. You will need to access a pre-computed `classification.qza` file that this command generates by running the following: `cd; mkdir analysis/taxonomy; cp /mnt/shared_data/classification.qza analysis/taxonomy`. If you have accidentally run the command below, `ctrl z` will terminate it.
+    Due to time limitations in a workshop setting, please do NOT run the `qiime feature-classifier classify-sklearn` command below. You will need to access a pre-computed `classification.qza` file that this command generates by running the following: `cd; mkdir analysis/taxonomy; cp /mnt/shared_data/pre_computed/classification.qza analysis/taxonomy`. If you have accidentally run the command below, `ctrl-z` will terminate it.
 
 ```python
 qiime feature-classifier classify-sklearn \
@@ -793,7 +793,7 @@ Some packages require your data to be in a consistent order, i.e. the order of y
 
 ### Train SILVA v138 classifier for 16S/18S rRNA gene marker sequences.
 
-The newest version of the [SILVA](https://www.arb-silva.de/) database (v138) can be trained to classify marker gene sequences originating from the 16S/18S rRNA gene. Reference files `silva-138-99-seqs.qza` and `silva-138-99-tax.qza` were [downloaded from SILVA](https://www.arb-silva.de/download/archive/) and imported to get the artefact files. You can download both these files from [here](https://www.dropbox.com/s/x8ogeefjknimhkx/classifier_files.zip?dl=0):
+The newest version of the [SILVA](https://www.arb-silva.de/) database (v138) can be trained to classify marker gene sequences originating from the 16S/18S rRNA gene. Reference files `silva-138-99-seqs.qza` and `silva-138-99-tax.qza` were [downloaded from SILVA](https://www.arb-silva.de/download/archive/) and imported to get the artefact files. You can download both these files from [here](https://www.dropbox.com/s/x8ogeefjknimhkx/classifier_files.zip?dl=0).
 
 
 Reads for the region of interest are first extracted. **You will need to input your forward and reverse primer sequences**. See QIIME2 documentation for more [information](https://docs.qiime2.org/2021.11/plugins/available/feature-classifier/extract-reads/).
