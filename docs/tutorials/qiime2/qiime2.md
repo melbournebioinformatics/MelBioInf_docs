@@ -791,6 +791,10 @@ Some packages require your data to be in a consistent order, i.e. the order of y
 
 ## Section 6: Extra Information
 
+!!! fail "STOP"
+    This section contains information on how to train the classifier for analysing your **own** data. This will **NOT** be covered in the workshop. 
+
+
 ### Train SILVA v138 classifier for 16S/18S rRNA gene marker sequences.
 
 The newest version of the [SILVA](https://www.arb-silva.de/) database (v138) can be trained to classify marker gene sequences originating from the 16S/18S rRNA gene. Reference files `silva-138-99-seqs.qza` and `silva-138-99-tax.qza` were [downloaded from SILVA](https://www.arb-silva.de/download/archive/) and imported to get the artefact files. You can download both these files from [here](https://www.dropbox.com/s/x8ogeefjknimhkx/classifier_files.zip?dl=0).
