@@ -393,8 +393,8 @@ Trimmed sequences are now quality assessed using the `dada2` [plugin](https://pu
 ```python
 qiime dada2 denoise-paired \
 --i-demultiplexed-seqs analysis/seqs_trimmed/trimmed_sequences.qza \
---p-trunc-len-f xx \
---p-trunc-len-r xx \
+--p-trunc-len-f 211 \
+--p-trunc-len-r 167 \
 --p-n-threads 0 \
 --output-dir analysis/dada2out \
 --verbose
@@ -792,7 +792,7 @@ Some packages require your data to be in a consistent order, i.e. the order of y
 ## Section 6: Extra Information
 
 !!! fail "STOP"
-    This section contains information on how to train the classifier for analysing your **own** data. This will **NOT** be covered in the workshop. 
+    This section contains information on how to train the classifier for analysing your **own** data. This will **NOT** be covered in the workshop.
 
 
 ### Train SILVA v138 classifier for 16S/18S rRNA gene marker sequences.
