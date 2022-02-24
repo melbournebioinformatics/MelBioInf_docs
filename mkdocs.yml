@@ -75,6 +75,8 @@ nav:
     - 'Structural Modelling':
         - 'Molecular Dynamics - Introduction to cluster computing': 'tutorials/molecular_dynamics_101/molecular_dynamics_101.md'
         - 'Molecular Dynamics - Building input files, visualising the trajectory': 'tutorials/molecular_dynamics_201/molecular_dynamics_201.md'
+    - 'Workshop Delivery Mode Information':
+        - 'Workshops on Nectar Instances': 'tutorials/workshop_delivery_mode_info/workshops_nectar.md'
 
 extra_templates: [
   'tutorials/hpc/slides.html',
