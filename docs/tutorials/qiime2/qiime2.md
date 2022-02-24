@@ -75,8 +75,8 @@ the clipboard.
     Important information, hints and tips.
 
 -------------------------------
-
 ## Requirements and preparation
+
 
 !!! attention "Important"
     **Attendees are required to use their own laptop computers.**  
@@ -85,81 +85,20 @@ the clipboard.
 
 
 ----------------------------
-
-### Required Software
-
-**Mac Users:** No additional software needs to be installed for this workshop. Software for file transfers between a local computer and remote server such as [WinSCP](https://winscp.net/eng/index.php) or [FileZilla](https://filezilla-project.org/) can be used.
-
-**Windows Users:**  
-1. A terminal emulator such as [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) (free and open-source) will need to be downloaded.
-
-??? example "Putty Example"
-    ![PuttyPNG](./media/Putty.png)
-
-
-2. Software for file transfers between a local computer and remote server such as [WinSCP](https://winscp.net/eng/index.php) or [FileZilla](https://filezilla-project.org/).
-
-
-
---------------------------------
 ### Mode of Delivery
 
-This workshop will be run on a [Nectar](https://cloud.nectar.org.au/) Instance. An “Instance” is Nectar terminology for a virtual machine running on the Nectar Cloud OpenStack infrastructure. An “Instance” runs on a “compute node”; i.e. a physical computer populated with processor chips, memory chips and so on.
+This workshop will be run on a Nectar Instance. For more information click [here](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#workshops-using-nectar-instances).
 
-You will be given an individual username, IP address and password to log on to using the SSH client tool on your computer (Terminal on Mac or PuTTY on Windows).
+It is possible to [apply for your own Nectar allocation](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#applying-for-your-own-nectar-allocation) to run this workshop independently though you will need to install any software needed.
 
-```bash
-ssh username@nectar_ip-address
-```
-
-<br>
-Should you wish to do this tutorial at a later stage independently, it is possible to apply for your own instance directly through a [Nectar allocation](https://support.ehelp.edu.au/support/solutions/articles/6000068044-managing-an-allocation). There are also many helpful [Nectar Research Cloud tutorials](https://tutorials.rc.nectar.org.au/).
-
-#### Byobu-screen
-
-Some of the commands in this tutorial take a while to run. Should your connection drop and the SSH session on Nectar terminates, any commands that are running will terminate too. To mitigate this, once logged on to the Nectar Instance, we'll run `byobu-screen` (an enhancement for the `screen` terminal multiplexer) which allows us to resume a session. In other words, processes running in `byobu-screen` will continue to run when their window is not visible, even if you get disconnected.
-
-
-On Nectar, to start a `byobu-screen` session called `workshop`, type  
-
-```bash
-byobu-screen -S workshop
-```
-
-??? example "Byobu Example"
-    ![Byobu](./media/byobu.png)
-
-
-You can then proceed to run the commands in the workshop as normal.
-
-<br>
-Should your SSH session on Nectar terminate, once you log back in to your Nectar instance, list running sessions/screens:
-
-```bash
-byobu-screen -ls
-```
-
-If it says (Detached) next to the `workshop` session in the list, reattach to `workshop` by:
-
-```bash
-byobu-screen -r workshop
-```
-
-If it says (Attached) next to the `workshop` session in the list, you can access `workshop` which is already attached by:
-
-```bash
-byobu-screen -r -d workshop
-```
-
-<br>
-Some other useful `byobu-screen` commands:
-
-* To detach from `workshop`, type `ctrl-a ctrl-d` while inside the `workshop` session.
-(You will need to configure Byobu's ctrl-a behaviour if it hasn't already been configured (text will appear on the screen telling you this). Follow the information on the screen and select `1` for Screen mode).
-
-* To terminate `workshop`, type `ctrl-d` while inside the `workshop` session.
 
 --------------------------------
+### Required Software
+
+For information about required software, click [here](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#required-software).
+
+
+-----------------------
 ### Required Data
 
 * No additional data needs to be downloaded for this workshop - it is all located on the Nectar Instance. FASTQs are located in the directory `raw_data` and a metadata (`metadata.tsv`) file has also been provided.
@@ -167,18 +106,6 @@ Some other useful `byobu-screen` commands:
 * If you wish to analyse the data independently at a later stage, it can be downloaded from [here](https://github.com/melbournebioinformatics/MelBioInf_docs/blob/35d58488f4567156e1aced3f5f3a181d291cc1c8/docs/tutorials/qiime2/data_files.zip). This zipped folder contains both the FASTQs and associated metadata file.
 
 * If you are running this tutorial independently, you can also access the classifier that has been trained specifically for this data from [here](https://www.dropbox.com/s/kqz9md0mawc7v8k/silva_138_16s_v5v6_classifier_2021-4.qza?dl=0).
-
-
-#### Symbolic links to workshop data
-Data for this workshop is stored in a central location (`/mnt/shared_data/`) on the Nectar file system that we will be using. We will use symbolic links (`ln -s`) to point to it. Symbolic links (or symlinks) are just "virtual" files or folders (they only take up a very little space) that point to a physical file or folder located elsewhere in the file system. Sequencing data can be large, and rather than unnecessarily having multiple copies of the data which can quickly take up a lot of space, we will simply point to the files needed in the `shared_data` folder.
-
-
-```Bash
-cd
-ln -s /mnt/shared_data/raw_data raw_data
-ln -s /mnt/shared_data/metadata.tsv metadata.tsv
-ln -s /mnt/shared_data/silva_138_16s_v5v6_classifier_2021-4.qza silva_138_16s_v5v6_classifier_2021-4.qza
-```
 
 
 -------------------------------
@@ -221,6 +148,10 @@ Dungan AM, van Oppen MJH, and Blackall LL (2021) Short-Term Exposure to Sterile 
 
 ### QIIME 2 Analysis platform
 
+!!! attention
+    The version used in this workshop is qiime2-2021.4. Other versions of QIIME2 may result in minor differences in results.
+
+<br>
 Quantitative Insights Into Microbial Ecology 2 ([QIIME 2™](https://www.nature.com/articles/s41587-019-0209-9)) is a next-generation microbiome [bioinformatics platform](https://qiime2.org/) that is extensible, free, open source, and community developed. It allows researchers to:  
 
 * Automatically track analyses with decentralised data provenance
@@ -229,57 +160,50 @@ Quantitative Insights Into Microbial Ecology 2 ([QIIME 2™](https://www.nature.
 * Plugin-based system — researchers can add in tools as they wish
 
 <br>
-
-!!! attention
-    The version used in this workshop is qiime2-2021.4. Other versions of QIIME2 may result in minor differences in results.
-
-<br>
 #### Viewing QIIME2 visualisations
 
-As this workshop is being run on a remote Nectar Instance, you will need to download the visual files (<fn>*.qzv</fn>) to your local computer and view them in [QIIME 2 View](https://view.qiime2.org) (q2view).
+As this workshop is being run on a remote Nectar Instance, you will need to [download the visual files (<fn>*.qzv</fn>) to your local computer](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#transferring-files-between-your-computer-and-nectar-instance) and view them in [QIIME 2 View](https://view.qiime2.org) (q2view).
 
 
 !!! attention
     We will be doing this step multiple times throughout this workshop to view visualisation files as they are generated.
 
 
-***Mac Users***
-
-The syntax to do this depends on whether you are running the copying command on your local computer, or on the remote computer (Nectar cloud).
-
-
-1. When running the command from your local computer, the syntax for copying a file *from* Nectar is:
-
-    ```bash
-    scp username@nectar_IP_address:FILENAME /PATH/TO/TARGET/FOLDER/
-    ```
-
-2. Running the command on the remote computer, the syntax for copying a file *to* your local computer is:
-    ```bash
-    scp FILENAME username@your_IP_address:/PATH/TO/TARGET/FOLDER/
-    ```
-
-*Less experienced Unix users may want to use FileZilla.* See section below for more details.
-
-<br>
-***Windows Users***
-
-Using WinSCP or FileZilla:
-
-  **Host:** The IP address of the Nectar instance  
-  **Username:** alpha | beta | gamma | delta | epsilon | zeta  
-  **Port:** 22  
-
-
-??? example "Filezilla Example"
-    ![FilezillaPNG](./media/Filezilla.png)
-
-
 <br>
 Alternatively, ***if you have QIIME2 installed and are running it on your own computer***, you can use `qiime tools view` to view the results from the command line (e.g. `qiime tools view filename.qzv`). `qiime tools view` opens a browser window with your visualization loaded in it. When you are done, you can close the browser window and press `ctrl-c` on the keyboard to terminate the command.
 
-------------------------------
 
+------------
+## Initial Set up on Nectar
+
+### Byobu-screen
+
+To ensure that commands continue to run should you get disconnected from your Nectar Instance, we'll [run a byobu-screen session](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#byobu-screen).
+
+
+#### Starting a byobu-screen session
+On Nectar, to start a `byobu-screen` session called `workshop`, type  
+
+```bash
+byobu-screen -S workshop
+```
+
+#### Reconnecting to a byobu-screen session
+If you get disconnected from your Nectar Instance, follow the instructions [**here**](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#reconnecting-to-a-byobu-screen-session) to resume your session.
+
+-------------
+### Symbolic links to workshop data
+Data for this workshop is stored in a central location (`/mnt/shared_data/`) on the Nectar file system that we will be using. We will use symbolic links (`ln -s`) to point to it. Symbolic links (or symlinks) are just "virtual" files or folders (they only take up a very little space) that point to a physical file or folder located elsewhere in the file system. Sequencing data can be large, and rather than unnecessarily having multiple copies of the data which can quickly take up a lot of space, we will simply point to the files needed in the `shared_data` folder.
+
+
+```Bash
+cd
+ln -s /mnt/shared_data/raw_data raw_data
+ln -s /mnt/shared_data/metadata.tsv metadata.tsv
+ln -s /mnt/shared_data/silva_138_16s_v5v6_classifier_2021-4.qza silva_138_16s_v5v6_classifier_2021-4.qza
+```
+
+------------------------------
 ## Section 1: Importing, cleaning and quality control of the data
 
 ### Import data
@@ -385,7 +309,7 @@ Trimmed sequences are now quality assessed using the `dada2` [plugin](https://pu
 !!! question "Question: Based on your assessment of the quality plots from the <fn>trimmed_sequences.qzv</fn> file generated in the previous step, what values would you select for `p-trunc-len-f` and `p-trunc-len-r` in the command below? *Hint: At what base pair does the median quality drop below 30?*"
 
     ??? answer
-        For version qiime2-2021.4: `p-trunc-len-f 211` and `p-trunc-len-r 172`. Other QIIME2 versions may slightly differ. Upload your `trimmed_sequences.qzv` file to QIIME2 view, change to the "Interactive Quality Plot" tab and zoom in on the plots to find the relevant base pairs.
+        For version qiime2-2021.4: `p-trunc-len-f 211` and `p-trunc-len-r 172`. Other QIIME2 versions may slightly differ. Upload your `trimmed_sequences.qzv` file to QIIME2 view, change to the "Interactive Quality Plot" tab and zoom in on the plots to find the relevant base pairs for the QIIME2 version you are using.
 
 
 *The specified output directory must not pre-exist.*  
@@ -393,8 +317,8 @@ Trimmed sequences are now quality assessed using the `dada2` [plugin](https://pu
 ```python
 qiime dada2 denoise-paired \
 --i-demultiplexed-seqs analysis/seqs_trimmed/trimmed_sequences.qza \
---p-trunc-len-f 211 \
---p-trunc-len-r 167 \
+--p-trunc-len-f xx \
+--p-trunc-len-r xx \
 --p-n-threads 0 \
 --output-dir analysis/dada2out \
 --verbose
@@ -473,7 +397,7 @@ n_jobs = 1  This runs the script using all available cores
     The classifier used here is only appropriate for the specific 16S rRNA region that *this* data represents. You will need to train your own classifier for your own data. For more information about training your own classifier, see [Section 6: Extra Information](#train-silva-v138-classifier-for-16s18s-rrna-gene-marker-sequences).
 
 !!! fail "STOP - Workshop participants only"
-    Due to time limitations in a workshop setting, please do NOT run the `qiime feature-classifier classify-sklearn` command below. You will need to access a pre-computed `classification.qza` file that this command generates by running the following: `cd; mkdir analysis/taxonomy; cp /mnt/shared_data/pre_computed/classification.qza analysis/taxonomy`. If you have accidentally run the command below, `ctrl-z` will terminate it.
+    Due to time limitations in a workshop setting, please do NOT run the `qiime feature-classifier classify-sklearn` command below. You will need to access a pre-computed `classification.qza` file that this command generates by running the following: `cd; mkdir analysis/taxonomy; cp /mnt/shared_data/pre_computed/classification.qza analysis/taxonomy`. If you have accidentally run the command below, `ctrl-c` will terminate it.
 
 ```python
 qiime feature-classifier classify-sklearn \
