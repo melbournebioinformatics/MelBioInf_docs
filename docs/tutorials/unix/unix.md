@@ -34,14 +34,14 @@ This workshop is designed for participants with little or no command-line knowle
 
 A hands-on workshop covering the basics of the Unix command line interface.
 
-Knowledge of the Unix operating system is fundamental to the use of many popular bioinformatics command-line tools. Whether you choose to run your analyses locally or on an HPC system, knowing your way around a command-line interface is highly valuable. This workshop will introduce you to Unix concepts by way of a series of hands-on exercises.
+Knowledge of the Unix operating system is fundamental to the use of many popular bioinformatics command-line tools. Whether you choose to run your analyses locally or on a high-performance computing system, knowing your way around a command-line interface is highly valuable. This workshop will introduce you to Unix concepts by way of a series of hands-on exercises.
 
-Completion of this workshop will provide the background knowledge required for other Melbourne Bioinformatics workshops that require command-line skills.
+Completion of this workshop will provide the background knowledge required for several Melbourne Bioinformatics workshops that require command-line skills.
 
 <br>
 **Tools:** Basic Unix commands
 
-**Pipeline:**
+**Topic overview:**
 
 *Section 1:* Getting started  
 *Section 2:* Exploring your current directory  
@@ -89,14 +89,15 @@ the clipboard.
 !!! attention "Important"
     **Attendees are required to bring their own laptop computers.**  
 
-    At least one week before the workshop, participants should install the software and data files below.  This should provide sufficient time for participants
+    At least one week before the workshop, participants should install the software specified below. This should provide sufficient time for participants to
     liaise with their own IT support should they encounter any IT problems.  
 
 ### Required Software
 * For information about required software, click [here](../workshop_delivery_mode_info/workshops_nectar.md).
 
 ### Required Data
-* No additional data needs to be downloaded for this workshop.
+* No additional data need to be downloaded for the live delivery workshop.
+* Instructions for data download for independent completion of this workshop are included in Section 1.
 
 -------------------------------
 ### Mode of Delivery
@@ -114,13 +115,13 @@ Melbourne Bioinformatics, University of Melbourne
 
 Created/Reviewed: September 2022
 
-A previous introductory Unix workshop is archived here.
+A previous introductory Unix workshop is archived [here](../unix_archive_2022/unix.md).
 
 -------------------------------
 ## Background
 
-Before we begin the hands-on part of this workshop, we will first give a short talk to introduce some important Unix concepts.
-The [slides](slides.html) are available for reference.
+Before we begin the hands-on part of this workshop, we will first give a short presentation to introduce some important Unix concepts.
+The slides are available here.
 
 -------------------------------
 
@@ -312,33 +313,26 @@ ls
         The long flag means that each file or directory is placed on its own line. Extra information is also included.
 
         ```
-        drwxr-x--- 2 training01 training 2048 Jun 14 11:28 exp01
-        \--------/ ^ \--------/ \------/ \--/ \----------/ \---/
-        permission |  username   group   size    date       name
+        drwxr-xr-x 2    alpha    alpha   4.0K  Sep  8 23:28 samples
+        \--------/ ^ \--------/ \-----/ \----/ \----------/ \-----/
+        permission |  username   group   size      date      name
                /---^---\
                linkcount
         ```
         Where:
 
         * **permissions**: 4 parts, file type, user perms, group perms and other perms
-        	* *filetype*: 1 character, *d* = directory and *-* regular file
+        	* *object type*: 1 character, *d* = directory and *-* = regular file
         	* *user* permissions: 3 characters, *r* = read, *w* = write, *x* = execute and *-* no permission
         	* *group* permissions: same as user except for users within the owner group
         	* *other* permissions: same as user except for users that are not in either *user* or *group*
-        * **username**: user who owns this file/directory
-        * **group**: group name who owns this file/directory
-        * **size**: number of bytes this file/directory takes to store on disk
-        * **date**: date and time when this file/directory was last edited
-        * **name**: name of the file
-        * **linkcount**: number of links this file has in the file system (safe to ignore)
+        * **username**: user who owns this object
+        * **group**: group who owns this object
+        * **size**: number of bytes this object takes to store on disk
+        * **date**: date and time when this object was last edited
+        * **name**: name of the object
+        * **linkcount**: number of links this object has in the file system (safe to ignore)
 
-        ??? question "2.1 Reveal more information"
-            Run `ls` with the long flag to get more information about the contents of the directory.
-            How did the output change?
-
-            ```
-            ls -l
-            ```
 
 ??? example "2.2 Upgrade your `ls`"
 
@@ -371,6 +365,7 @@ ls
     ```
     wc samples/sample_c.fastq
     ```
+
     Which of the 3 FASTQ files has the most lines?
 
     ??? hint
@@ -463,6 +458,13 @@ Note that `cd` can also take the full path as input (the long version that you c
         So, if you type a long command but make a mistake, press the up arrow and then you can use the
         left and right arrows to move the cursor in order to make an edit.
 
+        You could also try the `history` command to print a list of your previous commands.
+
+
+        ```
+        history
+        ```
+
 -------------------------------
 
 ## Section 4: Viewing and manipulating files
@@ -474,11 +476,6 @@ In this section we will focus on files; how to view them, how to copy them, how 
 We’ve covered finding the locations, sizes and lengths of files, but how do we look inside them?
 The `less` command allows us to view (but not edit) text-based files.
 
-??? question "What if my files are compressed?"
-    If a file is in a compressed format, you will need to decompress it first before you view it with `less`.
-
-    For example, the `gunzip` command will decompress a fastq.gz file.
-
 ```
 less sample_1.fastq
 ```
@@ -487,6 +484,11 @@ less sample_1.fastq
     If you see this error message, the most likely reason is that you are not in the correct directory.
 
     Use `pwd`, `cd` and `ls` to find your way to the right place.
+
+??? question "What if my files are compressed?"
+    If a file is in a compressed format, you will need to decompress it first before you view it with `less`.
+
+    For example, the `gunzip` command will decompress a fastq.gz file.
 
 
 When you are using `less`, you can move forward or backwards one line at a time
@@ -559,25 +561,24 @@ The remaining nine characters are in three triads.
 | third character: |x  | executable      |
 
 ??? question "Can I see an example?"
-    For the permission string ***drwxr-x- - -***
+    For the permission string ***drwxr-xr-x***
 
     The **d** means it is a directory.
 
     The **rwx** means that the owner of the directory
-    (your user account) can read, write and execute the directory. Execute permissions on a directory means that you
+    (your user account) can read, write and execute the directory. Execute permission on a directory means that you
     can `cd` into the directory.
 
-    The **r-x** means that anyone in the user group can read or execute the
-    directory.
+    The **r-x** means that anyone in the user group can read and execute the directory.
 
-    The **- - -** means that nobody else (other users on the system) can do anything with the directory.
+    The second **r-x** means that other users on the system can read and execute the directory.
 
 To change permissions, use the `chmod` command (for change mode). The owner of a file can change the permissions for user (**u**), group (**g**), or others (**o**) by adding (**+**) or subtracting (**-**) the read (**r**), write (**w**), and execute (**x**) permissions.
 
-To add read permission for others for a file, the following command would be used:
+To add write permission for others for a file, the following command would be used:
 
 ```
-chmod o+r FILE
+chmod o+w FILE
 ```
 
 ### Hands-on
@@ -596,7 +597,7 @@ chmod o+r FILE
 
     Rename *sample_c.fastq* to *sample_3.fastq*
 
-    After 4.1 and 4.2 you should have a *samples* directory with 3 files that follow the name naming convention.
+    After 4.1 and 4.2 you should have a *samples* directory with 3 files that follow the same naming convention.
 
 ??? example "4.3 Change file permissions"
 
@@ -840,6 +841,7 @@ You will no-doubt forget a lot of what you learnt here so we encourage you to sa
 | `wc`        | word count                           |
 | `mkdir`     | make directory                       |
 | `cd`        | change directory                     |
+| `history`   | print list of previous commands      |
 | `less`      | view file                            |
 | `head`      | show first lines of file             |
 | `tail`      | show last lines of file              |
