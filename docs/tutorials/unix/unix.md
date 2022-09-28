@@ -1,2219 +1,863 @@
-<style src="../../includes/media/tute.css" ></style>
-<style>em {font-style: normal; font-family: courier new;}</style>
-
-![melbioinf_logo](/img/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](/img/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
+![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
 
 # Introduction to Unix
 
-A hands-on workshop covering the basics of the Unix/Linux command line interface.
+Anticipated workshop duration when delivered to a group of participants is **2.5 hours**.
+
+For queries relating to this workshop, contact Melbourne Bioinformatics (bioinformatics-training@unimelb.edu.au).
+
+Find out when we are next running this training as an in-person workshop, by visiting the [Melbourne Bioinformaitcs Eventbrite page](https://www.eventbrite.com.au/o/melbourne-bioinformatics-13058846490).
 
 ## Overview
 
-Knowledge of the Unix operating system is fundamental to being
-productive on HPC systems. This workshop will introduce you to the
-fundamental Unix concepts by way of a series of hands-on exercises.
+### Topic
 
-The workshop is facilitated by experienced Unix users who will be able
-to guide you through the exercises and offer assistance where needed.
+* [ ] Genomics
+* [ ] Transcriptomics
+* [ ] Proteomics
+* [ ] Metabolomics
+* [ ] Statistics and visualisation
+* [ ] Structural Modelling
+* [x] Basic skills
 
+
+### Skill level
+
+* [x] Beginner  
+* [ ] Intermediate  
+* [ ] Advanced  
+
+<br>
+This workshop is designed for participants with little or no command-line knowledge.
+
+### Description
+
+A hands-on workshop covering the basics of the Unix command line interface.
+
+Knowledge of the Unix operating system is fundamental to the use of many popular bioinformatics command-line tools. Whether you choose to run your analyses locally or on a high-performance computing system, knowing your way around a command-line interface is highly valuable. This workshop will introduce you to Unix concepts by way of a series of hands-on exercises.
+
+Completion of this workshop will provide the background knowledge required for several Melbourne Bioinformatics workshops that require command-line skills.
+
+<br>
+**Tools:** Basic Unix commands
+
+**Topic overview:**
+
+*Section 1:* Getting started  
+*Section 2:* Exploring your current directory  
+*Section 3:* Making and changing directories  
+*Section 4:* Viewing and manipulating files  
+*Section 5:* Removing files and directories  
+*Section 6:* Searching files  
+*Section 7:* Putting it all together  
+
+-------------------------------
 ## Learning Objectives
 
-At the end of the course, you will be able to:
+At the end of this introductory workshop, you will:
 
-* Log into a Unix machine remotely
+* Access a Unix machine either locally or remotely
+* Navigate the file system
 * Organise your files into directories
 * Change file permissions to improve security and safety
-* Create and edit files with a text editor
-* Copy files between directories
-* Use command line programs to manipulate files
-* Automate your workflow using shell scripts
+* Move and copy files between directories
+* Safely remove files
+* Perform searches within files
+* Combine commands using pipes
 
-## Requirements
+-------------------------------
+## Tutorial layout
 
-* The workshop is intended for beginners with no prior experience in Unix.
-* Attendees are required to bring their own laptop computers.
+* There is a `Table of contents` on the right-hand side that can be used to easily navigate through the tutorial by clicking the relevant section.
 
+```
+These grey coloured boxes are code blocks. The rectangular boxes in the top
+right-hand corner of this code block/grey box can be used to copy the code to
+the clipboard.
+```
 
-## Introduction
-
-Before we commence the hands-on part of this workshop we will first give a short 30 minute talk to introduce the Unix concepts.
-The [slides](slides.html) are available if you would like.  Additionally the following reference material is available for later
-use.
-
-<details>
-  <summary>Reference Material</summary>
-
-{!docs/tutorials/unix/intro.md!}
-
-</details>
-
-## Topic 1: Remote log in
-
-In this topic we will learn how to connect to a *Unix* computer via a program called *ssh* and run a few basic commands.
-
-### Connecting to a Unix computer
-
-To begin this workshop you will need to connect to an HPC.  Today we will use *barcoo*.
-The computer called *barcoo.vlsci.org.au* is the one that coordinates all the HPC's tasks.
-
-**Server details**:
-
-* **host**: barcoo.vlsci.org.au
-* **port**: 22
-* **username**: (provided at workshop)
-* **password**: (provided at workshop)
-
-{!docs/includes/connecting.md!}
+??? example "Coloured boxes like these with > on the far right-hand side, can be clicked to reveal the contents."
+    REVEALED!
 
 
-**Note**: for security reasons ssh will not display any characters when you enter your password. This
-can be confusing because it appears as if your typing is not recognised by the computer. Don’t be
-alarmed; type your password in and press return at the end.
+!!! attention "Attention: Pay attention to the information in these boxes."
+    Important information, hints and tips.
 
-barcoo is a high performance computer for Melbourne Bioinformatics users.  Logging in connects your local computer
-(e.g. laptop) to barcoo, and allows you to type commands into the Unix prompt which are run on
-the HPC, and have the results displayed on your local screen.
+-------------------------------
+## Requirements and preparation
 
-You will be allocated a training account on barcoo for the duration of the workshop. Your
+!!! attention "Important"
+    **Attendees are required to bring their own laptop computers.**  
+
+    At least one week before the workshop, participants should install the software specified below. This should provide sufficient time for participants to
+    liaise with their own IT support should they encounter any IT problems.  
+
+### Required Software
+* For information about required software, click [here](../workshop_delivery_mode_info/workshops_nectar.md).
+
+### Required Data
+* No additional data need to be downloaded for the live delivery workshop.
+* Instructions for data download for independent completion of this workshop are included in Section 1.
+
+-------------------------------
+### Mode of Delivery
+
+This workshop will be run on a [Nectar](https://cloud.nectar.org.au/) Instance. An “Instance” is Nectar terminology for a virtual machine running on the Nectar Cloud OpenStack infrastructure. An “Instance” runs on a “compute node”; i.e. a physical computer populated with processor chips, memory chips and so on.
+
+You will be given an individual IP address and password to log on to using the SSH client tool on your computer (Terminal on Mac or PuTTY on Windows).
+
+Should you wish to complete this workshop independently, you can do so locally (for Mac and LINUX users) or via CloudStor SWAN (for Windows users).
+
+-------------------------------
+## Author Information
+Written by: Steven Morgan
+Melbourne Bioinformatics, University of Melbourne
+
+Created/Reviewed: September 2022
+
+A previous introductory Unix workshop is archived [here](../unix_archive_2022/unix.md).
+
+-------------------------------
+## Background
+
+Before we begin the hands-on part of this workshop, we will first give a short presentation to introduce some important Unix concepts.
+The slides are available here.
+
+-------------------------------
+
+## Section 1: Getting started
+
+In this section, we will learn how to connect to a Unix computer via a program called `ssh` and run a few basic commands.
+
+Logging in connects your local computer (e.g. laptop) to a remote machine, and allows you to type commands into the Unix prompt. The commands are run on
+the remote machine, and the results are displayed on your local screen.
+
+You will be allocated a training account for the duration of the workshop. Your
 username and password will be supplied at the start of the workshop.
 
-Log out of barcoo, and log back in again (to make sure you can repeat the process).
+We are connecting to a remote computer today so that everyone has an identical environment, regardless of the specifications of your local computer. This connection process is similar to how you would connect to a high-performance computing (HPC) system such as [Spartan](https://dashboard.hpc.unimelb.edu.au/) at The University of Melbourne.
 
-All the remaining parts assume that you are logged into barcoo over ssh.
+??? question "I'm not attending the live workshop. Can I complete the workshop independently?"
+    Yes you can, although the remote machines are only provided for the live workshop participants.
 
-### Exercises
+    Follow the instructions for your operating system, then head down to the hands-on section.
 
-#### 1.1) When you've logged into the Unix server, run the following commands and see what they do:
+    ??? example "Mac Users"
 
-* *who*
-* *whoami*
-* *date*
-* *cal*
-* *hostname*
-* */vlsci/TRAINING/shared/Intro_to_Unix/hi*
+        Download the zipped file available at [this Zenodo address](https://zenodo.org/record/7059239#.Yxl7A-xBz6B). We will refer to these data later in the workshop.
 
-<details>
-  <summary>Answer</summary>
+        Unzip the file by double clicking it in a Finder window.
 
-* **who**: displays a list of the users who are currently using this Unix computer.
-* **whoami**: displays your username (i.e. they person currently logged in).
-* **date**: displays the current date and time.
-* **cal**: displays a calendar on the terminal.  It can be configured to display more than just
-the current month.
-* **hostname**: displays the name of the computer we are logged in to.
-* **/vlsci/TRAINING/shared/Intro_to_Unix/hi**: displays the text "Hello World"
+        Open the Terminal app (it comes preinstalled on every Mac). You can find it via a Spotlight Search or via the Launchpad.
 
-</details>
+        In the Terminal, you should see a blinking cursor. Type the following command and replace the word PATH_TO_DIRECTORY with the path to the location of your unzipped folder (or directory). One easy way to find the correct path is to view the directory in the Finder and enable the path bar (*View* > *Show path bar*). You can then drag the correct path from the bar at the bottom of the Finder window into the Terminal.
 
+        ```
+        cd PATH_TO_DIRECTORY
+        ```
 
-## Topic 2: Exploring your home directory
+        Use the following command to confirm that you have set the correct working directory.
 
-In this topic we will learn how to "look" at the filesystem and further expand our repertoire of Unix commands.
+        ```
+        pwd
+        ```
 
-**Duration**: 20 minutes. <!-- See "The shell and the command line" and "The file system" section of the workshop notes. -->
+        If the output of this command ends in */unix_intro_data*, well done! Now continue with the hands-on section.
 
-**Relevant commands**: *ls*, *pwd*, *echo*, *man*
+    ??? example "Windows Users"
 
-Your home directory contains your own private working space.  Your *current working directory* is automatically set
-to your *home* directory when you log into a Unix computer.
+        Download the zipped file available at [this Zenodo address](https://zenodo.org/record/7059239#.Yxl7A-xBz6B). We will refer to these data later in the workshop.
 
-#### 2.1) Use the *ls* command to list the files in your *home* directory.  How many files are there?
+        We will be using the command-line interface available via CloudStor SWAN. This is a service that allows researchers to perform data analysis via a web interface.
 
-<details>
-  <summary>Hint</summary>
+        [Access the CloudStor service via your web browser](https://cloudstor.aarnet.edu.au) and select your institution to log in using your institutional credentials. If you are not a member of one of the AAF institutions listed, this workshop is not available for you. Please see the list of resources at the bottom of the page.
 
-Literally, type *ls* and press the *ENTER* key.
+        Once logged in, navigate to the SWAN tab at the top of the page.
 
-</details>
+        Select "start my notebook session", which will launch the SWAN interface.
 
-<details>
-  <summary>Answer</summary>
+        On the left-hand side, you'll find the file browser. The default directory is called "scratch". This is the directory we will be using in this workshop.
 
-```sh
-$ ls
-exp01  file01  muscle.fq
-```
-
-When running the *ls* command with no options it will list files in your current working directory.  The place
-where you start when you first login is your *HOME* directory.
+        Use the plus button in the top right to upload the zipped file to the /scratch directory.
 
-**Answer**: 3 (exp01, file01 and muscle.fq)
+        In the main pane, select *Terminal* from the bottom left-hand corner.
 
-</details>
+        In the Terminal, you should see a blinking cursor. Type the following commands and press enter after each one. These commands unzip the folder and change the working directory.
 
----
+        ```
+        unzip unix_intro_data
+        ```
 
-The above answer is not quite correct.  There are a number of *hidden* files in your home directory as well.
+        ```
+        cd unix_intro_data
+        ```
 
-#### 2.2) What *flag* might you use to display *all* files with the *ls* command?  How many files are really there?
+        Use the following command to confirm that you have set the correct working directory.
 
-<details>
-  <summary>Hint</summary>
+        ```
+        pwd
+        ```
 
-Take the *all* quite literally.
+        If the output of this command ends in */unix_intro_data*, well done! Now continue with the hands-on section.
 
-</details>
+        Now you can continue with the hands-on section.
 
-<details>
-  <summary>Additional Hint</summary>
 
-Type *ls --all* and press the *ENTER* key.
+### Connect to a Unix computer
 
-</details>
+[Follow the instructions here to connect to the remote machine](../workshop_delivery_mode_info/workshops_nectar.md)
 
-<details>
-  <summary>Answer</summary>
+!!! attention "Windows users"
+    Windows users will need to download a terminal emulator such as [PuTTY](https://www.putty.org/) (free and open-source).
 
-**Answer 1**: *--all* (or *-a*) flag
 
-Now you should see several files in your home directory whose names all begin with a dot. All these files are
-created automatically for your user account. They are mostly configuration options for various programs including
-the shell. It is safe to ignore them for the moment.
+### Hands-on
 
-```sh
-$ ls --all
-.              .bash_logout    exp01    .lesshst
-..             .bash_profile   file01   muscle.fq
-.bash_history  .bashrc         .kshrc   .viminfo
-```
+??? example "1.1 Run some commands"
+    Once you've logged into the Unix server, run the following commands and see what they do.
 
-There are two trick files here; namely *.* and *..* which are not real files but instead, shortcuts.  *.* is a shortcut
-for the current directory and *..* a shortcut for the directory above the current one.
+    Type each command in and hit Enter/Return. Once the previous command has completed, a new prompt indicates that it's ready for the next command to be entered.
 
-**Answer 2**: 10 files (don't count *.* and *..*)
+    ```
+    whoami
+    ```
+    ```
+    date
+    ```
+    ```
+    cal
+    ```
 
-</details>
+    ??? answer
+        * `whoami`: displays your username (i.e. the person currently logged in).
+        * `date`: displays the current date and time.
+        * `cal`: displays a calendar.
 
----
+??? example "1.2 Try out some flags"
+    Many Unix commands accept arguments (sometimes called flags) which enable/disable specific
+    features. For example, you can ask the date command to produce its output in a different format.
 
-#### 2.3) What is the full path name of your *home* directory?
+    ```
+    date -I
+    ```
 
-<details>
-  <summary>Hint</summary>
+    It is not uncommon for a command to accept many different arguments, and, in most
+    cases, more than one argument can be supplied at the same time. Arguments are
+    separated by one or more space characters and they are usually case sensitive.
 
-Remember your *Current Working Directory* starts in your *home* directory.
+    ```
+    cal -m january
+    ```
+    ```
+    cal -3
+    ```
+    ```
+    cal -3 -m january
+    ```
 
-</details>
+??? example "1.3 Consult the manual pages"
+    If every Unix command has so many options, how you find out what they are and what
+    they do? Thankfully, every Unix command has an associated *manual* that you can usually
+    access by using the `man` command.
 
-<details>
-  <summary>Additional Hint</summary>
+    Try accessing the manual pages for the commands we have used so far. Can you figure out what day of the week your 100th birthday will be?
 
-Try a shortened version of *print working directory*
+    ??? hint
+        The following command displays the manual page for the `cal` command.
+        ```
+        man cal
+        ```
 
-</details>
+    When you are using the `man` command, use the up and down arrows to scroll, or press q to quit.
+    The man command is actually using another Unix program, a text viewer called `less`, which we’ll
+    come to later on.
 
-<details>
-  <summary>Answer</summary>
+-------------------------------
 
-You can find out the full path name of the current working directory with the *pwd* command. Your home directory
-will look something like this:
+## Section 2: Exploring your current directory
 
-```sh
-$ pwd
-/home/trainingXX
-```
+In this section, we will learn how to "look" at the file system and further expand our repertoire of Unix commands.
 
-**Answer**: */vlsci/TRAINING/trainXX*
+The machines provided have been set up with some files for us to take a look at.
 
-where *XX* is replaced by some 2 digit sequence.
+### Where am I?
 
-**Alternate method**:
-You can also find out the name of your home directory by printing the value of the *$HOME* shell variable:
+There may be many hundreds of directories on any Unix machine, so how do you know
+which one you are in? The command `pwd` will <b>P</b>rint the <b>W</b>orking <b>D</b>irectory.
+If you ever get lost in the file system, remember the `pwd` command. Try it out.
 
-```sh
-echo $HOME
 ```
-
-</details>
-
----
-
-#### 2.4) Run *ls* using the long flag (*-l*), how did the output change?
-
-<details>
-  <summary>Hint</summary>
-
-Run *ls -l*
+pwd
+```
 
-</details>
+Many bioinformatics tools require paths as input. Check your paths with `pwd` before you submit a job to a job scheduler.
 
-<details>
-  <summary>Answer</summary>
+### List available files and directories
 
-**Answer**: it changed the output to place 1 file/directory per line.  It also added some extra information
-about each.
+What about looking at the contents of a directory? For that, we use the `ls` command (short for 'list').
 
-```sh
-$ ls -l
-total 32
-drwxr-x--- 2 training01 training 2048 Jun 14 11:28 exp01
--rw-r----- 1 training01 training   97 Jun 14 11:28 file01
--rw-r----- 1 training01 training 2461 Jun 14 11:28 muscle.fq
 ```
-
-**Details**:
-
-```sh
-drwxr-x--- 2 training01 training 2048 Jun 14 11:28 exp01
-\--------/ ^ \--------/ \------/ \--/ \----------/ \---/
-permission |  username   group   size    date       name
-       /---^---\
-       linkcount
+ls
 ```
-
-Where:
 
-* **permissions**: 4 parts, file type, user perms, group perms and other perms
-	* *filetype*: 1 character, *d* = directory and *-* regular file
-	* *user* permissions: 3 characters, *r* = read, *w* = write, *x* = execute and *-* no permission
-	* *group* permissions: same as user except for users within the owner group
-	* *other* permissions: same as user except for users that are not in either user *or* *group*
-* **username**: the user who *owns* this file/directory
-* **group**: the group name who *owns* this file/directory
-* **size**: the number of bytes this file/directory takes to store on disk
-* **date**: the date and time when this file/directory was *last edited*
-* **name**: name of the file
-* **linkcount**: technical detail which represents the number of links this file has in the file system (safe to ignore)
+### Hands-on
+??? example "2.1 Reveal more information"
+    Run `ls` with the long flag to get more information about the contents of the directory.
+    How did the output change?
 
-</details>
+    ```
+    ls -l
+    ```
 
----
+    ??? answer
+        The long flag means that each file or directory is placed on its own line. Extra information is also included.
 
-#### 2.5) What type of file is *exp01* and *muscle.fq*?
+        ```
+        drwxr-xr-x 2    alpha    alpha   4.0K  Sep  8 23:28 samples
+        \--------/ ^ \--------/ \-----/ \----/ \----------/ \-----/
+        permission |  username   group   size      date      name
+               /---^---\
+               linkcount
+        ```
+        Where:
 
-<details>
-  <summary>Hint</summary>
+        * **permissions**: 4 parts, file type, user perms, group perms and other perms
+        	* *object type*: 1 character, *d* = directory and *-* = regular file
+        	* *user* permissions: 3 characters, *r* = read, *w* = write, *x* = execute and *-* no permission
+        	* *group* permissions: same as user except for users within the owner group
+        	* *other* permissions: same as user except for users that are not in either *user* or *group*
+        * **username**: user who owns this object
+        * **group**: group who owns this object
+        * **size**: number of bytes this object takes to store on disk
+        * **date**: date and time when this object was last edited
+        * **name**: name of the object
+        * **linkcount**: number of links this object has in the file system (safe to ignore)
 
-Check the output from the *ls -l*.
 
-</details>
+??? example "2.2 Upgrade your `ls`"
 
-<details>
-  <summary>Answer</summary>
+    `ls` is a command you're likely to use a lot! Why not find a combination of flags you like.
 
-**Answer**:
+    What does this combination of flags do?
 
-* *exp01*: Directory (given the 'd' as the first letter of its permissions)
-* *muscle.fq*: Regular File (given the '-')
+    ```
+    ls -lhrt
+    ```
+    ??? hint
+        Always remember the `man` command.
+        ```
+        man ls
+        ```
+    ??? answer
+        The command above returns the contents of the current directory in long form (*-l*), sorted in reverse (*-r*) order of their last edit (*-t*), with file sizes shown in more convenient units (*-h*).
 
-</details>
+??? example "2.3 Compare files"
 
----
+    *samples* is a directory; you can tell by the leading 'd' in the long-form `ls` output.
 
+    `ls` can be used to list the content of other directories, not just the current one.
+    ```
+    ls -lhrt samples
+    ```
 
-#### 2.6) Who has permission to *read*, *write* and *execute* your *home* directory?
+    The `wc` (for <b>W</b>ord <b>C</b>ount) command prints the number of lines, words, and bytes in a file.
 
-<details>
-  <summary>Hint</summary>
+    ```
+    wc samples/sample_c.fastq
+    ```
 
-You can also give *ls* a filename as the first option.
+    Which of the 3 FASTQ files has the most lines?
 
-</details>
+    ??? hint
+        `wc` can accept multiple input files with spaces between them.
 
-<details>
-  <summary>Additional Hint</summary>
+    ??? answer
+        *sample_c.FASTQ* has the most lines.
 
-*ls -l* will show you the contents of the *CWD*; how might you see the contents of the *parent* directory? (remember
-the slides)
+-------------------------------
 
-</details>
+## Section 3: Making and changing directories
 
-<details>
-  <summary>Answer</summary>
+In this section, we will learn how to change the current directory and create entirely new ones.
 
-If you pass the *-l* flag to ls it will display a "long" listing of file information including file permissions.
+### Create a new directory
 
-There are various ways you could find out the permissions on your home directory.
+To make a new directory, we use the `mkdir` command, supplying a sensible directory name.
 
-
-**Method 1**: given we know the *CWD* is our home directory.
-
-```sh
-$ ls -l ..
-...
-drwxr-x--- 4 trainingXY training  512 Feb  9 14:18 trainingXY
-...
 ```
-The *..* refers to the parent directory.
-
-
-**Method 2**: using $HOME.  This works no matter what our *CWD* is set to.
-
-You could list the permissions of all files and directories in the parent directory of your home:
-
-```sh
-$ ls -l $HOME/..
-...
-drwxr-x--- 4 trainingXY training  512 Feb  9 14:18 trainingXY
-...
+mkdir my_directory
 ```
-
-In this case we use the shell variable to refer to our home directory.
-
+??? question "Did that work?"
+    Some commands (including `mkdir`) do not display a message after they have been executed. You can check that your `mkdir` command worked with `ls`.
 
-**Method 3**: using *~* (tilde) shortcut
+### Change working directory
 
-You may also refer to your home directory using the *~* (tilde) character:
+Let's change our current working directory to the newly created one with the command `cd` (for <b>C</b>hange <b>D</b>irectory).
 
-```sh
-$ ls -l ~/..
-...
-drwxr-x--- 4 trainingXY training  512 Feb  9 14:18 trainingXY
-...
 ```
-
-All 3 of the methods above mean the same thing.
-
-You will see a list of files and directories in the parent directory of your home directory. One of them will
-be the name of your home directory, something like *trainXX*.  Where *XX* is replaced by a two digit string.
-
-**Altername**: using the *-a* flag and looking at the *.* (dot) special file.
-
-```sh
-$ ls -la
-...
-drwxr-x--- 4 trainingXY training  512 Feb  9 14:18 .
-...
+pwd
 ```
-
-
-**Answer**: *drwxr-x---*
-
-* **You**: read (see filenames), write (add, delete files), execute (change your CWD to this directory).
-* **Training users**: read, execute
-* **Everyone else**: No access
-
-**Discussion on Permissions**:
-
-The permission string is *"drwxr-x---"*. The *d* means it is a directory. The *rwx* means that the owner of the directory
-(your user account) can *read*, *write* and *execute* the directory. Execute permissions on a directory means that you
-can *cd* into the directory. The *r-x* means that anyone in the same user group as *training* can read or execute the
-directory. The *---* means that nobody else (other users on the system) can do anything with the directory.
-
-</details>
-
----
-
-<div class="info">
-<p><b><em>man</em> is for manual</b>: and it will be your best friend!</p>
-<p>Manual pages include a lot of detail about a command and its available flags/options.  It should be your first (or second)
-port of call when you are trying to work out what a command or option does.</p>
-<p>You can scroll <em>up</em> and <em>down</em> in the man page using the <em>arrow</em> keys.</p>
-<p>You can search in the man page using the forward
-slash followed by the search text followed by the <em>ENTER</em> key. e.g.
-type <em>/hello</em> and press <em>ENTER</em> to search for the word <em>hello</em>.  Press <em>n</em> key to find next
-occurance of <em>hello</em> etc.</p>
-<p>You can <em>quit</em> the man page by pressing <em>q</em>.</p>
-</div>
-
----
-
-#### 2.7) Use the *man* command to find out what the *-h* flag does for *ls*
-
-<details>
-  <summary>Hint</summary>
-
-Give *ls* as an option to *man* command.
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-*man ls*
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Use the following command to view the *man* page for *ls*:
-
-```sh
-$ man ls
 ```
-
-**Answer**: You should discover that the *-h* option prints file sizes in human readable format
-
-```sh
--h, --human-readable
-              with -l, print sizes in human readable format (e.g., 1K 234M 2G)
+cd my_directory
 ```
-
-</details>
-
-
----
-
-#### 2.8) Use the *-h*, how did the output change of *muscle.fq*?
-
-<details>
-  <summary>Hint</summary>
-
-Don't forget the *-l* option too.
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-Run *ls -lh*
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-```sh
-$ ls -lh
-...
--rw-r----- 1 training01 training 2.5K Jun 14 11:28 muscle.fq
 ```
-
-**Answer**: it changed the output so the *filesize* of *muscle.fq* is now *2.5K* instead of *2461*
-
-</details>
-
-
-
-
-
-
-
-
-
-## Topic 3: Exploring the file system
-
-In this topic we will learn how to move around the filesystem and see what is there.
-
-**Duration**: 30 minutes. <!-- See "The file system" section of the workshop notes. -->
-
-**Relevant commands**: *pwd*, *cd*, *ls*, *file*
-
-#### 3.1) Print the value of your current working directory.
-
-<details>
-  <summary>Answer</summary>
-
-The *pwd* command prints the value of your current working directory.
-
-```sh
-$ pwd
-/home/training01
+pwd
 ```
-
-</details>
 
----
+Note that `cd` can also take the full path as input (the long version that you can see in the `pwd` output). What we supplied above is called a relative path.
 
-#### 3.2) List the contents of the root directory, called '*/*' (forward slash).
+### Hands-on
+??? example "3.1 Create nested directories"
 
-<details>
-  <summary>Hint</summary>
+    It can be very useful to organise your directories into hierarchies. Try creating a new directory inside *my_directory*. Then create another new directory inside that one.
 
-*ls* expects one or more anonymous options which are the files/directories to list.
+    Change your working directory to the innermost directory.
 
-</details>
+??? example "3.2 Change directory with .."
 
-<details>
-  <summary>Answer</summary>
+    Often, it is useful to go ‘upwards’ one level in the directory structure.
+    Two dots **..** are used in Unix to refer to the parent directory of wherever you are.
+    All directories (besides the root level) have a parent that can be accessed in this way.
 
-```sh
-$ ls /
-applications-merged  etc         media    root     tmp
-bin                  home        mnt      sbin     usr
-boot                 lib         oldhome  selinux  var
-data                 lib64       opt      srv
-dev                  lost+found  proc     sys
-```
-
-Here we see that *ls* can take a filepath as its argument, which allows you to list the contents of directories
-other than your current working directory.
+    A single dot **.** is used to refer to the current directory (often useful when running bioinformatics tools).
 
-</details>
+    Try using **..** to change your directory.
 
----
+    What about **../..**? What does that represent?
 
-#### 3.3) Use the *cd* command to change your working directory to the root directory.  Did your prompt change?
+    ??? hint
+        Set your working directory back to your innermost directory first.
 
-<details>
-  <summary>Hint</summary>
+    ??? answer
+        **../..** refers to the parent of the parent directory.
 
-*cd* expects a single option which is the directory to change to
+        **../../..** refers to the parent of the parent of the parent directory.
 
-</details>
+        And so on...
 
-<details>
-  <summary>Answer</summary>
+??? example "3.3 Save time with tab completion"
 
-The *cd* command changes the value of your current working directory. To change to the root directory use the
-following command:
+    One great Unix you can start using right away is that you can tab complete the names of files, directories and commands.
 
-```sh
-$ cd /
-```
+    Just type enough characters to uniquely identify the name of a file,
+    directory or command, press tab and Unix will do the rest.
 
-**Answer**: Yes, it now says the CWD is */* instead of *~*.
+    If pressing tab doesn’t do anything, then you
+    have not typed enough unique characters. In this case, pressing tab twice will show you
+    all of the possible completions.
 
-Some people imagine that changing the working directory is akin to moving your focus within the file system.
-So people often say "move to", "go to" or "charge directory to" when they want to change the working directory.
+    Try using tab completion to complete directory names as you change directories with `cd`.
 
-The root directory is special in Unix. It is the topmost directory in the whole file system.
+    Think of all the saved keystrokes!
 
-</details>
+    ??? question "How can I save more time?"
 
----
+        Another great time-saver is that Unix stores a list of all of the previous commands that you have executed
+        in each session. Access this list by using the up and down arrows.
 
-<div class="info">
-<b>Output on ERROR only</b>: Many Unix commands will not produce any output if everything went well; <em>cd</em> is one
-such command.  However, it will get grumpy if something went wrong by way of an error message on-screen.
-</div>
+        So, if you type a long command but make a mistake, press the up arrow and then you can use the
+        left and right arrows to move the cursor in order to make an edit.
 
----
+        You could also try the `history` command to print a list of your previous commands.
 
-#### 3.4) List the contents of the CWD and verify it matches the list in 3.2
 
-<details>
-  <summary>Hint</summary>
+        ```
+        history
+        ```
 
-*ls*
+-------------------------------
 
-</details>
+## Section 4: Viewing and manipulating files
+In this section we will focus on files; how to view them, how to copy them, how to move them, how to rename them and how to change their permissions.
 
-<details>
-  <summary>Answer</summary>
 
-Assuming you have changed to the root directory then this can be achieved with *ls*, or *ls -a* (for all files) or
-*ls -la* for a long listing of all files.
+### View a file
 
-If you are not currently in the root directory then you can list its contents by passing it as an argument to ls:
+We’ve covered finding the locations, sizes and lengths of files, but how do we look inside them?
+The `less` command allows us to view (but not edit) text-based files.
 
-```sh
-$ ls
-applications-merged  etc         media    root     tmp
-bin                  home        mnt      sbin     usr
-boot                 lib         oldhome  selinux  var
-data                 lib64       opt      srv
-dev                  lost+found  proc     sys
 ```
-
-**Answer**: Yes, we got the same output as exercise 3.2
-
-
-
-</details>
-
----
-
-#### 3.5) Change your current working directory back to your home directory. What is the simplest Unix command that will get you back to your home directory from anywhere else in the file system?
+less sample_1.fastq
+```
 
-<details>
-  <summary>Hint</summary>
+??? attention "No such file or directory"
+    If you see this error message, the most likely reason is that you are not in the correct directory.
 
-The answer to exercise 2.6 might give some hints on how to get back to the home directory
+    Use `pwd`, `cd` and `ls` to find your way to the right place.
 
-</details>
+??? question "What if my files are compressed?"
+    If a file is in a compressed format, you will need to decompress it first before you view it with `less`.
 
-<details>
-  <summary>Additional Hint</summary>
+    For example, the `gunzip` command will decompress a fastq.gz file.
 
-*$HOME*, *~*, */vlsci/TRAINING/trainXX* are all methods to name your home directory.  Yet there is a simpler method; the answer
-is buried in *man cd* however *cd* doesn't have its own manpage so you will need to search for it.
 
-</details>
+When you are using `less`, you can move forward or backwards one line at a time
+using the arrow keys. To quit, press q.
 
-<details>
-  <summary>Answer</summary>
+For long files, it can be inconvenient to view the whole thing when only a peek
+at a few lines or just the header information is enough.
 
-Use the *cd* command to change your working directory to your home directory. There are a number of ways to refer
-to your home directory:
+The command `head` prints the first 10 lines of a file to the screen.
 
-```sh
-cd $HOME
 ```
-
-is equivalent to:
-
-```sh
-cd ~
+head sample_1.fastq
 ```
 
-The simplest way to change your current working directory to your home directory is to run the *cd* command with
-no arguments:
+Equivalently, we have the `tail` command, that does the same for the last lines of a file.
+Both `head` and `tail` have an option to change the number of lines displayed.
 
-**Answer**: the simplest for is cd with NO options.
-
-```sh
-cd
 ```
-
-This is a special-case behaviour which is built into *cd* for convenience.
-
-</details>
-
----
-
-#### 3.6) Change your working directory to the following directory:
-
-*/vlsci/TRAINING/shared/Intro_to_Unix*
-
-<details>
-  <summary>Answer</summary>
-
-**Answer**: *cd /vlsci/TRAINING/shared/Intro_to_Unix*
-
-</details>
-
----
-
-#### 3.7) List the contents of that directory. How many files does it contain?
-
-<details>
-  <summary>Hint</summary>
-
-*ls*
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-You can do this with *ls*
-
-```sh
-$ ls
-expectations.txt  hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy
+tail -n 4 sample_1.fastq
 ```
-
-**Answer**: 7 files (expectations.txt  hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy)
-
-</details>
-
----
-
-#### 3.8) What kind of *file* is */vlsci/TRAINING/shared/Intro_to_Unix/sleepy*?
-
-<details>
-  <summary>Hint</summary>
-
-Take the word *file* quite literally.
-
-</details>
 
-<details>
-  <summary>Additional Hint</summary>
+### Copy, move or rename a file
 
-*file sleepy*
+To make a copy of a file, all you need to do is supply the name of the file and a name for the copy to the `cp` command.
 
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Use the *file* command to get extra information about the contents of a file:
-
-Assuming your current working directory is */vlsci/TRAINING/shared/Intro_to_Unix*
-
-```sh
-$ file sleepy
-Bourne-Again shell script text executable
 ```
-
-Otherwise specify the full path of sleepy:
-
-```sh
-$ file /vlsci/TRAINING/shared/Intro_to_Unix/sleepy
-Bourne-Again shell script text executable
+cp sample_1.fastq copy_of_sample_1.fastq
 ```
 
-**Answer**: Bourne-Again shell script text executable
+You can check to see the new file using `ls`.
 
-The "Bourne-Again shell" is more commonly known as BASH. The *file* command is telling us that sleepy
-is (probably) a shell script written in the language of BASH.
+Moving a file from one directory to another follows the same basic command format shown below.
 
-The file command uses various heuristics to guess the "type" of a file. If you want to know how it works
-then read the Unix manual page like so:
-
-```sh
-man file
 ```
-
-</details>
-
----
-
-3.9) What kind of *file* is */vlsci/TRAINING/shared/Intro_to_Unix/hi*?
-
-<details>
-  <summary>Hint</summary>
-
-Take the word *file* quite literally.
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Use the file command again. If you are in the same directory as *hi* then:
-
-```sh
-$ file hi
-ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux
-2.6.9, not stripped
+mv FILE DESTINATION
 ```
 
-**Answer**: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux
+Renaming a file actually uses the `mv` command too.
 
-This rather complicated output is roughly saying that the file called *hi* contains a binary executable
-program (raw instructions that the computer can execute directly).
-
-</details>
-
----
-
-#### 3.10) What are the file permissions of the following file and what do they mean?
-
-*/vlsci/TRAINING/shared/Intro_to_Unix/sleepy*
-
-<details>
-  <summary>Hint</summary>
-
-Remember the *ls* command, and don't forget the *-l* flag
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-You can find the permissions of *sleepy* using the *ls* command with the *-l* flag. If you are in the same
-directory as *sleepy* then:
-
-```sh
-$ ls -l sleepy
--rw-r--r-- 1 arobinson common 183 Feb  9 16:36 sleepy
 ```
-
-**Answer**: The Answer is dependent on the computer you are connected too however will follow something like above.
-We can see that this particular instance of sleepy is owned by the user arobinson, and is part of the common
-user group. It is 183 bytes in size, and was last modified on the 9th of February at 4:36pm. The file is
-readable to everyone, and write-able only to arobinson.  The digit '1' between the file permission string and
-the owner indicates that there is one link to the file. The Unix file system allows files to be referred to
-by multiple "links". When you create a file it is referred to by one link, but you may add others later. For
-future reference: links are created with the *ln* command.
-
-</details>
-
----
-
-#### 3.11) Change your working directory back to your home directory ready for the next topic.
-
-<details>
-  <summary>Hint</summary>
-
-*cd*
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-You should know how to do this with the cd command:
-
-```sh
-cd
+mv OLD_NAME NEW_NAME
 ```
-
-</details>
-
-
-
-
-
-
-
-
-
-## Topic 4: Working with files and directories
-
-In this topic we will start to read, create, edit and delete files and directories.
-
-**Duration**: 50 minutes.  <!-- See "Working with files" from the workshop notes. -->
 
-**Relevant commands**: *mkdir*, *cp*, *ls*, *diff*, *wc*, *nano*, *mv*, *rm*, *rmdir*, *head*, *tail*, *grep*, *gzip*, *gunzip*
+### Change file permissions
 
-<div class="info">
-<b>Hint</b>: Look at the commands above; you will need them roughly in order for this topic.  Use the <em>man</em>
-command find out what they do, in particular the NAME, SYNOPSIS and DESCRIPTION sections.
-</div>
+File and directory permissions determine what actions users can perform.
+We can see these permissions using the long-form `ls` output.
 
----
-
-
-#### 4.1) In your home directory make a sub-directory called test.
-
-<details>
-  <summary>Hint</summary>
-
-You are trying to *make a directory*, which of the above commands looks like a shortened version of this?
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-*mkdir*
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Make sure you are in your home directory first. If not *cd* to your home directory.
-
-Use the *mkdir* command to make new directories:
-
-```sh
-$ mkdir test
 ```
-
-Use the *ls* command to check that the new directory was created.
-
-```sh
-$ ls
-exp01  file01  muscle.fq  test
+ls -lhrt
 ```
-
-</details>
-
----
 
-#### 4.2) Copy all the files from the following directory into the newly created test directory:
+The file permission symbolic notation works as follows:
 
-*/vlsci/TRAINING/shared/Intro_to_Unix*
+The first character determines the type of object (d for directory, - for a regular file).
 
-<details>
-  <summary>Hint</summary>
+The remaining nine characters are in three triads.
 
-You are trying to *copy*, which of the above commands looks like a shortened version of this?
+| Three permission triads |                           |
+| :----------  | :----------------------------------- |
+| first triad: | what the owner can do                |
+| second triad:| what the group members can do        |
+| third triad: | what other users can do              |
 
-</details>
 
-<details>
-  <summary>Additional Hint</summary>
+| In each triad    |   |                 |
+| :--------------  |:- | :-------------- |
+| first character: |r  | readable        |
+| second character:|w  | writable        |
+| third character: |x  | executable      |
 
-```sh
-$ man cp
-...
-SYNOPSIS
-       cp [OPTION]... [-T] SOURCE DEST
-...
-DESCRIPTION
-       Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.
-```
-
-which means *cp* expects zero or more flags, a SOURCE file followed by a DEST file or directory
-
-</details>
-
-<details>
-  <summary>Answer</summary>
+??? question "Can I see an example?"
+    For the permission string ***drwxr-xr-x***
 
-Use the *cp* command to copy files.
+    The **d** means it is a directory.
 
-<div class="info"><b>Wildcards</b>: You could copy them one-by-one, but that would be tedious, so use
-the <em>*</em> wildcard to specify that you want to copy all the files.
-</div>
+    The **rwx** means that the owner of the directory
+    (your user account) can read, write and execute the directory. Execute permission on a directory means that you
+    can `cd` into the directory.
 
-There are a number of ways you could do this depending on how you specify the source and destination
-paths to *cp*. You only need to perform one of these ways, but we show multiple ones for your reference.
+    The **r-x** means that anyone in the user group can read and execute the directory.
 
-**Answer 1**: From your home directory:
+    The second **r-x** means that other users on the system can read and execute the directory.
 
-```sh
-$ cp /vlsci/TRAINING/shared/Intro_to_Unix/* test
-```
+To change permissions, use the `chmod` command (for change mode). The owner of a file can change the permissions for user (**u**), group (**g**), or others (**o**) by adding (**+**) or subtracting (**-**) the read (**r**), write (**w**), and execute (**x**) permissions.
 
-**Answer 2**: Change to the test directory and then copy (assuming you started in your home directory):
+To add write permission for others for a file, the following command would be used:
 
-```sh
-$ cd test
-$ cp /vlsci/TRAINING/shared/Intro_to_Unix/* .
 ```
-
-In the example above the '*.*' (dot) character refers to the current working directory. It should be
-the test subdirectory of your home directory.
-
-**Answer 3**: Change to the \end{UNIX_TRAINING_FILES_PATH} directory and then copy:
-
-```sh
-cd /vlsci/TRAINING/shared/Intro_to_Unix/
-cp * ~/test
+chmod o+w FILE
 ```
 
-Remember that ~ is a shortcut reference to your home directory.
+### Hands-on
+??? example "4.1 Move files"
 
-</details>
+    Move *sample_1.fastq* and *sample_2.fastq* into the *samples* directory.
 
----
+    ??? hint
+         Move multiple files at once by using the wildcard character *.
 
-**Note**: This exercise assumes that the copy command from the previous exercise was successful.
+         The * symbol is a Unix wildcard that can stand for any string.
 
-#### 4.3) Check that the file size of *expectations.txt* is the same in both the directory that you copied it from and the directory that you copied it to.
+         Hence sam* will refer to any file in your current directory that begins with sam.
 
-<details>
-  <summary>Hint</summary>
+??? example "4.2 Rename a file"
 
-Remember *ls* can show you the file size (with one of its flags)
+    Rename *sample_c.fastq* to *sample_3.fastq*
 
-</details>
+    After 4.1 and 4.2 you should have a *samples* directory with 3 files that follow the same naming convention.
 
-<details>
-  <summary>Additional Hint</summary>
+??? example "4.3 Change file permissions"
 
-*ls -l*
+    Remove all users write permission to the FASTQ files in the *samples* directory. This will prevent you from accidentally overwriting or erasing these files.
 
-</details>
+    ??? hint
+         The change a permission for the user (**u**), group (**g**), and others (**o**) all at once, use **a** for all.
 
-<details>
-  <summary>Answer</summary>
+-------------------------------
 
-Use *ls -l* to check the size of files.
+## Section 5: Removing files and directories
 
-You could do this in many ways depending on the value of your working directory. We just show one possible
-way for each file:
+In this section we'll cover how to safely remove files and directories that you no longer need.
 
-```sh
-$ ls -l /vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
+### Remove directories
 
-$ ls -l ~/test/expectations.txt
-```
-
-From the output of the above commands you should be able to see the size of each file and check that they
-are the same.
-
-**Answer**: They should each be *1033773* bytes
-
-**Alternate**: Sometimes it is useful to get file sizes reported in more "human friendly" units than bytes. If this is
-true then try the *-h* option for ls:
+The `mkdir` command that we used earlier has an analogue for removing directories called `rmdir`.
 
-```sh
-$ ls -lh /vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
--rw-r--r-- 1 arobinson common 1010K Mar 26  2012 /vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
 ```
-
-In this case the size is reported in kilobytes as *1010K*. Larger files are reported in megabytes, gigabytes
-etcetera.
-
-</details>
-
----
-
-**Note**: this exercise assumes your working directory is *~/test*; if not run *cd ~/test*
-
-#### 4.4) Check that the contents of expectations.txt are the same in both the directory that you copied it from and the directory that you copied it to.
-
-<details>
-  <summary>Hint</summary>
-
-What is the opposite of *same*?
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-*diff*erence
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Use the *diff* command to compare the contents of two files.
-
-```sh
-$ diff /vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt expectations.txt
+rmdir DIRECTORY
 ```
-
-If the two files are identical the *diff* command will NOT produce any output)
-
-**Answer**: Yes, they are the same since no output was given.
 
-</details>
+Helpfully, `rmdir` will only remove an empty directory (so we don't accidentally remove important files).
 
----
+### Remove files
 
-#### 4.5) How many lines, words and characters are in expectations.txt?
+To remove files, we have to use the `rm` (remove) command.
 
-<details>
-  <summary>Hint</summary>
+??? attention "Please read this section VERY carefully!"
 
-Initialisms are key
+    Accidental misuse of the `rm` command can lead to huge problems!
 
-</details>
+    If you delete something with `rm`, you will not get it back!
 
-<details>
-  <summary>Additional Hint</summary>
+    It is possible to delete everything in file system (all directories and subdirectories) with `rm`.
 
-*w*ord *c*ount
+    Let’s repeat that last part again: It is possible to delete every file you have ever created
+    with the `rm` command.
 
-</details>
+Luckily, there is a way of making `rm` a little bit safer. We can use it
+with the *-i* flag so that you will be asked for confirmation before deleting anything.
 
-<details>
-  <summary>Answer</summary>
-
-Use the *wc* (for "word count") to count the number of characters, lines and words in a file:
-
-```sh
-$ wc expectations.txt
-  20415  187465 1033773 expectations.txt
 ```
-
-**Answer**: There are *20415* lines, *187465* words and *1033773* characters in expectations.txt.
-
-To get just the line, word or character count:
-
-```sh
-$ wc -l expectations.txt
-20415 expectations.txt
-$ wc -w expectations.txt
-187465 expectations.txt
-$ wc -c expectations.txt
-1033773 expectations.txt
+rm -i FILE
 ```
-
-</details>
 
----
+??? question "Can I use a wildcard character with these commands too?"
 
-#### 4.6) Open *~/test/expectations.txt* in the *nano* text editor, delete the first line of text, and save your changes to the file. Exit *nano*.
+    You can use wildcard characters with any Unix command.
 
-<details>
-  <summary>Hint</summary>
+    However, using wildcards with the `rm` command is particularly dangerous (we encourage avoiding it altogether).
 
-*nano FILENAME*
 
-Once *nano* is open it displays some command hints along the bottom of the screen.
+### Hands-on
+??? example "5.1 Change `rm` behaviour"
 
-</details>
+    Usually `rm` does not display a message once it has run.
 
-<details>
-  <summary>Additional Hint</summary>
+    Instead using a flag, `rm` will use verbose mode, where it will print the name of each file that has been deleted.
 
-*^O* means hold the *Control* (or CTRL) key while pressing the *o*.  Despite what it displays, you need to type
-the lower-case letter that follows the *^* character.
+    What flag enables verbose mode?
 
-WriteOut is another name for Save.
+    ??? answer
 
-</details>
+        *-v* engages verbose mode.
 
-<details>
-  <summary>Answer</summary>
+??? example "5.2 Remove file"
 
-Take some time to play around with the *nano* text editor.
+    Remove the copied file you created in section 4. You can also remove any additional copies you may have made.
 
-*Nano* is a very simple text editor which is easy to use but limited in features. More powerful
-editors exist such as *vim* and *emacs*, however they take a substantial amount of time to learn.
+??? example "5.3 Remove directories"
 
-</details>
+    Remove the directories you created in section 3.
 
----
+    Do not remove the *samples* directory.
 
-#### 4.7) Did the changes you made to *~/test/expectations.txt* have any effect on */vlsci/TRAINING/shared/Intro_to_Unix*?
+-------------------------------
 
-How can you tell if two files are the same or different in their contents?
+## Section 6: Searching files
 
-<details>
-  <summary>Hint</summary>
+In this section we'll cover how to search within files for matches to a given pattern.
 
-Remember exercise 4.4
+### Grep for matches
 
-</details>
+We can use the command `grep` to search within files. You may also hear `grep` used as a verb; to `grep` for the right line in a file.
 
-<details>
-  <summary>Additional Hint</summary>
+The following examples show how you can use `grep`’s command-line options to:
 
-Use *diff*
+* show lines that match a specified pattern
+* ignore case when matching (*-i*)
+* only match whole words (*-w*)
+* show lines that don’t match a pattern (*-v*)
+* use wildcard characters and other patterns to allow for alternatives
+* colours the matched text for easy visualisation (- -colour)
 
-</details>
+Regular expressions (regex) are used to define search patterns. Some useful regex characters:
 
-<details>
-  <summary>Answer</summary>
+* **^** The beginning of a text line
+* **$** The end of a text line
+* **.** Any single character
 
-Use *diff* to check that the two files are different after you have made the change to the copy of
-*expectations.txt* in your *~/test* directory.
+The following command shows all of the lines in the file that contain the string CATCAT
 
-```sh
-diff ~/test/expectations.txt \
-/vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
 ```
-
-You could also use *ls* to check that the files have different sizes.
-
-</details>
-
----
-
-#### 4.8) In your *test* subdirectory, rename *expectations.txt* to *foo.txt*.
-
-<details>
-  <summary>Hint</summary>
-
-Another way to think of it is *moving* it from *expectations.txt* to *foo.txt*
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-*mv*
-
-Use *man mv* if you need to work out how to use it.
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Use the *mv* command to rename the file:
-
-```sh
-$ mv expectations.txt foo.txt
-$ ls
-foo.txt  hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy
+grep CATCAT sample_1.fastq
 ```
 
-</details>
+### Hands-on
+??? example "6.1 Extract ID lines"
 
----
+    Each read in a FASTQ file has an associated sequence ID line.
 
-#### 4.9) Rename foo.txt back to expectations.txt.
+    Identify which is the ID line from the following `head` output.
 
-<details>
-  <summary>Answer</summary>
+    ```
+    head -n 12 sample_1.fastq
+    ```
 
-Use the *mv* command to rename the file:
+    Use grep to print all of the ID line from *sample_1.fastq*.
 
-```sh
-$ mv foo.txt expectations.txt
-$ ls
-expectations.txt  hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy
-```
-
-Use *ls* to check that the file is in fact renamed.
-
-</details>
-
----
+    ??? answer
+        ```
+        grep ^@ sample_1.fastq
+        ```
+??? example "6.2 Find matching entries"
+    With a regular `grep` search, the line containing the matching term is printed. It can be useful to also print lines before or after the matching lines.
+    With *-B* (for before) and *-A* (for after), you can specify the number of lines to display.
 
-#### 4.10) Remove the file *expectations.txt* from your *test* directory.
+    Display the full FASTQ entry for each sequence that contains the sequence CATCAT in *sample_1.fastq*.
 
-<details>
-  <summary>Hint</summary>
+    ??? answer
+        ```
+        grep -B 1 -A 2 CATCAT sample_1.fastq
+        ```
 
-We are trying to *remove* a file, check the commands at the top of this topic.
+??? example "6.3 Search for a motif"
+    Display the sequences in *sample_1.fastq* that contain the motif CATNNT where N is any nucleotide.
 
-</details>
+    ??? answer
+        ```
+        grep CAT..T sample_1.fastq
+        ```
 
-<details>
-  <summary>Additional Hint</summary>
+-------------------------------
 
-*rm*
+## Section 7: Putting it all together
+In this section we will cover a few more advanced Unix concepts that allow us to bring together some of the commands we have learned so far.
 
-</details>
+### Combine commands with pipes
+One of the most powerful features of Unix is that you can send the output from one
+command directly into the input of any other command.
 
-<details>
-  <summary>Answer</summary>
+We do this by using a pipe that is represented by the **|** character.
+Think of a pipe as a connection between two Unix commands.
 
-Use the *rm* command to remove files (carefully):
-
-```sh
-$ rm expectations.txt
-$ ls
-hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy
 ```
-
-</details>
-
----
-
-#### 4.11) Remove the entire *test* directory and all the files within it.
-
-<details>
-  <summary>Hint</summary>
-
-We are trying to *remove a directory*.
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-You could use *rmdir* but there is an easier way using just *rm* and a flag.
+grep CAT..T sample_1.fastq | wc -l
+```
 
-</details>
+The first part of the command is the same `grep` search from 6.3.  
+The `grep` output is sent through a pipe to `wc`, where the *-l* option counts the number of lines. So as a whole, this command counts the number of sequences that contain a match to the motif CATNNT.
 
-<details>
-  <summary>Answer</summary>
+### Redirect output to a file
 
-You could use the *rm* command to remove each file individually, and then use the *rmdir* command
-to remove the directory. Note that *rmdir* will only remove directories that are empty (i.e. do not
-contain files or subdirectories).
+It can be very useful to direct output into a new file, rather than simply printing it to the screen.
 
-A faster way is to pass the *-r* (for recursive) flag to *rm* to remove all the files and the
-directory in one go:
+This file redirection can be done with the **>** symbol.
 
-**Logical Answer**:
-```sh
-cd ~
-rm test/*
-rmdir test
 ```
-
-**Easier Answer**:
-```sh
-cd ~
-rm -r test
+whoami > user.txt
 ```
-
-<div class="error"><b>Warning</b>: Be very careful with <em>rm -r</em>, it will remove all files
-and all subdirectories underneath the specified directory. This could be catastrophic if you do it
-in the wrong location! Now is a good moment to pause and think about file backup strategies.</div>
 
-</details>
+The command above sent the output of the `whoami` command to a file called user.txt. Notice that there was no output on the screen. You can check the contents of user.txt with `less`.
 
----
+??? attention "Warning"
+    Be careful when using file redirection (**>**); it will overwrite any existing file of the same name.
 
-#### 4.12) Recreate the test directory in your home directory and copy all the files from */vlsci/TRAINING/shared/Intro_to_Unix* back into the test directory.
+We can also use the **>>** operator to append output to the end of an existing file.
 
-<details>
-  <summary>Hint</summary>
-
-See exercises 4.1 and 4.2
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Repeat exercises 4.1 and 4.2.
-
-```sh
-$ cd ~
-$ mkdir test
-$ cp /vlsci/TRAINING/shared/Intro_to_Unix/* test
 ```
-
-</details>
-
----
-
-#### 4.13) Change directories to *~/test* and use the *cat* command to display the entire contents of the file *hello.c*
-
-<details>
-  <summary>Hint</summary>
-
-Use *man* if you can't guess how it might work.
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-```sh
-$ cd ~/test
-$ cat hello.c
-#include <stdio.h>
-int main(void) {
-    printf ("Hello World\n");
-    return 0;
-}
+date >> user.txt
 ```
-
-*hello.c* contains the source code of a C program. The compiled executable version of this code
-is in the file called *hi*, which you can run like so:
 
-```sh
-$ ./hi
-Hello World
-```
+You should see that your user.txt file now contains the output of the `date` command under the original user line.
 
-</details>
-
----
-
-#### 4.14) Use the *head* command to view the first *20* lines of the file *sample_1.fastq*
-
-<details>
-  <summary>Hint</summary>
-
-Remember your *best* friend!
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-Use *man* to find out what option you need to add to display a given number of *lines*.
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-```sh
-$ head -20 sample_1.fastq
-@IRIS:7:1:17:394#0/1
-GTCAGGACAAGAAAGACAANTCCAATTNACATTATG
-+IRIS:7:1:17:394#0/1
-aaabaa`]baaaaa_aab]D^^`b`aYDW]abaa`^
-@IRIS:7:1:17:800#0/1
-GGAAACACTACTTAGGCTTATAAGATCNGGTTGCGG
-+IRIS:7:1:17:800#0/1
-ababbaaabaaaaa`]`ba`]`aaaaYD\\_a``XT
-@IRIS:7:1:17:1757#0/1
-TTTTCTCGACGATTTCCACTCCTGGTCNACGAATCC
-+IRIS:7:1:17:1757#0/1
-aaaaaa``aaa`aaaa_^a```]][Z[DY^XYV^_Y
-@IRIS:7:1:17:1479#0/1
-CATATTGTAGGGTGGATCTCGAAAGATATGAAAGAT
-+IRIS:7:1:17:1479#0/1
-abaaaaa`a```^aaaaa`_]aaa`aaa__a_X]``
-@IRIS:7:1:17:150#0/1
-TGATGTACTATGCATATGAACTTGTATGCAAAGTGG
-+IRIS:7:1:17:150#0/1
-abaabaa`aaaaaaa^ba_]]aaa^aaaaa_^][aa
-```
+### Hands-on
+??? example "7.1 Use a pipe"
 
-</details>
+    Display the ID lines from the first 10 entries in *sample_1.fastq* using a pipe.
 
----
+    ??? answer
+        ```
+        grep ^@ sample_1.fastq | head
+        ```
 
-#### 4.15) Use the *tail* command to view the last *8* lines of the file *sample_1.fastq*
+        Or, alternatively:
 
-<details>
-  <summary>Hint</summary>
+        ```
+        head -n 40 sample_1.fastq | grep ^@
+        ```
 
-It's very much like *head*.
+??? example "7.2 Direct output to a file"
 
-</details>
+    Use your command from above but redirect the output to a file. Choose a sensible name for your file.
 
-<details>
-  <summary>Answer</summary>
+??? example "7.3 Create a new FASTQ file"
 
-```sh
-tail -8 sample_1.fastq
-@IRIS:7:32:731:717#0/1
-TAATAATTGGAGCCAAATCATGAATCAAAGGACATA
-+IRIS:7:32:731:717#0/1
-ababbababbab]abbaa`babaaabbb`bbbabbb
-@IRIS:7:32:731:1228#0/1
-CTGATGCCGAGGCACGCCGTTAGGCGCGTGCTGCAG
-+IRIS:7:32:731:1228#0/1
-`aaaaa``aaa`a``a`^a`a`a_[a_a`a`aa`__
-```
+    Create a new FASTQ file containing the final 3 reads in each of the three FASTQ files.
 
-</details>
+    ??? answer
+        ```
+        tail -n 12 sample_1.fastq > new_sample.fastq
+        tail -n 12 sample_2.fastq >> new_sample.fastq
+        tail -n 12 sample_3.fastq >> new_sample.fastq
+        ```
 
----
-
-#### 4.16) Use the *grep* command to find out all the lines in *moby.txt* that contain the word "Ahab"
-
-<details>
-  <summary>Hint</summary>
-
-One might say we are 'looking for the *pattern* "Ahab"'
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-```sh
-$ man grep
-...
-SYNOPSIS
-       grep [OPTIONS] PATTERN [FILE...]
-...
-```
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-```sh
-$ grep Ahab moby.txt
-"Want to see what whaling is, eh? Have ye clapped eye on Captain Ahab?"
-"Who is Captain Ahab, sir?"
-"Aye, aye, I thought so. Captain Ahab is the Captain of this ship."
-... AND MUCH MUCH MORE ...
-```
-
-If you want to know how many lines are in the output of the above command you can "pipe" it
-into the *wc -l* command:
-
-```sh
-$ grep Ahab moby.txt | wc -l
-491
-```
-
-which shows that there are *491* lines in *moby.txt* that contain the word Ahab.
-
-</details>
-
----
-
-#### 4.17) Use the *grep* command to find out all the lines in *expectations.txt* that contain the word "the" with a case insensitive search (it should count "the" "The" "THE" "tHe" etcetera).
-
-<details>
-  <summary>Hint</summary>
-
-One might say we are *ignoring case*.
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-```sh
-$ man grep
-...
-       -i, --ignore-case
-              Ignore case distinctions in both the PATTERN and the input files.  (-i is specified by POSIX.)
-...
-```
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Use the *-i* flag to *grep* to make it perform case insensitive search:
-
-```sh
-$ grep -i the expectations.txt
-The Project Gutenberg EBook of Great Expectations, by Charles Dickens
-This eBook is for the use of anyone anywhere at no cost and with
-re-use it under the terms of the Project Gutenberg License included
-[Project Gutenberg Editor's Note: There is also another version of
-... AND MUCH MUCH MORE ...
-```
-
-Again, "pipe" the output to *wc -l* to count the number of lines:
-
-```sh
-$ grep -i the expectations.txt  | wc -l
-8165
-```
-
-</details>
-
----
-
-#### 4.18) Use the *gzip* command to compress the file *sample_1.fastq*. Use *gunzip* to decompress it back to the original contents.
-
-<details>
-  <summary>Hint</summary>
-
-Use the above commands along with *man* and *ls* to see what happens to the file.
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Check the file size of sample_1.fastq before compressing it:
-
-```sh
-# check filesize
-$ ls -l sample_1.fastq
--rw-r--r-- 1 training01 training 90849644 Jun 14 20:03 sample_1.fastq
-
-# compress it (takes a few seconds)
-$ gzip sample_1.fastq
-
-# check filesize (Note: its name changed)
-$ ls -l sample_1.fastq.gz
--rw-r--r-- 1 training01 training 26997595 Jun 14 20:03 sample_1.fastq.gz
-
-# decompress it
-$ gunzip sample_1.fastq.gz
-
-$ ls -l sample_1.fastq
--rw-r--r-- 1 training01 training 90849644 Jun 14 20:03 sample_1.fastq
-```
-
-You will see that when it was compressed it is *26997595* bytes in size, making it about *0.3* times the size of the
-original file.
-
-**Note**: in the above section the lines starting with *#* are comments so don't need to be copied but if you
-do then they wont do anything.
-
-</details>
-
-
-
-
-
-## Topic 5: Pipes, output redirection and shell scripts
-
-In this section we will cover a lot of the more advanced Unix concepts; it is here where you will start to see
-the power of Unix.  I say *start* because this is only the "tip of the iceberg".
-
-**Duration**: 50 minutes. <!-- See "Processes" from the workshop notes. -->
-
-**Relevant commands**: *wc*, *paste*, *grep*, *sort*, *uniq*, *nano*, *cut*
-
-
-
-
-#### 5.1) How many *reads* are contained in the file *sample_1.fastq*?
-
-<details>
-  <summary>Hint</summary>
-
-Examine some of the file to work out how many lines each *read* takes up.
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-Count the number of lines
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-We can answer this question by counting the number of lines in the file and dividing by 4:
-
-```sh
-$ wc -l sample_1.fastq
-3000000
-```
-
-**Answer**: There are *3000000* lines in the file representing *750000* reads.
-
-If you want to do simple arithmetic at the command line then you can use the "basic calculator"
-called *bc*:
-
-```sh
-$ echo "3000000 / 4" | bc
-750000
-```
-
-<div class="info"><b>Note</b>: that the vertical bar character "|" is the Unix pipe (and is often
-called the "pipe symbol"). It is used for connecting the output of one command into the input of
-another command. We'll see more examples soon.</div>
-
-*bc* is suitable for small calculations, but it becomes cumbersome for more complex examples. If
-you want to do more sophisticated calculations then we recommend to use a more general purpose
-programming language (such as Python etcetera).
-
-</details>
-
----
-
-#### 5.2) How many reads in *sample_1.fastq* contain the sequence *GATTACA*?
-
-<details>
-  <summary>Hint</summary>
-
-Check out exercise 4.16
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Use *grep* to find all the lines that contain *GATTACA* and "pipe" the output to *wc -l* to count them:
-
-```sh
-$ grep GATTACA sample_1.fastq | wc -l
-1119
-```
-
-**Answer**: *1119*
-
-If you are unsure about the possibility of upper and lower case characters then consider using
-the *-i* (ignore case option for grep).
-
-</details>
-
----
-
-#### 5.3) On what line numbers do the sequences containing *GATTACA* occur?
-
-<details>
-  <summary>Hint</summary>
-
-We are looking for the *line numbers*.
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-Check out the manpage for *grep* and/or *nl*
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-You can use the *-n* flag to grep to make it prefix each line with a line number:
-
-**Answer 1**:
-```sh
-$ grep -n GATTACA sample_1.fastq
-5078:AGGAAGATTACAACTCCAAGACACCAAACAAATTCC
-7170:AACTACAAAGGTCAGGATTACAAGCTCTTGCCCTTC
-8238:ATAGTTTTTTCGATTACATGGATTATATCTGTTTGC
-... AND MUCH MUCH MORE ...
-```
-
-**Answer 2**: Or you can use the *nl* command to number each line of sample_1.fastq and then search for *GATTACA*
-in the numbered lines:
-
-```sh
-$ nl sample_1.fastq | grep GATTACA
-  5078	AGGAAGATTACAACTCCAAGACACCAAACAAATTCC
-  7170	AACTACAAAGGTCAGGATTACAAGCTCTTGCCCTTC
-  8238	ATAGTTTTTTCGATTACATGGATTATATCTGTTTGC
-... AND MUCH MUCH MORE ...
-```
-
-**Just the line numbers**:
-
-If you just want to see the line numbers then you can "pipe" the output of the above command into
-*cut -f 1*:
-
-```sh
-$ nl sample_1.fastq | grep GATTACA | cut -f 1
-  5078
-  7170
-  8238
-... AND MUCH MUCH MORE ...
-```
-
-*cut* will remove certain columns from the input; in this case it will remove all except column 1
-(a.k.a. field 1, hence the *-f 1* option)
-
-```sh
-$ grep -n GATTACA sample_1.fastq | cut -d: -f 1
-5078
-7170
-8238
-... AND MUCH MUCH MORE ...
-```
-
-</details>
-
----
-
-#### 5.4) Use the *nl* command to print each line of *sample_1.fastq* with its corresponding line number at the beginning.
-
-<details>
-  <summary>Hint</summary>
-
-Check answer to 5.3.
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-```sh
-$ nl sample_1.fastq
-     1	@IRIS:7:1:17:394#0/1
-     2	GTCAGGACAAGAAAGACAANTCCAATTNACATTATG
-     3	+IRIS:7:1:17:394#0/1
-     4	aaabaa`]baaaaa_aab]D^^`b`aYDW]abaa`^
-     5	@IRIS:7:1:17:800#0/1
-     6	GGAAACACTACTTAGGCTTATAAGATCNGGTTGCGG
-     7	+IRIS:7:1:17:800#0/1
-     8	ababbaaabaaaaa`]`ba`]`aaaaYD\\_a``XT
-... AND MUCH MUCH MORE ...
-```
-
-There are a lot of lines in that file so this command might take a while to print all its output.
-If you get tired of looking at the output you can kill the command with *control-c* (hold the
-*control* key down and simultaneously press the "*c*" character).
-
-</details>
-
----
-
-#### 5.5) Redirect the output of the previous command to a file called *sample_1.fastq.nl*.
-
-Check the first *20* lines of *sample_1.fastq.nl* with the *head* command. Use the *less* command to
-interactively view the contents of *sample_1.fastq.nl* (use the arrow keys to navigate up and down,
-*q* to quit and '*/*' to search). Use the search facility in less to find occurrences of
-*GATTACA*.
-
-<details>
-  <summary>Hint</summary>
-
-Ok that one was tough, *> FILENAME* is how you do it if you didn't break out an internet search for
-"redirect the output in Unix"
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-```sh
-$ nl sample_1.fastq > sample_1.fastq.nl
-```
-
-The greater-than sign "*>*" is the file redirection operator. It causes the standard output of the
-command on the left-hand-side to be written to the file on the right-hand-side.
-
-You should notice that the above command is much faster than printing the output to the screen.
-This is because writing to disk can be performed much more quickly than rendering the output on
-a terminal.
-
-To check that the first 20 lines of the file look reasonable you can use the *head* command like so:
-
-```sh
-$ head -20 sample_1.fastq.nl
-     1	@IRIS:7:1:17:394#0/1
-     2	GTCAGGACAAGAAAGACAANTCCAATTNACATTATG
-     3	+IRIS:7:1:17:394#0/1
-     4	aaabaa`]baaaaa_aab]D^^`b`aYDW]abaa`^
-     5	@IRIS:7:1:17:800#0/1
-     6	GGAAACACTACTTAGGCTTATAAGATCNGGTTGCGG
-     7	+IRIS:7:1:17:800#0/1
-     8	ababbaaabaaaaa`]`ba`]`aaaaYD\\_a``XT
-...
-```
-
-The *less* command allows you to interactively view a file. The arrow keys move the page up and
-down. You can search using the '*/*' followed by the search term. You can quit by pressing "*q*". Note
-that the *less* command is used by default to display man pages.
-
-```sh
-$ less sample_1.fastq.nl
-```
-
-</details>
-
----
-
-#### 5.6) The four-lines-per-read format of FASTQ is cumbersome to deal with. Often it would be preferable if we could convert it to tab-separated-value (TSV) format, such that each read appears on a single line with each of its fields separated by tabs. Use the following command to convert sample_1.fastq into TSV format:
-
-```sh
-$ cat sample_1.fastq | paste - - - - > sample_1.tsv
-```
-
-<details>
-  <summary>Answer</summary>
-
-The *'-'* (dash) character has a special meaning when used in place of a file; it means use the standard
-input instead of a real file.  Note: while it is fairly common in most Unix programs, not all will support it.
-
-The *paste* command is useful for merging multiple files together line-by-line, such that the *Nth*
-line from each file is joined together into one line in the output, separated by default with a
-*tab* character. In the above example we give paste 4 copies of the contents of *sample_1.fastq*,
-which causes it to join consecutive groups of 4 lines from the file into one line of output.
-
-</details>
-
----
-
-#### 5.7) Do you expect the output of the following command to produce the same output as above? and why?
-
-```sh
-$ paste sample_1.fastq sample_1.fastq sample_1.fastq sample_1.fastq > sample_1b.tsv
-```
-
-Try it, see what ends up in sample_1b.tsv (maybe use *less*)
-
-<details>
-  <summary>Hint</summary>
-
-Use *less* to examine it.
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-**Answer**: No, in the second instance we get 4 copies of each line.
-
-**Why**: In the first command *paste* will use the input file (standard input) 4 times since the *cat*
-command will only give one copy of the file to *paste*, where as, in the second command *paste* will open
-the file 4 times.  Note: this is quite confusing and is not necessory to remember; its just an interesting
-side point.
-
-</details>
-
----
-
-#### 5.8) Check that *sample_1.tsv* has the correct number of lines. Use the *head* command to view the first *20* lines of the file.
-
-<details>
-  <summary>Hint</summary>
-
-Remember the *wc* command.
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-We can count the number of lines in *sample_1.tsv* using *wc*:
-
-```sh
-$ wc -l sample_1.tsv
-```
-
-The output should be *750000* as expected (1/4 of the number of lines in sample_1.fastq).
-
-To view the first *20* lines of *sample_1.tsv* use the *head* command:
-
-```sh
-$ head -20 sample_1.tsv
-```
-
-</details>
-
----
-
-#### 5.9) Use the *cut* command to print out the second column of *sample_1.tsv*. Redirect the output to a file called *sample_1.dna.txt*.
-
-<details>
-  <summary>Hint</summary>
-
-See exercise 5.3 (for cut) and 5.5 (redirection)
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-The file sample_1.tsv is in column format. The cut command can be used to select certain columns
-from the file. The DNA sequences appear in column 2, we select that column using the -f 2 flag
-(the f stands for "field").
-
-```sh
-cut -f 2 sample_1.tsv > sample_1.dna.txt
-```
-
-Check that the output file looks reasonable using *head* or *less*.
-
-</details>
-
----
-
-#### 5.10) Use the *sort* command to sort the lines of *sample_1.dna.txt* and redirect the output to *sample_1.dna.sorted.txt*. Use *head* to look at the first few lines of the output file. You should see a lot of repeated sequences of As.
-
-<details>
-  <summary>Hint</summary>
-
-Use *man* (sort) and see exercise 5.5 (redirection)
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-```sh
-$ sort sample_1.dna.txt > sample_1.dna.sorted.txt
-```
-
-Running *head* on the output file reveals that there are duplicate DNA sequences in the input FASTQ
-file.
-
-</details>
-
----
-
-#### 5.11) Use the *uniq* command to remove duplicate consecutive lines from *sample_1.dna.sorted.txt*, redirect the result to *sample_1.dna.uniq.txt*. Compare the number of lines in sample1_dna.txt to the number of lines in *sample_1.dna.uniq.txt*.
-
-<details>
-  <summary>Hint</summary>
-
-I am pretty sure you have already used *man* (or just guessed how to use *uniq*).  You're also a gun at
-redirection now.
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-```sh
-$ uniq sample_1.dna.sorted.txt > sample_1.dna.uniq.txt
-```
-
-Compare the outputs of:
-
-```sh
-$ wc -l sample_1.dna.sorted.txt
-750000
-$ wc -l sample_1.dna.uniq.txt
-614490
-```
-
-View the contents of *sample_1.dna.uniq.txt* to check that the duplicate DNA sequences have been
-removed.
-
-</details>
-
----
-
-#### 5.12) Can you modify the command from above to produce *only* those sequences of DNA which were duplicated in *sample_1.dna.sorted.txt*?
-
-<details>
-  <summary>Hint</summary>
-
-Checkout the *uniq* manpage
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-Look at the man page for uniq.
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Use the *-d* flag to *uniq* to print out only the duplicated lines from the file:
-
-```sh
-$ uniq -d sample_1.dna.sorted.txt > sample_1.dna.dup.txt
-```
-
-</details>
-
----
-
-#### 5.13) Write a *shell pipeline* which will print the number of duplicated DNA sequences in sample_1.fastq.
-
-<details>
-  <summary>Hint</summary>
-
-That is, *piping* most of the commands you used above instead of redirecting to file
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-i.e. 6 commands (*cat*, *paste*, *cut*, *sort*, *uniq*, *wc*)
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Finally we can 'pipe' all the pieces together into a sophisticated pipeline which starts with a
-FASTQ file and ends with a list of duplicated DNA sequences:
-
-**Answer**:
-```sh
-$ cat sample_1.fastq | paste - - - - | cut -f 2 | sort | uniq -d | wc -l
-56079
-```
-
-The output file should have *56079* lines.
-
-</details>
-
----
-
-#### 5.14) (Advanced) Write a shell script which will print the number of duplicated DNA sequences in sample_1.fastq.
-
-<details>
-  <summary>Hint</summary>
-
-Check out the *sleepy* file (with *cat* or *nano*); there is a bit of magic on the first line that you will need.
-
-You also need to tell bash that this file can be executed (check out *chmod* command).
-
-</details>
-
-<details>
-  <summary>Answer</summary>
-
-Put the answer to *5.13* into a file called *sample_1_dups.sh* (or whatever you want). Use *nano* to
-create the file.
-
-**Answer**: the contents of the file will look like this:
-
-```sh
-#!/bin/bash
-
-cat sample_1.fastq | paste - - - - | cut -f 2 | sort | uniq -d | wc -l
-```
-
-<div class="info"><b>Note</b>: the first line has special meaning.  If it starts with '<em>#!</em>' (Hash
-then exclamation mark) then it tells bash this file is a script that can be interpreted.  The command
-(including full path) used to intepret the script is placed right after the magic code.</div>
-
-Give everyone execute permissions on the file with chmod:
-
-```sh
-$ chmod +x sample_1_dups.sh
-```
-
-You can run the script like so:
-
-```sh
-$ ./sample_1_dups.sh
-```
-
-If all goes well the script should behave in exactly the same way as the answer to 5.13.
-
-</details>
-
----
-
-#### 5.15) (Advanced) Modify your shell script so that it accepts the name of the input FASTQ file as a command line parameter.
-
-<details>
-  <summary>Hint</summary>
-
-Shell scripts can refer to command line arguments by their position using special variables called
-*$0*, *$1*, *$2* and so on.
-
-</details>
-
-<details>
-  <summary>Additional Hint</summary>
-
-*$0* refers to the name of the script as it was called on the command line.
-*$1* refers to the first command line argument, and so on.
-
-</details>
-
-
-<details>
-  <summary>Answer</summary>
-
-Copy the shell script from *5.14* into a new file:
-
-```sh
-$ cp sample_1_dups.sh fastq_dups.sh
-```
-
-Edit the new shell script file and change it to use the command line parameters:
-
-```sh
-#!/bin/bash
-
-cat $1 | paste - - - - | cut -f 2 | sort | uniq -d | wc -l
-```
-
-You can run the new script like so:
-
-```sh
-$ ./fastq_dups.sh sample_1.fastq
-```
-
-In the above example the script takes *sample_1.fastq* as input and prints the number of duplicated
-sequences as output.
-
-**A better Answer**:
-
-Ideally we would write our shell script to be more robust. At the moment it just assumes there
-will be at least one command line argument. However, it would be better to check and produce an
-error message if insufficient arguments were given:
-
-```sh
-#!/bin/bash
-if [ $# -eq 1 ]; then
-    cat $1 | paste - - - - | cut -f 2 | sort | uniq -d | wc -l
-else
-    echo "Usage: $0 <fastq_filename>"
-    exit 1
-fi
-```
-
-The '*if ...; then*' line means: do the following line(s) ONLY if the *...* (called condition) bit is true.
-
-The '*else*' line means: otherwise do the following line(s) instead.  Note: it is optional.
-
-The '*fi*' line means: this marks the end of the current *if* or *else* section.
-
-The '*[ $# -eq 1 ]*' part is the condition:
-
-* *$#*: is a special shell variable that indicates how many command line arguments were given.
-* *-eq*: checks if the numbers on either side of it are equal.
-* *1*: is a number one
-
-<div class="warning"><b>Spaces in conditions</b>:
-Bash is VERY picky about the spaces within the conditions; if you get it wrong it will just behave strangely
-(without warning).  You MUST put a space near the share brackets and between each part of the condition!</div>
-
-So in words our script is saying "if user provided 1 filename, then count the duplicates, otherwise print an error".
-
-<div class="info"><b>Exit-status</b>:
-It is a Unix standard that when the user provides incorrect commandline arguments we print a usage message
-and return a *non-zero* exit status.  The *exit status* is a standard way for other programs to know if
-our program ran correctly; 0 means everything went as expected, any other number is an error.  If you don't
-provide an *exit ..* line then it automatically returns a 0 for you.</div>
-
-</details>
-
----
-
-#### 5.16) (Advanced) Modify your shell script so that it accepts zero or more FASTQ files on the command line argument and outputs the number of duplicated DNA sequences in each file.
-
-<details>
-  <summary>Answer</summary>
-
-We can add a loop to our script to accept multiple input FASTQ files:
-
-```sh
-#!/bin/bash
-for file in $@; do
-    dups=$(cat $file | paste - - - - | cut -f 2 | sort | uniq -d | wc -l)
-    echo "$file $dups"
-done
-```
-
-There's a lot going on in this script.
-
-The *$@* is a sequence of all command line arguments.
-
-The '*for ...; do*' (a.k.a. for loop) iterates over that sequence one argument at a time, assigning the current argument in
-the sequence to the variable called *file*.
-
-The *$(...)* allow us to capture the output of another command (in-place of the *...*).  In this
-case we capture the output of the pipeline and save it to the variable called *dups*.
-
-If you had multiple FASTQ files available you could run the script like so:
-
-```sh
-./fastq_dups.sh sample_1.fastq sample_2.fastq sample_3.fastq
-```
-
-And it would produce output like:
-
-```text
-sample_1.fastq 56079
-sample_2.fastq XXXXX
-sample_3.fastq YYYYY
-```
+        Or, alternatively:
+        ```
+        tail -n 12 *.fastq | grep -v "^==>" | grep . > new_sample.fastq
+        ```
 
-</details>
+-------------------------------
 
 ## Finished
 
-Well done, you learnt a lot over the last 5 topics and you should be proud of your achievement; it
-was a lot to take in.
+Well done, you learnt a lot over the last 7 sections; it's a lot to take in!
 
-From here you should be comfortable around the Unix command line and ready to take on the HPC
-Workshop.
+From here you should be comfortable around the Unix command line and be ready to complete other workshops based on the command line here at Melbourne Bioinformatics.
 
-You will no-doubt forget a lot of what you learnt here so I encourage you to save a link to this
-workshop for later reference.
+You will no-doubt forget a lot of what you learnt here so we encourage you to save a link to this workshop for later reference.
 
-Thank you for your attendance, please don't forget to complete the training survey and give it
-back to the workshop facilitators.
+### Table of commands used
+| Command     | Description                          |
+| :---------- | :----------------------------------- |
+| `whoami`    | print current user name              |
+| `date`      | system date and time                 |
+| `cal`       | calendar                             |
+| `man`       | manual page                          |
+| `pwd`       | print working directory              |
+| `ls`        | list contents                        |
+| `wc`        | word count                           |
+| `mkdir`     | make directory                       |
+| `cd`        | change directory                     |
+| `history`   | print list of previous commands      |
+| `less`      | view file                            |
+| `head`      | show first lines of file             |
+| `tail`      | show last lines of file              |
+| `cp`        | copy files/directories               |
+| `mv`        | move files/directories               |
+| `chmod`     | change permissions                   |
+| `rmdir`     | remove empty directory               |
+| `rm`        | remove file                          |
+| `grep`      | search a pattern                     |
+| `gzip`      | gzip a file                          |
+| `gunzip`    | decompress a gzipped file            |
+
+
+### Additional Resources
+
+This workshop is just the tip of the Unix iceberg! There is lots more to learn out there. Below are some reseources that will help with further learning.
+
+* [The HPC workshops](https://www.eventbrite.com.au/o/research-computing-services-10600096884) run by Research Computing Services (University of Melbourne researchers only) are a great intro to using a command-line interface to access a HPC system.
+* [This tutorial](https://www.berniepope.id.au/assets/files/intro_to_unix.pdf) is a detailed intro to Unix programming by A/Prof Bernie Pope.

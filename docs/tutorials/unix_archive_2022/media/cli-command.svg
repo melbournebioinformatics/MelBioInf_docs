@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1055.2756"
+   height="169.44882"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="cli-command.svg"
+   inkscape:export-filename="/home/arobinson/Documents/AptanaStudio/lscc_docs/docs/tutorials/unix/media/cli-command.png"
+   inkscape:export-xdpi="150.04741"
+   inkscape:export-ydpi="150.04741">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="510.03828"
+     inkscape:cy="-105.21965"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     fit-margin-left="1"
+     fit-margin-top="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     inkscape:window-width="1280"
+     inkscape:window-height="1561"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       units="mm"
+       spacingx="1mm"
+       spacingy="1mm"
+       originx="-3.5888887mm"
+       originy="-248.58889mm" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-12.716536,-2.0865724)">
+    <rect
+       style="fill:#f6f6f6;fill-opacity:1;fill-rule:nonzero;stroke:#b0b0b0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974000000037"
+       id="rect3843-0"
+       width="1045.2755"
+       height="88.582664"
+       x="17.716536"
+       y="77.952728"
+       rx="4.8000002"
+       ry="4.8000007"
+       inkscape:export-xdpi="150.04741"
+       inkscape:export-ydpi="150.04741" />
+    <rect
+       style="fill:#ececec;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:8.63999974000000037"
+       id="rect3843"
+       width="1045.2756"
+       height="53.149597"
+       x="17.716536"
+       y="7.0865722"
+       rx="4.8000002"
+       ry="4.8000002" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2987"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion2989"><rect
+           id="rect2991"
+           width="139.64285"
+           height="90.35714"
+           x="150"
+           y="102.36218" /></flowRegion><flowPara
+         id="flowPara2993" /></flowRoot>    <text
+       xml:space="preserve"
+       style="font-size:27.87226677px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="35.299454"
+       y="42.190563"
+       id="text2995"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0037853,0.996229)"
+       inkscape:export-xdpi="150.04741"
+       inkscape:export-ydpi="150.04741"
+       inkscape:export-filename="/home/arobinson/Documents/AptanaStudio/lscc_docs/docs/tutorials/unix/media/cli-command.png"><tspan
+         sodipodi:role="line"
+         x="35.299454"
+         y="42.190563"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier"
+         id="tspan2999"><tspan
+           style="font-weight:bold;fill:#2079ff;fill-opacity:1"
+           id="tspan3826">$ </tspan><tspan
+           style="font-weight:bold;fill:#000000;fill-opacity:1"
+           id="tspan3816">grep    <tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3791">-i</tspan>   --recursive  <tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3825">-B 1</tspan>   &quot;rew robi&quot; tmp/groups.txt  </tspan></tspan><tspan
+         sodipodi:role="line"
+         x="35.299454"
+         y="77.030899"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier;-inkscape-font-specification:Courier;fill:#000000;fill-opacity:1"
+         id="tspan3877" /><tspan
+         sodipodi:role="line"
+         x="35.299454"
+         y="111.87123"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
+         id="tspan3857"> /----\  <tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3823">/--\</tspan>  \---------/ <tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3827">/----\</tspan>  \--------/ \------------/</tspan><tspan
+         sodipodi:role="line"
+         x="35.299454"
+         y="146.71156"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
+         id="tspan3861">command  <tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3821">flag</tspan>   long flag  <tspan
+   style="fill:#4b4b4b;fill-opacity:1"
+   id="tspan3829">option</tspan>   \- anonymous options -/</tspan><tspan
+         sodipodi:role="line"
+         x="35.299454"
+         y="181.5519"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;text-anchor:start;fill:#5599ff;fill-opacity:1;font-family:Courier;-inkscape-font-specification:Courier"
+         id="tspan3863" /></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3835"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion3837"><rect
+           id="rect3839"
+           width="31.428572"
+           height="47.857143"
+           x="20.714285"
+           y="75.219322" /></flowRegion><flowPara
+         id="flowPara3841" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3818"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(12.716536,2.0865924)"><flowRegion
+         id="flowRegion3820"><rect
+           id="rect3822"
+           width="2.1428571"
+           height="39.285713"
+           x="301.42856"
+           y="-23.256458" /></flowRegion><flowPara
+         id="flowPara3824" /></flowRoot>    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="231.42857"
+       y="33.886398"
+       id="text3865"
+       sodipodi:linespacing="125%"
+       transform="translate(12.716536,2.0865924)"><tspan
+         sodipodi:role="line"
+         id="tspan3867"
+         x="233.33873"
+         y="33.886398" /></text>
+  </g>
+</svg>
