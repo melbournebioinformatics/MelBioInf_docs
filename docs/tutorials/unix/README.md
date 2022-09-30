@@ -1,5 +1,5 @@
 
-PR reviewers and advice: Andrew Robinson, Peter Georgeson, Chol-hee Jung, Ben Moran
+PR reviewers and advice: Steven Morgan
 
 Current slides: TBD
 
