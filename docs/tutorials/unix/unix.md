@@ -111,6 +111,14 @@ You will be given an individual IP address and password to log on to using the S
 Should you wish to complete this workshop independently, you can do so locally (for Mac and LINUX users) or via CloudStor SWAN (for Windows users).
 
 -------------------------------
+
+### Slides and PDF instructions
+
+[The slides presented during this workshop are available here](../media/slides.pdf).
+
+[A printer-friendly PDF version of this workshop is available here](../unix.pdf).
+
+-------------------------------
 ## Author Information
 Written by: Steven Morgan
 Melbourne Bioinformatics, University of Melbourne
