@@ -115,7 +115,7 @@ Should you wish to complete this workshop independently, you can do so locally (
 Written by: Steven Morgan
 Melbourne Bioinformatics, University of Melbourne
 
-Created/Reviewed: September 2022
+Created/Reviewed: October 2022
 
 A previous introductory Unix workshop is archived [here](../unix_archive_2022/unix.md).
 
@@ -123,7 +123,7 @@ A previous introductory Unix workshop is archived [here](../unix_archive_2022/un
 ## Background
 
 Before we begin the hands-on part of this workshop, we will first give a short presentation to introduce some important Unix concepts.
-The slides are available here.
+[The slides are available here](../media/slides.pdf).
 
 -------------------------------
 
@@ -491,6 +491,8 @@ less sample_1.fastq
     If a file is in a compressed format, you will need to decompress it first before you view it with `less`.
 
     For example, the `gunzip` command will decompress a fastq.gz file.
+
+    Alternatively, you can view the contents of an uncompressed file by printing it to the screen with the command `zcat`.
 
 
 When you are using `less`, you can move forward or backwards one line at a time
@@ -860,30 +862,30 @@ From here you should be comfortable around the Unix command line and be ready to
 You will no-doubt forget a lot of what you learnt here so we encourage you to save a link to this workshop for later reference.
 
 ### Table of commands used
-| Command     | Description                          |
-| :---------- | :----------------------------------- |
-| `whoami`    | print current user name              |
-| `date`      | system date and time                 |
-| `cal`       | calendar                             |
-| `man`       | manual page                          |
-| `pwd`       | print working directory              |
-| `ls`        | list contents                        |
-| `wc`        | word count                           |
-| `mkdir`     | make directory                       |
-| `cd`        | change directory                     |
-| `history`   | print list of previous commands      |
-| `less`      | view file                            |
-| `head`      | show first lines of file             |
-| `tail`      | show last lines of file              |
-| `cp`        | copy files/directories               |
-| `mv`        | move files/directories               |
-| `chmod`     | change permissions                   |
-| `rmdir`     | remove empty directory               |
-| `rm`        | remove file                          |
-| `grep`      | search a pattern                     |
-| `gzip`      | gzip a file                          |
-| `gunzip`    | decompress a gzipped file            |
-
+| Command     | Description                        |
+| :---------- | :--------------------------------- |
+| `whoami`    | print current user name            |
+| `date`      | system date and time               |
+| `cal`       | calendar                           |
+| `man`       | manual page                        |
+| `pwd`       | print working directory            |
+| `ls`        | list contents                      |
+| `wc`        | word count                         |
+| `mkdir`     | make directory                     |
+| `cd`        | change directory                   |
+| `history`   | print list of previous commands    |
+| `less`      | view file                          |
+| `head`      | show first lines of file           |
+| `tail`      | show last lines of file            |
+| `cp`        | copy files/directories             |
+| `mv`        | move files/directories             |
+| `chmod`     | change permissions                 |
+| `rmdir`     | remove empty directory             |
+| `rm`        | remove file                        |
+| `grep`      | search for a pattern               |
+| `gzip`      | gzip a file                        |
+| `gunzip`    | decompress a gzipped file          |
+| `zcat`      | view contents of a compressed file |
 
 ### Additional Resources
 
