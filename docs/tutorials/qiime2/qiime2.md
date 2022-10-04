@@ -95,7 +95,9 @@ It is possible to [apply for your own Nectar allocation](https://www.melbournebi
 --------------------------------
 ### Required Software
 
-For information about required software, click [here](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#required-software).
+For information about required software, click [here](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#required-software).  
+
+You will need to use a Google Chrome or Mozilla Firefox web browser to view files in QIIME2 View.
 
 
 -----------------------
@@ -162,7 +164,11 @@ Quantitative Insights Into Microbial Ecology 2 ([QIIME 2™](https://www.nature.
 <br>
 #### Viewing QIIME2 visualisations
 
-As this workshop is being run on a remote Nectar Instance, you will need to [download the visual files (<fn>*.qzv</fn>) to your local computer](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#transferring-files-between-your-computer-and-nectar-instance) and view them in [QIIME 2 View](https://view.qiime2.org) (q2view).
+!!! attention
+    In order to use QIIME2 View to visualise your files, you will need to use a Google Chrome or Mozilla Firefox web browser (not in private browsing). For more information, click [here](https://view.qiime2.org/incompatible-browser/).
+
+
+As this workshop is being run on a remote Nectar Instance, you will need to [download the visual files (<fn>*.qzv</fn>) to your local computer](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#transferring-files-between-your-computer-and-nectar-instance) and view them in [QIIME2 View](https://view.qiime2.org) (q2view).
 
 
 !!! attention
