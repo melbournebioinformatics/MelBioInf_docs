@@ -36,7 +36,8 @@ nav:
         - 'Introduction to Genome Browsers': 'tutorials/Genome_browsers/GenomeBrowsers_Intro.md'
         - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
         - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
-        - 'Common Workflow Language for Bioinformatics': 'tutorials/cwl/cwl.md'
+        - 'Common Workflow Language (CWL) for Bioinformatics (2018)': 'tutorials/cwl_2018/cwl_2018.md'
+        - 'Common Workflow Language (CWL) for Bioinformatics (2022)': 'tutorials/cwl_2022/cwl_2022.md'
         - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
     - 'Genomics':
         - 'Variant detection':
