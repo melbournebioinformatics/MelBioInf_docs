@@ -75,7 +75,7 @@ nav:
         - 'Workshops on Nectar Instances': 'tutorials/workshop_delivery_mode_info/workshops_nectar.md'
     - 'Archive':
         - 'Introduction to Unix-Archive': 'tutorials/unix_archive_2022/unix.md'
-        - 'Introduction to CWL': 'tutorials/cwl_2018/cwl_2018.md'
+        - 'Introduction to CWL': 'tutorials/cwl/cwl.md'
 
 extra_templates: [
   'tutorials/hpc/slides.html',

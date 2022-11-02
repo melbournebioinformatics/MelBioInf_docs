@@ -5,7 +5,7 @@
 
 >**Important**<br>
 >This material is no longer maintained and may be out of date.<br>
->Please go to this link below for a current [Introduction to CWL](tutorials/cwl_2022/cwl_2022.md)
+>Please go to this link below for a current [Introduction to CWL](../cwl_2022/cwl_2022.md)
 
 ## Summary
 Common Workflow Language (or CWL), is a growing language for defining workflows in a cross-platform and cross-domain manner. In biology in particular, we need workflows to automate complex analyses such as DNA variant calling, RNA sequencing, and genome assembly. CWL provides a simple and well-defined format for automating these analysis by specifying their stages and connections using readable CWL documents.
