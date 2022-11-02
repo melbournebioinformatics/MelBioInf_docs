@@ -34,9 +34,9 @@ nav:
         - 'Introduction to Unix': 'tutorials/unix/unix.md'
         - 'Introduction to R for Biologists': 'tutorials/intro_R_biologists/intro_R_biologists.md'
         - 'Introduction to Genome Browsers': 'tutorials/Genome_browsers/GenomeBrowsers_Intro.md'
+        - 'Introduction to CWL': 'tutorials/cwl_2022/cwl_2022.md'
         - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
         - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
-        - 'Common Workflow Language for Bioinformatics': 'tutorials/cwl/cwl.md'
         - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
     - 'Genomics':
         - 'Variant detection':
@@ -75,6 +75,7 @@ nav:
         - 'Workshops on Nectar Instances': 'tutorials/workshop_delivery_mode_info/workshops_nectar.md'
     - 'Archive':
         - 'Introduction to Unix-Archive': 'tutorials/unix_archive_2022/unix.md'
+        - 'Introduction to CWL': 'tutorials/cwl/cwl.md'
 
 extra_templates: [
   'tutorials/hpc/slides.html',
