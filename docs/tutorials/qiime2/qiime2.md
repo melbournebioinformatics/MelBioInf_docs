@@ -95,7 +95,9 @@ It is possible to [apply for your own Nectar allocation](https://www.melbournebi
 --------------------------------
 ### Required Software
 
-For information about required software, click [here](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#required-software).
+For information about required software, click [here](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#required-software).  
+
+You will need to use a Google Chrome or Mozilla Firefox web browser to view files in QIIME2 View.
 
 
 -----------------------
@@ -149,7 +151,7 @@ Dungan AM, van Oppen MJH, and Blackall LL (2021) Short-Term Exposure to Sterile 
 ### QIIME 2 Analysis platform
 
 !!! attention
-    The version used in this workshop is qiime2-2021.4. Other versions of QIIME2 may result in minor differences in results.
+    The version used in this workshop is qiime2-2021.8. Other versions of QIIME2 may result in minor differences in results.
 
 <br>
 Quantitative Insights Into Microbial Ecology 2 ([QIIME 2™](https://www.nature.com/articles/s41587-019-0209-9)) is a next-generation microbiome [bioinformatics platform](https://qiime2.org/) that is extensible, free, open source, and community developed. It allows researchers to:  
@@ -162,7 +164,11 @@ Quantitative Insights Into Microbial Ecology 2 ([QIIME 2™](https://www.nature.
 <br>
 #### Viewing QIIME2 visualisations
 
-As this workshop is being run on a remote Nectar Instance, you will need to [download the visual files (<fn>*.qzv</fn>) to your local computer](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#transferring-files-between-your-computer-and-nectar-instance) and view them in [QIIME 2 View](https://view.qiime2.org) (q2view).
+!!! attention
+    In order to use QIIME2 View to visualise your files, you will need to use a Google Chrome or Mozilla Firefox web browser (not in private browsing). For more information, click [here](https://view.qiime2.org/incompatible-browser/).
+
+
+As this workshop is being run on a remote Nectar Instance, you will need to [download the visual files (<fn>*.qzv</fn>) to your local computer](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#transferring-files-between-your-computer-and-nectar-instance) and view them in [QIIME2 View](https://view.qiime2.org) (q2view).
 
 
 !!! attention
@@ -189,7 +195,7 @@ byobu-screen -S workshop
 ```
 
 #### Reconnecting to a byobu-screen session
-If you get disconnected from your Nectar Instance, follow the instructions [**here**](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#reconnecting-to-a-byobu-screen-session) to resume your session.
+If you get disconnected from your Nectar Instance, follow the instructions [here](https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#reconnecting-to-a-byobu-screen-session) to resume your session.
 
 -------------
 ### Symbolic links to workshop data
@@ -207,7 +213,7 @@ ln -s /mnt/shared_data/silva_138_16s_v5v6_classifier_2021-4.qza silva_138_16s_v5
 ## Section 1: Importing, cleaning and quality control of the data
 
 ### Import data
-These [samples](#the-study) were sequenced on a single Illumina MiSeq run using v3 (2 × 300 bp) reagents at the Walter and Eliza Hall Institute (WEHI), Melbourne, Australia. Data from WEHI came as paired-end, demultiplexed, unzipped <fn>*.fastq</fn> files with adapters still attached. Following the [QIIME2 importing tutorial](https://docs.qiime2.org/2021.11/tutorials/importing/), this is the Casava One Eight format. The files have been renamed to satisfy the Casava format as <fn>SampleID_FWDXX-REVXX_L001_R[1 or 2]_001.fastq</fn> e.g. CTRLA_Fwd04-Rev25_L001_R1_001.fastq.gz. The files were then zipped (.gzip).
+These [samples](#the-study) were sequenced on a single Illumina MiSeq run using v3 (2 × 300 bp) reagents at the Walter and Eliza Hall Institute (WEHI), Melbourne, Australia. Data from WEHI came as paired-end, demultiplexed, unzipped <fn>*.fastq</fn> files with adapters still attached. Following the [QIIME2 importing tutorial](https://docs.qiime2.org/2022.8/tutorials/importing/), this is the Casava One Eight format. The files have been renamed to satisfy the Casava format as <fn>SampleID_FWDXX-REVXX_L001_R[1 or 2]_001.fastq</fn> e.g. CTRLA_Fwd04-Rev25_L001_R1_001.fastq.gz. The files were then zipped (.gzip).
 
 Here, the data files (two per sample i.e. forward and reverse reads `R1` and `R2` respectively) will be imported and exported as a single QIIME 2 artefact file. These samples are already demultiplexed (i.e. sequences from each sample have been written to separate files), so a metadata file is not initially required.
 
@@ -290,9 +296,13 @@ Copy `analysis/visualisations/trimmed_sequences.qzv` to your local computer and 
 
 
 ??? example "Visualisations: Read quality and demux output"
-    ![fwd_reads_quality_scoresPNG](./media/Fwd_reads_quality_scores.png)
-    ![Rev_reads_quality_scoresPNG](./media/Rev_reads_quality_scores.png)
-    ![demux_summary](./media/demux_summary.png)
+    [Click to view the **`trimmed_sequences.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Funvwfzd922r5d18%2Ftrimmed_sequences.qzv%3Fdl%3D1).
+
+    <br>
+    Make sure to switch between the "Overview" and "Interactive Quality Plot" tabs in the top left hand corner. Click and drag on plot to zoom in. Double click to zoom back out to full size. Hover over a box to see the parametric seven-number summary of the quality scores at the corresponding position.
+
+
+    ![OverviewQualPlotTabs](./media/q2view_OverviewQualPlotTabs.png)
 
 
 ###  Denoising the data
@@ -309,7 +319,7 @@ Trimmed sequences are now quality assessed using the `dada2` [plugin](https://pu
 !!! question "Question: Based on your assessment of the quality plots from the <fn>trimmed_sequences.qzv</fn> file generated in the previous step, what values would you select for `p-trunc-len-f` and `p-trunc-len-r` in the command below? *Hint: At what base pair does the median quality drop below 30?*"
 
     ??? answer
-        For version qiime2-2021.4: `p-trunc-len-f 211` and `p-trunc-len-r 172`. Other QIIME2 versions may slightly differ. Upload your `trimmed_sequences.qzv` file to QIIME2 view, change to the "Interactive Quality Plot" tab and zoom in on the plots to find the relevant base pairs for the QIIME2 version you are using.
+        For version qiime2-2021.8: `p-trunc-len-f 211` and `p-trunc-len-r 167`. Other QIIME2 versions may slightly differ. Upload your `trimmed_sequences.qzv` file to QIIME2 view, change to the "Interactive Quality Plot" tab and zoom in on the plots to find the relevant base pairs for the QIIME2 version you are using.
 
 
 *The specified output directory must not pre-exist.*  
@@ -327,7 +337,7 @@ qiime dada2 denoise-paired \
 
 ### Generate summary files
 
-A [metadata file](https://docs.qiime2.org/2021.11/tutorials/metadata/) is required which provides the key to gaining biological insight from your data. The file <fn>metadata.tsv</fn> is provided in the home directory of your Nectar instance. This spreadsheet has already been verified using the plugin for Google Sheets, [keemei](https://keemei.qiime2.org/).  
+A [metadata file](https://docs.qiime2.org/2022.8/tutorials/metadata/) is required which provides the key to gaining biological insight from your data. The file <fn>metadata.tsv</fn> is provided in the home directory of your Nectar instance. This spreadsheet has already been verified using the plugin for Google Sheets, [keemei](https://keemei.qiime2.org/).  
 
 !!! info "**Things to look for:**"
     1. How many features (*ASVs*) were generated? Are the communities high or low diversity?
@@ -346,7 +356,9 @@ Copy `analysis/visualisations/16s_denoising_stats.qzv` to your local computer an
 
 
 ??? example "Visualisation: Denoising Stats"
-    ![dada2output](./media/dada2output.png)
+    [Click to view the **`16s_denoising_stats.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fi6iapb3j6xeansb%2F16s_denoising_stats.qzv%3Fdl%3D1).
+
+
 
 <br>
 ```python
@@ -361,8 +373,11 @@ Copy `analysis/visualisations/16s_table.qzv` to your local computer and view in 
 
 
 ??? example "Visualisations: Feature/ASV summary"
-    ![ASV_overviewPNG](./media/ASV_overview.png)
-    ![ASV_detailPNG](./media/ASV_detail.png)
+    [Click to view the **`16s_table.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fvrlp9yr27rzxghw%2F16s_table.qzv%3Fdl%3D1).
+    <br>  
+
+    Make sure to switch between the "Overview" and "Feature Detail" tabs in the top left hand corner.  
+    ![ASV_detailPNG](./media/q2view_ASV_detail.png)
 
 <br>
 ```python
@@ -375,13 +390,14 @@ qiime feature-table tabulate-seqs \
 Copy `analysis/visualisations/16s_representative_seqs.qzv` to your local computer and view in QIIME 2 View (q2view).
 
 ??? example "Visualisation: Representative Sequences"
-    ![rep_seqs](./media/rep_seqs.png)
+    [Click to view the **`16s_representative_seqs.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fiwmocyw8v43v8g0%2F16s_representative_seqs.qzv%3Fdl%3D1).
+
 
 ------------
 ## Section 2: Taxonomic Analysis
 
 ### Assign taxonomy
-Here we will classify each identical read or *Amplicon Sequence Variant (ASV)* to the highest resolution based on a database. Common databases for bacteria datasets are [Greengenes](https://greengenes.secondgenome.com/), [SILVA](https://www.arb-silva.de/), [Ribosomal Database Project](https://rdp.cme.msu.edu/), or [Genome Taxonomy Database](https://gtdb.ecogenomic.org/). See [Porter and Hajibabaei, 2020](https://www.frontiersin.org/articles/10.3389/fevo.2020.00248/full) for a review of different classifiers for metabarcoding research. The classifier chosen is dependent upon:
+Here we will classify each identical read or *Amplicon Sequence Variant (ASV)* to the highest resolution based on a database. Common databases for bacteria datasets are [Greengenes](https://greengenes.secondgenome.com/), [SILVA](https://www.arb-silva.de/), [Ribosomal Database Project](http://rdp.cme.msu.edu/), or [Genome Taxonomy Database](https://gtdb.ecogenomic.org/). See [Porter and Hajibabaei, 2020](https://www.frontiersin.org/articles/10.3389/fevo.2020.00248/full) for a review of different classifiers for metabarcoding research. The classifier chosen is dependent upon:
 
 1. Previously published data in a field
 2. The target region of interest
@@ -426,7 +442,8 @@ qiime metadata tabulate \
 Copy `analysis/visualisations/taxonomy.qzv` to your local computer and view in QIIME 2 View (q2view).
 
 ??? example "Visualisation: Taxonomy"
-    ![taxonomy](./media/taxonomy.png)
+    [Click to view the **`taxonomy.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F5emu7e2fvepbw78%2Ftaxonomy.qzv%3Fdl%3D1).
+
 
 
 ### Filtering
@@ -458,7 +475,8 @@ qiime feature-table summarize \
 Copy `analysis/visualisations/16s_table_filtered.qzv` to your local computer and view in QIIME 2 View (q2view).
 
 ??? example "Visualisation: 16s_table_filtered"
-    ![16s_table_filtered](./media/16s_table_filtered.png)
+    [Click to view the **`16s_table_filtered.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F5vscchmeyf139xk%2F16s_table_filtered.qzv%3Fdl%3D1).
+
 
 ---------------------------------------
 ## Section 3: Build a phylogenetic tree
@@ -512,11 +530,14 @@ Copy `analysis/visualisations/barchart.qzv` to your local computer and view in Q
 
 
 ??? example "Visualisations: Taxonomy Barplots"
-    ![barplot1](./media/barplot_level1.png)
+    [Click to view the **`barchart.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fco6z0twpx793ez3%2Fbarchart.qzv%3Fdl%3D1).
+    <br>   
 
-    ![barplot2](./media/barplot_level3.png)
+    Increase the "Bar Width", select Index in "Sort Samples By" drop-down menu and explore the resulting barplots by changing the levels in the "Change Taxonomic Level" dropdown menu (Select Level 1, then Level 3, and then Level 5 for example).  
 
-    ![barplot3](./media/barplot_level5.png)
+    ![barplot1](./media/q2view_barplot_levels.png)
+
+
 
 
 ### Rarefaction curves
@@ -548,11 +569,16 @@ Copy `analysis/visualisations/16s_alpha_rarefaction.qzv` to your local computer 
 
 
 ??? example "Visualisation: Rarefaction"
-    ![rarefaction](./media/rarefaction.png)
+    [Click to view the **`16s_alpha_rarefaction.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Ffudof0jv9zhqkt8%2F16s_alpha_rarefaction.qzv%3Fdl%3D1).
+    <br>   
+
+    Select "Genotype" in the "Sample Metadata Column":
+
+    ![rarefaction](./media/q2view_rarefaction.png)
 
 
 ### Alpha and beta diversity analysis
-The following is taken directly from the [Moving Pictures tutorial](https://docs.qiime2.org/2021.11/tutorials/moving-pictures/) and adapted for this data set. QIIME 2’s diversity analyses are available through the `q2-diversity` plugin, which supports computing alpha- and beta- diversity metrics, applying related statistical tests, and generating interactive visualisations. We’ll first apply the core-metrics-phylogenetic method, which rarefies a FeatureTable[Frequency] to a user-specified depth, computes several alpha- and beta- diversity metrics, and generates principle coordinates analysis (PCoA) plots using Emperor for each of the beta diversity metrics.
+The following is taken directly from the [Moving Pictures tutorial](https://docs.qiime2.org/2022.8/tutorials/moving-pictures/) and adapted for this data set. QIIME 2’s diversity analyses are available through the `q2-diversity` plugin, which supports computing alpha- and beta- diversity metrics, applying related statistical tests, and generating interactive visualisations. We’ll first apply the core-metrics-phylogenetic method, which rarefies a FeatureTable[Frequency] to a user-specified depth, computes several alpha- and beta- diversity metrics, and generates principle coordinates analysis (PCoA) plots using Emperor for each of the beta diversity metrics.
 
 The metrics computed by default are:
 
@@ -589,11 +615,11 @@ To view the differences between sample composition using unweighted UniFrac in o
 
 
 ??? example "Visualisations: Unweighted UniFrac Emperor Ordination"
-    ![unweighted_unifrac_emperor1](./media/unweighted_unifrac_emperor1.png)
+    [Click to view the **`unweighted_unifrac_emperor.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F398s8bvfq9r0oj6%2Funweighted_unifrac_emperor.qzv%3Fdl%3D1).  
 
-    On q2view, select the "Colour" tab and the heading "Environment" in the dropdown menu and then by "Genotype" in the "Shape" tab.  
+    On q2view, select the "Color" tab, choose "Environment" under the "Select a Color Category" dropdown menu, then select the "Shape" tab and choose "Genotype" under the "Select a Shape Category" dropdown menu.  
 
-    ![unweighted_unifrac_emperor2](./media/unweighted_unifrac_emperor2.png)
+    ![unweighted_unifrac_emperor2](./media/q2view_unweighted_unifrac_emperor2.png)
 
 Next, we’ll test for associations between categorical metadata columns and alpha diversity data. We’ll do that here for the Faith Phylogenetic Diversity (a measure of community richness) and evenness metrics.
 
@@ -609,7 +635,11 @@ qiime diversity alpha-group-significance \
 Copy `analysis/visualisations/faith-pd-group-significance.qzv` to your local computer and view in QIIME 2 View (q2view).
 
 ??? example "Visualisation: Faith Phylogenetic Diversity output"
-    ![faith](./media/faith.png)
+    [Click to view the **`faith-pd-group-significance.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fy1l344fx10bj9f9%2Ffaith-pd-group-significance.qzv%3Fdl%3D1).  
+
+    Select "Environment" under the "Column" dropdown menu.  
+
+    ![faith](./media/q2view_faith.png)
 
 <br>
 ```python
@@ -622,7 +652,11 @@ qiime diversity alpha-group-significance \
 Copy `analysis/visualisations/evenness-group-significance.qzv` to your local computer and view in QIIME 2 View (q2view).
 
 ??? example "Visualisation: Evenness output"
-    ![evenness](./media/evenness.png)
+    [Click to view the **`evenness-group-significance.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F2l643y3un3vdqcu%2Fevenness-group-significance.qzv%3Fdl%3D1).  
+
+    Select "Genotype" under the "Column" dropdown menu.
+
+    ![evenness](./media/q2view_evenness.png)
 
 Finally, we’ll analyse sample composition in the context of categorical metadata using a permutational multivariate analysis of variance (PERMANOVA, first described in Anderson (2001)) test using the beta-group-significance command. The following commands will test whether distances between samples within a group, such as samples from the same genotype, are more similar to each other then they are to samples from the other groups. If you call this command with the `--p-pairwise` parameter, as we’ll do here, it will also perform pairwise tests that will allow you to determine which specific pairs of groups (e.g., AIMS1 and AIMS4) differ from one another, if any. This command can be slow to run, especially when passing `--p-pairwise`, since it is based on permutation tests. So, unlike the previous commands, we’ll run beta-group-significance on specific columns of metadata that we’re interested in exploring, rather than all metadata columns to which it is applicable. Here we’ll apply this to our unweighted UniFrac distances, using two sample metadata columns, as follows.
 
@@ -640,7 +674,8 @@ qiime diversity beta-group-significance \
 Copy `analysis/visualisations/unweighted-unifrac-genotype-significance.qzv` to your local computer and view in QIIME 2 View (q2view).
 
 ??? example "Visualisation: Genotype significance output"
-    ![genotype_sig](./media/genotype_sig.png)
+    [Click to view the **`unweighted-unifrac-genotype-significance.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fyo7af4kp4qlvdbk%2Funweighted-unifrac-genotype-significance.qzv%3Fdl%3D1).
+
 
 <br>
 ```python
@@ -657,11 +692,14 @@ Copy `analysis/visualisations/unweighted-unifrac-environment-significance.qzv` t
 
 
 ??? example "Visualisation: Environmental significance output"
-    ![env_sig](./media/env_sig.png)
+    [Click to view the **`unweighted-unifrac-environment-significance.qzv`** file in QIIME 2 View](https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F8c9zra173p7qaxh%2Funweighted-unifrac-environment-significance.qzv%3Fdl%3D1).
+    <br>   
 
 
 ??? example "Provenance"
-    ![provenance](./media/provenance.png)
+    [Click to view the **`unweighted-unifrac-environment-significance.qzv`** provenance file in QIIME 2 View](https://view.qiime2.org/provenance/?src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F8c9zra173p7qaxh%2Funweighted-unifrac-environment-significance.qzv%3Fdl%3D1).
+    <br>   
+    ![provenance](./media/q2view_provenance.png)
 
 ------------------------------------------
 ## Section 5: Exporting data for further analysis in R
@@ -724,7 +762,7 @@ Some packages require your data to be in a consistent order, i.e. the order of y
 The newest version of the [SILVA](https://www.arb-silva.de/) database (v138) can be trained to classify marker gene sequences originating from the 16S/18S rRNA gene. Reference files `silva-138-99-seqs.qza` and `silva-138-99-tax.qza` were [downloaded from SILVA](https://www.arb-silva.de/download/archive/) and imported to get the artefact files. You can download both these files from [here](https://www.dropbox.com/s/x8ogeefjknimhkx/classifier_files.zip?dl=0).
 
 
-Reads for the region of interest are first extracted. **You will need to input your forward and reverse primer sequences**. See QIIME2 documentation for more [information](https://docs.qiime2.org/2021.11/plugins/available/feature-classifier/extract-reads/).
+Reads for the region of interest are first extracted. **You will need to input your forward and reverse primer sequences**. See QIIME2 documentation for more [information](https://docs.qiime2.org/2022.8/plugins/available/feature-classifier/extract-reads/).
 
 
 ```python
@@ -736,7 +774,7 @@ qiime feature-classifier extract-reads \
 --verbose
 ```
 
-The classifier is then trained using a naive Bayes algorithm. See QIIME2 documentation for more [information](https://docs.qiime2.org/2021.11/plugins/available/feature-classifier/fit-classifier-naive-bayes/).
+The classifier is then trained using a naive Bayes algorithm. See QIIME2 documentation for more [information](https://docs.qiime2.org/2022.8/plugins/available/feature-classifier/fit-classifier-naive-bayes/).
 
 
 ```python
