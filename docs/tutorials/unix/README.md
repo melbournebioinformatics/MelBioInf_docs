@@ -1,8 +1,6 @@
 
 PR reviewers and advice: Steven Morgan
 
-Current slides: TBD
+Current slides: media/unix_intro_slides.(pdf/pptx)
 
-Other slides:
-
-- None yet
+Other slides: None
