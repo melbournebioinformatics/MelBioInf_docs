@@ -2,7 +2,7 @@
 
 # Introduction to Unix
 
-Anticipated workshop duration when delivered to a group of participants is **2.5 hours**.
+Anticipated workshop duration when delivered to a group of participants is **3 hours**.
 
 For queries relating to this workshop, contact Melbourne Bioinformatics (bioinformatics-training@unimelb.edu.au).
 
@@ -108,22 +108,22 @@ This workshop will be run on a [Nectar](https://cloud.nectar.org.au/) Instance. 
 
 You will be given an individual IP address and password to log on to using the SSH client tool on your computer (Terminal on Mac or PuTTY on Windows).
 
-Should you wish to complete this workshop independently, you can do so locally (for Mac and LINUX users) or via CloudStor SWAN (for Windows users).
+Should you wish to complete this workshop independently, you can do so locally (for Mac and LINUX users) or via binder (for Windows users).
 
 -------------------------------
 
 ### Slides and PDF instructions
 
-[The slides presented during this workshop are available here](../media/slides.pdf).
+The slides presented during this workshop are available here: [PDF](../media/unix_intro_slides.pdf) / [PPTX](../media/unix_intro_slides.pptx).
 
-[A printer-friendly PDF version of this workshop is available here](../unix.pdf).
+[A printer-friendly PDF version of these workshop instructions is available here](../unix_intro_instructions.pdf).
 
 -------------------------------
 ## Author Information
 Written by: Steven Morgan
 Melbourne Bioinformatics, University of Melbourne
 
-Created/Reviewed: October 2022
+Created/Reviewed: November 2022
 
 A previous introductory Unix workshop is archived [here](../unix_archive_2022/unix.md).
 
@@ -131,7 +131,7 @@ A previous introductory Unix workshop is archived [here](../unix_archive_2022/un
 ## Background
 
 Before we begin the hands-on part of this workshop, we will first give a short presentation to introduce some important Unix concepts.
-[The slides are available here](../media/slides.pdf).
+The slides are available here: [PDF](../media/unix_intro_slides.pdf) / [PPTX](../media/unix_intro_slides.pptx)
 
 -------------------------------
 
@@ -176,27 +176,15 @@ We are connecting to a remote computer today so that everyone has an identical e
 
     ??? example "Windows Users"
 
-        Download the zipped file available at [this Zenodo address](https://zenodo.org/record/7059239#.Yxl7A-xBz6B). We will refer to these data later in the workshop.
+        We will be using a service called binder, which builds a Docker image from a specified repository. This will allow you to run Unix commands in a live environment.
 
-        We will be using the command-line interface available via CloudStor SWAN. This is a service that allows researchers to perform data analysis via a web interface.
+        [Access the binder via your web browser.](https://mybinder.org/v2/gh/melbournebioinformatics/MelBioInf_docs/tree/master/docs/tutorials/unix/binder/main)
 
-        [Access the CloudStor service via your web browser](https://cloudstor.aarnet.edu.au) and select your institution to log in using your institutional credentials. If you are not a member of one of the AAF institutions listed, this workshop is not available for you. Please see the list of resources at the bottom of the page.
+        Be patient, it can take a few minutes to set up your environment.
 
-        Once logged in, navigate to the SWAN tab at the top of the page.
+        Once your binder has launched, select *Terminal* from the bottom left-hand corner of the main page.
 
-        Select "start my notebook session", which will launch the SWAN interface.
-
-        On the left-hand side, you'll find the file browser. The default directory is called "scratch". This is the directory we will be using in this workshop.
-
-        Use the plus button in the top right to upload the zipped file to the /scratch directory.
-
-        In the main pane, select *Terminal* from the bottom left-hand corner.
-
-        In the Terminal, you should see a blinking cursor. Type the following commands and press enter after each one. These commands unzip the folder and change the working directory.
-
-        ```
-        unzip unix_intro_data
-        ```
+        In the Terminal, you should see a blinking cursor. Type the following command and press enter. This command sets the working directory.
 
         ```
         cd unix_intro_data
@@ -209,8 +197,6 @@ We are connecting to a remote computer today so that everyone has an identical e
         ```
 
         If the output of this command ends in */unix_intro_data*, well done! Now continue with the hands-on section.
-
-        Now you can continue with the hands-on section.
 
 
 ### Connect to a Unix computer
@@ -272,6 +258,11 @@ We are connecting to a remote computer today so that everyone has an identical e
 
     Try accessing the manual pages for the commands we have used so far. Can you figure out what day of the week your 100th birthday will be?
 
+    ??? attention "binder users"
+        If you are running this workshop in a binder, manual pages may not be accessible via the `man` command.
+
+        Try an internet search for your desired command followed by *manual unix* instead.
+
     ??? hint
         The following command displays the manual page for the `cal` command.
         ```
@@ -279,7 +270,7 @@ We are connecting to a remote computer today so that everyone has an identical e
         ```
 
     When you are using the `man` command, use the up and down arrows to scroll, or press q to quit.
-    The man command is actually using another Unix program, a text viewer called `less`, which we’ll
+    The `man` command is actually using another Unix program, a text viewer called `less`, which we’ll
     come to later on.
 
 -------------------------------
@@ -484,10 +475,11 @@ In this section we will focus on files; how to view them, how to copy them, how 
 ### View a file
 
 We’ve covered finding the locations, sizes and lengths of files, but how do we look inside them?
-The `less` command allows us to view (but not edit) text-based files.
+The `less` command allows us to view (but not edit) text-based files. The `-S` flag sets the line folding to off.
+This is particularly useful when you have very long lines (like our FASTQ files).
 
 ```
-less sample_1.fastq
+less -S sample_1.fastq
 ```
 
 ??? attention "No such file or directory"
@@ -638,7 +630,7 @@ Helpfully, `rmdir` will only remove an empty directory (so we don't accidentally
 
 To remove files, we have to use the `rm` (remove) command.
 
-??? attention "Please read this section VERY carefully!"
+!!! attention "Please read this section VERY carefully!"
 
     Accidental misuse of the `rm` command can lead to huge problems!
 
@@ -784,7 +776,7 @@ whoami > user.txt
 
 The command above sent the output of the `whoami` command to a file called user.txt. Notice that there was no output on the screen. You can check the contents of user.txt with `less`.
 
-??? attention "Warning"
+!!! attention "Warning"
     Be careful when using file redirection (**>**); it will overwrite any existing file of the same name.
 
 We can also use the **>>** operator to append output to the end of an existing file.
@@ -836,7 +828,7 @@ You should see that your user.txt file now contains the output of the `date` com
 ## Section 8: Transferring files
 In this section we will cover how to transfer files between a local and a remote machine using [FileZilla](https://filezilla-project.org/).
 
-!!! attention "Section 8: for in-person workshop participants"
+??? attention "Section 8: for in-person workshop participants"
     Section 8 applies only to in-person workshop participants.
 
 When working on a remote machine like an HPC system, transferring data (in both directions!) is a common task. FileZilla provides a useful interface for these transfers.

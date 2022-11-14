@@ -1,0 +1,5 @@
+name: intro_unix
+channels:
+    - conda-forge
+dependencies:
+    - util-linux
