@@ -25,6 +25,11 @@ You will be given an individual username, IP address and password to log on to u
 **Port:** 22  
 **Password:** *Password that has been given to you.*
 
+!!! attention
+    Follow the instructions for your operating system carefully.
+
+    Repeated failed login attempt might result in being locked out of the account.
+
 <br>
 **Mac Users:**
 
@@ -34,14 +39,28 @@ In *Terminal*, type:
 ssh username@nectar_ip-address
 ```
 
+You will be prompted to enter your password. After you have entered your password, hit `return`.
+
+??? example "Mac Terminal Example"
+    ![TerminalPNG](./media/mac_terminal.png)
+
+??? question "I can't see my password as I'm typing it"
+    You won't receive feedback when entering your password. Rest assured it is being entered as you type it (or paste it in). Hit `return` after you have typed the whole password.
+
 **Windows Users:**
 
-In *PuTTY*, enter the IP address as the host name and 22 for the port. After you click "Open" you'll be prompted to type the username you have been assigned (i.e. alpha | beta | gamma | delta | epsilon | zeta). Press `enter`. You will then be prompted for the password that has been given to you. Press `enter`.
+In *PuTTY*, enter the IP address as the host name and 22 for the port.
 
+After you click "Open" you'll be prompted to type the username you have been assigned (i.e. alpha | beta | gamma | delta | epsilon | zeta). Press `enter`. You will then be prompted for the password that has been given to you. Press `enter`.
 
 ??? example "Putty Example"
     ![PuttyPNG](./media/Putty.png)
 
+??? question "I can't see my password as I'm typing it"
+    You won't receive feedback when entering your password. Rest assured it is being entered as you type it (or paste it in). Hit `enter` after you have typed the whole password.
+
+??? question "How can I use copy and paste to enter my password?"
+    *PuTTY* has a different shortcut for paste compared to what you may be used to. Instead of `ctrl-v`, try right-clicking in the password field to paste the contents of your clipboard.
 
 --------------
 ## Transferring files between your computer and Nectar Instance
