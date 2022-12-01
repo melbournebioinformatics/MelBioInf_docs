@@ -28,7 +28,7 @@ You will be given an individual username, IP address and password to log on to u
 !!! attention
     Follow the instructions for your operating system carefully.
 
-    Repeated failed login attempt might result in being locked out of the account.
+    Repeated failed login attempts might result in being locked out of the account.
 
 <br>
 **Mac Users:**
