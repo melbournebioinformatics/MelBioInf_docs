@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.6
+          python-version: 3.6.15
 
       # installs the dependencies mkdocs needs to build our website. 
       # dependencies are listed in 'requirements.txt' - markdown-include, mkdocs-material etc
