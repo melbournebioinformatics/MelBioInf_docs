@@ -154,7 +154,7 @@ We are connecting to a remote computer today so that everyone has an identical e
 
     ??? example "Mac Users"
 
-        Download the zipped file available at [this Zenodo address](https://zenodo.org/record/7059239#.Yxl7A-xBz6B). We will refer to these data later in the workshop.
+        Download the zipped file available at [this Zenodo address](https://zenodo.org/record/7349747#.Y32_XOxByrU). We will refer to these data later in the workshop.
 
         Unzip the file by double clicking it in a Finder window.
 
@@ -178,25 +178,13 @@ We are connecting to a remote computer today so that everyone has an identical e
 
         We will be using a service called binder, which builds a Docker image from a specified repository. This will allow you to run Unix commands in a live environment.
 
-        [Access the binder via your web browser.](https://mybinder.org/v2/gh/melbournebioinformatics/MelBioInf_docs/tree/master/docs/tutorials/unix/binder/main)
+        [Access the binder via your web browser.](https://mybinder.org/v2/gh/melbournebioinformatics/training-infrastructure/HEAD)
 
         Be patient, it can take a few minutes to set up your environment.
 
         Once your binder has launched, select *Terminal* from the bottom left-hand corner of the main page.
 
-        In the Terminal, you should see a blinking cursor. Type the following command and press enter. This command sets the working directory.
-
-        ```
-        cd unix_intro_data
-        ```
-
-        Use the following command to confirm that you have set the correct working directory.
-
-        ```
-        pwd
-        ```
-
-        If the output of this command ends in */unix_intro_data*, well done! Now continue with the hands-on section.
+        In the Terminal, you should see a blinking cursor. You can now continue with the hands-on section.
 
 
 ### Connect to a Unix computer
@@ -210,7 +198,7 @@ We are connecting to a remote computer today so that everyone has an identical e
 ### Hands-on
 
 ??? example "1.1 Run some commands"
-    Once you've logged into the Unix server, run the following commands and see what they do.
+    Once you've logged in, run the following commands and see what they do.
 
     Type each command in and hit Enter/Return. Once the previous command has completed, a new prompt indicates that it's ready for the next command to be entered.
 
