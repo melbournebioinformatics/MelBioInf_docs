@@ -182,9 +182,6 @@ Regarding ***interspersed duplications***, most RNA transposons (the mechanism o
 ***Intra-chromosomal translocations*** are ignored for similar reasons. These are mainly caused by DNA transposons, which are considered inactive in humans. DNA transposons are still active in other eukaryotes (including most plants) and bacteria, so must be considered when working outside human data. 
 
 
-### TODO if time: Mechanisms
-
-
 ### SV calling pipeline
 
 Today, we will explore one workflow for SV calling. We will first call variants using a benchmarking dataset, where the true SVs are known. We will then swap to a human clinical scenario, and will identify a structural variant causing patient disease. 
