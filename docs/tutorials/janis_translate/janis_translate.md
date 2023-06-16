@@ -1,4 +1,4 @@
-<img src="../media/melbioinf_logo.png" width="350"> <img src="../media/PRIMARY_A_Vertical_Housed_RGB.png" width="150">
+<img src="media/logos_banner.png">
 
 # Janis Translate - Migrating CWL / Galaxy to Nextflow
 
@@ -1693,7 +1693,7 @@ nextflow.enable.dsl = 2
 
 process LIMMA_VOOM {
     
-    container "quay.io/biocontainers/janis-translate-limma-voom-3.34.9.9"
+    container "quay.io/biocontainers/quay.io/biocontainers/bioconductor-limma:3.50.1--r41h5c21468_0"
 
     input:
     path anno_geneanno
@@ -1840,6 +1840,63 @@ contrastFile", "C", 1, "character"  -Path to contrasts information file
 <br>
 
 
+**Modifying Container**
+
+The first thing to do is change the container requirement. 
+
+Galaxy uses `conda` to handle tool requirements. 
+
+For Galaxy Tool Wrappers which only have a single requirement, janis-translate will just fetch a container for that single requirement by looking up registries on `quay.io`. For those which have 2+ requirements, things get complicated. 
+
+For the `limma` Galaxy Tool Wrapper, the following are listed:
+
+- bioconductor-limma==3.50.1
+- bioconductor-edger==3.36.0
+- r-statmod==1.4.36
+- r-scales==1.1.1
+- r-rjson==0.2.21
+- r-getopt==1.20.3
+- r-gplots==3.1.1
+- bioconductor-glimma==2.4.0
+
+For best-practises pipelines, we want to use containers instead of conda, and want a single image.
+
+To facilitate this, janis-translate has a new test-feature: `--build-galaxy-tool-images`
+
+This feature allows janis-translate to build a single container image during runtime which has all software requirements. 
+
+As this feature requires docker (which is unavailable on Nirin cloud), and because containers can take anywhere from 2-15 minutes to build, we won't use this feature today. 
+
+Instead, we have pre-built images for the relevant tools using janis-translate, and placed them on a `quay.io` repository. 
+
+!!! question "Swapping container directive"
+    Change the LIMMA_VOOM process container directive from:<br>
+    `quay.io/biocontainers/bioconductor-limma:3.50.1--r41h5c21468_0`
+    
+    To:<br>
+    `quay.io/grace_hall1/limma-voom:3.50.1`
+
+    ??? hint "Show Change"
+        ```
+        process LIMMA_VOOM {
+            
+            container "quay.io/grace_hall1/limma-voom:3.50.1"     <- 
+            publishDir "./outputs"
+
+            input:
+            path anno_geneanno
+            path cont_cinfo
+            path input_counts
+            path input_fact_finfo
+            path limma_voom_script
+            path out_report1
+            val out_report_files_path
+            ...
+        }
+        ```
+
+<br>
+
 **Modifying Inputs**
 
 The `path out_report1` process input specifies the name of a html file which will present our results. 
@@ -1866,6 +1923,8 @@ We aren't actually supplying a file; we are providing the script a filename, whi
             ...
         }
         ```
+
+<br>
 
 **Modifying Script**
 
@@ -1906,6 +1965,8 @@ We will be using a single input counts file, so can remove this argument.
         }
         ```
 
+<br>
+
 **Modifying Outputs**
 
 Galaxy Tool Wrappers often allow you to generate extra outputs based on what the user wants.
@@ -1936,6 +1997,8 @@ For this tutorial, we're not interested in any of the optional outputs - just th
             ...
         }
         ```
+
+<br>
 
 **Add publishDir Directive**
 
@@ -2255,6 +2318,56 @@ From here, we will do a test-run of the workflow using sample data, and make man
 <br>
 
 ### Running the Translated Workflow
+
+**Swapping containers**
+
+As mentioned in section 2.2, some Galaxy Tool Wrappers have multiple requirements. 
+
+As we are not using `janis translate --build-galaxy-tool-images ...`, some of the 
+translated nextflow processes will not run. 
+
+Without `--build-galaxy-tool-images`, janis-translate selects the best single container from the software requirements.
+This container sometimes does not have all the required software needed to run the process script. 
+
+We have prepared pre-built containers which contain all software requirements for the 2 affected tools. 
+
+!!! question "Swapping HISAT2 container directive"
+    Change the HISAT2 process container directive from: <br>
+    `quay.io/biocontainers/hisat2:2.2.1--h87f3376_5`
+    
+    To: <br>
+    `quay.io/grace_hall1/hisat2:2.2.1`
+
+    ??? hint "Show Change"
+        ```
+        process HISAT2 {
+    
+            container "quay.io/grace_hall1/hisat2:2.2.1"            <-
+            publishDir "${params.outdir}/hisat2"
+
+            ...
+        }
+        ```
+
+!!! question "Swapping FEATURECOUNTS container directive"
+    Change the FEATURECOUNTS process container directive from: <br>
+    `quay.io/biocontainers/coreutils:8.31--h14c3975_0`
+    
+    To: <br>
+    `quay.io/grace_hall1/featurecounts:2.0.1`
+
+    ??? hint "Show Change"
+        ```
+        process FEATURECOUNTS {
+    
+            container "quay.io/grace_hall1/featurecounts:2.0.1"     <-
+            publishDir "${params.outdir}/featurecounts"
+
+            ...
+        }
+        ```
+
+<br>
 
 **Inspect main.nf**
 
