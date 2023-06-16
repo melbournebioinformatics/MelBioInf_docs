@@ -126,7 +126,7 @@ singularity pull janis.sif docker://rlupat/janis:0.13.0
 
 Check your image by running the following command:
 ```
-singularity exec janis.sif janis translate
+singularity exec ~/janis.sif janis translate
 ```
 
 If the image is working, you should see the janis translate helptext.
@@ -374,7 +374,7 @@ As in section 1.1, we will use janis-translate to translate our CWL CommandLineT
 This time, since we already have a `translated/` folder, we will supply the `-o` argument to janis-translate to specify the outdir. 
 
 ```
-singularity exec janis.sif janis translate -o haplotype_caller --from cwl --to nextflow ./source/gatk_haplotype_caller.cwl
+singularity exec ~/janis.sif janis translate -o haplotype_caller --from cwl --to nextflow ./source/gatk_haplotype_caller.cwl
 ```
 
 You will see a folder called `haplotype_caller/` appear, and a nextflow process called `gatk_haplotype_caller.nf` will be present inside. 
@@ -669,7 +669,7 @@ We will add the `-o align_sort_markdup` argument to specify this as the output d
 
 Run the following command:
 ```
-singularity exec janis.sif janis translate -o align_sort_markdup --from cwl --to nextflow ./source/subworkflows/align_sort_markdup.cwl
+singularity exec ~/janis.sif janis translate -o align_sort_markdup --from cwl --to nextflow ./source/subworkflows/align_sort_markdup.cwl
 ```
 
 <br>
@@ -1413,7 +1413,7 @@ We will add `-o samtools_flagstat` to our command to set the output directory.
 
 Run the following command:
 ```
-singularity exec janis.sif janis translate -o samtools_flagstat --from cwl --to nextflow toolshed.g2.bx.psu.edu/repos/devteam/samtools_flagstat/samtools_flagstat/2.0.4
+singularity exec ~/janis.sif janis translate -o samtools_flagstat --from cwl --to nextflow toolshed.g2.bx.psu.edu/repos/devteam/samtools_flagstat/samtools_flagstat/2.0.4
 ```
 
 <br>
@@ -1663,7 +1663,7 @@ We add `-o limma_voom` to our command to specify this as the output directory.
 
 Run the following command:
 ```
-singularity exec janis.sif janis translate -o limma_voom --from cwl --to nextflow toolshed.g2.bx.psu.edu/repos/iuc/limma_voom/limma_voom/3.50.1+galaxy0
+singularity exec ~/janis.sif janis translate -o limma_voom --from cwl --to nextflow toolshed.g2.bx.psu.edu/repos/iuc/limma_voom/limma_voom/3.50.1+galaxy0
 ```
 
 <br>
@@ -2215,7 +2215,7 @@ We just need to point janis-translate to this file.
 We will add `-o rnaseq_reads_to_counts` to our command to set the output directory. 
 
 ```
-singularity exec janis.sif janis translate -o rnaseq_reads_to_counts --from galaxy --to nextflow source/rna-seq-reads-to-counts.ga
+singularity exec ~/janis.sif janis translate -o rnaseq_reads_to_counts --from galaxy --to nextflow source/rna-seq-reads-to-counts.ga
 ```
 
 <br>
