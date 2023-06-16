@@ -137,7 +137,7 @@ If the image is working, you should see the janis translate helptext.
 
 For this workshop we will clone the janis-translate-examples github repo. 
 
-This repo contains the sample data we will need to run translated tools / workflows for verificatio. 
+This repo contains the sample data we will need to run translated tools / workflows for verification. 
 It also contains the "completed" translations which we will work toward in this workshop. 
 
 Run the following commands to clone the janis-translate-examples repo, and change to the repo directory:
@@ -164,7 +164,7 @@ In this section, we want to translate CWL -> Nextflow, and our source CWL file i
 
 Run the following command:
 ```
-singularity exec janis.sif janis translate --from cwl --to nextflow ./source/samtools_flagstat.cwl
+singularity exec ~/janis.sif janis translate --from cwl --to nextflow ./source/cwl/samtools_flagstat.cwl
 ```
 
 <br>
