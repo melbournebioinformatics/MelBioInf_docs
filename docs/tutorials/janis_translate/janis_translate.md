@@ -113,7 +113,7 @@ The underlying software run by this tool - [Samtools Flagstat](http://www.htslib
 
 ### Janis Translate
 
-**Acquiring Janis Translate**
+**Downloading Janis Translate**
 
 In this workshop we will use a singularity container to run `janis translate`. 
 
@@ -135,7 +135,7 @@ If the image is working, you should see the janis translate helptext.
 
 <br>
 
-**Acquiring Tool / Workflow Source Files**
+**Downloading Training Data and Tool / Workflow Source Files**
 
 For this workshop we will fetch all needed data from zenodo using wget.  
 
@@ -161,6 +161,7 @@ data
     └── galaxy
 ``` 
 
+The test data provided in `data/sample_data` is also available at `/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/`
 
 <br>
 
@@ -295,7 +296,8 @@ The `bam` parameter is a list which provides paths to the `.bam` and `.bai` samp
 >NOTE<br>
 >`nextflow.enable.dsl = 2` ensures that we are using the dsl2 nextflow syntax which is the current standard. <br>
 >`singularity.enabled = true` tells nextflow to run processes using singularity. Our `samtools_flagstat.nf` has a directive with the form `container "quay.io/biocontainers/samtools:1.11--h6270b1f_0"` provided, so it will use the specified image when running this process. <br>
->`singularity.cacheDir = "$HOME/.singularity/cache"` tells nextflow where singularity images are stored
+>`singularity.cacheDir = "$HOME/.singularity/cache"` tells nextflow where singularity images are stored. <br>
+> Nextflow will handle the singularity image download and stored it in the cache specified above. If you'd like to use an already available container, you can modify `samtools_flagstat.nf` container directive to `container "/cvmfs/singularity.galaxyproject.org/all/samtools:1.11--h6270b1f_0"`.
 
 <br>
 
@@ -686,9 +688,9 @@ The workflow using in this tutorial - [align_sort_markdup.cwl](https://github.co
 
 ### Janis Translate
 
-Previously we were translating single CWL CommandLineTools, but this time we're translating a full Workflow. 
+Previously we were translating single CWL CommandLineTools, but in this section we are translating a full CWL workflow. 
 
-To translate a workflow, we supply the main CWL Workflow file as <filename> to janis translate. <br>
+To translate a workflow, we supply the main CWL workflow file to janis translate. <br>
 In addition to the main CWL Workflow, all Subworkflows / CommandLineTools will be detected & translated.
 
 First, let's make sure we're back in the main training directory
@@ -777,7 +779,7 @@ Focusing on the channel declarations, we want to note a few things:
 
 - `ch_bams` is analygous to the *'bams'* input in `align_sort_markdup.cwl`. <br>
 It declares a queue channel which expects the data supplied via `params.bams` are `path` types. <br>
-It then groups the bams together as a sole emission using `.toList(). <br>
+It then groups the bams together as a sole emission using `.toList()`. <br>
 We will need to set up `params.bams` to supply this data.
 
 - `ch_readgroups` is analygous to the *'readgroups'* input in `align_sort_markdup.cwl`. <br>
@@ -1253,10 +1255,10 @@ process ALIGN_AND_TAG {
 Here is the command executed with the same numbering:
 
 ```
-(1) /bin/bash (2) /usr/bin/alignment_helper.sh  (3) 2895499223.bam     (4) @RG (5) INCLID:2895499223RY_PU:H7HY2CCXX.3.ATCACGGTITY=ISM:H_NJ-HCC1395-HCC1395ILB:H_NJ-HCC1395-HCC1395-lg24-lib1LEVEL=5PL:IlluminaSCN:WUGSC   (6) chr17_test.fa        (7) 8  (8) >  (9) refAlign.bam 
+(1) /bin/bash (2) /usr/bin/alignment_helper.sh  (3) 2895499223.bam     (4) @RG (5) ID:2895499223	PU:H7HY2CCXX.3.ATCACGGT	SM:H_NJ-HCC1395-HCC1395	LB:H_NJ-HCC1395-HCC1395-lg24-lib1	PL:Illumina	CN:WUGSC   (6) chr17_test.fa        (7) 8  (8) >  (9) refAlign.bam 
 ```
 
-Matching up the two, we can see that arugments `(1-3)` match their expected values. <br>
+Matching up the two, we can see that arguments `(1-3)` match their expected values. <br>
 Argument `(4)` starts out right, as we expect the `readgroup` input. 
 
 Looking in the `script:` section of the nextflow process, we expect the `${reference}` input to appear as argument `(5)`, but in the actual command it appears as argument `(6)` `chr17_test.fa`.
@@ -1815,8 +1817,7 @@ cd /home2/training
 
 To translate, run the following command:
 ```
-singularity exec ~/janis.sif janis translate -o limma_voom --from galaxy 
---to nextflow toolshed.g2.bx.psu.edu/repos/iuc/limma_voom/limma_voom/3.50.1+galaxy0
+singularity exec ~/janis.sif janis translate -o limma_voom --from galaxy --to nextflow toolshed.g2.bx.psu.edu/repos/iuc/limma_voom/limma_voom/3.50.1+galaxy0
 ```
 
 <br>
@@ -2024,7 +2025,7 @@ To facilitate this, janis-translate has a new test-feature: `--build-galaxy-tool
 
 This feature allows janis-translate to build a single container image during runtime which has all software requirements. 
 
-As this feature requires docker (which is unavailable on Nirin cloud), and because containers can take anywhere from 2-15 minutes to build, we won't use this feature today. 
+As this feature requires docker (which is not available on our training VMs today), and also because containers can take anywhere from 2-15 minutes to build, we won't use this feature today. 
 
 Instead, we have pre-built images for the relevant tools using janis-translate, and placed them on a `quay.io` repository. 
 
