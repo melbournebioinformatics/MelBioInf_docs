@@ -268,7 +268,7 @@ To run this process, we will set up a `nextflow.config` file and add some lines 
 
 Create a new file called `nextflow.config` in the `translated/` folder alongside `samtools_flagstat.nf`. 
 
-For this workshop, we are using sample data located at `/home2/training/data/sample_data/`.
+For this workshop, we are using sample data located at `/home2/training/data/sample_data/`. 
 
 Copy and paste the following code into your `nextflow.config` file: 
 
@@ -294,10 +294,11 @@ The `bam` parameter is a list which provides paths to the `.bam` and `.bai` samp
 <br>
 
 >NOTE<br>
->`nextflow.enable.dsl = 2` ensures that we are using the dsl2 nextflow syntax which is the current standard. <br>
->`singularity.enabled = true` tells nextflow to run processes using singularity. Our `samtools_flagstat.nf` has a directive with the form `container "quay.io/biocontainers/samtools:1.11--h6270b1f_0"` provided, so it will use the specified image when running this process. <br>
->`singularity.cacheDir = "$HOME/.singularity/cache"` tells nextflow where singularity images are stored. <br>
-> Nextflow will handle the singularity image download and stored it in the cache specified above. If you'd like to use an already available container, you can modify `samtools_flagstat.nf` container directive to `container "/cvmfs/singularity.galaxyproject.org/all/samtools:1.11--h6270b1f_0"`.
+>`nextflow.enable.dsl = 2` ensures that we are using the dsl2 nextflow syntax which is the current standard. <br><br>
+>`singularity.enabled = true` tells nextflow to run processes using singularity. Our `samtools_flagstat.nf` has a directive with the form `container "quay.io/biocontainers/samtools:1.11--h6270b1f_0"` provided, so it will use the specified image when running this process. <br> <br>
+>`singularity.cacheDir = "$HOME/.singularity/cache"` tells nextflow where singularity images are stored. <br> <br>
+> Nextflow will handle the singularity image download and stored it in the cache specified above. If you'd like to use an already available container, you can modify `samtools_flagstat.nf` container directive to `container "/cvmfs/singularity.galaxyproject.org/all/samtools:1.11--h6270b1f_0"`. <br> <br>
+> The test data used above is also available at `/cvmfs`, and can be accessed as follow: `bam=['/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/2895499223_sorted.bam', '/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/2895499223_sorted.bam.bai']`. 
 
 <br>
 
@@ -522,6 +523,12 @@ process GATK_HAPLOTYPE_CALLER {
 ```
 
 Nextflow allows us to capture the outputs created by a process using the `publishDir` directive seen above. 
+
+<br>
+
+>NOTE<br>
+> Our `gatk_haplotype_caller.nf` has a container directive with the form `container "broadinstitute/gatk:4.1.8.1"` provided, so Nextflow will handle this singularity image download and will use the specified image when running this process (provided that `singularity.enabled` is set to `true` in the nextflow config). <br>
+> If you'd like to use an already available container, you can modify this container directive to `container "/cvmfs/singularity.galaxyproject.org/all/gatk4:4.1.8.1--py38_0"`.
 
 <br>
 
