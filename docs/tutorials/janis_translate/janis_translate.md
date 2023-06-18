@@ -143,7 +143,7 @@ This archive contains source CWL / Galaxy files, sample data, and finished trans
 
 Run the following commands to download & uncompress the zenodo archive:
 ```
-wget https://zenodo.org/record/8049665/files/data.tar.gz
+wget https://zenodo.org/record/8052348/files/data.tar.gz
 tar -xvf data.tar.gz
 ```
 
