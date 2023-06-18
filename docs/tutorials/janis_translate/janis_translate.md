@@ -113,7 +113,7 @@ The underlying software run by this tool - [Samtools Flagstat](http://www.htslib
 
 ### Janis Translate
 
-**Acquiring Janis Translate**
+**Downloading Janis Translate**
 
 In this workshop we will use a singularity container to run `janis translate`. 
 
@@ -123,7 +123,7 @@ Singularity is already set up on your VM.
 
 Run the following command to pull the janis image:
 ```
-singularity pull janis.sif docker://pppjanistranslate/janis-translate:0.12.0
+singularity pull janis.sif docker://pppjanistranslate/janis-translate:0.13.0
 ```
 
 Check your image by running the following command:
@@ -135,7 +135,7 @@ If the image is working, you should see the janis translate helptext.
 
 <br>
 
-**Acquiring Tool / Workflow Source Files**
+**Downloading Training Data and Tool / Workflow Source Files**
 
 For this workshop we will fetch all needed data from zenodo using wget.  
 
@@ -143,7 +143,7 @@ This archive contains source CWL / Galaxy files, sample data, and finished trans
 
 Run the following commands to download & uncompress the zenodo archive:
 ```
-wget https://zenodo.org/record/8049665/files/data.tar.gz
+wget https://zenodo.org/record/8052348/files/data.tar.gz
 tar -xvf data.tar.gz
 ```
 
@@ -161,6 +161,7 @@ data
     └── galaxy
 ``` 
 
+The test data provided in `data/sample_data` is also available at `/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/`
 
 <br>
 
@@ -267,7 +268,7 @@ To run this process, we will set up a `nextflow.config` file and add some lines 
 
 Create a new file called `nextflow.config` in the `translated/` folder alongside `samtools_flagstat.nf`. 
 
-For this workshop, we are using sample data located at `/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/`.
+For this workshop, we are using sample data located at `/home2/training/data/sample_data/`. 
 
 Copy and paste the following code into your `nextflow.config` file: 
 
@@ -293,9 +294,11 @@ The `bam` parameter is a list which provides paths to the `.bam` and `.bai` samp
 <br>
 
 >NOTE<br>
->`nextflow.enable.dsl = 2` ensures that we are using the dsl2 nextflow syntax which is the current standard. <br>
->`singularity.enabled = true` tells nextflow to run processes using singularity. Our `samtools_flagstat.nf` has a directive with the form `container "quay.io/biocontainers/samtools:1.11--h6270b1f_0"` provided, so it will use the specified image when running this process. <br>
->`singularity.cacheDir = "$HOME/.singularity/cache"` tells nextflow where singularity images are stored
+>`nextflow.enable.dsl = 2` ensures that we are using the dsl2 nextflow syntax which is the current standard. <br><br>
+>`singularity.enabled = true` tells nextflow to run processes using singularity. Our `samtools_flagstat.nf` has a directive with the form `container "quay.io/biocontainers/samtools:1.11--h6270b1f_0"` provided, so it will use the specified image when running this process. <br> <br>
+>`singularity.cacheDir = "$HOME/.singularity/cache"` tells nextflow where singularity images are stored. <br> <br>
+> Nextflow will handle the singularity image download and stored it in the cache specified above. If you'd like to use an already available container, you can modify `samtools_flagstat.nf` container directive to `container "/cvmfs/singularity.galaxyproject.org/all/samtools:1.11--h6270b1f_0"`. <br> <br>
+> The test data used above is also available at `/cvmfs`, and can be accessed as follow: `bam=['/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/2895499223_sorted.bam', '/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/2895499223_sorted.bam.bai']`. 
 
 <br>
 
@@ -523,6 +526,12 @@ Nextflow allows us to capture the outputs created by a process using the `publis
 
 <br>
 
+>NOTE<br>
+> Our `gatk_haplotype_caller.nf` has a container directive with the form `container "broadinstitute/gatk:4.1.8.1"` provided, so Nextflow will handle this singularity image download and will use the specified image when running this process (provided that `singularity.enabled` is set to `true` in the nextflow config). <br>
+> If you'd like to use an already available container, you can modify this container directive to `container "/cvmfs/singularity.galaxyproject.org/all/gatk4:4.1.8.1--py38_0"`.
+
+<br>
+
 **Setting up nextflow.config**
 
 To run this process, we will set up a `nextflow.config` file and add some lines to the top of our process definition to turn it into a workflow.
@@ -571,13 +580,6 @@ The `bam` parameter is a list which provides paths to the `.bam` and `.bai` samp
 
 We also set up a `NULL_VALUE` param which we use as a *placeholder* for a null value. <br> 
 In this case we are providing null values for the `gvcf_gq_bands`, `contamination_fraction`, `max_alternate_alleles`, `ploidy` and `read_filter` inputs as they are all optional.
-
-<br>
-
->NOTE<br>
->`nextflow.enable.dsl = 2` ensures that we are using the dsl2 nextflow syntax which is the current standard. <br>
->`singularity.enabled = true` tells nextflow to run processes using singularity. Our `gatk_haplotype_caller.nf` has a directive with the form `container "broadinstitute/gatk:4.1.8.1"` provided, so it will use the specified image when running this process. <br>
->`singularity.cacheDir = "$HOME/.singularity/cache"` tells nextflow where singularity images are stored
 
 <br>
 
@@ -693,9 +695,9 @@ The workflow using in this tutorial - [align_sort_markdup.cwl](https://github.co
 
 ### Janis Translate
 
-Previously we were translating single CWL CommandLineTools, but this time we're translating a full Workflow. 
+Previously we were translating single CWL CommandLineTools, but in this section we are translating a full CWL workflow. 
 
-To translate a workflow, we supply the main CWL Workflow file as <filename> to janis translate. <br>
+To translate a workflow, we supply the main CWL workflow file to janis translate. <br>
 In addition to the main CWL Workflow, all Subworkflows / CommandLineTools will be detected & translated.
 
 First, let's make sure we're back in the main training directory
@@ -784,7 +786,7 @@ Focusing on the channel declarations, we want to note a few things:
 
 - `ch_bams` is analygous to the *'bams'* input in `align_sort_markdup.cwl`. <br>
 It declares a queue channel which expects the data supplied via `params.bams` are `path` types. <br>
-It then groups the bams together as a sole emission using `.toList(). <br>
+It then groups the bams together as a sole emission using `.toList()`. <br>
 We will need to set up `params.bams` to supply this data.
 
 - `ch_readgroups` is analygous to the *'readgroups'* input in `align_sort_markdup.cwl`. <br>
@@ -1260,10 +1262,10 @@ process ALIGN_AND_TAG {
 Here is the command executed with the same numbering:
 
 ```
-(1) /bin/bash (2) /usr/bin/alignment_helper.sh  (3) 2895499223.bam     (4) @RG (5) INCLID:2895499223RY_PU:H7HY2CCXX.3.ATCACGGTITY=ISM:H_NJ-HCC1395-HCC1395ILB:H_NJ-HCC1395-HCC1395-lg24-lib1LEVEL=5PL:IlluminaSCN:WUGSC   (6) chr17_test.fa        (7) 8  (8) >  (9) refAlign.bam 
+(1) /bin/bash (2) /usr/bin/alignment_helper.sh  (3) 2895499223.bam     (4) @RG (5) ID:2895499223	PU:H7HY2CCXX.3.ATCACGGT	SM:H_NJ-HCC1395-HCC1395	LB:H_NJ-HCC1395-HCC1395-lg24-lib1	PL:Illumina	CN:WUGSC   (6) chr17_test.fa        (7) 8  (8) >  (9) refAlign.bam 
 ```
 
-Matching up the two, we can see that arugments `(1-3)` match their expected values. <br>
+Matching up the two, we can see that arguments `(1-3)` match their expected values. <br>
 Argument `(4)` starts out right, as we expect the `readgroup` input. 
 
 Looking in the `script:` section of the nextflow process, we expect the `${reference}` input to appear as argument `(5)`, but in the actual command it appears as argument `(6)` `chr17_test.fa`.
@@ -1545,16 +1547,21 @@ Now we have the Tool ID, we can access & translate this Galaxy Tool Wrapper to a
 
 We will add `-o samtools_flagstat` to our command to set the output directory. 
 
-Run the following command:
+First, let's make sure we're in the training directory 
 ```
-singularity exec ~/janis.sif janis translate -o samtools_flagstat --from cwl --to nextflow toolshed.g2.bx.psu.edu/repos/devteam/samtools_flagstat/samtools_flagstat/2.0.4
+cd /home2/training
+```
+
+To translate the Galaxy Tool, run the following command:
+```
+singularity exec ~/janis.sif janis translate -o samtools_flagstat --from galaxy --to nextflow toolshed.g2.bx.psu.edu/repos/devteam/samtools_flagstat/samtools_flagstat/2.0.4
 ```
 
 <br>
 
 Once complete, you will see a folder called `samtools_flagstat/` appear, and a nextflow process called `samtools_flagstat.nf` will be present inside. 
 
-For your own reference / interest, the actual Galaxy Tool Wrapper files will be downloaded during translation & will be presented to you in `samtools_flagstat/source`. 
+For your own reference / interest, the actual Galaxy Tool Wrapper files will be downloaded during translation & will be presented to you in `samtools_flagstat/source/`. 
 
 <br>
 
@@ -1563,7 +1570,7 @@ For your own reference / interest, the actual Galaxy Tool Wrapper files will be 
 The `samtools_flagstat/samtools_flagstat.nf` file should be similar to the following: 
 
 ```
-nextflow.enable.dsl = 2
+nextflow.enable.dsl=2
 
 process SAMTOOLS_FLAGSTAT {
     
@@ -1590,7 +1597,8 @@ process SAMTOOLS_FLAGSTAT {
 
 We can see that this nextflow process has two inputs, a single output, and calls `samtools flagstat`.  
 
-By viewing the [samtools_flagstat](http://www.htslib.org/doc/samtools-flagstat.html) documentation, we see the following: 
+Before continuing, let's check the [samtools flagstat](http://www.htslib.org/doc/samtools-flagstat.html) documentation. 
+In the documentation, we see the following:
 ```
 samtools flagstat in.sam|in.bam|in.cram
 
@@ -1606,13 +1614,18 @@ By matching up the process `inputs:` section and the `script:` section, we can s
 - `val addthreads` will be the threads argument passed to `-@`
 - the `--output-fmt` option has been assigned the default value of `"txt"`
 
-We can also see that a container image is available for this tool. In the next section we will run this process using some sample data and the specified container. 
+We can also see that a container image is available for this tool. 
 
 This translation is correct for the `samtools_flagstat.cwl` file and needs no adjusting. 
 
-If you would like to expose the `--output-fmt` option as a process input, you can do the following:
-- add a `val` input to the process 
-- substitute its name instead of hardcoded `"txt"` value in the script: e.g. `--output-fmt ${name}`
+<br>
+
+> Note: <br>
+> If you would like to expose the `--output-fmt` option as a process input, you can do the following: 
+>
+> - add a `val format` input to the process 
+> - reference this input in the script, replacing the hardcoded `"txt"` value<br>
+>   (e.g. `--output-fmt ${format}`)
 
 <br>
 
@@ -1632,25 +1645,18 @@ singularity.enabled = true
 singularity.cacheDir = "$HOME/.singularity/cache"
 
 params {
-    bam = "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/samtools_flagstat_tool/samtools_flagstat_input1.bam"
+    bam = "/home2/training/data/sample_data/galaxy/samtools_flagstat/samtools_flagstat_input1.bam"
     threads = 1
 }
 ```
 <br>
 
-This tells nextflow how to run, and sets up inputs parameters we can use to supply values to the `SAMTOOLS_FLAGSTAT` process. 
+This tells nextflow how to run, and sets up inputs parameters we can use to supply values to the `SAMTOOLS_FLAGSTAT` process:
 
-The `bam` parameter is the input bam file we wish to analyse. 
-
-The `threads` parameter is an integer. <br>
-It which controls how many additional compute threads to use when reading the input bam. 
+- The `bam` parameter is the input bam file we wish to analyse. 
+- The `threads` parameter is an integer, and controls how many additional compute threads to use during runtime.
 
 From here, we can refer to these inputs as `params.bam` / `params.threads` in other files.
-
->NOTE<br>
->`nextflow.enable.dsl = 2` ensures that we are using the dsl2 nextflow syntax which is the current standard. <br>
->`singularity.enabled = true` tells nextflow to run processes using singularity. Our `samtools_flagstat.nf` has a directive with the form `container "quay.io/biocontainers/samtools:1.13--h8c37831_0"` provided, so it will use the specified image when running this process. <br>
->`singularity.cacheDir = "$HOME/.singularity/cache"` tells nextflow where singularity images are stored
 
 <br>
 
@@ -1685,6 +1691,25 @@ In our case, the workflow only contains a single task, which runs the `SAMTOOLS_
 
 <br>
 
+**Adding publishDir directive**
+
+So that we can collect the output of `SAMTOOLS_FLAGSTAT` when it runs, we will add a `publishDir` directive to the process:
+
+```
+process SAMTOOLS_FLAGSTAT {
+    
+    container "quay.io/biocontainers/samtools:1.13--h8c37831_0"
+    publishDir "./outputs"
+    
+    ...
+
+}
+```
+
+Now that we have set up `SAMTOOLS_FLAGSTAT` as a workflow, we can run it and check the output. 
+
+<br>
+
 **Running Our Workflow**
 
 Ensure you are in the `samtools_flagstat/` working directory, where `nextflow.config` and `samtools_flagstat.nf` reside. 
@@ -1698,12 +1723,9 @@ To run the workflow using our sample data, we can now write the following comman
 nextflow run samtools_flagstat.nf
 ```
 
-Nextflow will automatically check if there is a `nextflow.config` file in the working directory, and if so will use that to configure itself. Our inputs are supplied in `nextflow.config` alongside the dsl2 & singularity config, so it should run without issue. 
+Once completed, the check the `./outputs` folder inside `samtools_flagstat/`. 
 
-Once completed, the stdout from `SAMTOOLS_FLAGSTAT` should appear in your shell. 
-
-If everything went well, you should see text similar to the following: 
-
+If everything went well, you should see a single file called `output1.txt` with the following contents: 
 ```
 200 + 0 in total (QC-passed reads + QC-failed reads)
 200 + 0 primary
@@ -1723,7 +1745,7 @@ If everything went well, you should see text similar to the following:
 0 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
 
-If needed, you can check the `final/` folder in `janis-translate-examples/` which contains the files we created in this section.  
+If needed, you can check the `data/final/galaxy/samtools_flagstat` folder as a reference. 
 
 <br>
 
@@ -1795,9 +1817,14 @@ To get the Tool ID you can either:
 
 We add `-o limma_voom` to our command to specify this as the output directory. 
 
-Run the following command:
+As always, let's make sure we're back in the training folder:
 ```
-singularity exec ~/janis.sif janis translate -o limma_voom --from cwl --to nextflow toolshed.g2.bx.psu.edu/repos/iuc/limma_voom/limma_voom/3.50.1+galaxy0
+cd /home2/training
+```
+
+To translate, run the following command:
+```
+singularity exec ~/janis.sif janis translate -o limma_voom --from galaxy --to nextflow toolshed.g2.bx.psu.edu/repos/iuc/limma_voom/limma_voom/3.50.1+galaxy0
 ```
 
 <br>
@@ -1815,6 +1842,8 @@ Inside the `limma_voom/` folder, we see the following:
 - A Nextflow process named `limma_voom.nf`
 - An Rscript named `limma_voom.R` 
 - A folder named `source/` containing the Galaxy Tool Wrapper XML
+
+Unlike previous tool translations, the `limma_voom.nf` process will need adjusting. 
 
 <br>
 
@@ -1872,13 +1901,12 @@ process LIMMA_VOOM {
 }
 ```
 
-That this nextflow process has multiple inputs, many command line arguments, and multiple outputs. 
+We see that this nextflow process has multiple inputs, many command line arguments, and multiple outputs. 
 
-We can also see that a container image is available for this tool. In the next section we will run this process using some sample data and the specified container. 
+Look at the command line arguments for this process in the `script:` block.
 
-Look at the command line arguments for this process in the `script:` section.
-
-This Galaxy Tool Wrapper is evidently running an Rscript which we supply to the process as `limma_voom_script`, then the arguments for that Rscript follow after. 
+This Galaxy Tool Wrapper is evidently running an Rscript which we supply to the process via the `path limma_voom_script` input.
+In the script section we see that this Rscript will be run, and has some CLI arguments which follow.
 
 When translating Galaxy Tool Wrappers, we often see this usage of scripts. 
 `limma` is an R library, so we need an Rscript to run the analysis we want. 
@@ -1887,8 +1915,8 @@ The Galaxy Tool Wrapper supplies user inputs to this script, then the script wil
 <br>
 
 > NOTE<br>
-> `janis translate` will copy across any scripts needed to run the Galaxy tool. <br>
-> The `limma_voom/limma_voom.R` file is the Rscript which this Galaxy tool uses to run the analysis. 
+> `janis translate` will copy across any scripts referenced by a source Tool / Workflow. <br>
+> The `limma_voom/limma_voom.R` file is the Rscript which this Galaxy Tool Wrapper uses to run an analysis. 
 
 <br>
 
@@ -1951,7 +1979,7 @@ At the top of the file, we see some documentation:
 # Modified by: Maria Doyle - Jun 2017, Jan 2018, May 2018
 ```
 
-For each process input, find the command line argument it feeds, then look up the argument documentation in `limma_voom.R`. 
+For each ***process input***, find the command line argument it feeds, then look up the argument documentation in `limma_voom.R`. 
 
 For example, the `anno_geneanno` process input feeds the `-a` argument.<br>
 Looking at the documentation, we see that this is the gene annotations file. 
@@ -1970,6 +1998,11 @@ The `cont_cinfo` process input feeds the `-C` argument, which is a file containi
 # limma_voom.R
 contrastFile", "C", 1, "character"  -Path to contrasts information file
 ```
+
+<br>
+
+Now that we have had a little look at how the `LIMMA_VOOM` nextflow process will run, 
+let's make some adjustments so that it functions as intended. 
 
 <br>
 
@@ -1999,7 +2032,7 @@ To facilitate this, janis-translate has a new test-feature: `--build-galaxy-tool
 
 This feature allows janis-translate to build a single container image during runtime which has all software requirements. 
 
-As this feature requires docker (which is unavailable on Nirin cloud), and because containers can take anywhere from 2-15 minutes to build, we won't use this feature today. 
+As this feature requires docker (which is not available on our training VMs today), and also because containers can take anywhere from 2-15 minutes to build, we won't use this feature today. 
 
 Instead, we have pre-built images for the relevant tools using janis-translate, and placed them on a `quay.io` repository. 
 
@@ -2026,6 +2059,29 @@ Instead, we have pre-built images for the relevant tools using janis-translate, 
             path out_report1
             val out_report_files_path
             ...
+        }
+        ```
+
+<br>
+
+**Add publishDir Directive**
+
+While we're modifying directives, let's add a `publishDir` directive. 
+
+This lets us specify a folder where outputs of this process should be presented.
+
+!!! question "Adding publishDir Directive"
+    *Add* a publishDir directive for the process with the path `"./outputs"`.
+
+    ??? hint "Show Change"
+        ```
+        process LIMMA_VOOM {
+            
+            container "quay.io/biocontainers/janis-translate-limma-voom-3.34.9.9"
+            publishDir "./outputs"                                                      <-
+
+            ...
+        
         }
         ```
 
@@ -2134,33 +2190,11 @@ For this tutorial, we're not interested in any of the optional outputs - just th
 
 <br>
 
-**Add publishDir Directive**
-
-So we can view the outputs of this process when it is run, let's add a `publishDir` directive. 
-This lets us specify a folder where outputs of this process should be presented.
-
-!!! question "Adding publishDir Directive"
-    *Add* a publishDir directive for the process with the path `"./outputs"`.
-
-    ??? hint "Show Change"
-        ```
-        process LIMMA_VOOM {
-            
-            container "quay.io/biocontainers/janis-translate-limma-voom-3.34.9.9"
-            publishDir "./outputs"
-
-            ...
-        
-        }
-        ```
-
-<br>
-
 Your Nextflow process should now look similar to the following: 
 ```
 process LIMMA_VOOM {
     
-    container "quay.io/biocontainers/janis-translate-limma-voom-3.34.9.9"
+    container "quay.io/grace_hall1/limma-voom:3.50.1"
     publishDir "./outputs"
 
     input:
@@ -2225,11 +2259,11 @@ singularity.enabled = true
 singularity.cacheDir = "$HOME/.singularity/cache"
 
 params {
-    limma_voom_script = "/home2/training/janis-translate-examples/limma_voom/templates/limma_voom.R"
-    annotation_file   = "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/limma_voom_tool/anno.txt"
-    contrast_file     = "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/limma_voom_tool/contrasts.txt"
-    factor_file       = "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/limma_voom_tool/factorinfo.txt"
-    matrix_file       = "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/limma_voom_tool/matrix.txt"
+    limma_voom_script = "/home2/training/limma_voom/limma_voom.R"
+    annotation_file   = "/home2/training/data/sample_data/galaxy/limma_voom/anno.txt"
+    contrast_file     = "/home2/training/data/sample_data/galaxy/limma_voom/contrasts.txt"
+    factor_file       = "/home2/training/data/sample_data/galaxy/limma_voom/factorinfo.txt"
+    matrix_file       = "/home2/training/data/sample_data/galaxy/limma_voom/matrix.txt"
     html_path         = "outReport.html"
     output_path       = "."
 }
@@ -2289,10 +2323,26 @@ Nextflow will automatically check if there is a `nextflow.config` file in the wo
 
 If everything went well, we should see a new folder created called `outputs/` which has a single `outReport.html` file inside. 
 
-If needed, you can check the `final/` folder inside `janis-translate-examples/` which contains the files we created in this tutorial.  
+If needed, you can check the `data/final/galaxy/limma_voom` folder as a reference.
 
-`outReport.html` will be a symlink to the work folder where `LIMMA_VOOM` ran.<br> 
-Change to this directory to see the various data and pdfs produced by `LIMMA_VOOM`. <br>
+`outReport.html` will be a symlink to the work folder where `LIMMA_VOOM` ran.
+
+To see the symlink path, use the following command:
+```
+ls -lah outputs/outReport.html
+```
+
+The output should be similar to the following:
+```
+lrwxrwxrwx 1 training users 80 Jun 18 11:06 outputs/outReport.html -> 
+/home2/training/limma_voom/work/02/8cd12271346eb884083815bfe0cbfa/outReport.html
+```
+
+The actual file location is displayed after the `->`, as this denotes a symlink. 
+
+If using VSC, open this directory to see the various data and pdfs produced by `LIMMA_VOOM`.<br>
+If using CLI, use the `cd` command instead, then `ls -lah` to print the contents of the directory. 
+
 You should see the following files & directories: 
 ```
 # directories
@@ -2325,7 +2375,12 @@ You should see the following files & directories:
 - outReport.html
 ```
 
-If you're on a computer with a GUI, open `outReport.html` to view the `limma_voom` DE analysis results. 
+If you're using VSC, you can download this folder. 
+
+Right-click the folder, then select "Download...". <br>
+Save it wherever you like on your local PC.
+
+You can then open `outReport.html` inside the downloaded folder to view the `limma_voom` DE analysis results. 
 
 Here is an example of how `outReport.html` should look: 
 
@@ -2350,7 +2405,7 @@ In the final section - section 2.3 - we will translate a challenging Galaxy Work
 
 ### Introduction
 
-This section demonstrates translation of a challenging Galaxy workflow to Nextflow using `janis translate`. 
+The final section demonstrates translation of a challenging Galaxy workflow to Nextflow using `janis translate`. 
 
 The workflow we will translate in this section accepts raw RNA-seq reads as input, and produces gene counts for further analysis (eg. differential expression).
 
@@ -2368,7 +2423,7 @@ The workflow used in this section is taken from the [Galaxy Training Network (GT
 
 The GTN has over 100 tutorials demonstrating how to use the Galaxy platform to analyse data, and is definitely worth having a look! 
 
-The specific workflow we use today is from the [RNA-Seq reads to counts](https://training.galaxyproject.org/training-material/topics/transcriptomics/tutorials/rna-seq-reads-to-counts/tutorial.html) page, which provides detailed instruction on how to turn raw RNA-seq reads into gene counts. <br>
+The specific workflow we use today is from the [RNA-Seq reads to counts](https://training.galaxyproject.org/training-material/topics/transcriptomics/tutorials/rna-seq-reads-to-counts/tutorial.html) page, which provides detailed instruction on how to turn raw RNA-seq reads into gene counts.
 
 <br>
 
@@ -2381,7 +2436,7 @@ Galaxy workflows can be found in a number of places.
 Today, we will use the workflow provided from the GTN RNA-Seq reads to counts tutorial. <br>
 The workflow can be downloaded using [this link](https://training.galaxyproject.org/training-material/topics/transcriptomics/tutorials/rna-seq-reads-to-counts/workflows/rna-seq-reads-to-counts.ga).
 
-The downloaded `.ga` workflow is also included in the local `source/` folder if needed. 
+The downloaded `.ga` workflow is also included in the local `data/source/galaxy/` as `rna_seq_reads_to_counts.ga`. 
 
 <br>
 
@@ -2407,13 +2462,24 @@ To translate a workflow, we follow the same pattern as in the previous sections.
 
 For this section we have included the `.ga` file in the `./source` folder so you won't need to download it yourself. 
 
-We just need to point janis-translate to this file.
 
-We will add `-o rnaseq_reads_to_counts` to our command to set the output directory. 
+To start, let's make sure we're in the right directory:
+```
+cd /home2/training
+```
 
+As usual, we will add `-o rnaseq_reads_to_counts` to our translate command to set the output directory. 
+
+To translate the Galaxy workflow, run the following command:
 ```
-singularity exec ~/janis.sif janis translate -o rnaseq_reads_to_counts --from galaxy --to nextflow source/rna-seq-reads-to-counts.ga
+singularity exec ~/janis.sif janis translate -o rnaseq_reads_to_counts --from galaxy --to nextflow data/source/galaxy/rna_seq_reads_to_counts.ga
 ```
+
+This may take up to 5 mins as janis-translate will make many requests to the Galaxy Toolshed API and quay.io. 
+
+Janis-translate uses the Galaxy Toolshed API to look up and download wrappers specified in the workflow.
+Janis-translate also makes requests to quay.io to find the most suitable container for each Galaxy Tool Wrapper using the requirements listed in the wrapper. 
+
 
 <br>
 
@@ -2445,9 +2511,7 @@ rnaseq_reads_to_counts
     └── multiqc_config
 ```
 
-Now we have performed translation using `janis translate`, we need to check the translated workflow for correctness.  
-
-From here, we will do a test-run of the workflow using sample data, and make manual adjustments to the translated workflow where needed. 
+Now that we have performed translation using `janis translate`, we need to check the translated workflow for correctness.  
 
 <br>
 
@@ -2473,6 +2537,7 @@ We have prepared pre-built containers which contain all software requirements fo
     `quay.io/grace_hall1/hisat2:2.2.1`
 
     ??? hint "Show Change"
+        modules/hisat2.nf
         ```
         process HISAT2 {
     
@@ -2506,9 +2571,6 @@ We have prepared pre-built containers which contain all software requirements fo
 **Inspect main.nf**
 
 The main workflow translation appears as `main.nf` in the `rnaseq_reads_to_counts/` folder. <br>
-
-This filename is just a convention, and we use it to provide clarity about the main entry point of the workflow. <br>
-In our case `main.nf` holds the nextflow definition for the  `rna-seq-reads-to-counts.ga` workflow. 
 
 <br>
 
@@ -2557,24 +2619,10 @@ multiqc_config                 = file( params.multiqc_config )
 
 <br>
 
-> Note: `.toList()` <br><br>
-> Nextflow queue channels work differently to lists. <br>
-> Instead of supplying all items together, queue channels emit each item separately. <br> 
-> This results in a separate task being spawned for each item in the queue when the channel is used. <br>
-> As the Galaxy workflow specifies the `in_input_fastqs_collection` is a list of fastq files, we use `.toList()` to group all items as a sole emission. <br>
-> This mimics an array which is the datatype of the `in_input_fastqs_collection` input. <br><br>
-> As it turns out, the Galaxy workflow ends up running most steps in parallel across the `in_input_fastqs_collection` input. <br><br>
-> Parallelisation in nextflow happens by default. <br>
-> To facilitate this, the `.flatten()` method is called on `ch_in_input_fastqs_collection` when used in the `FASTQC1` and `CUTADAPT` tasks. <br>
-> This emits items in `ch_in_input_fastqs_collection` individually, spawning a new task for each file. <br><br>
-> Because other tasks use the output of `CUTADAPT`, they will also run in parallel per file.<br>
-> We're kinda doing redundant work by calling `.toList()`, then `.flatten()`, but `janis translate` isn't smart enough yet to detect this at present. 
+Now that we have looked at the imports and dataflow, we can look at the main `workflow` section. 
 
-<br>
-
-Now that we have covered imports and dataflow, we can look at the main `workflow` section. The main workflow is captured in the `workflow {}` section and has 12 tasks. 
-
-Each task has been supplied values according to the source workflow. <br>
+The main workflow is captured in the `workflow {}` section and has 12 tasks. 
+Each task has been supplied values according to the source workflow. 
 Comments display the name of the process input which is being fed a particular value. 
 
 To get a sense of how the processes relate to each other in the workflow execution, compare the main `workflow {}` section with the following visualisation of our Galaxy workflow (using the Galaxy workflow editor).
@@ -2720,7 +2768,7 @@ Now we have removed the collection join, we will need to pass all results produc
         ```
 
 
-Now that we have looked at `main.nf`, let's set up inputs to run our translated Nextflow workflow. 
+Now that we have covered `main.nf`, let's set up inputs to run our translated Nextflow workflow. 
 To do this we will supply sample data using the global `params` variable in `nextflow.config`.
 
 <br>
@@ -2728,9 +2776,6 @@ To do this we will supply sample data using the global `params` variable in `nex
 **Inspect nextflow.config**
 
 To test the translated workflow, we will first set up workflow inputs in `nextflow.config`. 
-
-Before running a workflow, nextflow will attempt to open `nextflow.config` and read in config information and global *param* variables from this file. 
-We use this file to tell nextflow how to run and to supply workflow inputs.
 
 Inside the `rnaseq_reads_to_counts/` folder you will see that `nextflow.config` is already provided. 
 
@@ -2777,14 +2822,6 @@ params {
 
 <br>
 
-> NOTE: `NULL_VALUE = 'NULL'`<br><br>
-> Nextflow doesn't like `null` values to be passed to process inputs. <br>
-> This is a challenge for translation as other languages allow `optional` inputs. <br>
-> To get around this, Janis Translate sets the `params.NULL_VALUE` variable as a `null` placeholder for `val` type inputs. <br>
-> You will see this being used in nextflow processes to do optionality checking.
-
-<br>
-
 **Setting up Workflow Inputs**
 
 To run the workflow, we will supply values for the mandatory workflow inputs, and leave the optional inputs as-is. 
@@ -2818,7 +2855,7 @@ rseqc_gene_body_coverage_safename  # ?
 samtools_idxstats_addthreads       # value for the -@ threads argument for SAMTOOLS_IDXSTATS
 ```
 
-Sample data for the `.fastq` and `.bed` inputs have been provided in the `sample_data` directory at the top level of this repository. 
+Sample data for the `.fastq` and `.bed` inputs have been provided in the `data/sample_data/galaxy/rnaseq_reads_to_counts` folder we obtained by downloading & extracting the zenodo archive.
 
 The scripts will have been copied by `janis translate` and placed in the `rnaseq_reads_to_counts/templates` folder. 
 
@@ -2830,26 +2867,26 @@ Replace the `// INPUTS (MANDATORY)` section of `nextflow.config` with the follow
 // INPUTS (MANDATORY)
 collection_column_join_script      = NULL_VALUE
 in_input_fastqs_collection         = [
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-DG-basalvirgin.fastq.gz",
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-DH-basalvirgin.fastq.gz",
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-DI-basalpregnant.fastq.gz",
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-DJ-basalpregnant.fq.gz",
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-DK-basallactate.fastq.gz",
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-DL-basallactate.fastq.gz",
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-LA-luminalvirgin.fastq.gz",
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-LB-luminalvirgin.fastq.gz",
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-LC-luminalpregnant.fastq.gz",
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-LD-luminalpregnant.fastq.gz",
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-LE-luminallactate.fastq.gz",
-    "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/MCL1-LF-luminallactate.fastq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-DG-basalvirgin.fastq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-DH-basalvirgin.fastq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-DI-basalpregnant.fastq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-DJ-basalpregnant.fq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-DK-basallactate.fastq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-DL-basallactate.fastq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-LA-luminalvirgin.fastq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-LB-luminalvirgin.fastq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-LC-luminalpregnant.fastq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-LD-luminalpregnant.fastq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-LE-luminallactate.fastq.gz",
+    "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/MCL1-LF-luminallactate.fastq.gz",
 ]
-in_input_reference_gene_bed        = "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/ucsc/mm10_RefSeq.bed"
+in_input_reference_gene_bed        = "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/ucsc/mm10_RefSeq.bed"
 multiqc_config                     = "templates/multiqc_config"
 fastqc1_format_string              = "fastq"
 fastqc1_outdir                     = "outdir"
 fastqc2_format_string              = "fastq"
 fastqc2_outdir                     = "outdir"
-hisat2_index_path                  = "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/hisat2_index/*.ht2"
+hisat2_index_path                  = "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/hisat2_index/*.ht2"
 hisat2_read11                      = NULL_VALUE  // (MANDATORY string)  
 rseqc_gene_body_coverage_safename  = NULL_VALUE  // (MANDATORY string)    
 samtools_idxstats_addthreads       = "2"       
@@ -2869,7 +2906,7 @@ Open `modules/hisat2.nf` to look at its process definition. It should look simil
 ```
 process HISAT2 {
     
-    container "quay.io/biocontainers/hisat2:2.2.1--h87f3376_5"
+    container "quay.io/grace_hall1/hisat2:2.2.1" 
     publishDir "${params.outdir}/hisat2"
 
     input:
@@ -2900,7 +2937,7 @@ The input reads are therefore arriving as `library_input_1` rather than `read11`
 In the `script:` section of HISAT2 we see what is going on.
 
 The `read11` input is being fed to `-U`, but this should instead be `library_input_1`. 
-`read11` appears to be the same role as `library_input_1` and looks like a temporary variable the source tool used. 
+`read11` appears to have the same role as `library_input_1` and looks like a temporary variable the source Galaxy Tool Wrapper used. 
 
 To fix this, we will remove the `read11` HISAT2 process input & associated references.<br>
 We will then make changes to the HISAT2 process script & outputs.
@@ -2963,7 +3000,7 @@ To begin, let's remove the process input itself, as well as the `nextflow.config
         params {
             ...
 
-            hisat2_index_path                  = "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/hisat2_index/*.ht2"
+            hisat2_index_path                  = "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/hisat2_index/*.ht2"
             // hisat2_read11                      = NULL_VALUE  // (MANDATORY string)     <-
             rseqc_gene_body_coverage_safename  = NULL_VALUE  // (MANDATORY string)    
             samtools_idxstats_addthreads       = "2"
@@ -2979,8 +3016,8 @@ Next we will swap `read11` with `library_input_1` in the script section & add so
 !!! question "Addressing HISAT2 script args"
     Swap `read11` with `library_input_1` in the HISAT2 script section. <br>
     Remove the original line referencing `library_input_1`. <br>
-    Supply the hisat2 `--summary-file` argument to specify the output summary txt file name<br>
-    Supply the hisat2 `-S` argument to specify the name of the produced SAM file. 
+    Supply `--summary-file summary.txt` to hisat2 to specify an output summary textfile name.<br>
+    Supply `-S out.sam` to hisat2 to specify the name of the produced SAM file. 
 
     ??? hint "Show Change"
         modules/hisat2.nf:
@@ -3104,7 +3141,7 @@ We will take the same approach as we did for the `read11` process input in HISAT
     Remove the value being passed to `safename` in `main.nf`. <br>
     Remove the `safename` process input from `RSEQC_GENE_BODY_COVERAGE`. <br>
     Swap `safename` for `batch_mode_input` in the script, and remove the original reference to `batch_mode_input`.<br>
-    Additionally, add the `-o` argument to the script section to set an output filename.<br><br>
+    Additionally, supply `-o output` after the `-i` argument in the script section to set an output filename.<br><br>
 
     ??? hint "Show Changes"
         modules/rseqc_gene_body_coverage.nf:
@@ -3154,7 +3191,7 @@ We will take the same approach as we did for the `read11` process input in HISAT
         params {
             ...
 
-            hisat2_index_path                  = "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/hisat2_index/*.ht2"
+            hisat2_index_path                  = "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/hisat2_index/*.ht2"
             // hisat2_read11                      = NULL_VALUE  // (MANDATORY string)     
             // rseqc_gene_body_coverage_safename  = NULL_VALUE  // (MANDATORY string)     <-
             samtools_idxstats_addthreads       = "2"
@@ -3181,7 +3218,7 @@ To run the workflow using our sample data, we can now write the following comman
 nextflow run main.nf
 ```
 
-While the workflow runs, you will encounter this error:
+While the workflow runs, you will encounter one of the following errors:
 
 ```
 Caused by:
@@ -3194,7 +3231,21 @@ Command error:
   Specified output directory 'outdir' does not exist
 ```
 
-This is somewhat expected. Janis translate doesn't produce perfect translations - just the best it can do. 
+```
+ERROR ~ Error executing process > 'CUTADAPT (3)'
+
+Caused by:
+  Process `CUTADAPT (3)` terminated with an error exit status (255)
+
+Command executed:
+
+  cutadapt     MCL1-DI-basalpregnant.fastq.gz
+```
+
+
+It could be either of the above, as the dataflow paradigm adopted by nextflow doesn't guarantee the order which processes are executed. 
+
+Errors are somewhat expected when translating Galaxy workflows. Janis translate doesn't produce perfect translations - just the best it can do. 
 
 This is the first of multiple errors we will encounter and fix while making this workflow runnable. 
 
@@ -3208,6 +3259,8 @@ In the remainer of this workshop we will fix up 7 errors we encounter along the 
 During the process we will discuss some differences between Galaxy and Nextflow, and will get some practise with Nextflow debugging.
 
 We have split each error into parts: the ***Error message***, ***Diagnosing the error***, and the ***solution***. 
+
+If your error message is different to the one being discussed, do not worry. You can still follow the order listed below to create the runnable workflow. 
 
 <br>
 
@@ -3313,8 +3366,8 @@ Fastqc also adds `_fastqc.ext` to each output file, where `ext` is the file exte
             ...
 
             output:
-            path "${outdir}/*_fastqc.html", emit: out_html_file
-            path "${outdir}/*_fastqc.zip", emit: out_text_file
+            path "${outdir}/*_fastqc.html", emit: out_html_file     <-
+            path "${outdir}/*_fastqc.zip", emit: out_text_file      <-
 
             ...
         }
@@ -3494,8 +3547,8 @@ Now that we have fixed the script section of CUTADAPT, we will change the collec
             ...
 
             output:
-            path "${library_input_1.simpleName}.cutadapt.fastq.gz", emit: out12
-            path "${library_input_1.simpleName}.cutadapt.txt", emit: out_report
+            path "${library_input_1.simpleName}.cutadapt.fastq.gz", emit: out12     <-
+            path "${library_input_1.simpleName}.cutadapt.txt", emit: out_report     <-
 
             ...
         }
@@ -3681,7 +3734,7 @@ Caused by:
   Process `HISAT2 (1)` terminated with an error exit status (2)
 
 Command executed:
-  hisat2     -U MCL1-LD-luminalpregnant.cutadapt.fastq.gz     -x /cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/hisat2_index/*.ht2     --summary-file summary.txt     -S out.sam
+  hisat2     -U MCL1-LD-luminalpregnant.cutadapt.fastq.gz     -x /home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/hisat2_index/*.ht2     --summary-file summary.txt     -S out.sam
   
   samtools view out.sam -o out.bam
   samtools sort out.bam -o sorted.bam
@@ -3690,7 +3743,7 @@ Command executed:
   mv sorted.bam.bai alignment.bam.bai
 
 Command error:
-  (ERR): "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/galaxy/rnaseq_reads_to_counts_workflow/hisat2_index/*.ht2" does not exist
+  (ERR): "/home2/training/data/sample_data/galaxy/rnaseq_reads_to_counts/hisat2_index/*.ht2" does not exist
   Exiting now ...
 
 Work dir:
