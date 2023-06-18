@@ -119,9 +119,11 @@ In this workshop we will use a singularity container to run `janis translate`.
 
 Containers are great because they remove the need for package managers, and guarantee that the software can run on any machine. 
 
+Singularity is already set up on your VM.
+
 Run the following command to pull the janis image:
 ```
-singularity pull janis.sif docker://rlupat/janis:0.13.0
+singularity pull janis.sif docker://pppjanistranslate/janis-translate:0.12.0
 ```
 
 Check your image by running the following command:
@@ -135,16 +137,30 @@ If the image is working, you should see the janis translate helptext.
 
 **Acquiring Tool / Workflow Source Files**
 
-For this workshop we will clone the janis-translate-examples github repo. 
+For this workshop we will fetch all needed data from zenodo using wget.  
 
-This repo contains the sample data we will need to run translated tools / workflows for verification. 
-It also contains the "completed" translations which we will work toward in this workshop. 
+This archive contains source CWL / Galaxy files, sample data, and finished translations as a reference.
 
-Run the following commands to clone the janis-translate-examples repo, and change to the repo directory:
+Run the following commands to download & uncompress the zenodo archive:
 ```
-git clone https://github.com/PMCC-BioinformaticsCore/janis-translate-examples
-cd janis-translate-examples
+wget https://zenodo.org/record/8049665/files/data.tar.gz
+tar -xvf data.tar.gz
 ```
+
+Inside the data folder we have the following structure: 
+```
+data
+├── final               # finalised translations for your reference
+│   ├── cwl
+│   └── galaxy
+├── sample_data         # sample data to test nextflow processes / workflows
+│   ├── cwl
+│   └── galaxy
+└── source              # CWL / Galaxy files we will translate
+    ├── cwl
+    └── galaxy
+``` 
+
 
 <br>
 
@@ -156,15 +172,22 @@ To translate a tool / workflow,  we use `janis translate`.
 janis translate --from <src> --to <dest> <filepath>
 ```
 
-The `--from` specifies the workflow language of the source file(s), and `--to` specifies the destination we want to translate to. 
+The `--from` argument specifies the workflow language of the source file(s), and `--to` specifies the destination we want to translate to. 
+
+The `<filepath>` argument is the source file we will translate. 
+
+In this section we are translating a single CWL CommandLineTool, so we will only produce a single nextflow file. 
+
 
 <br>
 
-In this section, we want to translate CWL -> Nextflow, and our source CWL file is located at `source/samtools_flagstat.cwl` relative to this document.
+In this section, we want to translate CWL -> Nextflow, and our source CWL file is in the `data` folder we just downloaded from zenodo. 
+
+It's path is `data/source/cwl/samtools_flagstat.cwl`.
 
 Run the following command:
 ```
-singularity exec ~/janis.sif janis translate --from cwl --to nextflow ./source/cwl/samtools_flagstat.cwl
+singularity exec ~/janis.sif janis translate --from cwl --to nextflow data/source/cwl/samtools_flagstat.cwl
 ```
 
 <br>
@@ -228,7 +251,7 @@ Let's add a `publishDir` directive to our translated process so that we can capt
 process SAMTOOLS_FLAGSTAT {
 
     container "quay.io/biocontainers/samtools:1.11--h6270b1f_0"
-    publishDir "./outputs"    
+    publishDir "./outputs"                                          <-
     ....
 
 }                          
@@ -256,8 +279,8 @@ singularity.cacheDir = "$HOME/.singularity/cache"
 params {
 
     bam = [
-        '/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/2895499223_sorted.bam',
-        '/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/2895499223_sorted.bai',
+        '/home2/training/data/sample_data/cwl/2895499223_sorted.bam',
+        '/home2/training/data/sample_data/cwl/2895499223_sorted.bam.bai',
     ]
 
 }
@@ -292,8 +315,7 @@ workflow {
 
 The first line creates a nextflow `Channel` for our `bam` input and ensures it is a list. <br>
 The `Channel.toList()` part collects our files into a list, as both the `.bam` and `.bai` files must be passed together. <br>
-The `params.bam` global variable we set up previously is used to supply the 
-paths to our sample data.
+The `params.bam` global variable we set up previously is used to supply the paths to our sample data.
 
 The new `workflow {}` section declares the main workflow entry point. <br>
 When we run this file, nextflow will look for this section and run the workflow contained within. 
@@ -344,7 +366,8 @@ If everything went well, there should be a file called `2895499223_sorted.bam.fl
 
 In section 1.1 we explored how to translate a simple CWL tool to a Nextflow process. 
 
-If needed, you can check the `final/` folder inside `janis-translate-examples/` which contains the files we created in this tutorial.  
+If needed, you can check the `final/cwl/samtools_flagstat` folder in the zenodo `data/` directory. 
+This contains the files we created in this section for your reference. 
 
 We will build on our knowledge in section 1.2 by translating a more complex CWL CommandLineTool definition: *GATK HaplotypeCaller*.
 
@@ -356,14 +379,16 @@ We will build on our knowledge in section 1.2 by translating a more complex CWL 
 
 ### Introduction
 
-This tutorial demonstrates translation of a `gatk HaplotypeCaller` tool from CWL to Nextflow using `janis translate`. <br>
+Now that we have translated a simple CWL CommandLineTool, let's translate a more real-world CommandLineTool. 
 
-The CWL tool used in this tutorial is taken from the [McDonnell Genome Institute](https://www.genome.wustl.edu/) (MGI) [analysis-workflows](https://github.com/genome/analysis-workflows) repository. 
+This section demonstrates translation of a `gatk HaplotypeCaller` tool from CWL to Nextflow using `janis translate`. <br>
 
-This resource stores publically available analysis pipelines for genomics data. <br>
+The source CWL file used in this section is taken from the [McDonnell Genome Institute](https://www.genome.wustl.edu/) (MGI) [analysis-workflows](https://github.com/genome/analysis-workflows) repository. 
+
+This repository stores publically available analysis pipelines for genomics data. <br>
 It is a fantastic piece of research software, and the authors thank MGI for their contribution to open-source research software. 
 
-The tool using in this tutorial - [gatk_haplotype_caller.cwl](https://github.com/genome/analysis-workflows/blob/master/definitions/tools/gatk_haplotype_caller.cwl) - displays summary information for an alignment file. 
+The software tool encapsulated by the source CWL - [gatk_haplotype_caller.cwl](https://github.com/genome/analysis-workflows/blob/master/definitions/tools/gatk_haplotype_caller.cwl) - displays summary information for an alignment file. 
 
 <br>
 
@@ -371,10 +396,15 @@ The tool using in this tutorial - [gatk_haplotype_caller.cwl](https://github.com
 
 As in section 1.1, we will use janis-translate to translate our CWL CommandLineTool to a Nextflow process. 
 
-This time, since we already have a `translated/` folder, we will supply the `-o` argument to janis-translate to specify the outdir. 
+First, let's make sure we're back in the main training directory
+```
+cd /home2/training
+```
+
+This time, since we already have a `translated/` folder, we will supply the `-o` argument to janis-translate to specify an output directory. 
 
 ```
-singularity exec ~/janis.sif janis translate -o haplotype_caller --from cwl --to nextflow ./source/gatk_haplotype_caller.cwl
+singularity exec ~/janis.sif janis translate -o haplotype_caller --from cwl --to nextflow data/source/cwl/gatk_haplotype_caller.cwl
 ```
 
 You will see a folder called `haplotype_caller/` appear, and a nextflow process called `gatk_haplotype_caller.nf` will be present inside. 
@@ -395,9 +425,9 @@ process GATK_HAPLOTYPE_CALLER {
     input:
     path bam
     path reference
-    path dbsnp_vcf
-    val gvcf_gq_bands
+    path dbsnp_vcf, stageAs: 'dbsnp_vcf/*'
     val intervals
+    val gvcf_gq_bands
     val emit_reference_confidence
     val contamination_fraction
     val max_alternate_alleles
@@ -411,7 +441,7 @@ process GATK_HAPLOTYPE_CALLER {
     def bam = bam[0]
     def dbsnp_vcf = dbsnp_vcf[0] != null ? "--dbsnp ${dbsnp_vcf[0]}" : ""
     def reference = reference[0]
-    def gvcf_gq_bands_joined = gvcf_gq_bands.join(' ')
+    def gvcf_gq_bands_joined = gvcf_gq_bands != params.NULL_VALUE ? "-GQB " + gvcf_gq_bands.join(' ') : ""
     def intervals_joined = intervals.join(' ')
     def contamination_fraction = contamination_fraction != params.NULL_VALUE ? "-contamination ${contamination_fraction}" : ""
     def max_alternate_alleles = max_alternate_alleles != params.NULL_VALUE ? "--max_alternate_alleles ${max_alternate_alleles}" : ""
@@ -422,14 +452,14 @@ process GATK_HAPLOTYPE_CALLER {
     -R ${reference} \
     -I ${bam} \
     -ERC ${emit_reference_confidence} \
-    -GQB ${gvcf_gq_bands_joined} \
+    ${gvcf_gq_bands_joined} \
     -L ${intervals_joined} \
     ${dbsnp_vcf} \
     ${contamination_fraction} \
     ${max_alternate_alleles} \
     ${ploidy} \
     ${read_filter} \
-    -O "output.g.vcf.gz" \
+    -O "output.g.vcf.gz"
     """
 
 }
@@ -437,40 +467,39 @@ process GATK_HAPLOTYPE_CALLER {
 
 We can see that this nextflow process has a multiple inputs, single output, and calls `gatk HaplotypeCaller` using the input data we supply to the process.  
 
-We can also see that a container image is available for this tool. In the next section we will run this process using some sample data and the specified container. 
-
-This translation is correct for the `gatk_haplotype_caller.cwl` file and needs no adjusting. <br>
-Have a look at the source CWL file to see how they match up. 
-
 <br>
 
 > Notes on translation: <br><br>
 > **(1)** `def bam = bam[0]`<br><br>
 > This pattern is used in the script block to handle datatypes with secondary files. <br>
-> The `bam` input is an indexed bam type, so requires a `.bai` file to also be present in the working directory alongside the `.bam` file. <br>
-> For this reason the `bam` input is supplied as a list with 2 files - the `.bam` and the `.bai`. <br>
+> The `bam` input is an indexed bam type, so requires a `.bai` file to also be present in the working directory. <br><br>
+> To facilitate this, we supply the `bam` input as a tuple of 2 files:<br> 
+> `[filename.bam, filename.bam.bai]`. <br><br>
 > `def bam = bam[0]` is used so when we reference `${bam}` in the script body, we are refering to the `.bam` file in that list. <br><br>
-> **(2)** `def dbsnp_vcf = dbsnp_vcf[0] != null ? "--dbsnp ${dbsnp_vcf[0]}" : ""`<br><br>
-> This is performing the same job as item (1), with some extra details. <br>
-> The `dbsnp_vcf` input is an indexed vcf datatype. <br>
-> Similar to `bam`, it is passed as a list containing a `.vcf.gz` file and a `.vcf.gz.tbi` file. <br>
-> It differs because it is an *optional* input, and needs the `--dbsnp` prefix. <br><br>
-> Here we use a *ternary operator* to check if the input is **null**. <br>
-> The format is `cond_check ? cond_true : cond_false`.<br>
-> The `dbsnp_vcf[0] != null` here checks if the `.vcf.gz` file is present. <br>
-> If present, it templates a string we can use in the script body to provide the required argument: `--dbsnp ${dbsnp_vcf[0]}`<br>
-> If absent, it templates an empty string. <br>
-> This ensures that when we use `${dbsnp_vcf}` in the script body, it will be formatted correctly for either case.<br><br>
+> **(2)** `def ploidy = ploidy != params.NULL_VALUE ? "-ploidy ${ploidy}" : ""` <br><br>
+> This is how we handle optional val inputs in nextflow. <br>
+> Nextflow doesn't like ***null*** values to be passed to process inputs, so we use 2 different tricks to make ***optional*** inputs possible.<br><br>
+> For `val` inputs we set up a `NULL_VALUE` param in `nextflow.config` which we use as a placeholder.  <br>
+> For `path` inputs (ie files and directories) we set up a ***null*** file rather than passing ***null*** directly. <br>
+> This ensures that the file is staged correctly in the working directory when an actual filepath is provided. <br><br>
+> The format above is a ternary operator of the form `def myvar = cond_check ? cond_true : cond_false`.<br>
+> We are redefining the `ploidy` string variable so that it will be correctly formatted when used in the script block.<br>
+> If we supply an actual value, it will take the form `"-ploidy ${ploidy}"`. <br>
+> If we supply the placeholder `params.NULL_VALUE` value, it will be a blank string `""`. <br><br>
 > **(3)** `def intervals_joined = intervals.join(' ')` <br><br>
 > Templates our `intervals` list of strings to a single string.<br>
-> Each item is joined by a space: eg ["hello", "there"] -> "hello there". <br><br>
-> **(4)** `def ploidy = ploidy != params.NULL_VALUE ? "-ploidy ${ploidy}" : ""` <br><br>
-> Same as **(2)** except uses a different check for null value. <br>
-> Nextflow doesn't like **null** values to be passed to process inputs, so we use 2 different tricks to make **optional** inputs possible.<br><br>
-> For `val` inputs we set up a `NULL_VALUE` param in `nextflow.config` which we use as a placeholder.  <br>
-> We will do this in the following section. <br><br>
-> For `path` inputs (ie files and directories) we set up a **null** file rather than passing **null** directly. <br>
-> This ensures that the file is staged correctly in the working directory when an actual filepath is provided. 
+> Each item is joined by a space: eg `["hello", "there"]` -> `"hello there"`. <br><br>
+> **(4)** `def dbsnp_vcf = dbsnp_vcf[0] != null ? "--dbsnp ${dbsnp_vcf[0]}" : ""`<br><br>
+> Same as **(2)** except uses a different check for null value, and selects the primary `.vcf.gz` file. <br><br>
+> As the `path dbsnp_vcf` input is optional and consists of a `.vcf.gz` and `.vcf.gz.tbi` file, `dbsnp_vcf[0] != null` checks if the primary `.vcf.gz` file is present. <br><br>
+> If true, it templates a string we can use in the script body to provide the required argument: `--dbsnp ${dbsnp_vcf[0]}`.<br>
+> If false, it templates an empty string.<br><br>
+> This ensures that when we use `${dbsnp_vcf}` in the script body, it will be formatted correctly for either case.<br><br>
+
+<br>
+
+This translation is correct for the `gatk_haplotype_caller.cwl` file and needs no adjusting. <br>
+Have a look at the source CWL file to see how they match up. 
 
 <br>
 
@@ -511,17 +540,17 @@ params {
     NULL_VALUE = 'NULL'
 
     bam = [
-        '/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/2895499223_sorted.bam',
-        '/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/2895499223_sorted.bam.bai',
+        '/home2/training/data/sample_data/cwl/2895499223_sorted.bam',
+        '/home2/training/data/sample_data/cwl/2895499223_sorted.bam.bai',
     ]
     dbsnp = [
-        '/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test_dbsnp.vcf.gz',
-        '/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test_dbsnp.vcf.gz.tbi',
+        '/home2/training/data/sample_data/cwl/chr17_test_dbsnp.vcf.gz',
+        '/home2/training/data/sample_data/cwl/chr17_test_dbsnp.vcf.gz.tbi',
     ]
     reference = [
-        '/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test.fa',
-        '/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test.dict',
-        '/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test.fa.fai',
+        '/home2/training/data/sample_data/cwl/chr17_test.fa',
+        '/home2/training/data/sample_data/cwl/chr17_test.dict',
+        '/home2/training/data/sample_data/cwl/chr17_test.fa.fai',
     ]
     gvcf_gq_bands = NULL_VALUE
     intervals = ["chr17"]
@@ -583,7 +612,7 @@ workflow {
 
 The first 3 lines create nextflow `Channels` for our `bam`, `dbsnp`, and `reference` inputs and ensures they are lists.
 
-The `Channel.toList()` aspect collects our files into a list, as the primary & secondary files for these datatypes must be passed together.
+The `Channel.toList()` aspect collects our files into a list, as the primary & secondary files for these datatypes must be passed together as a tuple.
 
 The `params.bam`, `params.dbsnp` and `params.reference` global variables we set up previously are used to supply the paths to our sample data for these channels.
 
@@ -612,16 +641,17 @@ Once completed, we can check the `outputs/` folder to view our results. <br>
 If everything went well, the `outputs/` folder should contain 2 files: 
 
 - `output.g.vcf.gz`
-- `output.g.vcf.gz.tbi`.
-
+- `output.g.vcf.gz.tbi`
 
 <br>
 
 ### Conclusion
 
-In this tutorial we explored how to translate the `gatk_haplotype_caller` CWL tool to a Nextflow process. 
+In this section we explored how to translate the `gatk_haplotype_caller` CWL CommandLineTool to a Nextflow process. 
 
-If needed, you can check the `final/` folder which contains the files we created in this tutorial as reference.  
+This is a more real-world situation, where the CommandLineTool has multiple inputs, secondary files, and optionality. 
+
+If needed, you can check the `final/cwl/gatk_haplotype_caller/` folder inside our `data/` directory which contains the files we created in this tutorial as reference.  
 
 Now that we have translated two CWL CommandLineTools, we will translate a full CWL Workflow into Nextflow.
 
@@ -642,16 +672,16 @@ It is a fantastic piece of research software, and the authors thank MGI for thei
 
 The workflow using in this tutorial - [align_sort_markdup.cwl](https://github.com/genome/analysis-workflows/blob/master/definitions/subworkflows/align_sort_markdup.cwl) - accepts multiple unaligned readsets as input and produces a single polished alignment bam file. 
 
-*Main Inputs* 
+***Main Inputs*** 
 
 - Unaligned reads stored across multiple BAM files
 - Reference genome index
 
-*Main Outputs*
+***Main Outputs***
 
 - Single BAM file storing alignment for all readsets
 
-*Steps*
+***Steps***
 
 - Read alignment (run in parallel across all readsets) - `bwa mem`
 - Merging alignment BAM files to single file - `samtools merge`
@@ -663,13 +693,23 @@ The workflow using in this tutorial - [align_sort_markdup.cwl](https://github.co
 
 ### Janis Translate
 
-In this section, we want to translate CWL -> Nextflow, and our source CWL file is located at `source/subworkflows/align_sort_markdup.cwl` relative to this document.
+Previously we were translating single CWL CommandLineTools, but this time we're translating a full Workflow. 
+
+To translate a workflow, we supply the main CWL Workflow file as <filename> to janis translate. <br>
+In addition to the main CWL Workflow, all Subworkflows / CommandLineTools will be detected & translated.
+
+First, let's make sure we're back in the main training directory
+```
+cd /home2/training
+```
+
+In this section, we are translating CWL -> Nextflow, and our source CWL file is located at `data/source/cwl/align_sort_markdup/subworkflows/align_sort_markdup.cwl` relative to this document.
 
 We will add the `-o align_sort_markdup` argument to specify this as the output directory. 
 
-Run the following command:
+To translate, run the following command:
 ```
-singularity exec ~/janis.sif janis translate -o align_sort_markdup --from cwl --to nextflow ./source/subworkflows/align_sort_markdup.cwl
+singularity exec ~/janis.sif janis translate -o align_sort_markdup --from cwl --to nextflow data/source/cwl/align_sort_markdup/subworkflows/align_sort_markdup.cwl
 ```
 
 <br>
@@ -695,7 +735,7 @@ align_sort_markdup
     └── markduplicates_helper.sh
 ```
 
-Now we have performed translation using `janis translate`, we need to check the translated workflow for correctness.  
+Now that we have performed translation using `janis translate`, we need to check the translated workflow for correctness.  
 
 From here, we will do a test-run of the workflow using sample data, and make manual adjustments to the translated workflow where needed. 
 
@@ -708,12 +748,16 @@ From here, we will do a test-run of the workflow using sample data, and make man
 The main workflow translation appears as `main.nf` in the `align_sort_markdup/` folder. <br>
 
 This filename is just a convention, and we use it to provide clarity about the main entry point of the workflow. <br>
-In our case `main.nf` holds the nextflow definition for the  `align_sort_markdup.cwl` workflow. 
+In our case `main.nf` is equivalent to the main CWL Workflow file we translated: `align_sort_markdup.cwl`. 
+
+<br>
 
 > NOTE: <br>
 > Before continuing, feel free to have a look at the other nextflow files which have been generated during translation:<br>
-> Each CWL subworkflow appears as a nextflow `workflow` in the `subworkflows/` directory.<br>
-> Each CWL tool appears as a nextflow `process` in the `modules/` directory. 
+> Each CWL Subworkflow appears as a nextflow `workflow` in the `subworkflows/` directory.<br>
+> Each CWL CommandLineTool appears as a nextflow `process` in the `modules/` directory. 
+
+<br>
 
 In `main.nf` we see the nextflow workflows / processes called by the main workflow:
 
@@ -725,31 +769,42 @@ include { MERGE_BAMS_SAMTOOLS as MERGE } from './modules/merge_bams_samtools'
 include { NAME_SORT } from './modules/name_sort'
 ```
 
-We also see that some nextflow `Channels` have been set up. <br>
+We also see that some nextflow `Channels` and a single `variable` have been set up. <br>
 These are used to supply data according to nextflow's adoption of the *dataflow* programming model.
 ```
 // data which will be passed as channels
 ch_bams        = Channel.fromPath( params.bams ).toList()
-ch_reference   = Channel.fromPath( params.reference ).toList()
 ch_readgroups  = Channel.of( params.readgroups ).toList()
-```
 
-<br>
+// data which will be passed as variables
+reference  = params.reference.collect{ file(it) }
+```
 
 Focusing on the channel declarations, we want to note a few things:
 
 - `ch_bams` is analygous to the *'bams'* input in `align_sort_markdup.cwl`. <br>
 It declares a queue channel which expects the data supplied via `params.bams` are `path` types. <br>
-It then groups the bams together as a sole emission. <br>
+It then groups the bams together as a sole emission using `.toList(). <br>
 We will need to set up `params.bams` to supply this data.
-
-- `ch_reference` is analygous to the *'reference'* input in `align_sort_markdup.cwl`. <br>
-This channel collects the *'reference'* primary & secondary files as a sole emission. <br> 
-We will need to set up `params.reference` to supply this data. 
 
 - `ch_readgroups` is analygous to the *'readgroups'* input in `align_sort_markdup.cwl`. <br>
 It is the same as `ch_bams`, except it requires `val` types rather than `path` types. <br>
 We will need to set up `params.readgroups` to supply this data.
+
+We also see a new variable called `reference` being created. 
+
+This `reference` var is analygous to the *'reference'* input in `align_sort_markdup.cwl`. 
+It collects the *'reference'* primary & secondary files together in a list. 
+
+We will need to set up `params.reference` to supply this data. 
+
+<br>
+
+> Note: Why does `reference` appear as a variable, rather than a `Channel`? <br><br>
+> In Nextflow, we find it is best to create Channels for data that ***moves*** through the pipeline. <br>
+> The `ch_bams` channel is created because we want to consume / transform the input bams during the pipeline. <br> <br>
+> On the other hand, the `reference` genome variable is not something we really want to consume or transform.  <br>
+> It's more like static helper data which can be used by processes, but it doesn't ***move*** through our pipeline, and definitely shouldn't be consumed or transformed in any way. 
 
 <br>
 
@@ -853,9 +908,9 @@ params {
     index_bam.memory  = 4000 
 
     // PROCESS: MARK_DUPLICATES_AND_SORT
-    mark_duplicates_and_sort.script  = "/home2/training/janis-translate-examples/align_sort_markdup/templates/markduplicates_helper.sh"
-    mark_duplicates_and_sort.cpus    = 8
-    mark_duplicates_and_sort.memory  = 40000
+    mark_duplicates_and_sort.script  = "/home2/training/align_sort_markdup/templates/markduplicates_helper.sh" 
+    mark_duplicates_and_sort.cpus    = 8                                                                       
+    mark_duplicates_and_sort.memory  = 40000                                                                   
 
     // PROCESS: MERGE_BAMS_SAMTOOLS
     merge_bams_samtools.cpus    = 4    
@@ -866,6 +921,7 @@ params {
     name_sort.memory  = 26000 
 
 }
+
 ```
 
 <br>
@@ -906,28 +962,71 @@ Others need to be manually supplied as they are specific to the input data you w
 In our case, we need to supply values for those under the `// INPUTS (MANDATORY)` heading. 
 Specifically, we need to provide sample data for the `bams`, `reference`, and `readgroups` inputs. 
 
-Copy and paste the following text, supplying values for these inputs in your current `nextflow.config` file:
+Additionally, the `cpu` and `memory` params need to be changed. 
+
+The source CWL Workflow has compute requirements set greater than what is available on your VM. 
+
+Copy and paste the following text, to override the current `nextflow.config` file:
 
 ```
+nextflow.enable.dsl = 2
+singularity.enabled = true
+singularity.cacheDir = "$HOME/.singularity/cache"
+
+params {
+    
+    // Placeholder for null values.
+    // Do not alter unless you know what you are doing.
+    NULL_VALUE = 'NULL'
+
+    // WORKFLOW OUTPUT DIRECTORY
+    outdir  = './outputs'
+
     // INPUTS (MANDATORY)
     bams        = [
-        "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/2895499223.bam",
-        "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/2895499237.bam",
+        "/home2/training/data/sample_data/cwl/2895499223.bam",
+        "/home2/training/data/sample_data/cwl/2895499237.bam",
     ]
     reference   = [
-        "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test.fa",
-        "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test.fa.amb",
-        "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test.fa.ann",
-        "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test.fa.bwt",
-        "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test.fa.fai",
-        "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test.dict",
-        "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test.fa.pac",
-        "/cvmfs/data.biocommons.aarnet.edu.au/training_materials/MelbBio_training/Janis_0723/sample_data/cwl/chr17_test.fa.sa",
+        "/home2/training/data/sample_data/cwl/chr17_test.fa",
+        "/home2/training/data/sample_data/cwl/chr17_test.fa.amb",
+        "/home2/training/data/sample_data/cwl/chr17_test.fa.ann",
+        "/home2/training/data/sample_data/cwl/chr17_test.fa.bwt",
+        "/home2/training/data/sample_data/cwl/chr17_test.fa.fai",
+        "/home2/training/data/sample_data/cwl/chr17_test.dict",
+        "/home2/training/data/sample_data/cwl/chr17_test.fa.pac",
+        "/home2/training/data/sample_data/cwl/chr17_test.fa.sa",
     ] 
     readgroups  = [
-        '"@RG\tID:2895499223\tPU:H7HY2CCXX.3.ATCACGGT\tSM:H_NJ-HCC1395-HCC1395\tLB:H_NJ-HCC1395-HCC1395-lg24-lib1\tPL:Illumina\tCN:WUGSC"',
-        '"@RG\tID:2895499237\tPU:H7HY2CCXX.4.ATCACGGT\tSM:H_NJ-HCC1395-HCC1395\tLB:H_NJ-HCC1395-HCC1395-lg24-lib1\tPL:Illumina\tCN:WUGSC"'
+        '@RG\tID:2895499223\tPU:H7HY2CCXX.3.ATCACGGT\tSM:H_NJ-HCC1395-HCC1395\tLB:H_NJ-HCC1395-HCC1395-lg24-lib1\tPL:Illumina\tCN:WUGSC',
+        '@RG\tID:2895499237\tPU:H7HY2CCXX.4.ATCACGGT\tSM:H_NJ-HCC1395-HCC1395\tLB:H_NJ-HCC1395-HCC1395-lg24-lib1\tPL:Illumina\tCN:WUGSC'
     ]
+
+    // INPUTS (OPTIONAL)
+    final_name  = "final.bam" 
+
+    // PROCESS: ALIGN_AND_TAG
+    align_and_tag.cpus    = 4     
+    align_and_tag.memory  = 10000 
+
+    // PROCESS: INDEX_BAM
+    index_bam.memory  = 10000 
+
+    // PROCESS: MARK_DUPLICATES_AND_SORT
+    mark_duplicates_and_sort.script  = "/home2/training/align_sort_markdup/templates/markduplicates_helper.sh" 
+    mark_duplicates_and_sort.cpus    = 4
+    mark_duplicates_and_sort.memory  = 10000                         
+
+    // PROCESS: MERGE_BAMS_SAMTOOLS
+    merge_bams_samtools.cpus    = 4    
+    merge_bams_samtools.memory  = 10000 
+
+    // PROCESS: NAME_SORT
+    name_sort.cpus    = 4     
+    name_sort.memory  = 10000 
+
+}
+
 ```
 
 <br>
@@ -968,7 +1067,7 @@ In this section we will fix ***3 errors*** to bring the translation to a finishe
 <br>
 
 > NOTE <br>
-> If having trouble during this section, the finished workflow is available in the `final/` folder for reference.
+> If having trouble during this section, the finished workflow is available in the `data/final/cwl/align_sort_markdup` folder for reference.
 
 <br>
 
@@ -1056,6 +1155,39 @@ We will need to rearrange the process calls in `main.nf` so they mirror the orde
         4. MARK_DUPLICATES_AND_SORT
         5. INDEX_BAM
 
+    ??? hint "Show Workflow"
+
+        ```
+        workflow {
+
+            ALIGN(
+                ch_bams.flatten(),       // ch_bam
+                reference,               // ch_reference
+                ch_readgroups.flatten()  // ch_readgroup
+            )
+
+            MERGE(
+                ALIGN.out.tagged_bam.toList(),  // bams
+                params.final_name               // name
+            )
+            
+            NAME_SORT(
+                MERGE.out.merged_bam  // bam
+            )
+
+            MARK_DUPLICATES_AND_SORT(
+                params.mark_duplicates_and_sort.script,  // script
+                NAME_SORT.out.name_sorted_bam,           // bam
+                params.NULL_VALUE,                       // input_sort_order
+                params.final_name                        // output_name
+            )
+
+            INDEX_BAM(
+                MARK_DUPLICATES_AND_SORT.out.sorted_bam.map{ tuple -> tuple[0] }  // bam
+            )
+
+        }
+        ```
 
 After you are done, rerun the workflow by using the same command as before.
 
@@ -1119,7 +1251,7 @@ process ALIGN_AND_TAG {
     (4) ${readgroup} \
     (5) ${reference} \
     (6) 8 \
-    (7) > (8) refAlign.bam \
+    (7) > (8) refAlign.bam  
     """
 
 }
@@ -1246,11 +1378,11 @@ Opening `modules/align_and_tag.nf` we can see how the `align_bam` output is crea
     "${readgroup}" \
     ${reference} \
     8 \
-    > refAlign.bam \                                <-
+    > refAlign.bam                                  <-
     """
 ```
 
-From looking at the `output` and `script` section of this process, we can see that `aligned_bam` will always have the same name. 
+From looking at the `output` and `script` section of this process, we can see that the `aligned_bam` output will always have the same filename. 
 
 In the script, we generate a file called `refAlign.bam` by redirecting `stdout` to this file. <br>
 In the output, `refAlign.bam` is collected as the output. 
@@ -1271,8 +1403,8 @@ If we were to use their filename directly, we would get their file extension too
 Luckily the `.simpleName` nextflow operator will return the basename of a file without directory path or extensions. 
 
 For example, imagine we have a process input `path reads`.<br>
-Suppose it gets fed the value "data/SRR1234.fq" at runtime.<br>
-Calling `${reads.simpleName}` in the process script would yield "SRR1234".
+Suppose it gets fed the value `"data/SRR1234.fq"` at runtime.<br>
+Calling `${reads.simpleName}` in the process script would yield `"SRR1234"`.
 
 Note that directory path and the extension have been trimmed out!
 
@@ -1309,7 +1441,7 @@ Note that directory path and the extension have been trimmed out!
             "${readgroup}" \
             ${reference} \
             8 \
-            > ${bam.simpleName}_refAlign.bam \                          <-
+            > ${bam.simpleName}_refAlign.bam                            <-
             """
 
         }
@@ -1351,7 +1483,7 @@ outputs
 
 <br>
 
-If having trouble, the finished workflow is also available in the `final/` folder for reference.
+If having trouble, the finished workflow is also available in the `data/final/cwl/align_sort_markdup/` folder for reference.
 
 In addition, the following diffs shows the changes we made to files during manual adjustment of the workflow. 
 
@@ -1367,9 +1499,11 @@ In addition, the following diffs shows the changes we made to files during manua
 
 ### Conclusion
 
-In this tutorial we explored how to translate the `align_sort_markdup` CWL Workflow to Nextflow using `janis translate`. 
+In this section we explored how to translate the `align_sort_markdup` CWL Workflow to Nextflow using `janis translate`. 
 
 This is the end of section 1. 
+
+Let's take a break!
 
 In section 2 we will be working with Galaxy, and will translate some Galaxy Tool Wrappers and Workflows into Nextflow as seen with CWL.
 
