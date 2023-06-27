@@ -17,8 +17,8 @@ For queries relating to this workshop, contact Melbourne Bioinformatics (bioinfo
 ## Author Information
 Khalid Mahmood  
 Melbourne Bioinformatics, University of Melbourne  
-Developed: July 2021  
-Reviewed: August 2021
+Developed: September 2021  
+Reviewed: June 2023
 
 ## Overview
 
