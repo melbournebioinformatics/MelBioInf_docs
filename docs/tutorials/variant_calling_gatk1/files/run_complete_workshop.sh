@@ -2,10 +2,6 @@
 
 mkdir  "MYTEST_"$RUNNUMBER
 
-\. /opt/miniconda3/etc/profile.d/conda.sh
-conda deactivate
-conda activate /home/ubuntu/.conda/envs/gatk4
-
 cd "MYTEST_"$RUNNUMBER
 
 mkdir data
