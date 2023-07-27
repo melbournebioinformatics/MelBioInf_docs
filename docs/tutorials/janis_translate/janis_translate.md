@@ -1,4 +1,4 @@
-<img src="media/logos_banner.png">
+![alt text](media/logos_banner.png)
 
 # Janis Translate - Migrating CWL / Galaxy to Nextflow
 
