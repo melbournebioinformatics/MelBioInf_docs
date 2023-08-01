@@ -26,14 +26,14 @@ For queries relating to this workshop, contact Melbourne Bioinformatics (bioinfo
 * [ ] Intermediate  
 * [ ] Advanced  
 
-This workshop is designed for participants with no command line knowledge. A web-based platform called Galaxy will be used to run our analysis.
+This workshop is designed for participants with no command-line knowledge. A web-based platform called Galaxy will be used to run our analysis.
 
 
 How do long- and short-read assembly methods differ?
 
 ### Description
 
-*Assemble a genome!<br>Learn how to create and assess genome assemblies using the powerful combination of nanopore and illumina reads*
+*Assemble a genome!<br>Learn how to create and assess genome assemblies using the powerful combination of Nanopore and Illumina reads*
 
 This tutorial explores how long and short read data can be combined to produce a high-quality 'finished' bacterial genome sequence. Termed 'hybrid assembly', we will use read data produced from two different sequencing platforms, Illumina (short read) and Oxford Nanopore Technologies (long read), to reconstruct a bacterial genome sequence.
 
@@ -44,7 +44,7 @@ Using short read data (Illumina) alone for *de novo* assembly will produce a com
 
 In these cases, long reads can be used together with short reads to produce a high-quality assembly.  Nanopore long reads (commonly >40,000 bases) can fully span repeats, and reveal how all the genome fragments should be arranged. Long reads currently have higher error rate than short reads, so the combination of technologies is particularly powerful. Long reads provide information on the genome structure, and short reads provide high base-level accuracy.  
 
-Combining read data from the long and short read sequencing platforms allows the production of a complete genome sequence with very few sequence errors, but the cost of the read data is about AUD$ 1,000 to produce the sequence. Understanably, we usually produce a draft genome sequence with very few sequence errors using the Illumina sequencing platform.
+Combining read data from the long and short read sequencing platforms allows the production of a complete genome sequence with very few sequence errors, but the cost of the read data is about AUD$ 1,000 to produce the sequence. Understandably, we usually produce a draft genome sequence with very few sequence errors using the Illumina sequencing platform.
 
 Nanopore sequencing technology is rapidly improving, expect the cost difference to reduce!!
 
@@ -63,7 +63,7 @@ Click [here](https://www.melbournebioinformatics.org.au/tutorials/tutorials/hybr
 
 At the end of this introductory workshop, you will:
 
-* Understand how Nanopore and Illumina reads can be used together to produce a high quality assembly
+* Understand how Nanopore and Illumina reads can be used together to produce a high-quality assembly
 * Be familiar with genome assembly and polishing programs
 * Learn how to assess the quality of a genome assembly, regardless of whether a reference genome is present or absent
 * Be able to assemble an unknown, previously undocumented genome to high-quality using Nanopore and Illumina reads!
@@ -91,7 +91,7 @@ Before the tutorial, navigate to https://usegalaxy.org.au/ and use your email to
 Written by: Grace Hall  
 Melbourne Bioinformatics, The University of Melbourne
 
-Created/Reviewed: September 2020
+Created/Reviewed: August 2023
 
 
 -------------------------------
@@ -111,7 +111,7 @@ One colony contains 10<sup>7</sup> – 10<sup>8</sup> cells. The genomic DNA ext
 
 Genomic DNA is prepared for sequencing by fragmenting/shearing: multiple copies of Chromosome + plasmid  --> ~500 bp fragments
 
-Note: Nanopore sequencing - there is usually no need to shear the genomic DNA **specialist methods are used to minimise shearing during DNA preparation**. For Nanopore sequencing the longer the DNA fragments the better!
+Note: Nanopore sequencing - there is usually no need to shear the genomic DNA **specialist methods are used to minimise shearing during DNA preparation**. For Nanopore sequencing, the longer the DNA fragments, the better!
 
 ### The read data
 
@@ -122,7 +122,7 @@ Nanopore & Illumina: fastq format
 
 ## Section 1: Nanopore draft assembly, Illumina polishing
 
-In this section you will use Flye to create a draft genome assembly from Nanopore reads. <br />
+In this section, you will use Flye to create a draft genome assembly from Nanopore reads. <br />
 We will perform assembly, then assess the quality of our assembly using two tools: Quast, and BUSCO.
 
 
@@ -147,23 +147,23 @@ To begin, we will identify what a high-quality assembly looks like.
 </p>
 
 <p>
-When running assembly tools, we want to check the quality of assemblies we produce. 
+When running assembly tools, we want to check the quality of assemblies we produce.
 It is paramount that genome assemblies are high-quality for them to be useful.
 </p>
 
 <p>
-To get a baseline for what is considered a "high-quality" assembly, we will first run a common assembly QC tool - BUSCO - on a published genome similar to the organism we are working with today. 
+To get a baseline for what is considered a "high-quality" assembly, we will first run a common assembly QC tool - BUSCO - on a published genome similar to the organism we are working with today.
 </p>
 
 <p>
-In your imported history you should see a "reference_genome.fasta" item. 
-This is the published genome we will compare against. 
+In your imported history you should see a "reference_genome.fasta" item.
+This is the published genome we will compare against.
 </p>
 
 **QC with BUSCO**
-<p>BUSCO analysis uses the presence, absence, or fragmentation of key genes in an assembly to determine is quality.</p>
+<p>BUSCO analysis uses the presence, absence, or fragmentation of key genes in an assembly to determine its quality.</p>
 
-<p>BUSCO genes are specifically selected for each taxonomic clade, and represent a group of genes which each organism in the clade is expected to possess. At higher clades, 'housekeeping genes' are the only members, while at more refined taxa such as order or family, lineage-specific genes can also be used.</p>
+<p>BUSCO genes are specifically selected for each taxonomic clade, and represent a group of genes that each organism in the clade is expected to possess. At higher clades, 'housekeeping genes' are the only members, while at more refined taxa such as order or family, lineage-specific genes can also be used.</p>
 
 <p>We expect the reference genome to have all of these genes. When running BUSCO, we expect it to find most (if not all) of these in the assembly. </p>
 
@@ -181,7 +181,7 @@ This is the published genome we will compare against.
 After the program has run, look at the 'short summary' output. It may look something like this:<br><br>
 ![busco_output](media/busco_reference_assembly.png)
 
-<p>It seems that BUSCO could find almost all expected genes in the reference genome assembly.</p> 
+<p>It seems that BUSCO could find almost all expected genes in the reference genome assembly.</p>
 
 <p>By looking at the results, we see that we have 449 / 450 Complete BUSCOs, and one Fragmented BUSCO.</p>
 
@@ -204,7 +204,6 @@ After the program has run, look at the 'short summary' output. It may look somet
     * Leave all else default
 * Scroll down and run Flye by clicking the blue 'execute' button at the bottom of the page.
 * Flye produces a number of outputs. We only need the 'consensus' fasta file. You can delete the other outputs.
-* For clarity, the consensus draft assembly can be renamed to something which makes sense, like 'nanopore draft assembly'
 
 Once Flye has run, ***rename*** the "Flye on data2: consensus" output to "Flye: Assembly"
 
@@ -234,8 +233,8 @@ After the program has run, look at the 'short summary' output. It may look somet
 
 ![busco_table](media/busco_table_draft_assembly.png)
 
-Compared with the reference genome BUSCO report, we see that many genes are fragmented or missing. 
-Our draft genome assembly isn't as good as the reference genome ***yet***. 
+Compared with the reference genome BUSCO report, we see that many genes are fragmented or missing.
+Our draft genome assembly isn't as good as the reference genome ***yet***.
 
 <br>
 
@@ -254,21 +253,21 @@ Our draft genome assembly isn't as good as the reference genome ***yet***.
     * ***Reference genome*** - reference_genome.fasta
     * Leave all else default
 * Execute Quast by clicking 'execute' at the bottom of the page.
-* Quast will produce a HTML report summarising it's results. 
+* Quast will produce a HTML report summarising it's results.
 * Open the report. It may look something like this:<br><br>
 ![quast_report](media/quast_draft_assembly.png)
-* Note the: 
+* Note the:
     * Genome fraction (%)
     * \# mismatches per 100 kbp
     * \# indels per 100 kbp
     * \# contigs information
 
 
-<p>From the output of Quast, our draft assembly seems to have good coverage and not too many contigs. </p> 
+<p>From the output of Quast, our draft assembly seems to have good coverage and not too many contigs. </p>
 
-<p>Unfortunately, the mismatch / indel rate is quite high. </p> 
+<p>Unfortunately, the mismatch / indel rate is quite high. </p>
 
-Although we don't expect our organism to be ***identical*** to the supplied reference, we would expect fewer mismatches and indels, as the provided reference genome is ***very*** similar to organism which was sequenced. 
+Although we don't expect our organism to be ***identical*** to the supplied reference, we would expect fewer mismatches and indels, as the provided reference genome is ***very*** similar to organism which was sequenced.
 
 <br>
 <br>
@@ -278,10 +277,10 @@ Although we don't expect our organism to be ***identical*** to the supplied refe
 
 <p>We should be able improve our assembly with the Illumina reads available and correct some of these errors.</p>
 
-<p>This process involves two steps. We will first align the Illumina reads to our draft assembly, then supply the mapping information to Pilon which will use this alignment information to error-correct our assembly.</p>
+<p>This process involves two steps. We will first align the Illumina reads to our draft assembly, then supply the mapping information to Pilon, which will use this alignment information to error-correct our assembly.</p>
 
 <p>
-Illumina reads have much higher per-base accuracy than Nanopore reads. We will map the Illumina read sets to our draft assembly using a short-read aligner called BWA-MEM, then can give Pilon this alignment file to polish our draft assembly.
+Illumina reads have much higher per-base accuracy than Nanopore reads. We will map the Illumina reads to our draft assembly using a short-read aligner called BWA-MEM. Then we can give Pilon this alignment file to polish our draft assembly.
 </p>
 <br>
 
@@ -335,19 +334,19 @@ We are now interested to see how much pilon improved our draft assembly.
 
 * Run Quast as before with the new "Flye: Polished assembly" data
     * Select the history item for our initial Quast job, then click the rerun ![rerun](media/galaxy_rerun.png) button. This will load the settings used for the previous quast job.
-    * Change the ***Use a reference genome? -> Reference genome*** input to "Flye: Polished assembly".
-    * Hit the "Run Tool" button to submit the job. 
+    * Change the ***Contigs/scaffolds file*** input to "Flye: Polished assembly".
+    * Hit the "Run Tool" button to submit the job.
 
 <p>After Quast has finished, open the HTML report.</p>
 Make note of # mismatches per 100 kbp and # indels per 100 kbp. <br>
-Has our assembly improved? 
+Has our assembly improved?
 
---- BUSCO --- 
+--- BUSCO ---
 
 * Run BUSCO as before with the new "Flye: Polished assembly" data
     * Select the history item for our initial Busco job, then click the rerun ![rerun](media/galaxy_rerun.png) button. This will load the settings used for the previous Busco job.
     * Change the ***Sequences to analyse*** input to "Flye: Polished assembly".
-    * Hit the "Run Tool" button to submit the job. 
+    * Hit the "Run Tool" button to submit the job.
 
 <p>After Busco has finished, open the "short summary" output.</p>
 Have we identified more expected genes?
@@ -374,7 +373,7 @@ Which read set - short or long - was used to create our draft?
 
 <details>
 <summary>Answer (click to reveal)</summary>
-Long reads (Nanopore) were used to create the draft. Long reads allow excellent recreation of the proper structure of the genome, and adequately handle repeat regions. The drawback of long reads is a higher error rate of the technology compared to short reads. This results in more mismatches and indels. 
+Long reads (Nanopore) were used to create the draft. Long reads allow excellent re-creation of the proper structure of the genome, and adequately handle repeat regions. The drawback of long reads is a higher error rate of the technology compared to short reads. This results in more mismatches and indels.
 </details>
 
 How was the draft polished?
@@ -403,7 +402,7 @@ BUSCO does not use a reference genome to compare. It attempts to locate key gene
 ## Section 2: Purpose-built hybrid assembly tool - Unicycler
 
 <p>
-In this section we will use a purpose-built tool called Unicycler to perform hybrid assembly.
+In this section, we will use a purpose-built tool called Unicycler to perform hybrid assembly.
 </p><p>
 Unicycler uses our Nanopore and Illumina read sets together as input, and returns an assembly. Once we have created the assembly, we will assess its quality using Quast and BUSCO and compare with our previous polished assembly. We will also perform BUSCO analysis on the supplied reference genome itself, to record a baseline for our theoretical best BUSCO report.
 </p>
@@ -451,7 +450,7 @@ At time of writing, these were the BUSCO results:
 </p>
 ![busco_result](media/busco_unicycler_assembly.png)
 
-<p>It seems that the unicycler assembly is much better than the Flye + Pilon polishing assembly, and produces the same report as the reference genome. Awesome! Looks like this is pretty good. </p>
+<p>It seems that the Unicycler assembly is much better than the Flye + Pilon polishing assembly, and produces the same report as the reference genome. Awesome! Looks like this is pretty good. </p>
 
 <br>
 
@@ -462,7 +461,7 @@ At time of writing, these were the BUSCO results:
 </p>
 ![quast_result](media/quast_unicycler_assembly.png)
 
-It seems that the unicycler assembly has:
+It seems that the Unicycler assembly has:
 
 * Very high Genome fraction (coverage of the reference genome)
 * Very few mismatches and indels per 100 kbp
@@ -470,9 +469,9 @@ It seems that the unicycler assembly has:
 
 These results indicate that our Unicycler assembly is high quality, and the organism is extremely similar to the organism of the reference genome. <br>
 
-To improve our assembly further to be publisable "complete" quality, we would want to reduce the number of contigs (ideally to a single contig). If the organism has plasmids, we would expect a handfull of contigs, likely below 10. 
+To improve our assembly further to be publishable "complete" quality, we would want to reduce the number of contigs (ideally to a single contig). If the organism has plasmids, we would expect a handfull of contigs, likely below 10.
 
-To do this, the best course of action would be to generate more long-read data. 
+To do this, the best course of action would be to generate more long-read data.
 
 
 <br>
