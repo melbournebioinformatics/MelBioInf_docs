@@ -74,6 +74,11 @@ the clipboard.
 !!! attention "Attention: Pay attention to the information in these boxes."
     Important information, hints and tips.
 
+
+!!! fail "STOP"
+    Important information about running a command - read carefully.
+
+
 -------------------------------
 ## Requirements and preparation
 
@@ -105,9 +110,9 @@ You will need to use a Google Chrome or Mozilla Firefox web browser to view file
 
 * No additional data needs to be downloaded for this workshop - it is all located on the Nectar Instance. FASTQs are located in the directory `raw_data` and a metadata (`echidna_metadata.tsv`) file has also been provided.
 
-* If you wish to analyse the data independently at a later stage, it can be downloaded from [here](***data_files***). This zipped folder contains both the FASTQs and associated metadata file.
+* If you wish to analyse the data independently at a later stage, it can be downloaded from [here](https://zenodo.org/records/10158305). This link contains both the FASTQs and associated metadata file.
 
-* If you are running this tutorial independently, you can also access the classifier that has been trained specifically for this data from [here](***Files***).
+* If you are running this tutorial independently, you can also access the classifier that has been trained specifically for this data from [here](https://www.dropbox.com/scl/fi/s42p5fif7szzm38swcu0m/silva_138_16s_515-806_classifier.qza?rlkey=ss983qau9rwgztis2gfulhjcz&dl=0).
 
 
 -------------------------------
@@ -122,7 +127,7 @@ Click <a href="../*.pdf" type="application/pdf" target="_blank">here</a> for a p
 
 -------------------------------
 ## Author Information
-Written by: Dr. Ashley Dungan and Dr. Gayle Philip  
+Developed by: Dr. Ashley Dungan, Dr. Gayle Philip and Laura Geissler  
 School of Biosciences, University of Melbourne; Melbourne Bioinformatics
 
 
@@ -333,6 +338,8 @@ Trimmed sequences are now quality assessed using the `dada2` [plugin](https://pu
 
 In the following command, a pooling method of 'pseudo' is selected. With the pseudo-pooling method, samples are denoised independently once, ASVs detected in at least 2 samples are recorded, and samples are denoised independently a second time, but this time with prior knowledge of the recorded ASVs and thus higher sensitivity to those ASVs. This is better than the default of 'independent' (where samples are denoised independently) when you expect samples in the run to have similar ASVs overall.
 
+!!! fail "STOP - Workshop participants only"
+    Due to computational limitations in a workshop setting, this command will be run staggered (by co-ordinating with other users on the Nectar Instance you are logged in to), with no more than two users per Instance running the command at the same time.
 
 *The specified output directory must not pre-exist.*  
 
@@ -426,7 +433,7 @@ A classifier has already been trained for you for the V4 region of the bacterial
 n_jobs = 1  This runs the script using all available cores
 
 !!! note
-    The classifier used here is only appropriate for the specific 16S rRNA region that *this* data represents. You will need to train your own classifier for your own data. For more information about training your own classifier, see [Section 6: Extra Information](#train-silva-v138-classifier-for-16s18s-rrna-gene-marker-sequences).
+    [The classifier](https://www.dropbox.com/scl/fi/s42p5fif7szzm38swcu0m/silva_138_16s_515-806_classifier.qza?rlkey=ss983qau9rwgztis2gfulhjcz&dl=0) used here is only appropriate for the specific 16S rRNA region that *this* data represents. You will need to train your own classifier for your own data. For more information about training your own classifier, see [Section 6: Extra Information](#train-silva-v138-classifier-for-16s18s-rrna-gene-marker-sequences).
 
 !!! fail "STOP - Workshop participants only"
     Due to time limitations in a workshop setting, please do NOT run the `qiime feature-classifier classify-sklearn` command below. You will need to access a pre-computed `classification.qza` file that this command generates by running the following: `cd; mkdir analysis/taxonomy; cp /mnt/shared_data/pre_computed/classification.qza analysis/taxonomy`. If you have accidentally run the command below, `ctrl-c` will terminate it.
@@ -568,7 +575,7 @@ Generate rarefaction curves to determine whether the samples have been sequenced
 
 
 !!! note
-    The value that you provide for --p-max-depth should be determined by reviewing the “Frequency per sample” information presented in the  <fn>16s_table_filtered.qzv</fn> file that was created above. In general, choosing a value that is somewhere around the median frequency seems to work well, but you may want to increase that value if the lines in the resulting rarefaction plot don’t appear to be levelling out, or decrease that value if you seem to be losing many of your samples due to low total frequencies closer to the minimum sampling depth than the maximum sampling depth.
+    The value that you provide for --p-max-depth should be determined by reviewing the “Frequency per sample” information presented in the <fn>16s_table_filtered.qzv</fn> file that was created above. In general, choosing a value that is somewhere around the median frequency seems to work well, but you may want to increase that value if the lines in the resulting rarefaction plot don’t appear to be levelling out, or decrease that value if you seem to be losing many of your samples due to low total frequencies closer to the minimum sampling depth than the maximum sampling depth.
 
 
 ```python
@@ -678,7 +685,7 @@ Copy `analysis/visualisations/evenness-group-significance.qzv` to your local com
 
     ![evenness](./media/q2view_evenness.png)
 
-Finally, we’ll analyse sample composition in the context of categorical metadata using a permutational multivariate analysis of variance (PERMANOVA, first described in Anderson (2001)) test using the beta-group-significance command. The following commands will test whether distances between samples within a group, such as samples by high or low viability, are more similar to each other then they are to samples from the other groups. If you call this command with the `--p-pairwise` parameter, as we’ll do here, it will also perform pairwise tests that will allow you to determine which specific pairs of groups differ from one another, if any. This command can be slow to run, especially when passing `--p-pairwise`, since it is based on permutation tests. So, unlike the previous commands, we’ll run beta-group-significance on specific columns of metadata that we’re interested in exploring, rather than all metadata columns to which it is applicable. Here we’ll apply this to our unweighted UniFrac distances, using two sample metadata columns, as follows.
+Finally, we’ll analyse sample composition in the context of categorical metadata using a permutational multivariate analysis of variance (PERMANOVA, first described in Anderson (2001)) test using the beta-group-significance command. The following commands will test whether distances between samples within a group are more similar to each other then they are to samples from the other groups. If you call this command with the `--p-pairwise` parameter, as we’ll do here, it will also perform pairwise tests that will allow you to determine which specific pairs of groups differ from one another, if any. This command can be slow to run, especially when passing `--p-pairwise`, since it is based on permutation tests. So, unlike the previous commands, we’ll run beta-group-significance on specific columns of metadata that we’re interested in exploring, rather than all metadata columns to which it is applicable. Here we’ll apply this to our unweighted UniFrac distances, using two sample metadata columns, as follows.
 
 
 ```python
