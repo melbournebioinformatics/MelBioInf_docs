@@ -7,3 +7,4 @@ mkdocs/
 .DS_Store
 mkdocs_dev/
 venv
+.venv
