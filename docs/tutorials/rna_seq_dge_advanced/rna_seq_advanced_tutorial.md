@@ -512,8 +512,6 @@ In the Galaxy tool panel, under NGS Analysis, select
 2.  Examine the Differential_Counts_DESeq2.html file. This file has some
     output logs and plots from running DESeq2. Take a look at the PCA plot.
 
-\showable{More info on PCA plots}{hint}
-
 PCA plots are useful for exploratory data analysis. Samples which are more
 similar to each other are expected to cluster together. A count matrix often
 has thousands of dimensions (one for each feature) and our PCA plot generated in
@@ -530,8 +528,6 @@ For both conditions, the 3 replicates tend to be closer to each other than they 
 
 Additionally, within conditions, the lower glucose (chem) condition shows more
 variability between replicates than the higher glucose (batch) condition.
-
-\endshowable
 
 
 #### 3.  Filter out the significant differentially expressed genes.  
