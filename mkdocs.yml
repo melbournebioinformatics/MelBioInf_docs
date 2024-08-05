@@ -85,7 +85,6 @@ extra_templates: [
 ]
 markdown_extensions:
   - 'markdown_include.include'
-  - 'mdx_showable'
   - 'markdown.extensions.fenced_code'
   - admonition
   - smarty
