@@ -27,6 +27,7 @@
 *Section 1:* What is Git? And why use it?  
 *Section 2:* Creating your first Git repository  
 *Section 3:* Incorporating Git into your day-to-day work  
+*Section 4:* Leveraging the best out of GitHub
 
 **Learning objectives:** learn the basics of version control, how to track changes and how to collaborate.
 
@@ -44,8 +45,8 @@ The next step will be to create a GitHub account. If you already have one, skip 
 over to [GitHub](https://github.com/) and click the "Sign Up" button at the top right. Make sure you [verify
 your email address.](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/verifying-your-email-address#troubleshooting-email-verification)
 
-!!! success
-    The two steps above are all that are required before the workshop. You can complete the following steps during the workshop.
+!!! success "You are all set for now."
+    The two steps above are all that are required **before** the workshop. You can complete the following steps during the workshop.
 
 **SSH access (optional)**
 
@@ -81,11 +82,25 @@ git config --global user.name "FirstName LastName"
 git config --global user.email "your@email.com"
 ```
 
+!!! success "Well done!"
+    You are ready to start using Git.
 
 ## Introduction
 
 ### 1. What is Git?
-- Distributed version control system created by Linus Torvalds.
+A concise definition is that Git is a **version control system**. It was developed in the early 2000s by 
+Linus Torvalds, the person behind the Linux kernel, and other members of the Linux community. In fact, the initial purpose of
+Git was to support the development and updates of the Linux kernel.
+
+Git is attractive because of several things:
+
+* It's **fully distributed**. What this means is that several (hundreds, thousands) of users can work on the same project in a streamlined way.
+* It's **blazing fast**. Because (nearly) every operation that Git performs is local, everything works almost instantaneously.
+* It has **integrity**. Git checksums data before storing it, so it's impossible to change the content of files without knowing about it.
+
+This is all well and good, but let's try to understand what version control means for us as researchers.
+
+![](http://www.phdcomics.com/comics/archive/phd101212s.gif)
 
 ### 2. Why use version control?
 - Backing up your code
