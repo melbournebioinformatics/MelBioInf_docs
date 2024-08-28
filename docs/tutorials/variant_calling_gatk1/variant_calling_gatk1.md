@@ -18,7 +18,7 @@ For queries relating to this workshop, contact Melbourne Bioinformatics (bioinfo
 Khalid Mahmood  
 Melbourne Bioinformatics, University of Melbourne  
 Developed: July 2021  
-Reviewed: June 2023
+Reviewed: August 2024
 -------------------------------
 ## Overview
 
@@ -629,7 +629,15 @@ gatk VariantsToTable \
 ```
 
 ### 2. HTML report
-Another useful method for sharing data is an interactive HTML file. This is suited for sharing a smaller subset of variants along with sequencing data. Here we will go through a simple example using the [jigv](https://github.com/brentp/jigv) tool.
+Another useful method for sharing data is an interactive HTML file. This is suited for sharing a smaller subset of variants along with sequencing data. Here we will go through a simple example using the [jigv](https://github.com/brentp/jigv) tool. See below on how to download and setup jigv.
+
+```bash
+# download jigv
+wget https://github.com/brentp/jigv/releases/download/v0.1.10/jigv
+
+# make jigv executable 
+chmod +x jigv
+```
 
 ![fig2](./media/fig2.png)
 
@@ -645,7 +653,7 @@ tabix -p vcf output/subset.vcf.gz
 
 Now, we will call the jigv tool command to generate the report.
 ```bash
-jigv --sample NA12878 \
+./jigv --sample NA12878 \
 --sites output/subset.vcf.gz \
 --fasta reference/hg38/Homo_sapiens_assembly38.fasta \
 output/NA12878.sort.dup.bqsr.bam > output/NA12878.jigv.html
