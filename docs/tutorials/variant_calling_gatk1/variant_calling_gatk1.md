@@ -661,6 +661,15 @@ output/NA12878.sort.dup.bqsr.bam > output/NA12878.jigv.html
 
 Here is an example [report](files/NA12878.html){:target="_blank"} we created earlier.
 
+------------------------------------------
+## Additional: introduction to variant annotation using Ensembl VEP
+This is a very brief introduction to variant annotation using the [Ensembl Variant Effect Predictor (VEP)](https://useast.ensembl.org/Tools/VEP){:target="_blank"} tool. Follow the link to the Web Interface and upload your final output variant file and click Run.
+
+Here is a link to the annotation output [file](files/output.vqsr.varfilter.pass.vep.re_NM.xlsx){:target="_blank"} created earlier in Excel format.
+
+We can also take another look at the updated MultiQC report with annotatio summary [here](files/multiqc_report_vep.html){:target="_blank"}.
+
+
 <!-- ```bash
 jigv --sample NA12878 --ped family.ped --sites output/subset.vcf.gz --fasta reference/hg38/Homo_sapiens_assembly38.fasta output/*.sort.dup.bqsr.bam > output/NA12878.jigv.html
 ``` -->
