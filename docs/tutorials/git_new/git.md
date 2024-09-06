@@ -1,4 +1,4 @@
-# Version control with Git
+# Version Control with Git
 
 ## Overview
 
