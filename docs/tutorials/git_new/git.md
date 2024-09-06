@@ -58,7 +58,7 @@ We strongly recommend that *at some point* you [configure SSH access to your Git
 Otherwise, it will ask for your password every time you try to interact with GitHub. This is OK, but can 
 be annoying after some time. See below on how to connect with SSH.
 
-??? note "Configuring SSH access for GitHub"
+??? info "Configuring SSH access for GitHub"
     1. Make sure you have `openssl` installed by typing `openssl --version` in the Terminal.
         - You can install it with `conda install openssl` if not installed.
     2. Make sure your ssh-agent is running with ```eval `ssh-agent` ```.
@@ -148,7 +148,7 @@ metadata make up a [repository](./git.md#glossary).
 Repositories can be kept in sync across different computers, facilitating
 collaboration among different people.
 
-??? note "The Long History of Version Control Systems"
+??? quote "The Long History of Version Control Systems"
 
     Automated version control systems are nothing new.
     Tools like [RCS](https://en.wikipedia.org/wiki/Revision_Control_System), [CVS](https://en.wikipedia.org/wiki/Concurrent_Versions_System), or [Subversion](https://en.wikipedia.org/wiki/Apache_Subversion) have been around since the early 1980s and are used by
@@ -161,7 +161,7 @@ collaboration among different people.
     multiple authors to work on
     the same files concurrently.
 
-!!! attention "Paper Writing"
+!!! question "Paper Writing"
 
     - Imagine you drafted an excellent paragraph for a paper you are writing, but later ruin it. How would you retrieve the *excellent* version of your conclusion? Is it even possible?
 
@@ -185,7 +185,11 @@ collaboration among different people.
         merged into the rest of the document. Even online word processors like
         Google Docs or Microsoft Office Online do not fully resolve these
         problems.
-  
+
+!!! tip "Keypoints"
+
+    - Version control is like an unlimited ‘undo’.
+    - Version control also allows many people to work in parallel.
 
 ### Why use version control?
 - Backing up your code
