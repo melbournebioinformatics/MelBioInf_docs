@@ -24,10 +24,10 @@
 **Tools:** Git `>=2.40`
 
 **Pipeline:**  
-*Section 1:* What is Git? And why use it?  
-*Section 2:* Creating your first Git repository  
-*Section 3:* Incorporating Git into your day-to-day work  
-*Section 4:* Leveraging the best out of GitHub
+*Section 1:* Introduction
+*Section 2:* Your first Git repository  
+*Section 3:* Collaborating with Git
+*Section 4:* Tips and best practices
 
 **Learning objectives:** learn the basics of version control, how to track changes and how to collaborate.
 
@@ -87,22 +87,22 @@ git config --global user.email "your@email.com"
 
 ## Introduction
 
-### 1. What is Git?
+### What is Git?
 A concise definition is that Git is a **version control system**. It was developed in the early 2000s by 
 Linus Torvalds, the person behind the Linux kernel, and other members of the Linux community. In fact, the initial purpose of
 Git was to support the development and updates of the Linux kernel.
 
 Git is attractive because of several things:
 
-* It's **fully distributed**. What this means is that several (hundreds, thousands) of users can work on the same project in a streamlined way.
-* It's **blazing fast**. Because (nearly) every operation that Git performs is local, everything works almost instantaneously.
+* It is **fully distributed**. What this means is that several (hundreds, thousands) of users can work on the same project in a streamlined way.
+* It is **blazing fast**. Because (nearly) every operation that Git performs is local, everything works almost instantaneously.
 * It has **integrity**. Git checksums data before storing it, so it's impossible to change the content of files without knowing about it.
 
 This is all well and good, but let's try to understand what version control means for us as researchers.
 
 ![](http://www.phdcomics.com/comics/archive/phd101212s.gif)
 
-### 2. Why use version control?
+### Why use version control?
 - Backing up your code
 - Sharing your code
     - Packaging and distribution
@@ -117,7 +117,7 @@ This is all well and good, but let's try to understand what version control mean
     - You will be able to distribute your code to others
     - You will be able to modify other peoples' code and make contributions to it
 
-### 3. Basic concepts
+### Basic concepts
 - Repositories
     - Remotes (basic-level only)
 - Commits
@@ -133,3 +133,23 @@ This is all well and good, but let's try to understand what version control mean
     - `git add` and `git commit`
 - What makes a good commit?
     - Writing good commit messages
+
+### Remotes: pushing and pulling
+
+## Collaborating with Git
+
+### Cloning a repository
+
+### Cloning versus forking
+
+### Submitting a pull request
+
+### Reviewing a pull request
+
+## Tips and best practices
+
+### How to incorporate Git in your day-to-day work
+
+### Leveraging the GitHub interface
+
+### Do's and Dont's
