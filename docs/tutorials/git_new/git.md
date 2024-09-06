@@ -35,6 +35,8 @@
     This tutorial is partially based on the [Software Carpentry's Git Novice lesson](https://swcarpentry.github.io/git-novice/). Some portions have been directly copied from that lesson, while others have been fully rewritten.
     The lesson is under a [CC-BY 4.0 license](https://swcarpentry.github.io/git-novice/LICENSE.html).
 
+---
+
 ## Setup
 **Install Git**  
 
@@ -88,6 +90,8 @@ git config --global user.email "your@email.com"
 
 !!! success "Well done!"
     You are ready to start using Git.
+
+---
 
 ## Introduction
 
@@ -257,6 +261,8 @@ The staging area in Git is like a "waiting room" for changes you want to commit.
     - **Commits** are snapshots of a repository.
     - We can have a copy of our repository in a different location, called a **remote**. We can send ("push") and receive ("pull") changes from the remote to interact with others' work, and also to back up or update our local copy.
     - The **staging area** is where we keep track of the changes that we are going to commit, that is, which are going to be written in the repository history.
+
+---
 
 ## Your first Git repository
 
