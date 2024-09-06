@@ -8,3 +8,4 @@ mkdocs/
 mkdocs_dev/
 venv
 .venv
+*.code-workspace
