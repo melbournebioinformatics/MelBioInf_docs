@@ -1,0 +1,55 @@
+name: redeploy website
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  test-build:
+    runs-on: ubuntu-20.04
+    steps:
+
+      # Check out the code
+      - name: Checkout master branch
+        uses: actions/checkout@v2
+
+      # Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6.15
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Test building the website
+      - name: Build website
+        run: mkdocs build
+
+  deploy:
+    runs-on: ubuntu-20.04
+    needs: test-build  # This ensures that the deploy job runs after the test-build job completes
+    steps:
+
+      # Check out the code
+      - name: Checkout master branch
+        uses: actions/checkout@v2
+
+      # Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6.15
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      # Build and deploy the website
+      - name: Generate + deploy website
+        run: mkdocs gh-deploy --force
