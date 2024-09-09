@@ -143,7 +143,7 @@ sets of changes on the same document.
 ![](media/versions.svg){alt='A diagram with one source document that has been modified in two different ways to produce two different versions of the document'}
 
 Unless multiple users make changes to the same section of the document - a 
-[conflict](./git.md#glossary) - you can
+[conflict](#glossary) - you can
 incorporate two sets of changes into the same base document.
 
 ![](media/merge.svg){alt='A diagram that shows the merging of two different document versions into one document that contains all of the changes from both versions'}
@@ -151,9 +151,9 @@ incorporate two sets of changes into the same base document.
 A version control system is a tool that keeps track of these changes for us,
 effectively creating different versions of our files. It allows us to decide
 which changes will be made to the next version (each record of these changes is
-called a [commit](./git.md#glossary), and keeps useful metadata
+called a [commit](#glossary), and keeps useful metadata
 about them. The complete history of commits for a particular project and their
-metadata make up a [repository](./git.md#glossary).
+metadata make up a [repository](#glossary).
 Repositories can be kept in sync across different computers, facilitating
 collaboration among different people.
 
@@ -238,7 +238,7 @@ Moreover, you can create organisations to host multiple projects, give collabora
 - **Documenting your work**  
 Because changes in Git are structured through commits, it is very straightforward to document our work as we go. Whenever we create a commit,
 we must write a message that's attached to it (we'll learn more about that), which almost mandates that we document what we are doing. This will
-create a [history](./git.md#glossary) of our work which can effectively be used as a **digital research notebook** if done correctly. The way Git works also allows the creation of [branches](./git.md#glossary) and [tags](./git.md#glossary), which can be used to keep track of different parts of the development. This is especially useful for large projects where many people may be working on different things in parallel.
+create a [history](#glossary) of our work which can effectively be used as a **digital research notebook** if done correctly. The way Git works also allows the creation of [branches](#glossary) and [tags](#glossary), which can be used to keep track of different parts of the development. This is especially useful for large projects where many people may be working on different things in parallel.
 
 !!! note "Keypoints"
     **Why Git will make you a better researcher:**
@@ -250,7 +250,7 @@ create a [history](./git.md#glossary) of our work which can effectively be used 
     - You will have a digital lab notebook 
 
 ### Fundamental concepts
-Before we get started with hands-on work, let's understand some basic concepts about Git. We've already learned that Git tracks different versions of a project by using **commits**, which are like **snapshots of a project**. But let's take a closer look on how this works in practice, by learning about [remotes](./git.md#glossary) and [the staging area:](./git.md#glossary)
+Before we get started with hands-on work, let's understand some basic concepts about Git. We've already learned that Git tracks different versions of a project by using **commits**, which are like **snapshots of a project**. But let's take a closer look on how this works in practice, by learning about [remotes](#glossary) and [the staging area:](#glossary)
 
 **Remotes**  
 Think of remotes as "cloud copies" of your Git repository. While you have your project on your local computer, a remote is a version stored on platforms like GitHub or GitLab. Remotes allow multiple people to work on the same project, sharing updates by pushing changes to the remote and pulling others' changes from it. For example, you can push your work to a remote to back it up or collaborate with teammates by pulling their changes into your local project.
@@ -573,6 +573,68 @@ Date:   Mon Sep 9 14:58:43 2024 +1000
     - `git diff` shows the changes between the last commit and the current repository, showing *how files have been changed*.
 
 ### Remotes: pushing and pulling
+
+Now that we've learned how to set up a *local* repository, let's **push** that to GitHub. Before we do that, let's have another look at the concept of [remotes](#glossary). We learned that remotes are a cloud copy of our repository. In order to push our repository to GitHub, we'll have to **set the remote** of our local repository to GitHub. 
+
+??? example "Creating a new repository"
+
+    1. Open GitHub, and click on the `+` button in the top right corner, and select "New repository"
+
+    ![](./media/create_repo.png)
+
+    2. Select a name for the repository. Usually we use the same name of the repository's parent directory.
+    
+    ![](./media/set_repo_name.png)
+
+    3. On the following screen, you will have the commands to set the remote and push the repository from the command line.
+
+    ![](./media/set_remote_screen.png)
+
+    Follow the commands on that screen and you will have succesfully pushed your repository to GitHub! On your repository, you can run `git remote -v` to see the URL of your new remote.
+
+    ??? tip "SSH and HTTPS authentication"
+
+        Notice that this page has two options for authentication: "SSH" or "HTTPS". If you followed the [SSH access step on the Setup section](#setup), you should be able to use the SSH option, which is the default and the recommended one. However, if that doesn't work, you can switch your remote to HTTPS by using `git remote set-url origin <HTTPS-URL-HERE>`.
+
+Your new repository should look somewhat like this:
+
+![](./media/repo_landing.png)
+
+Notice how the `README.md` file that we wrote makes up the landing page of our repository. This is one of the reasons of why having a README is so important, especially for GitHub projects: it will be the "front page" of your project. You can (and should) write any important information here. 
+
+We have successfully **pushed** our local repository from our local machine to the remote. Now, let's make a change directly on our remote and **pull** our changes locally.
+
+??? example "Pulling changes"
+
+    1. On your new repository page, click on the pencil icon on the top-right side of the README.
+
+    ![](./media/edit_file.png)
+
+    2. Add a new section with level 2 headings (`##`) and write something. Click on "Commit changes" on the top right".
+
+    ![](./media/add_new_section.png)
+
+    3. Write a descriptive commit message.
+
+    ![](./media/commit_remote_changes.png)
+
+    4. Your file should reflect the update you've just made. Notice the commit stamp on the top.
+
+    ![](./media/file_after_editing.png)
+
+    5. On your Terminal, navigate to your repository and run `git pull`.
+
+    ![](./media/git_pull.png)
+
+    !!! question "Syncing changes"
+
+        What do you think happens if you make a remote change, and then a local change, and you try to push the local changes **before** pulling the remote changes?
+
+!!! note "Keypoints"
+
+    - The `git push` command **pushes** local changes to the GitHub remote. Before running it, we must **set our remote** to the correct URL.
+    - The `git pull` command **pulls** remote changes to our local repository. We need to run it to sync our local repository to the newest updates on the remote.
+    - The `git remote` command is used to manage remotes, such as setting the GitHub URL, to view the configured remotes, and other actions.
 
 ## Collaborating with Git
 
