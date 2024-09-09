@@ -76,6 +76,15 @@ Read more about admonitions on the [Material for MkDocs documentation](https://s
 !!! warning "TO-DO"
     - Add more admonitions to the template.
 
+!!! question "Question"
+
+    Questions have a nested, collapsed solution that uses the "example" admonition.
+
+    This is because it's not uncommon to have "Keypoints" right after a question, and keypoints use the "note" admonition. So we prevent repetition.
+
+    ??? example "Solution"
+        Answer to the question above.
+
 
 ## Glossary
 
