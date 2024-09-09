@@ -11,6 +11,8 @@ repo_url: https://github.com/melbournebioinformatics/MelBioInf_docs
 theme:
   name: material
   custom_dir: overrides
+  features:
+    - content.code.copy
 
 #theme_dir: 'material-theme-overrides'  # needs updating for mkdocs 0.17
 
@@ -111,3 +113,8 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
   - markdown.extensions.attr_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.snippets
