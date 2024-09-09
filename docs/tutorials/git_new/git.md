@@ -1,5 +1,8 @@
 # Version Control with Git
 
+!!! warning "Work In Progress"
+    This workshop is still under development. Expect rough corners and sharp edges.
+
 ## Overview
 
 **Topic**
