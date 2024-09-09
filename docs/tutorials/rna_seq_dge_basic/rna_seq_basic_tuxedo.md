@@ -253,11 +253,7 @@ In the left tool panel menu, under NGS Analysis, select
 - Use defaults for the other fields
 - Execute
 
-\showable{Show screenshot}{hint}
-
 <img src="../media/rna_basic_tophat.png" height=500px/>
-
-\endshowable
 
 Note: This may take a few minutes, depending on how busy the server is.
 
@@ -432,11 +428,7 @@ In the left tool panel menu, under NGS Analysis, select
 - Use defaults for the other fields
 - Execute
 
-\showable{Show screenshot}{hint}
-
 <img src="../media/rna_basic_cuffdiff.png" height=700px/>
-
-\endshowable
 
 
 #### 3.  Explore the Cuffdiff output files
