@@ -1,32 +1,55 @@
-name: rebuild website 
+name: redeploy website
 on:
   push:
     branches: 
       - master
 
 jobs:
-  deploy:
+  test-build:
     runs-on: ubuntu-20.04
     steps:
 
-      # Checks-out your repository under $GITHUB_WORKSPACE, so this workflow job can access it
+      # Check out the code
       - name: Checkout master branch
         uses: actions/checkout@v2
 
-      # set up python environment
+      # Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.6.15
 
-      # installs the dependencies mkdocs needs to build our website. 
-      # dependencies are listed in 'requirements.txt' - markdown-include, mkdocs-material etc
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Test building the website
+      - name: Build website
+        run: mkdocs build
+
+  deploy:
+    runs-on: ubuntu-20.04
+    needs: test-build  # This ensures that the deploy job runs after the test-build job completes
+    steps:
+
+      # Check out the code
+      - name: Checkout master branch
+        uses: actions/checkout@v2
+
+      # Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6.15
+
+      # Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
-      # builds our website and deploys to github-pages. 
+      # Build and deploy the website
       - name: Generate + deploy website
         run: mkdocs gh-deploy --force
-        
