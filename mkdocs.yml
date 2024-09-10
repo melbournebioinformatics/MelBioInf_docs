@@ -17,9 +17,6 @@ theme:
 
 #theme_dir: 'material-theme-overrides'  # needs updating for mkdocs 0.17
 
-extra:
-    feature:
-        tabs: false
 extra_css:
   - 'extra.css'
 
@@ -110,6 +107,11 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
@@ -119,3 +121,4 @@ markdown_extensions:
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.snippets
+  - sane_lists
