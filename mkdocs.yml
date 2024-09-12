@@ -37,7 +37,7 @@ nav:
         - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
         - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
         - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
-        - 'Version Control with Git': 'tutorials/git_new/git.md'
+        - 'Version Control with Git': 'tutorials/git/git.md'
         - 'Workflow Translation With Janis': 'tutorials/janis_translate/janis_translate.md'
     - 'Genomics':
         - 'Variant detection':
