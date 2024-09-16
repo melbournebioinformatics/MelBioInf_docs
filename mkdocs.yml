@@ -82,7 +82,6 @@ nav:
 
 extra_templates: [
   'tutorials/hpc/slides.html',
-  'tutorials/unix/slides.html',
 ]
 markdown_extensions:
   - 'markdown_include.include'

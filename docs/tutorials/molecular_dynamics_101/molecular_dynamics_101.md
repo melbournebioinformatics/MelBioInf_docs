@@ -1,4 +1,4 @@
-![](../../../img/melbioinf_logo.png)
+![](../../img/melbioinf_logo.png)
 
 # Molecular Dynamics Tutorial - Introduction to cluster computing
 
