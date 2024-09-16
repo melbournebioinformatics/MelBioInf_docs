@@ -609,5 +609,3 @@ You can also do this sort of view for ligands to show where they bind. Always ma
 So concludes the intermediate tutorial.
 
 > **Note**: a more advanced template that can be used to organise the MD simulations ran on HPC clusters called [MD_workflow_py](https://github.com/mkuiper/MD_workflow_py) was written with using the Python programming language. This new workflow uses a similar structure to what was shown in this tutorial and has additional capability to manage thousands of independent jobs and generate molecular animations.
-
-Deployed on gh-pages.
