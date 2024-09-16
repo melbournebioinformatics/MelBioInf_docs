@@ -3,7 +3,7 @@ Using Git and Github for revision control
 
 !!! warning "Warning"
 
-    This workshop is deprecated. Please refer to the [new Git workshop](../git_new/git.md).
+    This workshop is deprecated. Please refer to the [new Git workshop](../git/git.md).
 
 What is Git?
 ------------
