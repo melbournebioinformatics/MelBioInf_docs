@@ -27,4 +27,4 @@ jobs:
 
       # Test building the website
       - name: Build website
-        run: mkdocs build
+        run: mkdocs build --strict

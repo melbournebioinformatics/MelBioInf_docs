@@ -27,7 +27,7 @@ jobs:
 
       # Test building the website
       - name: Build website
-        run: mkdocs build
+        run: mkdocs build --strict
 
   deploy:
     runs-on: ubuntu-20.04
