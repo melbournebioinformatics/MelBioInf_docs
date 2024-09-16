@@ -839,6 +839,29 @@ This will sync the remote with the local.
 
 Now, try perfoming the fix yourself. Once you make sure that the new code works, run `git add`, `git commit`. Raise your hand or put up a green post-it when you are done.
 
+??? question "Solution"
+
+    In order to fix the broken code, add a parenthesis that is missing at the end of the line causing the error:
+
+    === "Python"
+
+        ```python linenums="45"
+            print(f"Overall GC Content: {gc_content:.2f}%")
+        ```
+
+    === "R"
+
+        ```r linenums="29"
+          cat(sprintf("Overall GC Content: %.2f%%\n", gc_content))
+        ```
+
+    To add and commit the file, run:
+
+    ```bash
+    git add python_gc_content.py  # or R
+    git commit -m "Fix broken code"
+    ```
+
 !!! success "Well done!"
     You fixed a broken a script and committed the result using Git. That is no easy feat! It will pave your way to making more contributions in the future.
 
@@ -855,15 +878,63 @@ Because the repository that we cloned is under Melbourne Bioinformatics, we don'
 
 ### Cloning versus forking
 
-### Submitting a pull request
+When we **clone** a repository, we download a copy of it locally, attached to the same remote (the GitHub repository) from which we cloned it from. We can make whatever changes we want locally, but in order to push those changes to the remote, we must have access to the GitHub repository. Unless it's our own repository or the owner of the repository has granted us with write access, we usually won't have access to it. To circumvent this problem, we should **fork** the repository. Forking a repository is similar to cloning, but we create a new **remote**, instead of a local copy, that we have control over.
 
-### Reviewing a pull request
+Let's **fork** the chosen repository and make changes to it.
+
+???+ example "Forking a repository"
+
+    To fork a repository, navigate to the repository page on GitHub and click the "Fork" button on the top-right:
+
+    ![](./media/fork_button.png)
+
+    You will be taken to the fork page. There's no need to change anything here, but make sure you are forking it with your profile as the "Owner":
+
+    ![](./media/fork_page.png)
+
+    ![](./media/fork_loading.png)
+
+    Now you have your own copy of the repository, that you have total control over! Notice that the top-left shows that the repository was forked from the original repository.
+
+    ![](./media/forked_repository.png)
+
+Now, there are two ways to configure your local repository so that it follows your **fork**, rather than the original repository:
+
+1. **Deleting and re-cloning:** Simply delete the local repository (with the `rm -rf <DIRECTORY_NAME>` or right-click the directory and delete it), and clone it again, using the same approach that we used before.
+2. **Updating the remote:** if you ran the `git remote -v` command from inside the original repository that you cloned, you will have seen that it shows the remote URL of the repository, which you do not have access to. You can **update** this remote with the following command: `git remote set-url origin <URL-OF-YOUR-FORK>`. The URL of your fork is the **same URL** that you use it to clone it, which can be obtained by clicking the "Code" button on the GitHub interface. Use `git remote -v` to confirm that the remote has been updated.
+
+Now that your local repository is following the fork, rather than the original repository, you can **push** any changes that you make locally to the remote. Do this by running `git push`.
+
+### Pull requests
+
+Even though you don't have access to the original repository, you can submit changes to it through a [pull request](#glossary). A pull request is a way of requesting that the owner of the repository that you're submitting the changes to to "merge" (or pull) them into their repository.
+
+Let's make a pull request with the fix that we made to the original repository containing the code. If you haven't pushed the code after committing the fix that you made, do so by running `git push`.
+
+???+ example "Submitting a pull request"
+
+    To create a pull request, go to the page of your fork on GitHub after pushing the fixed code. At the top of the code, there will be a bar noting the difference between your fork and the original repository. If you click on "Contribute", you can create a pull request:
+
+    ![](./media/fork_commit_ahead.png)
+
+    After you click that, you will be taken to a screen to create your pull request. A default title will be given to your PR, but you can edit it if you want, and give it a description. Repositories may have different policies regarding the content of the PR, but for this one we can just keep it simple and create the pull request:
+
+    ![](./media/PR_creation_screen.png)
+
+    Once you are done, you will have created a pull request from your fork into the original repository. It will appear on the "Pull requests" tab on the original repository. Authors and maintainers from that repository will be able to review your pull request, make comments, changes, and eventually merge it.
+
+    ![](./media/PR_screen.png)
+
+If you have your project
+
 
 ## Tips and best practices
 
 ### How to incorporate Git in your day-to-day work
 
 ### Leveraging the GitHub interface
+
+### Git flow and development strategies
 
 ### Do's and Dont's
 
@@ -872,6 +943,7 @@ Because the repository that we cloned is under Melbourne Bioinformatics, we don'
     - Say **why**, not **what** you changed
 - Make small changes
 - Commit often
+    - Separate independent changes into different commits
 - Think about the reviewer
 - Document as you code
 
@@ -879,6 +951,8 @@ Because the repository that we cloned is under Melbourne Bioinformatics, we don'
 - Make vague commit messages
 - Accumulate unrelated changes in a single commit
 - Let things go stale – delete or "stash" them
+
+## Summary
 
 ## Glossary
 
@@ -897,4 +971,6 @@ Because the repository that we cloned is under Melbourne Bioinformatics, we don'
 **Remotes:** Remote versions of your repository hosted on a server, allowing you to collaborate and sync changes with others.
 
 **Staging Area:** A space where you can prepare and review changes before committing them to the repository.
+
+**Pull request:** A request to merge (pull) changes from a repository that you own onto another repository. This is how contributions are submitted on GitHub.
 
