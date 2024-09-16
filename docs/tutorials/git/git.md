@@ -925,8 +925,73 @@ Let's make a pull request with the fix that we made to the original repository c
 
     ![](./media/PR_screen.png)
 
-If you have your project
+If you have your project available on GitHub, it is likely that you will have to review a pull request at some point!
 
+### Merge conflicts
+
+Because of that, let's practice **reviewing** a pull request, that is, the scenario where someone would submit a pull request to our repository.
+
+ ???+ question "Reviewing a pull request"
+    1. Create a file named `CONTRIBUTORS.txt` and add a line with your name to it. Add and commit the changes, and push to your fork.
+    2. Find someone that has forked the same repository as you have (either Python or R). Ask a helper if you can't find someone that has cloned the same repository.
+    3. Using the GitHub interface, make a pull request to each other's repository submitting the changes. **Change the destination of your PR by using the dropdown menus above the "Create pull request" button:**
+
+    ![](./media/PR_base_repository.png)
+    
+    What happens?
+
+If you followed the steps correctly, you should have created a **conflict**. This happens when two different users make changes to the same part of a file. Because when we created the file `CONTRIBUTORS.txt`, we added our name to the first line of the file, if someone submits a pull request doing the same, it will be like they are overwriting our changes. In order to merge the pull request, we must first **fix the conflict**. We can do this directly through the GitHub interface:
+
+???+ example "Fixing conflicts"
+
+    When a pull request is created that conflicts with your repository, the pull request screen should indicate it:
+
+    ![](./media/PR_screen_conflict.png)
+
+    When clicking "Resolve conflicts", it should bring up a text editor where we can edit the conflicting file:
+
+    ![](./media/PR_conflict_editor.png)
+
+    Conflicts on Git always follow this format, where the conflicting lines have `<<<`, `===`, and `>>>` between them, indicating where the conflict happens.
+
+    Erase the lines with `<<<`, `>>>` and `===` to fix the conflict. Make sure your name is the first line on the file, and the name of contributor, the second one. Your file should look like this:
+
+    ```output linenums="1"
+    - User 1
+    - User 2
+
+    ```
+
+    Click on "Resolve conflicts" and "Commit merge"
+
+    ![](./media/PR_resolved_conflict.png)
+
+    This will create a new commit on the pull request:
+
+    ![](./media/PR_conflict_commit.png)
+
+    **Don't merge the pull request just yet!** Let's finish our review first.
+
+After fixing the conflict, let's review our pull request. On the pull request screen, go to the "Files changed" tab. 
+
+![](./media/PR_files_changed.png)
+
+This tab allows us to review each file individually. Check the "Viewed" checkbox next to the file, and the "Review changes". This allows you to Comment, Approve or Request changes on the pull request. Select Comment or Approve.
+
+![](./media/PR_review_changes.png)
+
+You can now merge the PR:
+
+![](./media/PR_review_merge.png)
+
+After merging, go to your local repository and run `git pull`.
+
+!!! note "Keypoints"
+    - Forking a repository creates a new **remote** that we have control over.
+    - We can update the remote on our local repository using `git remote set-url <REMOTE_NAME> <REMOTE_URL>`.
+    - Pull requests are a way of collaborating that allows other people to merge our changes into their repository.
+    - Conflicts are when two commits modify the same parts of a file. We must resolve conflicts before merging them. This can be done by creating a new commit.
+    - Conflicts are denoted by `<<<`, `>>>` and `===` characters around the conflicting lines.
 
 ## Tips and best practices
 
@@ -951,6 +1016,11 @@ If you have your project
 - Make vague commit messages
 - Accumulate unrelated changes in a single commit
 - Let things go stale – delete or "stash" them
+
+### What we haven't covered
+
+* Branches
+* Conflicts
 
 ## Summary
 
