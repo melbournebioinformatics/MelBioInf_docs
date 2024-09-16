@@ -291,7 +291,7 @@ Examine your two pileup files and understand the difference between them. Which 
 
 ## 6. Call variants with FreeBayes
 
-FreeBayes is a Bayesian variant caller which assesses the likelihood of each possible genotype for each position in the reference genome, given the observed reads at that position, and reports back the list of possible variants. We look at it in more detail in the [Advanced Variant Calling](../var_detect_advanced/var_detect_advanced) tutorial.
+FreeBayes is a Bayesian variant caller which assesses the likelihood of each possible genotype for each position in the reference genome, given the observed reads at that position, and reports back the list of possible variants. We look at it in more detail in the [Advanced Variant Calling](../var_detect_advanced/var_detect_advanced.md) tutorial.
 
 #### 1. Call variants with FreeBayes.
 
@@ -353,7 +353,7 @@ We've seen how to:
 
 For real variant calling, you will probably want to carry out clean-up steps on your BAM file to improve the quality of the calls, and do further filtering and selection on the resulting variants.
 
-We look at some further steps in the [Advanced Variant Calling](../var_detect_advanced/var_detect_advanced) tutorial.
+We look at some further steps in the [Advanced Variant Calling](../var_detect_advanced/var_detect_advanced.md) tutorial.
 
 
   ----------------------------------------------

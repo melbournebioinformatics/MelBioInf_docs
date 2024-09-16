@@ -47,8 +47,6 @@ use.
 <details>
   <summary>Reference Material</summary>
 
-{!docs/tutorials/unix/intro.md!}
-
 </details>
 
 ## Topic 1: Remote log in

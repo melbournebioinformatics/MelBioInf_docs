@@ -13,35 +13,35 @@ This background wiki gives very brief guides on performing specific tasks in Gal
 1. Locate the item in your history and click its pencil icon
 2. Enter a new name in the `Name:` field and click `Save`
 
-![Image of renaming a history item](EditHistoryItem.png)
+<!-- ![Image of renaming a history item](./media/EditHistoryItem.png) -->
 
 
 ## Find someone's exact username
 
 Click the `User` menu at the top of Galaxy.  The menu that appears will show the currently logged in username
 
-![Screenshot showing how to view logged in user](ViewLoggedInUser.png)
+<!-- ![Screenshot showing how to view logged in user](./media/ViewLoggedInUser.png) -->
 
 ## Share a History
 
 1. Click the `History Options` menu (cog icon) in the top-right corner of Galaxy.
 2. Select `Share or Publish`
-	![Screenshot showing share or publish item](ShareOrPublish.png)
+	<!-- ![Screenshot showing share or publish item](./media/ShareOrPublish.png) -->
 3. Then select `Share with another user` and enter the user's [full username](#find-someones-exact-username)
 
 ## Import a History
 
 1. Click the `History Options` menu (cog icon) in the top-right corner of Galaxy.
 2. Select `Histories Shared with Me`
-	![Screenshot histories shared with me](HistoriesSharedWithMe.png)
+<!--	![Screenshot histories shared with me](./media/HistoriesSharedWithMe.png) -->
 3. Select and view the desired history by clicking on its name
-	![Screenshot showing how to view a history](ViewSharedHistory.png)
+<!--	![Screenshot showing how to view a history](./media/ViewSharedHistory.png) -->
 
 ## Copy Datasets
 
 1. Click the `History Options` menu (cog icon) in the top-right corner of Galaxy.
 2. Select `Histories Shared with Me`
-	![Screenshot copy datasets](CopyDatasets1.png)
+<!--	![Screenshot copy datasets](./media/CopyDatasets1.png) -->
 3. The screen that appears allows copying of specific datasets between any of your histories
 
 ## Multi File Inputs
@@ -49,14 +49,14 @@ Click the `User` menu at the top of Galaxy.  The menu that appears will show the
 Tools that support running over multiple input files indicate this by showing a multi-file icon beside the relevant input.
 After clicking the multi-file icon the display should change to allow multiple inputs to be selected.
 
-![Screenshot for multi-file inputs](MultiFileInputs.png)
+<!-- ![Screenshot for multi-file inputs](./media/MultiFileInputs.png) -->
 
 ## Saved Histories
 
 To view a list of your saved histories click the `History Options` menu (cog icon) in the top-right corner of Galaxy and select `Saved Histories`
 Once the list of your histories appears you can switch to a history by clicking it. You can also use this view to delete histories or organise them by tags
 
-![Screenshot saved histories](SavedHistories.png)
+<!-- ![Screenshot saved histories](./media/SavedHistories.png) -->
 
 
 

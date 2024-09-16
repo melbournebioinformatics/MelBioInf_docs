@@ -15,17 +15,14 @@ Bioinformatics is the analysis of biologial data using computational methods. It
 - Melbourne Bioinformatics tutorials: see the left hand panel for tutorials covering computing, genomics, RNA-seq, and proteomics.
 
 - Australian Bioinformatics and Computational Biology Society:
-[www.abacbs.org](www.abacbs.org)
+[www.abacbs.org](http://www.abacbs.org)
 
-- Student group of ABACBS - COMBINE: [www.combine.org.au](  www.combine.org.au)
+- Student group of ABACBS - COMBINE: [www.combine.org.au](http://www.combine.org.au)
 
-- Winter School in Mathematical and Computational Biology:
-[www.bioinformatics.org.au](www.bioinformatics.org.au)
+- BioInfo Summer: [www.bis.amsi.org.au](http://www.bis.amsi.org.au)
 
-- BioInfo Summer: [www.bis.amsi.org.au](www.bis.amsi.org.au)
+- Software Carpentry: [www.software-carpentry.org](http://www.software-carpentry.org)
 
-- Software Carpentry: [www.software-carpentry.org](www.software-carpentry.org)
-
-- Bioinformatics problem solving challenges: [www.rosalind.info](www.rosalind.info)
+- Bioinformatics problem solving challenges: [www.rosalind.info](http://www.rosalind.info)
 
 - A selelection of key journal papers published recently in [BMC Bioinformatics](http://blogs.biomedcentral.com/bmcseriesblog/2018/01/24/a-year-in-bioinformatics/).

@@ -11,12 +11,12 @@ repo_url: https://github.com/melbournebioinformatics/MelBioInf_docs
 theme:
   name: material
   custom_dir: overrides
+  features:
+    - content.code.copy
+    - content.code.annotate
 
 #theme_dir: 'material-theme-overrides'  # needs updating for mkdocs 0.17
 
-extra:
-    feature:
-        tabs: false
 extra_css:
   - 'extra.css'
 
@@ -30,7 +30,6 @@ nav:
         - 'Introduction to the Galaxy Platform': 'guides/galaxy.md'
         - 'Introduction to Galaxy Workflows': 'tutorials/galaxy-workflows/galaxy-workflows.md'
         - 'Introduction to Python': 'tutorials/python_overview/python_overview.md'
-        - 'Introduction to Git and Github': 'tutorials/using_git/Using_Git.md'
         - 'Introduction to Unix': 'tutorials/unix/unix.md'
         - 'Introduction to R for Biologists': 'tutorials/intro_R_biologists/intro_R_biologists.md'
         - 'Introduction to Genome Browsers': 'tutorials/Genome_browsers/GenomeBrowsers_Intro.md'
@@ -38,6 +37,7 @@ nav:
         - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
         - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
         - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
+        - 'Version Control with Git': 'tutorials/git/git.md'
         - 'Workflow Translation With Janis': 'tutorials/janis_translate/janis_translate.md'
     - 'Genomics':
         - 'Variant detection':
@@ -78,10 +78,10 @@ nav:
     - 'Archive':
         - 'Introduction to Unix-Archive': 'tutorials/unix_archive_2022/unix.md'
         - 'Introduction to CWL': 'tutorials/cwl/cwl.md'
+        - 'Introduction to Git and Github (deprecated)': 'tutorials/using_git/Using_Git.md'
 
 extra_templates: [
   'tutorials/hpc/slides.html',
-  'tutorials/unix/slides.html',
 ]
 markdown_extensions:
   - 'markdown_include.include'
@@ -106,7 +106,18 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
   - markdown.extensions.attr_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.snippets
+  - sane_lists

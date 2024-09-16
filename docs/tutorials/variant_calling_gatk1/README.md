@@ -4,7 +4,7 @@ PR reviewers and advice: Khalid Mahmood
 
 Current slides: TBD
 
-Print friendly version of the tutorial in [pdf](file/variant_calling_gatk1.pdf).
+Print friendly version of the tutorial in [pdf](./files/variant_calling_gatk1.pdf).
 
 Note: the pdf is created as below
 

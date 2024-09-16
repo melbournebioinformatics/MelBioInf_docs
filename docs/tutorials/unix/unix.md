@@ -1,4 +1,4 @@
-![melbioinf_logo](../media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](../media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
+![melbioinf_logo](./media/melbioinf_logo.png){: style="width:350px; padding-right:50px"}       ![unimelb_logo](./media/PRIMARY_A_Vertical_Housed_RGB.png){: style="width:150px"}
 
 # Introduction to Unix
 
@@ -114,9 +114,9 @@ Should you wish to complete this workshop independently, you can do so locally (
 
 ### Slides and PDF instructions
 
-The slides presented during this workshop are available here: [PDF](../media/unix_intro_slides.pdf) / [PPTX](../media/unix_intro_slides.pptx).
+The slides presented during this workshop are available here: [PDF](./media/unix_intro_slides.pdf) / [PPTX](./media/unix_intro_slides.pptx).
 
-[A printer-friendly PDF version of these workshop instructions is available here](../unix_intro_instructions.pdf).
+[A printer-friendly PDF version of these workshop instructions is available here](./unix_intro_instructions.pdf).
 
 -------------------------------
 ## Author Information
@@ -131,7 +131,7 @@ A previous introductory Unix workshop is archived [here](../unix_archive_2022/un
 ## Background
 
 Before we begin the hands-on part of this workshop, we will first give a short presentation to introduce some important Unix concepts.
-The slides are available here: [PDF](../media/unix_intro_slides.pdf) / [PPTX](../media/unix_intro_slides.pptx)
+The slides are available here: [PDF](./media/unix_intro_slides.pdf) / [PPTX](./media/unix_intro_slides.pptx)
 
 -------------------------------
 
@@ -832,7 +832,7 @@ Open FileZilla on your local computer. At the top of the window, enter the follo
 | `Password`  | Password from provided spreadsheet  |
 | `Port`      | 22                                  |
 
-![FileZilla_screenshot](../media/FileZilla_screenshot.png)
+![FileZilla_screenshot](./media/FileZilla_screenshot.png)
 
 Select Quickconnect to establish a connection.
 
