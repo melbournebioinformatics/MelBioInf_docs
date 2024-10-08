@@ -1,5 +1,7 @@
 # Version Control with Git
 
+**Author:** Vini Salazar, Melbourne Bioinformatics. Last updated October 2024.
+
 <!-- 
 TO-DOs:
   - Add more graphics to explain remotes and such
@@ -31,7 +33,7 @@ TO-DOs:
 
 **Data:** None required, we will create our own code repository.
 
-**Tools:** Git `>=2.40`
+**Tools:** Git `>=2.40`, a text editor (VS Code, Notepad, nano, Vim)
 
 **Pipeline:**  
 *Section 1:* Introduction  
@@ -50,10 +52,15 @@ TO-DOs:
 ## Setup
 **Install Git**  
 
-If you have Anaconda, changes are you already have Git installed. Open either a Terminal or an Anaconda 
+**Windows:** If using a Windows machine, install [Git for Windows.](https://gitforwindows.org)
+
+**Mac:** Open the Terminal (Command + Spacebar and type "Terminal"), and type `git --version`. Follow the on-screen prompts to install XCode.
+
+**Anaconda:** If you have Anaconda, changes are you already have Git installed. Open either a Terminal or an Anaconda 
 Prompt, and type `git --version`. If you are already have Git installed, it will show the version number.
-Otherwise, you can install it with `conda install git -y`. If you don't have Anaconda or conda installed,
-you can follow the instructions for [your operating system here.](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+Otherwise, you can install it with `conda install git -y`. 
+
+**Linux:** for Debian-based distributions, you can run `sudo apt install git-all`. For other options, [see here.](https://git-scm.com/download/linux)
 
 **Create a GitHub account**  
 
@@ -64,9 +71,9 @@ your email address.](https://docs.github.com/en/account-and-profile/setting-up-a
 !!! success "You are all set for now."
     The two steps above are all that are required **before** the workshop. You can complete the following steps during the workshop.
 
-**SSH access (optional)**
+**SSH access**
 
-We strongly recommend that *at some point* you [configure SSH access to your GitHub account.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+We strongly recommend that you [configure SSH access to your GitHub account.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
 Otherwise, it will ask for your password every time you try to interact with GitHub. This is OK, but can 
 be annoying after some time. See below on how to connect with SSH.
 
@@ -98,12 +105,18 @@ git config --global user.name "FirstName LastName"
 git config --global user.email "your@email.com"
 ```
 
+**VS Code (optional)**
+
+You may optionally install [Visual Studio Code](https://code.visualstudio.com) to have a text editor to work with. This is also available from the University's Self-Service software.
+  
+  - **If you are using VS Code on a Windows machine,** you will need to set your default shell as "GitBash". [Follow the instructions here to do so.](https://www.youtube.com/watch?v=PzJCwfYfIzY)
+
 !!! success "Well done!"
     You are ready to start using Git.
 
 ---
 
-## Introduction
+## 1. Introduction
 
 **Expected time:** 40 minutes.
 
@@ -274,15 +287,15 @@ The staging area in Git is like a "waiting room" for changes you want to commit.
 
 ---
 
-## Your first Git repository
+## 2. Your first Git repository
 
 Now that we've learned the basics of version control, and reasons to use it, let's get some hands-on experience on how to create our first Git repository.
 
-Let's start navigating to the Desktop and creating a new directory there.
+Let's start navigating to the Documents folder and creating a new directory there.
 
 ```bash
 cd
-cd Desktop
+cd Documents
 mkdir gitgood
 cd gitgood
 ```
@@ -296,7 +309,7 @@ git init
 You should see a message like this:
 
 ```output
-Initialized empty Git repository in /home/username/Desktop/gitgood/.git/
+Initialized empty Git repository in /home/username/Documents/gitgood/.git/
 ```
 
 If we try to list the files in the repository, we can't see anything. Try again with the `-a` option:
@@ -327,7 +340,7 @@ We can see that we have created the `.git` directory. This hidden directory (hid
         1. By default, `ls` does not display hidden files (starting with a `.` character). The `.git` directory hidden by default when we create it.  
         2. `-a` shows **all** of the files and directories, including hidden ones.  
         3. If we don't know what a command-line flag means, we can try looking for the command in the man pages, for example by typing `man ls`.  
-        4. The `.` and `..` files respectively refer to the current directory and the directory one level above (the `Desktop`, in this case).
+        4. The `.` and `..` files respectively refer to the current directory and the directory one level above (the `Documents`, in this case).
 
 We can now try one of the most important Git commands, which tells us the current state of our repository:
 
@@ -380,7 +393,7 @@ Now open `README.md` on your favourite text editor, such as VS Code, nano, Vim, 
 add some content:
 
 ```bash
-vim README.md
+nano README.md
 ```
 
 Add the following content:
@@ -643,9 +656,9 @@ We have successfully **pushed** our local repository from our local machine to t
     - The `git pull` command **pulls** remote changes to our local repository. We need to run it to sync our local repository to the newest updates on the remote.
     - The `git remote` command is used to manage remotes, such as setting the GitHub URL, to view the configured remotes, and other actions.
 
-## Collaborating with Git
+## 3. Collaborating with Git
 
-So far, we've learned how to set up a local repository, how to track changes, and how to sync our local repository with the remote by pushing and pulling. Now, let's see how collaborating with Git and GitHub works in practice. In this section, you will **clone** an existing repository, make changes to it, and submit those changes as a **pull request**.
+So far, we've learned how to set up a local repository, how to track changes, and how to sync our local repository with the remote by pushing and pulling. Now, let's see how collaborating with Git and GitHub works in practice. In this section, you will [clone](#glossary) an existing repository, make changes to it, and submit those changes as a [pull request.](#glossary)
 
 ### Cloning a repository
 
@@ -670,7 +683,7 @@ Clone your chosen repository locally using the `git clone` command.
 
     This copies the remote's URL to your clipboard.
 
-    2. Navigate to a suitable directory (**not** inside our previous `gitgood` repository), such as the Desktop, and run `git clone <URL>`
+    2. Navigate to a suitable directory (**not** inside our previous `gitgood` repository), such as the Documents directory, and run `git clone <URL>`
 
     ![](./media/clone_repo_cli.png)
 
@@ -885,7 +898,7 @@ Because the repository that we cloned is under Melbourne Bioinformatics, we don'
 
 ### Cloning versus forking
 
-When we **clone** a repository, we download a copy of it locally, attached to the same remote (the GitHub repository) from which we cloned it from. We can make whatever changes we want locally, but in order to push those changes to the remote, we must have access to the GitHub repository. Unless it's our own repository or the owner of the repository has granted us with write access, we usually won't have access to it. To circumvent this problem, we should **fork** the repository. Forking a repository is similar to cloning, but we create a new **remote**, instead of a local copy, that we have control over.
+When we **clone** a repository, we download a copy of it locally, attached to the same remote (the GitHub repository) from which we cloned it from. We can make whatever changes we want locally, but in order to push those changes to the remote, we must have access to the GitHub repository. Unless it's our own repository or the owner of the repository has granted us with write access, we usually won't have access to it. To circumvent this problem, we should [fork](#glossary) the repository. Forking a repository is similar to cloning, but we create a new **remote**, instead of a local copy, that we have control over.
 
 Let's **fork** the chosen repository and make changes to it.
 
@@ -1000,7 +1013,7 @@ After merging, go to your local repository and run `git pull`.
     - Conflicts are when two commits modify the same parts of a file. We must resolve conflicts before merging them. This can be done by creating a new commit.
     - Conflicts are denoted by `<<<`, `>>>` and `===` characters around the conflicting lines.
 
-## Tips and best practices
+## 4. Tips and best practices
 
 !!! success "Well done!"
     By following these steps, you've learned the fundamentals of version control with Git.
@@ -1043,10 +1056,11 @@ In regards to the second strategy of using existing solutions, you can do most G
 - Let things go stale – delete or "stash" them
 
 !!! note "Keypoints"
-  - There are a number of strategies to incorporate Git into your day-to-day work.
-  - The learning curve can seem steep at first, but with time you will understand how valuable Git is and it will become easier and easier to use.
-  - GitHub offers numerous features that make adopting Git easier, and enable you to showcase your projects.
-  - There are a few best practices which will dramatically improve your efficiency with Git.
+
+    - There are a number of strategies to incorporate Git into your day-to-day work.
+    - The learning curve can seem steep at first, but with time you will understand how valuable Git is and it will become easier and easier to use.
+    - GitHub offers numerous features that make adopting Git easier, and enable you to showcase your projects.
+    - There are a few best practices which will dramatically improve your efficiency with Git.
 
 <!-- ## Summary 
 
@@ -1060,21 +1074,30 @@ In regards to the second strategy of using existing solutions, you can do most G
 
 ## Glossary
 
-**Conflict:** A situation where changes from different commits or branches cannot be merged automatically.
+**Branch:** An independent line of development within a repository, allowing you to work on different features or fixes without affecting the main project.
+
+**Clone:** Creates a local copy of a remote repository.
 
 **Commit:** A snapshot of changes to a repository, saved with a message describing the updates.
 
-**Repository:** A storage space where your project’s files and version history are kept.
+**Conflict:** A situation where changes from different commits or branches cannot be merged automatically.
+
+**Fork:** Creates a personal copy of someone else’s repository under your GitHub account for independent development.
 
 **History:** The record of all commits made in a repository, showing how the codebase evolved.
 
-**Branch:** An independent line of development within a repository, allowing you to work on different features or fixes without affecting the main project.
+**Merge:** Combines changes from one branch into another.
 
-**Tags:** Named markers pointing to specific commits, often used to label release versions.
-
-**Remotes:** Remote versions of your repository hosted on a server, allowing you to collaborate and sync changes with others.
-
-**Staging Area:** A space where you can prepare and review changes before committing them to the repository.
+**Pull:** Fetches and integrates changes from a remote repository into your local branch.
 
 **Pull request:** A request to merge (pull) changes from a repository that you own onto another repository. This is how contributions are submitted on GitHub.
 
+**Push:** Sends local changes to a remote repository.
+
+**Remotes:** Remote versions of your repository hosted on a server, allowing you to collaborate and sync changes with others.
+
+**Repository:** A storage space where your project’s files and version history are kept.
+
+**Staging Area:** A space where you can prepare and review changes before committing them to the repository.
+
+**Tags:** Named markers pointing to specific commits, often used to label release versions.
