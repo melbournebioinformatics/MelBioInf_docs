@@ -56,10 +56,6 @@ TO-DOs:
 
 **Mac:** Open the Terminal (Command + Spacebar and type "Terminal"), and type `git --version`. Follow the on-screen prompts to install XCode.
 
-**Anaconda:** If you have Anaconda, changes are you already have Git installed. Open either a Terminal or an Anaconda 
-Prompt, and type `git --version`. If you are already have Git installed, it will show the version number.
-Otherwise, you can install it with `conda install git -y`. 
-
 **Linux:** for Debian-based distributions, you can run `sudo apt install git-all`. For other options, [see here.](https://git-scm.com/download/linux)
 
 **Create a GitHub account**  
