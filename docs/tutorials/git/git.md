@@ -50,6 +50,9 @@ TO-DOs:
 ---
 
 ## Setup
+
+**Make sure you go through the setup instructions *before* the workshop.**
+
 **Install Git**  
 
 **Windows:** If using a Windows machine, install [Git for Windows.](https://gitforwindows.org)
@@ -64,24 +67,19 @@ The next step will be to create a GitHub account. If you already have one, skip 
 over to [GitHub](https://github.com/) and click the "Sign Up" button at the top right. Make sure you [verify
 your email address.](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/verifying-your-email-address#troubleshooting-email-verification)
 
-!!! success "You are all set for now."
-    The two steps above are all that are required **before** the workshop. You can complete the following steps during the workshop.
-
 **SSH access**
 
-We strongly recommend that you [configure SSH access to your GitHub account.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+You must [configure SSH access to your GitHub account.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
 Otherwise, it will ask for your password every time you try to interact with GitHub. This is OK, but can 
 be annoying after some time. See below on how to connect with SSH.
 
 ??? info "Configuring SSH access for GitHub"
-    1. Make sure you have `openssl` installed by typing `openssl --version` in the Terminal.
-        - You can install it with `conda install openssl` if not installed.
-    2. Make sure your ssh-agent is running with ```eval `ssh-agent` ```.
-    3. Create a new SSH key with `ssh-keygen`.
-    4. Add the key to your SSH-agent with `ssh-add <PATH-TO-KEY>`, for example `ssh-add /home/username/.ssh/id_rsa`.
-    5. Print your **public** key by typing `cat <PATH-TO-KEY>.pub`, for example `cat /home/username/.ssh/id_rsa.pub`.
-    6. On GitHub, click your profile icon on the top right, then Settings > SSH and GPG keys > New SSH key > paste your **public** key and give it a meaningful name.
-    7. Test SSH access with `ssh -T git@github.com`. It should print a message like this: `Hi <USERNAME>! You've successfully authenticated, but GitHub does not provide shell access.`
+    Follow the steps by clicking on the links. **Use the tabs to select the appropriate instructions for your operating system.**
+
+    1. [Check for existing SSH keys.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys)
+    2. [If you don't have any keys, create one and add it to the SSH agent.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+    3. [Add a new SSH key to GitHub.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+    4. [Test your SSH connection.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection)
 
 **Configuring Git**  
 
@@ -108,7 +106,12 @@ You may optionally install [Visual Studio Code](https://code.visualstudio.com) t
   - **If you are using VS Code on a Windows machine,** you will need to set your default shell as "GitBash". [Follow the instructions here to do so.](https://www.youtube.com/watch?v=PzJCwfYfIzY)
 
 !!! success "Well done!"
-    You are ready to start using Git.
+    To ensure that everything works, run the two following commands:
+    
+    1. `ssh -T git@github.com`. It should print a message like this: `Hi <USERNAME>! You've successfully authenticated, but GitHub does not provide shell access`.
+    2. `git --version`. It should print something like `git version 2.40.0`
+
+    Congratulations! You are ready to start using Git.
 
 ---
 
@@ -386,7 +389,7 @@ The `touch` command creates an empty file. We will be formatting our README file
     - *\*Italics is written with a single-asterisk.\**
 
 Now open `README.md` on your favourite text editor, such as VS Code, nano, Vim, or good old Notepad, and let's
-add some content:
+add some content (we recommend that you use VS Code):
 
 ```bash
 nano README.md
