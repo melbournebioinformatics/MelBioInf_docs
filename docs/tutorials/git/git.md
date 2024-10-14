@@ -951,9 +951,10 @@ If you have your project available on GitHub, it is likely that you will have to
 Because of that, let's practice **reviewing** a pull request, that is, the scenario where someone would submit a pull request to our repository.
 
 ???+ question "Reviewing a pull request"
-    1. Create a file named `CONTRIBUTORS.txt` and add a line with your name to it. Add and commit the changes, and push to your fork.
-    2. Find someone that has forked the same repository as you have (either Python or R). Ask a helper if you can't find someone that has cloned the same repository.
-    3. Using the GitHub interface, make a pull request to each other's repository submitting the changes. **Change the destination of your PR by using the dropdown menus above the "Create pull request" button:**
+    1. Create a new branch called `add-name` using the following command: `git checkout -b add-name`.
+    2. Create a file named `CONTRIBUTORS.txt` and add a line with your name to it. Add and commit the changes, and push to your fork, using the following command: `git push --set-upstream origin add-name`
+    3. Find someone that has forked the same repository as you have (either Python or R). Ask a helper if you can't find someone that has cloned the same repository.
+    4. Using the GitHub interface, make a pull request to each other's repository submitting the changes. **Change the destination of your PR by using the dropdown menus above the "Create pull request" button.** Make sure you make the pull request to your partner's fork, and to the `add-name` branch.
 
     ![](./media/PR_base_repository.png)
     
