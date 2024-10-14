@@ -69,7 +69,7 @@ your email address.](https://docs.github.com/en/account-and-profile/setting-up-a
 
 **SSH access**
 
-You must [configure SSH access to your GitHub account.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+You must [configure SSH access to your GitHub account.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 Otherwise, it will ask for your password every time you try to interact with GitHub. This is OK, but can 
 be annoying after some time. See below on how to connect with SSH.
 
