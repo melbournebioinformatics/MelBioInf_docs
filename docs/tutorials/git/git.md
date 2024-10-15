@@ -1,6 +1,8 @@
 # Version Control with Git
 
 **Author:** Vini Salazar, Melbourne Bioinformatics. Last updated October 2024.
+**Contributors:** 
+- Adam Taranto, WEHI.
 
 <!-- 
 TO-DOs:
@@ -55,7 +57,7 @@ TO-DOs:
 
 **Install Git**  
 
-**Windows:** If using a Windows machine, install [Git for Windows.](https://gitforwindows.org)
+**Windows:** If using a Windows machine, install [Git for Windows.](https://git-scm.com/downloads/win)
 
 **Mac:** Open the Terminal (Command + Spacebar and type "Terminal"), and type `git --version`. Follow the on-screen prompts to install XCode.
 
