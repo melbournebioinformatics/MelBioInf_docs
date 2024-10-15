@@ -1,6 +1,8 @@
 # Version Control with Git
 
 **Author:** Vini Salazar, Melbourne Bioinformatics. Last updated October 2024.
+**Contributors:** 
+- Adam Taranto, WEHI.
 
 <!-- 
 TO-DOs:
@@ -55,7 +57,7 @@ TO-DOs:
 
 **Install Git**  
 
-**Windows:** If using a Windows machine, install [Git for Windows.](https://gitforwindows.org)
+**Windows:** If using a Windows machine, install [Git for Windows.](https://git-scm.com/downloads/win)
 
 **Mac:** Open the Terminal (Command + Spacebar and type "Terminal"), and type `git --version`. Follow the on-screen prompts to install XCode.
 
@@ -69,11 +71,11 @@ your email address.](https://docs.github.com/en/account-and-profile/setting-up-a
 
 **SSH access**
 
-You must [configure SSH access to your GitHub account.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+You must **configure SSH access to your GitHub account.**
 Otherwise, it will ask for your password every time you try to interact with GitHub. This is OK, but can 
 be annoying after some time. See below on how to connect with SSH.
 
-??? info "Configuring SSH access for GitHub"
+???+ info "Configuring SSH access for GitHub"
     Follow the steps by clicking on the links. **Use the tabs to select the appropriate instructions for your operating system.**
 
     1. [Check for existing SSH keys.](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys)
@@ -104,6 +106,13 @@ git config --global user.email "your@email.com"
 You may optionally install [Visual Studio Code](https://code.visualstudio.com) to have a text editor to work with. This is also available from the University's Self-Service software.
   
   - **If you are using VS Code on a Windows machine,** you will need to set your default shell as "GitBash". [Follow the instructions here to do so.](https://www.youtube.com/watch?v=PzJCwfYfIzY)
+
+  - If on Mac install `code` command for mac, either from [command pallete or manually add](https://code.visualstudio.com/docs/setup/mac) if not admin.
+
+**Install miniforge**
+Install miniforge (note options i.e. add python to path etc)
+If windows: Using miniforge-prompt, run: conda init bash
+If Mac: conda init bash from terminal (check this with miniforge instructions, may need full conda path)
 
 !!! success "Well done!"
     To ensure that everything works, run the two following commands:
