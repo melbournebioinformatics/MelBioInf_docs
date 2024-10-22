@@ -22,14 +22,15 @@
 **Data:** IFNB-Stimulated and Control PBMCs.
 
 **Tools:** R >=4.4.0 and associated packages:
-  - Seurat
-  - SeuratData
-  - tidyverse
-  - DESeq2
-  - patchwork
-  - pheatmap
-  - grid
-  - metap
+
+* Seurat  
+* SeuratData  
+* tidyverse  
+* DESeq2  
+* patchwork  
+* pheatmap  
+* grid  
+* metap  
 
 **Pipeline:**  
 *Section 1:* Setup and Intro.  
@@ -39,8 +40,10 @@
 
 **Learning objectives:** Placeholder.
 
+<!-- Remove this if not applicable.>
 !!! warning "Disclaimer"
     This tutorial is partially based on some existing material.
+-->
 
 <!-- Use this divider between sections -->
 ---
@@ -62,19 +65,11 @@ Tell users what to install. Subsection headers using bold, not the hash characte
 
 ## Introduction
 
----
-title: "Integration_DE_Workshop"
-output:
-  html_document:
-    self_contained: no
-date: "2024-09-02"
----
-
-```{r setup, include = FALSE}
+```r
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### 1. Load the packages
+### Step 1. Load the packages and data
 
 Today we'll be working with Seurat (a popular scRNA-seq analysis package). SeuratData will be used to load in the experimental data we're analysing. Tidyverse is a fundamental and very popularly used set of tools to wrangle and visualise data.
 
@@ -82,7 +77,7 @@ We'll need to load the DESeq2 R package for when we explore pseudobulk DE approa
 
 pheatmap and grid are two really useful packages for creating custom heatmaps with our scRNA-seq data and exporting figures, respectively.
 
-```{r, eval = TRUE, message = FALSE, warning = FALSE}
+```r
 library(Seurat)
 library(SeuratData)
 library(tidyverse)
@@ -95,8 +90,6 @@ library(metap)
 set.seed(4242) #Set Seed for Reproducibility
 setwd("/Users/vsalazar/Bio/MB/Seurat_DE_Workshop") ## Change this
 ```
-
-### Load the data
 
 We're using the ifnb public dataset provided by Seurat. This dataset contains PBMC data from 8 lupus patients before and after interferon beta treatment.
 
@@ -114,7 +107,7 @@ ANSWER: When loading in seurat objects, we can have a look at what processing st
 
 3)  no dimensionality reduction functions have been performed.
 
-```{r, eval = TRUE, message = FALSE, warning = FALSE}
+```r
 AvailableData() # if you want to see the available datasets use this function
 InstallData("ifnb") # install our treatment vs control dataset for today
 
@@ -135,7 +128,7 @@ First we need to take a look at QC metrics, then decide on the thresholds for fi
 
 QUESTION: Looking
 
-```{r, eval = TRUE, warning = FALSE}
+```r
 # Step 2a: QC and filtering
 ifnb$percent.mt <- PercentageFeatureSet(object = ifnb, pattern = "^MT-") # First let's annotate the mitochondrial percentage for each cell
 
@@ -154,7 +147,7 @@ association.plt.raw
 
 After visualising QC metrics, we'll move on to the actual filtering
 
-```{r, eval = TRUE, warning = FALSE,  message = FALSE}
+```r
 # Step 2c: filter out low-quality cells + visualise the metrics for our filtered seurat object
 ifnb.filtered <- subset(ifnb, subset = nCount_RNA > 800 & 
                           nCount_RNA < 5000 &
@@ -173,7 +166,7 @@ association.plt.filtered
 
 Let's check how many cells we've filtered out (looks like \~400 cells were removed):
 
-```{r, eval = TRUE, warning = FALSE}
+```r
 ## Defining a couple helper functions to standardise x and y axis for two plots
 get_plot_range <- function(plot) {
   data <- layer_data(plot)
@@ -227,7 +220,7 @@ ifnb.filtered[["RNA"]] <- split(ifnb.filtered[["RNA"]], f = ifnb.filtered$stim) 
 
 After filtering out low quality cells, we want to visualise our data to see how cells group by condition and if we need to perform batch-effect correction (integration)
 
-```{r, eval = TRUE}
+```r
 ifnb.filtered <- NormalizeData(ifnb.filtered)
 ifnb.filtered <- FindVariableFeatures(ifnb.filtered)
 ifnb.filtered <- ScaleData(ifnb.filtered)
@@ -251,7 +244,7 @@ QUESTION: What do you think would happen if we were to perform unsupervised clus
 
 Seurat v5 has made it really easy to test different integration methods quickly, let's use a really popular approach (harmony) first.
 
-```{r, eval = TRUE, warning = FALSE}
+```r
 # code adapted from: https://satijalab.org/seurat/articles/seurat5_integration
 ifnb.filtered <- IntegrateLayers(object = ifnb.filtered,
                                  method = HarmonyIntegration,
@@ -274,7 +267,7 @@ Question: Looking at the UMAPs above, do you think integration was successful? H
 
 Question: Try looking at the PC1 and PC2 plots for harmony and seurat as well
 
-```{r, eval = TRUE}
+```r
 ifnb.filtered <- IntegrateLayers(object = ifnb.filtered,
                                  method = CCAIntegration,
                                  orig.reduction = "pca", 
@@ -301,7 +294,7 @@ Challenge: look at the pc1/2 plots for each integration method -\> explain diffe
 
 This step collapses individual control and treatment datasets together and needs to be done before differential expression analysis
 
-```{r, eval = TRUE}
+```r
 ifnb.filtered <- FindNeighbors(ifnb.filtered, reduction = "integrated.cca", dims = 1:20)
 ifnb.filtered <- FindClusters(ifnb.filtered, resolution = 0.5)
 
@@ -310,14 +303,14 @@ ifnb.filtered <- JoinLayers(ifnb.filtered)
 
 ## Part 2: Differential Gene Expression when dealing with two treatment conditions
 
-```{r, eval = TRUE}
+```r
 DimPlot(ifnb.filtered, reduction = "umap.cca", label = T)
 DimPlot(ifnb.filtered, reduction = "umap.cca", group.by = "stim")
 ```
 
 ### Step 1. Find Conserved Markers to label our celltypes
 
-```{r, eval = TRUE}
+```r
 ## Let's look at conserved markers in cluster 4 across our two conditions (compared to all other clusters)
 markers.cluster.4 <- FindConservedMarkers(ifnb.filtered, ident.1 = 4,
                      grouping.var = 'stim')
@@ -333,7 +326,7 @@ Let's visualise the top features identified in this cluster
 
 Question: try running this function without defining a min.cutoff, or changing the value
 
-```{r, eval = TRUE}
+```r
 # Try looking up some of these markers here: https://www.proteinatlas.org/
 FeaturePlot(ifnb.filtered, reduction = "umap.cca", 
             features = c('VMO1', 'FCGR3A', 'MS4A7', 'CXCL16'), min.cutoff = 'q10')
@@ -349,7 +342,7 @@ DimPlot(ifnb.filtered, reduction = "umap.cca", label = T) +
 
 ### Step 2: Set the identity of our clusters to the annotations provided
 
-```{r, eval = TRUE}
+```r
 Idents(ifnb.filtered) <- ifnb.filtered@meta.data$seurat_annotations
 Idents(ifnb.filtered)
 
@@ -360,7 +353,7 @@ DimPlot(ifnb.filtered, reduction = "umap.cca", label = T)
 
 ### Step 3: Find DEGs between our two conditions (using CD16 Mono cells as an example)
 
-```{r, eval = TRUE}
+```r
 # Make another column in metadata showing what cells belong to each treatment group (This will make more sense in a bit)
 ifnb.filtered$celltype.and.stim <- paste0(ifnb.filtered$seurat_annotations, '_', ifnb.filtered$stim)
 View(ifnb.filtered@meta.data)
@@ -375,7 +368,7 @@ DimPlot(ifnb.filtered, reduction = "umap.cca",
 
 We'll now leverage these new identities to compare DEGs between our treatment groups
 
-```{r, eval = TRUE}
+```r
 treatment.response.CD16 <- FindMarkers(ifnb.filtered, ident.1 = 'CD16 Mono_STIM', 
                                        ident.2 = 'CD16 Mono_CTRL')
 head(treatment.response.CD16) # These are the genes that are upregulated in the stimulated versus control group
@@ -383,7 +376,7 @@ head(treatment.response.CD16) # These are the genes that are upregulated in the 
 
 ### Step 5: Lets plot conserved features vs DEGs between conditions
 
-```{r, eval = TRUE}
+```r
 FeaturePlot(ifnb.filtered, reduction = 'umap.cca', 
             features = c('VMO1', 'FCGR3A', 'IFIT1', 'ISG15'),
             split.by = 'stim', min.cutoff = 'q10')
@@ -391,7 +384,7 @@ FeaturePlot(ifnb.filtered, reduction = 'umap.cca',
 
 ### Step 6: Create a Heatmap to visualise DEGs between our two conditions + cell types
 
-```{r, eval = TRUE}
+```r
 # # Find upregulated genes in each group (cell type and condition)
 # ifnb.treatVsCtrl.markers <- FindAllMarkers(ifnb.filtered,
 #                                           only.pos = TRUE)
@@ -401,7 +394,7 @@ Uncomment the top code block to run from scratch -\> We'll load in the saved out
 
 Seurat's in built heatmap function can be quite messy and hard to interpret sometimes (we'll learn how to make better and clearer custom heatmaps from our Seurat scRNA-seq data in a bit).
 
-```{r, eval = TRUE, warning = FALSE}
+```r
 ifnb.treatVsCtrl.markers <- readRDS("ifnb_stimVsCtrl_markers.rds")
 
 top5 <- ifnb.treatVsCtrl.markers %>%
@@ -422,7 +415,7 @@ DEG.heatmap
 
 Question: have a look at the ifnb.filtered seurat metadata, can you spot what we've done here?
 
-```{r, eval = TRUE}
+```r
 # defining a function here to retrieve that information (code from https://satijalab.org/seurat/articles/de_vignette)
 loadDonorMetadata <- function(seu.obj){
   # load the inferred sample IDs of each cell
@@ -459,7 +452,7 @@ ifnb.filtered <- loadDonorMetadata(ifnb.filtered)
 
 Condensing our single-cell matrix in this manner is referred to 'pseudobulking'. We're making a condensed count matrix that looks more like a bulk matrix so that we can use bulk differential expression algorithms like DESeq2. We can see this clearly when we have a look at the ifnb.pseudbulk.df we make in the following code block.
 
-```{r, eval = TRUE}
+```r
 ifnb.pseudobulk <- AggregateExpression(ifnb.filtered, assays = "RNA",
                                    group.by = c("stim", "donor_id", "seurat_annotations"),
                                    return.seurat = TRUE)
@@ -481,7 +474,7 @@ To use DESeq2 in older versions of Seurat (prior to v5) we would have to perform
 
 It is worth taking a look at the Seurat DE vignette on your own to see the other pseudobulk DE methods you can use. Do keep in mind that to use some of the DE tests, you need to install that package and load it as a library separately to Seurat, as we've done here with DESeq2 at the start.
 
-```{r, eval = TRUE}
+```r
 ifnb.pseudobulk$celltype.and.stim <- paste(ifnb.pseudobulk$seurat_annotations, ifnb.pseudobulk$stim, sep = "_")
 Idents(ifnb.pseudobulk) <- "celltype.and.stim"
 
@@ -507,7 +500,7 @@ QUESTION: Having a look at them, can you identify any differences? Can you think
 
 Hint: Look at the p_val and p_val_adj columns
 
-```{r, eval = TRUE}
+```r
 head(treatment.response.CD16)
 head(treatment.response.CD16.pseudo)
 ```
@@ -516,7 +509,7 @@ Next let's take a look at the degree of overlap between the actual DEGs in both 
 
 To help with this, I'm just going to define a couple helper functions below.
 
-```{r, eval = TRUE}
+```r
 Merge_DEG_dataframes <- function(pseudobulk.de,
                                  singlecell.de){
   names(pseudobulk.de) <- paste0(names(pseudobulk.de), ".bulk")
@@ -575,7 +568,7 @@ Let's use the helper functions above to plot and view the overlap/agreement betw
 
 QUESTION: Can you explain why we're seeing the discrepencies we see between the two methods here?
 
-```{r, eval = TRUE}
+```r
 merged_deg_data <- Merge_DEG_dataframes(pseudobulk.de = treatment.response.CD16.pseudo,
                                         singlecell.de = treatment.response.CD16)
 merged_deg_data %>% 
@@ -595,7 +588,7 @@ overlap.bar.plt
 
 Let's create lists of genes in each of our categories first
 
-```{r, eval = TRUE}
+```r
 common <- merged_deg_data$gene[which(merged_deg_data$p_val.bulk < 0.05 & 
                                        merged_deg_data$p_val.sc < 0.05)]
 only_sc <- merged_deg_data$gene[which(merged_deg_data$p_val.bulk > 0.05 & 
@@ -606,7 +599,7 @@ only_pseudobulk <- merged_deg_data$gene[which(merged_deg_data$p_val.bulk < 0.05 
 
 Now I want to look at the expression of genes that only appear in our sc deg test and not in our pseudobulk deg test I've picked two genes from the 'only_sc' variable we just defined
 
-```{r, eval = TRUE}
+```r
 # create a new column to annotate sample-condition-celltype in the single-cell dataset
 ifnb.filtered$donor_id.and.stim <- paste0(ifnb.filtered$stim, "-", ifnb.filtered$donor_id)
 Idents(ifnb.filtered) <- "celltype.and.stim"
@@ -625,7 +618,7 @@ QUESTION: How would you interpret the plots above? What does this tell you about
 
 Now lets take a look at some genes that show agreement across both sc and pseudobulk deg tests
 
-```{r, eval = TRUE}
+```r
 VlnPlot(ifnb.filtered, features = c("IFIT2", "PSMA4"), 
         idents = c("CD16 Mono_CTRL", "CD16 Mono_STIM"), 
         group.by = "stim") 
@@ -641,7 +634,7 @@ So far, we've been using functions wrapped within Seurat to plot and visualise o
 
 First lets look at our significant DEGs as defined by our pseudobulk approach
 
-```{r, eval = TRUE}
+```r
 CD16.sig.markers <- treatment.response.CD16.pseudo %>% 
   dplyr::filter(p_val_adj < 0.05) %>%
   dplyr::mutate(gene = rownames(.))
@@ -649,7 +642,7 @@ CD16.sig.markers <- treatment.response.CD16.pseudo %>%
 
 This is how we can pull our average (scaled) pseudobulk expression values from our seurat obj:
 
-```{r, eval = TRUE, warning = FALSE}
+```r
 ifnb.filtered$celltype.stim.donor_id <- paste0(ifnb.filtered$seurat_annotations, "-",
                                                ifnb.filtered$stim, "-", ifnb.filtered$donor_id)
 Idents(ifnb.filtered) <- "celltype.stim.donor_id"
@@ -664,7 +657,7 @@ View(all.sig.avg.Expression.mat %>%
 
 Now lets make sure we're only using data from the CD16 cell type
 
-```{r, eval = TRUE}
+```r
 CD16.sig.avg.Expression.mat <- all.sig.avg.Expression.mat$RNA %>%
   as.data.frame() %>%
   dplyr::select(starts_with("CD16 Mono"))
@@ -675,7 +668,7 @@ View(CD16.sig.avg.Expression.mat)
 
 Let's finally view our heatmap with averaged pseudobulk scaled expression values for our signficant DEGs
 
-```{r, eval = TRUE}
+```r
 pheatmap::pheatmap(CD16.sig.avg.Expression.mat,
          cluster_rows = TRUE,
          show_rownames = FALSE, 
@@ -688,7 +681,7 @@ pheatmap::pheatmap(CD16.sig.avg.Expression.mat,
 
 The cool thing about pheatmap is that we can customise our heatmap with added metadata
 
-```{r, eval = TRUE}
+```r
 cluster_metadata <- data.frame(
   row.names = colnames(CD16.sig.avg.Expression.mat)
 ) %>% 
@@ -713,7 +706,7 @@ sig.DEG.heatmap
 
 Lets save our heatmap using the grid library (very useful package!) Code from: <https://stackoverflow.com/questions/43051525/how-to-draw-pheatmap-plot-to-screen-and-also-save-to-file>
 
-```{r, eval = TRUE}
+```r
 save_pheatmap_pdf <- function(x, filename, width=7, height=7) {
    stopifnot(!missing(x))
    stopifnot(!missing(filename))
