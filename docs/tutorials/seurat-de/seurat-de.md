@@ -2,6 +2,11 @@
 
 [**Slides available here.**](./media/seurat-de-slides.pdf)
 
+**Author:** Manveer Chauhan, Clark Lab, The University of Melbourne.
+**Contributors:** Vini Salazar, Melbourne Bioinformatics.
+
+Last updated October 2024.
+
 ## Overview
 
 **Topic**
