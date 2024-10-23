@@ -609,7 +609,30 @@ ifnb.filtered <- IntegrateLayers(object = ifnb.filtered,
                                  orig.reduction = "pca", 
                                  new.reduction = "harmony")
 
+## Transposing data matrix
+## Using automatic lambda estimation
+## Initializing state using k-means centroids initialization
+## Harmony 1/10
+## Harmony 2/10
+## Harmony 3/10
+## Harmony converged after 3 iterations
+
 ifnb.filtered <- RunUMAP(ifnb.filtered, reduction = "harmony", dims = 1:20, reduction.name = "umap.harmony")
+
+## 14:30:30 UMAP embedding parameters a = 0.9922 b = 1.112
+## 14:30:30 Read 13548 rows and found 20 numeric columns
+## 14:30:30 Using Annoy for neighbor search, n_neighbors = 30
+## 14:30:30 Building Annoy index with metric = cosine, n_trees = 50
+## 0%   10   20   30   40   50   60   70   80   90   100%
+## [----|----|----|----|----|----|----|----|----|----|
+## **************************************************|
+## 14:30:30 Writing NN index file to temp file /var/folders/pv/fvynh7953flggrfb49p2lqsc0000gn/T//RtmpZktc52/file2641501f5779
+## 14:30:30 Searching Annoy index using 1 thread, search_k = 3000
+## 14:30:32 Annoy recall = 100%
+## 14:30:32 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+## 14:30:33 Initializing from normalized Laplacian + noise (using RSpectra)
+## 14:30:33 Commencing optimization for 200 epochs, with 586972 positive edges
+## 14:30:37 Optimization finished
 
 after.harmony <- DimPlot(ifnb.filtered, reduction = "umap.harmony", group.by = "stim") + 
   ggtitle("After Harmony Integration")
@@ -618,6 +641,7 @@ before.integration <- DimPlot(ifnb.filtered, reduction = "umap", group.by = "sti
 
 before.integration | after.harmony
 ```
+![](./media/unnamed-chunk-7-1.png)
 
 !!! question
     Looking at the UMAPs above, do you think integration was successful? Have a slide on what if its just different cell types.
@@ -633,16 +657,49 @@ ifnb.filtered <- IntegrateLayers(object = ifnb.filtered,
                                  orig.reduction = "pca", 
                                  new.reduction = "integrated.cca")
 
+## Finding all pairwise anchors
+## Running CCA
+## Merging objects
+## Finding neighborhoods
+## Finding anchors
+##  Found 13439 anchors
+## Merging dataset 1 into 2
+## Extracting anchors for merged samples
+## Finding integration vectors
+## Finding integration vector weights
+## Integrating data
+
 ifnb.filtered <- RunUMAP(ifnb.filtered, reduction = "integrated.cca", dims = 1:20, reduction.name = "umap.cca")
+
+## 14:32:20 UMAP embedding parameters a = 0.9922 b = 1.112
+## 14:32:20 Read 13548 rows and found 20 numeric columns
+## 14:32:20 Using Annoy for neighbor search, n_neighbors = 30
+## 14:32:20 Building Annoy index with metric = cosine, n_trees = 50
+## 0%   10   20   30   40   50   60   70   80   90   100%
+## [----|----|----|----|----|----|----|----|----|----|
+## **************************************************|
+## 14:32:20 Writing NN index file to temp file /var/folders/pv/fvynh7953flggrfb49p2lqsc0000gn/T//RtmpZktc52/file26411d5fec2d
+## 14:32:20 Searching Annoy index using 1 thread, search_k = 3000
+## 14:32:22 Annoy recall = 100%
+## 14:32:23 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+## 14:32:23 Initializing from normalized Laplacian + noise (using RSpectra)
+## 14:32:23 Commencing optimization for 200 epochs, with 595440 positive edges
+## 14:32:27 Optimization finished
 
 after.seuratCCA <- DimPlot(ifnb.filtered, reduction = "umap.cca", group.by = "stim") +
   ggtitle("After Seurat CCA Integration")
 
 before.integration | after.seuratCCA
+```
+
+![](./media/unnamed-chunk-8-1.png)
+
+```r
 after.harmony | after.seuratCCA
 
 ## Show example slide of integration 'failing' but due to different cell types in each sample ***
 ```
+![](./media/unnamed-chunk-8-2.png)
 
 !!! question
     What do you think of the integration results now?
@@ -657,7 +714,21 @@ This step collapses individual control and treatment datasets together and needs
 
 ```r
 ifnb.filtered <- FindNeighbors(ifnb.filtered, reduction = "integrated.cca", dims = 1:20)
+
+## Computing nearest neighbor graph
+## Computing SNN
+
 ifnb.filtered <- FindClusters(ifnb.filtered, resolution = 0.5)
+
+## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+## 
+## Number of nodes: 13548
+## Number of edges: 522234
+## 
+## Running Louvain algorithm...
+## Maximum modularity in 10 random starts: 0.9001
+## Number of communities: 14
+## Elapsed time: 1 seconds
 
 ifnb.filtered <- JoinLayers(ifnb.filtered)
 ```
@@ -666,8 +737,13 @@ ifnb.filtered <- JoinLayers(ifnb.filtered)
 
 ```r
 DimPlot(ifnb.filtered, reduction = "umap.cca", label = T)
+```
+![](./media/unnamed-chunk-10-1.png)
+
+```r
 DimPlot(ifnb.filtered, reduction = "umap.cca", group.by = "stim")
 ```
+![](./media/unnamed-chunk-10-2.png)
 
 ### Step 1. Find Conserved Markers to label our celltypes
 
@@ -676,7 +752,41 @@ DimPlot(ifnb.filtered, reduction = "umap.cca", group.by = "stim")
 markers.cluster.4 <- FindConservedMarkers(ifnb.filtered, ident.1 = 4,
                      grouping.var = 'stim')
 
+## Testing group CTRL: (4) vs (0, 11, 2, 7, 1, 5, 10, 9, 3, 6, 12, 8, 13)
+## For a (much!) faster implementation of the Wilcoxon Rank Sum Test,
+## (default method for FindMarkers) please install the presto package
+## --------------------------------------------
+## install.packages('devtools')
+## devtools::install_github('immunogenomics/presto')
+## --------------------------------------------
+## After installation of presto, Seurat will automatically use the more 
+## efficient implementation (no further action necessary).
+## This message will be shown once per session
+## Testing group STIM: (4) vs (5, 11, 1, 3, 0, 7, 9, 2, 6, 8, 10, 12, 13)
+
 head(markers.cluster.4)
+
+##          CTRL_p_val CTRL_avg_log2FC CTRL_pct.1 CTRL_pct.2 CTRL_p_val_adj
+## VMO1    0.00000e+00        6.017864      0.841      0.060   0.000000e+00
+## FCGR3A  0.00000e+00        4.135634      0.980      0.204   0.000000e+00
+## MS4A7   0.00000e+00        3.739717      0.957      0.196   0.000000e+00
+## CXCL16  0.00000e+00        2.929754      0.951      0.233   0.000000e+00
+## MS4A4A  0.00000e+00        5.147604      0.581      0.025   0.000000e+00
+## LST1   1.88603e-288        2.858100      0.929      0.251  2.650439e-284
+##        STIM_p_val STIM_avg_log2FC STIM_pct.1 STIM_pct.2 STIM_p_val_adj
+## VMO1            0        7.576584      0.717      0.022              0
+## FCGR3A          0        5.125698      0.989      0.128              0
+## MS4A7           0        3.916075      0.991      0.219              0
+## CXCL16          0        3.852775      0.922      0.148              0
+## MS4A4A          0        4.821562      0.899      0.073              0
+## LST1            0        3.057945      0.890      0.192              0
+##            max_pval minimump_p_val
+## VMO1    0.00000e+00              0
+## FCGR3A  0.00000e+00              0
+## MS4A7   0.00000e+00              0
+## CXCL16  0.00000e+00              0
+## MS4A4A  0.00000e+00              0
+## LST1   1.88603e-288              0
 
 ## **Explain p_val adjusted and p_val and avg_log2FC** in slide
 ```
@@ -692,26 +802,66 @@ Let's visualise the top features identified in this cluster
 # Try looking up some of these markers here: https://www.proteinatlas.org/
 FeaturePlot(ifnb.filtered, reduction = "umap.cca", 
             features = c('VMO1', 'FCGR3A', 'MS4A7', 'CXCL16'), min.cutoff = 'q10')
+```
 
+![](./media/unnamed-chunk-12-1.png)
+
+```r
 # I happen to know that the cells in cluster 3 are CD16 monocytes - lets rename this cluster
 Idents(ifnb.filtered) # Let's look at the identities of our cells at the moment
+```
+
+??? info "Cell identities"
+    ```
+    --8<--
+    docs/tutorials/seurat-de/idents-ifnb-filtered-0.txt
+    --8<--
+    ```
+
+```r
 ifnb.filtered <- RenameIdents(ifnb.filtered, '4' = 'CD16 Mono') # Let's rename cells in cluster 3 with a new cell type label
 Idents(ifnb.filtered) # we can take a look at the cell identities again
+```
 
+??? info "Cell identities"
+    ```
+    --8<--
+    docs/tutorials/seurat-de/idents-ifnb-filtered-1.txt
+    --8<--
+    ```
+
+
+
+```r
 DimPlot(ifnb.filtered, reduction = "umap.cca", label = T) +
   ggtitle("After changing the identity of cluster 4")
 ```
+
+![](./media/unnamed-chunk-12-2.png)
 
 ### Step 2: Set the identity of our clusters to the annotations provided
 
 ```r
 Idents(ifnb.filtered) <- ifnb.filtered@meta.data$seurat_annotations
 Idents(ifnb.filtered)
-
-DimPlot(ifnb.filtered, reduction = "umap.cca", label = T)
-
-## **refer to automatic cell type annotation in slide**
 ```
+
+??? info "Cell identities"
+    ```
+    --8<--
+    docs/tutorials/seurat-de/idents-ifnb-filtered-2.txt
+    --8<--
+    ```
+
+
+```r
+DimPlot(ifnb.filtered, reduction = "umap.cca", label = T)
+```
+
+![](./media/unnamed-chunk-13-1.png)
+
+!!! tip
+    Refer to automatic cell type annotation in slide.
 
 ### Step 3: Find DEGs between our two conditions (using CD16 Mono cells as an example)
 
@@ -723,10 +873,14 @@ View(ifnb.filtered@meta.data)
 Idents(ifnb.filtered) <- ifnb.filtered$celltype.and.stim
 
 DimPlot(ifnb.filtered, reduction = "umap.cca", label = T) # each cluster is now made up of two labels (control or stimulated)
+```
+![](./media/unnamed-chunk-14-1.png)
+
+```r
 DimPlot(ifnb.filtered, reduction = "umap.cca", 
         label = T, split.by = "stim") # Lets separate by condition to see what we've done a bit more clearly
-
 ```
+![](./media/unnamed-chunk-14-2.png)
 
 We'll now leverage these new identities to compare DEGs between our treatment groups
 
@@ -734,6 +888,15 @@ We'll now leverage these new identities to compare DEGs between our treatment gr
 treatment.response.CD16 <- FindMarkers(ifnb.filtered, ident.1 = 'CD16 Mono_STIM', 
                                        ident.2 = 'CD16 Mono_CTRL')
 head(treatment.response.CD16) # These are the genes that are upregulated in the stimulated versus control group
+
+##                p_val avg_log2FC pct.1 pct.2     p_val_adj
+## IFIT1  1.379187e-176   5.834216 1.000 0.094 1.938172e-172
+## ISG15  6.273887e-166   5.333771 1.000 0.478 8.816694e-162
+## IFIT3  1.413978e-164   4.412990 0.992 0.314 1.987063e-160
+## ISG20  6.983755e-164   4.088510 1.000 0.448 9.814270e-160
+## IFITM3 1.056793e-161   3.191513 1.000 0.634 1.485111e-157
+## IFIT2  7.334976e-159   4.622453 0.974 0.162 1.030784e-154
+
 ```
 
 ### Step 5: Lets plot conserved features vs DEGs between conditions
@@ -744,6 +907,8 @@ FeaturePlot(ifnb.filtered, reduction = 'umap.cca',
             split.by = 'stim', min.cutoff = 'q10')
 ```
 
+![](./media/unnamed-chunk-16-1.png)
+
 ### Step 6: Create a Heatmap to visualise DEGs between our two conditions + cell types
 
 ```r
@@ -752,6 +917,7 @@ FeaturePlot(ifnb.filtered, reduction = 'umap.cca',
 #                                           only.pos = TRUE)
 # saveRDS(ifnb.treatVsCtrl.markers, "ifnb_stimVsCtrl_markers.rds")
 ```
+
 ```output
 
 Calculating cluster CD14 Mono_CTRL
@@ -827,6 +993,8 @@ DEG.heatmap <- DoHeatmap(ifnb.filtered, features = top5$gene,
 DEG.heatmap
 ```
 
+![](./media/unnamed-chunk-18-1.png)
+
 ## Part 3 : Differential Expression using a pseudobulk approach and DESeq2
 
 ### Step 1: We need to import sample information for each cell from the original paper
@@ -875,6 +1043,9 @@ Condensing our single-cell matrix in this manner is referred to 'pseudobulking'.
 ifnb.pseudobulk <- AggregateExpression(ifnb.filtered, assays = "RNA",
                                    group.by = c("stim", "donor_id", "seurat_annotations"),
                                    return.seurat = TRUE)
+
+## Centering and scaling data matrix
+
 View(ifnb.pseudobulk@meta.data)
 
 # If you want the pseudobulk matrix as a dataframe you can do this:
@@ -884,6 +1055,14 @@ ifnb.pseudobulk.df <- AggregateExpression(ifnb.filtered, assays = "RNA",
 
 head(ifnb.pseudobulk.df)
 ```
+
+??? note "Pseudobulk dataframe output"
+    ```
+    --8<--
+    docs/tutorials/seurat-de/infb-pseudobulk-df.txt
+    --8<--
+    ```
+
 
 ### Step 3: Perform Differential Expression using DESeq2
 
@@ -905,10 +1084,27 @@ treatment.response.CD16.pseudo <- FindMarkers(object = ifnb.pseudobulk,
                                       ident.2 = 'CD16 Mono_CTRL',
                                       test.use = "DESeq2")
 
+## converting counts to integer mode
+## gene-wise dispersion estimates
+## mean-dispersion relationship
+## final dispersion estimates
+
 head(treatment.response.CD16.pseudo)
+
+##                p_val avg_log2FC pct.1 pct.2     p_val_adj
+## IFIT3  1.564083e-134   4.601427     1     1 2.198006e-130
+## IFIT2   2.122691e-84   4.613021     1     1  2.983017e-80
+## ISG20   1.401656e-81   4.038272     1     1  1.969747e-77
+## DDX58   1.366535e-73   3.448721     1     1  1.920392e-69
+## NT5C3A  5.127048e-66   3.942571     1     1  7.205040e-62
+## OASL    1.186412e-63   4.025025     1     1  1.667265e-59
 
 # How are we able to use the same findmarkers function here?
 head(Cells(ifnb.pseudobulk)) # our 'cells' are no longer barcodes, but have been renamed according to stim-donor-annotation when we aggregated our data earlier
+
+## [1] "CTRL_SNG-101_CD14 Mono"    "CTRL_SNG-101_CD4 Naive T" 
+## [3] "CTRL_SNG-101_CD4 Memory T" "CTRL_SNG-101_CD16 Mono"   
+## [5] "CTRL_SNG-101_B"            "CTRL_SNG-101_CD8 T"
 ```
 
 ### Step 4: Assessing differences between our pseudbulk DEGs and single-cell DEGs
@@ -922,7 +1118,24 @@ First lets take a look at the DEG dataframes we made for both.
 
 ```r
 head(treatment.response.CD16)
+
+##                p_val avg_log2FC pct.1 pct.2     p_val_adj
+## IFIT1  1.379187e-176   5.834216 1.000 0.094 1.938172e-172
+## ISG15  6.273887e-166   5.333771 1.000 0.478 8.816694e-162
+## IFIT3  1.413978e-164   4.412990 0.992 0.314 1.987063e-160
+## ISG20  6.983755e-164   4.088510 1.000 0.448 9.814270e-160
+## IFITM3 1.056793e-161   3.191513 1.000 0.634 1.485111e-157
+## IFIT2  7.334976e-159   4.622453 0.974 0.162 1.030784e-154
+
 head(treatment.response.CD16.pseudo)
+
+##                p_val avg_log2FC pct.1 pct.2     p_val_adj
+## IFIT3  1.564083e-134   4.601427     1     1 2.198006e-130
+## IFIT2   2.122691e-84   4.613021     1     1  2.983017e-80
+## ISG20   1.401656e-81   4.038272     1     1  1.969747e-77
+## DDX58   1.366535e-73   3.448721     1     1  1.920392e-69
+## NT5C3A  5.127048e-66   3.942571     1     1  7.205040e-62
+## OASL    1.186412e-63   4.025025     1     1  1.667265e-59
 ```
 
 Next let's take a look at the degree of overlap between the actual DEGs in both approaches.
@@ -998,12 +1211,26 @@ Let's use the helper functions above to plot and view the overlap/agreement betw
                     p_val_adj.sc, p_val_adj.bulk) %>%
       head(10)
 
+    ##        gene      p_val.sc    p_val.bulk  p_val_adj.sc p_val_adj.bulk
+    ## 2866  IFIT3 1.413978e-164 1.564083e-134 1.987063e-160  2.198006e-130
+    ## 2865  IFIT2 7.334976e-159  2.122691e-84 1.030784e-154   2.983017e-80
+    ## 2992  ISG20 6.983755e-164  1.401656e-81 9.814270e-160   1.969747e-77
+    ## 1626  DDX58 2.340153e-109  1.366535e-73 3.288617e-105   1.920392e-69
+    ## 4129 NT5C3A 5.806396e-117  5.127048e-66 8.159728e-113   7.205040e-62
+    ## 4185   OASL 5.497910e-147  1.186412e-63 7.726213e-143   1.667265e-59
+    ## 4544 PLSCR1 6.905174e-116  3.783863e-61 9.703841e-112   5.317463e-57
+    ## 3859 MYL12A  2.476988e-83  7.623767e-61  3.480912e-79   1.071368e-56
+    ## 2859  IFI35  4.701828e-99  2.527378e-58  6.607479e-95   3.551724e-54
+    ## 2661  HERC5  1.578848e-92  1.829060e-56  2.218755e-88   2.570378e-52
+
     # How many DEGs overlap between our two methods? Is there anything in the merged_deg_data frame that stands out to you?
     overlap.bar.plt <- Visualise_Overlapping_DEGs(pseudobulk.de = treatment.response.CD16.pseudo,
                                                   singlecell.de = treatment.response.CD16)
 
     overlap.bar.plt
     ```
+
+  ![](./media/unnamed-chunk-24-1.png)
 
 ### Step 5: Investigate the differences between pseudobulk DE and single-cell DE closer
 
@@ -1029,11 +1256,17 @@ Idents(ifnb.filtered) <- "celltype.and.stim"
 VlnPlot(ifnb.filtered, features = c("PABPC1", "SRGN"), 
         idents = c("CD16 Mono_CTRL", "CD16 Mono_STIM"), 
         group.by = "stim") 
+```
 
+![](./media/unnamed-chunk-26-1.png)
+
+```r
 VlnPlot(ifnb.filtered, features = c("PABPC1", "SRGN"), 
         idents = c("CD16 Mono_CTRL", "CD16 Mono_STIM"), 
         group.by = "donor_id.and.stim", ncol = 1)
 ```
+
+![](./media/unnamed-chunk-26-2.png)
 
 !!! question
     How would you interpret the plots above? What does this tell you about some of the pitfalls of single-cell DE approaches?
@@ -1044,11 +1277,16 @@ Now lets take a look at some genes that show agreement across both sc and pseudo
 VlnPlot(ifnb.filtered, features = c("IFIT2", "PSMA4"), 
         idents = c("CD16 Mono_CTRL", "CD16 Mono_STIM"), 
         group.by = "stim") 
+```
 
+![](./media/unnamed-chunk-27-1.png)
+
+```r
 VlnPlot(ifnb.filtered, features = c("IFIT2", "PSMA4"), 
         idents = c("CD16 Mono_CTRL", "CD16 Mono_STIM"), 
         group.by = "donor_id.and.stim", ncol = 1) 
 ```
+![](./media/unnamed-chunk-27-2.png)
 
 ### Step 6: Creating our own custom visualisations for DEG analysis between cell-types in two different experimental groups
 
@@ -1072,6 +1310,9 @@ Idents(ifnb.filtered) <- "celltype.stim.donor_id"
 all.sig.avg.Expression.mat <- AverageExpression(ifnb.filtered, 
                          features = CD16.sig.markers$gene, 
                          layer = 'scale.data')
+
+## As of Seurat v5, we recommend using AggregateExpression to perform pseudo-bulk analysis.
+## This message is displayed once per session.
 
 View(all.sig.avg.Expression.mat %>%
   as.data.frame())
@@ -1100,6 +1341,7 @@ pheatmap::pheatmap(CD16.sig.avg.Expression.mat,
          fontsize_row = 10, 
          height = 20)
 ```
+![](./media/unnamed-chunk-31-1.png)
 
 The cool thing about pheatmap is that we can customise our heatmap with added metadata
 
@@ -1126,6 +1368,8 @@ sig.DEG.heatmap <- pheatmap::pheatmap(CD16.sig.avg.Expression.mat,
 sig.DEG.heatmap
 ```
 
+![](./media/unnamed-chunk-32-1.png)
+
 Lets save our heatmap using the grid library (very useful package!) Code from: <https://stackoverflow.com/questions/43051525/how-to-draw-pheatmap-plot-to-screen-and-also-save-to-file>
 
 ```r
@@ -1139,6 +1383,9 @@ save_pheatmap_pdf <- function(x, filename, width=7, height=7) {
 }
 
 save_pheatmap_pdf(sig.DEG.heatmap, "sig_DEG_pseudo.pdf")
+
+## quartz_off_screen 
+##                 2
 ```
 
 !!! question "Challenge question"
