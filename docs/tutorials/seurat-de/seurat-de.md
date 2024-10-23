@@ -65,10 +65,6 @@ Tell users what to install. Subsection headers using bold, not the hash characte
 
 ## Introduction
 
-```r
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ### Step 1. Load the packages and data
 
 Today we'll be working with Seurat (a popular scRNA-seq analysis package). SeuratData will be used to load in the experimental data we're analysing. Tidyverse is a fundamental and very popularly used set of tools to wrangle and visualise data.
@@ -97,7 +93,8 @@ I strongly encourage you to explore the other datasets offered by the SeuratData
 
 The ifnb Seurat object we're loading in here was originally made in Seurat v4, there have since been a lot of changes from Seurat v4 to v5 so we'll use the UpdateSeuratObject() function to update the Seurat object so that it is compatible for today.
 
-QUESTION: Looking at the output from the str() function on the ifnb seurat object, can you tell whether this seurat object is processed or unprocessed?
+!!! question
+    Looking at the output from the `str()` function on the ifnb seurat object, can you tell whether this seurat object is processed or unprocessed?
 
 ANSWER: When loading in seurat objects, we can have a look at what processing steps have been performed on it by using the str() function. In the output we can tell that the ifnb Seurat object is unprocessed because:
 
@@ -109,6 +106,214 @@ ANSWER: When loading in seurat objects, we can have a look at what processing st
 
 ```r
 AvailableData() # if you want to see the available datasets use this function
+```
+
+??? info
+    ```output
+    ##                                    Dataset Version
+    ## adiposeref.SeuratData           adiposeref   1.0.0
+    ## bmcite.SeuratData                   bmcite   0.3.0
+    ## bonemarrowref.SeuratData     bonemarrowref   1.0.0
+    ## cbmc.SeuratData                       cbmc   3.1.4
+    ## celegans.embryo.SeuratData celegans.embryo   0.1.0
+    ## fetusref.SeuratData               fetusref   1.0.0
+    ## hcabm40k.SeuratData               hcabm40k   3.0.0
+    ## heartref.SeuratData               heartref   1.0.0
+    ## humancortexref.SeuratData   humancortexref   1.0.0
+    ## ifnb.SeuratData                       ifnb   3.1.0
+    ## kidneyref.SeuratData             kidneyref   1.0.2
+    ## lungref.SeuratData                 lungref   2.0.0
+    ## mousecortexref.SeuratData   mousecortexref   1.0.0
+    ## panc8.SeuratData                     panc8   3.0.2
+    ## pancreasref.SeuratData         pancreasref   1.0.0
+    ## pbmc3k.SeuratData                   pbmc3k   3.1.4
+    ## pbmcMultiome.SeuratData       pbmcMultiome   0.1.4
+    ## pbmcref.SeuratData                 pbmcref   1.0.0
+    ## pbmcsca.SeuratData                 pbmcsca   3.0.0
+    ## ssHippo.SeuratData                 ssHippo   3.1.4
+    ## stxBrain.SeuratData               stxBrain   0.1.2
+    ## stxKidney.SeuratData             stxKidney   0.1.0
+    ## thp1.eccite.SeuratData         thp1.eccite   3.1.5
+    ## tonsilref.SeuratData             tonsilref   2.0.0
+    ##                                                                                   Summary
+    ## adiposeref.SeuratData                                          Azimuth Reference: adipose
+    ## bmcite.SeuratData                                                   30k Bone Marrow Cells
+    ## bonemarrowref.SeuratData                                    Azimuth Reference: bonemarrow
+    ## cbmc.SeuratData                              scRNAseq and 13-antibody sequencing of CBMCs
+    ## celegans.embryo.SeuratData         6k C. elegans embryos from Packer and Zhu et al (2019)
+    ## fetusref.SeuratData                                              Azimuth Reference: fetus
+    ## hcabm40k.SeuratData        40,000 Cells From the Human Cell Atlas ICA Bone Marrow Dataset
+    ## heartref.SeuratData                                              Azimuth Reference: heart
+    ## humancortexref.SeuratData                                  Azimuth Reference: humancortex
+    ## ifnb.SeuratData                                         IFNB-Stimulated and Control PBMCs
+    ## kidneyref.SeuratData                                            Azimuth Reference: kidney
+    ## lungref.SeuratData                                                Azimuth Reference: lung
+    ## mousecortexref.SeuratData                                  Azimuth Reference: mousecortex
+    ## panc8.SeuratData                         Eight Pancreas Datasets Across Five Technologies
+    ## pancreasref.SeuratData                                        Azimuth Reference: pancreas
+    ## pbmc3k.SeuratData                                              3k PBMCs from 10X Genomics
+    ## pbmcMultiome.SeuratData                                10X Genomics PBMC Multiome Dataset
+    ## pbmcref.SeuratData                                                Azimuth Reference: pbmc
+    ## pbmcsca.SeuratData                   Broad Institute PBMC Systematic Comparative Analysis
+    ## ssHippo.SeuratData                              Slide-seq v2 dataset of mouse hippocampus
+    ## stxBrain.SeuratData                               10X Genomics Visium Mouse Brain Dataset
+    ## stxKidney.SeuratData                             10X Genomics Visium Mouse Kidney Dataset
+    ## thp1.eccite.SeuratData                                                   ECCITE-seq THP-1
+    ## tonsilref.SeuratData                                            Azimuth Reference: tonsil
+    ##                               species            system ncells
+    ## adiposeref.SeuratData           human           adipose 160075
+    ## bmcite.SeuratData               human       bone marrow  30672
+    ## bonemarrowref.SeuratData        human        bonemarrow 297627
+    ## cbmc.SeuratData                 human CBMC (cord blood)   8617
+    ## celegans.embryo.SeuratData C. elegans            embryo   6188
+    ## fetusref.SeuratData             human             fetus 377456
+    ## hcabm40k.SeuratData             human       bone marrow  40000
+    ## heartref.SeuratData             human             heart 656509
+    ## humancortexref.SeuratData       human      motor cortex  76533
+    ## ifnb.SeuratData                 human              PBMC  13999
+    ## kidneyref.SeuratData            human            kidney  64693
+    ## lungref.SeuratData              human              lung 584884
+    ## mousecortexref.SeuratData       mouse      motor cortex 159738
+    ## panc8.SeuratData                human Pancreatic Islets  14892
+    ## pancreasref.SeuratData          human          pancreas  35289
+    ## pbmc3k.SeuratData               human              PBMC   2700
+    ## pbmcMultiome.SeuratData         human              pbmc  11909
+    ## pbmcref.SeuratData              human              PBMC   2700
+    ## pbmcsca.SeuratData              human              PBMC  31021
+    ## ssHippo.SeuratData              mouse       hippocampus     NA
+    ## stxBrain.SeuratData             mouse             brain  12167
+    ## stxKidney.SeuratData            mouse            kidney   1438
+    ## thp1.eccite.SeuratData          human              <NA>     NA
+    ## tonsilref.SeuratData            human            tonsil 377963
+    ##                                                                                       tech
+    ## adiposeref.SeuratData                                               scRNA-seq and sNuc-seq
+    ## bmcite.SeuratData                                                                     <NA>
+    ## bonemarrowref.SeuratData                                                            10x v2
+    ## cbmc.SeuratData                                                                   CITE-seq
+    ## celegans.embryo.SeuratData                                                            <NA>
+    ## fetusref.SeuratData                                                                   <NA>
+    ## hcabm40k.SeuratData                                                                 10x v2
+    ## heartref.SeuratData                                                 scRNA-seq and sNuc-seq
+    ## humancortexref.SeuratData                                                             <NA>
+    ## ifnb.SeuratData                                                                     10x v1
+    ## kidneyref.SeuratData                                                             snRNA-seq
+    ## lungref.SeuratData                                                                    <NA>
+    ## mousecortexref.SeuratData                                                           10x v3
+    ## panc8.SeuratData                          SMARTSeq2, Fluidigm C1, CelSeq, CelSeq2, inDrops
+    ## pancreasref.SeuratData                                                                <NA>
+    ## pbmc3k.SeuratData                                                                   10x v1
+    ## pbmcMultiome.SeuratData                                                               <NA>
+    ## pbmcref.SeuratData                                                                  10x v1
+    ## pbmcsca.SeuratData         10x v2, 10x v3, SMARTSeq2, Seq-Well, inDrops, Drop-seq, CelSeq2
+    ## ssHippo.SeuratData                                                             slideseq v2
+    ## stxBrain.SeuratData                                                                 visium
+    ## stxKidney.SeuratData                                                                visium
+    ## thp1.eccite.SeuratData                                                                <NA>
+    ## tonsilref.SeuratData                                                             scRNA-seq
+    ##                            seurat default.dataset disk.datasets
+    ## adiposeref.SeuratData        <NA>            <NA>          <NA>
+    ## bmcite.SeuratData           3.2.2            <NA>          <NA>
+    ## bonemarrowref.SeuratData     <NA>            <NA>          <NA>
+    ## cbmc.SeuratData             3.1.4             raw     processed
+    ## celegans.embryo.SeuratData   <NA>             raw          <NA>
+    ## fetusref.SeuratData          <NA>            <NA>          <NA>
+    ## hcabm40k.SeuratData          <NA>             raw          <NA>
+    ## heartref.SeuratData          <NA>            <NA>          <NA>
+    ## humancortexref.SeuratData    <NA>            <NA>          <NA>
+    ## ifnb.SeuratData              <NA>             raw          <NA>
+    ## kidneyref.SeuratData         <NA>            <NA>          <NA>
+    ## lungref.SeuratData           <NA>            <NA>          <NA>
+    ## mousecortexref.SeuratData    <NA>            <NA>          <NA>
+    ## panc8.SeuratData             <NA>             raw          <NA>
+    ## pancreasref.SeuratData       <NA>            <NA>          <NA>
+    ## pbmc3k.SeuratData           3.1.4             raw          <NA>
+    ## pbmcMultiome.SeuratData     4.1.1              NA          <NA>
+    ## pbmcref.SeuratData           <NA>            <NA>          <NA>
+    ## pbmcsca.SeuratData           <NA>             raw          <NA>
+    ## ssHippo.SeuratData           <NA>             raw          <NA>
+    ## stxBrain.SeuratData          <NA>              NA          <NA>
+    ## stxKidney.SeuratData         <NA>             raw          <NA>
+    ## thp1.eccite.SeuratData       <NA>            <NA>          <NA>
+    ## tonsilref.SeuratData         <NA>            <NA>          <NA>
+    ##                                                          other.datasets
+    ## adiposeref.SeuratData                                              <NA>
+    ## bmcite.SeuratData                                                  <NA>
+    ## bonemarrowref.SeuratData                                           <NA>
+    ## cbmc.SeuratData                                                    <NA>
+    ## celegans.embryo.SeuratData                                         <NA>
+    ## fetusref.SeuratData                                                <NA>
+    ## hcabm40k.SeuratData                                                <NA>
+    ## heartref.SeuratData                                                <NA>
+    ## humancortexref.SeuratData                                          <NA>
+    ## ifnb.SeuratData                                               processed
+    ## kidneyref.SeuratData                                               <NA>
+    ## lungref.SeuratData                                                 <NA>
+    ## mousecortexref.SeuratData                                          <NA>
+    ## panc8.SeuratData                                                   <NA>
+    ## pancreasref.SeuratData                                             <NA>
+    ## pbmc3k.SeuratData                                          pbmc3k.final
+    ## pbmcMultiome.SeuratData                             pbmc.rna, pbmc.atac
+    ## pbmcref.SeuratData                                                 <NA>
+    ## pbmcsca.SeuratData                                                 <NA>
+    ## ssHippo.SeuratData                                                 <NA>
+    ## stxBrain.SeuratData        posterior1, posterior2, anterior1, anterior2
+    ## stxKidney.SeuratData                                               <NA>
+    ## thp1.eccite.SeuratData                                             <NA>
+    ## tonsilref.SeuratData                                               <NA>
+    ##                                                                                                notes
+    ## adiposeref.SeuratData                                                                           <NA>
+    ## bmcite.SeuratData                                                                               <NA>
+    ## bonemarrowref.SeuratData                                                                        <NA>
+    ## cbmc.SeuratData                                                                                 <NA>
+    ## celegans.embryo.SeuratData                                                                      <NA>
+    ## fetusref.SeuratData                                                                             <NA>
+    ## hcabm40k.SeuratData                                                                             <NA>
+    ## heartref.SeuratData                                                                             <NA>
+    ## humancortexref.SeuratData                                                                       <NA>
+    ## ifnb.SeuratData                                                                                 <NA>
+    ## kidneyref.SeuratData                                                                            <NA>
+    ## lungref.SeuratData                                                                              <NA>
+    ## mousecortexref.SeuratData                                                                       <NA>
+    ## panc8.SeuratData                                                                                <NA>
+    ## pancreasref.SeuratData                                                                          <NA>
+    ## pbmc3k.SeuratData                                                                               <NA>
+    ## pbmcMultiome.SeuratData                                 One sample with two modalities, RNA and ATAC
+    ## pbmcref.SeuratData                                                                              <NA>
+    ## pbmcsca.SeuratData                                                                     HCA benchmark
+    ## ssHippo.SeuratData                                                                              <NA>
+    ## stxBrain.SeuratData        One sample split across four datasets as paired anterior/posterior slices
+    ## stxKidney.SeuratData                                                                            <NA>
+    ## thp1.eccite.SeuratData                                                                          <NA>
+    ## tonsilref.SeuratData                                                                            <NA>
+    ##                            Installed InstalledVersion
+    ## adiposeref.SeuratData          FALSE             <NA>
+    ## bmcite.SeuratData              FALSE             <NA>
+    ## bonemarrowref.SeuratData       FALSE             <NA>
+    ## cbmc.SeuratData                FALSE             <NA>
+    ## celegans.embryo.SeuratData     FALSE             <NA>
+    ## fetusref.SeuratData            FALSE             <NA>
+    ## hcabm40k.SeuratData            FALSE             <NA>
+    ## heartref.SeuratData            FALSE             <NA>
+    ## humancortexref.SeuratData      FALSE             <NA>
+    ## ifnb.SeuratData                 TRUE            3.1.0
+    ## kidneyref.SeuratData           FALSE             <NA>
+    ## lungref.SeuratData             FALSE             <NA>
+    ## mousecortexref.SeuratData      FALSE             <NA>
+    ## panc8.SeuratData               FALSE             <NA>
+    ## pancreasref.SeuratData         FALSE             <NA>
+    ## pbmc3k.SeuratData              FALSE             <NA>
+    ## pbmcMultiome.SeuratData        FALSE             <NA>
+    ## pbmcref.SeuratData             FALSE             <NA>
+    ## pbmcsca.SeuratData             FALSE             <NA>
+    ## ssHippo.SeuratData             FALSE             <NA>
+    ## stxBrain.SeuratData            FALSE             <NA>
+    ## stxKidney.SeuratData           FALSE             <NA>
+    ## thp1.eccite.SeuratData         FALSE             <NA>
+    ## tonsilref.SeuratData           FALSE             <NA>
+    ```
+
+
+```r
 InstallData("ifnb") # install our treatment vs control dataset for today
 
 data("ifnb") # Load the dataset into our current R script
@@ -118,7 +323,56 @@ ifnb <- UpdateSeuratObject(ifnb) # Make sure the seurat object is in the format 
 str(ifnb) # we can use this to take a look at the information in our Seurat Object, we know that this is an unprocessed Seurat object because the scale.data slot is empty, no variable features identified, no reductions performed..etc
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+??? info
+    ```output
+    ## Formal class 'Seurat' [package "SeuratObject"] with 13 slots
+    ##   ..@ assays      :List of 1
+    ##   .. ..$ RNA:Formal class 'Assay' [package "SeuratObject"] with 8 slots
+    ##   .. .. .. ..@ counts       :Formal class 'dgCMatrix' [package "Matrix"] with 6 slots
+    ##   .. .. .. .. .. ..@ i       : int [1:9787436] 20 27 37 64 65 83 87 131 139 175 ...
+    ##   .. .. .. .. .. ..@ p       : int [1:14000] 0 877 1590 2440 3549 4183 4740 5720 6301 7181 ...
+    ##   .. .. .. .. .. ..@ Dim     : int [1:2] 14053 13999
+    ##   .. .. .. .. .. ..@ Dimnames:List of 2
+    ##   .. .. .. .. .. .. ..$ : chr [1:14053] "AL627309.1" "RP11-206L10.2" "LINC00115" "NOC2L" ...
+    ##   .. .. .. .. .. .. ..$ : chr [1:13999] "AAACATACATTTCC.1" "AAACATACCAGAAA.1" "AAACATACCTCGCT.1" "AAACATACCTGGTA.1" ...
+    ##   .. .. .. .. .. ..@ x       : num [1:9787436] 1 1 1 1 1 2 1 1 1 1 ...
+    ##   .. .. .. .. .. ..@ factors : list()
+    ##   .. .. .. ..@ data         :Formal class 'dgCMatrix' [package "Matrix"] with 6 slots
+    ##   .. .. .. .. .. ..@ i       : int [1:9787436] 20 27 37 64 65 83 87 131 139 175 ...
+    ##   .. .. .. .. .. ..@ p       : int [1:14000] 0 877 1590 2440 3549 4183 4740 5720 6301 7181 ...
+    ##   .. .. .. .. .. ..@ Dim     : int [1:2] 14053 13999
+    ##   .. .. .. .. .. ..@ Dimnames:List of 2
+    ##   .. .. .. .. .. .. ..$ : chr [1:14053] "AL627309.1" "RP11-206L10.2" "LINC00115" "NOC2L" ...
+    ##   .. .. .. .. .. .. ..$ : chr [1:13999] "AAACATACATTTCC.1" "AAACATACCAGAAA.1" "AAACATACCTCGCT.1" "AAACATACCTGGTA.1" ...
+    ##   .. .. .. .. .. ..@ x       : num [1:9787436] 1 1 1 1 1 2 1 1 1 1 ...
+    ##   .. .. .. .. .. ..@ factors : list()
+    ##   .. .. .. ..@ scale.data   : num[0 , 0 ] 
+    ##   .. .. .. ..@ assay.orig   : NULL
+    ##   .. .. .. ..@ var.features : chr(0) 
+    ##   .. .. .. ..@ meta.features:'data.frame':   14053 obs. of  0 variables
+    ##   .. .. .. ..@ misc         : NULL
+    ##   .. .. .. ..@ key          : chr "rna_"
+    ##   ..@ meta.data   :'data.frame': 13999 obs. of  5 variables:
+    ##   .. ..$ orig.ident        : chr [1:13999] "IMMUNE_CTRL" "IMMUNE_CTRL" "IMMUNE_CTRL" "IMMUNE_CTRL" ...
+    ##   .. ..$ nCount_RNA        : num [1:13999] 3017 2481 3420 3156 1868 ...
+    ##   .. ..$ nFeature_RNA      : int [1:13999] 877 713 850 1109 634 557 980 581 880 669 ...
+    ##   .. ..$ stim              : chr [1:13999] "CTRL" "CTRL" "CTRL" "CTRL" ...
+    ##   .. ..$ seurat_annotations: Factor w/ 13 levels "CD14 Mono","CD4 Naive T",..: 1 1 1 12 3 1 7 2 6 1 ...
+    ##   ..@ active.assay: chr "RNA"
+    ##   ..@ active.ident: Factor w/ 2 levels "IMMUNE_CTRL",..: 1 1 1 1 1 1 1 1 1 1 ...
+    ##   .. ..- attr(*, "names")= chr [1:13999] "AAACATACATTTCC.1" "AAACATACCAGAAA.1" "AAACATACCTCGCT.1" "AAACATACCTGGTA.1" ...
+    ##   ..@ graphs      : list()
+    ##   ..@ neighbors   : list()
+    ##   ..@ reductions  : list()
+    ##   ..@ images      : list()
+    ##   ..@ project.name: chr "ifnb"
+    ##   ..@ misc        : list()
+    ##   ..@ version     :Classes 'package_version', 'numeric_version'  hidden list of 1
+    ##   .. ..$ : int [1:3] 5 0 2
+    ##   ..@ commands    : list()
+    ##   ..@ tools       : list()
+    ```
+
 
 ### Step 2: Run QC, filter out low quality cells
 
@@ -126,7 +380,8 @@ Lets start by processing our data (run the standard seurat workflow steps includ
 
 First we need to take a look at QC metrics, then decide on the thresholds for filtering.
 
-QUESTION: Looking
+!!! question 
+    Looking <!-- TO-DO: complete this-->
 
 ```r
 # Step 2a: QC and filtering
@@ -144,6 +399,9 @@ association.plt.raw <- FeatureScatter(ifnb, feature1 = "nCount_RNA", feature2 = 
 qc.metric.plts
 association.plt.raw
 ```
+
+![](./media/unnamed-chunk-3-1.png)
+![](./media/unnamed-chunk-3-2.png)
 
 After visualising QC metrics, we'll move on to the actual filtering
 
@@ -163,6 +421,10 @@ association.plt.filtered <- FeatureScatter(ifnb.filtered, feature1 = "nCount_RNA
 qc.metric.plts.filtered
 association.plt.filtered
 ```
+
+![](./media/unnamed-chunk-4-1.png)
+![](./media/unnamed-chunk-4-2.png)
+
 
 Let's check how many cells we've filtered out (looks like \~400 cells were removed):
 
@@ -205,14 +467,36 @@ standardise_plt_scale <- function(plt1, plt2){
 
 wrap_plots(list(qc.metric.plts, qc.metric.plts.filtered), 
            ncol = 1)
+```
+
+![](./media/unnamed-chunk-5-1.png)
+
+```r
 association.plts <- standardise_plt_scale(association.plt.raw,
                                           association.plt.filtered)
 association.plts
+```
+![](./media/unnamed-chunk-5-2.png)
 
-
+```r
 ifnb
+```
+```output
+## An object of class Seurat 
+## 14053 features across 13999 samples within 1 assay 
+## Active assay: RNA (14053 features, 0 variable features)
+##  2 layers present: counts, data
+```
+```r
 ifnb.filtered
-
+```
+```output
+## An object of class Seurat 
+## 14053 features across 13548 samples within 1 assay 
+## Active assay: RNA (14053 features, 0 variable features)
+##  2 layers present: counts, data
+```
+```r
 ifnb.filtered[["RNA"]] <- split(ifnb.filtered[["RNA"]], f = ifnb.filtered$stim) # Lets split our count matrices based on conditions (stored within different layers) -> needed for integration steps in Seurat v5
 ```
 
@@ -222,23 +506,97 @@ After filtering out low quality cells, we want to visualise our data to see how 
 
 ```r
 ifnb.filtered <- NormalizeData(ifnb.filtered)
+
+## Normalizing layer: counts.CTRL
+## Normalizing layer: counts.STIM
+
 ifnb.filtered <- FindVariableFeatures(ifnb.filtered)
+
+## Finding variable features for layer counts.CTRL
+## Finding variable features for layer counts.STIM
+
 ifnb.filtered <- ScaleData(ifnb.filtered)
+
+## Centering and scaling data matrix
+
 ifnb.filtered <- RunPCA(ifnb.filtered)
 
+## PC_ 1 
+## Positive:  TYROBP, C15orf48, FCER1G, CST3, SOD2, ANXA5, FTL, TYMP, TIMP1, CD63 
+##     LGALS1, CTSB, S100A4, KYNU, LGALS3, FCN1, PSAP, NPC2, ANXA2, IGSF6 
+##     S100A11, LYZ, SPI1, APOBEC3A, CD68, CTSL, NINJ1, HLA-DRA, CCL2, SDCBP 
+## Negative:  NPM1, CCR7, CXCR4, GIMAP7, LTB, CD3D, CD7, SELL, TMSB4X, CD2 
+##     TRAT1, IL7R, PTPRCAP, IL32, ITM2A, RGCC, LEF1, CD3G, ALOX5AP, CREM 
+##     PASK, MYC, SNHG8, TSC22D3, BIRC3, GPR171, NOP58, CD27, RARRES3, CD8B 
+## PC_ 2 
+## Positive:  ISG15, ISG20, IFIT3, IFIT1, LY6E, TNFSF10, IFIT2, MX1, IFI6, RSAD2 
+##     CXCL10, OAS1, CXCL11, IFITM3, MT2A, OASL, TNFSF13B, IDO1, IL1RN, APOBEC3A 
+##     CCL8, GBP1, HERC5, FAM26F, GBP4, RABGAP1L, HES4, WARS, VAMP5, DEFB1 
+## Negative:  IL8, CLEC5A, CD14, VCAN, S100A8, IER3, MARCKSL1, IL1B, PID1, CD9 
+##     GPX1, INSIG1, PHLDA1, PLAUR, PPIF, THBS1, OSM, SLC7A11, CTB-61M7.2, GAPDH 
+##     LIMS1, S100A9, GAPT, ACTB, CXCL3, C19orf59, MGST1, OLR1, CEBPB, FTH1 
+## PC_ 3 
+## Positive:  HLA-DQA1, CD83, HLA-DQB1, CD74, HLA-DRA, HLA-DPA1, HLA-DRB1, CD79A, HLA-DPB1, IRF8 
+##     MS4A1, SYNGR2, MIR155HG, HERPUD1, REL, HSP90AB1, ID3, HLA-DMA, TVP23A, FABP5 
+##     NME1, HSPE1, PMAIP1, BANK1, CD70, HSPD1, TSPAN13, EBI3, TCF4, CCR7 
+## Negative:  ANXA1, GNLY, NKG7, GIMAP7, TMSB4X, PRF1, CD7, CCL5, RARRES3, CD3D 
+##     CD2, KLRD1, GZMH, GZMA, CTSW, GZMB, FGFBP2, CLIC3, IL32, MT2A 
+##     FASLG, KLRC1, CST7, RGCC, CD8A, GCHFR, OASL, GZMM, CXCR3, KLRB1 
+## PC_ 4 
+## Positive:  LTB, SELL, CCR7, LEF1, IL7R, CD3D, TRAT1, GIMAP7, ADTRP, PASK 
+##     CD3G, TSHZ2, CMTM8, SOCS3, TSC22D3, NPM1, CCL2, MYC, CCL7, CCL8 
+##     CTSL, SNHG8, TXNIP, CD27, S100A9, CA6, C12orf57, TMEM204, HPSE, GPR171 
+## Negative:  NKG7, GZMB, GNLY, CST7, PRF1, CCL5, CLIC3, KLRD1, APOBEC3G, GZMH 
+##     GZMA, CTSW, FGFBP2, KLRC1, FASLG, C1orf21, HOPX, SH2D1B, TNFRSF18, CXCR3 
+##     LINC00996, SPON2, RAMP1, ID2, GCHFR, IGFBP7, HLA-DPA1, CD74, XCL2, HLA-DPB1 
+## PC_ 5 
+## Positive:  CCL2, CCL7, CCL8, PLA2G7, TXN, LMNA, SDS, S100A9, CSTB, ATP6V1F 
+##     CAPG, CCR1, EMP1, FABP5, CCR5, IDO1, TPM4, LILRB4, MGST1, CTSB 
+##     HPSE, CCNA1, GCLM, PDE4DIP, HSPA1A, CD63, SLC7A11, HSPA5, VIM, HSP90B1 
+## Negative:  VMO1, FCGR3A, MS4A4A, CXCL16, MS4A7, PPM1N, HN1, LST1, SMPDL3A, ATP1B3 
+##     CASP5, CDKN1C, AIF1, CH25H, PLAC8, SERPINA1, TMSB4X, LRRC25, CD86, GBP5 
+##     HCAR3, RP11-290F20.3, COTL1, RGS19, VNN2, PILRA, STXBP2, LILRA5, C3AR1, FCGR3B
+
+
 ElbowPlot(ifnb.filtered) # Visualise the dimensionality of the data, looks like 15 PCs is adequate to capture the majority of the variation in the data, but we'll air on the higher side and consider all 20 dimensions.
+```
+![](./media/unnamed-chunk-6-1.png)
+
+```r
 ifnb.filtered <- RunUMAP(ifnb.filtered, dims = 1:20, reduction = 'pca')
 
+## Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+## To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'
+## This message will be shown once per session
+## 14:30:14 UMAP embedding parameters a = 0.9922 b = 1.112
+## 14:30:14 Read 13548 rows and found 20 numeric columns
+## 14:30:14 Using Annoy for neighbor search, n_neighbors = 30
+## 14:30:14 Building Annoy index with metric = cosine, n_trees = 50
+## 0%   10   20   30   40   50   60   70   80   90   100%
+## [----|----|----|----|----|----|----|----|----|----|
+## **************************************************|
+## 14:30:14 Writing NN index file to temp file /var/folders/pv/fvynh7953flggrfb49p2lqsc0000gn/T//RtmpZktc52/file2641625758f9
+## 14:30:14 Searching Annoy index using 1 thread, search_k = 3000
+## 14:30:17 Annoy recall = 100%
+## 14:30:17 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+## 14:30:17 Initializing from normalized Laplacian + noise (using RSpectra)
+## 14:30:17 Commencing optimization for 200 epochs, with 582700 positive edges
+## 14:30:21 Optimization finished
+
 DimPlot(ifnb.filtered, reduction = 'umap', group.by = 'stim') # lets see how our cells separate by condition and whether integration is necessary
-
+```
+![](./media/unnamed-chunk-6-2.png)
+```r
 DimPlot(ifnb.filtered, reduction = 'pca', group.by = 'stim') # lets see how our cells separate by condition and whether integration is necessary
-
-# These are PBMCs before and after treatment, there should be cells that are similar between both conditions, it looks like we'll have to run some batch effect correction to overlay similar cell-types from both conditions to perform downstream analysis
 ```
 
-QUESTION: Do you think we need to integrate our data? Hint: Look at the UMAP and PC1/PC2 plots we made above
+![](./media/unnamed-chunk-6-3.png)
 
-QUESTION: What do you think would happen if we were to perform unsupervised clustering right now, without integrating our data (or overlaying similar cells ontop of each other from both conditions)?
+These are PBMCs before and after treatment, there should be cells that are similar between both conditions, it looks like we'll have to run some batch effect correction to overlay similar cell-types from both conditions to perform downstream analysis
+
+!!! question
+    * Do you think we need to integrate our data? Hint: Look at the UMAP and PC1/PC2 plots we made above
+    * What do you think would happen if we were to perform unsupervised clustering right now, without integrating our data (or overlaying similar cells ontop of each other from both conditions)?
 
 ### Step 4: Integrating our data using the harmony method
 
@@ -261,11 +619,13 @@ before.integration <- DimPlot(ifnb.filtered, reduction = "umap", group.by = "sti
 before.integration | after.harmony
 ```
 
-Question: Looking at the UMAPs above, do you think integration was successful? Have a slide on what if its just different cell types
+!!! question
+    Looking at the UMAPs above, do you think integration was successful? Have a slide on what if its just different cell types.
 
 #### Trying a different integration method (Seurat CCA), lets see if our integration improves
 
-Question: Try looking at the PC1 and PC2 plots for harmony and seurat as well
+!!! question
+    Try looking at the PC1 and PC2 plots for harmony and seurat as well
 
 ```r
 ifnb.filtered <- IntegrateLayers(object = ifnb.filtered,
@@ -284,9 +644,10 @@ after.harmony | after.seuratCCA
 ## Show example slide of integration 'failing' but due to different cell types in each sample ***
 ```
 
-Question: What do you think of the integration results now?
+!!! question
+    What do you think of the integration results now?
 
-Challenge: look at the pc1/2 plots for each integration method -\> explain different pca slots here
+    **Challenge:** look at the pc1/2 plots for each integration method -\> explain different pca slots here
 
 \*\*Slide on the caveats of integration, you can lose biological signal when you regress out technical batch effects\*\*
 
@@ -324,7 +685,8 @@ Let's visualise the top features identified in this cluster
 
 (Will need to explain the min.cutoff value here)
 
-Question: try running this function without defining a min.cutoff, or changing the value
+!!! question
+    Try running this function without defining a min.cutoff, or changing the value
 
 ```r
 # Try looking up some of these markers here: https://www.proteinatlas.org/
@@ -390,6 +752,62 @@ FeaturePlot(ifnb.filtered, reduction = 'umap.cca',
 #                                           only.pos = TRUE)
 # saveRDS(ifnb.treatVsCtrl.markers, "ifnb_stimVsCtrl_markers.rds")
 ```
+```output
+
+Calculating cluster CD14 Mono_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=22s  
+Calculating cluster pDC_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=01m 02s
+Calculating cluster CD4 Memory T_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=47s  
+Calculating cluster T activated_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=60s  
+Calculating cluster CD4 Naive T_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=49s  
+Calculating cluster CD8 T_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=58s  
+Calculating cluster Mk_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=38s  
+Calculating cluster B Activated_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=52s  
+Calculating cluster B_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=52s  
+Calculating cluster CD16 Mono_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=24s  
+Calculating cluster NK_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=01m 02s
+Calculating cluster DC_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=33s  
+Calculating cluster Eryth_CTRL
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=13s  
+Calculating cluster CD8 T_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=48s  
+Calculating cluster pDC_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=56s  
+Calculating cluster CD4 Naive T_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=41s  
+Calculating cluster B_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=45s  
+Calculating cluster CD14 Mono_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=17s  
+Calculating cluster T activated_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=53s  
+Calculating cluster CD4 Memory T_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=35s  
+Calculating cluster B Activated_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=51s  
+Calculating cluster NK_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=52s  
+Calculating cluster CD16 Mono_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=21s  
+Calculating cluster DC_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=23s  
+Calculating cluster Mk_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=38s  
+Calculating cluster Eryth_STIM
+  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=13s
+```
+
 Uncomment the top code block to run from scratch -\> We'll load in the saved output since this can take a while
 
 Seurat's in built heatmap function can be quite messy and hard to interpret sometimes (we'll learn how to make better and clearer custom heatmaps from our Seurat scRNA-seq data in a bit).
@@ -413,7 +831,8 @@ DEG.heatmap
 
 ### Step 1: We need to import sample information for each cell from the original paper
 
-Question: have a look at the ifnb.filtered seurat metadata, can you spot what we've done here?
+!!! question
+    have a look at the ifnb.filtered seurat metadata, can you spot what we've done here?
 
 ```r
 # defining a function here to retrieve that information (code from https://satijalab.org/seurat/articles/de_vignette)
@@ -496,9 +915,10 @@ head(Cells(ifnb.pseudobulk)) # our 'cells' are no longer barcodes, but have been
 
 First lets take a look at the DEG dataframes we made for both.
 
-QUESTION: Having a look at them, can you identify any differences? Can you think of any underlying reasons behind those differences?
+!!! question
+    Having a look at them, can you identify any differences? Can you think of any underlying reasons behind those differences?
 
-Hint: Look at the p_val and p_val_adj columns
+    Hint: Look at the p_val and p_val_adj columns.
 
 ```r
 head(treatment.response.CD16)
@@ -566,23 +986,24 @@ Visualise_Overlapping_DEGs <- function(pseudobulk.de,
 
 Let's use the helper functions above to plot and view the overlap/agreement between our pseudobulk versus single-cell approaches
 
-QUESTION: Can you explain why we're seeing the discrepencies we see between the two methods here?
+!!! question
+    Can you explain why we're seeing the discrepencies we see between the two methods here?
 
-```r
-merged_deg_data <- Merge_DEG_dataframes(pseudobulk.de = treatment.response.CD16.pseudo,
-                                        singlecell.de = treatment.response.CD16)
-merged_deg_data %>% 
-  dplyr::select(gene, 
-                p_val.sc, p_val.bulk,
-                p_val_adj.sc, p_val_adj.bulk) %>%
-  head(10)
+    ```r
+    merged_deg_data <- Merge_DEG_dataframes(pseudobulk.de = treatment.response.CD16.pseudo,
+                                            singlecell.de = treatment.response.CD16)
+    merged_deg_data %>% 
+      dplyr::select(gene, 
+                    p_val.sc, p_val.bulk,
+                    p_val_adj.sc, p_val_adj.bulk) %>%
+      head(10)
 
-# How many DEGs overlap between our two methods? Is there anything in the merged_deg_data frame that stands out to you?
-overlap.bar.plt <- Visualise_Overlapping_DEGs(pseudobulk.de = treatment.response.CD16.pseudo,
-                                              singlecell.de = treatment.response.CD16)
+    # How many DEGs overlap between our two methods? Is there anything in the merged_deg_data frame that stands out to you?
+    overlap.bar.plt <- Visualise_Overlapping_DEGs(pseudobulk.de = treatment.response.CD16.pseudo,
+                                                  singlecell.de = treatment.response.CD16)
 
-overlap.bar.plt
-```
+    overlap.bar.plt
+    ```
 
 ### Step 5: Investigate the differences between pseudobulk DE and single-cell DE closer
 
@@ -614,7 +1035,8 @@ VlnPlot(ifnb.filtered, features = c("PABPC1", "SRGN"),
         group.by = "donor_id.and.stim", ncol = 1)
 ```
 
-QUESTION: How would you interpret the plots above? What does this tell you about some of the pitfalls of single-cell DE approaches?
+!!! question
+    How would you interpret the plots above? What does this tell you about some of the pitfalls of single-cell DE approaches?
 
 Now lets take a look at some genes that show agreement across both sc and pseudobulk deg tests
 
@@ -719,95 +1141,15 @@ save_pheatmap_pdf <- function(x, filename, width=7, height=7) {
 save_pheatmap_pdf(sig.DEG.heatmap, "sig_DEG_pseudo.pdf")
 ```
 
-CHALLENGE QUESTION: do the same thing with significant DEGs from the sc approach. Do you see any differences?
+!!! question "Challenge question"
+    Do the same thing with significant DEGs from the sc approach. Do you see any differences?
 
-Solution: run the same code as above but with the 'treatment.response.CD16' instead of 'treatment.response.CD16.pseudo' variable
+    ??? note "Solution"
+        Run the same code as above but with the `treatment.response.CD16` variable instead of `treatment.response.CD16.pseudo` variable.
 
-CONCLUSION
-
-QUESTION: What kind of analyses can we do next after having a list of DEGs for each cell type and treatment groups?
+!!! question 
+    What kind of analyses can we do next after having a list of DEGs for each cell type and treatment groups?
 
 
 ---
 
-Add keypoints at the end of each section or subsection. Keypoints use the `note` admonition.
-
-Read more about admonitions on the [Material for MkDocs documentation](https://squidfunk.github.io/mkdocs-material/reference/admonitions/).
-
-!!! note "Keypoints"
-
-    - Version control is like an unlimited ‘undo’.
-    - Version control also allows many people to work in parallel.
-
-!!! warning "TO-DO"
-    - Add more admonitions to the template.
-
-!!! question "Question"
-
-    Questions have a nested, collapsed solution that uses the "example" admonition.
-
-    This is because it's not uncommon to have "Keypoints" right after a question, and keypoints use the "note" admonition. So we prevent repetition.
-
-    ??? example "Solution"
-        Answer to the question above.
-
-
-## Glossary
-
-A glossary at the end of the page is always helpful. This way you can refer to [terms](./template.md#glossary) throughout the lesson.
-
-**Terms:** are written in bold in the glossary.
-
-
-Calculating cluster CD14 Mono_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=22s  
-Calculating cluster pDC_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=01m 02s
-Calculating cluster CD4 Memory T_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=47s  
-Calculating cluster T activated_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=60s  
-Calculating cluster CD4 Naive T_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=49s  
-Calculating cluster CD8 T_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=58s  
-Calculating cluster Mk_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=38s  
-Calculating cluster B Activated_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=52s  
-Calculating cluster B_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=52s  
-Calculating cluster CD16 Mono_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=24s  
-Calculating cluster NK_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=01m 02s
-Calculating cluster DC_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=33s  
-Calculating cluster Eryth_CTRL
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=13s  
-Calculating cluster CD8 T_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=48s  
-Calculating cluster pDC_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=56s  
-Calculating cluster CD4 Naive T_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=41s  
-Calculating cluster B_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=45s  
-Calculating cluster CD14 Mono_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=17s  
-Calculating cluster T activated_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=53s  
-Calculating cluster CD4 Memory T_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=35s  
-Calculating cluster B Activated_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=51s  
-Calculating cluster NK_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=52s  
-Calculating cluster CD16 Mono_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=21s  
-Calculating cluster DC_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=23s  
-Calculating cluster Mk_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=38s  
-Calculating cluster Eryth_STIM
-  |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=13s
