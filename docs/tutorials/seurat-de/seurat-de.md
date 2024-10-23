@@ -16,7 +16,7 @@
 **Skill level**
 
 * [ ] Beginner  
-* [ ] Intermediate  
+* [x] Intermediate  
 * [ ] Advanced  
 
 **Data:** IFNB-Stimulated and Control PBMCs.
