@@ -66,6 +66,7 @@ nav:
             - 'RNAseq differential expression in R': 'tutorials/rna_seq_dge_in_r/rna_seq_r.md'
         - 'Singlecell RNAseq':
             - '10X single-cell RNA-seq analysis in R': 'tutorials/singlecell/index.md'
+            - 'scRNA-seq Integration and Differential Expression': 'tutorials/seurat-de/seurat-de.md'
     - 'Proteomics':
         - 'Identifying proteins from mass spectrometry data': 'tutorials/proteomics_basic/proteomics_basic.md'
     - 'Statistics and Visualisation':

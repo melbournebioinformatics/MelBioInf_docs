@@ -1054,15 +1054,16 @@ In regards to the second strategy of using existing solutions, you can do most G
 #### Do
 - Write good commit messages
     - Say **why**, not **what** you changed
+    - Document as you code
 - Make small changes
 - Commit often
-- Think about the reviewer
-- Document as you code
+- Ignore large files (use `.gitignore`)
 
 #### Don't
 - Make vague commit messages
 - Accumulate unrelated changes in a single commit
 - Let things go stale – delete or "stash" them
+- Commit large files to history – they will be there forever.
 
 !!! note "Keypoints"
 
