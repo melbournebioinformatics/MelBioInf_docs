@@ -1,4 +1,6 @@
-# scRNA-seq Integration and Differential Expression 
+# scRNA-seq Integration and Differential Expression
+
+[**Slides available here.**](./media/seurat-de-slides.pdf)
 
 ## Overview
 
