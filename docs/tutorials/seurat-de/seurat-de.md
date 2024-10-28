@@ -1066,7 +1066,7 @@ head(ifnb.pseudobulk.df)
 ??? note "Pseudobulk dataframe output"
     ```
     --8<--
-    docs/tutorials/seurat-de/infb-pseudobulk-df.txt
+    docs/tutorials/seurat-de/ifnb-pseudobulk-df.txt
     --8<--
     ```
 
