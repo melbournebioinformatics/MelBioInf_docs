@@ -2,7 +2,7 @@
 
 [**Slides available here.**](./media/seurat-de-slides.pdf)
 
-**Author:** Manveer Chauhan, Clark Lab, The University of Melbourne.
+**Author:** Manveer Chauhan, Clark Lab, The University of Melbourne.  
 **Contributors:** Vini Salazar, Melbourne Bioinformatics.
 
 Last updated October 2024.
@@ -40,27 +40,52 @@ Last updated October 2024.
 * metap  
 
 **Pipeline:**  
-*Section 1:* Setup and Intro.  
-*Section 2:* Placeholder.  
-*Section 3:* Differential Gene Expression when dealing with two treatment conditions.  
-*Section 4:* Differential Expression using a pseudobulk approach and DESeq2.  
+*Section 1:* Setup, Quality Control and Sample Integration.  
+*Section 2:* Differential Gene Expression when dealing with two treatment conditions.  
+*Section 3:* Differential Expression using a pseudobulk approach and DESeq2.  
 
-**Learning objectives:** Placeholder.
+**Learning objectives:**  
 
-<!-- Remove this if not applicable.>
+* Gain more familiarity with standard scRNA-seq Quality Control (QC) steps\
+* Understand and get comfortable using various integration strategies (harmoy and seuratCCA)\
+* Understand when and how to use all of the differential expression functions offered by Seurat: FindMarkers(), FindConservedMarkers(), and FindAllMarkers()\
+* Learn how to use differential expression tools meant for bulk data, like DESeq2, for single-cell 'pseudobulk' data and understand why you might choose this approach.\
+* Learn different ways to visualise both in-built Seurat functions and external packages like pheatmap.\
+
 !!! warning "Disclaimer"
-    This tutorial is partially based on some existing material.
--->
+    This tutorial is partially based on existing material from:
+
+    * https://satijalab.org/seurat/articles/seurat5_integration
+    * https://satijalab.org/seurat/articles/de_vignette
+    * https://hbctraining.github.io/scRNA-seq_online/
+    * https://bookdown.org/ytliu13207/SingleCellMultiOmicsDataAnalysis/
 
 <!-- Use this divider between sections -->
 ---
 <!-- Use this divider between sections -->
 
 ## Setup
-**Install something**  
+**Run the code block below to install the packages needed for this workshop.**
 
-TO-DO
-Tell users what to install. Subsection headers using bold, not the hash character.
+To check if installed properly, load each package in one at a time using the `library()` function.
+
+``` r
+install.packages('Seurat')
+
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+remotes::install_github("satijalab/seurat-data", quiet = TRUE)
+
+if (!require("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")
+}
+BiocManager::install("DESeq2")
+
+install.packages("tidyverse")
+install.packages("pheatmap")
+install.packages("metap")
+```
 
 !!! success "Well done!"
     Confirm that users are ready to start.
@@ -90,8 +115,8 @@ library(pheatmap)
 library(grid)
 library(metap)
 
-set.seed(4242) #Set Seed for Reproducibility
-setwd("/Users/vsalazar/Bio/MB/Seurat_DE_Workshop") ## Change this
+set.seed(4242) # Set Seed for Reproducibility
+setwd("/path/to/workshop/directory")  # Set this to the correct location
 ```
 
 We're using the ifnb public dataset provided by Seurat. This dataset contains PBMC data from 8 lupus patients before and after interferon beta treatment.
@@ -115,7 +140,7 @@ ANSWER: When loading in seurat objects, we can have a look at what processing st
 AvailableData() # if you want to see the available datasets use this function
 ```
 
-??? info
+??? info "Available Data"
     ```output
     ##                                    Dataset Version
     ## adiposeref.SeuratData           adiposeref   1.0.0
@@ -330,7 +355,7 @@ ifnb <- UpdateSeuratObject(ifnb) # Make sure the seurat object is in the format 
 str(ifnb) # we can use this to take a look at the information in our Seurat Object, we know that this is an unprocessed Seurat object because the scale.data slot is empty, no variable features identified, no reductions performed..etc
 ```
 
-??? info
+??? info "`ifnb` object"
     ```output
     ## Formal class 'Seurat' [package "SeuratObject"] with 13 slots
     ##   ..@ assays      :List of 1
@@ -388,7 +413,7 @@ Lets start by processing our data (run the standard seurat workflow steps includ
 First we need to take a look at QC metrics, then decide on the thresholds for filtering.
 
 !!! question 
-    Looking <!-- TO-DO: complete this-->
+    Looking at the violin plots of QC metrics, what do you think about the overall quality of the ifnb dataset?
 
 ```r
 # Step 2a: QC and filtering
@@ -485,6 +510,8 @@ association.plts
 ```
 ![](./media/unnamed-chunk-5-2.png)
 
+Let's check how many cells we've filtered out (looks like ~400 cells were removed):
+
 ```r
 ifnb
 ```
@@ -503,6 +530,9 @@ ifnb.filtered
 ## Active assay: RNA (14053 features, 0 variable features)
 ##  2 layers present: counts, data
 ```
+
+Next we need to split our count matrices based on conditions. This step stores stimulated versus unstimulated expression information separately, creating a list of RNA assays grouped by the "stim" condition. Note: this is important for downstream integration steps in Seurat v5.
+
 ```r
 ifnb.filtered[["RNA"]] <- split(ifnb.filtered[["RNA"]], f = ifnb.filtered$stim) # Lets split our count matrices based on conditions (stored within different layers) -> needed for integration steps in Seurat v5
 ```
@@ -715,7 +745,7 @@ after.harmony | after.seuratCCA
 
 \*\*Slide on the caveats of integration, you can lose biological signal when you regress out technical batch effects\*\*
 
-### Step 5: Once we're happy with integration we need to rejoin layers before moving on to DE
+### Step 5: Once we're happy with integration, lets perform standard clustering steps
 
 This step collapses individual control and treatment datasets together and needs to be done before differential expression analysis
 
@@ -798,12 +828,11 @@ head(markers.cluster.4)
 ## **Explain p_val adjusted and p_val and avg_log2FC** in slide
 ```
 
-Let's visualise the top features identified in this cluster
+**Let's visualise the top upregulated, conserved between condition, marker genes identified in cluster 4 using the FeaturePlot() function.**
 
-(Will need to explain the min.cutoff value here)
 
 !!! question
-    Try running this function without defining a min.cutoff, or changing the value
+    Try running the function in the code block below without defining a min.cutoff, or changing the value of the min.cutoff parameter.
 
 ```r
 # Try looking up some of these markers here: https://www.proteinatlas.org/
@@ -868,7 +897,7 @@ DimPlot(ifnb.filtered, reduction = "umap.cca", label = T)
 ![](./media/unnamed-chunk-13-1.png)
 
 !!! tip
-    Refer to automatic cell type annotation in slide.
+    If you want to perform cell-type identification on your own data when you don't have a ground-truth, using automatic cell type annotation methods can be a good starting point. This approach is discussed in more detail in the Intro to scRNA-seq workshop material.
 
 ### Step 3: Find DEGs between our two conditions (using CD16 Mono cells as an example)
 
@@ -919,10 +948,10 @@ FeaturePlot(ifnb.filtered, reduction = 'umap.cca',
 ### Step 6: Create a Heatmap to visualise DEGs between our two conditions + cell types
 
 ```r
-# # Find upregulated genes in each group (cell type and condition)
-# ifnb.treatVsCtrl.markers <- FindAllMarkers(ifnb.filtered,
-#                                           only.pos = TRUE)
-# saveRDS(ifnb.treatVsCtrl.markers, "ifnb_stimVsCtrl_markers.rds")
+# Find upregulated genes in each group (cell type and condition)
+ifnb.treatVsCtrl.markers <- FindAllMarkers(ifnb.filtered,
+                                          only.pos = TRUE)
+saveRDS(ifnb.treatVsCtrl.markers, "ifnb_stimVsCtrl_markers.rds")
 ```
 
 ```output
@@ -981,12 +1010,12 @@ Calculating cluster Eryth_STIM
   |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed=13s
 ```
 
-Uncomment the top code block to run from scratch -\> We'll load in the saved output since this can take a while
+If the top code block takes too long to run - you can download the rds file of the output using the code below:
 
-Seurat's in built heatmap function can be quite messy and hard to interpret sometimes (we'll learn how to make better and clearer custom heatmaps from our Seurat scRNA-seq data in a bit).
+Seurat's in-built heatmap function can be quite messy and hard to interpret sometimes (we'll learn how to make better and clearer custom heatmaps using the pheatmap package from our Seurat expression data later on).
 
 ```r
-ifnb.treatVsCtrl.markers <- readRDS("ifnb_stimVsCtrl_markers.rds")
+ifnb.treatVsCtrl.markers <- readRDS(url("https://github.com/manveerchauhan/Seurat_DE_Workshop/raw/refs/heads/main/ifnb_stimVsCtrl_markers.rds"))
 
 top5 <- ifnb.treatVsCtrl.markers %>%
   group_by(cluster) %>%
@@ -1044,7 +1073,7 @@ ifnb.filtered <- loadDonorMetadata(ifnb.filtered)
 
 ### Step 2: Aggregate our counts based on treatment group, cell-type, and donor id
 
-Condensing our single-cell matrix in this manner is referred to 'pseudobulking'. We're making a condensed count matrix that looks more like a bulk matrix so that we can use bulk differential expression algorithms like DESeq2. We can see this clearly when we have a look at the ifnb.pseudbulk.df we make in the following code block.
+Collapsing our single-cell matrix in this manner is referred to as creating a 'pseudo-bulk' count matrix.. We're making a condensed count matrix that looks more like a bulk matrix so that we can use bulk differential expression algorithms like DESeq2. We can see this clearly when we have a look at the ifnb.pseudbulk.df we make in the following code block.
 
 ```r
 ifnb.pseudobulk <- AggregateExpression(ifnb.filtered, assays = "RNA",
@@ -1207,7 +1236,7 @@ Visualise_Overlapping_DEGs <- function(pseudobulk.de,
 Let's use the helper functions above to plot and view the overlap/agreement between our pseudobulk versus single-cell approaches
 
 !!! question
-    Can you explain why we're seeing the discrepencies we see between the two methods here?
+    Can you explain why we're seeing the discrepancies we see between the two methods here?
 
     ```r
     merged_deg_data <- Merge_DEG_dataframes(pseudobulk.de = treatment.response.CD16.pseudo,
