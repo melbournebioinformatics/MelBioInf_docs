@@ -1,4 +1,7 @@
-# Workshop Template
+# Gene ontology analysis and integration for single-cell RNA-seq data
+
+**Author:** Xiaochen Zhang, Lê Cao Lab, The University of Melbourne.  
+**Contributors:** Vini Salazar, Melbourne Bioinformatics.
 
 ## Overview
 
@@ -24,86 +27,42 @@
 **Tools:** Placeholder.
 
 **Pipeline:**  
-*Section 1:* Placeholder.  
-*Section 2:* Placeholder.  
-*Section 3:* Placeholder.  
-*Section 4:* Placeholder.  
+*Section 1:* Setup, Introduction, and Preprocessing.  
+*Section 2:* Gene Ontology analysis.  
+*Section 3:* Integration of ATAC-seq data.  
 
 **Learning objectives:** Placeholder.
 
+<!--
 !!! warning "Disclaimer"
     This tutorial is partially based on some existing material.
+-->
 
 <!-- Use this divider between sections -->
 ---
 <!-- Use this divider between sections -->
 
 ## Setup
-**Install something**  
 
-Tell users what to install. Subsection headers using bold, not the hash character.
-
-!!! success "Well done!"
-    Confirm that users are ready to start.
-
-
-<!-- Use this divider between sections -->
----
-<!-- Use this divider between sections -->
-
-## Introduction
-
-<!-- Add expected time at the start of each section -->
-**Expected time:** 40 minutes.
-
-### Subsection
-
-Sections are marked with `##`, and subsections with `###`. Higher heading levels should be avoided.
-
-These divisions can also be used in other parts other than between sections.
-
----
-
-Add keypoints at the end of each section or subsection. Keypoints use the `note` admonition.
-
-Read more about admonitions on the [Material for MkDocs documentation](https://squidfunk.github.io/mkdocs-material/reference/admonitions/).
-
-!!! note "Keypoints"
-
-    - Version control is like an unlimited ‘undo’.
-    - Version control also allows many people to work in parallel.
-
-!!! warning "TO-DO"
-    - Add more admonitions to the template.
-
-!!! question "Question"
-
-    Questions have a nested, collapsed solution that uses the "example" admonition.
-
-    This is because it's not uncommon to have "Keypoints" right after a question, and keypoints use the "note" admonition. So we prevent repetition.
-
-    ??? example "Solution"
-        Answer to the question above.
-
-# Setup
-
-## Install R packages for this workshop
+**Install R packages for this workshop**
 
 You only need to run these code once.
 
-```{r setup, eval=FALSE}
+```r
 # install Packages
 install.packages("Seurat")
 setRepositories(ind=1:3) # needed to automatically install Bioconductor dependencies
+
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("Rsamtools")
+
 install.packages("Signac")
 install.packages("ggplot2")
 install.packages("cowplot")
 install.packages("devtools")
 devtools::install_github('satijalab/seurat-data')
-
-# Install packages from Bioconductor
-if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
 
 BiocManager::install("EnsDb.Hsapiens.v86")
 BiocManager::install("biovizBase")
@@ -113,9 +72,19 @@ BiocManager::install("org.Hs.eg.db")
 BiocManager::install("enrichplot")
 ```
 
-## Load these packages
+!!! success "Well done!"
+    You are ready to start the workshop.
 
-```{r, message=FALSE, warning=FALSE}
+
+<!-- Use this divider between sections -->
+---
+<!-- Use this divider between sections -->
+
+## Introduction
+
+### Load these packages
+
+```r
 # load libraries
 library(Seurat)
 library(Signac)
@@ -127,15 +96,15 @@ library(org.Hs.eg.db)
 library(enrichplot)
 ```
 
-## Download the datasets
+### Download the datasets
 
-```{r, message=FALSE}
+```r
 library(SeuratData)
 # install the dataset and load requirements
 InstallData("pbmcMultiome")
 ```
 
-## Load the data sets (Seurat object)
+### Load the data sets (Seurat object)
 
 We will use two data sets today. One is the single-cell RNA-seq data
 (`pbmc.rna`), and the other is the single-cell ATAC-seq data
@@ -144,35 +113,35 @@ RNA-seq data set first. And we will integrate scRNA-seq data set to the
 scATAC-seq data set to explain the difference which we observe at the
 scRNA-seq analysis.
 
-```{r, message=FALSE}
+```r
 # load both modalities
 pbmc.rna <- LoadData("pbmcMultiome", "pbmc.rna")
 pbmc.atac <- LoadData("pbmcMultiome", "pbmc.atac")
 ```
 
-# Preprocess for single-cell RNA-seq data (Seurat pipeline)
+## Preprocess for single-cell RNA-seq data (Seurat pipeline)
 
-## QC for RNA data (have done and saved in the data set)
+### QC for RNA data (have done and saved in the data set)
 
 To make this workshop focus on downstream analysis, we have done the QC
 for the RNA data and given label "filtered". We just choose cells that
 are not be labelled 'filtered'.
 
-```{r}
+```r
 # We use Seurat V5 object
 pbmc.rna[["RNA"]] <- as(pbmc.rna[["RNA"]], Class = "Assay5")
 # repeat QC steps performed in the WNN vignette
 pbmc.rna <- subset(pbmc.rna, seurat_annotations != "filtered")
 ```
 
-## Preprocess RNA data (from Seurat workshop)
+### Preprocess RNA data (from Seurat workshop)
 
 We will perform standard Seurat pipeline for single-cell RNA analysis.
 We will normalize the data, find variable features, scale the data, run
 PCA, and run UMAP. See also our introduction to single-cell RNA-seq
 workshop for more details.
 
-```{r, message=FALSE}
+```r
 # Perform standard analysis of each modality independently RNA analysis
 pbmc.rna <- NormalizeData(pbmc.rna)
 pbmc.rna <- FindVariableFeatures(pbmc.rna)
@@ -181,11 +150,11 @@ pbmc.rna <- RunPCA(pbmc.rna)
 pbmc.rna <- RunUMAP(pbmc.rna, dims = 1:30)
 ```
 
-## Do clustering and visualization for RNA data
+### Do clustering and visualization for RNA data
 
 We want to overview the RNA data by clustering and visualizing the data.
 
-```{r}
+```r
 # Clustering
 pbmc.rna <- FindNeighbors(pbmc.rna, dims = 1:30)
 pbmc.rna <- FindClusters(pbmc.rna, resolution = 0.5)
@@ -194,21 +163,21 @@ pbmc.rna <- FindClusters(pbmc.rna, resolution = 0.5)
 DimPlot(pbmc.rna, group.by = "seurat_clusters", label = TRUE)
 ```
 
-## Find marker genes for each cell sub-type
+### Find marker genes for each cell sub-type
 
 We found it is very clear cluster 2, 3 and 8 should have some different
 functions, so they form very clear shape of cluster. Cluster 2 maybe
 more relate to cluster 2 comparing to cluster 8. We will find marker
 genes for each cluster to further explore the difference.
 
-```{r, message=FALSE}
+```r
 # Find marker genes for each cell subtype
 Idents(pbmc.rna) <- "seurat_clusters"
 marker.genes.pbmc.rna <- FindAllMarkers(pbmc.rna, only.pos = TRUE, 
                                         min.pct = 0.5, logfc.threshold = 0.5)
 ```
 
-# Gene Ontology analysis
+## Gene Ontology analysis
 
 We know have a marker gene list for each cluster. But it is hard for us
 to find out true signals and explain these gene names. A good method to
@@ -216,20 +185,20 @@ explain a list of gene is gene ontology analysis. We will perform gene
 ontology analysis to understand the biological functions of these marker
 genes.
 
-## Preview the marker genes
+### Preview the marker genes
 
 Let's have a look the data structure of the result of marker gene list.
 
-```{r}
+```r
 marker.genes.pbmc.rna[1:5, ]
 ```
 
-## Find marker genes for Cluster 2, Cluster 3 and Cluster 8
+### Find marker genes for Cluster 2, Cluster 3 and Cluster 8
 
 The gene list is too long, we will just focus on Cluster 2, Cluster 3
 and Cluster 8 with significant p-value (adjust p-value \< 0.05).
 
-```{r}
+```r
 Cluster2.markers <- marker.genes.pbmc.rna[marker.genes.pbmc.rna$cluster==2 
                                            & marker.genes.pbmc.rna$p_val_adj < 0.05, ]
 Cluster3.markers <- marker.genes.pbmc.rna[marker.genes.pbmc.rna$cluster==3 
@@ -238,13 +207,13 @@ Cluster8.markers <- marker.genes.pbmc.rna[marker.genes.pbmc.rna$cluster==8
                                            & marker.genes.pbmc.rna$p_val_adj < 0.05, ]
 ```
 
-## Convert gene symbols to Entrez IDs
+### Convert gene symbols to Entrez IDs
 
 Gene symbols is very useful, it can easily understand by human. But it
 is not unique, so we need to convert them to Entrez IDs for gene
 ontology analysis.
 
-```{r}
+```r
 Cluster2.gene_ids <- bitr(Cluster2.markers$gene, fromType = "SYMBOL",
                                    toType = "ENTREZID", OrgDb = org.Hs.eg.db)
 Cluster3.gene_ids <- bitr(Cluster3.markers$gene, fromType = "SYMBOL",
@@ -253,7 +222,7 @@ Cluster8.gene_ids <- bitr(Cluster8.markers$gene, fromType = "SYMBOL",
                                    toType = "ENTREZID", OrgDb = org.Hs.eg.db)
 ```
 
-## Perform GO enrichment analysis for Cluster 2
+### Perform GO enrichment analysis for Cluster 2
 
 Let's begin with Cluster 2. I will show you how to perform gene ontology
 analysis for Cluster 2. You can follow the same steps to do the analysis
@@ -278,7 +247,7 @@ want to know more about p-value adjustment methods (why we need them and
 what are they), see also:
 <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6099145/>.
 
-```{r}
+```r
 Cluster2.ego <- enrichGO(gene = Cluster2.gene_ids$ENTREZID, 
                 OrgDb = org.Hs.eg.db, 
                 ont = "BP", # biological process
@@ -288,54 +257,54 @@ Cluster2.ego <- enrichGO(gene = Cluster2.gene_ids$ENTREZID,
                 readable = TRUE)
 ```
 
-## Visualize the GO enrichment results
+### Visualize the GO enrichment results
 
-### Box plot
+#### Box plot
 
 A good way to visualize the GO enrichment results is to use a box plot.
 It can tell you how many genes are overlap in each GO term with you
 marker gene list and how significant the enrichment is.
 
-```{r}
+```r
 barplot(Cluster2.ego, showCategory=10, 
         title="GO Enrichment Analysis for Cluster 2")
 ```
 
-### Dot plot
+#### Dot plot
 
 Dot plot is another way to visualize the GO enrichment results with more
 information. It can show you the proportion of the overlap genes over
 the whole marker gene list and also overlap gene counts and p-value of
 each GO term. You can also set the number of GO terms you want to show.
 
-```{r}
+```r
 p1 <- dotplot(Cluster2.ego, showCategory=20, 
         title="GO Enrichment Analysis for Cluster 2")
 p1 + theme(axis.text.y = element_text(size = 3))
 ```
 
-### Enrichment map plot
+#### Enrichment map plot
 
 The GO terms are correlated with each other. The enrichment map plot can
 show you the correlation between GO terms. It can help you to understand
 the relationship between different biological processes.
 
-```{r}
+```r
 Cluster2.ego <- pairwise_termsim(Cluster2.ego)
 emapplot(Cluster2.ego, showCategory=20)
 ```
 
-### Cnet plot
+#### Cnet plot
 
 Cnet plot can show you the relationship between GO terms and genes. It
 can help you to understand the relationship between GO terms and genes.
 
-```{r}
+```r
 cnetplot(Cluster2.ego, categorySize="pvalue", 
          foldChange=Cluster2.gene_ids$ENTREZID, showCategory = 3)
 ```
 
-## Challenge: Perform GO enrichment analysis for the other 2 cluster
+### Challenge: Perform GO enrichment analysis for the other 2 cluster
 
 <button onclick="myFunction(&#39;q2&#39;)">
 
@@ -344,7 +313,7 @@ Show solutions
 </button>
 
 ::: {#q2 style="display:none"}
-```{r}
+```r
 Cluster3.ego <- enrichGO(gene = Cluster3.gene_ids$ENTREZID, 
                 OrgDb = org.Hs.eg.db, 
                 ont = "BP",
@@ -365,46 +334,46 @@ Cluster8.ego <- enrichGO(gene = Cluster8.gene_ids$ENTREZID,
 
 <!-- end solutions -->
 
-## Visualize the GO enrichment results for other 2 clusters
+### Visualize the GO enrichment results for other 2 clusters
 
-```{r}
+```r
 barplot(Cluster3.ego, showCategory=10, 
         title="GO Enrichment Analysis for Cluster 3")
 ```
 
-```{r}
+```r
 p_cluster3 <- dotplot(Cluster3.ego, showCategory=20, 
         title="GO Enrichment Analysis for Cluster 3")
 p_cluster3 + theme(axis.text.y = element_text(size = 3))
 ```
 
-```{r}
+```r
 Cluster3.ego <- pairwise_termsim(Cluster3.ego)
 emapplot(Cluster3.ego, showCategory=20)
 ```
 
-```{r}
+```r
 cnetplot(Cluster3.ego, categorySize="pvalue", 
          foldChange=Cluster3.gene_ids$ENTREZID, showCategory = 3)
 ```
 
-```{r}
+```r
 barplot(Cluster8.ego, showCategory=10, 
         title="GO Enrichment Analysis for Cluster 8")
 ```
 
-```{r}
+```r
 p_cluster8 <- dotplot(Cluster8.ego, showCategory=20, 
         title="GO Enrichment Analysis for Cluster 8")
 p_cluster8 + theme(axis.text.y = element_text(size = 3))
 ```
 
-```{r}
+```r
 Cluster8.ego <- pairwise_termsim(Cluster8.ego)
 emapplot(Cluster8.ego, showCategory=20)
 ```
 
-```{r}
+```r
 cnetplot(Cluster8.ego, categorySize="pvalue", 
          foldChange=Cluster8.gene_ids$ENTREZID, showCategory = 3)
 ```
@@ -423,7 +392,7 @@ We have done gene ontology analysis for each cluster. But we can also do
 gene ontology analysis for all clusters together. We can combine all
 marker genes from all clusters and do gene ontology analysis for them.
 
-```{r, warning=FALSE}
+```r
 cluster_gene_list <- split(marker.genes.pbmc.rna$gene, marker.genes.pbmc.rna$cluster)
 
 cluster_gene_list <- lapply(cluster_gene_list, function(genes) {
@@ -435,7 +404,7 @@ cluster_gene_list <- lapply(cluster_gene_list, function(genes) {
 We can use the `compareCluster()` function from `clusterProfiler`
 package to perform gene ontology analysis for all clusters together.
 
-```{r}
+```r
 # GO enrichment analysis for BP
 go_compare_bp <- compareCluster(geneCluster = cluster_gene_list, 
                              fun = "enrichGO", 
@@ -453,7 +422,7 @@ clusters. It can show you the proportion of the overlap genes over the
 whole marker gene list and also overlap gene counts and p-value of each
 GO term.
 
-```{r}
+```r
 cluster.p1 <- dotplot(go_compare_bp, showCategory = 1,
               title = "GO Enrichment (Biological Process)")
 cluster.p1 + theme(axis.text.y = element_text(size = 5))
@@ -463,12 +432,12 @@ But dot plot is not good for showing the relationship between GO terms.
 We can select and clustering GO terms first and then use tree plot to
 show the correlation between GO terms.
 
-```{r}
+```r
 trim_bp <- pairwise_termsim(go_compare_bp, showCategory = 50)
 treeplot(trim_bp, showCategory = 5)
 ```
 
-## Challenge: Perform GO enrichment analysis for other two ontology
+### Challenge: Perform GO enrichment analysis for other two ontology
 
 <button onclick="myFunction(&#39;q3&#39;)">
 
@@ -477,7 +446,7 @@ Show solutions
 </button>
 
 ::: {#q3 style="display:none"}
-```{r}
+```r
 # GO enrichment analysis for CC
 go_compare_cc <- compareCluster(geneCluster = cluster_gene_list, 
                              fun = "enrichGO", 
@@ -500,33 +469,33 @@ go_compare_mf <- compareCluster(geneCluster = cluster_gene_list,
 
 <!-- end solutions -->
 
-## Visualize the GO enrichment results for other two ontology
+### Visualize the GO enrichment results for other two ontology
 
-```{r}
+```r
 cluster.p2 <- dotplot(go_compare_cc, showCategory = 1,
               title = "GO Enrichment (Cellular Component)")
 
 cluster.p2 + theme(axis.text.y = element_text(size = 5))
 ```
 
-```{r}
+```r
 trim_cc <- pairwise_termsim(go_compare_cc, showCategory = 50)
 treeplot(trim_cc, showCategory = 5)
 ```
 
-```{r}
+```r
 cluster.p3 <- dotplot(go_compare_mf, showCategory = 1,
               title = "GO Enrichment (Molecular Function)")
 cluster.p3 + theme(axis.text.y = element_text(size = 5))
 
 ```
 
-```{r}
+```r
 trim_mf <- pairwise_termsim(go_compare_mf, showCategory = 50)
 treeplot(trim_mf, showCategory = 5)
 ```
 
-# Integrate ATAC-seq data with single-cell RNA-seq data (N Integration)
+## Integrate ATAC-seq data with single-cell RNA-seq data (N Integration)
 
 From the gene ontology analysis, we found that the three clusters have
 different biological functions. But we still don't know why they have
@@ -535,24 +504,24 @@ gene activity. We can use the ATAC-seq data to quantify the gene
 activity and integrate the ATAC-seq data with the single-cell RNA-seq
 data to explain the difference.
 
-## QC for ATAC-seq data (have done and saved in the data set)
+### QC for ATAC-seq data (have done and saved in the data set)
 
 As the same as the RNA data, we have done the QC for the ATAC-seq data
 and given label "filtered". We just choose cells that are not be
 labelled 'filtered'.
 
-```{r}
+```r
 pbmc.atac <- subset(pbmc.atac, seurat_annotations != "filtered")
 ```
 
-## Preprocess ATAC-seq data
+### Preprocess ATAC-seq data
 
 We will perform standard Seurat pipeline for single-cell ATAC analysis.
 We will normalize the data, find top features, run SVD, and run UMAP.
 See `Signac` (also provided by Satija's group) tutorial for more
 details.
 
-```{r, message=FALSE, warning=FALSE}
+```r
 # ATAC analysis add gene annotation information
 annotations <- GetGRangesFromEnsDb(ensdb = EnsDb.Hsapiens.v86)
 seqlevelsStyle(annotations) <- "UCSC"
@@ -567,12 +536,12 @@ pbmc.atac <- RunUMAP(pbmc.atac, reduction = "lsi", dims = 2:30,
                      reduction.name = "umap.atac", reduction.key = "atacUMAP_")
 ```
 
-## Visualize the ATAC-seq data with scRNA-seq data
+### Visualize the ATAC-seq data with scRNA-seq data
 
 We want to overview the single-cell ATAC-seq and RNA-seq data
 visualizing the data.
 
-```{r}
+```r
 # Visualize two data sets together
 p1 <- DimPlot(pbmc.rna, group.by = "seurat_clusters", label = TRUE) + NoLegend() + ggtitle("RNA")
 p2 <- DimPlot(pbmc.atac, group.by = "orig.ident", label = FALSE) + NoLegend() + ggtitle("ATAC")
@@ -585,13 +554,13 @@ data and but we know nothing about the ATAC data.
 We can see that the two data sets have different clustering patterns. We
 will integrate the two data sets to explain the difference.
 
-## Quantify gene activity
+### Quantify gene activity
 
 Before we integrate the two data sets, we need to quantify the gene
 activity from the ATAC-seq data. We will use the `GeneActivity()`
 function from `Signac` package to quantify the gene activity.
 
-```{r}
+```r
 # quantify gene activity
 gene.activities <- GeneActivity(pbmc.atac, features = VariableFeatures(pbmc.rna))
 
@@ -604,7 +573,7 @@ pbmc.atac <- NormalizeData(pbmc.atac)
 pbmc.atac <- ScaleData(pbmc.atac, features = rownames(pbmc.atac))
 ```
 
-## Integrate RNA-seq data with ATAC-seq data
+### Integrate RNA-seq data with ATAC-seq data
 
 Same as integrate two RNA-seq data, we will use the
 `FindTransferAnchors()` function from Seurat package to integrate the
@@ -612,7 +581,7 @@ RNA-seq data with the ATAC-seq data. We will use the CCA method to
 integrate the two data sets. And then we can transfer the clustering
 information from the RNA-seq data to the ATAC-seq data.
 
-```{r}
+```r
 # Identify anchors
 transfer.anchors <- FindTransferAnchors(reference = pbmc.rna, query = pbmc.atac, features = VariableFeatures(object = pbmc.rna),
                                         reference.assay = "RNA", query.assay = "ACTIVITY", reduction = "cca")
@@ -623,24 +592,24 @@ cluster.predictions <- TransferData(anchorset = transfer.anchors, refdata = pbmc
 pbmc.atac <- AddMetaData(pbmc.atac, metadata = cluster.predictions)
 ```
 
-## Visualize the integrated data
+### Visualize the integrated data
 
 We are now able to visualize the integrated data. We can see the
 predicted clusters annotation at the UMAP of scATAC-seq data from the
 scRNA-seq data.
 
-```{r}
+```r
 # Visualize the integrated data
 DimPlot(pbmc.atac, group.by = "predicted.id", label = TRUE) + NoLegend() + ggtitle("Predicted clusters annotation")
 ```
 
-## Visualize the ATAC-seq regions around a gene of interest
+### Visualize the ATAC-seq regions around a gene of interest
 
 We can also visualize the ATAC-seq regions around a gene of interest. We
 will use two marker genes of T cells (CD4 and CD8). We can see the
 ATAC-seq regions around the CD4 and CD8A genes for different cell types.
 
-```{r}
+```r
 DefaultAssay(pbmc.atac) <- "ATAC"
 Idents(pbmc.atac) <- "predicted.id"
 CoveragePlot(
@@ -649,7 +618,7 @@ CoveragePlot(
   extend.downstream = 5000, extend.upstream = 5000)
 ```
 
-```{r}
+```r
 DefaultAssay(pbmc.atac) <- "ATAC"
 Idents(pbmc.atac) <- "predicted.id"
 CoveragePlot(
@@ -658,21 +627,21 @@ CoveragePlot(
   extend.downstream = 5000, extend.upstream = 5000)
 ```
 
-## Additional benchmark study: Evaluate the accuracy of the integrated data
+### Additional benchmark study: Evaluate the accuracy of the integrated data
 
 We use statistic to predict the label of scATAC-seq data from the
 scRNA-seq data. So, it is useful to know how accurate it is. We can
 evaluate the accuracy of the integrated data by comparing the predicted
 labels with the ground-truth labels.
 
-```{r}
+```r
 celltype.predictions <- TransferData(anchorset = transfer.anchors, refdata = pbmc.rna$seurat_annotations,
                                      weight.reduction = pbmc.atac[["lsi"]], dims = 2:30)
 
 pbmc.atac <- AddMetaData(pbmc.atac, metadata = celltype.predictions)
 ```
 
-```{r}
+```r
 # Visualize the integrated data
 pbmc.atac$annotation_correct <- pbmc.atac$predicted.id == pbmc.atac$seurat_annotations
 p1 <- DimPlot(pbmc.atac, group.by = "predicted.id", label = TRUE) + NoLegend() + ggtitle("Predicted annotation")
@@ -680,7 +649,7 @@ p2 <- DimPlot(pbmc.atac, group.by = "seurat_annotations", label = TRUE) + NoLege
 p1 | p2
 ```
 
-```{r}
+```r
 DefaultAssay(pbmc.atac) <- "ATAC"
 Idents(pbmc.atac) <- "predicted.id"
 CoveragePlot(
@@ -689,7 +658,7 @@ CoveragePlot(
   extend.downstream = 5000, extend.upstream = 5000)
 ```
 
-```{r}
+```r
 CoveragePlot(
   pbmc.atac, region = "CD8A", group.by = "predicted.id",
   idents = c("CD8 Naive", "CD8 TEM_1", "CD8 TEM_2", "CD4 Naive", "CD4 TCM", "CD4 TEM"),
@@ -705,7 +674,7 @@ We can also use some quantitative metrics to evaluate the accuracy of
 the integrated data. We can calculate the accuracy of the predicted
 labels by comparing the predicted labels with the ground-truth labels.
 
-```{r}
+```r
 # Evaluate the accuracy of the integrated data
 predictions <- table(pbmc.atac$seurat_annotations, pbmc.atac$predicted.id)
 predictions <- predictions/rowSums(predictions)  # normalize for number of cells in each cell type
@@ -720,7 +689,7 @@ data <- FetchData(pbmc.atac, vars = c("prediction.score.max", "annotation_correc
 p1
 ```
 
-```{r}
+```r
 p2 <- ggplot(data, aes(prediction.score.max, fill = annotation_correct, colour = annotation_correct)) +
   geom_density(alpha = 0.5) + theme_cowplot() + scale_fill_discrete(name = "Annotation Correct",
                                                                     labels = c(paste0("FALSE (n = ", incorrect, ")"), paste0("TRUE (n = ", correct, ")"))) + scale_color_discrete(name = "Annotation Correct",
