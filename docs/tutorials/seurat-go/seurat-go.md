@@ -87,12 +87,117 @@ BiocManager::install("enrichplot")
 ```r
 # load libraries
 library(Seurat)
+
+## Loading required package: SeuratObject
+## Loading required package: sp
+## 'SeuratObject' was built under R 4.4.0 but the current version is
+## 4.4.1; it is recomended that you reinstall 'SeuratObject' as the ABI
+## for R may have changed
+## 'SeuratObject' was built with package 'Matrix' 1.7.0 but the current
+## version is 1.7.1; it is recomended that you reinstall 'SeuratObject' as
+## the ABI for 'Matrix' may have changed
+## 
+## Attaching package: 'SeuratObject'
+## The following objects are masked from 'package:base':
+## 
+##     intersect, t
+
 library(Signac)
+
+## ── Installed datasets ──────────────────────────────── SeuratData v0.2.2.9001 ──
+## ✔ ifnb         3.1.0                    ✔ pbmcMultiome 0.1.4
+## ────────────────────────────────────── Key ─────────────────────────────────────
+## ✔ Dataset loaded successfully
+## ❯ Dataset built with a newer version of Seurat than installed
+## ❓ Unknown version of Seurat installed
+
 library(EnsDb.Hsapiens.v86)
+
+## Loading required package: ensembldb
+## Loading required package: BiocGenerics
+## 
+## Attaching package: 'BiocGenerics'
+## The following object is masked from 'package:SeuratObject':
+## 
+##     intersect
+## The following objects are masked from 'package:stats':
+## 
+##     IQR, mad, sd, var, xtabs
+## The following objects are masked from 'package:base':
+## 
+##     anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+##     colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+##     get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+##     match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+##     Position, rank, rbind, Reduce, rownames, sapply, setdiff, table,
+##     tapply, union, unique, unsplit, which.max, which.min
+## Loading required package: GenomicRanges
+## Loading required package: stats4
+## Loading required package: S4Vectors
+## 
+## Attaching package: 'S4Vectors'
+## The following object is masked from 'package:utils':
+## 
+##     findMatches
+## The following objects are masked from 'package:base':
+## 
+##     expand.grid, I, unname
+## Loading required package: IRanges
+## 
+## Attaching package: 'IRanges'
+## The following object is masked from 'package:sp':
+## 
+##     %over%
+## Loading required package: GenomeInfoDb
+## Loading required package: GenomicFeatures
+## Loading required package: AnnotationDbi
+## Loading required package: Biobase
+## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with
+##     'browseVignettes()'. To cite Bioconductor, see
+##     'citation("Biobase")', and for packages 'citation("pkgname")'.
+## Loading required package: AnnotationFilter
+## 
+## Attaching package: 'ensembldb'
+## The following object is masked from 'package:stats':
+## 
+##     filter
+
 library(ggplot2)
 library(cowplot)
 library(clusterProfiler)
+
+## 
+## clusterProfiler v4.12.6 Learn more at https://yulab-smu.top/contribution-knowledge-mining/
+## 
+## Please cite:
+## 
+## S Xu, E Hu, Y Cai, Z Xie, X Luo, L Zhan, W Tang, Q Wang, B Liu, R Wang,
+## W Xie, T Wu, L Xie, G Yu. Using clusterProfiler to characterize
+## multiomics data. Nature Protocols. 2024, doi:10.1038/s41596-024-01020-z
+## 
+## Attaching package: 'clusterProfiler'
+## The following objects are masked from 'package:ensembldb':
+## 
+##     filter, select
+## The following object is masked from 'package:AnnotationDbi':
+## 
+##     select
+## The following object is masked from 'package:IRanges':
+## 
+##     slice
+## The following object is masked from 'package:S4Vectors':
+## 
+##     rename
+## The following object is masked from 'package:stats':
+## 
+##     filter
+
 library(org.Hs.eg.db)
+
+## 
+
 library(enrichplot)
 ```
 
@@ -144,10 +249,74 @@ workshop for more details.
 ```r
 # Perform standard analysis of each modality independently RNA analysis
 pbmc.rna <- NormalizeData(pbmc.rna)
+
+## Normalizing layer: counts
+
 pbmc.rna <- FindVariableFeatures(pbmc.rna)
+
+## Finding variable features for layer counts
+
 pbmc.rna <- ScaleData(pbmc.rna)
+
+## Centering and scaling data matrix
+
 pbmc.rna <- RunPCA(pbmc.rna)
+
+## PC_ 1 
+## Positive:  PLXDC2, SLC8A1, LRMDA, FCN1, TYMP, MCTP1, JAK2, RBM47, IRAK3, NAMPT 
+##     DMXL2, TBXAS1, ZEB2, LYN, LRRK2, SAT1, GAB2, CYBB, TNFAIP2, CSF3R 
+##     HCK, TLR2, CLEC7A, LYST, VCAN, DENND1A, FGD4, CD36, GRK3, FAM49A 
+## Negative:  CD247, IL32, CAMK4, IL7R, LTB, LEF1, BACH2, INPP4B, BCL2, SYNE2 
+##     THEMIS, TRBC2, RORA, TXK, ANK3, CD69, TRBC1, MLLT3, APBA2, ACTG1 
+##     RASGRF2, NELL2, LINC01934, TAFA1, SAMD3, PCAT1, PFN1, NCALD, CTSW, KCNQ5 
+## PC_ 2 
+## Positive:  CD247, IL32, DPYD, IL7R, INPP4B, AOAH, CAMK4, PDE3B, THEMIS, TXK 
+##     RORA, LEF1, SLCO3A1, NEAT1, FNDC3B, ARHGAP26, ANXA1, SRGN, ADGRE5, SAMD3 
+##     SYNE2, NCALD, TRBC1, CTSW, PLCB1, APBA2, CCL5, S100A4, TGFBR3, PRF1 
+## Negative:  BANK1, PAX5, MS4A1, FCRL1, NIBAN3, AFF3, IGHM, EBF1, LINC00926, OSBPL10 
+##     RALGPS2, CD79A, CD22, COBLL1, BLK, BLNK, AP002075.1, ADAM28, IGHD, COL19A1 
+##     BCL11A, CD79B, PLEKHG1, GNG7, DENND5B, WDFY4, TCF4, AC120193.1, RUBCNL, SPIB 
+## PC_ 3 
+## Positive:  BACH2, LEF1, PDE3B, CAMK4, IL7R, LTB, ANK3, FHIT, INPP4B, NELL2 
+##     BCL2, RASGRF2, CSGALNACT1, SLC2A3, MLLT3, AC139720.1, PLCL1, PRKN, PAX5, FCRL1 
+##     LINC00926, TSHZ2, MS4A1, PTPRK, AL589693.1, CD79A, EBF1, ST6GALNAC3, BANK1, COL19A1 
+## Negative:  GZMB, NKG7, GNLY, PRF1, KLRD1, GZMA, CST7, CLIC3, CCL5, FGFBP2 
+##     SPON2, ADGRG1, KLRF1, GZMH, CCL4, TGFBR3, LINC00996, LINC01478, PDGFD, PTGDR 
+##     C1orf21, FCRL6, CLEC4C, SLAMF7, BNC2, CTSW, IL2RB, EPHB1, LILRA4, HOPX 
+## PC_ 4 
+## Positive:  NKG7, GNLY, PRF1, KLRD1, GZMA, CST7, CCL5, FGFBP2, MCTP2, ADGRG1 
+##     GZMH, CCL4, KLRF1, FCGR3A, SPON2, TGFBR3, PDGFD, PAX5, FCRL1, MS4A1 
+##     FCRL6, PTGDR, BNC2, MTSS1, CX3CR1, LINC00926, C1orf21, IL2RB, PPP2R2B, HOPX 
+## Negative:  LINC01478, CUX2, EPHB1, CLEC4C, LILRA4, COL26A1, AC023590.1, PTPRS, SCN9A, LINC01374 
+##     COL24A1, LINC00996, NRP1, PHEX, FAM160A1, TNFRSF21, PLXNA4, PACSIN1, SCAMP5, SLC35F3 
+##     DNASE1L3, P3H2, LRRC26, PLD4, ITM2C, SCN1A-AS1, PLEKHD1, SERPINF1, SCT, PTCRA 
+## PC_ 5 
+## Positive:  CDKN1C, IFITM3, HES4, CSF1R, SMIM25, FCGR3A, MS4A7, LST1, AIF1, LRRC25 
+##     AC104809.2, MAFB, CALHM6, CFD, AC020651.2, SERPINA1, GPBAR1, SIGLEC10, CST3, HMOX1 
+##     CTSL, TCF7L2, FMNL2, HLA-DPA1, CKB, MTSS1, COTL1, IFI30, CCDC26, SPRED1 
+## Negative:  PLCB1, VCAN, ARHGAP24, CSF3R, DYSF, LINC00937, FNDC3B, GLT1D1, VCAN-AS1, AC020916.1 
+##     PDE4D, PADI4, ARHGAP26, CREB5, TREM1, MCTP2, CD36, MEGF9, KIF13A, MICAL2 
+##     FCAR, ACSL1, CLMN, JUN, ANXA1, MIR646HG, RAB11FIP1, CRISPLD2, GNLY, ZBTB16
+
 pbmc.rna <- RunUMAP(pbmc.rna, dims = 1:30)
+
+## Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+## To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'
+## This message will be shown once per session
+## 11:47:36 UMAP embedding parameters a = 0.9922 b = 1.112
+## 11:47:36 Read 10412 rows and found 30 numeric columns
+## 11:47:36 Using Annoy for neighbor search, n_neighbors = 30
+## 11:47:36 Building Annoy index with metric = cosine, n_trees = 50
+## 0%   10   20   30   40   50   60   70   80   90   100%
+## [----|----|----|----|----|----|----|----|----|----|
+## **************************************************|
+## 11:47:36 Writing NN index file to temp file /var/folders/pv/fvynh7953flggrfb49p2lqsc0000gn/T//RtmpuPPPuo/file4dc32cd5de65
+## 11:47:36 Searching Annoy index using 1 thread, search_k = 3000
+## 11:47:38 Annoy recall = 100%
+## 11:47:38 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+## 11:47:39 Initializing from normalized Laplacian + noise (using RSpectra)
+## 11:47:39 Commencing optimization for 200 epochs, with 450622 positive edges
+## 11:47:42 Optimization finished
 ```
 
 ### Do clustering and visualization for RNA data
@@ -157,11 +326,26 @@ We want to overview the RNA data by clustering and visualizing the data.
 ```r
 # Clustering
 pbmc.rna <- FindNeighbors(pbmc.rna, dims = 1:30)
+
+## Computing nearest neighbor graph
+## Computing SNN
+
 pbmc.rna <- FindClusters(pbmc.rna, resolution = 0.5)
+
+## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+## 
+## Number of nodes: 10412
+## Number of edges: 412246
+## 
+## Running Louvain algorithm...
+## Maximum modularity in 10 random starts: 0.9154
+## Number of communities: 17
+## Elapsed time: 0 seconds
 
 # Visualize the RNA data
 DimPlot(pbmc.rna, group.by = "seurat_clusters", label = TRUE)
 ```
+![](./media/unnamed-chunk-6-1.png)
 
 ### Find marker genes for each cell sub-type
 
@@ -175,7 +359,35 @@ genes for each cluster to further explore the difference.
 Idents(pbmc.rna) <- "seurat_clusters"
 marker.genes.pbmc.rna <- FindAllMarkers(pbmc.rna, only.pos = TRUE, 
                                         min.pct = 0.5, logfc.threshold = 0.5)
+
+## Calculating cluster 0
+## For a (much!) faster implementation of the Wilcoxon Rank Sum Test,
+## (default method for FindMarkers) please install the presto package
+## --------------------------------------------
+## install.packages('devtools')
+## devtools::install_github('immunogenomics/presto')
+## --------------------------------------------
+## After installation of presto, Seurat will automatically use the more 
+## efficient implementation (no further action necessary).
+## This message will be shown once per session
+## Calculating cluster 1
+## Calculating cluster 2
+## Calculating cluster 3
+## Calculating cluster 4
+## Calculating cluster 5
+## Calculating cluster 6
+## Calculating cluster 7
+## Calculating cluster 8
+## Calculating cluster 9
+## Calculating cluster 10
+## Calculating cluster 11
+## Calculating cluster 12
+## Calculating cluster 13
+## Calculating cluster 14
+## Calculating cluster 15
+## Calculating cluster 16
 ```
+
 
 ## Gene Ontology analysis
 
@@ -193,10 +405,18 @@ Let's have a look the data structure of the result of marker gene list.
 marker.genes.pbmc.rna[1:5, ]
 ```
 
+|        | p_val <dbl\> | avg_log2FC <dbl\> | pct.1 <dbl\> | pct.2 <dbl\> | p_val_adj <dbl\> | cluster <fct\> | gene <chr\> |
+|--------|------------:|-----------------:|------------:|------------:|----------------:|---------------|------------|
+| LRMDA  |           0 |         3.907970 |       0.976 |       0.142 |               0 | 0             | LRMDA      |
+| PLXDC2 |           0 |         3.948556 |       0.994 |       0.171 |               0 | 0             | PLXDC2     |
+| SLC8A1 |           0 |         3.389460 |       0.977 |       0.158 |               0 | 0             | SLC8A1     |
+| CSF3R  |           0 |         4.401877 |       0.903 |       0.092 |               0 | 0             | CSF3R      |
+| RBM47  |           0 |         3.747440 |       0.935 |       0.153 |               0 | 0             | RBM47      |
+
 ### Find marker genes for Cluster 2, Cluster 3 and Cluster 8
 
 The gene list is too long, we will just focus on Cluster 2, Cluster 3
-and Cluster 8 with significant p-value (adjust p-value \< 0.05).
+and Cluster 8 with significant p-value (adjust p-value < 0.05).
 
 ```r
 Cluster2.markers <- marker.genes.pbmc.rna[marker.genes.pbmc.rna$cluster==2 
@@ -216,10 +436,25 @@ ontology analysis.
 ```r
 Cluster2.gene_ids <- bitr(Cluster2.markers$gene, fromType = "SYMBOL",
                                    toType = "ENTREZID", OrgDb = org.Hs.eg.db)
+
+## 'select()' returned 1:1 mapping between keys and columns
+## Warning in bitr(Cluster2.markers$gene, fromType = "SYMBOL", toType =
+## "ENTREZID", : 0.41% of input gene IDs are fail to map...
+
 Cluster3.gene_ids <- bitr(Cluster3.markers$gene, fromType = "SYMBOL",
                                    toType = "ENTREZID", OrgDb = org.Hs.eg.db)
+
+## 'select()' returned 1:1 mapping between keys and columns
+## Warning in bitr(Cluster3.markers$gene, fromType = "SYMBOL", toType =
+## "ENTREZID", : 1.01% of input gene IDs are fail to map...
+
 Cluster8.gene_ids <- bitr(Cluster8.markers$gene, fromType = "SYMBOL",
                                    toType = "ENTREZID", OrgDb = org.Hs.eg.db)
+
+## 'select()' returned 1:1 mapping between keys and columns
+## Warning in bitr(Cluster8.markers$gene, fromType = "SYMBOL", toType =
+## "ENTREZID", : 2.94% of input gene IDs are fail to map...
+
 ```
 
 ### Perform GO enrichment analysis for Cluster 2
@@ -270,6 +505,8 @@ barplot(Cluster2.ego, showCategory=10,
         title="GO Enrichment Analysis for Cluster 2")
 ```
 
+![](./media/unnamed-chunk-12-1.png)
+
 #### Dot plot
 
 Dot plot is another way to visualize the GO enrichment results with more
@@ -283,6 +520,8 @@ p1 <- dotplot(Cluster2.ego, showCategory=20,
 p1 + theme(axis.text.y = element_text(size = 3))
 ```
 
+![](./media/unnamed-chunk-13-1.png)
+
 #### Enrichment map plot
 
 The GO terms are correlated with each other. The enrichment map plot can
@@ -294,6 +533,8 @@ Cluster2.ego <- pairwise_termsim(Cluster2.ego)
 emapplot(Cluster2.ego, showCategory=20)
 ```
 
+![](./media/unnamed-chunk-14-1.png)
+
 #### Cnet plot
 
 Cnet plot can show you the relationship between GO terms and genes. It
@@ -304,35 +545,29 @@ cnetplot(Cluster2.ego, categorySize="pvalue",
          foldChange=Cluster2.gene_ids$ENTREZID, showCategory = 3)
 ```
 
-### Challenge: Perform GO enrichment analysis for the other 2 cluster
+![](./media/unnamed-chunk-15-1.png)
 
-<button onclick="myFunction(&#39;q2&#39;)">
+!!! question "Challenge"
+    Perform GO enrichment analysis for the other 2 cluster.
+    ??? info "Solution"
+        ```r
+        Cluster3.ego <- enrichGO(gene = Cluster3.gene_ids$ENTREZID, 
+                        OrgDb = org.Hs.eg.db, 
+                        ont = "BP",
+                        pAdjustMethod = "BH", 
+                        pvalueCutoff = 0.05, 
+                        qvalueCutoff = 0.05, 
+                        readable = TRUE)
 
-Show solutions
+        Cluster8.ego <- enrichGO(gene = Cluster8.gene_ids$ENTREZID,
+                        OrgDb = org.Hs.eg.db, 
+                        ont = "BP",
+                        pAdjustMethod = "BH", 
+                        pvalueCutoff = 0.05, 
+                        qvalueCutoff = 0.05, 
+                        readable = TRUE)
+        ```
 
-</button>
-
-::: {#q2 style="display:none"}
-```r
-Cluster3.ego <- enrichGO(gene = Cluster3.gene_ids$ENTREZID, 
-                OrgDb = org.Hs.eg.db, 
-                ont = "BP",
-                pAdjustMethod = "BH", 
-                pvalueCutoff = 0.05, 
-                qvalueCutoff = 0.05, 
-                readable = TRUE)
-
-Cluster8.ego <- enrichGO(gene = Cluster8.gene_ids$ENTREZID,
-                OrgDb = org.Hs.eg.db, 
-                ont = "BP",
-                pAdjustMethod = "BH", 
-                pvalueCutoff = 0.05, 
-                qvalueCutoff = 0.05, 
-                readable = TRUE)
-```
-:::
-
-<!-- end solutions -->
 
 ### Visualize the GO enrichment results for other 2 clusters
 
@@ -340,51 +575,62 @@ Cluster8.ego <- enrichGO(gene = Cluster8.gene_ids$ENTREZID,
 barplot(Cluster3.ego, showCategory=10, 
         title="GO Enrichment Analysis for Cluster 3")
 ```
+![](./media/unnamed-chunk-17-1.png)
 
 ```r
 p_cluster3 <- dotplot(Cluster3.ego, showCategory=20, 
         title="GO Enrichment Analysis for Cluster 3")
 p_cluster3 + theme(axis.text.y = element_text(size = 3))
 ```
+![](./media/unnamed-chunk-18-1.png)
 
 ```r
 Cluster3.ego <- pairwise_termsim(Cluster3.ego)
 emapplot(Cluster3.ego, showCategory=20)
 ```
+![](./media/unnamed-chunk-19-1.png)
 
 ```r
 cnetplot(Cluster3.ego, categorySize="pvalue", 
          foldChange=Cluster3.gene_ids$ENTREZID, showCategory = 3)
+
+## Warning in cnetplot.enrichResult(x, ...): Use 'color.params = list(foldChange = your_value)' instead of 'foldChange'.
+##  The foldChange parameter will be removed in the next version.
 ```
+![](./media/unnamed-chunk-20-1.png)
 
 ```r
 barplot(Cluster8.ego, showCategory=10, 
         title="GO Enrichment Analysis for Cluster 8")
 ```
+![](./media/unnamed-chunk-21-1.png)
 
 ```r
 p_cluster8 <- dotplot(Cluster8.ego, showCategory=20, 
         title="GO Enrichment Analysis for Cluster 8")
 p_cluster8 + theme(axis.text.y = element_text(size = 3))
 ```
+![](./media/unnamed-chunk-22-1.png)
 
 ```r
 Cluster8.ego <- pairwise_termsim(Cluster8.ego)
 emapplot(Cluster8.ego, showCategory=20)
 ```
+![](./media/unnamed-chunk-23-1.png)
 
 ```r
 cnetplot(Cluster8.ego, categorySize="pvalue", 
          foldChange=Cluster8.gene_ids$ENTREZID, showCategory = 3)
+
+## Warning in cnetplot.enrichResult(x, ...): Use 'color.params = list(foldChange = your_value)' instead of 'foldChange'.
+##  The foldChange parameter will be removed in the next version.
 ```
+![](./media/unnamed-chunk-24-1.png)
 
-### Discussion:
-
--   What are the differences between the three clusters?
-
--    Which plots are most informative for you?
-
--    What are the most interesting GO terms you found?
+!!! question "Discussion"
+    - What are the differences between the three clusters?
+    - Which plots are most informative for you?
+    - What are the most interesting GO terms you found?
 
 ## Do gene ontology analysis for all clusters
 
@@ -399,6 +645,24 @@ cluster_gene_list <- lapply(cluster_gene_list, function(genes) {
   gene_ids <- bitr(genes, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = org.Hs.eg.db)
   return(gene_ids$ENTREZID)
 })
+
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
+## 'select()' returned 1:many mapping between keys and columns
+## 'select()' returned 1:1 mapping between keys and columns
 ```
 
 We can use the `compareCluster()` function from `clusterProfiler`
@@ -427,6 +691,7 @@ cluster.p1 <- dotplot(go_compare_bp, showCategory = 1,
               title = "GO Enrichment (Biological Process)")
 cluster.p1 + theme(axis.text.y = element_text(size = 5))
 ```
+![](./media/unnamed-chunk-27-1.png)
 
 But dot plot is not good for showing the relationship between GO terms.
 We can select and clustering GO terms first and then use tree plot to
@@ -435,39 +700,37 @@ show the correlation between GO terms.
 ```r
 trim_bp <- pairwise_termsim(go_compare_bp, showCategory = 50)
 treeplot(trim_bp, showCategory = 5)
+
+## Scale for fill is already present.
+## Adding another scale for fill, which will replace the existing scale.
+## Warning in (function (..., type = getOption("ggplot2.continuous.fill")) : log-10 transformation introduced infinite values.
+## log-10 transformation introduced infinite values.
 ```
 
-### Challenge: Perform GO enrichment analysis for other two ontology
+![](./media/unnamed-chunk-28-1.png)
 
-<button onclick="myFunction(&#39;q3&#39;)">
+!!! question "Challenge"
+    Perform GO enrichment analysis for other two ontologies.
+    ??? info "Solution"
+        ```r
+        # GO enrichment analysis for CC
+        go_compare_cc <- compareCluster(geneCluster = cluster_gene_list, 
+                                    fun = "enrichGO", 
+                                    OrgDb = org.Hs.eg.db, 
+                                    ont = "CC",  # "BP"、"MF" or "CC"
+                                    pAdjustMethod = "BH",
+                                    pvalueCutoff = 0.05,
+                                    qvalueCutoff = 0.05)
 
-Show solutions
-
-</button>
-
-::: {#q3 style="display:none"}
-```r
-# GO enrichment analysis for CC
-go_compare_cc <- compareCluster(geneCluster = cluster_gene_list, 
-                             fun = "enrichGO", 
-                             OrgDb = org.Hs.eg.db, 
-                             ont = "CC",  # "BP"、"MF" or "CC"
-                             pAdjustMethod = "BH",
-                             pvalueCutoff = 0.05,
-                             qvalueCutoff = 0.05)
-
-# GO enrichment analysis for MF
-go_compare_mf <- compareCluster(geneCluster = cluster_gene_list, 
-                             fun = "enrichGO", 
-                             OrgDb = org.Hs.eg.db, 
-                             ont = "MF",  # "BP"、"MF" or "CC"
-                             pAdjustMethod = "BH",
-                             pvalueCutoff = 0.05,
-                             qvalueCutoff = 0.05)
-```
-:::
-
-<!-- end solutions -->
+        # GO enrichment analysis for MF
+        go_compare_mf <- compareCluster(geneCluster = cluster_gene_list, 
+                                    fun = "enrichGO", 
+                                    OrgDb = org.Hs.eg.db, 
+                                    ont = "MF",  # "BP"、"MF" or "CC"
+                                    pAdjustMethod = "BH",
+                                    pvalueCutoff = 0.05,
+                                    qvalueCutoff = 0.05)
+        ```
 
 ### Visualize the GO enrichment results for other two ontology
 
@@ -477,23 +740,26 @@ cluster.p2 <- dotplot(go_compare_cc, showCategory = 1,
 
 cluster.p2 + theme(axis.text.y = element_text(size = 5))
 ```
+![](./media/unnamed-chunk-30-1.png)
 
 ```r
 trim_cc <- pairwise_termsim(go_compare_cc, showCategory = 50)
 treeplot(trim_cc, showCategory = 5)
 ```
+![](./media/unnamed-chunk-31-1.png)
 
 ```r
 cluster.p3 <- dotplot(go_compare_mf, showCategory = 1,
               title = "GO Enrichment (Molecular Function)")
 cluster.p3 + theme(axis.text.y = element_text(size = 5))
-
 ```
+![](./media/unnamed-chunk-32-1.png)
 
 ```r
 trim_mf <- pairwise_termsim(go_compare_mf, showCategory = 50)
 treeplot(trim_mf, showCategory = 5)
 ```
+![](./media/unnamed-chunk-33-1.png)
 
 ## Integrate ATAC-seq data with single-cell RNA-seq data (N Integration)
 
@@ -530,10 +796,32 @@ Annotation(pbmc.atac) <- annotations
 
 # We exclude the first dimension as this is typically correlated with sequencing depth
 pbmc.atac <- RunTFIDF(pbmc.atac)
+
+## Performing TF-IDF normalization
+
 pbmc.atac <- FindTopFeatures(pbmc.atac, min.cutoff = "q0")
 pbmc.atac <- RunSVD(pbmc.atac)
+
+## Running SVD
+## Scaling cell embeddings
+
 pbmc.atac <- RunUMAP(pbmc.atac, reduction = "lsi", dims = 2:30, 
                      reduction.name = "umap.atac", reduction.key = "atacUMAP_")
+
+## 11:52:35 UMAP embedding parameters a = 0.9922 b = 1.112
+## 11:52:36 Read 10412 rows and found 29 numeric columns
+## 11:52:36 Using Annoy for neighbor search, n_neighbors = 30
+## 11:52:36 Building Annoy index with metric = cosine, n_trees = 50
+## 0%   10   20   30   40   50   60   70   80   90   100%
+## [----|----|----|----|----|----|----|----|----|----|
+## **************************************************|
+## 11:52:36 Writing NN index file to temp file /var/folders/pv/fvynh7953flggrfb49p2lqsc0000gn/T//RtmpuPPPuo/file4dc37680c360
+## 11:52:36 Searching Annoy index using 1 thread, search_k = 3000
+## 11:52:38 Annoy recall = 100%
+## 11:52:39 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+## 11:52:40 Initializing from normalized Laplacian + noise (using RSpectra)
+## 11:52:40 Commencing optimization for 200 epochs, with 414208 positive edges
+## 11:52:43 Optimization finished
 ```
 
 ### Visualize the ATAC-seq data with scRNA-seq data
@@ -547,6 +835,7 @@ p1 <- DimPlot(pbmc.rna, group.by = "seurat_clusters", label = TRUE) + NoLegend()
 p2 <- DimPlot(pbmc.atac, group.by = "orig.ident", label = FALSE) + NoLegend() + ggtitle("ATAC")
 p1 + p2
 ```
+![](./media/unnamed-chunk-36-1.png)
 
 From the visualization, we get the clustering information from the RNA
 data and but we know nothing about the ATAC data.
@@ -564,6 +853,9 @@ function from `Signac` package to quantify the gene activity.
 # quantify gene activity
 gene.activities <- GeneActivity(pbmc.atac, features = VariableFeatures(pbmc.rna))
 
+## Extracting gene coordinates
+## Extracting reads overlapping genomic regions
+
 # add gene activities as a new assay
 pbmc.atac[["ACTIVITY"]] <- CreateAssayObject(counts = gene.activities)
 
@@ -571,6 +863,8 @@ pbmc.atac[["ACTIVITY"]] <- CreateAssayObject(counts = gene.activities)
 DefaultAssay(pbmc.atac) <- "ACTIVITY"
 pbmc.atac <- NormalizeData(pbmc.atac)
 pbmc.atac <- ScaleData(pbmc.atac, features = rownames(pbmc.atac))
+
+## Centering and scaling data matrix
 ```
 
 ### Integrate RNA-seq data with ATAC-seq data
@@ -586,8 +880,20 @@ information from the RNA-seq data to the ATAC-seq data.
 transfer.anchors <- FindTransferAnchors(reference = pbmc.rna, query = pbmc.atac, features = VariableFeatures(object = pbmc.rna),
                                         reference.assay = "RNA", query.assay = "ACTIVITY", reduction = "cca")
 
+## Warning: 714 features of the features specified were not present in both the reference query assays. 
+## Continuing with remaining 1286 features.
+## Running CCA
+## Merging objects
+## Finding neighborhoods
+## Finding anchors
+##  Found 23956 anchors
+
 cluster.predictions <- TransferData(anchorset = transfer.anchors, refdata = pbmc.rna$seurat_clusters,
                                      weight.reduction = pbmc.atac[["lsi"]], dims = 2:30)
+
+## Finding integration vectors
+## Finding integration vector weights
+## Predicting cell labels
 
 pbmc.atac <- AddMetaData(pbmc.atac, metadata = cluster.predictions)
 ```
@@ -602,6 +908,7 @@ scRNA-seq data.
 # Visualize the integrated data
 DimPlot(pbmc.atac, group.by = "predicted.id", label = TRUE) + NoLegend() + ggtitle("Predicted clusters annotation")
 ```
+![](./media/unnamed-chunk-39-1.png)
 
 ### Visualize the ATAC-seq regions around a gene of interest
 
@@ -616,7 +923,11 @@ CoveragePlot(
   pbmc.atac, region = "CD4", group.by = "predicted.id",
   idents = c("2", "3", "8"),
   extend.downstream = 5000, extend.upstream = 5000)
+
+## Warning: Removed 10 rows containing missing values or values outside the scale range
+## (`geom_segment()`).
 ```
+![](./media/unnamed-chunk-40-1.png)
 
 ```r
 DefaultAssay(pbmc.atac) <- "ATAC"
@@ -626,6 +937,7 @@ CoveragePlot(
   idents = c("2", "3", "8"),
   extend.downstream = 5000, extend.upstream = 5000)
 ```
+![](./media/unnamed-chunk-41-1.png)
 
 ### Additional benchmark study: Evaluate the accuracy of the integrated data
 
@@ -638,6 +950,10 @@ labels with the ground-truth labels.
 celltype.predictions <- TransferData(anchorset = transfer.anchors, refdata = pbmc.rna$seurat_annotations,
                                      weight.reduction = pbmc.atac[["lsi"]], dims = 2:30)
 
+## Finding integration vectors
+## Finding integration vector weights
+## Predicting cell labels
+
 pbmc.atac <- AddMetaData(pbmc.atac, metadata = celltype.predictions)
 ```
 
@@ -648,6 +964,8 @@ p1 <- DimPlot(pbmc.atac, group.by = "predicted.id", label = TRUE) + NoLegend() +
 p2 <- DimPlot(pbmc.atac, group.by = "seurat_annotations", label = TRUE) + NoLegend() + ggtitle("Ground-truth annotation")
 p1 | p2
 ```
+![](./media/unnamed-chunk-43-1.png)
+
 
 ```r
 DefaultAssay(pbmc.atac) <- "ATAC"
@@ -656,7 +974,12 @@ CoveragePlot(
   pbmc.atac, region = "CD4", group.by = "predicted.id",
   idents = c("CD8 Naive", "CD8 TEM_1", "CD8 TEM_2", "CD4 Naive", "CD4 TCM", "CD4 TEM"),
   extend.downstream = 5000, extend.upstream = 5000)
+
+## Warning: Removed 10 rows containing missing values or values outside the scale range
+## (`geom_segment()`).
 ```
+![](./media/unnamed-chunk-44-1.png)
+
 
 ```r
 CoveragePlot(
@@ -664,6 +987,7 @@ CoveragePlot(
   idents = c("CD8 Naive", "CD8 TEM_1", "CD8 TEM_2", "CD4 Naive", "CD4 TCM", "CD4 TEM"),
   extend.downstream = 5000, extend.upstream = 5000)
 ```
+![](./media/unnamed-chunk-45-1.png)
 
 Overall, the visualization of the integrated data shows that the
 predicted labels are consistent with the ground-truth labels. The
@@ -688,6 +1012,7 @@ incorrect <- length(which(pbmc.atac$seurat_annotations != pbmc.atac$predicted.id
 data <- FetchData(pbmc.atac, vars = c("prediction.score.max", "annotation_correct"))
 p1
 ```
+![](./media/unnamed-chunk-46-1.png)
 
 ```r
 p2 <- ggplot(data, aes(prediction.score.max, fill = annotation_correct, colour = annotation_correct)) +
@@ -697,6 +1022,8 @@ p2 <- ggplot(data, aes(prediction.score.max, fill = annotation_correct, colour =
 
 p2
 ```
+![](./media/unnamed-chunk-47-1.png)
+
 
 In this example, the annotation for an scATAC-seq profile is correctly
 predicted via scRNA-seq integration \~90% of the time. In addition, the
@@ -704,7 +1031,7 @@ prediction.score.max field quantifies the uncertainty associated with
 our predicted annotations. We can see that cells that are correctly
 annotated are typically associated with high prediction scores (\>90%),
 while cells that are incorrectly annotated are associated with sharply
-lower prediction scores (\<50%). Incorrect assignments also tend to
+lower prediction scores (<50%). Incorrect assignments also tend to
 reflect closely related cell types (i.e. Intermediate vs. Naive B
 cells).
 
