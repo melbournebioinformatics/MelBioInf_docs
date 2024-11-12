@@ -58,15 +58,16 @@ nav:
             - 'Intro to Metabarcoding using QIIME2: *Mammal dataset*': 'tutorials/qiime2_mammal/qiime2_mammal.md'
     - 'Transcriptomics':
         - 'RNAseq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
-        - 'Bulk RNAseq':
+        - 'Bulk RNA-seq':
             - 'Introduction to bulk RNAseq analysis': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
             - 'RNAseq analysis using HISAT2 (Galaxy)': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tutorial.md'
             - 'RNAseq analysis using Tuxedo (Galaxy)': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tuxedo.md'
             - 'RNAseq differential expression tool comparision (Galaxy)': 'tutorials/rna_seq_dge_advanced/rna_seq_advanced_tutorial.md'
             - 'RNAseq differential expression in R': 'tutorials/rna_seq_dge_in_r/rna_seq_r.md'
-        - 'Singlecell RNAseq':
-            - '10X single-cell RNA-seq analysis in R': 'tutorials/singlecell/index.md'
+        - 'Single-cell RNA-seq':
+            - '10X scRNA-seq analysis in R': 'tutorials/singlecell/index.md'
             - 'scRNA-seq Integration and Differential Expression': 'tutorials/seurat-de/seurat-de.md'
+            - 'Gene Ontology (GO) and Data Integration for scRNA-seq': 'tutorials/seurat-go/seurat-go.md'
     - 'Proteomics':
         - 'Identifying proteins from mass spectrometry data': 'tutorials/proteomics_basic/proteomics_basic.md'
     - 'Statistics and Visualisation':
