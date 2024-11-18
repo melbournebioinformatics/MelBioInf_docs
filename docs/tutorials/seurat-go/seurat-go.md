@@ -87,117 +87,12 @@ BiocManager::install("enrichplot")
 ```r
 # load libraries
 library(Seurat)
-
-## Loading required package: SeuratObject
-## Loading required package: sp
-## 'SeuratObject' was built under R 4.4.0 but the current version is
-## 4.4.1; it is recomended that you reinstall 'SeuratObject' as the ABI
-## for R may have changed
-## 'SeuratObject' was built with package 'Matrix' 1.7.0 but the current
-## version is 1.7.1; it is recomended that you reinstall 'SeuratObject' as
-## the ABI for 'Matrix' may have changed
-## 
-## Attaching package: 'SeuratObject'
-## The following objects are masked from 'package:base':
-## 
-##     intersect, t
-
 library(Signac)
-
-## ── Installed datasets ──────────────────────────────── SeuratData v0.2.2.9001 ──
-## ✔ ifnb         3.1.0                    ✔ pbmcMultiome 0.1.4
-## ────────────────────────────────────── Key ─────────────────────────────────────
-## ✔ Dataset loaded successfully
-## ❯ Dataset built with a newer version of Seurat than installed
-## ❓ Unknown version of Seurat installed
-
 library(EnsDb.Hsapiens.v86)
-
-## Loading required package: ensembldb
-## Loading required package: BiocGenerics
-## 
-## Attaching package: 'BiocGenerics'
-## The following object is masked from 'package:SeuratObject':
-## 
-##     intersect
-## The following objects are masked from 'package:stats':
-## 
-##     IQR, mad, sd, var, xtabs
-## The following objects are masked from 'package:base':
-## 
-##     anyDuplicated, aperm, append, as.data.frame, basename, cbind,
-##     colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
-##     get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
-##     match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
-##     Position, rank, rbind, Reduce, rownames, sapply, setdiff, table,
-##     tapply, union, unique, unsplit, which.max, which.min
-## Loading required package: GenomicRanges
-## Loading required package: stats4
-## Loading required package: S4Vectors
-## 
-## Attaching package: 'S4Vectors'
-## The following object is masked from 'package:utils':
-## 
-##     findMatches
-## The following objects are masked from 'package:base':
-## 
-##     expand.grid, I, unname
-## Loading required package: IRanges
-## 
-## Attaching package: 'IRanges'
-## The following object is masked from 'package:sp':
-## 
-##     %over%
-## Loading required package: GenomeInfoDb
-## Loading required package: GenomicFeatures
-## Loading required package: AnnotationDbi
-## Loading required package: Biobase
-## Welcome to Bioconductor
-## 
-##     Vignettes contain introductory material; view with
-##     'browseVignettes()'. To cite Bioconductor, see
-##     'citation("Biobase")', and for packages 'citation("pkgname")'.
-## Loading required package: AnnotationFilter
-## 
-## Attaching package: 'ensembldb'
-## The following object is masked from 'package:stats':
-## 
-##     filter
-
 library(ggplot2)
 library(cowplot)
 library(clusterProfiler)
-
-## 
-## clusterProfiler v4.12.6 Learn more at https://yulab-smu.top/contribution-knowledge-mining/
-## 
-## Please cite:
-## 
-## S Xu, E Hu, Y Cai, Z Xie, X Luo, L Zhan, W Tang, Q Wang, B Liu, R Wang,
-## W Xie, T Wu, L Xie, G Yu. Using clusterProfiler to characterize
-## multiomics data. Nature Protocols. 2024, doi:10.1038/s41596-024-01020-z
-## 
-## Attaching package: 'clusterProfiler'
-## The following objects are masked from 'package:ensembldb':
-## 
-##     filter, select
-## The following object is masked from 'package:AnnotationDbi':
-## 
-##     select
-## The following object is masked from 'package:IRanges':
-## 
-##     slice
-## The following object is masked from 'package:S4Vectors':
-## 
-##     rename
-## The following object is masked from 'package:stats':
-## 
-##     filter
-
 library(org.Hs.eg.db)
-
-## 
-
 library(enrichplot)
 ```
 
