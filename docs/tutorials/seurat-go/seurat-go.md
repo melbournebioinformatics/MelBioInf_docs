@@ -57,7 +57,7 @@
 
 **Install R packages for this workshop**
 
-You only need to run these code once.
+You only need to run this code once.
 
 ```r
 # install Packages
@@ -115,14 +115,14 @@ library(SeuratData)
 InstallData("pbmcMultiome")
 ```
 
-### Load the data sets (Seurat object)
+### Load the datasets (Seurat object)
 
-We will use two data sets today. One is the single-cell RNA-seq data
-(`pbmc.rna`), and the other is the single-cell ATAC-seq data
-(`pbmc.atac`). We will do a gene ontology analysis for single-cell
-RNA-seq data set first. And we will integrate scRNA-seq data set to the
-scATAC-seq data set to explain the difference which we observe at the
-scRNA-seq analysis.
+We will use two datasets in this workshop. One is single-cell RNA-seq data
+(`pbmc.rna`), and the other is single-cell ATAC-seq data
+(`pbmc.atac`). We will do a gene ontology analysis for the single-cell
+RNA-seq dataset first. Afterwards, we will integrate the scRNA-seq dataset with the
+scATAC-seq dataset to explain differences observed in the
+scRNA-seq data.
 
 ```r
 # load both modalities
@@ -130,13 +130,13 @@ pbmc.rna <- LoadData("pbmcMultiome", "pbmc.rna")
 pbmc.atac <- LoadData("pbmcMultiome", "pbmc.atac")
 ```
 
-## Preprocess for single-cell RNA-seq data (Seurat pipeline)
+## Preprocessing for single-cell RNA-seq data (Seurat pipeline)
 
-### QC for RNA data (have done and saved in the data set)
+### QC for RNA data (already performed and saved in the dataset)
 
-To make this workshop focus on downstream analysis, we have done the QC
-for the RNA data and given label "filtered". We just choose cells that
-are not be labelled 'filtered'.
+In order to focus this workshop on downstream analysis, we have performed the QC
+steps for the RNA data and applied the label 'filtered'. We move forward by 
+selecting only cells that are not labelled 'filtered'.
 
 ```r
 # We use Seurat V5 object
@@ -148,7 +148,7 @@ pbmc.rna <- subset(pbmc.rna, seurat_annotations != "filtered")
 ### Preprocess RNA data (from Seurat workshop)
 
 We will perform standard Seurat pipeline for single-cell RNA analysis.
-We will normalize the data, find variable features, scale the data, run
+We will normalise the data, find variable features, scale the data, run
 PCA, and run UMAP. See also our introduction to single-cell RNA-seq
 workshop for more details.
 
@@ -156,7 +156,7 @@ workshop for more details.
 # Perform standard analysis of each modality independently RNA analysis
 pbmc.rna <- NormalizeData(pbmc.rna)
 
-## Normalizing layer: counts
+## Normalising layer: counts
 
 pbmc.rna <- FindVariableFeatures(pbmc.rna)
 
@@ -230,9 +230,9 @@ pbmc.rna <- RunUMAP(pbmc.rna, dims = 1:30)
 ## 11:47:42 Optimization finished
 ```
 
-### Do clustering and visualization for RNA data
+### Cluster and visualise the RNA data
 
-We want to overview the RNA data by clustering and visualizing the data.
+Next, we obtain an overview of the RNA data by visualising clusters.
 
 ```r
 # Clustering
@@ -253,20 +253,19 @@ pbmc.rna <- FindClusters(pbmc.rna, resolution = 0.5)
 ## Number of communities: 17
 ## Elapsed time: 0 seconds
 
-# Visualize the RNA data
+# Visualise the RNA data
 DimPlot(pbmc.rna, group.by = "seurat_clusters", label = TRUE)
 ```
 ![](./media/unnamed-chunk-6-1.png)
 
 ### Find marker genes for each cell sub-type
 
-We found it is very clear cluster 2, 3 and 8 should have some different
-functions, so they form very clear shape of cluster. Cluster 2 maybe
-more relate to cluster 2 comparing to cluster 8. We will find marker
-genes for each cluster to further explore the difference.
+We found that clusters 2, 3, and 8 likely have different functions,
+forming distinct clusters. We aim to find marker
+genes for each cluster to further explore the differences.
 
 ```r
-# Find marker genes for each cell subtype
+# Find marker genes for each cluster
 Idents(pbmc.rna) <- "seurat_clusters"
 marker.genes.pbmc.rna <- FindAllMarkers(pbmc.rna, only.pos = TRUE, 
                                         min.pct = 0.5, logfc.threshold = 0.5)
@@ -302,15 +301,15 @@ marker.genes.pbmc.rna <- FindAllMarkers(pbmc.rna, only.pos = TRUE,
 
 ## Gene Ontology analysis
 
-We know have a marker gene list for each cluster. But it is hard for us
-to find out true signals and explain these gene names. A good method to
-explain a list of gene is gene ontology analysis. We will perform gene
+We now have a marker gene list for each cluster. But it can be difficult
+to interpret a cluster based on gene names alone. A good method to
+interpret a list of genes is gene ontology analysis. We will perform gene
 ontology analysis to understand the biological functions of these marker
 genes.
 
 ### Preview the marker genes
 
-Let's have a look the data structure of the result of marker gene list.
+Let's have a look the data structure of the marker gene list.
 
 ```r
 marker.genes.pbmc.rna[1:5, ]
@@ -326,8 +325,8 @@ marker.genes.pbmc.rna[1:5, ]
 
 ### Find marker genes for Cluster 2, Cluster 3 and Cluster 8
 
-The gene list is too long, we will just focus on Cluster 2, Cluster 3
-and Cluster 8 with significant p-value (adjust p-value < 0.05).
+Because the gene list is long, we will focus on Cluster 2, Cluster 3
+and Cluster 8 marker genes with significant p-values (adjust p-value < 0.05).
 
 ```r
 Cluster2.markers <- marker.genes.pbmc.rna[marker.genes.pbmc.rna$cluster==2 
@@ -340,8 +339,8 @@ Cluster8.markers <- marker.genes.pbmc.rna[marker.genes.pbmc.rna$cluster==8
 
 ### Convert gene symbols to Entrez IDs
 
-Gene symbols is very useful, it can easily understand by human. But it
-is not unique, so we need to convert them to Entrez IDs for gene
+Gene symbols are useful, because they can be easily understand by humans. But gene
+symbols are not unique, so we need to convert them to Entrez IDs for gene
 ontology analysis.
 
 ```r
@@ -370,7 +369,7 @@ Cluster8.gene_ids <- bitr(Cluster8.markers$gene, fromType = "SYMBOL",
 
 ### Perform GO enrichment analysis for Cluster 2
 
-Let's begin with Cluster 2. I will show you how to perform gene ontology
+Let's begin with Cluster 2. This section demonstrates how to perform gene ontology
 analysis for Cluster 2. You can follow the same steps to do the analysis
 for Cluster 3 and Cluster 8.
 
@@ -380,10 +379,10 @@ perform gene ontology analysis.
 Firstly, we need to load the gene ontology database. We use the
 `org.Hs.eg.db` database for human gene ontology analysis. If you want to
 do gene ontology analysis for other species, you can find the
-corresponding database in the Bioconductor.
+corresponding database via Bioconductor.
 
-Then, we will first focus on biological process (BP) ontology, so
-`ont = "BP"`. There are also other two database of ontology (CC:
+We will first focus on biological process (BP) ontology, so
+`ont = "BP"`. There are also another two databases (CC:
 Cellular Component and MF: Molecular Function), you can try them later.
 
 We will set the p-value cutoff and q-value cutoff to 0.05 to control the
@@ -403,13 +402,13 @@ Cluster2.ego <- enrichGO(gene = Cluster2.gene_ids$ENTREZID,
                 readable = TRUE)
 ```
 
-### Visualize the GO enrichment results
+### Visualise the GO enrichment results
 
-#### Box plot
+#### Bar plot
 
-A good way to visualize the GO enrichment results is to use a box plot.
-It can tell you how many genes are overlap in each GO term with you
-marker gene list and how significant the enrichment is.
+A standard way to visualise GO enrichment results is to use a bar plot.
+It can tell you how many genes in the marker gene list overlap with each GO term,
+and how significant the enrichment is.
 
 ```r
 barplot(Cluster2.ego, showCategory=10, 
@@ -420,10 +419,10 @@ barplot(Cluster2.ego, showCategory=10,
 
 #### Dot plot
 
-Dot plot is another way to visualize the GO enrichment results with more
-information. It can show you the proportion of the overlap genes over
-the whole marker gene list and also overlap gene counts and p-value of
-each GO term. You can also set the number of GO terms you want to show.
+A dot plot is another way to visualise the GO enrichment results with more
+information. It can show you the proportion of the overlapping genes, the 
+overlapping gene counts, and the p-value for each GO term. You can also set
+the number of GO terms you want to show.
 
 ```r
 p1 <- dotplot(Cluster2.ego, showCategory=20, 
@@ -435,7 +434,7 @@ p1 + theme(axis.text.y = element_text(size = 3))
 
 #### Enrichment map plot
 
-The GO terms are correlated with each other. The enrichment map plot can
+GO terms are correlated with each other. The enrichment map plot can
 show you the correlation between GO terms. It can help you to understand
 the relationship between different biological processes.
 
@@ -448,8 +447,7 @@ emapplot(Cluster2.ego, showCategory=20)
 
 #### Cnet plot
 
-Cnet plot can show you the relationship between GO terms and genes. It
-can help you to understand the relationship between GO terms and genes.
+A Cnet plot can show you the relationship between GO terms and genes.
 
 ```r
 cnetplot(Cluster2.ego, categorySize="pvalue", 
@@ -480,7 +478,7 @@ cnetplot(Cluster2.ego, categorySize="pvalue",
         ```
 
 
-### Visualize the GO enrichment results for other 2 clusters
+### Visualise the GO enrichment results for the other 2 clusters
 
 ```r
 barplot(Cluster3.ego, showCategory=10, 
@@ -543,9 +541,9 @@ cnetplot(Cluster8.ego, categorySize="pvalue",
     - Which plots are most informative for you?
     - What are the most interesting GO terms you found?
 
-## Do gene ontology analysis for all clusters
+## Perform gene ontology analysis for all clusters
 
-We have done gene ontology analysis for each cluster. But we can also do
+We have completed gene ontology analysis for each cluster. But we can also perform
 gene ontology analysis for all clusters together. We can combine all
 marker genes from all clusters and do gene ontology analysis for them.
 
@@ -590,12 +588,11 @@ go_compare_bp <- compareCluster(geneCluster = cluster_gene_list,
                              qvalueCutoff = 0.05)
 ```
 
-### Visualize the GO enrichment results for all clusters
+### Visualise the GO enrichment results for all clusters
 
-Dot plot is a good way to visualize the GO enrichment results for all
-clusters. It can show you the proportion of the overlap genes over the
-whole marker gene list and also overlap gene counts and p-value of each
-GO term.
+A dot plot is a good way to visualise the GO enrichment results for all
+clusters. It can show you the proportion of overlap and p-value for each
+GO term, for all clusters in a single plot.
 
 ```r
 cluster.p1 <- dotplot(go_compare_bp, showCategory = 1,
@@ -604,9 +601,9 @@ cluster.p1 + theme(axis.text.y = element_text(size = 5))
 ```
 ![](./media/unnamed-chunk-27-1.png)
 
-But dot plot is not good for showing the relationship between GO terms.
-We can select and clustering GO terms first and then use tree plot to
-show the correlation between GO terms.
+But dot plots are not good for showing the relationship between GO terms.
+We can select and cluster GO terms first, and then use a tree plot to
+show the correlations between GO terms.
 
 ```r
 trim_bp <- pairwise_termsim(go_compare_bp, showCategory = 50)
@@ -643,7 +640,7 @@ treeplot(trim_bp, showCategory = 5)
                                     qvalueCutoff = 0.05)
         ```
 
-### Visualize the GO enrichment results for other two ontology
+### Visualise GO enrichment results for other two ontology categories
 
 ```r
 cluster.p2 <- dotplot(go_compare_cc, showCategory = 1,
@@ -679,13 +676,13 @@ different biological functions. But we still don't know why they have
 different functions. One possible reason is that they have different
 gene activity. We can use the ATAC-seq data to quantify the gene
 activity and integrate the ATAC-seq data with the single-cell RNA-seq
-data to explain the difference.
+data to explain the differences.
 
-### QC for ATAC-seq data (have done and saved in the data set)
+### QC for ATAC-seq data (already performed and saved in the dataset)
 
-As the same as the RNA data, we have done the QC for the ATAC-seq data
-and given label "filtered". We just choose cells that are not be
-labelled 'filtered'.
+Similar to the RNA data, we have completed the QC for the ATAC-seq data
+and applied the label "filtered". We move forward by 
+selecting only cells that are not labelled 'filtered'.
 
 ```r
 pbmc.atac <- subset(pbmc.atac, seurat_annotations != "filtered")
@@ -693,13 +690,13 @@ pbmc.atac <- subset(pbmc.atac, seurat_annotations != "filtered")
 
 ### Preprocess ATAC-seq data
 
-We will perform standard Seurat pipeline for single-cell ATAC analysis.
-We will normalize the data, find top features, run SVD, and run UMAP.
+We will perform the standard Seurat pipeline for single-cell ATAC analysis.
+We will normalise the data, find top features, run SVD, and run UMAP.
 See `Signac` (also provided by Satija's group) tutorial for more
 details.
 
 ```r
-# ATAC analysis add gene annotation information
+# Add gene annotation information
 annotations <- GetGRangesFromEnsDb(ensdb = EnsDb.Hsapiens.v86)
 seqlevelsStyle(annotations) <- "UCSC"
 genome(annotations) <- "hg38"
@@ -708,7 +705,7 @@ Annotation(pbmc.atac) <- annotations
 # We exclude the first dimension as this is typically correlated with sequencing depth
 pbmc.atac <- RunTFIDF(pbmc.atac)
 
-## Performing TF-IDF normalization
+## Performing TF-IDF normalisation
 
 pbmc.atac <- FindTopFeatures(pbmc.atac, min.cutoff = "q0")
 pbmc.atac <- RunSVD(pbmc.atac)
@@ -735,28 +732,28 @@ pbmc.atac <- RunUMAP(pbmc.atac, reduction = "lsi", dims = 2:30,
 ## 11:52:43 Optimization finished
 ```
 
-### Visualize the ATAC-seq data with scRNA-seq data
+### Visualise the ATAC-seq data with scRNA-seq data
 
-We want to overview the single-cell ATAC-seq and RNA-seq data
-visualizing the data.
+Next, we want a side-by-side overview of the single-cell ATAC-seq 
+and RNA-seq datasets.
 
 ```r
-# Visualize two data sets together
+# Visualise two datasets together
 p1 <- DimPlot(pbmc.rna, group.by = "seurat_clusters", label = TRUE) + NoLegend() + ggtitle("RNA")
 p2 <- DimPlot(pbmc.atac, group.by = "orig.ident", label = FALSE) + NoLegend() + ggtitle("ATAC")
 p1 + p2
 ```
 ![](./media/unnamed-chunk-36-1.png)
 
-From the visualization, we get the clustering information from the RNA
-data and but we know nothing about the ATAC data.
+From the visualisation, we have the clustering information from the RNA
+data, but we know nothing about the ATAC data.
 
-We can see that the two data sets have different clustering patterns. We
-will integrate the two data sets to explain the difference.
+We can see that the two datasets have different clustering patterns. We
+will integrate the two datasets to explain the ATAC-seq clusters.
 
 ### Quantify gene activity
 
-Before we integrate the two data sets, we need to quantify the gene
+Before we integrate the two datasets, we need to quantify the gene
 activity from the ATAC-seq data. We will use the `GeneActivity()`
 function from `Signac` package to quantify the gene activity.
 
@@ -770,7 +767,7 @@ gene.activities <- GeneActivity(pbmc.atac, features = VariableFeatures(pbmc.rna)
 # add gene activities as a new assay
 pbmc.atac[["ACTIVITY"]] <- CreateAssayObject(counts = gene.activities)
 
-# normalize gene activities
+# normalise gene activities
 DefaultAssay(pbmc.atac) <- "ACTIVITY"
 pbmc.atac <- NormalizeData(pbmc.atac)
 pbmc.atac <- ScaleData(pbmc.atac, features = rownames(pbmc.atac))
@@ -780,10 +777,10 @@ pbmc.atac <- ScaleData(pbmc.atac, features = rownames(pbmc.atac))
 
 ### Integrate RNA-seq data with ATAC-seq data
 
-Same as integrate two RNA-seq data, we will use the
-`FindTransferAnchors()` function from Seurat package to integrate the
+Similar to integrating two RNA-seq data, we will use the
+`FindTransferAnchors()` function from the Seurat package to integrate the
 RNA-seq data with the ATAC-seq data. We will use the CCA method to
-integrate the two data sets. And then we can transfer the clustering
+integrate the two datasets. Then, we can transfer the clustering
 information from the RNA-seq data to the ATAC-seq data.
 
 ```r
@@ -809,23 +806,22 @@ cluster.predictions <- TransferData(anchorset = transfer.anchors, refdata = pbmc
 pbmc.atac <- AddMetaData(pbmc.atac, metadata = cluster.predictions)
 ```
 
-### Visualize the integrated data
+### Visualise the integrated data
 
-We are now able to visualize the integrated data. We can see the
-predicted clusters annotation at the UMAP of scATAC-seq data from the
-scRNA-seq data.
+We are now able to visualise the integrated data. We can see the
+predicted cluster annotation of the scATAC-seq data on the UMAP plot.
 
 ```r
-# Visualize the integrated data
+# Visualise the integrated data
 DimPlot(pbmc.atac, group.by = "predicted.id", label = TRUE) + NoLegend() + ggtitle("Predicted clusters annotation")
 ```
 ![](./media/unnamed-chunk-39-1.png)
 
-### Visualize the ATAC-seq regions around a gene of interest
+### Visualise the ATAC-seq regions around a gene of interest
 
-We can also visualize the ATAC-seq regions around a gene of interest. We
+We can also visualise the ATAC-seq regions around a gene of interest. We
 will use two marker genes of T cells (CD4 and CD8). We can see the
-ATAC-seq regions around the CD4 and CD8A genes for different cell types.
+ATAC-seq regions around the CD4 and CD8A genes differ for different cell types.
 
 ```r
 DefaultAssay(pbmc.atac) <- "ATAC"
@@ -852,8 +848,8 @@ CoveragePlot(
 
 ### Additional benchmark study: Evaluate the accuracy of the integrated data
 
-We use statistic to predict the label of scATAC-seq data from the
-scRNA-seq data. So, it is useful to know how accurate it is. We can
+We predicted the cell-type labels for the scATAC-seq data from the
+scRNA-seq data. So, it is useful to know how accurate the predictions are. We can
 evaluate the accuracy of the integrated data by comparing the predicted
 labels with the ground-truth labels.
 
@@ -869,7 +865,7 @@ pbmc.atac <- AddMetaData(pbmc.atac, metadata = celltype.predictions)
 ```
 
 ```r
-# Visualize the integrated data
+# Visualise the integrated data
 pbmc.atac$annotation_correct <- pbmc.atac$predicted.id == pbmc.atac$seurat_annotations
 p1 <- DimPlot(pbmc.atac, group.by = "predicted.id", label = TRUE) + NoLegend() + ggtitle("Predicted annotation")
 p2 <- DimPlot(pbmc.atac, group.by = "seurat_annotations", label = TRUE) + NoLegend() + ggtitle("Ground-truth annotation")
@@ -900,14 +896,14 @@ CoveragePlot(
 ```
 ![](./media/unnamed-chunk-45-1.png)
 
-Overall, the visualization of the integrated data shows that the
+Overall, the visualisation of the integrated data shows that the
 predicted labels are consistent with the ground-truth labels. The
 coverage plots also show that the ATAC-seq regions around the CD4 and
 CD8A genes are different for different cell types.
 
 We can also use some quantitative metrics to evaluate the accuracy of
 the integrated data. We can calculate the accuracy of the predicted
-labels by comparing the predicted labels with the ground-truth labels.
+labels by comparing them with the ground-truth labels.
 
 ```r
 # Evaluate the accuracy of the integrated data
@@ -928,7 +924,7 @@ p1
 ```r
 p2 <- ggplot(data, aes(prediction.score.max, fill = annotation_correct, colour = annotation_correct)) +
   geom_density(alpha = 0.5) + theme_cowplot() + scale_fill_discrete(name = "Annotation Correct",
-                                                                    labels = c(paste0("FALSE (n = ", incorrect, ")"), paste0("TRUE (n = ", correct, ")"))) + scale_color_discrete(name = "Annotation Correct",
+                                                                    labels = c(paste0("FALSE (n = ", incorrect, ")"), paste0("TRUE (n = ", correct, ")"))) + scale_color_discrete(name ="Annotation Correct",
                                                                                                                                                                                   labels = c(paste0("FALSE (n = ", incorrect, ")"), paste0("TRUE (n = ", correct, ")"))) + xlab("Prediction Score")
 
 p2
@@ -936,7 +932,7 @@ p2
 ![](./media/unnamed-chunk-47-1.png)
 
 
-In this example, the annotation for an scATAC-seq profile is correctly
+In this example, annotations for an scATAC-seq profile are correctly
 predicted via scRNA-seq integration \~90% of the time. In addition, the
 prediction.score.max field quantifies the uncertainty associated with
 our predicted annotations. We can see that cells that are correctly
