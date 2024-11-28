@@ -732,7 +732,7 @@ after.harmony | after.seuratCCA
 !!! question
     What do you think of the integration results now?
 
-    **Hint:** Also look at the pc1 and pc2 plots for each integration method
+    **Hint:** Also look at the PC1 and PC2 plots for each integration method.
 
 ### Step 6: Perform standard clustering steps after integration
 
@@ -924,7 +924,7 @@ head(treatment.response.CD16) # These are the genes that are upregulated in the 
 
 ```
 
-### Step 5: Lets plot conserved features vs DEGs between conditions
+### Step 4: Lets plot conserved features vs DEGs between conditions
 
 ```r
 FeaturePlot(ifnb.filtered, reduction = 'umap.cca', 
@@ -934,12 +934,13 @@ FeaturePlot(ifnb.filtered, reduction = 'umap.cca',
 
 ![](./media/unnamed-chunk-16-1.png)
 
-### Step 6: Create a Heatmap to visualise DEGs between our two conditions + cell types
+### Step 5: Create a Heatmap to visualise DEGs between our two conditions + cell types
 
 ```r
 # Find upregulated genes in each group (cell type and condition)
 ifnb.treatVsCtrl.markers <- FindAllMarkers(ifnb.filtered,
                                           only.pos = TRUE)
+saveRDS(ifnb.treatVsCtrl.markers, "ifnb_stimVsCtrl_markers.rds")
 ```
 
 ```output
