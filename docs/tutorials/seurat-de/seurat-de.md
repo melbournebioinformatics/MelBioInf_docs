@@ -46,11 +46,11 @@ Last updated October 2024.
 
 **Learning objectives:**  
 
-* Gain more familiarity with standard scRNA-seq Quality Control (QC) steps\
-* Understand and get comfortable using various integration strategies (harmoy and seuratCCA)\
-* Understand when and how to use all of the differential expression functions offered by Seurat: FindMarkers(), FindConservedMarkers(), and FindAllMarkers()\
-* Learn how to use differential expression tools meant for bulk data, like DESeq2, for single-cell 'pseudobulk' data and understand why you might choose this approach.\
-* Learn different ways to visualise both in-built Seurat functions and external packages like pheatmap.\
+* Gain more familiarity with standard scRNA-seq Quality Control (QC) steps
+* Understand and get comfortable using various integration strategies (harmoy and seuratCCA)
+* Understand when and how to use all of the differential expression functions offered by Seurat: FindMarkers(), FindConservedMarkers(), and FindAllMarkers()
+* Learn how to use differential expression tools meant for bulk data, like DESeq2, for single-cell 'pseudobulk' data and understand why you might choose this approach.
+* Learn different ways to visualise both in-built Seurat functions and external packages like pheatmap.
 
 !!! warning "Disclaimer"
     This tutorial is partially based on existing material from:
@@ -95,7 +95,7 @@ install.packages("metap")
 ---
 <!-- Use this divider between sections -->
 
-## Introduction
+## Section 1: Setup, Quality Control and Sample Integration
 
 ### Step 1. Load the packages and data
 
@@ -125,19 +125,8 @@ I strongly encourage you to explore the other datasets offered by the SeuratData
 
 The ifnb Seurat object we're loading in here was originally made in Seurat v4, there have since been a lot of changes from Seurat v4 to v5 so we'll use the UpdateSeuratObject() function to update the Seurat object so that it is compatible for today.
 
-!!! question
-    Looking at the output from the `str()` function on the ifnb seurat object, can you tell whether this seurat object is processed or unprocessed?
-
-ANSWER: When loading in seurat objects, we can have a look at what processing steps have been performed on it by using the str() function. In the output we can tell that the ifnb Seurat object is unprocessed because:
-
-1)  the scale.data slot is empty
-
-2)  no variable features have been identified
-
-3)  no dimensionality reduction functions have been performed.
-
 ```r
-AvailableData() # if you want to see the available datasets use this function
+AvailableData() # if you want to see the available SeuratData datasets use this function
 ```
 
 ??? info "Available Data"
@@ -351,11 +340,10 @@ InstallData("ifnb") # install our treatment vs control dataset for today
 data("ifnb") # Load the dataset into our current R script
 ifnb <- UpdateSeuratObject(ifnb) # Make sure the seurat object is in the format of Seurat v5
 
-
-str(ifnb) # we can use this to take a look at the information in our Seurat Object, we know that this is an unprocessed Seurat object because the scale.data slot is empty, no variable features identified, no reductions performed..etc
+str(ifnb) # we can use this to take a look at the information in our Seurat Object
 ```
 
-??? info "`ifnb` object"
+??? info "`ifnb` Seurat object information from `str()`"
     ```output
     ## Formal class 'Seurat' [package "SeuratObject"] with 13 slots
     ##   ..@ assays      :List of 1
@@ -405,6 +393,11 @@ str(ifnb) # we can use this to take a look at the information in our Seurat Obje
     ##   ..@ tools       : list()
     ```
 
+!!! question
+    Looking at the output from the `str()` function above, can you tell whether this seurat object is processed or unprocessed?
+
+    ??? note "Solution"
+        When loading in seurat objects, we can have a look at what processing steps have been performed on it by using the str() function. In the output we can tell that the ifnb Seurat object is unprocessed because the scale.data slot is empty, no variable features have been identified, and no dimensionality reduction functions have been performed.    
 
 ### Step 2: Run QC, filter out low quality cells
 
@@ -682,11 +675,9 @@ before.integration | after.harmony
 
 !!! question
     Looking at the UMAPs above, do you think integration was successful? Have a slide on what if its just different cell types.
-
-#### Trying a different integration method (Seurat CCA), lets see if our integration improves
-
 !!! question
     Try looking at the PC1 and PC2 plots for harmony and seurat as well
+### Step 5: Integrating our data using an alternative Seurat CCA method
 
 ```r
 ifnb.filtered <- IntegrateLayers(object = ifnb.filtered,
@@ -741,11 +732,9 @@ after.harmony | after.seuratCCA
 !!! question
     What do you think of the integration results now?
 
-    **Challenge:** look at the pc1/2 plots for each integration method -\> explain different pca slots here
+    **Hint:** Also look at the PC1 and PC2 plots for each integration method.
 
-\*\*Slide on the caveats of integration, you can lose biological signal when you regress out technical batch effects\*\*
-
-### Step 5: Once we're happy with integration, lets perform standard clustering steps
+### Step 6: Perform standard clustering steps after integration
 
 This step collapses individual control and treatment datasets together and needs to be done before differential expression analysis
 
@@ -770,7 +759,7 @@ ifnb.filtered <- FindClusters(ifnb.filtered, resolution = 0.5)
 ifnb.filtered <- JoinLayers(ifnb.filtered)
 ```
 
-## Part 2: Differential Gene Expression when dealing with two treatment conditions
+## Section 2: Differential Gene Expression when dealing with two treatment conditions
 
 ```r
 DimPlot(ifnb.filtered, reduction = "umap.cca", label = T)
@@ -899,7 +888,7 @@ DimPlot(ifnb.filtered, reduction = "umap.cca", label = T)
 !!! tip
     If you want to perform cell-type identification on your own data when you don't have a ground-truth, using automatic cell type annotation methods can be a good starting point. This approach is discussed in more detail in the Intro to scRNA-seq workshop material.
 
-### Step 3: Find DEGs between our two conditions (using CD16 Mono cells as an example)
+### Step 3: Find differentially expressed genes (DEGs) between our two conditions, using CD16 Mono cells as an example
 
 ```r
 # Make another column in metadata showing what cells belong to each treatment group (This will make more sense in a bit)
@@ -935,7 +924,7 @@ head(treatment.response.CD16) # These are the genes that are upregulated in the 
 
 ```
 
-### Step 5: Lets plot conserved features vs DEGs between conditions
+### Step 4: Lets plot conserved features vs DEGs between conditions
 
 ```r
 FeaturePlot(ifnb.filtered, reduction = 'umap.cca', 
@@ -945,7 +934,7 @@ FeaturePlot(ifnb.filtered, reduction = 'umap.cca',
 
 ![](./media/unnamed-chunk-16-1.png)
 
-### Step 6: Create a Heatmap to visualise DEGs between our two conditions + cell types
+### Step 5: Create a Heatmap to visualise DEGs between our two conditions + cell types
 
 ```r
 # Find upregulated genes in each group (cell type and condition)
@@ -1031,7 +1020,7 @@ DEG.heatmap
 
 ![](./media/unnamed-chunk-18-1.png)
 
-## Part 3 : Differential Expression using a pseudobulk approach and DESeq2
+## Section 3 : Differential Expression using a pseudobulk approach and DESeq2
 
 ### Step 1: We need to import sample information for each cell from the original paper
 
@@ -1430,9 +1419,10 @@ save_pheatmap_pdf(sig.DEG.heatmap, "sig_DEG_pseudo.pdf")
     ??? note "Solution"
         Run the same code as above but with the `treatment.response.CD16` variable instead of `treatment.response.CD16.pseudo` variable.
 
-!!! question 
-    What kind of analyses can we do next after having a list of DEGs for each cell type and treatment groups?
-
+!!! success "You have now completed the workshop!"
+    Hopefully you've found this workshop useful and you're now feeling more confident about using different integration and differential expression approaches in single-cell data analysis.
+    
+    What kind of analyses do you think we can do next after obtaining a list of differentially expressed genes (DEGs) for each cell type and treatment groups?
 
 ---
 
