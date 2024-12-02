@@ -1,0 +1,8 @@
+#chrom	chromStart	chromEnd	name	score	strand	thickStart	thickEnd	reserved	blockCount	blockSizes	chromStarts	oChromStart	oChromEnd	oStrand	oChromSize	oChromStarts	oSequence	oCDS	chromSize	match	misMatch	repMatch	nCount	seqType
+chr6	3449749	3449769	A_24_P343559	1000	+	3449749	3449769	0	1	20,	0,	14	34	+	60	14,	aagctgctctccttcactctgacagtattaacatcaaagactccgagaagctctcgaggg		170805979	20	0	0	0	1
+chr7	88420530	88420550	A_24_P343559	1000	+	88420530	88420550	0	1	20,	0,	2	22	+	60	2,	aagctgctctccttcactctgacagtattaacatcaaagactccgagaagctctcgaggg		159345973	20	0	0	0	1
+chr9	85021525	85021585	A_24_P343559	1000	+	85021525	85021585	0	1	60,	0,	0	60	+	60	0,	aagctgctctccttcactctgacagtattaacatcaaagactccgagaagctctcgaggg		138394717	60	0	0	0	1
+chr17	40069920	40069940	A_24_P343559	1000	-	40069920	40069940	0	1	20,	0,	22	42	+	60	18,	aagctgctctccttcactctgacagtattaacatcaaagactccgagaagctctcgaggg		83257441	20	0	0	0	1
+chr17	54502372	54502393	A_24_P343559	1000	-	54502372	54502393	0	1	21,	0,	19	40	+	60	20,	aagctgctctccttcactctgacagtattaacatcaaagactccgagaagctctcgaggg		83257441	21	0	0	0	1
+chr5	106779392	106779416	A_24_P216779	1000	-	106779392	106779416	0	2	6,18,	0,6,	19	44	+	60	16,23,	ttctatactctaatcagcactgaattcagagggtttgactttttcatctataacacagtg		181538259	24	0	0	0	1
+chr9	84811063	84811123	A_24_P216779	1000	+	84811063	84811123	0	1	60,	0,	0	60	+	60	0,	ttctatactctaatcagcactgaattcagagggtttgactttttcatctataacacagtg		138394717	60	0	0	0	1
