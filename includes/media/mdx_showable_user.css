@@ -1,0 +1,22 @@
+
+/* common styled classes */
+div.showable-container.question {background: url('/training_docs/includes/media/question-icon.png'); background-repeat: no-repeat; background-size: 24px 24px;}
+div.showable-container.question div.showable-header {font-weight: bold;}
+div.showable-container.question div.showable-header > span.link-like {color: #18bc9c;}
+div.question > div.showable-inner {margin-left: 26px;  min-height: 24px; padding-left: 3px; border-left: 1px solid #18BC9C;}
+div.showable-hidden.question > div.showable-inner { padding-left: 4px; border-left: 0;}
+
+div.showable-container.hint {background: url('/training_docs/includes/media/hint-icon.png'); background-repeat: no-repeat; background-size: 24px 24px;}
+div.showable-container.hint div.showable-header > span.link-like {color: #18bc9c;}
+div.hint > div.showable-inner {margin-left: 26px;  min-height: 24px; padding-left: 3px; border-left: 1px solid #18BC9C;}
+div.showable-hidden.hint > div.showable-inner { padding-left: 4px; border-left: 0;}
+
+div.showable-container.answer {background: url('/training_docs/includes/media/answer-icon.png'); background-repeat: no-repeat; background-size: 24px 24px;}
+div.showable-container.answer div.showable-header > span.link-like {color: #18bc9c;}
+div.answer > div.showable-inner {margin-left: 26px;  min-height: 24px; padding-left: 3px; border-left: 1px solid #18BC9C;}
+div.showable-hidden.answer > div.showable-inner { padding-left: 4px; border-left: 0;}
+
+div.showable-container.indent {}
+div.showable-container.indent div.showable-header > span.link-like {color: #18bc9c;}
+div.indent > div.showable-inner {margin-left: 26px;  min-height: 24px; padding-left: 3px; border-left: 1px solid #18BC9C;}
+div.showable-hidden.indent > div.showable-inner { padding-left: 4px; border-left: 0;}
