@@ -2,6 +2,11 @@
 
 # Introduction to R for Biologists
 
+!!! warning "Deprecated"
+
+    **This workshop has been deprecated. For the current version, please visit [https://melbournebioinformatics.github.io/intro-to-R/](https://melbournebioinformatics.github.io/intro-to-R/).**
+
+
 Anticipated workshop duration when delivered to a group of participants is **3 hours**.  
 
 For queries relating to this workshop, contact Melbourne Bioinformatics (bioinformatics-training@unimelb.edu.au).
