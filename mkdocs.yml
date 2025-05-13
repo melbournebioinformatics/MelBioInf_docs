@@ -31,7 +31,7 @@ nav:
         - 'Introduction to Galaxy Workflows': 'tutorials/galaxy-workflows/galaxy-workflows.md'
         - 'Introduction to Python': 'tutorials/python_overview/python_overview.md'
         - 'Introduction to Unix': 'tutorials/unix/unix.md'
-        - 'Introduction to R for Biologists': 'tutorials/intro_R_biologists/intro_R_biologists.md'
+        - 'Introduction to R for Biologists': 'https://melbournebioinformatics.github.io/intro-to-R/'
         - 'Introduction to Genome Browsers': 'tutorials/Genome_browsers/GenomeBrowsers_Intro.md'
         - 'Introduction to CWL': 'tutorials/cwl_2022/cwl_2022.md'
         - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
@@ -81,6 +81,7 @@ nav:
         - 'Introduction to Unix-Archive': 'tutorials/unix_archive_2022/unix.md'
         - 'Introduction to CWL': 'tutorials/cwl/cwl.md'
         - 'Introduction to Git and Github (deprecated)': 'tutorials/using_git/Using_Git.md'
+        - 'Introduction to R for Biologists (deprecated)': 'tutorials/intro_R_biologists/intro_R_biologists.md'
 
 extra_templates: [
   'tutorials/hpc/slides.html',
