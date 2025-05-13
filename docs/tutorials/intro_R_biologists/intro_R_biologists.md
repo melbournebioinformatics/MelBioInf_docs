@@ -28,6 +28,7 @@ For queries relating to this workshop, contact Melbourne Bioinformatics (bioinfo
 This workshop is is aimed at bench biologists with no coding/programming skills.
 
 
+
 ### Description
 
 *Ever wanted to visualise your own data? You can with R!*
