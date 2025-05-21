@@ -1,0 +1,6 @@
+Seq	Host	Starttime	JobRuntime	Send	Receive	Exitval	Signal	Command
+3	:	1630852205.612	  1047.621	0	306	0	0	RUNNUMBER=3 ./run_complete_workshop.sh
+1	:	1630852205.608	  1048.805	0	306	0	0	RUNNUMBER=1 ./run_complete_workshop.sh
+4	:	1630852205.614	  1048.803	0	306	0	0	RUNNUMBER=4 ./run_complete_workshop.sh
+2	:	1630852205.610	  1050.313	0	306	0	0	RUNNUMBER=2 ./run_complete_workshop.sh
+5	:	1630852205.617	  1050.391	0	306	0	0	RUNNUMBER=5 ./run_complete_workshop.sh
