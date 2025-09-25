@@ -1,7 +1,7 @@
 /* the bar across the top */
 .md-header {
-	background: #fff url('https://www.melbournebioinformatics.org.au/wp-content/themes/_vlsci/images/top-orange.gif') repeat-x top left;
-	color: #2fa4e7;
+	background: #000F46;
+	color: #FFFFFF;
 	border-bottom: none;
 }
 
@@ -10,40 +10,68 @@
 }
 
 .md-search__form:hover {
-	background-color: #333333;
+	background-color: #000F46;
 }
+
+.md-footer {
+  background-color: #000F46;
+  color: #FFFFFF;
+}
+
+/* Dark mode footer background for slate theme */
+[data-md-color-scheme="slate"] .md-footer-meta {
+  background-color: #000F46;
+  color: #FFFFFF;
+}
+
+[data-md-color-scheme="slate"] .md-footer-meta a {
+  color: #FFFFFF;
+}
+[data-md-color-scheme="slate"] .md-footer-meta a:hover {
+  color: #46C8F0;
+}
+
+
+/* Make sure links in the footer are visible */
+.md-footer a {
+  color: #FFFFFF;
+}
+.md-footer a:hover {
+  color: #46C8F0; /* optional: highlight on hover */
+}
+
 
 .icon-bar {
 	background-color: #555 !important;
 }
 
 .navbar-default .navbar-brand, .navbar-default:hover .navbar-brand:hover {
-	color: #2fa4e7;
+	color: #003C55;
 }
 
 .navbar-default .navbar-nav > li > a {
-	color: #2fa4e7;
+	color: #003C55;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-	background-color: #00A8BD;
+	background-color: #46C8F0;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-	background-color: #00A8BD;
+	background-color: #46C8F0;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-	background-color: #00A8BD;
+	background-color: #46C8F0;
 }
 
 /* the menu items */
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-	background-color: #00A8BD;
+	background-color: #46C8F0;
 }
 
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
-	background-color: #00A8BD;
+	background-color: #46C8F0;
 }
 /*
 These style abbreviations are as follows:
@@ -56,10 +84,11 @@ SS {
   font-family: "Lucida Grande", sans-serif;
   font-size: 80%;
   font-weight: bolder;
-  color: black;
+  color: #000F46;
   text-align: center;
   border-radius: 5px;
-  background: lightsteelblue;
+  background: #C8C8C8;
+;
   padding: 0.3ex 1ex;
 
 }
@@ -67,10 +96,10 @@ SS {
 FN {
   font-family: "Lucida Grande", sans-serif;
   font-size: 80%;
-  color: black;
+  color: #000F46;
   text-align: center;
   padding: 0.3ex 1ex;
-  border: solid thin black;
+  border: solid thin #000F46;
   border-radius: 4px;
 }
 
