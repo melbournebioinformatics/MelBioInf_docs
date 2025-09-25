@@ -1,5 +1,5 @@
 
-site_name: Bioinformatics Documentation
+site_name: MBITE Tutorials
 
 repo_name: melbournebioinformatics/MelBioInf_docs
 repo_url: https://github.com/melbournebioinformatics/MelBioInf_docs
@@ -11,25 +11,39 @@ repo_url: https://github.com/melbournebioinformatics/MelBioInf_docs
 theme:
   name: material
   custom_dir: overrides
+  favicon: img/favicon-16x16.png
+  logo: img/apple-touch-icon.png
   features:
     - content.code.copy
     - content.code.annotate
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
 
-#theme_dir: 'material-theme-overrides'  # needs updating for mkdocs 0.17
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
 
 extra_css:
   - 'extra.css'
 
 
-copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics – The University of Melbourne ©</a>
 
 nav:
     - Home: 'index.md'
     - 'Popular':
-        - 'Introduction to R for Biologists': 'https://melbournebioinformatics.github.io/intro-to-r/'
         - 'Git for Researchers': 'https://melbournebioinformatics.github.io/intro-to-git/'
-        - 'Introduction to the Nectar Cloud': 'https://melbournebioinformatics.github.io/nectar-instances/'
-        - 'Introduction to RNASeq': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
+        - 'Intro to the Nectar Cloud': 'https://melbournebioinformatics.github.io/nectar-instances/'
+        - 'Intro to R for Biologists': 'https://melbournebioinformatics.github.io/intro-to-r/'
+        - 'Intro to RNASeq': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
     - 'Tools and skill development':
         - 'What is Bioinformatics?': 'guides/bioinfo.md'
         - 'Introduction to the Galaxy Platform': 'guides/galaxy.md'
