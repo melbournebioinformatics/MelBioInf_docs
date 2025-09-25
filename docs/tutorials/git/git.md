@@ -973,33 +973,33 @@ If you followed the steps correctly, you should have created a **conflict**. Thi
 
 ???+ example "Fixing conflicts"
 
-    When a pull request is created that conflicts with your repository, the pull request screen should indicate it:
+When a pull request is created that conflicts with your repository, the pull request screen should indicate it:
 
-    ![](./media/PR_screen_conflict.png)
+![](./media/PR_screen_conflict.png)
 
-    When clicking "Resolve conflicts", it should bring up a text editor where we can edit the conflicting file:
+When clicking "Resolve conflicts", it should bring up a text editor where we can edit the conflicting file:
 
-    ![](./media/PR_conflict_editor.png)
+![](./media/PR_conflict_editor.png)
 
-    Conflicts on Git always follow this format, where the conflicting lines have `<<<`, `===`, and `>>>` between them, indicating where the conflict happens.
+Conflicts on Git always follow this format, where the conflicting lines have `<<<`, `===`, and `>>>` between them, indicating where the conflict happens.
 
-    Erase the lines with `<<<`, `>>>` and `===` to fix the conflict. Make sure your name is the first line on the file, and the name of contributor, the second one. Your file should look like this:
+Erase the lines with `<<<`, `>>>` and `===` to fix the conflict. Make sure your name is the first line on the file, and the name of contributor, the second one. Your file should look like this:
 
-    ```output linenums="1"
-    - User 1
-    - User 2
+```output linenums="1"
+- User 1
+- User 2
 
-    ```
+```
 
-    Click on "Resolve conflicts" and "Commit merge"
+Click on "Resolve conflicts" and "Commit merge"
 
-    ![](./media/PR_resolved_conflict.png)
+![](./media/PR_resolved_conflict.png)
 
-    This will create a new commit on the pull request:
+This will create a new commit on the pull request:
 
-    ![](./media/PR_conflict_commit.png)
+![](./media/PR_conflict_commit.png)
 
-    **Don't merge the pull request just yet!** Let's finish our review first.
+**Don't merge the pull request just yet!** Let's finish our review first.
 
 After fixing the conflict, let's review our pull request. On the pull request screen, go to the "Files changed" tab. 
 
