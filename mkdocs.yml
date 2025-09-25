@@ -25,13 +25,18 @@ copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioin
 
 nav:
     - Home: 'index.md'
+    - 'Popular':
+        - 'Introduction to R for Biologists': 'https://melbournebioinformatics.github.io/intro-to-r/'
+        - 'Git for Researchers': 'https://melbournebioinformatics.github.io/intro-to-git/'
+        - 'Introduction to the Nectar Cloud': 'https://melbournebioinformatics.github.io/nectar-instances/'
+        - 'Introduction to RNASeq': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
     - 'Tools and skill development':
         - 'What is Bioinformatics?': 'guides/bioinfo.md'
         - 'Introduction to the Galaxy Platform': 'guides/galaxy.md'
         - 'Introduction to Galaxy Workflows': 'tutorials/galaxy-workflows/galaxy-workflows.md'
         - 'Introduction to Python': 'tutorials/python_overview/python_overview.md'
         - 'Introduction to Unix': 'tutorials/unix/unix.md'
-        - 'Introduction to R for Biologists': 'https://melbournebioinformatics.github.io/intro-to-r/'
+        - 'Introduction to R for Biologists': 'tutorials/intro_R_biologists/index.md'
         - 'Introduction to Genome Browsers': 'tutorials/Genome_browsers/GenomeBrowsers_Intro.md'
         - 'Introduction to CWL': 'tutorials/cwl_2022/cwl_2022.md'
         - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
