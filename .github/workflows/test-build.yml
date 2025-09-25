@@ -2,7 +2,7 @@ name: test website build
 on:
   pull_request:
     branches: 
-      - master
+      - main
 
 jobs:
   test-build:
@@ -10,7 +10,7 @@ jobs:
     steps:
 
       # Check out the code
-      - name: Checkout master branch
+      - name: Checkout main branch
         uses: actions/checkout@v4
 
       # Set up Python environment
