@@ -1,0 +1,3199 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../rna_seq_basic_tutorial/">
+      
+      
+        <link rel="next" href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>RNAseq analysis using Tuxedo (Galaxy) - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rna-seq-differential-gene-expression-basic-tutorial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              RNAseq analysis using Tuxedo (Galaxy)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-does-the-data-in-this-tutorial-come-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where does the data in this tutorial come from?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tuxedo-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Tuxedo Protocol
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-preparation-15-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Preparation [15 min]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Preparation [15 min]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-register-as-a-new-user-in-galaxy-if-you-dont-already-have-an-account-what-is-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Register as a new user in Galaxy if you don’t already have an account (what is Galaxy?)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-import-the-rna-seq-data-for-the-workshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Import the RNA-seq data for the workshop.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-view-and-have-an-understanding-of-the-files-involved-in-rna-seq-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. View and have an understanding of the files involved in RNA-seq analysis.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-align-reads-with-tophat-30-mins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Align reads with Tophat [30 mins]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Align reads with Tophat [30 mins]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-align-the-rna-seq-short-reads-to-a-reference-genome" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Align the RNA-seq short reads to a reference genome.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-examine-the-output-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Examine the output files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-visualise-the-aligned-reads-with-igv" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Visualise the aligned reads with IGV
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-optional-visualise-the-aligned-reads-in-trackster" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. [Optional] Visualise the aligned reads in Trackster
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-test-differential-expression-with-cuffdiff-45-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Test differential expression with Cuffdiff [45 min]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3: Test differential expression with Cuffdiff [45 min]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-examine-the-reference-transcriptome" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Examine the reference transcriptome
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-run-cuffdiff-to-identify-differentially-expressed-genes-and-transcripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Run Cuffdiff to identify differentially expressed genes and transcripts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-explore-the-cuffdiff-output-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Explore the Cuffdiff output files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-4-repeat-without-replicates-20-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 4. Repeat without replicates [20 min]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-5-optional-extension-20-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 5. Optional Extension [20 min]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 5. Optional Extension [20 min]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extension-on-the-tuxedo-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extension on the Tuxedo Protocol
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transcript-level-differential-expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transcript-level differential expression
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-does-the-data-in-this-tutorial-come-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where does the data in this tutorial come from?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-tuxedo-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Tuxedo Protocol
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-preparation-15-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Preparation [15 min]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Preparation [15 min]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-register-as-a-new-user-in-galaxy-if-you-dont-already-have-an-account-what-is-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Register as a new user in Galaxy if you don’t already have an account (what is Galaxy?)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-import-the-rna-seq-data-for-the-workshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Import the RNA-seq data for the workshop.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-view-and-have-an-understanding-of-the-files-involved-in-rna-seq-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. View and have an understanding of the files involved in RNA-seq analysis.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-align-reads-with-tophat-30-mins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Align reads with Tophat [30 mins]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Align reads with Tophat [30 mins]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-align-the-rna-seq-short-reads-to-a-reference-genome" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Align the RNA-seq short reads to a reference genome.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-examine-the-output-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Examine the output files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-visualise-the-aligned-reads-with-igv" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Visualise the aligned reads with IGV
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-optional-visualise-the-aligned-reads-in-trackster" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. [Optional] Visualise the aligned reads in Trackster
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-test-differential-expression-with-cuffdiff-45-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Test differential expression with Cuffdiff [45 min]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3: Test differential expression with Cuffdiff [45 min]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-examine-the-reference-transcriptome" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Examine the reference transcriptome
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-run-cuffdiff-to-identify-differentially-expressed-genes-and-transcripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Run Cuffdiff to identify differentially expressed genes and transcripts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-explore-the-cuffdiff-output-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Explore the Cuffdiff output files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-4-repeat-without-replicates-20-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 4. Repeat without replicates [20 min]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-5-optional-extension-20-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 5. Optional Extension [20 min]
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 5. Optional Extension [20 min]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extension-on-the-tuxedo-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extension on the Tuxedo Protocol
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transcript-level-differential-expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transcript-level differential expression
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<style type="text/css">
+    body{
+        line-height: 2;
+        font-size: 16px;
+    }
+
+    ol li{padding: 4px;}
+    ul li{padding: 0px;}
+    h4 {margin: 30px 0px 15px 0px;}
+
+    div.code {
+        font-family: "Courier New";
+        border: 1px solid;
+        border-color: #999999;
+        background-color: #eeeeee;
+        padding: 5px 10px;
+        margin: 10px;
+        border-radius: 5px;
+        overflow: auto;
+    }
+
+    div.question {
+        color: #666666;
+        background-color: #e1eaf9;
+        padding: 15px 25px;
+        margin: 20px;
+        font-size: 15px;
+        border-radius: 20px;
+    }
+
+    div.question h4 {
+        font-style: italic;
+        margin: 10px 0px !important;
+    }
+</style>
+
+<p><img src="../../../img/melbioinf_logo.png" height=100px>
+<img src="../media/gvl_logo.jpg" height=100px align=right></p>
+<h1 id="rna-seq-differential-gene-expression-basic-tutorial">RNA-Seq Differential Gene Expression: Basic Tutorial<a class="headerlink" href="#rna-seq-differential-gene-expression-basic-tutorial" title="Permanent link">&para;</a></h1>
+<p><strong>Authors: Mahtab Mirmomeni, Andrew Lonie, Jessica Chung</strong></p>
+<hr />
+<h2 id="tutorial-overview">Tutorial Overview<a class="headerlink" href="#tutorial-overview" title="Permanent link">&para;</a></h2>
+<p>In this tutorial we cover the concepts of RNA-seq differential gene expression
+(DGE) analysis using a small synthetic dataset from the model organism,
+Drosophila melanogaster.</p>
+<p>The tutorial is designed to introduce the tools, datatypes and workflow of an
+RNA-seq DGE analysis. In practice, real datasets would be much larger and
+would contain sequencing and alignment errors that make analysis more difficult.</p>
+<p>Our input data for this tutorial will be raw RNA-seq reads from two
+experimental conditions and we will output a list of differentially
+expressed genes identified to be statistically significant.</p>
+<p>In this tutorial we will:  </p>
+<ul>
+<li>introduce the types of files typically used in RNA-seq analysis</li>
+<li>align RNA-seq reads with Tophat</li>
+<li>visualise RNA-seq alignment data with IGV</li>
+<li>find differentially expressed genes with Cuffdiff</li>
+<li>understand the importance of replicates for differential expression analysis</li>
+</ul>
+<p>This tutorial does not cover the following steps that you would do in a real
+RNA-seq DGE analysis:  </p>
+<ul>
+<li>QC (quality control) of the raw sequence data</li>
+<li>Trimming the reads for quality and for adaptor sequences</li>
+<li>QC of the RNA-seq alignment data  </li>
+</ul>
+<p>These steps have been omitted because the data we use in this tutorial is
+synthetic and has no quality issues, unlike real data.</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>At the end of this tutorial you should:</p>
+<ul>
+<li>Be familiar with the Tuxedo Protocol workflow for RNA-seq differential
+   expression analysis</li>
+<li>Be able to process raw RNA sequence data into a list of differentially
+   expressed genes</li>
+<li>Be aware of how the relationship between the number of biological replicates
+   in an experiment and the statistical power available to detect differentially
+   expressed genes</li>
+</ul>
+<hr />
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<h4 id="where-does-the-data-in-this-tutorial-come-from">Where does the data in this tutorial come from?<a class="headerlink" href="#where-does-the-data-in-this-tutorial-come-from" title="Permanent link">&para;</a></h4>
+<p>The data for this tutorial is from an RNA-seq experiment looking for
+differentially expressed genes in D. melanogaster (fruit fly) between two
+experimental conditions. The experiment and analysis protocol we will follow
+is derived from a paper in Nature Protocols by the research group responsible
+for one of the most widely used set of RNA-seq analysis tools: <em>&ldquo;Differential
+gene and transcript expression analysis of RNA-seq experiments with TopHat and
+Cufflinks&rdquo;</em> (Trapnell et al 2012).</p>
+<p>The sequence datasets are single-end Illumina synthetic short reads,
+filtered to only include chromosome 4 to facilitate faster mapping (which
+would otherwise take hours). We’ll use data from three biological replicates
+from each of the two experimental conditions.</p>
+<h4 id="the-tuxedo-protocol">The Tuxedo Protocol<a class="headerlink" href="#the-tuxedo-protocol" title="Permanent link">&para;</a></h4>
+<p>The workflow this tutorial is based on is the Tuxedo Protocol. Reads are first
+mapped with TopHat and a transcriptome is then assembled using Cufflinks.
+Cuffdiff then quantifies the expression in each condition, and tests for
+differential expression.</p>
+<p>In this tutorial we use a simpler protocol as the D. melanogaster
+transcriptome is already very well characterised.</p>
+<p>More information about the Tuxedo protocol can be found <a href="rna_seq_basic_background">here</a>.</p>
+<hr />
+<h2 id="section-1-preparation-15-min">Section 1: Preparation [15 min]<a class="headerlink" href="#section-1-preparation-15-min" title="Permanent link">&para;</a></h2>
+<h4 id="1-register-as-a-new-user-in-galaxy-if-you-dont-already-have-an-account-what-is-galaxy">1.  Register as a new user in Galaxy if you don’t already have an account (<a href="rna_seq_basic_background/#the-galaxy-workflow-platform">what is Galaxy?</a>)<a class="headerlink" href="#1-register-as-a-new-user-in-galaxy-if-you-dont-already-have-an-account-what-is-galaxy" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Open a browser and go to a Galaxy server. This can either be your
+    personal GVL server you <a href="http://genome.edu.au/get/get#launch">started previously</a>,
+    the public <a href="http://galaxy-tut.genome.edu.au">Galaxy Tutorial server</a>
+    or the public <a href="https://usegalaxy.org.au/">Galaxy Australia</a>.<br />
+    Recommended browsers include Firefox and Chrome. Internet Explorer
+    is not supported.</li>
+<li>Register as a new user by clicking <strong>User &gt; Register</strong> on the top
+    dark-grey bar. Alternatively, if you already have an account, login by
+    clicking <strong>User &gt; Login</strong>.</li>
+</ol>
+<h4 id="2-import-the-rna-seq-data-for-the-workshop">2.  Import the RNA-seq data for the workshop.<a class="headerlink" href="#2-import-the-rna-seq-data-for-the-workshop" title="Permanent link">&para;</a></h4>
+<p>If you are using the public Galaxy Tutorial server or Galaxy Melbourne server,
+you can import the data directly from Galaxy. You can do this by going to
+<strong>Shared Data &gt; Published Histories</strong> on the top toolbar, and selecting
+the history called <strong>RNA-Seq_Basic_Sec_1</strong>. Then click on &ldquo;Import History&rdquo; on
+the top right and &ldquo;start using this history&rdquo; to switch to the newly imported
+history.</p>
+<p>Alternatively, if you are using your own personal Galaxy server, you can import
+the data by:</p>
+<ol>
+<li>In the tool panel located on the left, under Basic Tools select <strong>Get
+    Data &gt; Upload File</strong>. Click on the <strong>Paste/Fetch data</strong> button on the
+    bottom section of the pop-up window.</li>
+<li>Upload the sequence data by pasting the following links into the text
+    input area:
+    <div class="code">
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C1_R1.chr4.fq">https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C1_R1.chr4.fq</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C1_R2.chr4.fq">https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C1_R2.chr4.fq</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C1_R3.chr4.fq">https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C1_R3.chr4.fq</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C2_R1.chr4.fq">https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C2_R1.chr4.fq</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C2_R2.chr4.fq">https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C2_R2.chr4.fq</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C2_R3.chr4.fq">https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/C2_R3.chr4.fq</a>
+    <br>
+    </div>
+    Select the type as &lsquo;fastqsanger&rsquo; and press <strong>start</strong> to upload the
+    files to Galaxy.</li>
+<li>Upload the annotated gene list reference by pasting the following link
+    into the text input area:
+    <div class="code">
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/ensembl_dm3.chr4.gtf">https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_BASIC/ensembl_dm3.chr4.gtf</a>
+    </div>
+    You don&rsquo;t need to specify the type for this file as Galaxy will
+    auto-detect the file as a GTF file.</li>
+</ol>
+<h4 id="3-view-and-have-an-understanding-of-the-files-involved-in-rna-seq-analysis">3.  View and have an understanding of the files involved in RNA-seq analysis.<a class="headerlink" href="#3-view-and-have-an-understanding-of-the-files-involved-in-rna-seq-analysis" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>You should now have the following files in your Galaxy history:</p>
+<p>6 files containing single-ended reads:
+<ul>
+<li>C1_R1.chr4.fq
+<li>C1_R2.chr4.fq
+<li>C1_R3.chr4.fq
+<li>C2_R1.chr4.fq
+<li>C2_R2.chr4.fq
+<li>C2_R3.chr4.fq<br />
+</ul></p>
+<p>And 1 gene annotation file:
+<ul>
+<li>ensembl_dm3.chr4.gtf<br />
+</ul></p>
+<p>These files can be renamed by clicking the <strong>pen icon</strong> if you wish.</p>
+</li>
+<li>
+<p>These 6 sequencing files are in FASTQ format and have the file
+    extension: .fq. If you are not familiar with the FASTQ format, <a href="https://en.wikipedia.org/wiki/FASTQ_format">click
+    here for an overview</a>.  </p>
+<p>Click on the <strong>eye icon</strong> to the top right of each FASTQ file to view the
+first part of the file.
+The first 3 files are from the first condition (C1) and has 3
+replicates labelled R1, R2, and R3. The next 3 FASTQ files are from
+the second condition (C2) and has 3 replicates labelled R1, R2, and R3.</p>
+<p>In this tutorial, we aim to find genes which are differentially
+expressed between condition C1 and condition C2.</p>
+</li>
+<li>
+<p>The gene annotation file is in GTF format. This file describes where
+    the genes are located in the Drosophila reference genome.
+    We will examine this file more closely later in Section 3 of this
+    tutorial.</p>
+</li>
+</ol>
+<p><strong>NOTE:</strong> Since the reads in this dataset are synthetic, they do not have
+real quality scores.<br />
+<strong>NOTE:</strong> If you log out of Galaxy and log back at a later time your data
+and results from previous experiments will be available in the right panel
+of your screen called the ‘History’</p>
+<hr />
+<h2 id="section-2-align-reads-with-tophat-30-mins">Section 2: Align reads with Tophat [30 mins]<a class="headerlink" href="#section-2-align-reads-with-tophat-30-mins" title="Permanent link">&para;</a></h2>
+<p>In this section we map the reads in our FASTQ files to a reference genome. As
+these reads originate from mRNA, we expect some of them will cross exon/intron
+boundaries when we align them to the reference genome. Tophat is a splice-aware
+mapper for RNA-seq reads that is based on Bowtie. It uses the mapping results
+from Bowtie to identify splice junctions between exons. More information on
+Tophat can be found <a href="https://ccb.jhu.edu/software/tophat/index.shtml">here</a>.</p>
+<h4 id="1-align-the-rna-seq-short-reads-to-a-reference-genome">1.  Align the RNA-seq short reads to a reference genome.<a class="headerlink" href="#1-align-the-rna-seq-short-reads-to-a-reference-genome" title="Permanent link">&para;</a></h4>
+<p>In the left tool panel menu, under NGS Analysis, select
+<strong>NGS: RNA Analysis &gt; Tophat</strong> and set the parameters as follows:  </p>
+<ul>
+<li><strong>Is this single-end or paired-end data?</strong> Single-end  </li>
+<li><strong>RNA-Seq FASTQ file:</strong><br />
+  (Click on the multiple datasets icon and select all six of the FASTQ
+  files. This can be done by holding down the shift key to select a range
+  of files, or holding down the ctrl key (Windows) or command key (OSX) and
+  clicking to select multiple files.)<ul>
+<li>C1_R1.chr4.fq</li>
+<li>C1_R2.chr4.fq</li>
+<li>C1_R3.chr4.fq</li>
+<li>C2_R1.chr4.fq</li>
+<li>C2_R2.chr4.fq</li>
+<li>C2_R3.chr4.fq  </li>
+</ul>
+</li>
+<li><strong>Use a built in reference genome or own from your history:</strong> Use
+  built-in genome</li>
+<li><strong>Select a reference genome:</strong> D. melanogaster Apr. 2006 (BDGP R5/dm3)
+  (dm3)</li>
+<li>Use defaults for the other fields</li>
+<li>Execute</li>
+</ul>
+<p><img src="../media/rna_basic_tophat.png" height=500px/></p>
+<p>Note: This may take a few minutes, depending on how busy the server is.</p>
+<h4 id="2-examine-the-output-files">2.  Examine the output files<a class="headerlink" href="#2-examine-the-output-files" title="Permanent link">&para;</a></h4>
+<p>You should have 5 output files for each of the FASTQ input files:</p>
+<ul>
+<li><strong>Tophat on data 1: accepted_hits:</strong> This is a BAM file containing
+  sequence alignment data of the reads. This file contains the location
+  of where the reads mapped to in the reference genome. We will examine
+  this file more closely in the next step.</li>
+<li><strong>Tophat on data 1: splice junctions:</strong> This file lists all the places
+  where Tophat had to split a read into two pieces to span an exon
+  junction.</li>
+<li><strong>Tophat on data 1: deletions</strong> and <strong>Tophat on data 1: insertions:</strong>
+  These files list small insertions or deletions found in the reads.
+  Since we are working with synthetic reads we can ignore Tophat for
+  Illumina data 1:insertions Tophat for Illumina data 1:deletions for now.</li>
+<li><strong>Tophat on data 1: align_summary:</strong> This file gives some mapping
+  statistics including the number of reads mapped and the mapping rate.</li>
+</ul>
+<p>You should have a total of 30 Tophat output files in your history.</p>
+<h4 id="3-visualise-the-aligned-reads-with-igv">3.  Visualise the aligned reads with IGV<a class="headerlink" href="#3-visualise-the-aligned-reads-with-igv" title="Permanent link">&para;</a></h4>
+<p>The purpose of this step is to :</p>
+<ul>
+<li>visualise the quantitative, exon-based nature of RNA-seq data</li>
+<li>visualise the expression differences between samples represented by the
+  quantity of reads, and</li>
+<li>become familiar with the <a href="https://www.broadinstitute.org/igv/">Integrative Genomics Viewer
+  (IGV)</a>&ndash; an interactive
+  visualisation tool by the Broad Institute.  </li>
+</ul>
+<p>To visualise the alignment data:</p>
+<ol>
+<li>Click on one of the Tophat accepted hits files, for example &lsquo;Tophat on
+    data 1: accepted_hits&rsquo;.</li>
+<li>Click on Display with IGV <strong>&lsquo;webcurrent&rsquo;</strong> (or &lsquo;local&rsquo; if you have IGV
+    installed on your computer. You will need to open IGV before you click on
+    &lsquo;local&rsquo;). This should download a .jnlp Java Web Start file to your
+    computer. Open this file to run IGV. (You will need Java installed on your
+    computer to run IGV)</li>
+<li>Once IGV opens, it will show you the accepted_hits BAM file. (Note:
+    this may take a bit of time as the data is downloaded to IGV)</li>
+<li>Select <strong>chr4</strong> from the second drop box under the toolbar. Zoom in to
+    view alignments of reads to the reference genome.
+    You should see the characteristic distribution of RNA-seq reads across
+    the exons of the genes, with some gaps at intron/exon boundaries.
+    The number of reads aligned to a particular gene is proportional to the
+    abundance of the RNA derived from that gene in the sequenced sample.
+    (Note that IGV already has a list of known genes of most major organisms
+    including Drosophila, which is why you can see the genes in the bottom
+    panel of IGV.)</li>
+<li>View one of the splice function files such as &lsquo;TopHat on data 1: splice
+    junctions&rsquo;. You will need to save this file to your local disk
+    using the <strong>disk icon</strong> under the details of the file. Then open
+    the saved .bed file directly in IGV using the <strong>File &gt; Load From File</strong>
+    option from IGV. This is because IGV doesn’t automatically stream BED
+    files from Galaxy.
+    <br><img src="../media/rna_basic_igv.png" height=400px style="border: 1px solid gray; margin: 10px;"/><br>
+    The junctions file is loaded at the bottom of the
+    IGV window and splicing events are represented as coloured arcs. The
+    height and thickness of the arcs are proportional to the read depth.</li>
+<li>
+<p>View differentially expressed genes by viewing two alignment files
+    simultaneously. The aim of this tutorial is to statistically test
+    differential expression, but first it’s useful to reassure ourselves
+    that the data looks right at this stage by comparing the aligned reads
+    for condition 1 (C1) and condition 2 (C2).</p>
+<p>Select &lsquo;TopHat on data 4: accepted_hits&rsquo; (this is the accepted hits
+alignment file from first replicate of condition C2) and click on
+&lsquo;display with IGV local&rsquo;. This time we are using the <strong>&lsquo;local&rsquo;</strong> link, as
+we already have an IGV window up and running locally from the last
+step. One the file has loaded, change the location to
+<strong>chr4:325197-341887</strong> using the field on the top toolbar.</p>
+<p>The middle gene in this area clearly looks like it has many more reads
+mapped in condition 2 than condition 1, whereas for the surrounding
+genes the reads look about the same. The middle gene looks like it is
+differentially expressed. But, of course, it may be that there are
+many more reads in the readsets for C1 and C2, and the other genes
+are underexpressed in condition 2. So we need to statistically
+normalise the read counts before we can say anything definitive,
+which we will do in the next section.</p>
+</li>
+</ol>
+<h4 id="4-optional-visualise-the-aligned-reads-in-trackster">4.  <strong>[Optional]</strong> Visualise the aligned reads in Trackster<a class="headerlink" href="#4-optional-visualise-the-aligned-reads-in-trackster" title="Permanent link">&para;</a></h4>
+<p>We can also use the inbuilt Galaxy genome browser, Trackster, to visualise
+alignments. Trackster has fewer features than IGV, but sometimes it may be
+more convenient to use as it only requires the browser.</p>
+<ol>
+<li>On the top bar of Galaxy, select <strong>Visualization &gt; New Track Browser</strong>.</li>
+<li>Name your new visualization and select D. melanogaster (dm3) as the
+    reference genome build.</li>
+<li>Click the <strong>Add Datasets to Visualization</strong> button and select Tophat on
+    data 1: accepted_hits and Tophat on data 4: accepted_hits by using the
+    checkboxes on the left.</li>
+<li>Select chr4 from the dropdown box. You can zoom in and out using the
+    buttons on the top toolbar. You can also add more tracks using the Add
+    Tracks icon located on the top right.</li>
+<li>Next to the drop down list, click on the chromosomal position number
+    display and specify the location <strong>chr4:325197-341887</strong>.  </li>
+</ol>
+<p>Before starting the next section, leave the Trackster interface and return
+to the analysis view of Galaxy by clicking &lsquo;Analyze Data&rsquo; on the top
+Galaxy toolbar.</p>
+<hr />
+<h2 id="section-3-test-differential-expression-with-cuffdiff-45-min">Section 3: Test differential expression with Cuffdiff [45 min]<a class="headerlink" href="#section-3-test-differential-expression-with-cuffdiff-45-min" title="Permanent link">&para;</a></h2>
+<p>The aim in this section is to:</p>
+<ul>
+<li>generate tables of normalised read counts per gene per condition based on the
+  annotated reference transcriptome,</li>
+<li>statistically test for expression differences in normalised read counts for
+  each gene, taking into account the variance observed between samples,  </li>
+<li>for each gene, calculate the p-value of the gene being differentially
+  expressed&ndash; this is the probability of seeing the data or something more
+  extreme given the null hypothesis (that the gene is not differentially
+  expressed between the two conditions),</li>
+<li>for each gene, estimate the fold change in expression between the two
+  conditions.</li>
+</ul>
+<p>All these steps are rolled up into a single tool in Galaxy: Cuffdiff. Cuffdiff
+is part of the Cufflinks software suite which takes the aligned reads from
+Tophat and generates normalised read counts and a list of differentially
+expressed genes based on a reference transcriptome - in this case, the curated
+Ensembl list of D. melanogaster genes from chromosome 4 that we supply as a
+GTF (Gene Transfer Format) file.
+A more detailed explanation of Cufflinks DGE testing can be found
+<a href="http://cole-trapnell-lab.github.io/cufflinks/">here</a>.</p>
+<h4 id="1-examine-the-reference-transcriptome">1.  Examine the reference transcriptome<a class="headerlink" href="#1-examine-the-reference-transcriptome" title="Permanent link">&para;</a></h4>
+<p>Click on the <strong>eye icon</strong> to display the ensembl_dm3.chr4.gtf reference
+transcriptome file in Galaxy.</p>
+<p>The reference transcriptome is essentially a list of chromosomal features
+which together define genes. Each feature is in turn defined by a
+chromosomal start and end point, feature type (CDS, gene, exon etc),
+and parent gene and transcript. Importantly, a gene may have many features,
+but one feature will belong to only one gene.
+More information on the GTF format can be found
+<a href="http://asia.ensembl.org/info/website/upload/gff.html">here</a>.
+<br><img src="../media/rna_basic_gtf.png" height=200px style="margin: 10px;"/><br>
+The ensembl_dm3.chr4.gtf file contains ~4900 features which together define
+the 92 known genes on chromosome 4 of Drosophila melanogaster. Cuffdiff
+uses the reference transcriptome to aggregate read counts per gene,
+transcript, transcription start site and coding sequence (CDS). For this
+tutorial, we’ll only consider differential gene testing, but it is also
+possible to test for differential expression of transcripts or
+transcription start sites.</p>
+<h4 id="2-run-cuffdiff-to-identify-differentially-expressed-genes-and-transcripts">2.  Run Cuffdiff to identify differentially expressed genes and transcripts<a class="headerlink" href="#2-run-cuffdiff-to-identify-differentially-expressed-genes-and-transcripts" title="Permanent link">&para;</a></h4>
+<p>In the left tool panel menu, under NGS Analysis, select
+<strong>NGS: RNA Analysis &gt; Cuffdiff</strong> and set the parameters as follows:  </p>
+<ul>
+<li><strong>Transcripts:</strong> ensembl_dm3.chr4.gtf</li>
+<li><strong>Condition:</strong>  <ul>
+<li><strong>1: Condition</strong><ul>
+<li><strong>name:</strong> C1</li>
+<li><strong>Replicates:</strong><ul>
+<li>Tophat on data 1: accepted_hits</li>
+<li>Tophat on data 2: accepted_hits</li>
+<li>Tophat on data 3: accepted_hits<br />
+(Multiple datasets can be selected by holding down the shift key or
+the ctrl key for Windows or the command key for OSX.)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>2: Condition</strong><ul>
+<li><strong>name:</strong> C2</li>
+<li><strong>Replicates:</strong><ul>
+<li>Tophat on data 4: accepted_hits</li>
+<li>Tophat on data 5: accepted_hits</li>
+<li>Tophat on data 6: accepted_hits</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Use defaults for the other fields</li>
+<li>Execute</li>
+</ul>
+<p><img src="../media/rna_basic_cuffdiff.png" height=700px/></p>
+<h4 id="3-explore-the-cuffdiff-output-files">3.  Explore the Cuffdiff output files<a class="headerlink" href="#3-explore-the-cuffdiff-output-files" title="Permanent link">&para;</a></h4>
+<p>There should be 11 output files from Cuffdiff. These files should all begin
+with something like &ldquo;Cuffdiff on data 37, data 32, and others&rdquo;.</p>
+<p><strong>FPKM tracking files:</strong>  </p>
+<ul>
+<li>transcript FPKM tracking</li>
+<li>gene FPKM tracking</li>
+<li>TSS groups FPKM tracking</li>
+<li>CDS FPKM tracking  </li>
+</ul>
+<p>These 4 files contain the FPKM (a unit of normalised expression taking
+into account the transcript length for each transcript
+and the library size of the sample) for each of the two conditions.</p>
+<p><strong>Differential expression testing files:</strong>  </p>
+<ul>
+<li>gene differential expression testing</li>
+<li>transcript differential expression testing</li>
+<li>TSS groups differential expression testing</li>
+<li>CDS FPKM differential expression testing</li>
+<li>CDS overloading diffential expression testing</li>
+<li>promoters differential expression testing</li>
+<li>splicing differential expression testing</li>
+</ul>
+<p>These 7 files contain the statistical
+results from testing the level of expression between condition C1 and condition C2.</p>
+<ol>
+<li>
+<p>Examine the tables of normalised gene counts
+    View the Cuffdiff file &ldquo;Cuffdiff on data x, data x, and others: gene FPKM
+    tracking&rdquo; by clicking on the <strong>eye icon</strong>. The file consists of one row
+    for each gene from the reference transcriptome, with columns containing the
+    normalised read counts for each of the two conditions.
+    Note:  </p>
+<ul>
+<li>Cuffdiff gives each gene it’s own ‘tracking_id’, which equates
+  to a gene. Multiple transcription start sites are aggregated under a
+  single tracking_id.</li>
+<li>A gene encompasses a chromosomal locus which covers all the features
+  that make up that gene (exons, introns, 5’ UTR, etc).</li>
+</ul>
+</li>
+<li>
+<p>Inspect the gene differential expression testing file
+    View the Cuffdiff file &ldquo;Cuffdiff on data x, data x, and others: gene
+    differential expression testing&rdquo; by clicking on the <strong>eye icon</strong>. The
+    columns of interest are: gene (c3), locus (c4), log2(fold_change) (c10),
+    p_value (c12), q_value (c13) and significant (c14).</p>
+</li>
+<li>
+<p>Filter based on column 14 (‘significant’) - a binary assessment of
+    q_value &gt; 0.05, where q_value is p_value adjusted for multiple testing.
+    Under Basic Tools, click on <strong>Filter and Sort &gt; Filter</strong>:</p>
+<ul>
+<li><strong>Filter:</strong> &ldquo;Cuffdiff on data....: gene differential expression testing&rdquo;</li>
+<li><strong>With following condition:</strong> c14==&rsquo;yes&rsquo;</li>
+<li>Execute</li>
+</ul>
+<p>This will keep only those entries that Cuffdiff has marked as
+significantly differentially expressed.<br />
+We can rename this file (screenshot) by clicking on the <strong>pencil icon</strong> of
+the outputted file and change the name from &ldquo;Filter on data x&rdquo; to
+&ldquo;Significant_DE_Genes&rdquo;.</p>
+</li>
+<li>
+<p>Examine the sorted list of differentially expressed genes.
+    Click on the <strong>eye icon</strong> next to &ldquo;Significant_DE_Genes&rdquo; to view the data.</p>
+</li>
+</ol>
+<div class="question">
+    <h4>How many genes are in the Significant_DE_Genes file? What are their names?</h4>
+    <p>
+    Two genes have been identified as differentially expressed between
+    conditions C1 and C2:
+    <ul>
+        <li><b>Ank</b> located at chr4:137014-150378, and
+        <li><b>CG2177</b> located at chr4:331557-334534
+    </ul>
+    Both genes have q-values of 0.00175.
+</div>
+
+<p>&ldquo;CG2177&rdquo; located at chr4:331557-334534 was the gene that we intuitively (with IGV)
+saw to be differentially expressed in the previous section, in the broader
+region of chr4:325197-341887.</p>
+<hr />
+<h2 id="section-4-repeat-without-replicates-20-min">Section 4. Repeat without replicates [20 min]<a class="headerlink" href="#section-4-repeat-without-replicates-20-min" title="Permanent link">&para;</a></h2>
+<p>In this section, we will run Cuffdiff with fewer replicates.</p>
+<div class="question">
+    <h4>Stop and think:</h4>
+    Why do we need replicates for an RNA-seq differential gene expression
+    experiment? What do you expect to happen if we only use one sample from
+    each condition for our analysis?
+</div>
+
+<ol>
+<li>
+<p>Repeat the differential gene expression testing from section 2, but this
+    time only use one replicate from each condition group (C1 and C2).<br />
+    From the Galaxy tool panel, select <strong>NGS: RNA Analysis &gt; Cuffdiff</strong> and
+    set the parameters as follows:  </p>
+<ul>
+<li><strong>Transcripts:</strong> ensembl_dm3.chr4.gtf</li>
+<li><strong>Condition:</strong>  <ul>
+<li><strong>1: Condition</strong><ul>
+<li><strong>name:</strong> C1</li>
+<li><strong>Replicates:</strong> Tophat on data 1: accepted_hits</li>
+</ul>
+</li>
+<li><strong>2: Condition</strong><ul>
+<li><strong>name:</strong> C2</li>
+<li><strong>Replicates:</strong> Tophat on data 4: accepted_hits</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Library normalization method:</strong> classic-fpkm</li>
+<li><strong>Dispersion estimation method:</strong> blind</li>
+<li>Use defaults for the other fields</li>
+<li>Execute</li>
+</ul>
+</li>
+<li>
+<p>Filter the recently generated gene set for significantly differentially
+    expressed genes by going to <strong>Filter and Sort &gt; Filter</strong>:</p>
+<ul>
+<li><strong>Filter:</strong> &ldquo;Cuffdiff on data....: gene differential expression testing&rdquo;</li>
+<li><strong>With following condition:</strong> c14==&rsquo;yes&rsquo;</li>
+<li>Execute</li>
+</ul>
+<p>Rename the output file to something meaningful like
+&ldquo;Significant_DE_Genes_C1_R1_vs_C2_R1&rdquo;</p>
+</li>
+<li>
+<p>Click on the <strong>eye icon</strong> of Significant_DE_Genes_C1_R1_vs_C2_R1.<br />
+    You should get <em>no</em> differentially expressed genes at statistical
+    significance of 0.05. The &ldquo;Ank&rdquo; gene and the &ldquo;CG1277&rdquo;, which were found to
+    be significantly differentially expressed in our first analysis, are not
+    identified as differentially expressed when we only use one sample for each
+    condition.</p>
+</li>
+<li>
+<p>Repeat this no-replicates analysis, but this time specify a different set
+    of samples.
+    From the Galaxy tool panel, select <strong>NGS: RNA Analysis &gt; Cuffdiff</strong> and
+    set the parameters as follows:  </p>
+<ul>
+<li><strong>Transcripts:</strong> ensembl_dm3.chr4.gtf</li>
+<li><strong>Condition:</strong>  <ul>
+<li><strong>1: Condition</strong><ul>
+<li><strong>name:</strong> C1</li>
+<li><strong>Replicates:</strong> Tophat on data 1: accepted_hits</li>
+</ul>
+</li>
+<li><strong>2: Condition</strong><ul>
+<li><strong>name:</strong> C2</li>
+<li><strong>Replicates:</strong> Tophat on data 5: accepted_hits</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Library normalization method:</strong> classic-fpkm</li>
+<li><strong>Dispersion estimation method:</strong> blind</li>
+<li>Use defaults for the other fields</li>
+<li>Execute</li>
+</ul>
+</li>
+<li>
+<p>Filter the recently generated gene set for significantly differentially
+    expressed genes by going to <strong>Filter and Sort &gt; Filter</strong>:</p>
+<ul>
+<li><strong>Filter:</strong> &ldquo;Cuffdiff on data....: gene differential expression testing&rdquo;</li>
+<li><strong>With following condition:</strong> c14==&rsquo;yes&rsquo;</li>
+<li>Execute</li>
+</ul>
+<p>Rename the output file to something meaningful like
+&ldquo;Significant_DE_Genes_C1_R1_vs_C2_R2&rdquo;</p>
+</li>
+<li>
+<p>Click on the <strong>eye icon</strong> of Significant_DE_Genes_C1_R1_vs_C2_R2.<br />
+    We now see &ldquo;CG2177&rdquo; appear again in the list as significantly
+    differentially expressed, but not &ldquo;Ank&rdquo;.</p>
+</li>
+</ol>
+<div class="question">
+    <h4>How can we interpret the difference in results from using different
+    replicates? </h4>
+    <p>
+    There is a larger absolute difference in CG1277 expression between
+    samples 1 (C1_R1) and 5 (C2_R2) than samples 1 (C1_R1) and 4 (C2_R1), hence
+    Cuffdiff identifies CG1277 as differentially expressed between C1_R1 and
+    C2_R2, but not between C1_R1 and C2_R1.
+    <p>
+    On the other hand, differences in level of expression of Ank is much smaller
+    between samples, so we need to see it consistently across multiple replicates
+    for Cuffdiff to be confident it actually exists. One replicate is not enough.
+</div>
+
+<p>The identification of differentially expressed genes is based on the size
+of the difference in expression and the variance observed across multiple
+replicates. This demonstrates how important it is to have biological replicates
+in differential gene expression experiments.</p>
+<p>If we say that genes Ank and CG2177 are <strong>truly</strong> differentially expressed, we
+can call these instances where the true differentially expressed genes are not
+identified as false negatives. Generally, increasing replicates decreases the
+number of false negatives.</p>
+<p>It is also more likely to see more false positives when using an insufficient
+number of replicates. False positives can be defined as identifiying a gene as
+differentially expressed when it is, in reality, not.</p>
+<p><strong>[Optional step]</strong><br />
+Repeat this analysis, specifying groups of two replicates each. What do you
+get? How many replicates do we need to identify Ank as differentially
+expressed?</p>
+<hr />
+<h2 id="section-5-optional-extension-20-min">Section 5. Optional Extension [20 min]<a class="headerlink" href="#section-5-optional-extension-20-min" title="Permanent link">&para;</a></h2>
+<h4 id="extension-on-the-tuxedo-protocol">Extension on the Tuxedo Protocol<a class="headerlink" href="#extension-on-the-tuxedo-protocol" title="Permanent link">&para;</a></h4>
+<p>The full Tuxedo protocol includes other tools such as Cufflinks, Cuffmerge,
+and CummeRbund. Cufflinks and Cuffmerge can build a new reference transcriptome by
+identifying novel transcripts and genes in the RNA-seq dataset - i.e. using these tools will allow
+you to identify new genes and transcripts, and then analyse them for
+differential expression. This is critical for organisms in which the
+transcriptome is not well characterised. CummeRbund helps visualise the data
+produced from the Cuffdiff using the R statistical programming language.</p>
+<p>Read more on the full Tuxedo protocol <a href="rna_seq_basic_background">here</a>.</p>
+<p>If the organism we were working on did not have a well characterized reference
+transcriptome, we would run Cufflinks and Cuffmerge to create a transcriptome.</p>
+<ol>
+<li>
+<p>Suppose we didn&rsquo;t have our Drosophila GTF file containing the location of
+    known genes. We can use Cufflinks to assemble transcripts from the
+    alignment data to create GTF files.
+    From the Galaxy tool panel, select <strong>NGS: RNA Analysis &gt; Cufflinks</strong> and
+    set the parameters as follows:  </p>
+<ul>
+<li><strong>SAM or BAM file of aligned RNA-Seq reads:</strong><br />
+  Click on the multiple datasets icon and select all 6 BAM files from
+  Tophat</li>
+<li><strong>Max Intron Length:</strong> 50000  </li>
+<li>Use defaults for the other fields</li>
+<li>Execute</li>
+</ul>
+</li>
+<li>
+<p>Next, we want to merge the assemblies outputted by Cufflinks by selecting
+    <strong>NGS: RNA Analysis &gt; Cuffmerge</strong> and setting the parameters as follows:  </p>
+<ul>
+<li><strong>GTF file(s) produced by Cufflinks:</strong> Select the 6 GTF files ending
+  with &lsquo;assembled transcripts&rsquo; produced by Cufflinks. Use the ctrl key or
+  command key to select multiple files.</li>
+<li>Use defaults for the other fields</li>
+<li>Execute</li>
+</ul>
+<p>Note: In cases where you have a reference GTF, but also want to identify
+novel transcripts with Cufflinks, you would add the reference GTF to the
+cuffmerge inputs with the <strong>Additional GTF Inputs (Lists)</strong> parameter.</p>
+</li>
+<li>
+<p>View the Cuffmerge GTF file by clicking the <strong>eye icon</strong></p>
+</li>
+<li>
+<p>Run Cuffdiff using the new GTF file
+    In the Galaxy tool panel menu, under NGS Analysis, select
+    <strong>NGS: RNA Analysis &gt; Cuffdiff</strong> and set the parameters as follows:  </p>
+<ul>
+<li><strong>Transcripts:</strong> Cuffmerge on data x, data x, and others: merged
+  transcripts</li>
+<li><strong>Condition:</strong>  <ul>
+<li><strong>1: Condition</strong><ul>
+<li><strong>name:</strong> C1</li>
+<li><strong>Replicates:</strong><ul>
+<li>Tophat on data 1: accepted_hits</li>
+<li>Tophat on data 2: accepted_hits</li>
+<li>Tophat on data 3: accepted_hits</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>2: Condition</strong><ul>
+<li><strong>name:</strong> C2</li>
+<li><strong>Replicates:</strong><ul>
+<li>Tophat on data 4: accepted_hits</li>
+<li>Tophat on data 5: accepted_hits</li>
+<li>Tophat on data 6: accepted_hits</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Use defaults for the other fields</li>
+<li>Execute</li>
+</ul>
+</li>
+<li>
+<p>Filter the recently generated gene set for significantly differentially
+    expressed genes by going to <strong>Filter and Sort &gt; Filter</strong>:</p>
+<ul>
+<li><strong>Filter:</strong> &ldquo;Cuffdiff on data....: gene differential expression testing&rdquo;</li>
+<li><strong>With following condition:</strong> c14==&rsquo;yes&rsquo;</li>
+<li>Execute</li>
+</ul>
+<p>Rename the output file to something meaningful like
+&ldquo;Significant_DE_Genes_using_Cufflinks_Assembly&rdquo;</p>
+</li>
+</ol>
+<p>Viewing the significant genes, we see that there are two genes that are
+identified as differentially expressed by Cuffdiff using the GTF file produced
+from Cufflinks and Cuffmerge. The locations of these two genes correspond to
+the previous result from section 3 (genes Ank and CG2177).</p>
+<h4 id="transcript-level-differential-expression">Transcript-level differential expression<a class="headerlink" href="#transcript-level-differential-expression" title="Permanent link">&para;</a></h4>
+<p>One can think of a scenario in an experiment aiming to investigate the
+differences between two experimental conditions, where a gene had the same
+number of read counts in the two conditions but these read counts were derived
+from different transcripts; this gene would not be identified in a differential
+gene expression test, but would be in a differential transcript expression test.
+The choice of what &ldquo;unit of aggregation&rdquo; to use in differential expression
+testing is one that should be made by the biological investigator, and will
+affect the bioinformatics analysis done (and probably the data generation too).</p>
+<p>Take a look at the different differential expression files produced by
+Cuffdiff from section 3 which use different units of aggregation.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>Trapnell C, Roberts A, Pachter L, et al. Differential gene and transcript expression analysis of RNA-seq experiments with TopHat and Cufflinks. <em>Nature Protocols</em> [serial online]. March 1, 2012;7(3):562-578.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

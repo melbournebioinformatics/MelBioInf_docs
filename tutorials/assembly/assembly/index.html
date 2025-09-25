@@ -1,0 +1,2891 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../assembly-protocol/">
+      
+      
+        <link rel="next" href="../spades/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>de novo assembly of Illumina reads using Velvet (Galaxy) - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#microbial-de-novo-assembly-for-illumina-data" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              de novo assembly of Illumina reads using Velvet (Galaxy)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introductory-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introductory Tutorial
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login-to-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login to Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-the-dna-read-data-for-the-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import the DNA read data for the tutorial.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-the-fastq-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      View the fastq files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Quality control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Quality control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-fastqc-on-both-input-read-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run FastQC on both input read files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run FastQC on both input read files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-1-screenshot-of-fastqc-interface-in-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 1: Screenshot of FastQC interface in Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examine-the-fastqc-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examine the FastQC output
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examine the FastQC output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-2-screenshot-of-fastqc-output-in-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 2: Screenshot of FastQC output in Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-trim-the-reads-using-trimmomatic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality trim the reads using Trimmomatic.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quality trim the reads using Trimmomatic.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-3-screenshot-of-trimmomatic-inputs-in-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 3: Screenshot of Trimmomatic inputs in Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examine-the-trimmomatic-output-fastq-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examine the Trimmomatic output FastQ files.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-assemble-reads-into-contigs-with-velvet-and-the-velvet-optimiser" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#de-novo-assembly-of-the-reads-into-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      De novo assembly of the reads into contigs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="De novo assembly of the reads into contigs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-4-screenshot-of-velvet-optimiser-inputs-in-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 4: Screenshot of Velvet Optimiser inputs in Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examine-assembly-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examine assembly output
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examine assembly output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-5-screenshot-of-assembled-contigs-a-and-contig-stats-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 5: Screenshot of assembled contigs (a) and contig stats (b)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      a
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      b
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculate-some-statistics-on-the-assembled-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Calculate some statistics on the assembled contigs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Extension.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3: Extension.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examine-the-contig-coverage-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examine the contig coverage depth.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-a-single-sequence-from-the-contigs-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extract a single sequence from the contigs file.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blast-sequence-to-determine-what-it-contains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blast sequence to determine what it contains.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Blast sequence to determine what it contains.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-6-screenshot-of-the-output-from-the-ncbi-blast-website" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 6: Screenshot of the output from the NCBI Blast website
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introductory-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introductory Tutorial
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login-to-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login to Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-the-dna-read-data-for-the-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import the DNA read data for the tutorial.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-the-fastq-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      View the fastq files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Quality control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Quality control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-fastqc-on-both-input-read-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run FastQC on both input read files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run FastQC on both input read files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-1-screenshot-of-fastqc-interface-in-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 1: Screenshot of FastQC interface in Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examine-the-fastqc-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examine the FastQC output
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examine the FastQC output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-2-screenshot-of-fastqc-output-in-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 2: Screenshot of FastQC output in Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-trim-the-reads-using-trimmomatic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quality trim the reads using Trimmomatic.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quality trim the reads using Trimmomatic.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-3-screenshot-of-trimmomatic-inputs-in-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 3: Screenshot of Trimmomatic inputs in Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examine-the-trimmomatic-output-fastq-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examine the Trimmomatic output FastQ files.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-assemble-reads-into-contigs-with-velvet-and-the-velvet-optimiser" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#de-novo-assembly-of-the-reads-into-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      De novo assembly of the reads into contigs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="De novo assembly of the reads into contigs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-4-screenshot-of-velvet-optimiser-inputs-in-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 4: Screenshot of Velvet Optimiser inputs in Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examine-assembly-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examine assembly output
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examine assembly output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-5-screenshot-of-assembled-contigs-a-and-contig-stats-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 5: Screenshot of assembled contigs (a) and contig stats (b)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      a
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      b
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculate-some-statistics-on-the-assembled-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Calculate some statistics on the assembled contigs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Extension.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3: Extension.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examine-the-contig-coverage-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examine the contig coverage depth.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-a-single-sequence-from-the-contigs-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extract a single sequence from the contigs file.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blast-sequence-to-determine-what-it-contains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blast sequence to determine what it contains.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Blast sequence to determine what it contains.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-6-screenshot-of-the-output-from-the-ncbi-blast-website" class="md-nav__link">
+    <span class="md-ellipsis">
+      Figure 6: Screenshot of the output from the NCBI Blast website
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<style>
+
+
+</style>
+<div class="image-header-gvl">
+    <a href=http://genome.edu.au><img src="../media/gvl_logo.jpg" alt="GVL logo" width="112"/></a>
+    <a href="http://galaxyproject.org"><img src="../media/GalaxyLogoHighRes.png" width="164" /></a>
+    <a href="https://www.melbournebioinformatics.org.au/"><img src="../../../img/melbioinf_logo.png" alt="Melbourne Bioinformatics logo" width="164"/></a>
+</div>
+
+<h1 id="microbial-de-novo-assembly-for-illumina-data">Microbial de novo Assembly for Illumina Data<a class="headerlink" href="#microbial-de-novo-assembly-for-illumina-data" title="Permanent link">&para;</a></h1>
+<h2 id="introductory-tutorial"><em>Introductory Tutorial</em><a class="headerlink" href="#introductory-tutorial" title="Permanent link">&para;</a></h2>
+<p>Written and maintained by <a href="mailto:simon.gladman@unimelb.edu.au">Simon Gladman</a> - Melbourne Bioinformatics (formerly VLSCI)</p>
+<!-- toc
+## Contents
+
+1. [Tutorial Overview](#1-tutorial-overview)
+2. [Background](#2-background-15-min) [15 min]
+3. [Preparation](#3-preparation-15-min) [15 min]
+4. [Section 1: Quality control](#4-section-1-quality-control-30-mins) [30 mins]
+5. [Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser](#5-section-2-assemble-reads-into-contigs-with-velvet-and-the-velvet-optimiser-45-min) [45 min]
+6. [Section 3. Extension](#6-section-3-extension-20-min) [20 min]
+7. [References](#7-references)
+-->
+
+<h2 id="tutorial-overview">Tutorial Overview<a class="headerlink" href="#tutorial-overview" title="Permanent link">&para;</a></h2>
+<p>In this tutorial we cover the concepts of Microbial de novo assembly using a very small synthetic dataset from a well studied organism.</p>
+<p><strong>What’s not covered</strong></p>
+<p>This tutorial covers the basic aspects of microbial de novo assembly from Illumina paired end or single end reads.
+It does not cover more complicated aspects of assembly such as:</p>
+<ul>
+<li>Incorporation of other raw data types (454 reads, Sanger reads)</li>
+<li>Gap filling techniques for “finishing” an assembly</li>
+<li>Measuring the accuracy of assemblies</li>
+</ul>
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<p>Read the <a href="../assembly-background/#background">background to the workshop here</a></p>
+<p><strong>Where is the data in this tutorial from?</strong></p>
+<p>The data for this tutorial is from a whole genome sequencing experiment of a multi-drug resistant strain of the bacterium Staphylococcus aureus. The DNA was sequenced using an Illumina GAII sequencing machine. The data we are going to use consists of about 4 million x 75 base-pair, paired end reads (two FASTQ read files, one for each end of a DNA fragment.) The data was downloaded from the <a href="http://www.ncbi.nlm.nih.gov/sra/">NCBI Short Read Archive (SRA)</a> (<a href="http://www.ncbi.nlm.nih.gov/sra/">http://www.ncbi.nlm.nih.gov/sra/</a>). The specific sample is a public dataset published in April 2012 with SRA accession number ERR048396.</p>
+<p>We will also use a FASTA file containing the sequences of the Illumina adapters used in the sequencing process. It is desirable to remove these as they are artificial sequences and not part of the bacterium that was sequenced.</p>
+<p>We will use software called <a href="https://www.ebi.ac.uk/~zerbino/velvet/">Velvet</a> (Zerbino et al 2008) for the main de novo assembly, as well as some other peripheral software for pre- and post-processing of the data. Details of these can be found in the background document linked above.</p>
+<p><strong>The protocol:</strong></p>
+<p>We are performing a de novo assembly of the read data into contigs and then into scaffolds (appropriately positioned contigs loosely linked together). We firstly need to check the quality of the input data as this will help us choose the most appropriate range of input parameters for the assembly and will guide us on an appropriate quality trimming/cleanup strategy. We will then use an iterative method to assemble the reads using the <a href="http://www.vicbioinformatics.com/software.velvetoptimiser.shtml">Velvet Optimiser</a> (a program that performs lots of Velvet assemblies searching for an optimum outcome.) Once this is complete we will obtain summary statistics on the final results (contigs) of the assembly.</p>
+<p>Follow this <a href="../assembly-protocol/">link for an overview of the protocol</a></p>
+<p><strong>The protocol in a nutshell:</strong></p>
+<p><em>Input:</em> Raw reads from sequencer run on microbial DNA sample.</p>
+<p><em>Output:</em> File of assembled scaffolds/contigs and associated information.</p>
+<h2 id="preparation">Preparation<a class="headerlink" href="#preparation" title="Permanent link">&para;</a></h2>
+<h3 id="login-to-galaxy">Login to Galaxy<a class="headerlink" href="#login-to-galaxy" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Open a browser and go to a Galaxy server. (what is <a href="../assembly-background/#the-galaxy-workflow-platform">Galaxy</a>?)<ul>
+<li>You can use a galaxy server of your own <strong>or</strong></li>
+<li><a href="http://galaxy-tut.genome.edu.au">Galaxy Tute</a> at genome.edu.au</li>
+</ul>
+</li>
+<li>Register as a new user if you don’t already have an account on that particular server</li>
+</ol>
+<blockquote>
+<p><img src="../media/tips.png" alt="Tip" height="42" width="42"/>
+  NOTE: Firefox/Safari/Chrome all work well, Internet Explorer not so well.</p>
+</blockquote>
+<h3 id="import-the-dna-read-data-for-the-tutorial">Import the DNA read data for the tutorial.<a class="headerlink" href="#import-the-dna-read-data-for-the-tutorial" title="Permanent link">&para;</a></h3>
+<p><strong>You can do this in a few ways. If you&rsquo;re using <a href="http://galaxy-tut.genome.edu.au">galaxy-tut.genome.edu.au</a>:</strong></p>
+<ol>
+<li>Go to <strong>Shared Data -&gt; Published Histories</strong> and click on &ldquo;<em>Microbial_assembly_input_data</em>&rdquo;. Then click <strong>&lsquo;Import History&rsquo;</strong> at top right, wait for the history to be imported to your account, and then <strong>‘start using this history’</strong>.</li>
+<li>This will create a new Galaxy history in your account with all of the required data files.</li>
+<li>Proceed to step 4.</li>
+</ol>
+<p><strong>If you are using a different Galaxy server, you can upload the data directly to Galaxy using the file URLs.</strong></p>
+<ol>
+<li>On the Galaxy tools panel, click on <strong>Get data -&gt; Upload File</strong>.</li>
+<li>Click on the <strong>Paste/Fetch Data</strong> button.</li>
+<li>Paste the URL: <em><a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_1.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_1.fastq.gz</a></em> into the text box. Change the type to <em>fastqsanger</em> (Not <em>fastqcsanger</em>).</li>
+<li>Click on the <strong>Paste/Fetch Data</strong> button again.</li>
+<li>Paste the URL: <em><a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_2.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/ERR048396_2.fastq.gz</a></em> into the text box and change it&rsquo;s type to <em>fastqsanger</em> as well.</li>
+<li>Repeat the process for the last URL: <em><a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/illumina_adapters.fna">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/Assembly/illumina_adapters.fna</a></em> , but make it&rsquo;s type <em>fasta</em></li>
+<li>Click on the <strong>Start</strong> button. Once all of the uploads are at 100%, click on the <strong>Close</strong> button.</li>
+<li>When the files have finished uploading, rename them to ‘ERR048396_1.fastq’, ‘ERR048396_2.fastq’ and ‘illumina_adapters.fna’ respectively by clicking on the <img src="../media/Galaxy-edit.png" width=20 /> icon to the top right of the file name in the right hand Galaxy panel (the history panel)</li>
+</ol>
+<p>You should now have the following files in your Galaxy history:</p>
+<ul>
+<li><em>ERR048396_1.fastq</em> - forward reads in fastq format</li>
+<li><em>ERR048396_2.fastq</em> - reverse reads in fastq format</li>
+<li><em>illumina_adapters.fa</em> - Illumina adapter sequences in fasta format</li>
+</ul>
+<h3 id="view-the-fastq-files">View the fastq files<a class="headerlink" href="#view-the-fastq-files" title="Permanent link">&para;</a></h3>
+<p>Click on the <img src="../media/Galaxy-view.png" width=20 />  icon to the top right of each fastq file to view the first part of the file
+If you’re not familiar with the FASTQ format, click here for an overview</p>
+<p>NOTE: If you log out of Galaxy and log back in at a later time your data and results from previous experiments will be available in the right panel of your screen called the ‘History.’</p>
+<hr />
+<h2 id="section-1-quality-control">Section 1: Quality control<a class="headerlink" href="#section-1-quality-control" title="Permanent link">&para;</a></h2>
+<p>The basic process here is to collect statistics about the quality of the reads in the sample FASTQ readsets. We will then evaluate their quality and choose an appropriate regime for quality filtering using Trimmomatic (a fastq read quality trimmer.)</p>
+<p><a href="https://docs.google.com/document/pub?id=16GwPmwYW7o_r-ZUgCu8-oSBBY1gC97TfTTinGDk98Ws">More detailed description of FastQC quality analysis can be found here.</a></p>
+<p><a href="http://www.usadellab.org/cms/index.php?page=trimmomatic">More detailed description of Trimmomatic read quality filtering can be found here.</a></p>
+<h3 id="run-fastqc-on-both-input-read-files">Run FastQC on both input read files<a class="headerlink" href="#run-fastqc-on-both-input-read-files" title="Permanent link">&para;</a></h3>
+<ol>
+<li>From the tools menu in the left hand panel of Galaxy, select <strong>NGS QC and manipulation &gt; FastQC: Comprehensive QC</strong> (down the bottom of this category) and run with these parameters:<ul>
+<li>&ldquo;FASTQ reads&rdquo;: <em>ERR048396_1.fastq</em></li>
+<li>Use default for other fields</li>
+</ul>
+</li>
+<li>Click <strong>Execute</strong></li>
+<li>Now repeat the above process on the second read file: <em>ERR048396_2.fastq</em></li>
+</ol>
+<blockquote>
+<p><img src="../media/tips.png" alt="Tip" height="42" width="42"/> Note: This may take a few minutes, depending on how busy Galaxy is.</p>
+</blockquote>
+<p>It is important to do both read files as the quality can be very different between them.</p>
+<h5 id="figure-1-screenshot-of-fastqc-interface-in-galaxy">Figure 1: Screenshot of FastQC interface in Galaxy<a class="headerlink" href="#figure-1-screenshot-of-fastqc-interface-in-galaxy" title="Permanent link">&para;</a></h5>
+<p><img src="../media/screenshot-fastqc-interface.png" width=80% /></p>
+<h3 id="examine-the-fastqc-output">Examine the FastQC output<a class="headerlink" href="#examine-the-fastqc-output" title="Permanent link">&para;</a></h3>
+<p>You should have two output objects from the first step:</p>
+<ul>
+<li><em>FastQC_ERR048396_1.fastqc.html</em></li>
+<li><em>FastQC_ERR048396_2.fastqc.html</em></li>
+</ul>
+<p>These are a html outputs which show the results of all of the tests FastQC performed on the read files.</p>
+<ol>
+<li>Click on the <img src="../media/Galaxy-view.png" width=20 /> icon of each of these objects in turn to see the FastQC output.</li>
+</ol>
+<p>The main parts of the output to evaluate are:</p>
+<ul>
+<li>Basic statistics. This section tells us that the ASCII quality encoding format used was Sanger/Illumina 1.9 and the reads are length 75 and the percent GC content of the entire file is 35%.</li>
+<li>Per base sequence quality. In the plot you should see that most of the early bases are up around the &lsquo;32&rsquo; mark and then increase to 38-40, which is very high quality; The spread of quality values for the last few bases increases and some of the outliers have quality scores of less than 30. This is a very good quality dataset. 20 is often used as a cutoff for reliable quality.</li>
+</ul>
+<h5 id="figure-2-screenshot-of-fastqc-output-in-galaxy">Figure 2: Screenshot of FastQC output in Galaxy<a class="headerlink" href="#figure-2-screenshot-of-fastqc-output-in-galaxy" title="Permanent link">&para;</a></h5>
+<p><img src="../media/screenshot-fastqc-output.png" width=80% /></p>
+<h3 id="quality-trim-the-reads-using-trimmomatic">Quality trim the reads using Trimmomatic.<a class="headerlink" href="#quality-trim-the-reads-using-trimmomatic" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>From the tools menu in the left hand panel of Galaxy, select <strong>NGS QC and manipulation &gt; Trimmomatic</strong> and run with these parameters (only the non-default selections are listed here):</p>
+<ul>
+<li>&ldquo;Input FASTQ file (R1/first of pair)&rdquo;: <em>ERR048396_1.fastq</em></li>
+<li>&ldquo;Input FASTQ file (R2/second of pair)&rdquo;: <em>ERR048396_2.fastq</em></li>
+<li>&ldquo;Perform initial ILLUMINACLIP step?&rdquo;: <em>Yes</em></li>
+<li>&ldquo;Adapter sequences to use&rdquo;: <em>TruSeq3 (additional seqs) (paired end, for MiSeq and HiSeq)</em></li>
+<li>&ldquo;How accurate &hellip; read alignment&rdquo;: <em>40</em></li>
+<li>&ldquo;How accurate &hellip; against a read&rdquo;: <em>15</em></li>
+<li>We will use the default settings for the SLIDING_WINDOW operation but we need to add a few more Trimmomatic operations.</li>
+<li>Click <strong>Insert Trimmomatic Operation</strong><ul>
+<li>Add <em>Cut bases &hellip; (LEADING)</em></li>
+<li>&ldquo;Minimum quality required to keep a base&rdquo;: <em>15</em></li>
+</ul>
+</li>
+<li>Repeat the <strong>Insert Trimmomatic Operation</strong> for:<ul>
+<li>Trim trailing bases, minimum quality: <em>15</em></li>
+<li>Minimum length read: <em>35</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Click <strong>Execute</strong>
+      <br></br></p>
+</li>
+</ol>
+<h5 id="figure-3-screenshot-of-trimmomatic-inputs-in-galaxy">Figure 3: Screenshot of Trimmomatic inputs in Galaxy<a class="headerlink" href="#figure-3-screenshot-of-trimmomatic-inputs-in-galaxy" title="Permanent link">&para;</a></h5>
+<p><img src="../media/screenshot-trimmomatic-inputs.png" width=80% /></p>
+<h3 id="examine-the-trimmomatic-output-fastq-files">Examine the Trimmomatic output FastQ files.<a class="headerlink" href="#examine-the-trimmomatic-output-fastq-files" title="Permanent link">&para;</a></h3>
+<p>You should have 4 new objects in your history from the output of Trimmomatic:</p>
+<ul>
+<li><em>Trimmomatic on data 2 and data 1 (R1 Paired)</em></li>
+<li><em>Trimmomatic on data 2 and data 1 (R1 Unpaired)</em></li>
+<li><em>Trimmomatic on data 2 and data 1 (R2 Paired)</em></li>
+<li><em>Trimmomatic on data 2 and data 1 (R2 Unpaired)</em></li>
+</ul>
+<p>Click on the <img src="../media/Galaxy-view.png" width=20 /> on one of the objects to look at its contents. You’ll notice that not all of the reads are the same length now, as they have had the illumina adapters cut out of them and they’ve been quality trimmed.</p>
+<hr />
+<h2 id="section-2-assemble-reads-into-contigs-with-velvet-and-the-velvet-optimiser">Section 2: Assemble reads into contigs with Velvet and the Velvet Optimiser<a class="headerlink" href="#section-2-assemble-reads-into-contigs-with-velvet-and-the-velvet-optimiser" title="Permanent link">&para;</a></h2>
+<p>The aim here is to assemble the trimmed reads into contigs/scaffolds using Velvet and the Velvet Optimiser.</p>
+<p>We will use a single tool, Velvet Optimiser, which takes the trimmed reads from Trimmomatic and performs numerous Velvet assemblies to find the best one. We need to add the reads in two separate libraries. One for the still paired reads and the other for the singleton reads orphaned from their pairs by the trimming process.</p>
+<p><a href="../assembly-background/">Click here for a more detailed explanation of Velvet assemblies and the Velvet Optimiser</a></p>
+<h3 id="de-novo-assembly-of-the-reads-into-contigs">De novo assembly of the reads into contigs<a class="headerlink" href="#de-novo-assembly-of-the-reads-into-contigs" title="Permanent link">&para;</a></h3>
+<ol>
+<li>From the tools menu in the left hand panel of Galaxy, select <strong>NGS: Assembly -&gt; Velvet Optimiser</strong> and run with these parameters (only the non-default selections are listed here):<ul>
+<li>&ldquo;Start k-mer value&rdquo;: <em>55</em></li>
+<li>&ldquo;End k-mer value&rdquo;: <em>69</em></li>
+<li>In the input files section:<ul>
+<li>&ldquo;Select first set of reads&rdquo;: <em>Trimmomatic on data 2 and data 1 (R1 paired)</em></li>
+<li>&ldquo;Select second set of reads&rdquo;: <em>Trimmomatic on data 2 and data 1 (R2 paired)</em></li>
+</ul>
+</li>
+<li>Click the <strong>Insert Input Files</strong> button and add the following:<ul>
+<li>&ldquo;Single or paired end reads&rdquo;: <em>Single</em></li>
+<li>&ldquo;Select the reads&rdquo;: <em>Trimmomatic on data 2 and data 1 (R1 unpaired)</em></li>
+</ul>
+</li>
+<li>Repeat the above process to add the other unpaired read set <em>Trimmomatic on data 2 and data 1 (R2 unpaired)</em> as well.</li>
+</ul>
+</li>
+<li>Click <strong>Execute</strong>.</li>
+</ol>
+<h5 id="figure-4-screenshot-of-velvet-optimiser-inputs-in-galaxy">Figure 4: Screenshot of Velvet Optimiser inputs in Galaxy<a class="headerlink" href="#figure-4-screenshot-of-velvet-optimiser-inputs-in-galaxy" title="Permanent link">&para;</a></h5>
+<p><img src="../media/screenshot-velvetoptimiser-inputs.png" width=80% /></p>
+<h3 id="examine-assembly-output">Examine assembly output<a class="headerlink" href="#examine-assembly-output" title="Permanent link">&para;</a></h3>
+<p>Once step 1 is complete, you should now have 2 new objects in your history:
+* <em>VelvetOptimiser on data 9, data 7, and others: Contigs</em>
+* <em>VelvetOptimiser on data 9, data 7, and others: Contig Stats</em></p>
+<p>Click on the <img src="../media/Galaxy-view.png" width=20 /> icon of the various objects.</p>
+<ul>
+<li>
+<p>Contigs: You’ll see the first MB of the file. Note that the contigs are named NODE_XX_length_XXXX_cov_XXX.XXX. This information tells you how long (in k-mer length) each contig is and what it’s average k-mer coverage is. (See detailed explanation of Velvet and Velvet Optimiser for explanation of k-mer coverage and k-mer length.)</p>
+</li>
+<li>
+<p>Contig stats: This shows a table of the contigs and their k-mer coverages and which read library contributed to the coverage. It is interesting to note that some of them have much higher coverage than the average. These are most likely to be repeated contigs. (Things like ribosomal RNA and IS elements.)</p>
+</li>
+</ul>
+<h5 id="figure-5-screenshot-of-assembled-contigs-a-and-contig-stats-b">Figure 5: Screenshot of assembled contigs (a) and contig stats (b)<a class="headerlink" href="#figure-5-screenshot-of-assembled-contigs-a-and-contig-stats-b" title="Permanent link">&para;</a></h5>
+<h5 id="a">a<a class="headerlink" href="#a" title="Permanent link">&para;</a></h5>
+<p><img src="../media/screenshot-contigs.png" width=80% /></p>
+<h5 id="b">b<a class="headerlink" href="#b" title="Permanent link">&para;</a></h5>
+<p><img src="../media/screenshot-contig-stats.png" width=80% /></p>
+<h3 id="calculate-some-statistics-on-the-assembled-contigs">Calculate some statistics on the assembled contigs<a class="headerlink" href="#calculate-some-statistics-on-the-assembled-contigs" title="Permanent link">&para;</a></h3>
+<ol>
+<li>From the tools menu in the left hand panel of Galaxy, select <strong>FASTA Manipulation -&gt; Fasta Statistics</strong> and run with these parameters:<ul>
+<li>&ldquo;Fasta or multifasta file&rdquo;: <em>Velvet Optimiser &hellip; Contigs</em></li>
+</ul>
+</li>
+<li>Click <strong>Execute</strong></li>
+<li>Examine the Fasta Stats output</li>
+</ol>
+<p>You should now have one more object in your history: <em>Fasta Statistics on data 10: Fasta summary stats</em></p>
+<p>Click on the <img src="../media/Galaxy-view.png" width=20 /> icon next to this object and have a look at the output. You’ll see a statistical summary of the contigs including various length stats, the % GC content, the n50 as well as the number of contigs and the number of N bases contained in them.</p>
+<hr />
+<h2 id="section-3-extension">Section 3: Extension.<a class="headerlink" href="#section-3-extension" title="Permanent link">&para;</a></h2>
+<p>Examine the contig coverage depth and blast a high coverage contig against a protein database.</p>
+<h3 id="examine-the-contig-coverage-depth">Examine the contig coverage depth.<a class="headerlink" href="#examine-the-contig-coverage-depth" title="Permanent link">&para;</a></h3>
+<p>Look at the Contig Stats data (Velvet Optimiser vlsci on data 8, data 9, and data 7: Contig stats) by clicking on the <img src="../media/Galaxy-view.png" width=20 /> icon. Note that column 2 contig length (lgth), shows a number of very short contigs (some are length 1).</p>
+<ul>
+<li>We can easily filter out these short contigs from this information list by using the <strong>Filter and Sort -&gt; Filter tool.</strong></li>
+<li>Set the following:<ul>
+<li>&ldquo;Filter&rdquo;: <em>Velvet Optimiser on data 8, data 7 and others: Contig stats</em></li>
+<li>&ldquo;With the following condition&rdquo;: <em>c2 &gt; 100</em></li>
+</ul>
+</li>
+<li>Click <strong>Execute</strong></li>
+</ul>
+<p>The new data object in the history is called: <em>Filter on data 11</em>.</p>
+<p>Click on its <img src="../media/Galaxy-view.png" width=20 /> icon to view it. Look through the list taking note of the coverages. Note that the average of the coverages (column 6) seems to be somewhere between 16 and 32.  There are a lot of contigs with coverage 16. We could say that these contigs only appear once in the genome of the bacteria. Therefore, contigs with double this coverage would appear twice. Note that some of the coverages are &gt;400! These contigs will appear in the genome more than 20 times!</p>
+<p>Lets have a look at one of these contigs and see if we can find out what it is.</p>
+<h3 id="extract-a-single-sequence-from-the-contigs-file">Extract a single sequence from the contigs file.<a class="headerlink" href="#extract-a-single-sequence-from-the-contigs-file" title="Permanent link">&para;</a></h3>
+<p>Note the contig number (column 1 in the Contig stats file) of a contig with a coverage of over 300. There should be a few of them. We need to extract the fasta sequence of this contig from the contigs multifasta so we can see it more easily.</p>
+<p>To do this we will use the tool:</p>
+<ul>
+<li><strong>Fasta manipulation -&gt; Fasta Extract Sequence</strong></li>
+<li>Set the following:<ul>
+<li>&ldquo;Fasta or multifasta file&rdquo;: <em>Velvet Optimiser &hellip; : Contigs</em></li>
+<li>&ldquo;Sequence ID (or partial): <em>NODE_1_&hellip;</em> (for example)</li>
+</ul>
+</li>
+<li>Click <strong>Execute</strong></li>
+</ul>
+<p>The new data object in the history is called: <em>Fasta Extract Sequence on data 10: Fasta</em>.</p>
+<p>Click on its <img src="../media/Galaxy-view.png" width=20 /> icon to view it. It is a single sequence in fasta format.</p>
+<h3 id="blast-sequence-to-determine-what-it-contains">Blast sequence to determine what it contains.<a class="headerlink" href="#blast-sequence-to-determine-what-it-contains" title="Permanent link">&para;</a></h3>
+<p>We want to find out what this contig is or what kind of coding sequence (if any) it contains. So we will blast the sequence using the NCBI blast website. (External to Galaxy). To do this:</p>
+<ul>
+<li>Bring up the sequence of the contig into the main window of the browser by clicking on the <img src="../media/Galaxy-view.png" width=20 /> icon if it isn’t already.</li>
+<li>Select the entire sequence by clicking and dragging with the mouse or by pressing ctrl-a in the browser.</li>
+<li>Copy the selected sequence to the clipboard.</li>
+<li>Open a new tab of your browser and point it to: <a href="http://blast.ncbi.nlm.nih.gov/Blast.cgi">http://blast.ncbi.nlm.nih.gov/Blast.cgi</a></li>
+<li>Under the BASIC BLAST section, click “blastx”.</li>
+<li>Paste the sequence into the large text box labelled: Enter Accession number(s), gi(s) or FASTA sequence(s).</li>
+<li>Change the Genetic code to: Bacteria and Archaea (11)</li>
+<li>Click the button labelled: BLAST</li>
+</ul>
+<p>After a while the website will present a report of the blast run. Note that the sequence we blasted (if you chose NODE_1) is identical to part of a transposase gene (IS256) from a similar Staphylococcus aureus bacteria. These transposases occur frequently as repeats in bacterial genomes and so we shouldn’t be surprised at its very high coverage.</p>
+<h5 id="figure-6-screenshot-of-the-output-from-the-ncbi-blast-website">Figure 6: Screenshot of the output from the NCBI Blast website<a class="headerlink" href="#figure-6-screenshot-of-the-output-from-the-ncbi-blast-website" title="Permanent link">&para;</a></h5>
+<p><img src="../media/screenshot-blast.png" width=80% /></p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

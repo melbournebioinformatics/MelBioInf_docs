@@ -1,0 +1,2827 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../var_detect_advanced/var_detect_advanced_background/">
+      
+      
+        <link rel="next" href="../../var_detect_advanced/var_detect_advanced/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Variant Calling part 1 (Galaxy) - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction-to-variant-calling-using-galaxy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Variant Calling part 1 (Galaxy)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Preparation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-take-a-look-at-the-fastq-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Take a look at the FASTQ file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-assessing-read-quality-from-the-fastq-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Assessing read quality from the FASTQ files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-alignment-to-the-reference-fastq-to-bam" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Alignment to the reference - (FASTQ to BAM)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Alignment to the reference - (FASTQ to BAM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-align-the-reads-with-bwa" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Align the reads with BWA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-examine-the-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Examine the alignment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-assess-the-alignment-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Assess the alignment data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-visualise-the-bam-file-with-igv" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Visualise the BAM file with IGV
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-generate-a-pileup-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Generate a pileup file
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Generate a pileup file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-generate-a-pileup-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Generate a pileup file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-filter-the-pileup-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Filter the pileup file
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-call-variants-with-freebayes" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Call variants with FreeBayes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Call variants with FreeBayes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-call-variants-with-freebayes" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Call variants with FreeBayes.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-check-the-generated-list-of-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Check the generated list of variants
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-visualise-the-variants-and-compare-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Visualise the variants and compare files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-optional-filter-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Optional: filter variants
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-further-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Further steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Preparation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-quality-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Quality Control
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Quality Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-take-a-look-at-the-fastq-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Take a look at the FASTQ file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-assessing-read-quality-from-the-fastq-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Assessing read quality from the FASTQ files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-alignment-to-the-reference-fastq-to-bam" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Alignment to the reference - (FASTQ to BAM)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Alignment to the reference - (FASTQ to BAM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-align-the-reads-with-bwa" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Align the reads with BWA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-examine-the-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Examine the alignment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-assess-the-alignment-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Assess the alignment data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-visualise-the-bam-file-with-igv" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Visualise the BAM file with IGV
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-generate-a-pileup-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Generate a pileup file
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Generate a pileup file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-generate-a-pileup-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Generate a pileup file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-filter-the-pileup-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Filter the pileup file
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-call-variants-with-freebayes" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Call variants with FreeBayes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Call variants with FreeBayes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-call-variants-with-freebayes" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Call variants with FreeBayes.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-check-the-generated-list-of-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Check the generated list of variants
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-visualise-the-variants-and-compare-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Visualise the variants and compare files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-optional-filter-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Optional: filter variants
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-further-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Further steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p>
+<img src="../../../img/melbioinf_logo.png" alt="Melbourne Bioinformatics logo" align="left" width="40%"/><br />
+<img src="../media/gvl_logo.jpg" alt="GVL logo" align="right" width="112"/>
+</p>
+<p><br></p>
+<p><br></p>
+
+<h1 id="introduction-to-variant-calling-using-galaxy">Introduction to Variant Calling using Galaxy<a class="headerlink" href="#introduction-to-variant-calling-using-galaxy" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This tutorial is designed to introduce the tools, data types and workflow of variant detection. We will align reads to the genome, look for differences between reads and reference genome sequence, and filter the detected genomic variation manually to understand the computational basis of variant calling.</p>
+<p>We cover the concepts of detecting small variants (SNVs and indels) in human genomic DNA using a small set of reads from chromosome 22.</p>
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>At the end of the course, you will be able to:</p>
+<ul>
+<li>Work with the FASTQ format and base quality scores</li>
+<li>Align reads to generate a BAM file and subsequently generate a pileup file</li>
+<li>Run the FreeBayes variant caller to find SNVs and indels</li>
+<li>Visualise BAM files using the Integrative Genomics Viewer (IGV) and identify likely SNVs and indels by eye</li>
+</ul>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<p>This workshop uses Galaxy as a platform. It is recommended that participants who have not used Galaxy before either sign up for our Intro to GVL workshop, or work through this tutorial themselves beforehand.</p>
+<p>This is a hands-on workshop and attendees are required to bring their own laptops.</p>
+<hr />
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<p>Some background reading material - <a href="https://www.google.com/url?q=https://docs.google.com/document/pub?id%3D1NfythYcSrkQwldGMrbHRKLRORFFn-WnBm3gOMHwIgmE&amp;sa=D&amp;usg=AFQjCNE7C6wmK6Fiu-_ZJhc0RSBaxFSRbg">background</a></p>
+<p><strong>Where is the data in this tutorial from?</strong></p>
+<p>The workshop is based on analysis of short read data from the exome of chromosome 22 of a single human individual. There are one million 76bp reads in the dataset, produced on an Illumina GAIIx from exome-enriched DNA. This data was generated as part of the <a href="http://www.1000genomes.org/">1000 genomes</a> Genomes project.</p>
+<hr />
+<h2 id="1-preparation">1. Preparation<a class="headerlink" href="#1-preparation" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Make sure you have an instance of Galaxy ready to go.</strong><ul>
+<li>For example, you can use the <a href="https://usegalaxy.org.au/">Galaxy Australia server</a>.</li>
+</ul>
+</li>
+<li><strong>Create a new history for this tutorial.</strong><ul>
+<li>In the history pane, click on the cog icon at the top right.</li>
+<li>Click <em>Create New</em>.</li>
+<li>Click on <em>Unnamed history</em> and re-name it.</li>
+</ul>
+</li>
+<li><strong>Import data for the tutorial.</strong><ul>
+<li>In this case, we are uploading a <a href="https://en.wikipedia.org/wiki/FASTQ_format">FASTQ</a> file.</li>
+<li><strong>Method 1</strong><br />
+<em>Paste/Fetch data from a URL to Galaxy.</em><ol>
+<li>In the Galaxy tools panel (left), click on <code>Get Data</code> and choose <code>Upload File</code>.</li>
+<li>Click <em>Paste/Fetch data</em> and paste the following URL into the box</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<div class="code">
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/VariantDet_BASIC/NA12878.GAIIx.exome_chr22.1E6reads.76bp.fastq
+<br>
+</div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="w">    </span><span class="mf">3.</span><span class="w"> </span><span class="n">Select</span><span class="w"> </span><span class="o">*</span><span class="n">Type</span><span class="o">*</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="o">**</span><span class="n">fastqsanger</span><span class="o">**</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">click</span><span class="w"> </span><span class="o">*</span><span class="n">Start</span><span class="o">*.</span>
+<span class="w">    </span><span class="mf">4.</span><span class="w"> </span><span class="n">Once</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="n">turns</span><span class="w"> </span><span class="o">*</span><span class="n">green</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">means</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">complete</span><span class="o">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">able</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">see</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Galaxy</span><span class="w"> </span><span class="n">history</span><span class="w"> </span><span class="n">panel</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="p">)</span><span class="o">.</span>
+<span class="w">    </span><span class="mf">5.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">dataset</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">very</span><span class="w"> </span><span class="n">long</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">it</span><span class="s1">&#39;s named after the full URL we got it from. Optionally, once the file is in your History, click the pencil icon in the upper-right corner of the green dataset box, then select the *Name* box and give the file a shorter name by removing the URL. Then click *Save*.</span>
+
+<span class="n">Alternatively</span><span class="p">,</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">For</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">purpose</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">tutorial</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">stick</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="n">above</span><span class="o">*</span><span class="p">):</span>
+
+<span class="o">*</span><span class="w"> </span><span class="o">**</span><span class="n">Method</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="w">  </span>
+<span class="w">    </span><span class="o">*</span><span class="n">Upload</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Galaxy</span><span class="o">.*</span>
+<span class="w">    </span><span class="mf">1.</span><span class="w"> </span><span class="n">In</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Galaxy</span><span class="w"> </span><span class="n">tools</span><span class="w"> </span><span class="n">panel</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="p">),</span><span class="w"> </span><span class="n">click</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="err">`</span><span class="n">Get</span><span class="w"> </span><span class="n">Data</span><span class="err">`</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">choose</span><span class="w"> </span><span class="err">`</span><span class="n">Upload</span><span class="w"> </span><span class="n">File</span><span class="err">`</span><span class="o">.</span>
+<span class="w">    </span><span class="mf">2.</span><span class="w"> </span><span class="n">From</span><span class="w"> </span><span class="o">*</span><span class="n">Choose</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="n">file</span><span class="o">*</span><span class="w"> </span><span class="n">select</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">downloaded</span><span class="w"> </span><span class="n">FASTQ</span><span class="w"> </span><span class="n">file</span><span class="o">.</span><span class="w"> </span><span class="n">Select</span><span class="w"> </span><span class="o">*</span><span class="n">Type</span><span class="o">*</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="o">**</span><span class="n">fastqsanger</span><span class="o">**</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">click</span><span class="w"> </span><span class="o">*</span><span class="n">Start</span><span class="o">*.</span>
+<span class="w">    </span><span class="mf">3.</span><span class="w"> </span><span class="n">Once</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="n">turns</span><span class="w"> </span><span class="o">*</span><span class="n">green</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">means</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">complete</span><span class="o">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">able</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">see</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Galaxy</span><span class="w"> </span><span class="n">history</span><span class="w"> </span><span class="n">panel</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="p">)</span><span class="o">.</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Summary:<br />
+So far, we have started a Galaxy instance, got hold of our data and uploaded it to
+the Galaxy instance.<br />
+Now we are ready to perform our analysis.</p>
+<hr />
+<h2 id="2-quality-control">2. Quality Control<a class="headerlink" href="#2-quality-control" title="Permanent link">&para;</a></h2>
+<p>The first step is to evaluate the quality of the raw sequence data. If the quality is poor, then adjustments can be made - e.g. trimming the short reads, or adjusting your expectations of the final outcome!</p>
+<h4 id="1-take-a-look-at-the-fastq-file">1. Take a look at the FASTQ file<a class="headerlink" href="#1-take-a-look-at-the-fastq-file" title="Permanent link">&para;</a></h4>
+<p>Click on the eye icon to the top right of the FASTQ file to view the a snippet of the file.</p>
+<p>Note that each read is represented by 4 lines:
+    * read identifier
+    * short read sequence
+    * separator
+    * short read sequence quality scores</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>e.g.
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>identifier:    @61CC3AAXX100125:7:72:14903:20386/1
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>read sequence: TTCCTCCTGAGGCCCCACCCACTATACATCATCCCTTCATGGTGAGGGAGACTTCAGCCCTCAATGCCACCTTCAT
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>separator:     +
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>quality score: ?ACDDEFFHBCHHHHHFHGGCHHDFDIFFIFFIIIIHIGFIIFIEEIIEFEIIHIGFIIIIIGHCIIIFIID?@&lt;6
+</span></code></pre></div>
+<p>For more details see <a href="https://en.wikipedia.org/wiki/FASTQ_format">FASTQ</a>.</p>
+<h4 id="2-assessing-read-quality-from-the-fastq-files">2. Assessing read quality from the FASTQ files<a class="headerlink" href="#2-assessing-read-quality-from-the-fastq-files" title="Permanent link">&para;</a></h4>
+<ol>
+<li>From the Galaxy tools panel, in the search box at the top, type in &ldquo;FastQC&rdquo;.</li>
+<li>Click on <ss>FastQC</ss></li>
+</ol>
+<p><br>The input FASTQ file will be selected by default. Keep the other defaults and click execute.</p>
+<blockquote>
+<p><img src="../media/tips.png" alt="Tip" height="42" width="42"/>
+   Tip:
+   Note the batch processing interface of Galaxy:<br />
+<br />
+<ul>
+   <li> grey = waiting in queue  
+   <li> yellow = running  
+   <li> green = finished  
+   <li> red = tried to run and failed
+   </ul>
+</p>
+</blockquote>
+<p>When the job has finished, click on the eye icon to view the newly generated data (in this case a set of quality metrics for the FASTQ data). This will be a file called <em>FastQC on data 1: Web page</em>.
+Look at the various quality scores. The data looks pretty good - <em>high Per base sequence quality</em> (avg. above 30).</p>
+<hr />
+<h2 id="3-alignment-to-the-reference-fastq-to-bam">3. Alignment to the reference - (FASTQ to BAM)<a class="headerlink" href="#3-alignment-to-the-reference-fastq-to-bam" title="Permanent link">&para;</a></h2>
+<p>The basic process here to map individual reads - from the input sample FASTQ file - to a matching region on the reference genome.</p>
+<h4 id="1-align-the-reads-with-bwa">1. Align the reads with BWA<a class="headerlink" href="#1-align-the-reads-with-bwa" title="Permanent link">&para;</a></h4>
+<p>We will map (align) the reads with the <a href="http://bio-bwa.sourceforge.net/">BWA</a> tool to the human reference genome. For this tutorial, use <em>Human reference genome 19 (hg19)</em> - this is <a href="http://genome.ucsc.edu/cgi-bin/hgTracks">hg19 from UCSC</a>.</p>
+<ol>
+<li>
+<p>Align the reads [3-5mins]: from the Galaxy tools panel, search for <ss>Map with BWA-MEM</ss><br>
+   From the options:<br></p>
+<ul>
+<li><em>Will you selection a reference genome&hellip;:</em> Use a built-in genome index</li>
+<li><em>Using reference genome:</em> set to hg19</li>
+<li><em>Single or Paired-end reads:</em> set to Single</li>
+<li>Make sure your fastq file is the input file.</li>
+<li>Keep other options as default and click execute.</li>
+</ul>
+<p><em>Note: This is the longest step in the workshop and will take a few minutes, possibly more depending on how many people are also scheduling mappings</em></p>
+</li>
+<li>
+<p>Sort the BAM file: from the Galaxy tools panel, search for <ss>SortSam</ss>
+    <br>From the options:<br></p>
+<ul>
+<li>Set the input file to be the output BAM file from the previous step.</li>
+<li><em>Sort by:</em> set to Coordinate</li>
+<li>Keep other options as default and click execute</li>
+</ul>
+</li>
+</ol>
+<h4 id="2-examine-the-alignment">2. Examine the alignment<a class="headerlink" href="#2-examine-the-alignment" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>To examine the output sorted BAM file, we need to first convert it into readable <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAM</a> format.
+   From the Galaxy tools panel, search for <ss>BAM-to-SAM</ss>
+   <br>From the options:<br></p>
+<ul>
+<li><em>BAM File to Convert:</em> select your sorted BAM file</li>
+<li>Keep all options as default and click execute</li>
+</ul>
+</li>
+<li>
+<p>Examine the generated Sequence Alignment Map (SAM) file.</p>
+<ul>
+<li>Click the eye icon in the History pane next to the newly generated file</li>
+<li>Familiarise yourself with the <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAM</a> format</li>
+<li>Note that some reads have mapped to non-chr22 chromosomes (see column 3).</li>
+</ul>
+</li>
+</ol>
+<p>This is the essence of alignment algorithms - the aligner does the best it can, but because of compromises in accuracy vs performance and repetitive sequences in the genome, not all the reads will necessarily align to the ‘correct’ sequence or could this be suggesting the presence of a structural variant?</p>
+<blockquote>
+<p><img src="../media/tips.png" alt="Tip" height="42" width="42"/>
+Tip:
+Galaxy auto-generates a name for all outputs. Therefore, it is advisable to choose a more meaningful name to these outputs.</p>
+<p>This can be done as follows:</p>
+<p>Click on the pencil icon (edit attributes) and change Name e.g. Sample.bam or Sample.sam or Sample.sorted.bam etc.</p>
+</blockquote>
+<h4 id="3-assess-the-alignment-data">3. Assess the alignment data<a class="headerlink" href="#3-assess-the-alignment-data" title="Permanent link">&para;</a></h4>
+<p>We can generate some mapping statistics from the BAM file to assess the quality of our alignment.</p>
+<ol>
+<li>
+<p>Run IdxStats. From the Galaxy tools panel, search for the tool <ss>IdxStats</ss></p>
+<ul>
+<li>Select the sorted BAM file as input.</li>
+<li>Keep other options as default and click execute.</li>
+</ul>
+<p>IdxStats generates a tab-delimited output with four columns.
+Each line consists of a reference sequence name (e.g. a chromosome),
+reference sequence length, number of mapped reads and number of placed but
+unmapped reads.</p>
+<p>We can see that most of the reads are aligning to chromosome 22 as expected.</p>
+</li>
+<li>
+<p>Run Flagstat. From the Galaxy tools panel, search for <ss>Flagstat</ss></p>
+<ul>
+<li>Select the sorted BAM file as input.</li>
+<li>Keep other options as default and click execute.</li>
+</ul>
+<p>Note that in this case the statistics are not very informative. This is because the dataset has been generated for this workshop and much of the noise has been removed (and in fact we just removed a lot more noise in the previous step); also we are using single ended read data rather than paired-end so some of the metrics are not relevant.</p>
+</li>
+</ol>
+<hr />
+<h2 id="4-visualise-the-bam-file-with-igv">4. Visualise the BAM file with IGV<a class="headerlink" href="#4-visualise-the-bam-file-with-igv" title="Permanent link">&para;</a></h2>
+<p>To visualise the alignment data:</p>
+<ol>
+<li>Click on the sorted BAM file dataset in the History panel.</li>
+<li>Click on &ldquo;Display with IGV <strong>web current</strong>&rdquo;. This should download a .jnlp
+    Java Web Start file to your computer. Open this file to run IGV.
+    (You will need Java installed on your computer to run IGV). NOTE: If IGV is already open on your computer, you can click &ldquo;<strong>local</strong>&rdquo; instead of &ldquo;web current&rdquo;, and this will open the BAM file in your current IGV session.</li>
+<li>Once IGV opens, it will show you the BAM file. This may take a bit of time as the data is downloaded.</li>
+<li>Our reads for this tutorial are from chromosome 22, so select <strong>chr22</strong> from the second
+    drop box under the toolbar. Zoom in to view alignments of reads to the reference genome.</li>
+</ol>
+<p><a href="../media/igv1.jpg"><img src="../media/igv1.jpg" alt="IGV view 1" width="640px" style="display:block; margin-left: auto; margin-right:auto;"/></a></p>
+<p>Try looking at region <code>chr22:36,006,744-36,007,406</code></p>
+<p>Can you see a few variants?  </p>
+<p><a href="../media/igv_mb.jpg"><img src="../media/igv_mb.jpg" alt="IGV view 1" width="640px" style="display:block; margin-left: auto; margin-right:auto;"/></a></p>
+<p>Don&rsquo;t close IGV yet as we&rsquo;ll be using it later.</p>
+<hr />
+<h2 id="5-generate-a-pileup-file">5. Generate a pileup file<a class="headerlink" href="#5-generate-a-pileup-file" title="Permanent link">&para;</a></h2>
+<p>A pileup is essentially a column-wise representation of the aligned reads - at the base level - to the reference. The pileup file summarises all data from the reads at each genomic region that is covered by at least one read. Each row of the pileup file gives similar information to a single vertical column of reads in the IGV view.</p>
+<p>The current generation of variant calling tools do not output pileup files, and you don&rsquo;t need to do this section in order to use FreeBayes in the next section. However, a pileup file is a good illustration of the evidence the variant caller is looking at internally, and we will produce one to see this evidence.</p>
+<h4 id="1-generate-a-pileup-file">1. Generate a pileup file<a class="headerlink" href="#1-generate-a-pileup-file" title="Permanent link">&para;</a></h4>
+<p>From the Galaxy tools panel, search for <ss>Generate pileup</ss><br>
+From the options:</p>
+<ul>
+<li><em>Call consensus according to MAQ model:</em> set to Yes<br>
+  This generates a called &lsquo;consensus base&rsquo; for each chromosomal position.
+  This would allow us to use this pileup directly for variant detection, if we wanted.</li>
+<li>Keep other options as default and click execute</li>
+</ul>
+<p>Galaxy tries to assign a datatype attribute to every output file. In this case, you&rsquo;ll need to manually set the datatype to <em>pileup</em>.</p>
+<ol>
+<li>First, rename the output to something more meaningful by clicking on the pencil icon</li>
+<li>To change the datatype, click on the Datatype link from the top tab while you&rsquo;re editing attributes.</li>
+<li>For downstream processing we want to tell Galaxy that this is a <em>pileup</em> file. From the drop-down, select Pileup and click save.</li>
+</ol>
+<blockquote>
+<p><img src="../media/tips.png" alt="Tip" height="42" width="42"/>
+ Tip:
+The pileup file we generated has 10 columns:<br>
+* 1. chromosome<br>
+* 2. position<br>
+* 3. current reference base<br>
+* 4. consensus base from the mapped reads<br>
+* 5. consensus quality<br>
+* 6. SNV quality<br>
+* 7. maximum mapping quality<br>
+* 8. coverage<br>
+* 9. bases within reads<br>
+* 10. quality values<br></p>
+<p>Further information on (9):<br>
+Each character represents one of the following (the longer this string, higher the coverage):
+  <ul>
+  <li> . = match on forward strand for that base
+  <li> , = match on reverse strand
+  <li> ACGTN = mismatch on forward
+  <li> acgtn = mismatch on reverse
+  <li> +[0-9]+[ACGTNacgtn]+&rsquo; = insertion between this reference position and the next
+  <li> -[0-9]+[ACGTNacgtn]+&rsquo; = deletion between this reference position and the next
+  <li> ^ = start of read
+  <li> $ = end of read
+  <li> BaseQualities = one character per base in ReadBases, ASCII encoded Phred scores
+  </ul></p>
+</blockquote>
+<h4 id="2-filter-the-pileup-file">2. Filter the pileup file<a class="headerlink" href="#2-filter-the-pileup-file" title="Permanent link">&para;</a></h4>
+<p>If you click the eye icon to view the contents of your pileup file, you&rsquo;ll see that the visible rows of the file aren&rsquo;t very interesting as they are outside chromosome 22 and have very low coverage. Let&rsquo;s filter to regions with coverage of at least 10 reads.</p>
+<p>From the Galaxy tools panel, search for <ss>Filter Pileup</ss><br>
+From the options:</p>
+<ul>
+<li><em>which contains:</em> set to Pileup with ten columns (with consensus).
+  This is to match the <em>Call consensus according to MAQ model</em> option we selected earlier -
+  the filter tool needs to know to expect the 10-column rather than 6-column format.</li>
+<li><em>Do not report positions with coverage lower than:</em> set to 10</li>
+</ul>
+<p>Try this filtering step two ways:</p>
+<ul>
+<li>First, set the parameter <em>Only report variants?</em> to <strong>No</strong>. This will give you all locations with a coverage of at least 10 and sufficient read quality. This is similar to the information you see when you look at IVG: each pilup row corresponds to a column of aligned bases at one genomic location.</li>
+<li>Then, repeat the step but set <em>Only report variants?</em> to <strong>Yes</strong>. This will effectively do variant calling: it will give you only locations that have some evidence that there might be a variant present. This variant calling is not very stringent, so you will still get lots of rows. We could filter further to, for instance, variants with high quality scores.</li>
+</ul>
+<p>Examine your two pileup files and understand the difference between them. Which coordinates are present in each? What do the bases look like in one compared to the other? Compare the variant quality score (in column 6) to the bases listed on each row.</p>
+<h2 id="6-call-variants-with-freebayes">6. Call variants with FreeBayes<a class="headerlink" href="#6-call-variants-with-freebayes" title="Permanent link">&para;</a></h2>
+<p>FreeBayes is a Bayesian variant caller which assesses the likelihood of each possible genotype for each position in the reference genome, given the observed reads at that position, and reports back the list of possible variants. We look at it in more detail in the <a href="../../var_detect_advanced/var_detect_advanced/">Advanced Variant Calling</a> tutorial.</p>
+<h4 id="1-call-variants-with-freebayes">1. Call variants with FreeBayes.<a class="headerlink" href="#1-call-variants-with-freebayes" title="Permanent link">&para;</a></h4>
+<p>In the tool panel search for <ss>FreeBayes</ss>.</p>
+<ul>
+<li>Select your sorted BAM file as input, and select the correct reference genome.</li>
+<li>Under <em>Choose parameter selection level</em>, select &ldquo;Simple diploid calling with filtering and coverage&rdquo;. This will consider only aligned reads with sufficient mapping quality and base quality. You can see the exact parameters this sets by scrolling down in the main Galaxy window to the Galaxy FreeBayes documentation section on <em>Galaxy-specific options</em>.</li>
+<li><em>Execute</em> FreeBayes. (This may take a while.)</li>
+</ul>
+<h4 id="2-check-the-generated-list-of-variants">2. Check the generated list of variants<a class="headerlink" href="#2-check-the-generated-list-of-variants" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Click the eye icon to examine the VCF file contents. The VCF format is described below - make sure you can identify the header rows and the data, and understand the important columns.</li>
+<li>How many variants exactly are in your list? (Hint: you can look at the number of lines in the dataset, listed in the green box in the History, but remember the top lines are header lines.)</li>
+<li>What sort of quality scores do your variants have?</li>
+</ul>
+<blockquote>
+<p><img src="../media/tips.png" alt="Tip" height="42" width="42"/>
+FreeBayes, like most variant callers, produces a <a href="http://vcftools.sourceforge.net/specs.html">Variant Call Format (VCF)</a> file.</p>
+<p>VCF consists of a header section and a data section. The header section has some information about the file and the parameters used to produce it. The header also specifies what information is stored in the INFO, FILTER and FORMAT columns, as this is different for different variant callers.</p>
+<p>The data section has several columns. For this tutorial, you should concentrate on CHROM, POS, REF, ALT and QUAL.
+CHROM and POS describe the variant&rsquo;s genomic location, REF and ALT describe the variant&rsquo;s nucleotides relative to the reference, and QUAL is a quality score giving FreeBayes&rsquo; confidence in the correctness of this variant call.</p>
+<p>The columns in more detail are:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Col</th>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>CHROM</td>
+<td>Chromosome name</td>
+</tr>
+<tr>
+<td>2</td>
+<td>POS</td>
+<td>1-based position. For an indel, this is the position preceding the indel.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ID</td>
+<td>Variant identifier (optional). Usually the dbSNP rsID.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>REF</td>
+<td>Reference sequence at POS involved in the variant. For a SNP, it is a single base.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>ALT</td>
+<td>Comma delimited list of alternative sequence(s) seen in our reads.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>QUAL</td>
+<td>Phred-scaled probability of all samples being homozygous reference.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>FILTER</td>
+<td>Semicolon delimited list of filters that the variant fails to pass.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>INFO</td>
+<td>Semicolon delimited list of variant information.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>FORMAT</td>
+<td>Colon delimited list of the format of individual genotypes in the following fields.</td>
+</tr>
+<tr>
+<td>10+</td>
+<td>Sample(s)</td>
+<td>Individual genotype information defined by FORMAT.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>For even more detail on VCF files, you can look at the <a href="http://vcftools.sourceforge.net/specs.html"><em>VCF format specification</em></a>.</p>
+</blockquote>
+<h4 id="3-visualise-the-variants-and-compare-files">3. Visualise the variants and compare files<a class="headerlink" href="#3-visualise-the-variants-and-compare-files" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Open the VCF file in IGV using the dataset&rsquo;s <em>display in IGV local</em> link (using the <em>web current</em> link will open IGV again, and using <em>local</em> should use your already-running IGV). This will give an annotation track in IGV to visualise where variants have been called. Compare it to your BAM file.</li>
+<li>Take a look again at the same region as earlier: <code>chr22:36,006,744-36,007,406</code></li>
+<li>Try comparing to the corresponding location in the pileup file. You can filter to the same window as we just opened in IGV with the tool <code>Filter and Sort &gt; Filter</code>. Choose your previously-filtered pileup file as input, and set the filter condition to <code>c1=="chr22" and c2 &gt; 36006744 and c2 &lt; 36007406</code>.</li>
+</ul>
+<h4 id="4-optional-filter-variants">4. Optional: filter variants<a class="headerlink" href="#4-optional-filter-variants" title="Permanent link">&para;</a></h4>
+<p>See if you can work out how to filter your VCF file to variants with quality scores greater than 50. You can use the <code>Filter and Sort: Filter</code> tool we used above.</p>
+<h2 id="7-further-steps">7. Further steps<a class="headerlink" href="#7-further-steps" title="Permanent link">&para;</a></h2>
+<p>We&rsquo;ve seen how to:</p>
+<ul>
+<li>Align the raw data (sequence reads) to a reference genome</li>
+<li>Generate variant calls from aligned reads</li>
+<li>Interpret the various file formats used in storing reads, alignments and variant calls</li>
+<li>Visualise the data using IGV</li>
+</ul>
+<p>For real variant calling, you will probably want to carry out clean-up steps on your BAM file to improve the quality of the calls, and do further filtering and selection on the resulting variants.</p>
+<p>We look at some further steps in the <a href="../../var_detect_advanced/var_detect_advanced/">Advanced Variant Calling</a> tutorial.</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

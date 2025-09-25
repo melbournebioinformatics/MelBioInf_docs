@@ -1,0 +1,2518 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Nanopore assembly 1hr - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hybrid-genome-assembly-nanopore-and-illumina-1hr" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Nanopore assembly 1hr
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements and preparation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements and preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparing-your-laptop-prior-to-starting-this-workshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing your laptop prior to starting this workshop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-we-produce-the-genomic-dna-for-a-bacterial-isolate" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do we produce the genomic DNA for a bacterial isolate?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shotgun-sequencing-illumina-sequencing-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shotgun sequencing - Illumina Sequencing Library
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-read-set-summaries-and-qc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Read set summaries and QC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Read set summaries and QC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting the data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-set-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read set summaries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-hybrid-de-novo-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Hybrid de-novo assembly
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Hybrid de-novo assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unicycler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unicycler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section Questions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-assessing-assembly-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Assessing assembly quality
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3: Assessing assembly quality">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quast
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#busco" class="md-nav__link">
+    <span class="md-ellipsis">
+      BUSCO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-questions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section Questions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional reading
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><img src="media/melbioinf_logo.png" width="350"> <img src="media/PRIMARY_A_Vertical_Housed_RGB.png" width="150"></p>
+<h1 id="hybrid-genome-assembly-nanopore-and-illumina-1hr">Hybrid genome assembly - nanopore and illumina (1hr)<a class="headerlink" href="#hybrid-genome-assembly-nanopore-and-illumina-1hr" title="Permanent link">&para;</a></h1>
+<p>Anticipated workshop duration is <strong>1 hour</strong>.  </p>
+<p>For queries relating to this workshop, contact Melbourne Bioinformatics (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;">&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;</a>).</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<h3 id="topic">Topic<a class="headerlink" href="#topic" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Genomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Transcriptomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Proteomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Metabolomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Statistics and visualisation</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Structural Modelling</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Basic skills</li>
+</ul>
+<h3 id="skill-level">Skill level<a class="headerlink" href="#skill-level" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Beginner  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Intermediate  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Advanced  </li>
+</ul>
+<p>This workshop is designed for participants with no command line knowledge. A web-based platform called Galaxy will be used to run our analysis.</p>
+<p>How do long- and short-read assembly methods differ?</p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p><em>Assemble a genome!<br>Learn how to create and assess genome assemblies using the powerful combination of nanopore and illumina reads</em> </p>
+<p>This tutorial explores how long and short read data can be combined to produce a high-quality &lsquo;finished&rsquo; bacterial genome sequence. Termed &lsquo;hybrid assembly&rsquo;, we will use read data produced from two different sequencing platforms, Illumina (short read) and Oxford Nanopore Technologies (long read), to reconstruct a bacterial genome sequence.</p>
+<p>In this tutorial we will perform &lsquo;<em>de novo</em> assembly&rsquo;. De novo assembly is the process of assembling a genome from scratch using only the sequenced reads as input - no reference genome is used.  This approach is common practise when working with microorganisms, and has seen increasing use for eukaryotes (including humans) in recent times.  </p>
+<p>Using short read data (Illumina) alone for <em>de novo</em> assembly will produce a complete genome, but often in many pieces (commonly called a &lsquo;draft genome&rsquo;). For the genome to be assembled into a single chromosome (plus a sequence for each plasmid), reads would need to be longer than the longest repeated element on the genome (usually ~7,000 base pairs, Note: Illumina reads are 350 base maximum).   Draft bacterial genome sequences are cheap to produce (less than AUD$60) and useful (&gt;300,000 draft <em>Salmonella enterica</em> genome sequences published at NCBI <a href="https://www.ncbi.nlm.nih.gov/pathogens/organisms/">https://www.ncbi.nlm.nih.gov/pathogens/organisms/</a>), but sometimes you need a high-quality &lsquo;finished&rsquo; bacterial genome sequence.  There are &lt;1,000 are &lsquo;finished&rsquo; or &lsquo;closed&rsquo; <em>Salmonella enterica</em> genome sequences.</p>
+<p>In these cases, long reads can be used together with short reads to produce a high-quality assembly.  Nanopore long reads (commonly &gt;40,000 bases) can fully span repeats, and reveal how all the genome fragments should be arranged. Long reads currently have higher error rate than short reads, so the combination of technologies is particularly powerful. Long reads provide information on the genome structure, and short reads provide high base-level accuracy.  </p>
+<p>Combining read data from the long and short read sequencing platforms allows the production of a complete genome sequence with very few sequence errors, but the cost of the read data is about AUD$ 1,000 to produce the sequence. Understanably, we usually produce a draft genome sequence with very few sequence errors using the Illumina sequencing platform.</p>
+<p>Nanopore sequencing technology is rapidly improving, expect the cost difference to reduce!!</p>
+<p><strong>Data:</strong> Nanopore reads, Illlumina reads, bacterial organism (<em>Bacillus subtilis</em>) reference genome<br>
+<strong>Tools:</strong> Unicycler, Quast, BUSCO<br>
+<strong>Pipeline:</strong> FastQC, MultiQC, NanoPlot, Unicycler, Quast, BUSCO</p>
+<p><br></p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>At the end of this introductory workshop, you will:</p>
+<ul>
+<li>Understand how Nanopore and Illumina reads can be used together to produce a high quality assembly</li>
+<li>Be familiar with genome assembly and polishing programs</li>
+<li>Learn how to assess the quality of a genome assembly, regardless of whether a reference genome is present or absent</li>
+<li>Be able to assemble an unknown, previously undocumented genome to high-quality using Nanopore and Illumina reads.</li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="requirements-and-preparation">Requirements and preparation<a class="headerlink" href="#requirements-and-preparation" title="Permanent link">&para;</a></h2>
+<p><strong>Attendees are required to bring their own laptop computers.</strong>  </p>
+<p>All data and tools are available on usegalaxy.org.au. You will need a computer to connect to and use their platform.
+Before the tutorial, navigate to <a href="https://usegalaxy.org.au/">https://usegalaxy.org.au/</a> and use your email to create an account. Click &ldquo;Login or register&rdquo; in the top navigation bar of galaxy to do this.  </p>
+<h3 id="preparing-your-laptop-prior-to-starting-this-workshop">Preparing your laptop prior to starting this workshop<a class="headerlink" href="#preparing-your-laptop-prior-to-starting-this-workshop" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No additional software needs to be installed for this workshop.</li>
+</ul>
+<h3 id="required-data">Required Data<a class="headerlink" href="#required-data" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No additional data needs to be downloaded for this workshop.</li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="author-information">Author Information<a class="headerlink" href="#author-information" title="Permanent link">&para;</a></h2>
+<p>Written by: Grace Hall<br />
+Melbourne Bioinformatics, The University of Melbourne</p>
+<p>Created/Reviewed: March 2020</p>
+<p><br></p>
+<hr />
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<h3 id="how-do-we-produce-the-genomic-dna-for-a-bacterial-isolate">How do we produce the genomic DNA for a bacterial isolate?<a class="headerlink" href="#how-do-we-produce-the-genomic-dna-for-a-bacterial-isolate" title="Permanent link">&para;</a></h3>
+<p>Traditional <em>in vitro</em> culture techniques are important. Take a sample (e.g. a swab specimen from an infected sore) and streak a &lsquo;loopful&rsquo; on to solid growth medium that suppoprts the growth of the bacteria. <strong>Technology from the time of Louis Pasteur!</strong></p>
+<p>Mixtures of bacterial types can be sequenced e.g. prepare genomic DNA from environmental samples containing bacteria - water, soil, faecal samples etc. (Whole Metagenome Sequencing)</p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/10491057/93856582-8d409700-fcfc-11ea-9f0c-951e4ab05519.png" /></p>
+<p>One colony contains 10<sup>7</sup> – 10<sup>8</sup> cells. The genomic DNA extracted from one colony is enough for Illumina sequencing. Larger amounts of genomic DNA are required for Nanopore sequencing.</p>
+<h3 id="shotgun-sequencing-illumina-sequencing-library">Shotgun sequencing - Illumina Sequencing Library<a class="headerlink" href="#shotgun-sequencing-illumina-sequencing-library" title="Permanent link">&para;</a></h3>
+<p>Genomic DNA is prepared for sequencing by fragmenting/shearing: multiple copies of Chromosome + plasmid  &rarr; ~500 bp fragments</p>
+<p>Note: Nanopore sequencing - there is usually no need to shear the genomic DNA <strong>specialist methods are used to minimise shearing during DNA preparation</strong>. For Nanopore sequencing the longer the DNA fragments the better!</p>
+<p><br></p>
+<hr />
+<h2 id="section-1-read-set-summaries-and-qc">Section 1: Read set summaries and QC<a class="headerlink" href="#section-1-read-set-summaries-and-qc" title="Permanent link">&para;</a></h2>
+<p>In this section we will import and perform quality control (QC) on our data. </p>
+<p>Today we will use 4 pieces of data - 2 short read sets, 1 long read set, and a reference genome to compare our assembly with. </p>
+<p><br></p>
+<h3 id="getting-the-data">Getting the data<a class="headerlink" href="#getting-the-data" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Make sure you have an instance of Galaxy ready to go.</strong><ul>
+<li>Navigate to the <a href="https://usegalaxy.org.au/">Galaxy Australia server</a> and sign in if you have an account.</li>
+</ul>
+</li>
+<li>
+<p><strong>Copy an existing history</strong></p>
+<ul>
+<li>The data you will need is available in an existing Galaxy history: </li>
+<li><a href="https://usegalaxy.org.au/u/graceh1024/h/hybrid-de-novo-assembly---1hr">https://usegalaxy.org.au/u/graceh1024/h/hybrid-de-novo-assembly---1hr</a></li>
+<li>Import the history &lsquo;+&rsquo; icon at the top right of the page. </li>
+</ul>
+<p><br>
+<img src="media/import_history.PNG" width="700">
+3. <strong>Look at the history you imported</strong>
+* There are 4 files - Nanopore reads, two sets of Illumina reads, and a reference genome for the organism we will assemble.
+* Our Illumina data are paired-end reads. Two separate files will be present, with only &lsquo;1&rsquo; and &lsquo;2&rsquo; being different in their filenames. 
+* We will use the reference_genome.fasta to assess the quality of our assembly</p>
+</li>
+</ol>
+<p><br></p>
+<h3 id="read-set-summaries">Read set summaries<a class="headerlink" href="#read-set-summaries" title="Permanent link">&para;</a></h3>
+<p>Often, it is prudent to first assess the quality of our read sets. For the short reads, we are concerned with base quality, sequence duplication, and presence of adapter sequences. For nanopore, we want to know about the length and quality distribution of reads, as these may both be highly variable. </p>
+<p>FastQC creates summary reports for short read data. We will use this tool twice - once for each Illumina read set. We can then use a tool called MultiQC to combine these reports for easy viewing. </p>
+<p>For Nanopore data, NanoPlot is a great option. It creates plots which aim to summarise the length and quality distribution of long read sets. </p>
+<p>Depending on these summaries, we may choose to perform a QC step to remove any poor quality reads before proceeding. </p>
+<p><br></p>
+<p><strong>Run FastQC on each short read set</strong>
+* Find FastQC in the tools panel. It is listed as &lsquo;<strong>FastQC</strong> Read Quality reports&rsquo;
+* Parameters:
+    * <strong><em>Short read data from your current history:</em></strong> illumina_reads_1.fastq
+    * Leave all else default and execute the program.
+* Run FastQC again as above, but change <strong><em>Short read data from your current history:</em></strong> to &lsquo;illumina_reads_2.fastq&rsquo;.
+* Rename the FastQC RawData output for illumina_reads_1.fastq to &lsquo;FastQC reads 1 - RawData&rsquo;
+* Rename the FastQC RawData output for illumina_reads_2.fastq to &lsquo;FastQC reads 2 - RawData&rsquo;</p>
+<p><br></p>
+<p>FastQC produces two outputs - &lsquo;RawData&rsquo;, and &lsquo;Webpage&rsquo;. Typically, the webpage is for human viewing, and the RawData can be given to other programs, such as MultiQC.</p>
+<p>At this stage, we have two FastQC outputs - one for each short read set. We will now combine them into a single output using MultiQC for easier interpretation. </p>
+<p><br></p>
+<p><strong>Run MultiQC</strong>
+* Find MultiQC in the tools panel. It is listed as &lsquo;<strong>MultiQC</strong> aggregate results from bioinformatics analyses into a single report&rsquo;
+* Parameters:
+    * <strong><em>Which tool was used generate logs?</em></strong> FastQC
+    * <strong><em>FastQC output</em></strong>
+        * <strong><em>Type of FastQC output?</em></strong> RawData
+            * <strong><em>FastQC ouptut</em></strong> FastQC reads 1 - RawData  <br />
+    * click &lsquo;+ Insert FastQC output&rsquo;
+    * <strong><em>FastQC output</em></strong>
+        * <strong><em>Type of FastQC output?</em></strong> RawData
+            * <strong><em>FastQC ouptut</em></strong> FastQC reads 2 - RawData 
+* Leave all else default and execute the program.  </p>
+<p><br></p>
+<p>MultiQC also produces two outputs - &lsquo;Stats&rsquo; and &lsquo;Webpage&rsquo;. Inspect the Webpage output by clicking the eye icon on this history item.</p>
+<p>MultiQC produces a number of plots, but we are only interested in two today: the &lsquo;Sequence Counts&rsquo; and &lsquo;Sequence Quality Histograms&rsquo; plots. </p>
+<p>The &lsquo;Sequence Count&rsquo; displays multiple pieces of information. Firstly, we can see that both read sets have the same total number of reads (sanity check - the number should be identical otherwise some reads don&rsquo;t have a mate!). Additionally, &lsquo;Duplicate Reads&rsquo; are a fraction of the &lsquo;Unique Reads&rsquo;. High levels of sequence duplication can be caused by many factors, but since this is whole genome sequencing (WGS) data, we expect most reads to be unique. </p>
+<p><br></p>
+<p><img src="media/sequence_counts.PNG" width="400"></p>
+<p><br></p>
+<p>Scrolling down, the &lsquo;Sequence Quality Histograms&rsquo; plot informs us that read 1 for each mate pair is generally lower quality than read 2. This said, they are both high quality and will be fine for our purpose. </p>
+<p><br></p>
+<p><img src="media/sequence_quality.PNG" width="400"></p>
+<p><br></p>
+<p>Our Illumina reads seem to be reasonable quality. We will now inspect the Nanopore reads.</p>
+<p><br></p>
+<p><strong>Run NanoPlot</strong>
+* Find MultiQC in the tools panel. It is listed as &lsquo;<strong>NanoPlot</strong> Plotting suite for Oxford Nanopore sequencing data and alignments&rsquo;
+* Parameters:
+    * <strong><em>Type of the file(s) to work on</em></strong>
+        * <strong><em>files</em></strong> nanopore_reads.fastq
+* Leave all else default and execute the program. </p>
+<p><br></p>
+<p>NanoPlot produces 5 outputs, but we are only interested in the &lsquo;HTML report&rsquo; output. View this file by clicking the eye icon on this history item.</p>
+<p>The NanoPlot HTML report includes a table, followed by a number of plots. The table provides a summary of the read set. The main statistics we will look at are <strong><em>Median read length</em></strong>, <strong><em>Median read quality</em></strong>, and <strong><em>Number of reads</em></strong>. </p>
+<p><br></p>
+<p><img src="media/nanoplot_table.PNG" width="400"></p>
+<p><br></p>
+<p>Our median read length (3261 bp) is short for Nanopore data, but the median quality is good (11.7), equating to a per base accuracy of approximately 93%. </p>
+<p>Below the summary table, we see plots relating to read length and quality distributions. Below is the log transformed read length histogram:</p>
+<p><br></p>
+<p><img src="media/nanoplot_histogram.PNG" width="400"></p>
+<p><br></p>
+<p>The vast majority of our reads sit between  1 - 10 kbp in length. Looking at this histogram closely, we see that the histogram is abruptly cut off at 1000 bp - this read set has previously been filtered to remove reads less than 1000 base pairs, resulting in this effect! </p>
+<p><br></p>
+<p>Our read sets appear to be good enough to proceed without performing further QC. Next, we will create an assembly from these reads using Unicycler. </p>
+<p><br></p>
+<hr />
+<h2 id="section-2-hybrid-de-novo-assembly">Section 2: Hybrid de-novo assembly<a class="headerlink" href="#section-2-hybrid-de-novo-assembly" title="Permanent link">&para;</a></h2>
+<p>In this section you will use a tool called &lsquo;Unicycler&rsquo; to create a draft genome assembly from Illumina and Nanopore reads. <br /></p>
+<h3 id="unicycler">Unicycler<a class="headerlink" href="#unicycler" title="Permanent link">&para;</a></h3>
+<p>Unicycler performs assembly using multiple steps. Illumina reads are used first to create an assembly graph using a program called <strong>SPAdes</strong>, then Nanopore reads are used to disentangle problems in the graph. The Nanopore reads serve to bridge Illumina contigs, and to reveal how the contigs are arranged sequentially in the genome. After the assembly is created, a program called <strong>Pilon</strong> uses the Illumina reads to perform a final round of error-correction before the final assembly is output. </p>
+<p>For more information on Unicycler, see this link: 
+<a href="https://github.com/rrwick/Unicycler">https://github.com/rrwick/Unicycler</a></p>
+<p><br></p>
+<p><strong>Run Unicycler</strong></p>
+<ul>
+<li>Find Unicycler in the tools panel. It is listed as &lsquo;Create assemblies with Unicycler&rsquo;</li>
+<li>Run Unicycler using the Nanopore and Illumina read sets.</li>
+<li>Parameters:<ul>
+<li><strong><em>Paired or Single end data?</em></strong> - Paired</li>
+<li><strong><em>Select first set of reads</em></strong> - illumina_reads_1.fastq</li>
+<li><strong><em>Select second set of reads</em></strong> - illumina_reads_2.fastq</li>
+<li><strong><em>Select long reads</em></strong> - nanopore_reads.fastq <br>
+(if nanopore_reads.fastq does not appear in the dropdown, its datatype needs to be changed - click then pencil icon next to nanopore_reads.fastq in the history panel -&gt; &lsquo;Datatypes&rsquo; tab -&gt; &lsquo;New Type&rsquo; - fastqsanger)</li>
+<li><strong><em>SPAdes options</em></strong><ul>
+<li><strong><em>Number of k-mer steps to use in SPAdes assembly</em></strong> 5</li>
+</ul>
+</li>
+<li><strong><em>Rotation options</em></strong><ul>
+<li><strong><em>Do not rotate completed replicons to start at a standard gene.</em></strong> &lsquo;Yes&rsquo;</li>
+</ul>
+</li>
+<li><strong><em>Pilon options</em></strong><ul>
+<li><strong><em>Do not use Pilon to polish the final assembly.</em></strong> &lsquo;Yes&rsquo;</li>
+</ul>
+</li>
+<li>Leave all else default and execute the program.</li>
+<li>Rename the &lsquo;Final Assembly&rsquo; output of Unicycler to &lsquo;Unicycler_assembly.fasta&rsquo;</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>Unicycler will output two files - a Final Assembly, and a Final Assembly Graph. We are interested in the Final Assembly.</p>
+<p>For the sake of time, we have disabled some quality settings in Unicycler. We reduced the number of k-mer steps from 10 to 5 in SPAdes assembly (overall worse assembly), have disabled assembly polishing (improves base-level accuracy), and have chosen not to set the start of each replicon to a standard position. Given more time, we would leave these default and not disable any of these features.  </p>
+<p>We now have an assembly which we can use for all kinds of downstream analysis. That said, we currently have no idea of the overall quality of this assembly. Additionally, we disabled features which improve the assembly quality due to time constraints, so this is particularly important in our case. </p>
+<p>Many factors may impact assembly quality, including the following:
+* Read depth / amount of sequence data
+* Read quality
+* The repetitiveness of the sequenced genome
+* Its ploidy (number of copies of each chromosome - humans are diploid: 2 copies)</p>
+<p>We need to therefore assess the quality of the assembly we have created. We will use two tools - <strong>Quast</strong>, and <strong>BUSCO</strong> to do this. </p>
+<p><br></p>
+<h3 id="section-questions">Section Questions<a class="headerlink" href="#section-questions" title="Permanent link">&para;</a></h3>
+<p>Why did we select &lsquo;Paired&rsquo; for our Illumina reads in the Unicycler tool? </p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Our short read set was 'paired-end'. Short read technology can only sequence a few hundred base-pairs in a single read. To provide better structural information, paired-end sequencing was created, where longer fragments (fixed length) are used. A few hundred bp is sequenced at both ends of the fragment, leaving the middle section unsequenced. The reads produced (the mate-pair) from a single fragment are separated by a fixed length, so we know they are nearby in the genome. 
+</details>
+
+<p>Does Unicycler begin by using the Long or Short reads?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Unicycler uses short reads first. It creates an assembly graph from short reads, then uses the long reads to provide better structural information of the genome. 
+</details>
+
+<p>How does Unicycler use long reads to improve its assembly graph?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+The assembly graph produced by short reads has tangled regions. When we don't know how sections of the genome are arranged, tangled regions appear in the graph.  Unicycler uses Nanopore reads which overlap these tangled regions to resolve the proper structure of the genome. 
+</details>
+
+<p><br></p>
+<p><br></p>
+<hr />
+<h2 id="section-3-assessing-assembly-quality">Section 3: Assessing assembly quality<a class="headerlink" href="#section-3-assessing-assembly-quality" title="Permanent link">&para;</a></h2>
+<p>Once we have created the assembly, we need to assess its quality. In this section we will use Quast and BUSCO to perform this assessment. We will also perform BUSCO analysis on the supplied reference genome itself, to record a baseline for our theoretical best BUSCO report.</p>
+<p><br></p>
+<h3 id="quast">Quast<a class="headerlink" href="#quast" title="Permanent link">&para;</a></h3>
+<p>A reference genome for the organism we sequenced has been supplied - listed as reference_genome.fasta in the history. This reference genome was assembled using a much higher sequencing depth, and can be used as &lsquo;ground truth&rsquo; to assess our assembly against. The &lsquo;Quast&rsquo; tool will perform this comparison.</p>
+<ul>
+<li>Search for the Quast tool in the tools panel.</li>
+<li>Parameters:<ul>
+<li><strong><em>Contigs/scaffolds file</em></strong> Unicycler_assembly.fasta</li>
+<li><strong><em>Use a reference genome?</em></strong> Yes</li>
+<li><strong><em>Reference genome</em></strong> reference_genome.fasta</li>
+</ul>
+</li>
+<li>Leave all else default and click &lsquo;execute&rsquo; </li>
+</ul>
+<p><br></p>
+<p>We are mainly interested in one of the outputs - the HTML report</p>
+<p>Open the report. It may look something like this:</p>
+<p><img src="media/quast_draft_assembly.PNG" width="300"></p>
+<p>Note the Genome fraction (%), # mismatches per 100 kbp, # indels per 100 kbp and # contigs information.</p>
+<p>We seem to have good coverage and not too many contigs, but our error rate is quite high.</p>
+<p>In this case we were able to use a reference genome to assess assembly quality, but this is not always the case. When our sample organism is unknown, we need another method to assess assembly quality. BUSCO analysis is one way to do this.</p>
+<p><br></p>
+<h3 id="busco">BUSCO<a class="headerlink" href="#busco" title="Permanent link">&para;</a></h3>
+<p>BUSCO analysis uses the presence, absence, or fragmentation of key genes in an assembly to determine is quality. </p>
+<p>BUSCO genes are specifically selected for each taxonomic clade, and represent a group of genes which each organism in the clade is expected to possess. At higher clades, &lsquo;housekeeping genes&rsquo; are the only members, while at more refined taxa such as order or family, lineage-specific genes can also be used.</p>
+<p>We will use BUSCO to assess our Unicycler draft assembly. While sometimes we will not have a reference genome for comparison, we may be able to find out roughly where it sits in the tree of life using certain methods. In this tutorial, we will suspect that our organism is within the &lsquo;Bacillales&rsquo; <em>order</em>.</p>
+<ul>
+<li>Search for the Quast tool in the tools panel.</li>
+<li>Parameters:<ul>
+<li><strong><em>Sequences to analyse</em></strong> Unicycler_assembly.fasta</li>
+<li><strong><em>Lineage</em></strong> Bacillales</li>
+</ul>
+</li>
+<li>Leave all else default and execute the program.</li>
+</ul>
+<p>After the program has run, look at the &lsquo;short summary&rsquo; output. It may look something like this:<br><br></p>
+<p><img src="media/busco_draft_assembly.PNG" width="400"></p>
+<p>
+The 'full table' is also useful. It gives a detailed list of the genes we are searching for, and information about whether they would missing, fragmented, or complete in our assembly.
+</p>
+
+<p><img src="media/busco_table_draft_assembly.PNG"></p>
+<p>
+It seems that most expected genes are missing or fragmented in our assembly. It is likely that the frequent errors in our draft assembly are causing this result. We should be able improve our assembly with the Illumina reads available and correct some of these errors.
+</p>
+<p>
+This process involves two steps. We will first align the Illumina reads to our draft assembly, then supply the mapping information to Pilon which will use this alignment information to error-correct our assembly.
+</p>
+
+<p><br></p>
+<h3 id="section-questions_1">Section Questions<a class="headerlink" href="#section-questions_1" title="Permanent link">&para;</a></h3>
+<p>How does Quast inform on assembly quality?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Quast shows summary information about the assembly contigs. If a reference genome is given, it informs the genome fraction (how much of the reference is covered by the assembly), if any genomic regions appear duplicated, and error information including the rate of mismatches and indels.
+</details>
+
+<p>How does BUSCO inform on assembly quality?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+BUSCO does not use a reference genome to compare. It attempts to locate key genes which should be present in the assembly, and reports whether it could/could not find those genes. If a key gene is found, it reports whether the gene was fragmented (errors) or complete. 
+</details>
+
+<p><br></p>
+<hr />
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>
+Today we have learned one workflow for performing hybrid de novo genome assembly. The combination of long- and short-read technology is clearly powerful, represented by our ability to create a good assembly with only approximately 20x coverage (87Mb) of Nanopore, and 25x coverage of Illumina reads (100Mb).
+</p>
+<p>
+To further improve our assembly, extra read data may provide most benefit. For bacterial genomes, we often prefer 100x or greater coverage, with which we may achieve a high per-base accuracy assembly with the correct number of contigs (number of replicons in the genome).
+</p>
+<p>
+The development of new purpose-built tools for hybrid de novo assembly like Unicycler have improved the quality of assemblies we can produce. These tools are of great importance and while they already produce great results, they will continue to improve over time.
+</p>
+<p><br></p>
+<hr />
+<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<p>Links to additional recommended reading and suggestions for related tutorials.<br>
+Pilon: <a href="https://github.com/broadinstitute/pilon/wiki/Methods-of-Operation">https://github.com/broadinstitute/pilon/wiki/Methods-of-Operation</a><br>
+Unicycler: <a href="https://github.com/rrwick/Unicycler">https://github.com/rrwick/Unicycler</a><br>
+Quast: <a href="https://academic.oup.com/bioinformatics/article/29/8/1072/228832">https://academic.oup.com/bioinformatics/article/29/8/1072/228832</a><br>
+BUSCO analysis: <a href="https://academic.oup.com/bioinformatics/article/31/19/3210/211866">https://academic.oup.com/bioinformatics/article/31/19/3210/211866</a><br></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

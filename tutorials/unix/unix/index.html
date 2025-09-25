@@ -1,0 +1,3740 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../python_overview/python_overview/">
+      
+      
+        <link rel="next" href="../../Genome_browsers/GenomeBrowsers_Intro/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Introduction to Unix - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction-to-unix" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Introduction to Unix
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial layout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements and preparation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements and preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Software
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-of-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode of Delivery
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slides-and-pdf-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slides and PDF instructions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Getting started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Getting started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connect-to-a-unix-computer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Connect to a Unix computer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-exploring-your-current-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Exploring your current directory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Exploring your current directory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-am-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where am I?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-available-files-and-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      List available files and directories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-making-and-changing-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Making and changing directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3: Making and changing directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-new-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a new directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-working-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change working directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-4-viewing-and-manipulating-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 4: Viewing and manipulating files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 4: Viewing and manipulating files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      View a file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-move-or-rename-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copy, move or rename a file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-file-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change file permissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-5-removing-files-and-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 5: Removing files and directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 5: Removing files and directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove directories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-6-searching-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 6: Searching files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 6: Searching files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#grep-for-matches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grep for matches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-7-putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 7: Putting it all together
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 7: Putting it all together">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#combine-commands-with-pipes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Combine commands with pipes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redirect-output-to-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redirect output to a file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-8-transferring-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 8: Transferring files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 8: Transferring files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transfer-files-with-filezilla" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transfer files with Filezilla
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finished" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finished
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Finished">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-of-commands-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of commands used
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Resources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial layout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements and preparation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements and preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Software
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-of-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode of Delivery
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slides-and-pdf-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slides and PDF instructions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Getting started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Getting started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connect-to-a-unix-computer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Connect to a Unix computer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-exploring-your-current-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Exploring your current directory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Exploring your current directory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-am-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where am I?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-available-files-and-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      List available files and directories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-making-and-changing-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Making and changing directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3: Making and changing directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-new-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a new directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-working-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change working directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-4-viewing-and-manipulating-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 4: Viewing and manipulating files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 4: Viewing and manipulating files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      View a file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-move-or-rename-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copy, move or rename a file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-file-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change file permissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-5-removing-files-and-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 5: Removing files and directories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 5: Removing files and directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove directories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-6-searching-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 6: Searching files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 6: Searching files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#grep-for-matches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grep for matches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-7-putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 7: Putting it all together
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 7: Putting it all together">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#combine-commands-with-pipes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Combine commands with pipes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redirect-output-to-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redirect output to a file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hands-on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-8-transferring-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 8: Transferring files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 8: Transferring files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transfer-files-with-filezilla" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transfer files with Filezilla
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finished" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finished
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Finished">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-of-commands-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of commands used
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Resources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><img alt="melbioinf_logo" src="../media/melbioinf_logo.png" style="width:350px; padding-right:50px" />       <img alt="unimelb_logo" src="../media/PRIMARY_A_Vertical_Housed_RGB.png" style="width:150px" /></p>
+<h1 id="introduction-to-unix">Introduction to Unix<a class="headerlink" href="#introduction-to-unix" title="Permanent link">&para;</a></h1>
+<p>Anticipated workshop duration when delivered to a group of participants is <strong>3 hours</strong>.</p>
+<p>For queries relating to this workshop, contact Melbourne Bioinformatics (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;">&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;</a>).</p>
+<p>Find out when we are next running this training as an in-person workshop, by visiting the <a href="https://www.eventbrite.com.au/o/melbourne-bioinformatics-13058846490">Melbourne Bioinformaitcs Eventbrite page</a>.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<h3 id="topic">Topic<a class="headerlink" href="#topic" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Genomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Transcriptomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Proteomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Metabolomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Statistics and visualisation</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Structural Modelling</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Basic skills</li>
+</ul>
+<h3 id="skill-level">Skill level<a class="headerlink" href="#skill-level" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Beginner  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Intermediate  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Advanced  </li>
+</ul>
+<p><br>
+This workshop is designed for participants with little or no command-line knowledge.</p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>A hands-on workshop covering the basics of the Unix command line interface.</p>
+<p>Knowledge of the Unix operating system is fundamental to the use of many popular bioinformatics command-line tools. Whether you choose to run your analyses locally or on a high-performance computing system, knowing your way around a command-line interface is highly valuable. This workshop will introduce you to Unix concepts by way of a series of hands-on exercises.</p>
+<p>Completion of this workshop will provide the background knowledge required for several Melbourne Bioinformatics workshops that require command-line skills.</p>
+<p><br>
+<strong>Tools:</strong> Standard Unix commands, <a href="https://filezilla-project.org/">FileZilla</a></p>
+<p><strong>Topic overview:</strong></p>
+<p><em>Section 1:</em> Getting started<br />
+<em>Section 2:</em> Exploring your current directory<br />
+<em>Section 3:</em> Making and changing directories<br />
+<em>Section 4:</em> Viewing and manipulating files<br />
+<em>Section 5:</em> Removing files and directories<br />
+<em>Section 6:</em> Searching files<br />
+<em>Section 7:</em> Putting it all together<br />
+<em>Section 8:</em> Transferring files  </p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>At the end of this introductory workshop, you will:</p>
+<ul>
+<li>Access a Unix machine either locally or remotely</li>
+<li>Navigate the file system</li>
+<li>Organise your files into directories</li>
+<li>Change file permissions to improve security and safety</li>
+<li>Move and copy files between directories</li>
+<li>Safely remove files</li>
+<li>Perform searches within files</li>
+<li>Combine commands using pipes</li>
+<li>Transfer files between a local and remote machine</li>
+</ul>
+<hr />
+<h2 id="tutorial-layout">Tutorial layout<a class="headerlink" href="#tutorial-layout" title="Permanent link">&para;</a></h2>
+<ul>
+<li>There is a <code>Table of contents</code> on the right-hand side that can be used to easily navigate through the tutorial by clicking the relevant section.</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>These grey coloured boxes are code blocks. The rectangular boxes in the top
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>right-hand corner of this code block/grey box can be used to copy the code to
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>the clipboard.
+</span></code></pre></div>
+<details class="example">
+<summary>Coloured boxes like these with &gt; on the far right-hand side, can be clicked to reveal the contents.</summary>
+<p>REVEALED!</p>
+</details>
+<div class="admonition attention">
+<p class="admonition-title">Attention: Pay attention to the information in these boxes.</p>
+<p>Important information, hints and tips.</p>
+</div>
+<hr />
+<h2 id="requirements-and-preparation">Requirements and preparation<a class="headerlink" href="#requirements-and-preparation" title="Permanent link">&para;</a></h2>
+<div class="admonition attention">
+<p class="admonition-title">Important</p>
+<p><strong>Attendees are required to bring their own laptop computers.</strong>  </p>
+<p>At least one week before the workshop, participants should install the software specified below. This should provide sufficient time for participants to
+liaise with their own IT support should they encounter any IT problems.  </p>
+</div>
+<h3 id="required-software">Required Software<a class="headerlink" href="#required-software" title="Permanent link">&para;</a></h3>
+<ul>
+<li>For information about required software, click <a href="../../workshop_delivery_mode_info/workshops_nectar/">here</a>.</li>
+</ul>
+<h3 id="required-data">Required Data<a class="headerlink" href="#required-data" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No additional data need to be downloaded for the live delivery workshop.</li>
+<li>Instructions for data download for independent completion of this workshop are included in Section 1.</li>
+</ul>
+<hr />
+<h3 id="mode-of-delivery">Mode of Delivery<a class="headerlink" href="#mode-of-delivery" title="Permanent link">&para;</a></h3>
+<p>This workshop will be run on a <a href="https://cloud.nectar.org.au/">Nectar</a> Instance. An “Instance” is Nectar terminology for a virtual machine running on the Nectar Cloud OpenStack infrastructure. An “Instance” runs on a “compute node”; i.e. a physical computer populated with processor chips, memory chips and so on.</p>
+<p>You will be given an individual IP address and password to log on to using the SSH client tool on your computer (Terminal on Mac or PuTTY on Windows).</p>
+<p>Should you wish to complete this workshop independently, you can do so locally (for Mac and LINUX users) or via binder (for Windows users).</p>
+<hr />
+<h3 id="slides-and-pdf-instructions">Slides and PDF instructions<a class="headerlink" href="#slides-and-pdf-instructions" title="Permanent link">&para;</a></h3>
+<p>The slides presented during this workshop are available here: <a href="../media/unix_intro_slides.pdf">PDF</a> / <a href="../media/unix_intro_slides.pptx">PPTX</a>.</p>
+<p><a href="../unix_intro_instructions.pdf">A printer-friendly PDF version of these workshop instructions is available here</a>.</p>
+<hr />
+<h2 id="author-information">Author Information<a class="headerlink" href="#author-information" title="Permanent link">&para;</a></h2>
+<p>Written by: Steven Morgan
+Melbourne Bioinformatics, University of Melbourne</p>
+<p>Created/Reviewed: November 2022</p>
+<p>A previous introductory Unix workshop is archived <a href="../../unix_archive_2022/unix/">here</a>.</p>
+<hr />
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<p>Before we begin the hands-on part of this workshop, we will first give a short presentation to introduce some important Unix concepts.
+The slides are available here: <a href="../media/unix_intro_slides.pdf">PDF</a> / <a href="../media/unix_intro_slides.pptx">PPTX</a></p>
+<hr />
+<h2 id="section-1-getting-started">Section 1: Getting started<a class="headerlink" href="#section-1-getting-started" title="Permanent link">&para;</a></h2>
+<p>In this section, we will learn how to connect to a Unix computer via a program called <code>ssh</code> and run a few basic commands.</p>
+<p>Logging in connects your local computer (e.g. laptop) to a remote machine, and allows you to type commands into the Unix prompt. The commands are run on
+the remote machine, and the results are displayed on your local screen.</p>
+<p>You will be allocated a training account for the duration of the workshop. Your
+username and password will be supplied at the start of the workshop.</p>
+<p>We are connecting to a remote computer today so that everyone has an identical environment, regardless of the specifications of your local computer. This connection process is similar to how you would connect to a high-performance computing (HPC) system such as <a href="https://dashboard.hpc.unimelb.edu.au/">Spartan</a> at The University of Melbourne.</p>
+<details class="question">
+<summary>I&rsquo;m not attending the live workshop. Can I complete the workshop independently?</summary>
+<p>Yes you can, although the remote machines are only provided for the live workshop participants.</p>
+<p>Follow the instructions for your operating system, then head down to the hands-on section.</p>
+<details class="example">
+<summary>Mac Users</summary>
+<p>Download the zipped file available at <a href="https://zenodo.org/record/7349747#.Y32_XOxByrU">this Zenodo address</a>. We will refer to these data later in the workshop.</p>
+<p>Unzip the file by double clicking it in a Finder window.</p>
+<p>Open the Terminal app (it comes preinstalled on every Mac). You can find it via a Spotlight Search or via the Launchpad.</p>
+<p>In the Terminal, you should see a blinking cursor. Type the following command and replace the word PATH_TO_DIRECTORY with the path to the location of your unzipped folder (or directory). One easy way to find the correct path is to view the directory in the Finder and enable the path bar (<em>View</em> &gt; <em>Show path bar</em>). You can then drag the correct path from the bar at the bottom of the Finder window into the Terminal.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cd PATH_TO_DIRECTORY
+</span></code></pre></div>
+<p>Use the following command to confirm that you have set the correct working directory.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pwd
+</span></code></pre></div>
+<p>If the output of this command ends in <em>/unix_intro_data</em>, well done! Now continue with the hands-on section.</p>
+</details>
+<details class="example">
+<summary>Windows Users</summary>
+<p>We will be using a service called binder, which builds a Docker image from a specified repository. This will allow you to run Unix commands in a live environment.</p>
+<p><a href="https://mybinder.org/v2/gh/melbournebioinformatics/training-infrastructure/HEAD">Access the binder via your web browser.</a></p>
+<p>Be patient, it can take a few minutes to set up your environment.</p>
+<p>Once your binder has launched, select <em>Terminal</em> from the bottom left-hand corner of the main page.</p>
+<p>In the Terminal, you should see a blinking cursor. You can now continue with the hands-on section.</p>
+</details>
+</details>
+<h3 id="connect-to-a-unix-computer">Connect to a Unix computer<a class="headerlink" href="#connect-to-a-unix-computer" title="Permanent link">&para;</a></h3>
+<p><a href="../../workshop_delivery_mode_info/workshops_nectar/">Follow the instructions here to connect to the remote machine</a></p>
+<div class="admonition attention">
+<p class="admonition-title">Windows users</p>
+<p>Windows users will need to download a terminal emulator such as <a href="https://www.putty.org/">PuTTY</a> (free and open-source).</p>
+</div>
+<h3 id="hands-on">Hands-on<a class="headerlink" href="#hands-on" title="Permanent link">&para;</a></h3>
+<details class="example">
+<summary>1.1 Run some commands</summary>
+<p>Once you&rsquo;ve logged in, run the following commands and see what they do.</p>
+<p>Type each command in and hit Enter/Return. Once the previous command has completed, a new prompt indicates that it&rsquo;s ready for the next command to be entered.</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>whoami
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>date
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cal
+</span></code></pre></div></p>
+<details class="answer">
+<summary>Answer</summary>
+<ul>
+<li><code>whoami</code>: displays your username (i.e. the person currently logged in).</li>
+<li><code>date</code>: displays the current date and time.</li>
+<li><code>cal</code>: displays a calendar.</li>
+</ul>
+</details>
+</details>
+<details class="example">
+<summary>1.2 Try out some flags</summary>
+<p>Many Unix commands accept arguments (sometimes called flags) which enable/disable specific
+features. For example, you can ask the date command to produce its output in a different format.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>date -I
+</span></code></pre></div>
+<p>It is not uncommon for a command to accept many different arguments, and, in most
+cases, more than one argument can be supplied at the same time. Arguments are
+separated by one or more space characters and they are usually case sensitive.</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>cal -m january
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>cal -3
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>cal -3 -m january
+</span></code></pre></div></p>
+</details>
+<details class="example">
+<summary>1.3 Consult the manual pages</summary>
+<p>If every Unix command has so many options, how you find out what they are and what
+they do? Thankfully, every Unix command has an associated <em>manual</em> that you can usually
+access by using the <code>man</code> command.</p>
+<p>Try accessing the manual pages for the commands we have used so far. Can you figure out what day of the week your 100<sup>th</sup> birthday will be?</p>
+<details class="attention">
+<summary>binder users</summary>
+<p>If you are running this workshop in a binder, manual pages may not be accessible via the <code>man</code> command.</p>
+<p>Try an internet search for your desired command followed by <em>manual unix</em> instead.</p>
+</details>
+<details class="hint">
+<summary>Hint</summary>
+<p>The following command displays the manual page for the <code>cal</code> command.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>man cal
+</span></code></pre></div></p>
+</details>
+<p>When you are using the <code>man</code> command, use the up and down arrows to scroll, or press q to quit.
+The <code>man</code> command is actually using another Unix program, a text viewer called <code>less</code>, which we’ll
+come to later on.</p>
+</details>
+<hr />
+<h2 id="section-2-exploring-your-current-directory">Section 2: Exploring your current directory<a class="headerlink" href="#section-2-exploring-your-current-directory" title="Permanent link">&para;</a></h2>
+<p>In this section, we will learn how to &ldquo;look&rdquo; at the file system and further expand our repertoire of Unix commands.</p>
+<p>The machines provided have been set up with some files for us to take a look at.</p>
+<h3 id="where-am-i">Where am I?<a class="headerlink" href="#where-am-i" title="Permanent link">&para;</a></h3>
+<p>There may be many hundreds of directories on any Unix machine, so how do you know
+which one you are in? The command <code>pwd</code> will <b>P</b>rint the <b>W</b>orking <b>D</b>irectory.
+If you ever get lost in the file system, remember the <code>pwd</code> command. Try it out.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pwd
+</span></code></pre></div>
+<p>Many bioinformatics tools require paths as input. Check your paths with <code>pwd</code> before you submit a job to a job scheduler.</p>
+<h3 id="list-available-files-and-directories">List available files and directories<a class="headerlink" href="#list-available-files-and-directories" title="Permanent link">&para;</a></h3>
+<p>What about looking at the contents of a directory? For that, we use the <code>ls</code> command (short for &lsquo;list&rsquo;).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ls
+</span></code></pre></div>
+<h3 id="hands-on_1">Hands-on<a class="headerlink" href="#hands-on_1" title="Permanent link">&para;</a></h3>
+<details class="example">
+<summary>2.1 Reveal more information</summary>
+<p>Run <code>ls</code> with the long flag to get more information about the contents of the directory.
+How did the output change?</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ls -l
+</span></code></pre></div>
+<details class="answer">
+<summary>Answer</summary>
+<p>The long flag means that each file or directory is placed on its own line. Extra information is also included.</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>drwxr-xr-x 2    alpha    alpha   4.0K  Sep  8 23:28 samples
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>\--------/ ^ \--------/ \-----/ \----/ \----------/ \-----/
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>permission |  username   group   size      date      name
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>       /---^---\
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>       linkcount
+</span></code></pre></div>
+Where:</p>
+<ul>
+<li><strong>permissions</strong>: 4 parts, file type, user perms, group perms and other perms<ul>
+<li><em>object type</em>: 1 character, <em>d</em> = directory and <em>-</em> = regular file</li>
+<li><em>user</em> permissions: 3 characters, <em>r</em> = read, <em>w</em> = write, <em>x</em> = execute and <em>-</em> no permission</li>
+<li><em>group</em> permissions: same as user except for users within the owner group</li>
+<li><em>other</em> permissions: same as user except for users that are not in either <em>user</em> or <em>group</em></li>
+</ul>
+</li>
+<li><strong>username</strong>: user who owns this object</li>
+<li><strong>group</strong>: group who owns this object</li>
+<li><strong>size</strong>: number of bytes this object takes to store on disk</li>
+<li><strong>date</strong>: date and time when this object was last edited</li>
+<li><strong>name</strong>: name of the object</li>
+<li><strong>linkcount</strong>: number of links this object has in the file system (safe to ignore)</li>
+</ul>
+</details>
+</details>
+<details class="example">
+<summary>2.2 Upgrade your <code>ls</code></summary>
+<p><code>ls</code> is a command you&rsquo;re likely to use a lot! Why not find a combination of flags you like.</p>
+<p>What does this combination of flags do?</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ls -lhrt
+</span></code></pre></div>
+<details class="hint">
+<summary>Hint</summary>
+<p>Always remember the <code>man</code> command.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>man ls
+</span></code></pre></div></p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<p>The command above returns the contents of the current directory in long form (<em>-l</em>), sorted in reverse (<em>-r</em>) order of their last edit (<em>-t</em>), with file sizes shown in more convenient units (<em>-h</em>).</p>
+</details>
+</details>
+<details class="example">
+<summary>2.3 Compare files</summary>
+<p><em>samples</em> is a directory; you can tell by the leading &lsquo;d&rsquo; in the long-form <code>ls</code> output.</p>
+<p><code>ls</code> can be used to list the content of other directories, not just the current one.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ls -lhrt samples
+</span></code></pre></div></p>
+<p>The <code>wc</code> (for <b>W</b>ord <b>C</b>ount) command prints the number of lines, words, and bytes in a file.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>wc samples/sample_c.fastq
+</span></code></pre></div>
+<p>Which of the 3 FASTQ files has the most lines?</p>
+<details class="hint">
+<summary>Hint</summary>
+<p><code>wc</code> can accept multiple input files with spaces between them.</p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<p><em>sample_c.FASTQ</em> has the most lines.</p>
+</details>
+</details>
+<hr />
+<h2 id="section-3-making-and-changing-directories">Section 3: Making and changing directories<a class="headerlink" href="#section-3-making-and-changing-directories" title="Permanent link">&para;</a></h2>
+<p>In this section, we will learn how to change the current directory and create entirely new ones.</p>
+<h3 id="create-a-new-directory">Create a new directory<a class="headerlink" href="#create-a-new-directory" title="Permanent link">&para;</a></h3>
+<p>To make a new directory, we use the <code>mkdir</code> command, supplying a sensible directory name.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>mkdir my_directory
+</span></code></pre></div>
+<details class="question">
+<summary>Did that work?</summary>
+<p>Some commands (including <code>mkdir</code>) do not display a message after they have been executed. You can check that your <code>mkdir</code> command worked with <code>ls</code>.</p>
+</details>
+<h3 id="change-working-directory">Change working directory<a class="headerlink" href="#change-working-directory" title="Permanent link">&para;</a></h3>
+<p>Let&rsquo;s change our current working directory to the newly created one with the command <code>cd</code> (for <b>C</b>hange <b>D</b>irectory).</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>pwd
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>cd my_directory
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>pwd
+</span></code></pre></div></p>
+<p>Note that <code>cd</code> can also take the full path as input (the long version that you can see in the <code>pwd</code> output). What we supplied above is called a relative path.</p>
+<h3 id="hands-on_2">Hands-on<a class="headerlink" href="#hands-on_2" title="Permanent link">&para;</a></h3>
+<details class="example">
+<summary>3.1 Create nested directories</summary>
+<p>It can be very useful to organise your directories into hierarchies. Try creating a new directory inside <em>my_directory</em>. Then create another new directory inside that one.</p>
+<p>Change your working directory to the innermost directory.</p>
+</details>
+<details class="example">
+<summary>3.2 Change directory with ..</summary>
+<p>Often, it is useful to go ‘upwards’ one level in the directory structure.
+Two dots <strong>..</strong> are used in Unix to refer to the parent directory of wherever you are.
+All directories (besides the root level) have a parent that can be accessed in this way.</p>
+<p>A single dot <strong>.</strong> is used to refer to the current directory (often useful when running bioinformatics tools).</p>
+<p>Try using <strong>..</strong> to change your directory.</p>
+<p>What about <strong>../..</strong>? What does that represent?</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Set your working directory back to your innermost directory first.</p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<p><strong>../..</strong> refers to the parent of the parent directory.</p>
+<p><strong>../../..</strong> refers to the parent of the parent of the parent directory.</p>
+<p>And so on&hellip;</p>
+</details>
+</details>
+<details class="example">
+<summary>3.3 Save time with tab completion</summary>
+<p>One great Unix you can start using right away is that you can tab complete the names of files, directories and commands.</p>
+<p>Just type enough characters to uniquely identify the name of a file,
+directory or command, press tab and Unix will do the rest.</p>
+<p>If pressing tab doesn’t do anything, then you
+have not typed enough unique characters. In this case, pressing tab twice will show you
+all of the possible completions.</p>
+<p>Try using tab completion to complete directory names as you change directories with <code>cd</code>.</p>
+<p>Think of all the saved keystrokes!</p>
+<details class="question">
+<summary>How can I save more time?</summary>
+<p>Another great time-saver is that Unix stores a list of all of the previous commands that you have executed
+in each session. Access this list by using the up and down arrows.</p>
+<p>So, if you type a long command but make a mistake, press the up arrow and then you can use the
+left and right arrows to move the cursor in order to make an edit.</p>
+<p>You could also try the <code>history</code> command to print a list of your previous commands.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>history
+</span></code></pre></div>
+</details>
+</details>
+<hr />
+<h2 id="section-4-viewing-and-manipulating-files">Section 4: Viewing and manipulating files<a class="headerlink" href="#section-4-viewing-and-manipulating-files" title="Permanent link">&para;</a></h2>
+<p>In this section we will focus on files; how to view them, how to copy them, how to move them, how to rename them and how to change their permissions.</p>
+<h3 id="view-a-file">View a file<a class="headerlink" href="#view-a-file" title="Permanent link">&para;</a></h3>
+<p>We’ve covered finding the locations, sizes and lengths of files, but how do we look inside them?
+The <code>less</code> command allows us to view (but not edit) text-based files. The <code>-S</code> flag sets the line folding to off.
+This is particularly useful when you have very long lines (like our FASTQ files).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>less -S sample_1.fastq
+</span></code></pre></div>
+<details class="attention">
+<summary>No such file or directory</summary>
+<p>If you see this error message, the most likely reason is that you are not in the correct directory.</p>
+<p>Use <code>pwd</code>, <code>cd</code> and <code>ls</code> to find your way to the right place.</p>
+</details>
+<details class="question">
+<summary>What if my files are compressed?</summary>
+<p>If a file is in a compressed format, you will need to decompress it first before you view it with <code>less</code>.</p>
+<p>For example, the <code>gunzip</code> command will decompress a fastq.gz file.</p>
+<p>Alternatively, you can view the contents of an uncompressed file by printing it to the screen with the command <code>zcat</code>.</p>
+</details>
+<p>When you are using <code>less</code>, you can move forward or backwards one line at a time
+using the arrow keys. To quit, press q.</p>
+<p>For long files, it can be inconvenient to view the whole thing when only a peek
+at a few lines or just the header information is enough.</p>
+<p>The command <code>head</code> prints the first 10 lines of a file to the screen.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>head sample_1.fastq
+</span></code></pre></div>
+<p>Equivalently, we have the <code>tail</code> command, that does the same for the last lines of a file.
+Both <code>head</code> and <code>tail</code> have an option to change the number of lines displayed.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>tail -n 4 sample_1.fastq
+</span></code></pre></div>
+<h3 id="copy-move-or-rename-a-file">Copy, move or rename a file<a class="headerlink" href="#copy-move-or-rename-a-file" title="Permanent link">&para;</a></h3>
+<p>To make a copy of a file, all you need to do is supply the name of the file and a name for the copy to the <code>cp</code> command.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>cp sample_1.fastq copy_of_sample_1.fastq
+</span></code></pre></div>
+<p>You can check to see the new file using <code>ls</code>.</p>
+<p>Moving a file from one directory to another follows the same basic command format shown below.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>mv FILE DESTINATION
+</span></code></pre></div>
+<p>Renaming a file actually uses the <code>mv</code> command too.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>mv OLD_NAME NEW_NAME
+</span></code></pre></div>
+<h3 id="change-file-permissions">Change file permissions<a class="headerlink" href="#change-file-permissions" title="Permanent link">&para;</a></h3>
+<p>File and directory permissions determine what actions users can perform.
+We can see these permissions using the long-form <code>ls</code> output.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>ls -lhrt
+</span></code></pre></div>
+<p>The file permission symbolic notation works as follows:</p>
+<p>The first character determines the type of object (d for directory, - for a regular file).</p>
+<p>The remaining nine characters are in three triads.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Three permission triads</th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">first triad:</td>
+<td style="text-align: left;">what the owner can do</td>
+</tr>
+<tr>
+<td style="text-align: left;">second triad:</td>
+<td style="text-align: left;">what the group members can do</td>
+</tr>
+<tr>
+<td style="text-align: left;">third triad:</td>
+<td style="text-align: left;">what other users can do</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">In each triad</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">first character:</td>
+<td style="text-align: left;">r</td>
+<td style="text-align: left;">readable</td>
+</tr>
+<tr>
+<td style="text-align: left;">second character:</td>
+<td style="text-align: left;">w</td>
+<td style="text-align: left;">writable</td>
+</tr>
+<tr>
+<td style="text-align: left;">third character:</td>
+<td style="text-align: left;">x</td>
+<td style="text-align: left;">executable</td>
+</tr>
+</tbody>
+</table>
+<details class="question">
+<summary>Can I see an example?</summary>
+<p>For the permission string <strong><em>drwxr-xr-x</em></strong></p>
+<p>The <strong>d</strong> means it is a directory.</p>
+<p>The <strong>rwx</strong> means that the owner of the directory
+(your user account) can read, write and execute the directory. Execute permission on a directory means that you
+can <code>cd</code> into the directory.</p>
+<p>The <strong>r-x</strong> means that anyone in the user group can read and execute the directory.</p>
+<p>The second <strong>r-x</strong> means that other users on the system can read and execute the directory.</p>
+</details>
+<p>To change permissions, use the <code>chmod</code> command (for change mode). The owner of a file can change the permissions for user (<strong>u</strong>), group (<strong>g</strong>), or others (<strong>o</strong>) by adding (<strong>+</strong>) or subtracting (<strong>-</strong>) the read (<strong>r</strong>), write (<strong>w</strong>), and execute (<strong>x</strong>) permissions.</p>
+<p>To add write permission for others for a file, the following command would be used:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>chmod o+w FILE
+</span></code></pre></div>
+<h3 id="hands-on_3">Hands-on<a class="headerlink" href="#hands-on_3" title="Permanent link">&para;</a></h3>
+<details class="example">
+<summary>4.1 Move files</summary>
+<p>Move <em>sample_1.fastq</em> and <em>sample_2.fastq</em> into the <em>samples</em> directory.</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Move multiple files at once by using the wildcard character *.</p>
+<p>The * symbol is a Unix wildcard that can stand for any string.</p>
+<p>Hence sam* will refer to any file in your current directory that begins with sam.</p>
+</details>
+</details>
+<details class="example">
+<summary>4.2 Rename a file</summary>
+<p>Rename <em>sample_c.fastq</em> to <em>sample_3.fastq</em></p>
+<p>After 4.1 and 4.2 you should have a <em>samples</em> directory with 3 files that follow the same naming convention.</p>
+</details>
+<details class="example">
+<summary>4.3 Change file permissions</summary>
+<p>Remove all users write permission to the FASTQ files in the <em>samples</em> directory. This will prevent you from accidentally overwriting or erasing these files.</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>The change a permission for the user (<strong>u</strong>), group (<strong>g</strong>), and others (<strong>o</strong>) all at once, use <strong>a</strong> for all.</p>
+</details>
+</details>
+<hr />
+<h2 id="section-5-removing-files-and-directories">Section 5: Removing files and directories<a class="headerlink" href="#section-5-removing-files-and-directories" title="Permanent link">&para;</a></h2>
+<p>In this section we&rsquo;ll cover how to safely remove files and directories that you no longer need.</p>
+<h3 id="remove-directories">Remove directories<a class="headerlink" href="#remove-directories" title="Permanent link">&para;</a></h3>
+<p>The <code>mkdir</code> command that we used earlier has an analogue for removing directories called <code>rmdir</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>rmdir DIRECTORY
+</span></code></pre></div>
+<p>Helpfully, <code>rmdir</code> will only remove an empty directory (so we don&rsquo;t accidentally remove important files).</p>
+<h3 id="remove-files">Remove files<a class="headerlink" href="#remove-files" title="Permanent link">&para;</a></h3>
+<p>To remove files, we have to use the <code>rm</code> (remove) command.</p>
+<div class="admonition attention">
+<p class="admonition-title">Please read this section VERY carefully!</p>
+<p>Accidental misuse of the <code>rm</code> command can lead to huge problems!</p>
+<p>If you delete something with <code>rm</code>, you will not get it back!</p>
+<p>It is possible to delete everything in file system (all directories and subdirectories) with <code>rm</code>.</p>
+<p>Let’s repeat that last part again: It is possible to delete every file you have ever created
+with the <code>rm</code> command.</p>
+</div>
+<p>Luckily, there is a way of making <code>rm</code> a little bit safer. We can use it
+with the <em>-i</em> flag so that you will be asked for confirmation before deleting anything.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>rm -i FILE
+</span></code></pre></div>
+<details class="question">
+<summary>Can I use a wildcard character with these commands too?</summary>
+<p>You can use wildcard characters with any Unix command.</p>
+<p>However, using wildcards with the <code>rm</code> command is particularly dangerous (we encourage avoiding it altogether).</p>
+</details>
+<h3 id="hands-on_4">Hands-on<a class="headerlink" href="#hands-on_4" title="Permanent link">&para;</a></h3>
+<details class="example">
+<summary>5.1 Change <code>rm</code> behaviour</summary>
+<p>Usually <code>rm</code> does not display a message once it has run.</p>
+<p>Instead using a flag, <code>rm</code> will use verbose mode, where it will print the name of each file that has been deleted.</p>
+<p>What flag enables verbose mode?</p>
+<details class="answer">
+<summary>Answer</summary>
+<p><em>-v</em> engages verbose mode.</p>
+</details>
+</details>
+<details class="example">
+<summary>5.2 Remove file</summary>
+<p>Remove the copied file you created in section 4. You can also remove any additional copies you may have made.</p>
+</details>
+<details class="example">
+<summary>5.3 Remove directories</summary>
+<p>Remove the directories you created in section 3.</p>
+<p>Do not remove the <em>samples</em> directory.</p>
+</details>
+<hr />
+<h2 id="section-6-searching-files">Section 6: Searching files<a class="headerlink" href="#section-6-searching-files" title="Permanent link">&para;</a></h2>
+<p>In this section we&rsquo;ll cover how to search within files for matches to a given pattern.</p>
+<h3 id="grep-for-matches">Grep for matches<a class="headerlink" href="#grep-for-matches" title="Permanent link">&para;</a></h3>
+<p>We can use the command <code>grep</code> to search within files. You may also hear <code>grep</code> used as a verb; to <code>grep</code> for the right line in a file.</p>
+<p>The following examples show how you can use <code>grep</code>’s command-line options to:</p>
+<ul>
+<li>show lines that match a specified pattern</li>
+<li>ignore case when matching (<em>-i</em>)</li>
+<li>only match whole words (<em>-w</em>)</li>
+<li>show lines that don’t match a pattern (<em>-v</em>)</li>
+<li>use wildcard characters and other patterns to allow for alternatives</li>
+<li>colours the matched text for easy visualisation (- -colour)</li>
+</ul>
+<p>Regular expressions (regex) are used to define search patterns. Some useful regex characters:</p>
+<ul>
+<li><strong>^</strong> The beginning of a text line</li>
+<li><strong>$</strong> The end of a text line</li>
+<li><strong>.</strong> Any single character</li>
+</ul>
+<p>The following command shows all of the lines in the file that contain the string CATCAT</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>grep CATCAT sample_1.fastq
+</span></code></pre></div>
+<h3 id="hands-on_5">Hands-on<a class="headerlink" href="#hands-on_5" title="Permanent link">&para;</a></h3>
+<details class="example">
+<summary>6.1 Extract ID lines</summary>
+<p>Each read in a FASTQ file has an associated sequence ID line.</p>
+<p>Identify which is the ID line from the following <code>head</code> output.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>head -n 12 sample_1.fastq
+</span></code></pre></div>
+<p>Use grep to print all of the ID line from <em>sample_1.fastq</em>.</p>
+<details class="answer">
+<summary>Answer</summary>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>grep ^@ sample_1.fastq
+</span></code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>6.2 Find matching entries</summary>
+<p>With a regular <code>grep</code> search, the line containing the matching term is printed. It can be useful to also print lines before or after the matching lines.
+With <em>-B</em> (for before) and <em>-A</em> (for after), you can specify the number of lines to display.</p>
+<p>Display the full FASTQ entry for each sequence that contains the sequence CATCAT in <em>sample_1.fastq</em>.</p>
+<details class="answer">
+<summary>Answer</summary>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>grep -B 1 -A 2 CATCAT sample_1.fastq
+</span></code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>6.3 Search for a motif</summary>
+<p>Display the sequences in <em>sample_1.fastq</em> that contain the motif CATNNT where N is any nucleotide.</p>
+<details class="answer">
+<summary>Answer</summary>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>grep CAT..T sample_1.fastq
+</span></code></pre></div>
+</details>
+</details>
+<hr />
+<h2 id="section-7-putting-it-all-together">Section 7: Putting it all together<a class="headerlink" href="#section-7-putting-it-all-together" title="Permanent link">&para;</a></h2>
+<p>In this section we will cover a few more advanced Unix concepts that allow us to bring together some of the commands we have learned so far.</p>
+<h3 id="combine-commands-with-pipes">Combine commands with pipes<a class="headerlink" href="#combine-commands-with-pipes" title="Permanent link">&para;</a></h3>
+<p>One of the most powerful features of Unix is that you can send the output from one
+command directly into the input of any other command.</p>
+<p>We do this by using a pipe that is represented by the <strong>|</strong> character.
+Think of a pipe as a connection between two Unix commands.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>grep CAT..T sample_1.fastq | wc -l
+</span></code></pre></div>
+<p>The first part of the command is the same <code>grep</code> search from 6.3.<br />
+The <code>grep</code> output is sent through a pipe to <code>wc</code>, where the <em>-l</em> option counts the number of lines. So as a whole, this command counts the number of sequences that contain a match to the motif CATNNT.</p>
+<h3 id="redirect-output-to-a-file">Redirect output to a file<a class="headerlink" href="#redirect-output-to-a-file" title="Permanent link">&para;</a></h3>
+<p>It can be very useful to direct output into a new file, rather than simply printing it to the screen.</p>
+<p>This file redirection can be done with the <strong>&gt;</strong> symbol.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>whoami &gt; user.txt
+</span></code></pre></div>
+<p>The command above sent the output of the <code>whoami</code> command to a file called user.txt. Notice that there was no output on the screen. You can check the contents of user.txt with <code>less</code>.</p>
+<div class="admonition attention">
+<p class="admonition-title">Warning</p>
+<p>Be careful when using file redirection (<strong>&gt;</strong>); it will overwrite any existing file of the same name.</p>
+</div>
+<p>We can also use the <strong>&gt;&gt;</strong> operator to append output to the end of an existing file.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>date &gt;&gt; user.txt
+</span></code></pre></div>
+<p>You should see that your user.txt file now contains the output of the <code>date</code> command under the original user line.</p>
+<h3 id="hands-on_6">Hands-on<a class="headerlink" href="#hands-on_6" title="Permanent link">&para;</a></h3>
+<details class="example">
+<summary>7.1 Use a pipe</summary>
+<p>Display the ID lines from the first 10 entries in <em>sample_1.fastq</em> using a pipe.</p>
+<details class="answer">
+<summary>Answer</summary>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>grep ^@ sample_1.fastq | head
+</span></code></pre></div>
+<p>Or, alternatively:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>head -n 40 sample_1.fastq | grep ^@
+</span></code></pre></div>
+</details>
+</details>
+<details class="example">
+<summary>7.2 Direct output to a file</summary>
+<p>Use your command from above but redirect the output to a file. Choose a sensible name for your file.</p>
+</details>
+<details class="example">
+<summary>7.3 Create a new FASTQ file</summary>
+<p>Create a new FASTQ file containing the final 3 reads in each of the three FASTQ files.</p>
+<details class="answer">
+<summary>Answer</summary>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>tail -n 12 sample_1.fastq &gt; new_sample.fastq
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>tail -n 12 sample_2.fastq &gt;&gt; new_sample.fastq
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>tail -n 12 sample_3.fastq &gt;&gt; new_sample.fastq
+</span></code></pre></div>
+<p>Or, alternatively:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>tail -n 12 *.fastq | grep -v &quot;^==&gt;&quot; | grep . &gt; new_sample.fastq
+</span></code></pre></div></p>
+</details>
+</details>
+<hr />
+<h2 id="section-8-transferring-files">Section 8: Transferring files<a class="headerlink" href="#section-8-transferring-files" title="Permanent link">&para;</a></h2>
+<p>In this section we will cover how to transfer files between a local and a remote machine using <a href="https://filezilla-project.org/">FileZilla</a>.</p>
+<details class="attention">
+<summary>Section 8: for in-person workshop participants</summary>
+<p>Section 8 applies only to in-person workshop participants.</p>
+</details>
+<p>When working on a remote machine like an HPC system, transferring data (in both directions!) is a common task. FileZilla provides a useful interface for these transfers.</p>
+<h3 id="transfer-files-with-filezilla">Transfer files with Filezilla<a class="headerlink" href="#transfer-files-with-filezilla" title="Permanent link">&para;</a></h3>
+<p>Open FileZilla on your local computer. At the top of the window, enter the following information in the boxes as shown in the image below.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field</th>
+<th style="text-align: left;">Enter the below information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Host:</code></td>
+<td style="text-align: left;">IP adress from provided spreadsheet</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Username:</code></td>
+<td style="text-align: left;">Username from provided spreadsheet</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Password</code></td>
+<td style="text-align: left;">Password from provided spreadsheet</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Port</code></td>
+<td style="text-align: left;">22</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="FileZilla_screenshot" src="../media/FileZilla_screenshot.png" /></p>
+<p>Select Quickconnect to establish a connection.</p>
+<p>Now you can now drag and drop files or whole directories to move them between a local and a remote machine.</p>
+<div class="admonition attention">
+<p class="admonition-title">The provided Nectar instances will be turned off shortly after the completion of the workshop</p>
+<p>If you would like to save a copy of the files you have been working on, do that now.</p>
+</div>
+<h2 id="finished">Finished<a class="headerlink" href="#finished" title="Permanent link">&para;</a></h2>
+<p>Well done, you learnt a lot over the last 8 sections; it&rsquo;s a lot to take in!</p>
+<p>From here you should be comfortable around the Unix command line and be ready to complete other workshops based on the command line here at Melbourne Bioinformatics.</p>
+<p>You will no-doubt forget a lot of what you learnt here so we encourage you to save a link to this workshop for later reference.</p>
+<h3 id="table-of-commands-used">Table of commands used<a class="headerlink" href="#table-of-commands-used" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>whoami</code></td>
+<td style="text-align: left;">print current user name</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>date</code></td>
+<td style="text-align: left;">system date and time</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cal</code></td>
+<td style="text-align: left;">calendar</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>man</code></td>
+<td style="text-align: left;">manual page</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>pwd</code></td>
+<td style="text-align: left;">print working directory</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ls</code></td>
+<td style="text-align: left;">list contents</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>wc</code></td>
+<td style="text-align: left;">word count</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mkdir</code></td>
+<td style="text-align: left;">make directory</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cd</code></td>
+<td style="text-align: left;">change directory</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>history</code></td>
+<td style="text-align: left;">print list of previous commands</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>less</code></td>
+<td style="text-align: left;">view file</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>head</code></td>
+<td style="text-align: left;">show first lines of file</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tail</code></td>
+<td style="text-align: left;">show last lines of file</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cp</code></td>
+<td style="text-align: left;">copy files/directories</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mv</code></td>
+<td style="text-align: left;">move files/directories</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>chmod</code></td>
+<td style="text-align: left;">change permissions</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>rmdir</code></td>
+<td style="text-align: left;">remove empty directory</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>rm</code></td>
+<td style="text-align: left;">remove file</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>grep</code></td>
+<td style="text-align: left;">search for a pattern</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gzip</code></td>
+<td style="text-align: left;">gzip a file</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gunzip</code></td>
+<td style="text-align: left;">decompress a gzipped file</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>zcat</code></td>
+<td style="text-align: left;">view contents of a compressed file</td>
+</tr>
+</tbody>
+</table>
+<h3 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h3>
+<p>This workshop is just the tip of the Unix iceberg! There is lots more to learn out there. Below are some reseources that will help with further learning.</p>
+<ul>
+<li><a href="https://www.eventbrite.com.au/o/research-computing-services-10600096884">The HPC workshops</a> run by Research Computing Services (University of Melbourne researchers only) are a great intro to using a command-line interface to access a HPC system.</li>
+<li><a href="https://www.berniepope.id.au/assets/files/intro_to_unix.pdf">This tutorial</a> is a detailed intro to Unix programming by A/Prof Bernie Pope.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

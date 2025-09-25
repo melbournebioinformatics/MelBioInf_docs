@@ -1,0 +1,3085 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../seurat-go/seurat-go/">
+      
+      
+        <link rel="next" href="../../python_viz/python_viz/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Identifying proteins from mass spectrometry data - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#identifying-proteins-from-mass-spec-data" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Identifying proteins from mass spectrometry data
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial layout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements and preparation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements and preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mode-of-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode of Delivery
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Software
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slides-and-workshop-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slides and workshop instructions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login-to-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login to Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-mass-spec-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import mass spec data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-properties-of-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic properties of the data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternate-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternate data formats
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-run-a-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Run a Search
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Run a Search">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtain-a-search-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Obtain a Search Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-a-search-using-xtandem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a search using X!Tandem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-results-to-tabular-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convert Results to tabular format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort-tabular-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sort tabular outputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-raw-scores-to-probabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convert raw scores to probabilities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-protein-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Protein Inference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3: Protein Inference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perform-protein-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perform Protein Inference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functional-enrichment-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functional enrichment analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial layout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements and preparation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements and preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mode-of-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode of Delivery
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Software
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slides-and-workshop-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slides and workshop instructions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login-to-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login to Galaxy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-mass-spec-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import mass spec data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-properties-of-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic properties of the data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternate-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternate data formats
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-run-a-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Run a Search
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Run a Search">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtain-a-search-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Obtain a Search Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-a-search-using-xtandem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a search using X!Tandem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-results-to-tabular-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convert Results to tabular format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort-tabular-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sort tabular outputs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-raw-scores-to-probabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convert raw scores to probabilities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-protein-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Protein Inference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3: Protein Inference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perform-protein-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perform Protein Inference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functional-enrichment-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functional enrichment analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="identifying-proteins-from-mass-spec-data">Identifying proteins from mass spec data<a class="headerlink" href="#identifying-proteins-from-mass-spec-data" title="Permanent link">&para;</a></h1>
+<p>Anticipated workshop duration when delivered to a group of participants is <strong>4 hours</strong>.  </p>
+<p>For queries relating to this workshop, contact Melbourne Bioinformatics (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;">&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;</a>).</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<h3 id="topic">Topic<a class="headerlink" href="#topic" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Genomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Transcriptomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Proteomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Metabolomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Statistics and visualisation</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Structural Modelling</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Basic skills</li>
+</ul>
+<h3 id="skill-level">Skill level<a class="headerlink" href="#skill-level" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Beginner  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Intermediate  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Advanced  </li>
+</ul>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p><strong>Data:</strong> The data used in this tutorial were obtained from a single run on an Orbitrap Elite mass spectrometer.  The sample itself corresponds to a purified organelle from Mouse cells.</p>
+<p><strong>Tools:</strong> Various tools on Galaxy.</p>
+<p><strong>Pipeline:</strong><br />
+<em>Section 1:</em> Data<br />
+<em>Section 2:</em> Run a Search<br />
+<em>Section 3:</em> Protein Inference  </p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>At the end of this introductory workshop, you will:</p>
+<ul>
+<li>Identify a list of proteins from tandem mass spectrometry data.</li>
+<li>Use this list to guess the identity of the &ldquo;mystery&rdquo; organelle.</li>
+</ul>
+<hr />
+<h2 id="tutorial-layout">Tutorial layout<a class="headerlink" href="#tutorial-layout" title="Permanent link">&para;</a></h2>
+<ul>
+<li>There is a <code>Table of contents</code> on the right-hand side which can be used to easily navigate through the tutorial by clicking the relevant section.</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>These grey coloured boxes are code blocks. The rectangular boxes in the top
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>right hand corner of this code block/grey box can be used to copy the code to
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>the clipboard.
+</span></code></pre></div>
+<details class="example">
+<summary>Coloured boxes like these with &gt; on the far right hand side, can be clicked to reveal the contents.</summary>
+<p>REVEALED!</p>
+</details>
+<div class="admonition attention">
+<p class="admonition-title">Attention: Pay attention to the information in these boxes.</p>
+<p>Important information, hints and tips.</p>
+</div>
+<hr />
+<h2 id="requirements-and-preparation">Requirements and preparation<a class="headerlink" href="#requirements-and-preparation" title="Permanent link">&para;</a></h2>
+<div class="admonition attention">
+<p class="admonition-title">Important</p>
+<p><strong>Attendees are required to use their own laptop computers.</strong>  </p>
+<p>At least one week before the workshop, if required, participants should install the software below.  This should provide sufficient time for participants to liaise with their own IT support should they encounter any IT problems.  </p>
+</div>
+<hr />
+<h3 id="mode-of-delivery">Mode of Delivery<a class="headerlink" href="#mode-of-delivery" title="Permanent link">&para;</a></h3>
+<p>This workshop will be run on Galaxy. Use a supported browser such as Firefox, Safari or Chrome.</p>
+<ol>
+<li>
+<p>Open a browser and go to a Galaxy server.</p>
+<ul>
+<li>You can use a galaxy server of your own <strong>or</strong></li>
+<li><a href="https://usegalaxy.org.au/">Galaxy Australia</a></li>
+</ul>
+</li>
+<li>
+<p>Register as a new user if you don’t already have an account on that particular server.</p>
+</li>
+</ol>
+<hr />
+<h3 id="required-software">Required Software<a class="headerlink" href="#required-software" title="Permanent link">&para;</a></h3>
+<p>No additional data is needed.</p>
+<p>If you use your own galaxy server you will need to make sure you have the <a href="https://github.com/iracooke/protk-galaxytools">protk proteomics tools</a> installed.</p>
+<hr />
+<h3 id="required-data">Required Data<a class="headerlink" href="#required-data" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mzML">https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mzML</a></li>
+<li><a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mgf">https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mgf</a></li>
+<li><a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/UniprotMouseD_20140716.fasta">https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/UniprotMouseD_20140716.fasta</a></li>
+</ul>
+<hr />
+<h3 id="slides-and-workshop-instructions">Slides and workshop instructions<a class="headerlink" href="#slides-and-workshop-instructions" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="author-information">Author Information<a class="headerlink" href="#author-information" title="Permanent link">&para;</a></h2>
+<p>Written by: Ira Cooke<br />
+James Cook University</p>
+<p>Created: Oct 2015<br />
+Reviewed:</p>
+<hr />
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<p>Analyses of this type are a fundamental part of most proteomics studies. The basic idea is to match tandem ms spectra obtained from a sample with equivalent theoretical spectra from a reference protein database. The process is referred to as &ldquo;protein database search&rdquo; or even &ldquo;protein sequencing&rdquo;, although amino acid sequences are not obtained <em>de novo</em> with this method.</p>
+<p>The data used in this tutorial were obtained from a single run on an Orbitrap Elite mass spectrometer.  The sample itself corresponds to a purified organelle from Mouse cells.  </p>
+<p>The aim of the tutorial will be to create a list of all proteins that can be confidently said to be present in the sample, and then to use this list to guess the identity of the &ldquo;mystery&rdquo; organelle.</p>
+<p>This tutorial uses free software including:</p>
+<ul>
+<li>The <a href="http://www.thegpm.org/tandem/">X!Tandem</a> search engine</li>
+<li>The <a href="http://en.wikipedia.org/wiki/Trans-Proteomic_Pipeline">Trans Proteomic Pipeline</a> (TPP) for post-search validation</li>
+<li>The <a href="https://github.com/iracooke/protk">Protk</a> tool suite for various conversion tasks and to make working with X!Tandem and the TPP easier</li>
+<li>The <a href="http://galaxyproject.org/">Galaxy</a> platform to bring all these tools together</li>
+</ul>
+<hr />
+<h2 id="section-1-data">Section 1: Data<a class="headerlink" href="#section-1-data" title="Permanent link">&para;</a></h2>
+<h3 id="login-to-galaxy">Login to Galaxy<a class="headerlink" href="#login-to-galaxy" title="Permanent link">&para;</a></h3>
+<p>Make sure you are using a supported browser and are <a href="#mode-of-delivery">logged in to Galaxy</a>.</p>
+<hr />
+<h3 id="import-mass-spec-data">Import mass spec data<a class="headerlink" href="#import-mass-spec-data" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><a href="https://www.melbournebioinformatics.org.au/tutorials/tutorials/galaxy-workflows/galaxy-workflows/#section-2-create-and-run-a-workflow">Create a new history</a> in Galaxy and name it &ldquo;Organelle Tutorial&rdquo;.</p>
+</li>
+<li>
+<p><strong>Download datasets</strong> using the Galaxy uploader tool.</p>
+<p>Open this tool by clicking the button as shown below</p>
+<p><img alt="Uploader tool" src="../media/galaxy_uploader.png" /></p>
+<p>After opening the tool select <em>Paste/Fetch data</em> and paste the following URL into the box that appears.  Then click <em>Start</em> to initiate the download.</p>
+<p><a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mzML">https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mzML</a></p>
+<p>After the download is finished you should have a single item in your history.</p>
+</li>
+<li>
+<p><strong>Rename</strong> the history item by clicking the pencil icon beside it to &ldquo;Edit attributes&rdquo;.</p>
+<p><img alt="Edit attributes icon" src="../media/galaxy_edit_attributes.png" /></p>
+<ul>
+<li>
+<p>This should bring up a dialog box where you can edit the name.  </p>
+</li>
+<li>
+<p>Change the name by removing everything up to the last forward slash &ldquo;/&rdquo;</p>
+</li>
+<li>
+<p>Your item should then be named <em>OrganelleSample.mzML</em></p>
+</li>
+<li>
+<p>Don&rsquo;t forget to click &ldquo;Save&rdquo;.</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="basic-properties-of-the-data">Basic properties of the data<a class="headerlink" href="#basic-properties-of-the-data" title="Permanent link">&para;</a></h3>
+<p><strong>Format:</strong></p>
+<p>Mass spectrometry data comes in many different formats and the first step in a proteomics analysis often involves data conversion or pre-processing. You can read more about mass spectrometry data formats by clicking the <code>Data Formats and pre-processing</code> bar below.</p>
+<details class="attention">
+<summary>Data Formats and pre-processing</summary>
+<p>Mass Spectrometry data analysis is plagued by an overabundance of file formats.  The good news is that the Mass Spec community, including many instrument vendors have developed a standard file format for raw data, <a href="https://www.psidev.info/mzML">mzML</a>.  The bad news is that many of the old formats are still in widespread use, and most instruments don&rsquo;t produce it natively.  The reference implementation of the mzML standard is a software suite called <a href="http://proteowizard.sourceforge.net/">ProteoWizard</a>. ProteoWizard includes a very handy tool called <code>msconvert</code> that is capable of converting raw data from most instruments into <code>mzML</code> or into one of many other formats.  In addition to format conversion, <code>msconvert</code> can also perform a wide variety of noise filtering and peak-picking functions to prepare data for analysis.  A typical pre-processing involves;</p>
+<ol>
+<li>Conversion from instrument .raw to mzML</li>
+<li>Peak picking on both MS1 and MS2 data using vendor-native peak picking routines (built in to msconvert)</li>
+<li>Denoising of MS2 data either by thresholding or by keeping only the largest peaks withing a moving window</li>
+<li>Convert spectrum identifiers into a standardized format</li>
+</ol>
+<p>To convert files from raw instrument native formats to <code>mzML</code> a windows PC is required.  If you need to do this, be sure to download <a href="http://proteowizard.sourceforge.net/">ProteoWizard</a> with <em>vendor reader support</em>.  This package comes with <code>MSConvertGUI</code> which allows conversion of raw files using a graphical interface.  Once files are in <code>mzML</code> or <code>mgf</code> format they can be converted to various other formats using the <code>msconvert3</code> tool in Galaxy.</p>
+</details>
+<p><br></p>
+<div class="admonition question">
+<p class="admonition-title">1) What format is the OrganelleSample.mzML file?</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Try clicking the title bar on the data in your galaxy history.  This will toggle display of some additional information about the data.</p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<p>mzML</p>
+</details>
+</div>
+<p><strong>MS versus MS/MS:</strong></p>
+<p>A key feature of <em>Tandem</em> mass spectrometry is the acquisition of mass spectra (spectra) that measure the masses of precursor ions (whole peptides) as well as spectra that measure the fragment masses of a single selected peptide.  These two types of measurements are called <strong>MS</strong> and <strong>MS/MS</strong> spectra respectively.  The following schematic shows how an <strong>MS/MS</strong> scan results from the fragmentation of a selected product ion.  Often multiple <strong>MS/MS</strong> spectra are obtained for each <strong>MS</strong> scan, selecting different precursor masses each time so that as many peptides as possible can be analyzed.</p>
+<p><img alt="Tandem MS Schematic" src="../media/tandem_ms.png" /></p>
+<p><strong>Number of spectra:</strong></p>
+<p>Click the eye icon on the history item to view the <em>mzML</em> file as text.  The file is almost impossible to read by hand but with some text searching we will be able to deduce the number of <strong>MS</strong> and <strong>MS/MS</strong> spectra in the file.</p>
+<p>Now try searching for the text &ldquo;MS1 spectrum&rdquo; in the page using your web browser&rsquo;s search function.  Looking closely you should see that this text appears once for every <strong>MS1</strong> spectrum in the file (plus it occurs one extra time at the top of the file as part of the file description).  The file is large though and the browser can only see the first megabyte of it.</p>
+<p>Now search for the text &ldquo;spectrumList count&rdquo;. It should bring you to a line in the file that says spectrumList count=&rdquo;24941&rdquo;.  There are a total of 24941 spectra in the entire file including both <strong>MS</strong> and <strong>MS/MS</strong> spectra.</p>
+<div class="admonition question">
+<p class="admonition-title">2) How many <strong>MS</strong> spectra are there in this dataset?</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>To answer this question you will need to use the <em>Select</em> tool from the <em>Filter and Sort</em> submenu to select lines matching the text &ldquo;MS1 spectrum&rdquo; in the whole file.  Then use the <em>Line/Word/Character count</em> tool from the <em>Text Manipulation</em> submenu to count the number of lines returned by running the <em>Select</em> tool.</p>
+<p>The text &ldquo;MS1 spectrum&rdquo; also appears at the top of the file as part of its description so you will need to subtract 1 from your answer</p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<p>3142</p>
+</details>
+</div>
+<p><br></p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>In the previous exercise we used two galaxy tools in succession to find out the number of items in a file that matched some text. Future exercises use the same technique so you might find it useful to create a tiny workflow to automate this procedure. See the instructions below.</p>
+<details class="answer">
+<summary>Create a mini workflow</summary>
+<ol>
+<li>Click the <em>Workflow</em> menu item at the top of galaxy</li>
+<li>
+<p>Click the button called <em>Create New Workflow</em></p>
+<p><img alt="Image of workflow menu" src="../media/WorkflowMenu.png" /></p>
+</li>
+<li>
+<p>Enter a name and description for the new workflow and click <em>Create</em></p>
+</li>
+<li>
+<p>You should now have a blank workflow canvas.  Create an input box for the workflow by scrolling to the bottom left of the galaxy tool menu.  Under <em>Workflow Control</em> and then under <em>Inputs</em> you should see an <em>Input dataset</em> item. Click it to create a blank input box</p>
+<p><img alt="Image add workflow input" src="../media/MakeInputDataSet.png" /></p>
+</li>
+<li>
+<p>Now add workflow nodes for other tools by clicking on the relevant tool in the galaxy tool menu (left pane of galaxy). The tools to add are;</p>
+<ul>
+<li>The <em>Select</em> tool from the <em>Find and Sort</em> submenu</li>
+<li>The <em>Line/Word/Character</em> count tool from the <em>Text Manipulation</em> submenu</li>
+</ul>
+</li>
+<li>
+<p>After adding these tools you can join them up by dragging from the outputs of one node to the inputs of the next</p>
+<p><img alt="Image workflow join nodes" src="../media/JoinWorkflowTools.png" /></p>
+</li>
+<li>
+<p>Save your workflow</p>
+<p><img alt="Image save workflow" src="../media/SaveWorkflow.png" /></p>
+</li>
+<li>
+<p>After saving the workflow return to the main <em>Workflow</em> menu (top of Galaxy) and select your new workflow to run it.  Before running the workflow you will be presented with a window that allows you to alter the workflow inputs.</p>
+<p><img alt="Image edit workflow inputs" src="../media/EditWorkflowInputs.png" /></p>
+</li>
+</ol>
+</details>
+</div>
+<p><br>
+Prior to the development of tandem mass spectrometry, peptides and proteins were detected purely by matching <strong>MS</strong> peaks against the masses of whole peptides via <a href="https://en.wikipedia.org/wiki/Peptide_mass_fingerprinting">Peptide Mass Fingerprinting</a>.  This has largely been superceded by tandem mass spectrometry which gains much greater specificity by using the <strong>MS/MS</strong> spectra.  In this tutorial only the <strong>MS/MS</strong> spectra will be used.</p>
+<div class="admonition question">
+<p class="admonition-title">3) How many <strong>MS/MS</strong> spectra are there in this dataset?</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Use the fact that the file contains a total of 24941 spectra with your answer to the previous question about <strong>MS</strong> spectra.</p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<p>21799</p>
+</details>
+</div>
+<hr />
+<h3 id="alternate-data-formats">Alternate data formats<a class="headerlink" href="#alternate-data-formats" title="Permanent link">&para;</a></h3>
+<p>Another format you are likely to encounter for tandem mass spectrometry data is <em>Mascot Generic Format</em> or <em>mgf</em>.  Mascot Generic Format (<em>mgf</em>) is the data file format preferred by the <em>Mascot</em> search engine.  It is a text based format is much easier to read by hand than the <em>mzML</em> file.  Each spectrum appears between &ldquo;BEGIN IONS&rdquo; and &ldquo;END IONS&rdquo; statements and simply consists of (<em>mz</em>,<em>intensity</em>) pairs.  Additional summary information about the precursor (whole peptide) ion such as its mass, retention time and charge are included.</p>
+<ol>
+<li>
+<p>Download the Organelle Sample data in <em>mgf</em> format</p>
+<p>Use the <em>Paste/Fetch data</em> tool again and paste the following URL into the box that appears.  Then click <em>Start</em> to initiate the download.</p>
+<p><a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mgf">https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/OrganelleSample.mgf</a></p>
+</li>
+<li>
+<p>Inspect the data manually by viewing it in Galaxy. Try to get a feel for the way data is organised within the file.</p>
+</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">4) How many spectra are there in this dataset and what type of spectra do you think they are?</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Use the same technique you used for the previous exercise (or your workflow). Remember that for every spectrum there is one &ldquo;BEGIN IONS&rdquo; statement in the file.</p>
+<p>Consider your answers to questions 3 and 4</p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<p>21799
+MS/MS</p>
+</details>
+</div>
+<hr />
+<h2 id="section-2-run-a-search">Section 2: Run a Search<a class="headerlink" href="#section-2-run-a-search" title="Permanent link">&para;</a></h2>
+<h3 id="obtain-a-search-database">Obtain a Search Database<a class="headerlink" href="#obtain-a-search-database" title="Permanent link">&para;</a></h3>
+<p>Setting up a search database is a critical step.  For this tutorial we have created a database for you, but if you need to create a database for your own data you&rsquo;ll need to consider the following key issues;</p>
+<ul>
+<li>Database size</li>
+<li>Whether to include decoys</li>
+<li>What types of variants to include if any</li>
+<li>How to format your database identifiers</li>
+</ul>
+<p>More details are provided by clicking on the &ldquo;Protein Databases&rdquo; below.</p>
+<details class="attention">
+<summary>Protein Databases</summary>
+<p>In a perfect experiment we would obtain fragment ions for all the <code>b,y</code> pairs of each peptide.  If peaks can be unambiguously identified for all these pairs then the sequence of a peptide can simply be read off from the fragmentation spectrum itself.  Unfortunately this is almost never the case using current instrumentation, and the only practical method to determine the sequences of peptides and proteins present in a sample is to compare spectra with a database of potential proteins.  This <code>database</code> is usually just a <code>FASTA</code> formatted file containing amino acid sequences for all known proteins from your study organism.  Constructing this database is a crucial first step in any proteomics analysis because only peptide sequences present in the database will appear in the results.  In order to detect a peptide, its exact sequence must be explicitly included in the database.</p>
+<p><strong>Large vs Small Database</strong></p>
+<p>Since it is impossible to detect a peptide unless it is present in the search database, one might consider using a very large database such as the full content of <code>NCBInr</code>.  There are two problems with this.  The most important is that the sensivity of a search goes down as the search space goes up, which means that searches on large databases often return far fewer hits.  Another, more practical issue is that searching a large database often takes an extremely long time, and might even crash your search engine.</p>
+<p>Note that very small databases can also cause problems.  In particular, some search engines, and most search engine post-processing statistical tools attempt to model the shape of peptide-sequence-match (PSM) score distributions.  With a very small database (or with very few spectra) it may not be possible to model these distributions accurately.  In most practical situations this is not an issue.</p>
+<p><strong>Typical sources of data for search databases</strong></p>
+<ul>
+<li>
+<p><strong>Uniprot.org</strong>: This is the canonical resource for publicly available protein sequences. It includes two large databases <code>SwissProt</code>, which contains manually curated sequences and <code>Trembl</code> which contains sequences automatically generated from genomic and transcriptomic data.</p>
+</li>
+<li>
+<p><strong>An Organism Specific database</strong>: In some cases, a community of researchers working on specific organisms will create their own sequence data repositories.  Some of these are well maintained and are the best source of data for that study organism.  Examples include <code>PlasmoDB</code> for Malaria for <code>Flybase</code> for drosophila.</p>
+</li>
+<li>
+<p><strong>Transcriptome derived sequences</strong>: If you are working on an organism for which public sequence data are scarce, it may be worth obtaining transcriptomic sequences for it.  If sufficient data are obtained, the resulting assembled transcript sequences can be translated to form a good quality proteomic database.</p>
+</li>
+<li>
+<p><strong>Other</strong>: Depending on the project you might want to include sequences for specific variants of interest, or a six-frame translation of a genome.</p>
+</li>
+</ul>
+<p><strong>Should I include decoys?</strong></p>
+<p>Decoys are often useful, but not always needed.  Often, the decision to include decoys depends on the requirements of software that is used downstream of the search. Examples on this wiki that make use of <code>Peptide Prophet</code> typically use decoys because it can use these to &lsquo;pin down&rsquo; the negative distribution.</p>
+</details>
+<ol>
+<li>
+<p>Download a database of Mouse proteins in <em>fasta</em> format</p>
+<p>Use the <em>Paste/Fetch data</em> tool again and paste the following URL into the box that appears.  Then click <em>Start</em> to initiate the download.</p>
+<p><a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/UniprotMouseD_20140716.fasta">https://swift.rc.nectar.org.au:8888/v1/AUTH_ffb00634530a4c37a0b8b08c48068adf/proteomics_tutorial/UniprotMouseD_20140716.fasta</a></p>
+</li>
+<li>
+<p>Inspect the first few items in the database in Galaxy. The file is in <a href="https://en.wikipedia.org/wiki/FASTA_format">Fasta</a> format which means that each entry has a single description line that starts with a &ldquo;&gt;&rdquo; followed by a unique identifier and then some general descriptive information. The actual sequence of amino acids is given after the description line. Take note of the format of the database identifiers. They are in Uniprot format and look like this;</p>
+<p><code>sp|Q9CQV8|1433B_MOUSE</code><br />
+   The database also includes decoy sequences, appended at the end.  They have identifiers like this:
+   <code>decoy_rp75404</code></p>
+</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">5) What is the ratio of decoys to non-decoys in the database?</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Decoys are easiest to search for because they all start with &ldquo;decoy_&rdquo;. The total number of database entries can be found simply expanding the fasta file in your history (by clicking on its title).</p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<p>1:1</p>
+</details>
+</div>
+<hr />
+<h3 id="run-a-search-using-xtandem">Run a search using X!Tandem<a class="headerlink" href="#run-a-search-using-xtandem" title="Permanent link">&para;</a></h3>
+<p>A large number of search engines now exist for proteomics data.  This exercise uses <em>X!Tandem</em> which is one of the fastest and most widely used. Other search engines include <em>OMSSA</em>, <em>MS-GF+</em> and <em>Mascot</em>.</p>
+<ol>
+<li>Select the <em>X!Tandem Search</em> tool</li>
+<li>Enter parameters as shown in the table below (leave all others at their defaults)</li>
+<li>Click Execute</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Uploaded Fasta File</td>
+<td><code>UniprotMouseD_20140716.fasta</code></td>
+</tr>
+<tr>
+<td>MSMS File</td>
+<td><code>OrganelleSample.mgf</code></td>
+</tr>
+<tr>
+<td>Variable Modifications</td>
+<td><code>Oxidation M</code></td>
+</tr>
+<tr>
+<td>Fixed Modifications</td>
+<td><code>Carbamidomethyl C</code></td>
+</tr>
+<tr>
+<td>Missed Cleavages Allowed</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td>Enzyme</td>
+<td><code>Trypsin</code></td>
+</tr>
+<tr>
+<td>Fragment Ion Tolerance</td>
+<td><code>0.5</code></td>
+</tr>
+<tr>
+<td>Precursor Ion Tolerance</td>
+<td><code>10 ppm</code></td>
+</tr>
+</tbody>
+</table>
+<p>The search should run for about 5-10 minutes and will produce an output file in <em>X!Tandem</em> xml format. A much more useful format is <em>pepXML</em> so the next step in the analysis will be to run a tool to convert from tandem to pepXML.</p>
+<ol>
+<li>Select the <em>Tandem to pepXML</em> tool</li>
+<li>Select the output from the previous step as input and click <em>Execute</em></li>
+</ol>
+<p>While the search is running, read some background theory by clicking the <code>How Search Engines Work</code> bar below.</p>
+<details class="attention">
+<summary>How Search Engines Work</summary>
+<p>When choosing search engine parameters it can be helpful to understand the basic algorithms that most search engines share. The workflow of a typical search engine is roughly as outlined below.</p>
+<ol>
+<li>The next spectrum in the dataset is loaded for consideration</li>
+<li>The spectrum parent mass and the parent mass tolerance is used to select a small set of matching peptides from the database.  This is a crucial step because the number of peptides that fall within the matching mass window will determine the effective size of the search space.  Database search space size also depends on many other factors including<ul>
+<li>The size of the protein database</li>
+<li>Variable modifications allowed on peptides</li>
+<li>Parent ion mass tolerance</li>
+<li>Number of allowed missed enzymatic cleavages</li>
+<li>Specificity of the enzyme used for digestion</li>
+</ul>
+</li>
+<li>Each of the matching peptides is scored against the spectrum. The nature of this scoring is where search engines typically differ from each other.</li>
+<li>The highest scoring <code>peptide spectrum match</code> (PSM) is recorded along with its score.</li>
+<li>Some form of global analysis of (PSM) scores is performed in order to determine a threshold of significance</li>
+</ol>
+<p>There are many excellent presentations online that explain this in more detail.  Although it&rsquo;s old, I recommend <a href="http://www.slideshare.net/ProteomeSoftware/interpreting-msms-results">this presentation by Brian Searle</a></p>
+</details>
+<hr />
+<h3 id="convert-results-to-tabular-format">Convert Results to tabular format<a class="headerlink" href="#convert-results-to-tabular-format" title="Permanent link">&para;</a></h3>
+<p>Although the <em>pepXML</em> format is useful as input to other tools it is not designed to be read or analyzed directly. Galaxy includes a tool to convert <em>pepXML</em> into tabular (tab separated) format, which is much easier to read.  Tabular format also has the advantage that it can be downloaded and opened using many other programs including <em>Excel</em> and <a href="http://cran.r-project.org/">R</a>.</p>
+<ol>
+<li>Select the <em>pepXML to Table</em> tool</li>
+<li>Select the <em>pepXML</em> file produced in the previous step as input and click <em>Execute</em></li>
+</ol>
+<p>To get the most out of tabular files it is often necessary to know the column number corresponding to columns of interest.  Explore the column assignments in your tabular file by clicking on its title in your galaxy history.  This will show extra details about the item, including a handy preview where column numbers are displayed.</p>
+<div class="admonition question">
+<p class="admonition-title">6) In what column number is the <em>assumed_charge</em> of peptides in the <em>pepXML</em> tabular file?</p>
+<details class="answer">
+<summary>Answer</summary>
+<p>3</p>
+</details>
+</div>
+<hr />
+<h3 id="sort-tabular-outputs">Sort tabular outputs<a class="headerlink" href="#sort-tabular-outputs" title="Permanent link">&para;</a></h3>
+<p>Examine the tabular output file from the previous step.  It contains many columns, of which the most interesting are probably the raw search engine score and the name of the protein from which each peptide has been derived. Note the presence of plenty of decoy proteins among the results.  These decoys should tend to have quite poor scores compared with real hits.  The <em>raw score</em> for <em>X!Tandem</em> searches is an <em>E-value</em>.  To push these decoys to the bottom of the list we can sort the data by <em>raw score</em>.</p>
+<ol>
+<li>Select the <em>Sort</em> data tool from the <em>Filter and Sort</em> menu in the left pane of Galaxy</li>
+<li>Choose to sort on <em>raw_score</em>.  This is column c10</li>
+<li>Select <em>Ascending order_ for the sort direction (small E-values are good) and click *Execute</em></li>
+</ol>
+<p>Browse the resulting dataset.  The top of the file should now have very few decoys.</p>
+<hr />
+<h3 id="convert-raw-scores-to-probabilities">Convert raw scores to probabilities<a class="headerlink" href="#convert-raw-scores-to-probabilities" title="Permanent link">&para;</a></h3>
+<p>Raw <em>X!Tandem</em> scores only give a rough estimate of the reliability of each peptide to spectrum match (PSM). A better estimate can be obtained by running a tool that uses global statistical properties of the search to assign a probability to each PSM of being correct.  A number of tools exist for this, and in this tutorial we use <em>Peptide Prophet</em>, which can work with a wide variety of different search engine scoring systems. It is extremely useful as it effectively converts disparate scores to the common scale of probability. The probabilities produced by <em>Peptide Prophet</em> can be used to set a threshold for acceptance.  For example we could decide to accept only PSM&rsquo;s with a probability greater than 0.95. Note that this is not the same as the False Discovery Rate which is computed by taking (1-p) for all the accepted PSM&rsquo;s and dividing by the total number of accepted PSM&rsquo;s. A widely used alternative to <em>Peptide Prophet</em> is <a href="http://percolator.ms/">Percolator</a>.</p>
+<p>If you&rsquo;re curious about how <em>Peptide Prophet</em> works, take a look at <a href="http://proteome-software.wikispaces.com/file/view/peptide*prophet*dissected.pdf">this explainer</a>, or <a href="http://www.proteomecenter.org/classpubs/2keller.pdf">the original paper</a></p>
+<ol>
+<li>Select the <em>Peptide Prophet</em> tool</li>
+<li>Select the <em>X!Tandem</em> output in <em>pepXML</em> format generated earlier as input</li>
+<li>Check the box that says <em>Use decoys to pin down the negative distribution</em>.</li>
+<li>Convert the resulting <em>pepXML</em> file to tabular using the <em>PepXML to Table</em> tool</li>
+</ol>
+<p>Take a look at the resulting tabular file.  Note that this time the <em>peptideprophet_prob</em> column is populated and contains numbers between 0 and 1.</p>
+<div class="admonition question">
+<p class="admonition-title">7) How many PSM&rsquo;s have a peptide prophet probability greater than or equal to 0.95?</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Use the <em>Filter</em> tool from the <em>Filter and Sort</em> submenu. Also remember that Peptide Prophet probability is given in a column called <em>peptideprophet*prob</em>.  The syntax for &ldquo;greater than or equal to&rdquo; in the <em>Filter</em> tool is</p>
+<p>Use this text in <em>match with condition</em> field of the <em>Filter and Sort</em> tool.
+c11&gt;=0.95</p>
+<p>To answer the second question use the <em>Select</em> tool on the filtered table to select lines matching &ldquo;decoy*&rdquo;</p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<ul>
+<li>3808</li>
+<li>21</li>
+</ul>
+</details>
+</div>
+<div class="admonition question">
+<p class="admonition-title">8) What proportion of MS/MS spectra in the original data file produce a reliable (probability greater than or equal to 0.95) peptide to spectrum match (PSM)</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Consider your answer to question 7 relative to the total number of MS/MS spectra in the file (question 3)</p>
+<p>To take account of decoys remember that for every decoy in the results there is likely to be another non-decoy that is incorrect.</p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<p>17.27%</p>
+</details>
+</div>
+<hr />
+<h2 id="section-3-protein-inference">Section 3: Protein Inference<a class="headerlink" href="#section-3-protein-inference" title="Permanent link">&para;</a></h2>
+<h3 id="perform-protein-inference">Perform Protein Inference<a class="headerlink" href="#perform-protein-inference" title="Permanent link">&para;</a></h3>
+<p>Up to this point we have looked at peptide to spectrum matches <em>PSMs</em>.  Each of the peptides observed will have come from a protein sequence in the <em>fasta</em> file that we used as a database, and this protein is recorded along with the <em>PSM</em> itself in all of the result tables we&rsquo;ve viewed so far.  Unfortunately, the process of inferring the existence of proteins based on these <em>PSMs</em> is much more complicated than that because some peptides are found in more than one protein, and of course some proteins are supported by more than one <em>PSM</em>.</p>
+<p>The <em>Protein Prophet</em> tool can be used to run a proper protein inference analysis, and assigns probabilities to individual proteins, as well as groups of related proteins.</p>
+<ol>
+<li>Select the <em>Protein Prophet</em> tool</li>
+<li>Choose the <em>pepXML</em> formatted output from <em>Peptide Prophet</em> as input and click <em>Execute</em></li>
+<li>Convert the resulting <em>protXML</em> to tabular using the <em>protXML to Table</em> tool.</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">9) How many proteins are there with protein prophet probability greater than or equal to 0.99?</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Filter on column 6 <em>protein_probability</em></p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<p>601</p>
+</details>
+</div>
+<p>If you have time, click on the <code>Protein Prophet</code> box below and read over the Protein Prophet output.  Explore your output (use the unfiltered tabular output) to find examples of different kinds of Protein groupings.</p>
+<details class="attention">
+<summary>Protein Prophet</summary>
+<p>The development of the Protein Prophet statistical models, and its associated program was a big step forward for practitioners wanting to perform automated, large scale protein inference.  The original paper describing protein prophet is worth reading. It&rsquo;s citation is;</p>
+<blockquote>
+<p>Nesvizhskii, A. I., Keller, A., Kolker, E. &amp; Aebersold, R. A Statistical Model for Identifying Proteins by Tandem Mass Spectrometry. Anal. Chem. 75, 4646–4658 (2003).</p>
+</blockquote>
+<p>The practical reality of using Protein Prophet is a little different however as the program has undergone several significant developments since its original publication, and interpretation of Protein Prophet groupings can be challenging.  Let&rsquo;s look at a few examples;</p>
+<p><strong>Uniquely identified protein</strong></p>
+<blockquote>
+<p>sp|P00761|TRYP_PIG</p>
+</blockquote>
+<p>Search for this protein in the Protein Prophet results file. It should have <code>group_probability</code> and <code>protein_probability</code> scores of <code>1.0</code>.  All of the three peptides that contribute evidence for this protein map uniquely to this protein alone so there are no other proteins in this group.</p>
+<p><strong>Indistinguishable Protein</strong></p>
+<blockquote>
+<p>sp|O08600|NUCG_MOUSE</p>
+</blockquote>
+<p>In this case there still just one entry for the protein, but <code>Protein Prophet</code> lists another protein <code>tr|Q3UN47|Q3UN47_MOUSE</code> in the indistinguishable proteins column.  This protein is indistinguishable from the primary entry <code>sp|O08600|NUCG_MOUSE</code> because all of the identified peptides are shared between both.</p>
+<p><strong>A well behaved protein group</strong></p>
+<blockquote>
+<p>sp|O08677|KNG1_MOUSE</p>
+</blockquote>
+<p>This protein is part of a smallish group of similar proteins.  The overall group probability is high (<code>1.0</code>) but probabilities group members are different.  The first member of the group has a high probability <code>0.99</code> but all other members have probabilities of <code>0.0</code>.  This is because all of the high scoring peptides are contained in the first entry.  Evidence for the other entries consists of either (a) peptides that are contained in the first entry or (b) peptides with very low scores. Protein Prophet uses the principle of Occam&rsquo;s razor;</p>
+<blockquote>
+<p>plurality should not be posited with out necessity</p>
+</blockquote>
+<p>In other words, unless otherwise indicated by a unique peptide, we should assume that shared peptides come from the same protein.</p>
+<p><strong>Anomalous groups</strong></p>
+<p>In rare cases Protein Prophet fails produces strange results when its algorithm fails to converge.  This can result in situations where the group probability is high (1.0) but all of the member proteins within the group are assigned a probability of 0.</p>
+</details>
+<hr />
+<h3 id="functional-enrichment-analysis">Functional enrichment analysis<a class="headerlink" href="#functional-enrichment-analysis" title="Permanent link">&para;</a></h3>
+<p>This step will allow you to discover the identity of the Organelle that was used to create the sample.  </p>
+<p>We use the GOrilla gene ontology enrichment analysis tool (a web based tool) to discover GO terms that are over-represented in proteins at the top of our list compared with those that are assigned very low probabilities (at the bottom).</p>
+<ol>
+<li>Start with unfiltered tabular protein prophet results</li>
+<li>Use the Cut columns tool from the Text Manipulation menu to extract the third column from the filtered protein table (contains <em>protein_name</em>).</li>
+<li>Convert the &ldquo;pipes&rdquo; that separate parts of the protein*name into separate columns using the <em>Convert delimiters to TAB</em> tool in the <em>Text manipulation</em> submenu of Galaxy. This should result in a file with 3 columns</li>
+<li>Use the <em>Cut columns</em> tool again to cut the second column from this dataset</li>
+<li>Download this file to your desktop and rename it to <em>organelle.txt</em></li>
+<li>Open the <a href="http://cbl-gorilla.cs.technion.ac.il/">GOrilla</a> web page in your web browser</li>
+<li>Select <em>Organism</em> as Mouse</li>
+<li>Upload the <em>organelle.txt</em> file as a ranged gene list</li>
+<li>Choose <em>Component</em> for the ontology</li>
+<li>Submit</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">10) What <strong>intracellular</strong> organelle was enriched in the sample?</p>
+<details class="hint">
+<summary>Hint</summary>
+<p>Ignore terms relating to <em>exosomes</em></p>
+<p>In the resulting output look to the most enriched and most specific GO terms.</p>
+</details>
+<details class="answer">
+<summary>Answer</summary>
+<p>Mitochondria</p>
+</details>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3414 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../hybrid_assembly/nanopore_assembly/">
+      
+      
+        <link rel="next" href="../../qiime2_mammal/qiime2_mammal/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Intro to Metabarcoding using QIIME2: *Marine dataset* - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#qiime2" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Intro to Metabarcoding using QIIME2: *Marine dataset*
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial layout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements and preparation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements and preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mode-of-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode of Delivery
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Software
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slides-and-workshop-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slides and workshop instructions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-players" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Players
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-study" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Study
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qiime-2-analysis-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      QIIME 2 Analysis platform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="QIIME 2 Analysis platform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewing-qiime2-visualisations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viewing QIIME2 visualisations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-set-up-on-nectar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Set up on Nectar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Initial Set up on Nectar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#byobu-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Byobu-screen
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Byobu-screen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#starting-a-byobu-screen-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting a byobu-screen session
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reconnecting-to-a-byobu-screen-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reconnecting to a byobu-screen session
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symbolic-links-to-workshop-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Symbolic links to workshop data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-importing-cleaning-and-quality-control-of-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Importing, cleaning and quality control of the data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Importing, cleaning and quality control of the data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-primers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove primers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-and-interpret-sequence-quality-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create and interpret sequence quality data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#denoising-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Denoising the data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-summary-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate summary files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-taxonomic-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Taxonomic Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Taxonomic Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assign-taxonomy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assign taxonomy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-viewable-summary-file-of-the-taxonomic-assignments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate a viewable summary file of the taxonomic assignments.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtering
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-build-a-phylogenetic-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Build a phylogenetic tree
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-4-basic-visualisations-and-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 4: Basic visualisations and statistics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 4: Basic visualisations and statistics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asv-relative-abundance-bar-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      ASV relative abundance bar charts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rarefaction-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rarefaction curves
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-and-beta-diversity-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alpha and beta diversity analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-5-exporting-data-for-further-analysis-in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 5: Exporting data for further analysis in R
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-6-extra-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 6: Extra Information
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 6: Extra Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#train-silva-v138-classifier-for-16s18s-rrna-gene-marker-sequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Train SILVA v138 classifier for 16S/18S rRNA gene marker sequences.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial layout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements and preparation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements and preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mode-of-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode of Delivery
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Software
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slides-and-workshop-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slides and workshop instructions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-players" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Players
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-study" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Study
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qiime-2-analysis-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      QIIME 2 Analysis platform
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="QIIME 2 Analysis platform">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewing-qiime2-visualisations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viewing QIIME2 visualisations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-set-up-on-nectar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Set up on Nectar
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Initial Set up on Nectar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#byobu-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Byobu-screen
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Byobu-screen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#starting-a-byobu-screen-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting a byobu-screen session
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reconnecting-to-a-byobu-screen-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reconnecting to a byobu-screen session
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symbolic-links-to-workshop-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Symbolic links to workshop data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-importing-cleaning-and-quality-control-of-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Importing, cleaning and quality control of the data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Importing, cleaning and quality control of the data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-primers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove primers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-and-interpret-sequence-quality-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create and interpret sequence quality data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#denoising-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Denoising the data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-summary-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate summary files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-taxonomic-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Taxonomic Analysis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Taxonomic Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assign-taxonomy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assign taxonomy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-viewable-summary-file-of-the-taxonomic-assignments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate a viewable summary file of the taxonomic assignments.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtering
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-build-a-phylogenetic-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Build a phylogenetic tree
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-4-basic-visualisations-and-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 4: Basic visualisations and statistics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 4: Basic visualisations and statistics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asv-relative-abundance-bar-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      ASV relative abundance bar charts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rarefaction-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rarefaction curves
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alpha-and-beta-diversity-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alpha and beta diversity analysis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-5-exporting-data-for-further-analysis-in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 5: Exporting data for further analysis in R
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-6-extra-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 6: Extra Information
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 6: Extra Information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#train-silva-v138-classifier-for-16s18s-rrna-gene-marker-sequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Train SILVA v138 classifier for 16S/18S rRNA gene marker sequences.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><img alt="melbioinf_logo" src="../../media/melbioinf_logo.png" style="width:350px; padding-right:50px" />       <img alt="unimelb_logo" src="../../media/PRIMARY_A_Vertical_Housed_RGB.png" style="width:150px" /></p>
+<h1 id="qiime2">QIIME2<a class="headerlink" href="#qiime2" title="Permanent link">&para;</a></h1>
+<p>Anticipated workshop duration when delivered to a group of participants is <strong>4 hours</strong>.  </p>
+<p>For queries relating to this workshop, contact Melbourne Bioinformatics (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;">&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;</a>).</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<h3 id="topic">Topic<a class="headerlink" href="#topic" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Genomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Transcriptomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Proteomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Metabolomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Statistics and visualisation</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Structural Modelling</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Basic skills</li>
+</ul>
+<h3 id="skill-level">Skill level<a class="headerlink" href="#skill-level" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Beginner  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Intermediate  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Advanced  </li>
+</ul>
+<p><br>
+This workshop is designed for participants with command-line knowledge. You will need to be able to <code>ssh</code> into a remote machine, navigate the directory structure and <code>scp</code> files from a remote computer to your local computer.</p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>What is the influence of genotype (intrinsic) and environment (extrinsic) on anemone-associated bacterial communities?</p>
+<p><strong>Data:</strong> Illumina MiSeq v3 paired-end (2 × 300 bp) reads (FASTQ).</p>
+<p><strong>Tools:</strong> QIIME 2</p>
+<p><strong>Pipeline:</strong>  </p>
+<p><em>Section 1:</em> Importing, cleaning and quality control of the data<br />
+<em>Section 2:</em> Taxonomic Analysis<br />
+<em>Section 3:</em> Building a phylogenetic tree<br />
+<em>Section 4:</em> Basic visualisations and statistics<br />
+<em>Section 5:</em> Exporting data for further analysis in R<br />
+<em>Section 6:</em> Extra Information</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>At the end of this introductory workshop, you will:</p>
+<ul>
+<li>Take raw data from a sequencing facility and end with publication quality graphics and statistics</li>
+<li>Answer the question <em>What is the influence of genotype (intrinsic) and environment (extrinsic) on anemone-associated bacterial communities?</em></li>
+</ul>
+<hr />
+<h2 id="tutorial-layout">Tutorial layout<a class="headerlink" href="#tutorial-layout" title="Permanent link">&para;</a></h2>
+<ul>
+<li>There is a <code>Table of contents</code> on the right-hand side which can be used to easily navigate through the tutorial by clicking the relevant section.</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>These grey coloured boxes are code blocks. The rectangular boxes in the top
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>right hand corner of this code block/grey box can be used to copy the code to
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>the clipboard.
+</span></code></pre></div>
+<details class="example">
+<summary>Coloured boxes like these with &gt; on the far right hand side, can be clicked to reveal the contents.</summary>
+<p>REVEALED!</p>
+</details>
+<div class="admonition attention">
+<p class="admonition-title">Attention: Pay attention to the information in these boxes.</p>
+<p>Important information, hints and tips.</p>
+</div>
+<hr />
+<h2 id="requirements-and-preparation">Requirements and preparation<a class="headerlink" href="#requirements-and-preparation" title="Permanent link">&para;</a></h2>
+<div class="admonition attention">
+<p class="admonition-title">Important</p>
+<p><strong>Attendees are required to use their own laptop computers.</strong>  </p>
+<p>At least one week before the workshop, if required, participants should install the software below.  This should provide sufficient time for participants to liaise with their own IT support should they encounter any IT problems.  </p>
+</div>
+<hr />
+<h3 id="mode-of-delivery">Mode of Delivery<a class="headerlink" href="#mode-of-delivery" title="Permanent link">&para;</a></h3>
+<p>This workshop will be run on a Nectar Instance. For more information click <a href="https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#workshops-using-nectar-instances">here</a>.</p>
+<p>It is possible to <a href="https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#applying-for-your-own-nectar-allocation">apply for your own Nectar allocation</a> to run this workshop independently though you will need to install any software needed.</p>
+<hr />
+<h3 id="required-software">Required Software<a class="headerlink" href="#required-software" title="Permanent link">&para;</a></h3>
+<p>For information about required software, click <a href="https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#required-software">here</a>.  </p>
+<p>You will need to use a Google Chrome or Mozilla Firefox web browser to view files in QIIME2 View.</p>
+<hr />
+<h3 id="required-data">Required Data<a class="headerlink" href="#required-data" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>No additional data needs to be downloaded for this workshop - it is all located on the Nectar Instance. FASTQs are located in the directory <code>raw_data</code> and a metadata (<code>metadata.tsv</code>) file has also been provided.</p>
+</li>
+<li>
+<p>If you wish to analyse the data independently at a later stage, it can be downloaded from <a href="https://github.com/melbournebioinformatics/MelBioInf_docs/blob/35d58488f4567156e1aced3f5f3a181d291cc1c8/docs/tutorials/qiime2/data_files.zip">here</a>. This zipped folder contains both the FASTQs and associated metadata file.</p>
+</li>
+<li>
+<p>If you are running this tutorial independently, you can also access the classifier that has been trained specifically for this data from <a href="https://www.dropbox.com/s/kqz9md0mawc7v8k/silva_138_16s_v5v6_classifier_2021-4.qza?dl=0">here</a>.</p>
+</li>
+</ul>
+<hr />
+<h3 id="slides-and-workshop-instructions">Slides and workshop instructions<a class="headerlink" href="#slides-and-workshop-instructions" title="Permanent link">&para;</a></h3>
+<p>Click <a href="../media/QIIME2_workshop_AustraliaBiocommons_220222.pdf" type="application/pdf" target="_blank">here</a> for slides presented during this workshop.</p>
+<p>Click <a href="../qiime2.pdf" type="application/pdf" target="_blank">here</a> for a printer friendly PDF version of this workshop.</p>
+<hr />
+<h2 id="author-information">Author Information<a class="headerlink" href="#author-information" title="Permanent link">&para;</a></h2>
+<p>Written by: Ashley Dungan and Gayle Philip<br />
+School of Biosciences, University of Melbourne; Melbourne Bioinformatics</p>
+<p>Created/Reviewed: August 2021</p>
+<hr />
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<p>What is the influence of genotype (intrinsic) and environment (extrinsic) on anemone-associated bacterial communities?</p>
+<h3 id="the-players">The Players<a class="headerlink" href="#the-players" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="https://www.flickr.com/photos/oregonstateuniversity/37602685205/in/photolist-9bvKtu-ZhPAfH-4whbde-2KAa34-2gLpRbY-7XQ8rs-itNBnM-MAREk7-8dseKh-d4ANrm-BGK165-d4B18m-MHUMrs-2kNLuhY-a9a8KH-fXoAbp-7t8d24-fXowPo-VmKukv-7XLRPt-7XLRJn-7XQ8kA-YYY7YD-7XQ8jh-7XLREX-GF37up-7XLRCc-GF37mP-7XLRDg-XKk2di-7XQ8bm-7XLRBz-7XLRvR-7XLRAv-7XLRuv-7XQ861-7XQ849-7XLRs8-7XLRxz-7XLRwP-21UJ1HC-7XQ8h7"><em>Exaiptasia diaphana</em></a> - a shallow-water, marine anemone that is often used in research as a model organism for corals. In this experiment, two genotypes (AIMS1 and AIMS4) of <em>E. diaphana</em> were grown in each of two different environments:  </p>
+<ol>
+<li>sterile seawater <strong><em>OR</em></strong>  </li>
+<li>unfiltered control seawater  </li>
+</ol>
+</li>
+<li>
+<p>The anemone-associated bacterial communities or <em>microbiome</em> - these bacteria live on, or within <em>E. diaphana</em>, and likely consist of a combination of commensals, transients, and long-term stable members, and combined with their host, form a mutually beneficial, stable symbiosis.</p>
+</li>
+</ul>
+<h3 id="the-study">The Study<a class="headerlink" href="#the-study" title="Permanent link">&para;</a></h3>
+<p>The anemone microbiome contributes to the overall health of this complex system and can evolve in tandem with the anemone host. In this data set we are looking at the impact of intrinsic and extrinsic factors on anemone microbiome composition. After three weeks in either sterile or control seawater (environment), anemones were homogenized and DNA was extracted. There are <em>23</em> samples in this data set - <em>5</em> from each anemone treatment combination (2 genotypes x 2 environments) and <em>3</em> DNA extraction blanks as controls. <em>This data is a subset from a larger experiment</em>.</p>
+<p>Dungan AM, van Oppen MJH, and Blackall LL (2021) Short-Term Exposure to Sterile Seawater Reduces Bacterial Community Diversity in the Sea Anemone, <em>Exaiptasia diaphana</em>. <em>Front. Mar. Sci.</em> 7:599314. doi:10.3389/fmars.2020.599314 <a href="https://www.frontiersin.org/articles/10.3389/fmars.2020.599314/full">[Full Text]</a>.</p>
+<h3 id="qiime-2-analysis-platform">QIIME 2 Analysis platform<a class="headerlink" href="#qiime-2-analysis-platform" title="Permanent link">&para;</a></h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The version used in this workshop is qiime2-2021.8. Other versions of QIIME2 may result in minor differences in results.</p>
+</div>
+<p><br>
+Quantitative Insights Into Microbial Ecology 2 (<a href="https://www.nature.com/articles/s41587-019-0209-9">QIIME 2™</a>) is a next-generation microbiome <a href="https://qiime2.org/">bioinformatics platform</a> that is extensible, free, open source, and community developed. It allows researchers to:  </p>
+<ul>
+<li>Automatically track analyses with decentralised data provenance</li>
+<li>Interactively explore data with beautiful visualisations</li>
+<li>Easily share results without QIIME 2 installed</li>
+<li>Plugin-based system — researchers can add in tools as they wish</li>
+</ul>
+<p><br></p>
+<h4 id="viewing-qiime2-visualisations">Viewing QIIME2 visualisations<a class="headerlink" href="#viewing-qiime2-visualisations" title="Permanent link">&para;</a></h4>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>In order to use QIIME2 View to visualise your files, you will need to use a Google Chrome or Mozilla Firefox web browser (not in private browsing). For more information, click <a href="https://view.qiime2.org/incompatible-browser/">here</a>.</p>
+</div>
+<p>As this workshop is being run on a remote Nectar Instance, you will need to <a href="https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#transferring-files-between-your-computer-and-nectar-instance">download the visual files (<fn>*.qzv</fn>) to your local computer</a> and view them in <a href="https://view.qiime2.org">QIIME2 View</a> (q2view).</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>We will be doing this step multiple times throughout this workshop to view visualisation files as they are generated.</p>
+</div>
+<p><br>
+Alternatively, <strong><em>if you have QIIME2 installed and are running it on your own computer</em></strong>, you can use <code>qiime tools view</code> to view the results from the command line (e.g. <code>qiime tools view filename.qzv</code>). <code>qiime tools view</code> opens a browser window with your visualization loaded in it. When you are done, you can close the browser window and press <code>ctrl-c</code> on the keyboard to terminate the command.</p>
+<hr />
+<h2 id="initial-set-up-on-nectar">Initial Set up on Nectar<a class="headerlink" href="#initial-set-up-on-nectar" title="Permanent link">&para;</a></h2>
+<h3 id="byobu-screen">Byobu-screen<a class="headerlink" href="#byobu-screen" title="Permanent link">&para;</a></h3>
+<p>To ensure that commands continue to run should you get disconnected from your Nectar Instance, we&rsquo;ll <a href="https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#byobu-screen">run a byobu-screen session</a>.</p>
+<h4 id="starting-a-byobu-screen-session">Starting a byobu-screen session<a class="headerlink" href="#starting-a-byobu-screen-session" title="Permanent link">&para;</a></h4>
+<p>On Nectar, to start a <code>byobu-screen</code> session called <code>workshop</code>, type  </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>byobu-screen<span class="w"> </span>-S<span class="w"> </span>workshop
+</span></code></pre></div>
+<h4 id="reconnecting-to-a-byobu-screen-session">Reconnecting to a byobu-screen session<a class="headerlink" href="#reconnecting-to-a-byobu-screen-session" title="Permanent link">&para;</a></h4>
+<p>If you get disconnected from your Nectar Instance, follow the instructions <a href="https://www.melbournebioinformatics.org.au/tutorials/tutorials/workshop_delivery_mode_info/workshops_nectar/#reconnecting-to-a-byobu-screen-session">here</a> to resume your session.</p>
+<hr />
+<h3 id="symbolic-links-to-workshop-data">Symbolic links to workshop data<a class="headerlink" href="#symbolic-links-to-workshop-data" title="Permanent link">&para;</a></h3>
+<p>Data for this workshop is stored in a central location (<code>/mnt/shared_data/</code>) on the Nectar file system that we will be using. We will use symbolic links (<code>ln -s</code>) to point to it. Symbolic links (or symlinks) are just &ldquo;virtual&rdquo; files or folders (they only take up a very little space) that point to a physical file or folder located elsewhere in the file system. Sequencing data can be large, and rather than unnecessarily having multiple copies of the data which can quickly take up a lot of space, we will simply point to the files needed in the <code>shared_data</code> folder.</p>
+<div class="language-Bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ln<span class="w"> </span>-s<span class="w"> </span>/mnt/shared_data/raw_data<span class="w"> </span>raw_data
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>ln<span class="w"> </span>-s<span class="w"> </span>/mnt/shared_data/metadata.tsv<span class="w"> </span>metadata.tsv
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>ln<span class="w"> </span>-s<span class="w"> </span>/mnt/shared_data/silva_138_16s_v5v6_classifier_2021-4.qza<span class="w"> </span>silva_138_16s_v5v6_classifier_2021-4.qza
+</span></code></pre></div>
+<hr />
+<h2 id="section-1-importing-cleaning-and-quality-control-of-the-data">Section 1: Importing, cleaning and quality control of the data<a class="headerlink" href="#section-1-importing-cleaning-and-quality-control-of-the-data" title="Permanent link">&para;</a></h2>
+<h3 id="import-data">Import data<a class="headerlink" href="#import-data" title="Permanent link">&para;</a></h3>
+<p>These <a href="#the-study">samples</a> were sequenced on a single Illumina MiSeq run using v3 (2 × 300 bp) reagents at the Walter and Eliza Hall Institute (WEHI), Melbourne, Australia. Data from WEHI came as paired-end, demultiplexed, unzipped <fn>*.fastq</fn> files with adapters still attached. Following the <a href="https://docs.qiime2.org/2022.8/tutorials/importing/">QIIME2 importing tutorial</a>, this is the Casava One Eight format. The files have been renamed to satisfy the Casava format as <fn>SampleID_FWDXX-REVXX_L001_R[1 or 2]_001.fastq</fn> e.g. CTRLA_Fwd04-Rev25_L001_R1_001.fastq.gz. The files were then zipped (.gzip).</p>
+<p>Here, the data files (two per sample i.e. forward and reverse reads <code>R1</code> and <code>R2</code> respectively) will be imported and exported as a single QIIME 2 artefact file. These samples are already demultiplexed (i.e. sequences from each sample have been written to separate files), so a metadata file is not initially required.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To check the input syntax for any QIIME2 command, enter the command, followed by <code>--help</code> e.g. <code>qiime tools import --help</code></p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you haven&rsquo;t already done so, make sure you are running the workshop in <a href="#byobu-screen">byobu-screen</a> and have created the symbolic links to the <a href="#symbolic-links-to-workshop-data">workshop data</a>.</p>
+</div>
+<p>Start by making a new directory <code>analysis</code> to store all the output files from this tutorial. In addition, we will create a subdirectory called <code>seqs</code> to store the exported sequences.</p>
+<div class="language-Bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>analysis/seqs
+</span></code></pre></div>
+<p>Run the command to import the raw data located in the directory <code>raw_data</code> and export it to a single QIIME 2 artefact file, <code>combined.qza</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">qiime</span> <span class="n">tools</span> <span class="kn">import</span><span class="w"> \</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="o">--</span><span class="nb">type</span> <span class="s1">&#39;SampleData[PairedEndSequencesWithQuality]&#39;</span> \
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="o">--</span><span class="nb">input</span><span class="o">-</span><span class="n">path</span> <span class="n">raw_data</span> \
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="o">--</span><span class="nb">input</span><span class="o">-</span><span class="nb">format</span> <span class="n">CasavaOneEightSingleLanePerSampleDirFmt</span> \
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="n">path</span> <span class="n">analysis</span><span class="o">/</span><span class="n">seqs</span><span class="o">/</span><span class="n">combined</span><span class="o">.</span><span class="n">qza</span>
+</span></code></pre></div>
+<h3 id="remove-primers">Remove primers<a class="headerlink" href="#remove-primers" title="Permanent link">&para;</a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Remember to ask you sequencing facility if the raw data you get has the primers attached - they may have already been removed.</p>
+</div>
+<p>These sequences still have the primers attached - they need to be removed (using <code>cutadapt</code>) before denoising.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">qiime</span> <span class="n">cutadapt</span> <span class="n">trim</span><span class="o">-</span><span class="n">paired</span> \
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">demultiplexed</span><span class="o">-</span><span class="n">sequences</span> <span class="n">analysis</span><span class="o">/</span><span class="n">seqs</span><span class="o">/</span><span class="n">combined</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">front</span><span class="o">-</span><span class="n">f</span> <span class="n">AGGATTAGATACCCTGGTA</span> \
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">front</span><span class="o">-</span><span class="n">r</span> <span class="n">CRRCACGAGCTGACGAC</span> \
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">error</span><span class="o">-</span><span class="n">rate</span> <span class="mf">0.20</span> \
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">dir</span> <span class="n">analysis</span><span class="o">/</span><span class="n">seqs_trimmed</span> \
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The primers specified (784f and 1492r for the bacterial 16S rRNA gene) correspond to <em>this</em> specific experiment - they will likely not work for your own data analyses.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The error rate parameter, <code class="language-python highlight"><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">error</span><span class="o">-</span><span class="n">rate</span></code>, will likely need to be adjusted for your own sample data to get 100% (or close to it) of reads trimmed.</p>
+</div>
+<h3 id="create-and-interpret-sequence-quality-data">Create and interpret sequence quality data<a class="headerlink" href="#create-and-interpret-sequence-quality-data" title="Permanent link">&para;</a></h3>
+<p>Create a viewable summary file so the data quality can be checked. Viewing the quality plots generated here helps determine trim settings.</p>
+<div class="admonition info">
+<p class="admonition-title"><strong>Things to look for:</strong></p>
+<ol>
+<li>Where does the median quality drop below 30?  </li>
+<li>Do any of the samples have only a few sequences e.g. &lt;1000? If so, you may want to omit them from the analysis later on in R.</li>
+</ol>
+</div>
+<p>Create a subdirectory in <code>analysis</code> called <code>visualisations</code> to store all files that we will visualise in one place.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>mkdir<span class="w"> </span>analysis/visualisations
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">qiime</span> <span class="n">demux</span> <span class="n">summarize</span> \
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">data</span> <span class="n">analysis</span><span class="o">/</span><span class="n">seqs_trimmed</span><span class="o">/</span><span class="n">trimmed_sequences</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="n">trimmed_sequences</span><span class="o">.</span><span class="n">qzv</span>
+</span></code></pre></div>
+<p>Copy <code>analysis/visualisations/trimmed_sequences.qzv</code> to your local computer and view in <a href="https://view.qiime2.org">QIIME 2 View</a> (q2view).</p>
+<details class="example">
+<summary>Visualisations: Read quality and demux output</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Funvwfzd922r5d18%2Ftrimmed_sequences.qzv%3Fdl%3D1">Click to view the <strong><code>trimmed_sequences.qzv</code></strong> file in QIIME 2 View</a>.</p>
+<p><br>
+Make sure to switch between the &ldquo;Overview&rdquo; and &ldquo;Interactive Quality Plot&rdquo; tabs in the top left hand corner. Click and drag on plot to zoom in. Double click to zoom back out to full size. Hover over a box to see the parametric seven-number summary of the quality scores at the corresponding position.</p>
+<p><img alt="OverviewQualPlotTabs" src="../media/q2view_OverviewQualPlotTabs.png" /></p>
+</details>
+<h3 id="denoising-the-data">Denoising the data<a class="headerlink" href="#denoising-the-data" title="Permanent link">&para;</a></h3>
+<p>Trimmed sequences are now quality assessed using the <code>dada2</code> <a href="https://pubmed.ncbi.nlm.nih.gov/27214047/">plugin</a> within QIIME2. <code>dada2</code> denoises data by modelling and correcting Illumina-sequenced amplicon errors, and infers exact amplicon sequence variants (<strong><em>ASVs</em></strong>), resolving differences of as little as 1 nucleotide. Its workflow consists of filtering, de-replication, reference‐free chimera detection, and paired‐end reads merging, resulting in a feature or <strong><em>ASV</em></strong> table.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This step may long time to run (i.e. hours), depending on files sizes and computational power.</p>
+<p>Remember to adjust <code>p-trunc-len-f</code> and <code>p-trunc-len-r</code> values according to your own data.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question: Based on your assessment of the quality plots from the <fn>trimmed_sequences.qzv</fn> file generated in the previous step, what values would you select for <code>p-trunc-len-f</code> and <code>p-trunc-len-r</code> in the command below? <em>Hint: At what base pair does the median quality drop below 30?</em></p>
+<details class="answer">
+<summary>Answer</summary>
+<p>For version qiime2-2021.8: <code>p-trunc-len-f 211</code> and <code>p-trunc-len-r 167</code>. Other QIIME2 versions may slightly differ. Upload your <code>trimmed_sequences.qzv</code> file to QIIME2 view, change to the &ldquo;Interactive Quality Plot&rdquo; tab and zoom in on the plots to find the relevant base pairs for the QIIME2 version you are using.</p>
+</details>
+</div>
+<p><em>The specified output directory must not pre-exist.</em>  </p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">qiime</span> <span class="n">dada2</span> <span class="n">denoise</span><span class="o">-</span><span class="n">paired</span> \
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">demultiplexed</span><span class="o">-</span><span class="n">seqs</span> <span class="n">analysis</span><span class="o">/</span><span class="n">seqs_trimmed</span><span class="o">/</span><span class="n">trimmed_sequences</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">trunc</span><span class="o">-</span><span class="nb">len</span><span class="o">-</span><span class="n">f</span> <span class="n">xx</span> \
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">trunc</span><span class="o">-</span><span class="nb">len</span><span class="o">-</span><span class="n">r</span> <span class="n">xx</span> \
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">n</span><span class="o">-</span><span class="n">threads</span> <span class="mi">0</span> \
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">dir</span> <span class="n">analysis</span><span class="o">/</span><span class="n">dada2out</span> \
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div>
+<h3 id="generate-summary-files">Generate summary files<a class="headerlink" href="#generate-summary-files" title="Permanent link">&para;</a></h3>
+<p>A <a href="https://docs.qiime2.org/2022.8/tutorials/metadata/">metadata file</a> is required which provides the key to gaining biological insight from your data. The file <fn>metadata.tsv</fn> is provided in the home directory of your Nectar instance. This spreadsheet has already been verified using the plugin for Google Sheets, <a href="https://keemei.qiime2.org/">keemei</a>.  </p>
+<div class="admonition info">
+<p class="admonition-title"><strong>Things to look for:</strong></p>
+<ol>
+<li>How many features (<em>ASVs</em>) were generated? Are the communities high or low diversity?</li>
+<li>Do BLAST searches of the representative sequences make sense? Are the features what you would expect e.g. marine or terrestrial?</li>
+<li>Have a large number (e.g. &gt;50%) of sequences been lost during denoising/filtering? If so, the settings might be too stringent.</li>
+</ol>
+</div>
+<p><br>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">qiime</span> <span class="n">metadata</span> <span class="n">tabulate</span> \
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="n">file</span> <span class="n">analysis</span><span class="o">/</span><span class="n">dada2out</span><span class="o">/</span><span class="n">denoising_stats</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="mi">16</span><span class="n">s_denoising_stats</span><span class="o">.</span><span class="n">qzv</span> \
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div></p>
+<p>Copy <code>analysis/visualisations/16s_denoising_stats.qzv</code> to your local computer and view in QIIME 2 View (q2view).</p>
+<details class="example">
+<summary>Visualisation: Denoising Stats</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fi6iapb3j6xeansb%2F16s_denoising_stats.qzv%3Fdl%3D1">Click to view the <strong><code>16s_denoising_stats.qzv</code></strong> file in QIIME 2 View</a>.</p>
+</details>
+<p><br>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">qiime</span> <span class="n">feature</span><span class="o">-</span><span class="n">table</span> <span class="n">summarize</span> \
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">table</span> <span class="n">analysis</span><span class="o">/</span><span class="n">dada2out</span><span class="o">/</span><span class="n">table</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="n">sample</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">file</span> <span class="n">metadata</span><span class="o">.</span><span class="n">tsv</span> \
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="mi">16</span><span class="n">s_table</span><span class="o">.</span><span class="n">qzv</span> \
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div></p>
+<p>Copy <code>analysis/visualisations/16s_table.qzv</code> to your local computer and view in QIIME 2 View (q2view).</p>
+<details class="example">
+<summary>Visualisations: Feature/ASV summary</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fvrlp9yr27rzxghw%2F16s_table.qzv%3Fdl%3D1">Click to view the <strong><code>16s_table.qzv</code></strong> file in QIIME 2 View</a>.
+<br>  </p>
+<p>Make sure to switch between the &ldquo;Overview&rdquo; and &ldquo;Feature Detail&rdquo; tabs in the top left hand corner.<br />
+<img alt="ASV_detailPNG" src="../media/q2view_ASV_detail.png" /></p>
+</details>
+<p><br>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">qiime</span> <span class="n">feature</span><span class="o">-</span><span class="n">table</span> <span class="n">tabulate</span><span class="o">-</span><span class="n">seqs</span> \
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">data</span> <span class="n">analysis</span><span class="o">/</span><span class="n">dada2out</span><span class="o">/</span><span class="n">representative_sequences</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="mi">16</span><span class="n">s_representative_seqs</span><span class="o">.</span><span class="n">qzv</span> \
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div></p>
+<p>Copy <code>analysis/visualisations/16s_representative_seqs.qzv</code> to your local computer and view in QIIME 2 View (q2view).</p>
+<details class="example">
+<summary>Visualisation: Representative Sequences</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fiwmocyw8v43v8g0%2F16s_representative_seqs.qzv%3Fdl%3D1">Click to view the <strong><code>16s_representative_seqs.qzv</code></strong> file in QIIME 2 View</a>.</p>
+</details>
+<hr />
+<h2 id="section-2-taxonomic-analysis">Section 2: Taxonomic Analysis<a class="headerlink" href="#section-2-taxonomic-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="assign-taxonomy">Assign taxonomy<a class="headerlink" href="#assign-taxonomy" title="Permanent link">&para;</a></h3>
+<p>Here we will classify each identical read or <em>Amplicon Sequence Variant (ASV)</em> to the highest resolution based on a database. Common databases for bacteria datasets are <a href="https://greengenes.secondgenome.com/">Greengenes</a>, <a href="https://www.arb-silva.de/">SILVA</a>, <a href="http://rdp.cme.msu.edu/">Ribosomal Database Project</a>, or <a href="https://gtdb.ecogenomic.org/">Genome Taxonomy Database</a>. See <a href="https://www.frontiersin.org/articles/10.3389/fevo.2020.00248/full">Porter and Hajibabaei, 2020</a> for a review of different classifiers for metabarcoding research. The classifier chosen is dependent upon:</p>
+<ol>
+<li>Previously published data in a field</li>
+<li>The target region of interest</li>
+<li>The number of reference sequences for your organism in the database and how recently that database was updated.</li>
+</ol>
+<p>A classifier has already been trained for you for the V5V6 region of the bacterial 16S rRNA gene using the SILVA database. The next step will take a while to run. <em>The output directory cannot previously exist</em>.</p>
+<p>n_jobs = 1  This runs the script using all available cores</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The classifier used here is only appropriate for the specific 16S rRNA region that <em>this</em> data represents. You will need to train your own classifier for your own data. For more information about training your own classifier, see <a href="#train-silva-v138-classifier-for-16s18s-rrna-gene-marker-sequences">Section 6: Extra Information</a>.</p>
+</div>
+<div class="admonition fail">
+<p class="admonition-title">STOP - Workshop participants only</p>
+<p>Due to time limitations in a workshop setting, please do NOT run the <code>qiime feature-classifier classify-sklearn</code> command below. You will need to access a pre-computed <code>classification.qza</code> file that this command generates by running the following: <code>cd; mkdir analysis/taxonomy; cp /mnt/shared_data/pre_computed/classification.qza analysis/taxonomy</code>. If you have accidentally run the command below, <code>ctrl-c</code> will terminate it.</p>
+</div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">qiime</span> <span class="n">feature</span><span class="o">-</span><span class="n">classifier</span> <span class="n">classify</span><span class="o">-</span><span class="n">sklearn</span> \
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">classifier</span> <span class="n">silva_138_16s_v5v6_classifier_2021</span><span class="o">-</span><span class="mf">4.</span><span class="n">qza</span> \
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">reads</span> <span class="n">analysis</span><span class="o">/</span><span class="n">dada2out</span><span class="o">/</span><span class="n">representative_sequences</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">n</span><span class="o">-</span><span class="n">jobs</span> <span class="mi">1</span> \
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">dir</span> <span class="n">analysis</span><span class="o">/</span><span class="n">taxonomy</span> \
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This step often runs out of memory on full datasets. Some options are to change the number of cores you are using (adjust <code>--p-n-jobs</code>) or add <code>--p-reads-per-batch 10000</code> and try again. The QIIME 2 forum has many threads regarding this issue so always check there was well.</p>
+</div>
+<h3 id="generate-a-viewable-summary-file-of-the-taxonomic-assignments">Generate a viewable summary file of the taxonomic assignments.<a class="headerlink" href="#generate-a-viewable-summary-file-of-the-taxonomic-assignments" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">qiime</span> <span class="n">metadata</span> <span class="n">tabulate</span> \
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="n">file</span> <span class="n">analysis</span><span class="o">/</span><span class="n">taxonomy</span><span class="o">/</span><span class="n">classification</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">qzv</span> \
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div>
+<p>Copy <code>analysis/visualisations/taxonomy.qzv</code> to your local computer and view in QIIME 2 View (q2view).</p>
+<details class="example">
+<summary>Visualisation: Taxonomy</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F5emu7e2fvepbw78%2Ftaxonomy.qzv%3Fdl%3D1">Click to view the <strong><code>taxonomy.qzv</code></strong> file in QIIME 2 View</a>.</p>
+</details>
+<h3 id="filtering">Filtering<a class="headerlink" href="#filtering" title="Permanent link">&para;</a></h3>
+<p>Filter out reads classified as mitochondria and chloroplast. Unassigned ASVs are retained. Generate a viewable summary file of the new table to see the effect of filtering.</p>
+<p>According to QIIME developer Nicholas Bokulich, low abundance filtering (i.e. removing ASVs containing very few sequences) is not necessary under the ASV model.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">qiime</span> <span class="n">taxa</span> <span class="nb">filter</span><span class="o">-</span><span class="n">table</span> \
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">table</span> <span class="n">analysis</span><span class="o">/</span><span class="n">dada2out</span><span class="o">/</span><span class="n">table</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">taxonomy</span> <span class="n">analysis</span><span class="o">/</span><span class="n">taxonomy</span><span class="o">/</span><span class="n">classification</span><span class="o">.</span><span class="n">qza</span>  \
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">exclude</span> <span class="n">Mitochondria</span><span class="p">,</span><span class="n">Chloroplast</span> \
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">filtered</span><span class="o">-</span><span class="n">table</span> <span class="n">analysis</span><span class="o">/</span><span class="n">taxonomy</span><span class="o">/</span><span class="mi">16</span><span class="n">s_table_filtered</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">qiime</span> <span class="n">feature</span><span class="o">-</span><span class="n">table</span> <span class="n">summarize</span> \
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">table</span> <span class="n">analysis</span><span class="o">/</span><span class="n">taxonomy</span><span class="o">/</span><span class="mi">16</span><span class="n">s_table_filtered</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="n">sample</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">file</span> <span class="n">metadata</span><span class="o">.</span><span class="n">tsv</span> \
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="mi">16</span><span class="n">s_table_filtered</span><span class="o">.</span><span class="n">qzv</span> \
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div>
+<p>Copy <code>analysis/visualisations/16s_table_filtered.qzv</code> to your local computer and view in QIIME 2 View (q2view).</p>
+<details class="example">
+<summary>Visualisation: 16s_table_filtered</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F5vscchmeyf139xk%2F16s_table_filtered.qzv%3Fdl%3D1">Click to view the <strong><code>16s_table_filtered.qzv</code></strong> file in QIIME 2 View</a>.</p>
+</details>
+<hr />
+<h2 id="section-3-build-a-phylogenetic-tree">Section 3: Build a phylogenetic tree<a class="headerlink" href="#section-3-build-a-phylogenetic-tree" title="Permanent link">&para;</a></h2>
+<p>The next step does the following:</p>
+<ol>
+<li>Perform an alignment on the representative sequences.</li>
+<li>Mask sites in the alignment that are not phylogenetically informative.</li>
+<li>Generate a phylogenetic tree.</li>
+<li>Apply mid-point rooting to the tree.</li>
+</ol>
+<p>A phylogenetic tree is necessary for any analyses that incorporates information on the relative relatedness of community members, by incorporating phylogenetic distances between observed organisms in the computation. This would include any beta-diversity analyses and visualisations from a weighted or unweighted Unifrac distance matrix.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>mkdir<span class="w"> </span>analysis/tree
+</span></code></pre></div>
+<p>Use one thread only (which is the default action) so that identical results can be produced if rerun.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">qiime</span> <span class="n">phylogeny</span> <span class="n">align</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">tree</span><span class="o">-</span><span class="n">mafft</span><span class="o">-</span><span class="n">fasttree</span> \
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">sequences</span> <span class="n">analysis</span><span class="o">/</span><span class="n">dada2out</span><span class="o">/</span><span class="n">representative_sequences</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">alignment</span> <span class="n">analysis</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="n">aligned_16s_representative_seqs</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">masked</span><span class="o">-</span><span class="n">alignment</span> <span class="n">analysis</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="n">masked_aligned_16s_representative_seqs</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">tree</span> <span class="n">analysis</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="mi">16</span><span class="n">s_unrooted_tree</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">rooted</span><span class="o">-</span><span class="n">tree</span> <span class="n">analysis</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="mi">16</span><span class="n">s_rooted_tree</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">n</span><span class="o">-</span><span class="n">threads</span> <span class="mi">1</span> \
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div>
+<hr />
+<h2 id="section-4-basic-visualisations-and-statistics">Section 4: Basic visualisations and statistics<a class="headerlink" href="#section-4-basic-visualisations-and-statistics" title="Permanent link">&para;</a></h2>
+<h3 id="asv-relative-abundance-bar-charts">ASV relative abundance bar charts<a class="headerlink" href="#asv-relative-abundance-bar-charts" title="Permanent link">&para;</a></h3>
+<p>Create bar charts to compare the relative abundance of ASVs across samples.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">qiime</span> <span class="n">taxa</span> <span class="n">barplot</span> \
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">table</span> <span class="n">analysis</span><span class="o">/</span><span class="n">taxonomy</span><span class="o">/</span><span class="mi">16</span><span class="n">s_table_filtered</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">taxonomy</span> <span class="n">analysis</span><span class="o">/</span><span class="n">taxonomy</span><span class="o">/</span><span class="n">classification</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">file</span> <span class="n">metadata</span><span class="o">.</span><span class="n">tsv</span> \
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="n">barchart</span><span class="o">.</span><span class="n">qzv</span> \
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div>
+<p>Copy <code>analysis/visualisations/barchart.qzv</code> to your local computer and view in QIIME 2 View (q2view). Try selecting different taxonomic levels and metadata-based sample sorting.</p>
+<details class="example">
+<summary>Visualisations: Taxonomy Barplots</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fco6z0twpx793ez3%2Fbarchart.qzv%3Fdl%3D1">Click to view the <strong><code>barchart.qzv</code></strong> file in QIIME 2 View</a>.
+<br>   </p>
+<p>Increase the &ldquo;Bar Width&rdquo;, select Index in &ldquo;Sort Samples By&rdquo; drop-down menu and explore the resulting barplots by changing the levels in the &ldquo;Change Taxonomic Level&rdquo; dropdown menu (Select Level 1, then Level 3, and then Level 5 for example).  </p>
+<p><img alt="barplot1" src="../media/q2view_barplot_levels.png" /></p>
+</details>
+<h3 id="rarefaction-curves">Rarefaction curves<a class="headerlink" href="#rarefaction-curves" title="Permanent link">&para;</a></h3>
+<p>Generate rarefaction curves to determine whether the samples have been sequenced deeply enough to capture all the community members. The max depth setting will depend on the number of sequences in your samples.</p>
+<div class="admonition info">
+<p class="admonition-title"><strong>Things to look for:</strong></p>
+<ol>
+<li>Do the curves for each sample plateau? If they don’t, the samples haven’t been sequenced deeply enough to capture the full diversity of the bacterial communities, which is shown on the y-axis.</li>
+<li>At what sequencing depth (x-axis) do your curves plateau? This value will be important for downstream analyses, particularly for alpha diversity analyses.</li>
+</ol>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The value that you provide for &ndash;p-max-depth should be determined by reviewing the “Frequency per sample” information presented in the  <fn>16s_table_filtered.qzv</fn> file that was created above. In general, choosing a value that is somewhere around the median frequency seems to work well, but you may want to increase that value if the lines in the resulting rarefaction plot don’t appear to be leveling out, or decrease that value if you seem to be losing many of your samples due to low total frequencies closer to the minimum sampling depth than the maximum sampling depth.</p>
+</div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">qiime</span> <span class="n">diversity</span> <span class="n">alpha</span><span class="o">-</span><span class="n">rarefaction</span> \
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">table</span> <span class="n">analysis</span><span class="o">/</span><span class="n">taxonomy</span><span class="o">/</span><span class="mi">16</span><span class="n">s_table_filtered</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">phylogeny</span> <span class="n">analysis</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="mi">16</span><span class="n">s_rooted_tree</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">depth</span> <span class="mi">9062</span> \
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">file</span> <span class="n">metadata</span><span class="o">.</span><span class="n">tsv</span> \
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="mi">16</span><span class="n">s_alpha_rarefaction</span><span class="o">.</span><span class="n">qzv</span> \
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div>
+<p>Copy <code>analysis/visualisations/16s_alpha_rarefaction.qzv</code> to your local computer and view in QIIME 2 View (q2view).</p>
+<details class="example">
+<summary>Visualisation: Rarefaction</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Ffudof0jv9zhqkt8%2F16s_alpha_rarefaction.qzv%3Fdl%3D1">Click to view the <strong><code>16s_alpha_rarefaction.qzv</code></strong> file in QIIME 2 View</a>.
+<br>   </p>
+<p>Select &ldquo;Genotype&rdquo; in the &ldquo;Sample Metadata Column&rdquo;:</p>
+<p><img alt="rarefaction" src="../media/q2view_rarefaction.png" /></p>
+</details>
+<h3 id="alpha-and-beta-diversity-analysis">Alpha and beta diversity analysis<a class="headerlink" href="#alpha-and-beta-diversity-analysis" title="Permanent link">&para;</a></h3>
+<p>The following is taken directly from the <a href="https://docs.qiime2.org/2022.8/tutorials/moving-pictures/">Moving Pictures tutorial</a> and adapted for this data set. QIIME 2’s diversity analyses are available through the <code>q2-diversity</code> plugin, which supports computing alpha- and beta- diversity metrics, applying related statistical tests, and generating interactive visualisations. We’ll first apply the core-metrics-phylogenetic method, which rarefies a FeatureTable[Frequency] to a user-specified depth, computes several alpha- and beta- diversity metrics, and generates principle coordinates analysis (PCoA) plots using Emperor for each of the beta diversity metrics.</p>
+<p>The metrics computed by default are:</p>
+<ul>
+<li>Alpha diversity (operate on a single sample (i.e. within sample diversity)).<ul>
+<li>Shannon’s diversity index (a quantitative measure of community richness)</li>
+<li>Observed OTUs (a qualitative measure of community richness)</li>
+<li>Faith’s Phylogenetic Diversity (a qualitative measure of community richness that incorporates phylogenetic relationships between the features)</li>
+<li>Evenness (or Pielou’s Evenness; a measure of community evenness)</li>
+</ul>
+</li>
+<li>Beta diversity (operate on a pair of samples (i.e. between sample diversity)).<ul>
+<li>Jaccard distance (a qualitative measure of community dissimilarity)</li>
+<li>Bray-Curtis distance (a quantitative measure of community dissimilarity)</li>
+<li>unweighted UniFrac distance (a qualitative measure of community dissimilarity that incorporates phylogenetic relationships between the features)</li>
+<li>weighted UniFrac distance (a quantitative measure of community dissimilarity that incorporates phylogenetic relationships between the features)</li>
+</ul>
+</li>
+</ul>
+<p>An important parameter that needs to be provided to this script is <code>--p-sampling-depth</code>, which is the even sampling (i.e. rarefaction) depth that was determined above. As most diversity metrics are sensitive to different sampling depths across different samples, this script will randomly subsample the counts from each sample to the value provided for this parameter. For example, if <code>--p-sampling-depth 500</code> is provided, this step will subsample the counts in each sample without replacement, so that each sample in the resulting table has a total count of 500. If the total count for any sample(s) are smaller than this value, those samples will be excluded from the diversity analysis. Choosing this value is tricky. We recommend making your choice by reviewing the information presented in the <fn>16s_table_filtered.qzv</fn> file that was created above. Choose a value that is as high as possible (so more sequences per sample are retained), while excluding as few samples as possible.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">qiime</span> <span class="n">diversity</span> <span class="n">core</span><span class="o">-</span><span class="n">metrics</span><span class="o">-</span><span class="n">phylogenetic</span> \
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>  <span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">phylogeny</span> <span class="n">analysis</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="mi">16</span><span class="n">s_rooted_tree</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>  <span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">table</span> <span class="n">analysis</span><span class="o">/</span><span class="n">taxonomy</span><span class="o">/</span><span class="mi">16</span><span class="n">s_table_filtered</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>  <span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">sampling</span><span class="o">-</span><span class="n">depth</span> <span class="mi">5583</span> \
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>  <span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">file</span> <span class="n">metadata</span><span class="o">.</span><span class="n">tsv</span> \
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>  <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">dir</span> <span class="n">analysis</span><span class="o">/</span><span class="n">diversity_metrics</span>
+</span></code></pre></div>
+<p>Copy the <code>.qzv</code> files created from the above command into the <code>visualisations</code> subdirectory.</p>
+<div class="language-Bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>cp<span class="w"> </span>analysis/diversity_metrics/*.qzv<span class="w"> </span>analysis/visualisations
+</span></code></pre></div>
+<p>To view the differences between sample composition using unweighted UniFrac in ordination space, copy <code>analysis/visualisations/unweighted_unifrac_emperor.qzv</code> to your local computer and view in QIIME 2 View (q2view).</p>
+<details class="example">
+<summary>Visualisations: Unweighted UniFrac Emperor Ordination</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F398s8bvfq9r0oj6%2Funweighted_unifrac_emperor.qzv%3Fdl%3D1">Click to view the <strong><code>unweighted_unifrac_emperor.qzv</code></strong> file in QIIME 2 View</a>.  </p>
+<p>On q2view, select the &ldquo;Color&rdquo; tab, choose &ldquo;Environment&rdquo; under the &ldquo;Select a Color Category&rdquo; dropdown menu, then select the &ldquo;Shape&rdquo; tab and choose &ldquo;Genotype&rdquo; under the &ldquo;Select a Shape Category&rdquo; dropdown menu.  </p>
+<p><img alt="unweighted_unifrac_emperor2" src="../media/q2view_unweighted_unifrac_emperor2.png" /></p>
+</details>
+<p>Next, we’ll test for associations between categorical metadata columns and alpha diversity data. We’ll do that here for the Faith Phylogenetic Diversity (a measure of community richness) and evenness metrics.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">qiime</span> <span class="n">diversity</span> <span class="n">alpha</span><span class="o">-</span><span class="n">group</span><span class="o">-</span><span class="n">significance</span> \
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>  <span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">alpha</span><span class="o">-</span><span class="n">diversity</span> <span class="n">analysis</span><span class="o">/</span><span class="n">diversity_metrics</span><span class="o">/</span><span class="n">faith_pd_vector</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>  <span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">file</span> <span class="n">metadata</span><span class="o">.</span><span class="n">tsv</span> \
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>  <span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="n">faith</span><span class="o">-</span><span class="n">pd</span><span class="o">-</span><span class="n">group</span><span class="o">-</span><span class="n">significance</span><span class="o">.</span><span class="n">qzv</span>
+</span></code></pre></div>
+<p>Copy <code>analysis/visualisations/faith-pd-group-significance.qzv</code> to your local computer and view in QIIME 2 View (q2view).</p>
+<details class="example">
+<summary>Visualisation: Faith Phylogenetic Diversity output</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fy1l344fx10bj9f9%2Ffaith-pd-group-significance.qzv%3Fdl%3D1">Click to view the <strong><code>faith-pd-group-significance.qzv</code></strong> file in QIIME 2 View</a>.  </p>
+<p>Select &ldquo;Environment&rdquo; under the &ldquo;Column&rdquo; dropdown menu.  </p>
+<p><img alt="faith" src="../media/q2view_faith.png" /></p>
+</details>
+<p><br>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">qiime</span> <span class="n">diversity</span> <span class="n">alpha</span><span class="o">-</span><span class="n">group</span><span class="o">-</span><span class="n">significance</span> \
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>  <span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">alpha</span><span class="o">-</span><span class="n">diversity</span> <span class="n">analysis</span><span class="o">/</span><span class="n">diversity_metrics</span><span class="o">/</span><span class="n">evenness_vector</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>  <span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">file</span> <span class="n">metadata</span><span class="o">.</span><span class="n">tsv</span> \
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>  <span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="n">evenness</span><span class="o">-</span><span class="n">group</span><span class="o">-</span><span class="n">significance</span><span class="o">.</span><span class="n">qzv</span>
+</span></code></pre></div></p>
+<p>Copy <code>analysis/visualisations/evenness-group-significance.qzv</code> to your local computer and view in QIIME 2 View (q2view).</p>
+<details class="example">
+<summary>Visualisation: Evenness output</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F2l643y3un3vdqcu%2Fevenness-group-significance.qzv%3Fdl%3D1">Click to view the <strong><code>evenness-group-significance.qzv</code></strong> file in QIIME 2 View</a>.  </p>
+<p>Select &ldquo;Genotype&rdquo; under the &ldquo;Column&rdquo; dropdown menu.</p>
+<p><img alt="evenness" src="../media/q2view_evenness.png" /></p>
+</details>
+<p>Finally, we’ll analyse sample composition in the context of categorical metadata using a permutational multivariate analysis of variance (PERMANOVA, first described in Anderson (2001)) test using the beta-group-significance command. The following commands will test whether distances between samples within a group, such as samples from the same genotype, are more similar to each other then they are to samples from the other groups. If you call this command with the <code>--p-pairwise</code> parameter, as we’ll do here, it will also perform pairwise tests that will allow you to determine which specific pairs of groups (e.g., AIMS1 and AIMS4) differ from one another, if any. This command can be slow to run, especially when passing <code>--p-pairwise</code>, since it is based on permutation tests. So, unlike the previous commands, we’ll run beta-group-significance on specific columns of metadata that we’re interested in exploring, rather than all metadata columns to which it is applicable. Here we’ll apply this to our unweighted UniFrac distances, using two sample metadata columns, as follows.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">qiime</span> <span class="n">diversity</span> <span class="n">beta</span><span class="o">-</span><span class="n">group</span><span class="o">-</span><span class="n">significance</span> \
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>  <span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">distance</span><span class="o">-</span><span class="n">matrix</span> <span class="n">analysis</span><span class="o">/</span><span class="n">diversity_metrics</span><span class="o">/</span><span class="n">unweighted_unifrac_distance_matrix</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>  <span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">file</span> <span class="n">metadata</span><span class="o">.</span><span class="n">tsv</span> \
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>  <span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">column</span> <span class="n">Genotype</span> \
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>  <span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="n">unweighted</span><span class="o">-</span><span class="n">unifrac</span><span class="o">-</span><span class="n">genotype</span><span class="o">-</span><span class="n">significance</span><span class="o">.</span><span class="n">qzv</span> \
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>  <span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">pairwise</span>
+</span></code></pre></div>
+<p>Copy <code>analysis/visualisations/unweighted-unifrac-genotype-significance.qzv</code> to your local computer and view in QIIME 2 View (q2view).</p>
+<details class="example">
+<summary>Visualisation: Genotype significance output</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2Fyo7af4kp4qlvdbk%2Funweighted-unifrac-genotype-significance.qzv%3Fdl%3D1">Click to view the <strong><code>unweighted-unifrac-genotype-significance.qzv</code></strong> file in QIIME 2 View</a>.</p>
+</details>
+<p><br>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">qiime</span> <span class="n">diversity</span> <span class="n">beta</span><span class="o">-</span><span class="n">group</span><span class="o">-</span><span class="n">significance</span> \
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>  <span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">distance</span><span class="o">-</span><span class="n">matrix</span> <span class="n">analysis</span><span class="o">/</span><span class="n">diversity_metrics</span><span class="o">/</span><span class="n">unweighted_unifrac_distance_matrix</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>  <span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">file</span> <span class="n">metadata</span><span class="o">.</span><span class="n">tsv</span> \
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>  <span class="o">--</span><span class="n">m</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">column</span> <span class="n">Environment</span> \
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>  <span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">visualization</span> <span class="n">analysis</span><span class="o">/</span><span class="n">visualisations</span><span class="o">/</span><span class="n">unweighted</span><span class="o">-</span><span class="n">unifrac</span><span class="o">-</span><span class="n">environment</span><span class="o">-</span><span class="n">significance</span><span class="o">.</span><span class="n">qzv</span> \
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>  <span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">pairwise</span>
+</span></code></pre></div></p>
+<p>Copy <code>analysis/visualisations/unweighted-unifrac-environment-significance.qzv</code> to your local computer and view in QIIME 2 View (q2view).</p>
+<details class="example">
+<summary>Visualisation: Environmental significance output</summary>
+<p><a href="https://view.qiime2.org/visualization/?type=html&amp;src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F8c9zra173p7qaxh%2Funweighted-unifrac-environment-significance.qzv%3Fdl%3D1">Click to view the <strong><code>unweighted-unifrac-environment-significance.qzv</code></strong> file in QIIME 2 View</a>.
+<br>   </p>
+</details>
+<details class="example">
+<summary>Provenance</summary>
+<p><a href="https://view.qiime2.org/provenance/?src=https%3A%2F%2Fdl.dropbox.com%2Fs%2F8c9zra173p7qaxh%2Funweighted-unifrac-environment-significance.qzv%3Fdl%3D1">Click to view the <strong><code>unweighted-unifrac-environment-significance.qzv</code></strong> provenance file in QIIME 2 View</a>.
+<br> <br />
+<img alt="provenance" src="../media/q2view_provenance.png" /></p>
+</details>
+<hr />
+<h2 id="section-5-exporting-data-for-further-analysis-in-r">Section 5: Exporting data for further analysis in R<a class="headerlink" href="#section-5-exporting-data-for-further-analysis-in-r" title="Permanent link">&para;</a></h2>
+<p>You need to export your ASV table, taxonomy table, and tree file for analyses in R. Many file formats can be accepted.</p>
+<p>Export unrooted tree as <code>.nwk</code> format as required for the R package <code>phyloseq</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">qiime</span> <span class="n">tools</span> <span class="n">export</span> \
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>  <span class="o">--</span><span class="nb">input</span><span class="o">-</span><span class="n">path</span> <span class="n">analysis</span><span class="o">/</span><span class="n">tree</span><span class="o">/</span><span class="mi">16</span><span class="n">s_unrooted_tree</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>  <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="n">path</span> <span class="n">analysis</span><span class="o">/</span><span class="n">export</span>
+</span></code></pre></div>
+<p>Create a BIOM table with taxonomy annotations. A FeatureTable[Frequency] artefact will be exported as a BIOM v2.1.0 formatted file.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">qiime</span> <span class="n">tools</span> <span class="n">export</span> \
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>  <span class="o">--</span><span class="nb">input</span><span class="o">-</span><span class="n">path</span> <span class="n">analysis</span><span class="o">/</span><span class="n">taxonomy</span><span class="o">/</span><span class="mi">16</span><span class="n">s_table_filtered</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>  <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="n">path</span> <span class="n">analysis</span><span class="o">/</span><span class="n">export</span>
+</span></code></pre></div>
+<p>Then export BIOM to TSV</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">biom</span> <span class="n">convert</span> \
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="o">-</span><span class="n">i</span> <span class="n">analysis</span><span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">feature</span><span class="o">-</span><span class="n">table</span><span class="o">.</span><span class="n">biom</span> \
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="o">-</span><span class="n">o</span> <span class="n">analysis</span><span class="o">/</span><span class="n">export</span><span class="o">/</span><span class="n">feature</span><span class="o">-</span><span class="n">table</span><span class="o">.</span><span class="n">tsv</span> \
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="o">--</span><span class="n">to</span><span class="o">-</span><span class="n">tsv</span>
+</span></code></pre></div>
+<p>Export Taxonomy as TSV</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="n">qiime</span> <span class="n">tools</span> <span class="n">export</span> \
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="o">--</span><span class="nb">input</span><span class="o">-</span><span class="n">path</span> <span class="n">analysis</span><span class="o">/</span><span class="n">taxonomy</span><span class="o">/</span><span class="n">classification</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="n">path</span> <span class="n">analysis</span><span class="o">/</span><span class="n">export</span>
+</span></code></pre></div>
+<p>Delete the header lines of the .tsv files</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>sed<span class="w"> </span><span class="s1">&#39;1d&#39;</span><span class="w"> </span>analysis/export/taxonomy.tsv<span class="w"> </span>&gt;<span class="w"> </span>analysis/export/taxonomy_noHeader.tsv
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>sed<span class="w"> </span><span class="s1">&#39;1d&#39;</span><span class="w"> </span>analysis/export/feature-table.tsv<span class="w"> </span>&gt;<span class="w"> </span>analysis/export/feature-table_noHeader.tsv
+</span></code></pre></div>
+<p>Some packages require your data to be in a consistent order, i.e. the order of your ASVs in the taxonomy table rows to be the same order of ASVs in the columns of your ASV table. It&rsquo;s recommended to clean up your taxonomy file. You can have blank spots where the level of classification was not completely resolved.</p>
+<h2 id="section-6-extra-information">Section 6: Extra Information<a class="headerlink" href="#section-6-extra-information" title="Permanent link">&para;</a></h2>
+<div class="admonition fail">
+<p class="admonition-title">STOP</p>
+<p>This section contains information on how to train the classifier for analysing your <strong>own</strong> data. This will <strong>NOT</strong> be covered in the workshop.</p>
+</div>
+<h3 id="train-silva-v138-classifier-for-16s18s-rrna-gene-marker-sequences">Train SILVA v138 classifier for 16S/18S rRNA gene marker sequences.<a class="headerlink" href="#train-silva-v138-classifier-for-16s18s-rrna-gene-marker-sequences" title="Permanent link">&para;</a></h3>
+<p>The newest version of the <a href="https://www.arb-silva.de/">SILVA</a> database (v138) can be trained to classify marker gene sequences originating from the 16S/18S rRNA gene. Reference files <code>silva-138-99-seqs.qza</code> and <code>silva-138-99-tax.qza</code> were <a href="https://www.arb-silva.de/download/archive/">downloaded from SILVA</a> and imported to get the artefact files. You can download both these files from <a href="https://www.dropbox.com/s/x8ogeefjknimhkx/classifier_files.zip?dl=0">here</a>.</p>
+<p>Reads for the region of interest are first extracted. <strong>You will need to input your forward and reverse primer sequences</strong>. See QIIME2 documentation for more <a href="https://docs.qiime2.org/2022.8/plugins/available/feature-classifier/extract-reads/">information</a>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">qiime</span> <span class="n">feature</span><span class="o">-</span><span class="n">classifier</span> <span class="n">extract</span><span class="o">-</span><span class="n">reads</span> \
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">sequences</span> <span class="n">silva</span><span class="o">-</span><span class="mi">138</span><span class="o">-</span><span class="mi">99</span><span class="o">-</span><span class="n">seqs</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">f</span><span class="o">-</span><span class="n">primer</span> <span class="n">FORWARD_PRIMER_SEQUENCE</span> \
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="o">--</span><span class="n">p</span><span class="o">-</span><span class="n">r</span><span class="o">-</span><span class="n">primer</span> <span class="n">REVERSE_PRIMER_SEQUENCE</span> \
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">reads</span> <span class="n">silva_138_marker_gene</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div>
+<p>The classifier is then trained using a naive Bayes algorithm. See QIIME2 documentation for more <a href="https://docs.qiime2.org/2022.8/plugins/available/feature-classifier/fit-classifier-naive-bayes/">information</a>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">qiime</span> <span class="n">feature</span><span class="o">-</span><span class="n">classifier</span> <span class="n">fit</span><span class="o">-</span><span class="n">classifier</span><span class="o">-</span><span class="n">naive</span><span class="o">-</span><span class="n">bayes</span> \
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">reference</span><span class="o">-</span><span class="n">reads</span> <span class="n">silva_138_marker_gene</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="o">--</span><span class="n">i</span><span class="o">-</span><span class="n">reference</span><span class="o">-</span><span class="n">taxonomy</span> <span class="n">silva</span><span class="o">-</span><span class="mi">138</span><span class="o">-</span><span class="mi">99</span><span class="o">-</span><span class="n">tax</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="o">--</span><span class="n">o</span><span class="o">-</span><span class="n">classifier</span> <span class="n">silva_138_marker_gene_classifier</span><span class="o">.</span><span class="n">qza</span> \
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="o">--</span><span class="n">verbose</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3963 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../workshop_delivery_mode_info/workshops_nectar/">
+      
+      
+        <link rel="next" href="../../cwl/cwl/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Introduction to Unix-Archive - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#important" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Introduction to Unix-Archive
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<style src="../../includes/media/tute.css" ></style>
+<style>em {font-style: normal; font-family: courier new;}</style>
+
+<p><img alt="melbioinf_logo" src="/img/melbioinf_logo.png" style="width:350px; padding-right:50px" />       <img alt="unimelb_logo" src="/img/PRIMARY_A_Vertical_Housed_RGB.png" style="width:150px" /></p>
+<h1 id="important">Important:<a class="headerlink" href="#important" title="Permanent link">&para;</a></h1>
+<h1 id="this-material-is-no-longer-maintained-and-may-be-out-of-date">This material is no longer maintained and may be out of date.<a class="headerlink" href="#this-material-is-no-longer-maintained-and-may-be-out-of-date" title="Permanent link">&para;</a></h1>
+<h1 id="please-go-to-this-link-below-for-a-current-introduction-to-unix">Please go to this link below for a current <a href="../../unix/unix/">Introduction to Unix</a><a class="headerlink" href="#please-go-to-this-link-below-for-a-current-introduction-to-unix" title="Permanent link">&para;</a></h1>
+<h1 id="introduction-to-unix">Introduction to Unix<a class="headerlink" href="#introduction-to-unix" title="Permanent link">&para;</a></h1>
+<p>A hands-on workshop covering the basics of the Unix/Linux command line interface.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Knowledge of the Unix operating system is fundamental to being
+productive on HPC systems. This workshop will introduce you to the
+fundamental Unix concepts by way of a series of hands-on exercises.</p>
+<p>The workshop is facilitated by experienced Unix users who will be able
+to guide you through the exercises and offer assistance where needed.</p>
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>At the end of the course, you will be able to:</p>
+<ul>
+<li>Log into a Unix machine remotely</li>
+<li>Organise your files into directories</li>
+<li>Change file permissions to improve security and safety</li>
+<li>Create and edit files with a text editor</li>
+<li>Copy files between directories</li>
+<li>Use command line programs to manipulate files</li>
+<li>Automate your workflow using shell scripts</li>
+</ul>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The workshop is intended for beginners with no prior experience in Unix.</li>
+<li>Attendees are required to bring their own laptop computers.</li>
+</ul>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Before we commence the hands-on part of this workshop we will first give a short 30 minute talk to introduce the Unix concepts.
+The <a href="../slides.html">slides</a> are available if you would like.  Additionally the following reference material is available for later
+use.</p>
+<details>
+  <summary>Reference Material</summary>
+
+</details>
+
+<h2 id="topic-1-remote-log-in">Topic 1: Remote log in<a class="headerlink" href="#topic-1-remote-log-in" title="Permanent link">&para;</a></h2>
+<p>In this topic we will learn how to connect to a <em>Unix</em> computer via a program called <em>ssh</em> and run a few basic commands.</p>
+<h3 id="connecting-to-a-unix-computer">Connecting to a Unix computer<a class="headerlink" href="#connecting-to-a-unix-computer" title="Permanent link">&para;</a></h3>
+<p>To begin this workshop you will need to connect to an HPC.  Today we will use <em>barcoo</em>.
+The computer called <em>barcoo.vlsci.org.au</em> is the one that coordinates all the HPC&rsquo;s tasks.</p>
+<p><strong>Server details</strong>:</p>
+<ul>
+<li><strong>host</strong>: barcoo.vlsci.org.au</li>
+<li><strong>port</strong>: 22</li>
+<li><strong>username</strong>: (provided at workshop)</li>
+<li><strong>password</strong>: (provided at workshop)</li>
+</ul>
+<details>
+  <summary>Mac OS X / Linux</summary>
+
+Both Mac OS X and Linux come with a version of ssh (called OpenSSH) that can be used from the command line.  To use OpenSSH you must 
+first start a terminal program on your computer.  On OS X the standard terminal is called Terminal, and it is installed by default. 
+On Linux there are many popular terminal programs including: xterm, gnome-terminal, konsole (if you aren't sure, then xterm is a good 
+default).  When you've started the terminal you should see a command prompt.  To log into *barcoo*, for example, type this command at 
+the prompt and press return (where the word *username* is replaced with your *barcoo* username):
+
+*$ ssh username@barcoo.vlsci.org.au*
+
+The same procedure works for any other machine where you have an account except that if your Unix computer uses a port other than 22 you will
+need to specify the port by adding the option *-p PORT* with PORT substituted with the port number.
+
+You may be presented with a message along the lines of:
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>The authenticity of host &#39;barcoo.vlsci.org.au (131.172.36.150)&#39; can&#39;t be  established.
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>...
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Are you sure you want to continue connecting (yes/no)?
+</span></code></pre></div>
+
+Although you should never ignore a warning, this particular one is nothing to be concerned about; type **yes** and then **press enter**. 
+If all goes well you will be asked to enter your password.  Assuming you type the correct username and password the system should 
+then display a welcome message, and then present you with a Unix prompt.  If you get this far then you are ready to start entering 
+Unix commands and thus begin using the remote computer.
+
+</details>
+
+<details>
+  <summary>Windows</summary>
+
+On Microsoft Windows (Vista, 7, 8) we recommend that you use the PuTTY ssh client.  PuTTY (putty.exe) can be downloaded 
+from this web page:
+
+[http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)
+
+Documentation for using PuTTY is here:
+
+[http://www.chiark.greenend.org.uk/~sgtatham/putty/docs.html](http://www.chiark.greenend.org.uk/~sgtatham/putty/docs.html)
+
+When you start PuTTY you should see a window which looks something like this:
+
+<img src="../../../includes/media/putty1.png" title="Putty Connection Dialog" alt="Putty Connection Dialog" width="400px" />
+
+To connect to *barcoo* you should enter *barcoo.vlsci.org.au* into the box entitled "Host Name (or IP address)" 
+and *22* in the port, 
+then click on the Open button. All of the settings should remain the same as they were when PuTTY started (which should be the 
+same as they are in the picture above).
+
+In some circumstances you will be presented with a window entitled PuTTY Security Alert. It will say something along the lines 
+of *"The server's host key is not cached in the registry"*. This is nothing to worry about, and you should agree to continue (by 
+clicking on Yes). You usually see this message the first time you try to connect to a particular remote computer.
+
+If all goes well, a terminal window will open, showing a prompt with the text *"login as:"*. An example terminal window is shown 
+below. You should type your *barcoo* username and press enter. After entering your username you will be prompted for your 
+password. Assuming you type the correct username and password the system should then display a welcome message, and then 
+present you with a Unix prompt. If you get this far then you are ready to start entering Unix commands and thus begin using 
+the remote computer.
+
+<img src="../../../includes/media/putty2.png" title="Putty login screen" alt="Putty login screen" width="400px" />
+
+</details>
+
+<p><strong>Note</strong>: for security reasons ssh will not display any characters when you enter your password. This
+can be confusing because it appears as if your typing is not recognised by the computer. Don’t be
+alarmed; type your password in and press return at the end.</p>
+<p>barcoo is a high performance computer for Melbourne Bioinformatics users.  Logging in connects your local computer
+(e.g. laptop) to barcoo, and allows you to type commands into the Unix prompt which are run on
+the HPC, and have the results displayed on your local screen.</p>
+<p>You will be allocated a training account on barcoo for the duration of the workshop. Your
+username and password will be supplied at the start of the workshop.</p>
+<p>Log out of barcoo, and log back in again (to make sure you can repeat the process).</p>
+<p>All the remaining parts assume that you are logged into barcoo over ssh.</p>
+<h3 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h3>
+<h4 id="11-when-youve-logged-into-the-unix-server-run-the-following-commands-and-see-what-they-do">1.1) When you&rsquo;ve logged into the Unix server, run the following commands and see what they do:<a class="headerlink" href="#11-when-youve-logged-into-the-unix-server-run-the-following-commands-and-see-what-they-do" title="Permanent link">&para;</a></h4>
+<ul>
+<li><em>who</em></li>
+<li><em>whoami</em></li>
+<li><em>date</em></li>
+<li><em>cal</em></li>
+<li><em>hostname</em></li>
+<li><em>/vlsci/TRAINING/shared/Intro_to_Unix/hi</em></li>
+</ul>
+<details>
+  <summary>Answer</summary>
+
+* **who**: displays a list of the users who are currently using this Unix computer.
+* **whoami**: displays your username (i.e. they person currently logged in).
+* **date**: displays the current date and time.
+* **cal**: displays a calendar on the terminal.  It can be configured to display more than just
+the current month.
+* **hostname**: displays the name of the computer we are logged in to.
+* **/vlsci/TRAINING/shared/Intro_to_Unix/hi**: displays the text "Hello World"
+
+</details>
+
+<h2 id="topic-2-exploring-your-home-directory">Topic 2: Exploring your home directory<a class="headerlink" href="#topic-2-exploring-your-home-directory" title="Permanent link">&para;</a></h2>
+<p>In this topic we will learn how to &ldquo;look&rdquo; at the filesystem and further expand our repertoire of Unix commands.</p>
+<p><strong>Duration</strong>: 20 minutes. <!-- See "The shell and the command line" and "The file system" section of the workshop notes. --></p>
+<p><strong>Relevant commands</strong>: <em>ls</em>, <em>pwd</em>, <em>echo</em>, <em>man</em></p>
+<p>Your home directory contains your own private working space.  Your <em>current working directory</em> is automatically set
+to your <em>home</em> directory when you log into a Unix computer.</p>
+<h4 id="21-use-the-ls-command-to-list-the-files-in-your-home-directory-how-many-files-are-there">2.1) Use the <em>ls</em> command to list the files in your <em>home</em> directory.  How many files are there?<a class="headerlink" href="#21-use-the-ls-command-to-list-the-files-in-your-home-directory-how-many-files-are-there" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Literally, type *ls* and press the *ENTER* key.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>ls
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>exp01<span class="w">  </span>file01<span class="w">  </span>muscle.fq
+</span></code></pre></div>
+
+When running the *ls* command with no options it will list files in your current working directory.  The place
+where you start when you first login is your *HOME* directory.
+
+**Answer**: 3 (exp01, file01 and muscle.fq)
+
+</details>
+
+<hr />
+<p>The above answer is not quite correct.  There are a number of <em>hidden</em> files in your home directory as well.</p>
+<h4 id="22-what-flag-might-you-use-to-display-all-files-with-the-ls-command-how-many-files-are-really-there">2.2) What <em>flag</em> might you use to display <em>all</em> files with the <em>ls</em> command?  How many files are really there?<a class="headerlink" href="#22-what-flag-might-you-use-to-display-all-files-with-the-ls-command-how-many-files-are-really-there" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Take the *all* quite literally.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+Type *ls --all* and press the *ENTER* key.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+**Answer 1**: *--all* (or *-a*) flag
+
+Now you should see several files in your home directory whose names all begin with a dot. All these files are
+created automatically for your user account. They are mostly configuration options for various programs including
+the shell. It is safe to ignore them for the moment.
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>ls<span class="w"> </span>--all
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>.<span class="w">              </span>.bash_logout<span class="w">    </span>exp01<span class="w">    </span>.lesshst
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>..<span class="w">             </span>.bash_profile<span class="w">   </span>file01<span class="w">   </span>muscle.fq
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>.bash_history<span class="w">  </span>.bashrc<span class="w">         </span>.kshrc<span class="w">   </span>.viminfo
+</span></code></pre></div>
+
+There are two trick files here; namely *.* and *..* which are not real files but instead, shortcuts.  *.* is a shortcut
+for the current directory and *..* a shortcut for the directory above the current one.
+
+**Answer 2**: 10 files (don't count *.* and *..*)
+
+</details>
+
+<hr />
+<h4 id="23-what-is-the-full-path-name-of-your-home-directory">2.3) What is the full path name of your <em>home</em> directory?<a class="headerlink" href="#23-what-is-the-full-path-name-of-your-home-directory" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Remember your *Current Working Directory* starts in your *home* directory.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+Try a shortened version of *print working directory*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+You can find out the full path name of the current working directory with the *pwd* command. Your home directory
+will look something like this:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$<span class="w"> </span><span class="nb">pwd</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/home/trainingXX
+</span></code></pre></div>
+
+**Answer**: */vlsci/TRAINING/trainXX*
+
+where *XX* is replaced by some 2 digit sequence.
+
+**Alternate method**:
+You can also find out the name of your home directory by printing the value of the *$HOME* shell variable:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$HOME</span>
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="24-run-ls-using-the-long-flag-l-how-did-the-output-change">2.4) Run <em>ls</em> using the long flag (<em>-l</em>), how did the output change?<a class="headerlink" href="#24-run-ls-using-the-long-flag-l-how-did-the-output-change" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Run *ls -l*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+**Answer**: it changed the output to place 1 file/directory per line.  It also added some extra information
+about each.
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-l
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>total<span class="w"> </span><span class="m">32</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>drwxr-x---<span class="w"> </span><span class="m">2</span><span class="w"> </span>training01<span class="w"> </span>training<span class="w"> </span><span class="m">2048</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">11</span>:28<span class="w"> </span>exp01
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>-rw-r-----<span class="w"> </span><span class="m">1</span><span class="w"> </span>training01<span class="w"> </span>training<span class="w">   </span><span class="m">97</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">11</span>:28<span class="w"> </span>file01
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>-rw-r-----<span class="w"> </span><span class="m">1</span><span class="w"> </span>training01<span class="w"> </span>training<span class="w"> </span><span class="m">2461</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">11</span>:28<span class="w"> </span>muscle.fq
+</span></code></pre></div>
+
+**Details**:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>drwxr-x---<span class="w"> </span><span class="m">2</span><span class="w"> </span>training01<span class="w"> </span>training<span class="w"> </span><span class="m">2048</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">11</span>:28<span class="w"> </span>exp01
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="se">\-</span>-------/<span class="w"> </span>^<span class="w"> </span><span class="se">\-</span>-------/<span class="w"> </span><span class="se">\-</span>-----/<span class="w"> </span><span class="se">\-</span>-/<span class="w"> </span><span class="se">\-</span>---------/<span class="w"> </span><span class="se">\-</span>--/
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>permission<span class="w"> </span><span class="p">|</span><span class="w">  </span>username<span class="w">   </span>group<span class="w">   </span>size<span class="w">    </span>date<span class="w">       </span>name
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">       </span>/---^---<span class="se">\</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">       </span>linkcount
+</span></code></pre></div>
+
+Where:
+
+* **permissions**: 4 parts, file type, user perms, group perms and other perms
+    * *filetype*: 1 character, *d* = directory and *-* regular file
+    * *user* permissions: 3 characters, *r* = read, *w* = write, *x* = execute and *-* no permission
+    * *group* permissions: same as user except for users within the owner group
+    * *other* permissions: same as user except for users that are not in either user *or* *group*
+* **username**: the user who *owns* this file/directory
+* **group**: the group name who *owns* this file/directory
+* **size**: the number of bytes this file/directory takes to store on disk
+* **date**: the date and time when this file/directory was *last edited*
+* **name**: name of the file
+* **linkcount**: technical detail which represents the number of links this file has in the file system (safe to ignore)
+
+</details>
+
+<hr />
+<h4 id="25-what-type-of-file-is-exp01-and-musclefq">2.5) What type of file is <em>exp01</em> and <em>muscle.fq</em>?<a class="headerlink" href="#25-what-type-of-file-is-exp01-and-musclefq" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Check the output from the *ls -l*.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+**Answer**:
+
+* *exp01*: Directory (given the 'd' as the first letter of its permissions)
+* *muscle.fq*: Regular File (given the '-')
+
+</details>
+
+<hr />
+<h4 id="26-who-has-permission-to-read-write-and-execute-your-home-directory">2.6) Who has permission to <em>read</em>, <em>write</em> and <em>execute</em> your <em>home</em> directory?<a class="headerlink" href="#26-who-has-permission-to-read-write-and-execute-your-home-directory" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+You can also give *ls* a filename as the first option.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*ls -l* will show you the contents of the *CWD*; how might you see the contents of the *parent* directory? (remember
+the slides)
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+If you pass the *-l* flag to ls it will display a "long" listing of file information including file permissions.
+
+There are various ways you could find out the permissions on your home directory.
+
+
+**Method 1**: given we know the *CWD* is our home directory.
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>..
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>...
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>drwxr-x---<span class="w"> </span><span class="m">4</span><span class="w"> </span>trainingXY<span class="w"> </span>training<span class="w">  </span><span class="m">512</span><span class="w"> </span>Feb<span class="w">  </span><span class="m">9</span><span class="w"> </span><span class="m">14</span>:18<span class="w"> </span>trainingXY
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>...
+</span></code></pre></div>
+The *..* refers to the parent directory.
+
+
+**Method 2**: using $HOME.  This works no matter what our *CWD* is set to.
+
+You could list the permissions of all files and directories in the parent directory of your home:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span><span class="nv">$HOME</span>/..
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>...
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>drwxr-x---<span class="w"> </span><span class="m">4</span><span class="w"> </span>trainingXY<span class="w"> </span>training<span class="w">  </span><span class="m">512</span><span class="w"> </span>Feb<span class="w">  </span><span class="m">9</span><span class="w"> </span><span class="m">14</span>:18<span class="w"> </span>trainingXY
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>...
+</span></code></pre></div>
+
+In this case we use the shell variable to refer to our home directory.
+
+
+**Method 3**: using *~* (tilde) shortcut
+
+You may also refer to your home directory using the *~* (tilde) character:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>~/..
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>...
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>drwxr-x---<span class="w"> </span><span class="m">4</span><span class="w"> </span>trainingXY<span class="w"> </span>training<span class="w">  </span><span class="m">512</span><span class="w"> </span>Feb<span class="w">  </span><span class="m">9</span><span class="w"> </span><span class="m">14</span>:18<span class="w"> </span>trainingXY
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>...
+</span></code></pre></div>
+
+All 3 of the methods above mean the same thing.
+
+You will see a list of files and directories in the parent directory of your home directory. One of them will
+be the name of your home directory, something like *trainXX*.  Where *XX* is replaced by a two digit string.
+
+**Altername**: using the *-a* flag and looking at the *.* (dot) special file.
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-la
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>...
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>drwxr-x---<span class="w"> </span><span class="m">4</span><span class="w"> </span>trainingXY<span class="w"> </span>training<span class="w">  </span><span class="m">512</span><span class="w"> </span>Feb<span class="w">  </span><span class="m">9</span><span class="w"> </span><span class="m">14</span>:18<span class="w"> </span>.
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>...
+</span></code></pre></div>
+
+
+**Answer**: *drwxr-x---*
+
+* **You**: read (see filenames), write (add, delete files), execute (change your CWD to this directory).
+* **Training users**: read, execute
+* **Everyone else**: No access
+
+**Discussion on Permissions**:
+
+The permission string is *"drwxr-x---"*. The *d* means it is a directory. The *rwx* means that the owner of the directory
+(your user account) can *read*, *write* and *execute* the directory. Execute permissions on a directory means that you
+can *cd* into the directory. The *r-x* means that anyone in the same user group as *training* can read or execute the
+directory. The *---* means that nobody else (other users on the system) can do anything with the directory.
+
+</details>
+
+<hr />
+<div class="info">
+<p><b><em>man</em> is for manual</b>: and it will be your best friend!</p>
+<p>Manual pages include a lot of detail about a command and its available flags/options.  It should be your first (or second)
+port of call when you are trying to work out what a command or option does.</p>
+<p>You can scroll <em>up</em> and <em>down</em> in the man page using the <em>arrow</em> keys.</p>
+<p>You can search in the man page using the forward
+slash followed by the search text followed by the <em>ENTER</em> key. e.g.
+type <em>/hello</em> and press <em>ENTER</em> to search for the word <em>hello</em>.  Press <em>n</em> key to find next
+occurance of <em>hello</em> etc.</p>
+<p>You can <em>quit</em> the man page by pressing <em>q</em>.</p>
+</div>
+
+<hr />
+<h4 id="27-use-the-man-command-to-find-out-what-the-h-flag-does-for-ls">2.7) Use the <em>man</em> command to find out what the <em>-h</em> flag does for <em>ls</em><a class="headerlink" href="#27-use-the-man-command-to-find-out-what-the-h-flag-does-for-ls" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Give *ls* as an option to *man* command.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*man ls*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use the following command to view the *man* page for *ls*:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$<span class="w"> </span>man<span class="w"> </span>ls
+</span></code></pre></div>
+
+**Answer**: You should discover that the *-h* option prints file sizes in human readable format
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>-h,<span class="w"> </span>--human-readable
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">              </span>with<span class="w"> </span>-l,<span class="w"> </span>print<span class="w"> </span>sizes<span class="w"> </span><span class="k">in</span><span class="w"> </span>human<span class="w"> </span>readable<span class="w"> </span>format<span class="w"> </span><span class="o">(</span>e.g.,<span class="w"> </span>1K<span class="w"> </span>234M<span class="w"> </span>2G<span class="o">)</span>
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="28-use-the-h-how-did-the-output-change-of-musclefq">2.8) Use the <em>-h</em>, how did the output change of <em>muscle.fq</em>?<a class="headerlink" href="#28-use-the-h-how-did-the-output-change-of-musclefq" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Don't forget the *-l* option too.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+Run *ls -lh*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-lh
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>...
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>-rw-r-----<span class="w"> </span><span class="m">1</span><span class="w"> </span>training01<span class="w"> </span>training<span class="w"> </span><span class="m">2</span>.5K<span class="w"> </span>Jun<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">11</span>:28<span class="w"> </span>muscle.fq
+</span></code></pre></div>
+
+**Answer**: it changed the output so the *filesize* of *muscle.fq* is now *2.5K* instead of *2461*
+
+</details>
+
+<h2 id="topic-3-exploring-the-file-system">Topic 3: Exploring the file system<a class="headerlink" href="#topic-3-exploring-the-file-system" title="Permanent link">&para;</a></h2>
+<p>In this topic we will learn how to move around the filesystem and see what is there.</p>
+<p><strong>Duration</strong>: 30 minutes. <!-- See "The file system" section of the workshop notes. --></p>
+<p><strong>Relevant commands</strong>: <em>pwd</em>, <em>cd</em>, <em>ls</em>, <em>file</em></p>
+<h4 id="31-print-the-value-of-your-current-working-directory">3.1) Print the value of your current working directory.<a class="headerlink" href="#31-print-the-value-of-your-current-working-directory" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Answer</summary>
+
+The *pwd* command prints the value of your current working directory.
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>$<span class="w"> </span><span class="nb">pwd</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>/home/training01
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="32-list-the-contents-of-the-root-directory-called-forward-slash">3.2) List the contents of the root directory, called &lsquo;<em>/</em>&rsquo; (forward slash).<a class="headerlink" href="#32-list-the-contents-of-the-root-directory-called-forward-slash" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+*ls* expects one or more anonymous options which are the files/directories to list.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>$<span class="w"> </span>ls<span class="w"> </span>/
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>applications-merged<span class="w">  </span>etc<span class="w">         </span>media<span class="w">    </span>root<span class="w">     </span>tmp
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>bin<span class="w">                  </span>home<span class="w">        </span>mnt<span class="w">      </span>sbin<span class="w">     </span>usr
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>boot<span class="w">                 </span>lib<span class="w">         </span>oldhome<span class="w">  </span>selinux<span class="w">  </span>var
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>data<span class="w">                 </span>lib64<span class="w">       </span>opt<span class="w">      </span>srv
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>dev<span class="w">                  </span>lost+found<span class="w">  </span>proc<span class="w">     </span>sys
+</span></code></pre></div>
+
+Here we see that *ls* can take a filepath as its argument, which allows you to list the contents of directories
+other than your current working directory.
+
+</details>
+
+<hr />
+<h4 id="33-use-the-cd-command-to-change-your-working-directory-to-the-root-directory-did-your-prompt-change">3.3) Use the <em>cd</em> command to change your working directory to the root directory.  Did your prompt change?<a class="headerlink" href="#33-use-the-cd-command-to-change-your-working-directory-to-the-root-directory-did-your-prompt-change" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+*cd* expects a single option which is the directory to change to
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+The *cd* command changes the value of your current working directory. To change to the root directory use the
+following command:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/
+</span></code></pre></div>
+
+**Answer**: Yes, it now says the CWD is */* instead of *~*.
+
+Some people imagine that changing the working directory is akin to moving your focus within the file system.
+So people often say "move to", "go to" or "charge directory to" when they want to change the working directory.
+
+The root directory is special in Unix. It is the topmost directory in the whole file system.
+
+</details>
+
+<hr />
+<div class="info">
+<b>Output on ERROR only</b>: Many Unix commands will not produce any output if everything went well; <em>cd</em> is one
+such command.  However, it will get grumpy if something went wrong by way of an error message on-screen.
+</div>
+
+<hr />
+<h4 id="34-list-the-contents-of-the-cwd-and-verify-it-matches-the-list-in-32">3.4) List the contents of the CWD and verify it matches the list in 3.2<a class="headerlink" href="#34-list-the-contents-of-the-cwd-and-verify-it-matches-the-list-in-32" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+*ls*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Assuming you have changed to the root directory then this can be achieved with *ls*, or *ls -a* (for all files) or
+*ls -la* for a long listing of all files.
+
+If you are not currently in the root directory then you can list its contents by passing it as an argument to ls:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>$<span class="w"> </span>ls
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>applications-merged<span class="w">  </span>etc<span class="w">         </span>media<span class="w">    </span>root<span class="w">     </span>tmp
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>bin<span class="w">                  </span>home<span class="w">        </span>mnt<span class="w">      </span>sbin<span class="w">     </span>usr
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>boot<span class="w">                 </span>lib<span class="w">         </span>oldhome<span class="w">  </span>selinux<span class="w">  </span>var
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>data<span class="w">                 </span>lib64<span class="w">       </span>opt<span class="w">      </span>srv
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>dev<span class="w">                  </span>lost+found<span class="w">  </span>proc<span class="w">     </span>sys
+</span></code></pre></div>
+
+**Answer**: Yes, we got the same output as exercise 3.2
+
+
+
+</details>
+
+<hr />
+<h4 id="35-change-your-current-working-directory-back-to-your-home-directory-what-is-the-simplest-unix-command-that-will-get-you-back-to-your-home-directory-from-anywhere-else-in-the-file-system">3.5) Change your current working directory back to your home directory. What is the simplest Unix command that will get you back to your home directory from anywhere else in the file system?<a class="headerlink" href="#35-change-your-current-working-directory-back-to-your-home-directory-what-is-the-simplest-unix-command-that-will-get-you-back-to-your-home-directory-from-anywhere-else-in-the-file-system" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+The answer to exercise 2.6 might give some hints on how to get back to the home directory
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*$HOME*, *~*, */vlsci/TRAINING/trainXX* are all methods to name your home directory.  Yet there is a simpler method; the answer
+is buried in *man cd* however *cd* doesn't have its own manpage so you will need to search for it.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use the *cd* command to change your working directory to your home directory. There are a number of ways to refer
+to your home directory:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$HOME</span>
+</span></code></pre></div>
+
+is equivalent to:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nb">cd</span><span class="w"> </span>~
+</span></code></pre></div>
+
+The simplest way to change your current working directory to your home directory is to run the *cd* command with
+no arguments:
+
+**Answer**: the simplest for is cd with NO options.
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nb">cd</span>
+</span></code></pre></div>
+
+This is a special-case behaviour which is built into *cd* for convenience.
+
+</details>
+
+<hr />
+<h4 id="36-change-your-working-directory-to-the-following-directory">3.6) Change your working directory to the following directory:<a class="headerlink" href="#36-change-your-working-directory-to-the-following-directory" title="Permanent link">&para;</a></h4>
+<p><em>/vlsci/TRAINING/shared/Intro_to_Unix</em></p>
+<details>
+  <summary>Answer</summary>
+
+**Answer**: *cd /vlsci/TRAINING/shared/Intro_to_Unix*
+
+</details>
+
+<hr />
+<h4 id="37-list-the-contents-of-that-directory-how-many-files-does-it-contain">3.7) List the contents of that directory. How many files does it contain?<a class="headerlink" href="#37-list-the-contents-of-that-directory-how-many-files-does-it-contain" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+*ls*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+You can do this with *ls*
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>$<span class="w"> </span>ls
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>expectations.txt<span class="w">  </span>hello.c<span class="w">  </span>hi<span class="w">  </span>jude.txt<span class="w">  </span>moby.txt<span class="w">  </span>sample_1.fastq<span class="w">  </span>sleepy
+</span></code></pre></div>
+
+**Answer**: 7 files (expectations.txt  hello.c  hi  jude.txt  moby.txt  sample_1.fastq  sleepy)
+
+</details>
+
+<hr />
+<h4 id="38-what-kind-of-file-is-vlscitrainingsharedintro_to_unixsleepy">3.8) What kind of <em>file</em> is <em>/vlsci/TRAINING/shared/Intro_to_Unix/sleepy</em>?<a class="headerlink" href="#38-what-kind-of-file-is-vlscitrainingsharedintro_to_unixsleepy" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Take the word *file* quite literally.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*file sleepy*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use the *file* command to get extra information about the contents of a file:
+
+Assuming your current working directory is */vlsci/TRAINING/shared/Intro_to_Unix*
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>$<span class="w"> </span>file<span class="w"> </span>sleepy
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>Bourne-Again<span class="w"> </span>shell<span class="w"> </span>script<span class="w"> </span>text<span class="w"> </span>executable
+</span></code></pre></div>
+
+Otherwise specify the full path of sleepy:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>$<span class="w"> </span>file<span class="w"> </span>/vlsci/TRAINING/shared/Intro_to_Unix/sleepy
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>Bourne-Again<span class="w"> </span>shell<span class="w"> </span>script<span class="w"> </span>text<span class="w"> </span>executable
+</span></code></pre></div>
+
+**Answer**: Bourne-Again shell script text executable
+
+The "Bourne-Again shell" is more commonly known as BASH. The *file* command is telling us that sleepy
+is (probably) a shell script written in the language of BASH.
+
+The file command uses various heuristics to guess the "type" of a file. If you want to know how it works
+then read the Unix manual page like so:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>man<span class="w"> </span>file
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<p>3.9) What kind of <em>file</em> is <em>/vlsci/TRAINING/shared/Intro_to_Unix/hi</em>?</p>
+<details>
+  <summary>Hint</summary>
+
+Take the word *file* quite literally.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use the file command again. If you are in the same directory as *hi* then:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>$<span class="w"> </span>file<span class="w"> </span>hi
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>ELF<span class="w"> </span><span class="m">64</span>-bit<span class="w"> </span>LSB<span class="w"> </span>executable,<span class="w"> </span>x86-64,<span class="w"> </span>version<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>SYSV<span class="o">)</span>,<span class="w"> </span>dynamically<span class="w"> </span>linked<span class="w"> </span><span class="o">(</span>uses<span class="w"> </span>shared<span class="w"> </span>libs<span class="o">)</span>,<span class="w"> </span><span class="k">for</span><span class="w"> </span>GNU/Linux
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="m">2</span>.6.9,<span class="w"> </span>not<span class="w"> </span>stripped
+</span></code></pre></div>
+
+**Answer**: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux
+
+This rather complicated output is roughly saying that the file called *hi* contains a binary executable
+program (raw instructions that the computer can execute directly).
+
+</details>
+
+<hr />
+<h4 id="310-what-are-the-file-permissions-of-the-following-file-and-what-do-they-mean">3.10) What are the file permissions of the following file and what do they mean?<a class="headerlink" href="#310-what-are-the-file-permissions-of-the-following-file-and-what-do-they-mean" title="Permanent link">&para;</a></h4>
+<p><em>/vlsci/TRAINING/shared/Intro_to_Unix/sleepy</em></p>
+<details>
+  <summary>Hint</summary>
+
+Remember the *ls* command, and don't forget the *-l* flag
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+You can find the permissions of *sleepy* using the *ls* command with the *-l* flag. If you are in the same
+directory as *sleepy* then:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>sleepy
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>arobinson<span class="w"> </span>common<span class="w"> </span><span class="m">183</span><span class="w"> </span>Feb<span class="w">  </span><span class="m">9</span><span class="w"> </span><span class="m">16</span>:36<span class="w"> </span>sleepy
+</span></code></pre></div>
+
+**Answer**: The Answer is dependent on the computer you are connected too however will follow something like above.
+We can see that this particular instance of sleepy is owned by the user arobinson, and is part of the common
+user group. It is 183 bytes in size, and was last modified on the 9th of February at 4:36pm. The file is
+readable to everyone, and write-able only to arobinson.  The digit '1' between the file permission string and
+the owner indicates that there is one link to the file. The Unix file system allows files to be referred to
+by multiple "links". When you create a file it is referred to by one link, but you may add others later. For
+future reference: links are created with the *ln* command.
+
+</details>
+
+<hr />
+<h4 id="311-change-your-working-directory-back-to-your-home-directory-ready-for-the-next-topic">3.11) Change your working directory back to your home directory ready for the next topic.<a class="headerlink" href="#311-change-your-working-directory-back-to-your-home-directory-ready-for-the-next-topic" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+*cd*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+You should know how to do this with the cd command:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nb">cd</span>
+</span></code></pre></div>
+
+</details>
+
+<h2 id="topic-4-working-with-files-and-directories">Topic 4: Working with files and directories<a class="headerlink" href="#topic-4-working-with-files-and-directories" title="Permanent link">&para;</a></h2>
+<p>In this topic we will start to read, create, edit and delete files and directories.</p>
+<p><strong>Duration</strong>: 50 minutes.  <!-- See "Working with files" from the workshop notes. --></p>
+<p><strong>Relevant commands</strong>: <em>mkdir</em>, <em>cp</em>, <em>ls</em>, <em>diff</em>, <em>wc</em>, <em>nano</em>, <em>mv</em>, <em>rm</em>, <em>rmdir</em>, <em>head</em>, <em>tail</em>, <em>grep</em>, <em>gzip</em>, <em>gunzip</em></p>
+<div class="info">
+<b>Hint</b>: Look at the commands above; you will need them roughly in order for this topic.  Use the <em>man</em>
+command find out what they do, in particular the NAME, SYNOPSIS and DESCRIPTION sections.
+</div>
+
+<hr />
+<h4 id="41-in-your-home-directory-make-a-sub-directory-called-test">4.1) In your home directory make a sub-directory called test.<a class="headerlink" href="#41-in-your-home-directory-make-a-sub-directory-called-test" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+You are trying to *make a directory*, which of the above commands looks like a shortened version of this?
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*mkdir*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Make sure you are in your home directory first. If not *cd* to your home directory.
+
+Use the *mkdir* command to make new directories:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>$<span class="w"> </span>mkdir<span class="w"> </span><span class="nb">test</span>
+</span></code></pre></div>
+
+Use the *ls* command to check that the new directory was created.
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>$<span class="w"> </span>ls
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>exp01<span class="w">  </span>file01<span class="w">  </span>muscle.fq<span class="w">  </span><span class="nb">test</span>
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="42-copy-all-the-files-from-the-following-directory-into-the-newly-created-test-directory">4.2) Copy all the files from the following directory into the newly created test directory:<a class="headerlink" href="#42-copy-all-the-files-from-the-following-directory-into-the-newly-created-test-directory" title="Permanent link">&para;</a></h4>
+<p><em>/vlsci/TRAINING/shared/Intro_to_Unix</em></p>
+<details>
+  <summary>Hint</summary>
+
+You are trying to *copy*, which of the above commands looks like a shortened version of this?
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>$<span class="w"> </span>man<span class="w"> </span>cp
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>...
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>SYNOPSIS
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">       </span>cp<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span><span class="o">[</span>-T<span class="o">]</span><span class="w"> </span>SOURCE<span class="w"> </span>DEST
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>...
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>DESCRIPTION
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="w">       </span>Copy<span class="w"> </span>SOURCE<span class="w"> </span>to<span class="w"> </span>DEST,<span class="w"> </span>or<span class="w"> </span>multiple<span class="w"> </span>SOURCE<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>DIRECTORY.
+</span></code></pre></div>
+
+which means *cp* expects zero or more flags, a SOURCE file followed by a DEST file or directory
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use the *cp* command to copy files.
+
+<div class="info"><b>Wildcards</b>: You could copy them one-by-one, but that would be tedious, so use
+the <em>*</em> wildcard to specify that you want to copy all the files.
+</div>
+
+There are a number of ways you could do this depending on how you specify the source and destination
+paths to *cp*. You only need to perform one of these ways, but we show multiple ones for your reference.
+
+**Answer 1**: From your home directory:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>$<span class="w"> </span>cp<span class="w"> </span>/vlsci/TRAINING/shared/Intro_to_Unix/*<span class="w"> </span><span class="nb">test</span>
+</span></code></pre></div>
+
+**Answer 2**: Change to the test directory and then copy (assuming you started in your home directory):
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="nb">test</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>$<span class="w"> </span>cp<span class="w"> </span>/vlsci/TRAINING/shared/Intro_to_Unix/*<span class="w"> </span>.
+</span></code></pre></div>
+
+In the example above the '*.*' (dot) character refers to the current working directory. It should be
+the test subdirectory of your home directory.
+
+**Answer 3**: Change to the \end{UNIX_TRAINING_FILES_PATH} directory and then copy:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nb">cd</span><span class="w"> </span>/vlsci/TRAINING/shared/Intro_to_Unix/
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>cp<span class="w"> </span>*<span class="w"> </span>~/test
+</span></code></pre></div>
+
+Remember that ~ is a shortcut reference to your home directory.
+
+</details>
+
+<hr />
+<p><strong>Note</strong>: This exercise assumes that the copy command from the previous exercise was successful.</p>
+<h4 id="43-check-that-the-file-size-of-expectationstxt-is-the-same-in-both-the-directory-that-you-copied-it-from-and-the-directory-that-you-copied-it-to">4.3) Check that the file size of <em>expectations.txt</em> is the same in both the directory that you copied it from and the directory that you copied it to.<a class="headerlink" href="#43-check-that-the-file-size-of-expectationstxt-is-the-same-in-both-the-directory-that-you-copied-it-from-and-the-directory-that-you-copied-it-to" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Remember *ls* can show you the file size (with one of its flags)
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*ls -l*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use *ls -l* to check the size of files.
+
+You could do this in many ways depending on the value of your working directory. We just show one possible
+way for each file:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>~/test/expectations.txt
+</span></code></pre></div>
+
+From the output of the above commands you should be able to see the size of each file and check that they
+are the same.
+
+**Answer**: They should each be *1033773* bytes
+
+**Alternate**: Sometimes it is useful to get file sizes reported in more "human friendly" units than bytes. If this is
+true then try the *-h* option for ls:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-lh<span class="w"> </span>/vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>arobinson<span class="w"> </span>common<span class="w"> </span>1010K<span class="w"> </span>Mar<span class="w"> </span><span class="m">26</span><span class="w">  </span><span class="m">2012</span><span class="w"> </span>/vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
+</span></code></pre></div>
+
+In this case the size is reported in kilobytes as *1010K*. Larger files are reported in megabytes, gigabytes
+etcetera.
+
+</details>
+
+<hr />
+<p><strong>Note</strong>: this exercise assumes your working directory is <em>~/test</em>; if not run <em>cd ~/test</em></p>
+<h4 id="44-check-that-the-contents-of-expectationstxt-are-the-same-in-both-the-directory-that-you-copied-it-from-and-the-directory-that-you-copied-it-to">4.4) Check that the contents of expectations.txt are the same in both the directory that you copied it from and the directory that you copied it to.<a class="headerlink" href="#44-check-that-the-contents-of-expectationstxt-are-the-same-in-both-the-directory-that-you-copied-it-from-and-the-directory-that-you-copied-it-to" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+What is the opposite of *same*?
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*diff*erence
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use the *diff* command to compare the contents of two files.
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>$<span class="w"> </span>diff<span class="w"> </span>/vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt<span class="w"> </span>expectations.txt
+</span></code></pre></div>
+
+If the two files are identical the *diff* command will NOT produce any output)
+
+**Answer**: Yes, they are the same since no output was given.
+
+</details>
+
+<hr />
+<h4 id="45-how-many-lines-words-and-characters-are-in-expectationstxt">4.5) How many lines, words and characters are in expectations.txt?<a class="headerlink" href="#45-how-many-lines-words-and-characters-are-in-expectationstxt" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Initialisms are key
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*w*ord *c*ount
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use the *wc* (for "word count") to count the number of characters, lines and words in a file:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>$<span class="w"> </span>wc<span class="w"> </span>expectations.txt
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="w">  </span><span class="m">20415</span><span class="w">  </span><span class="m">187465</span><span class="w"> </span><span class="m">1033773</span><span class="w"> </span>expectations.txt
+</span></code></pre></div>
+
+**Answer**: There are *20415* lines, *187465* words and *1033773* characters in expectations.txt.
+
+To get just the line, word or character count:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>$<span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span>expectations.txt
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="m">20415</span><span class="w"> </span>expectations.txt
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>$<span class="w"> </span>wc<span class="w"> </span>-w<span class="w"> </span>expectations.txt
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="m">187465</span><span class="w"> </span>expectations.txt
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>$<span class="w"> </span>wc<span class="w"> </span>-c<span class="w"> </span>expectations.txt
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="m">1033773</span><span class="w"> </span>expectations.txt
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="46-open-testexpectationstxt-in-the-nano-text-editor-delete-the-first-line-of-text-and-save-your-changes-to-the-file-exit-nano">4.6) Open <em>~/test/expectations.txt</em> in the <em>nano</em> text editor, delete the first line of text, and save your changes to the file. Exit <em>nano</em>.<a class="headerlink" href="#46-open-testexpectationstxt-in-the-nano-text-editor-delete-the-first-line-of-text-and-save-your-changes-to-the-file-exit-nano" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+*nano FILENAME*
+
+Once *nano* is open it displays some command hints along the bottom of the screen.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*^O* means hold the *Control* (or CTRL) key while pressing the *o*.  Despite what it displays, you need to type
+the lower-case letter that follows the *^* character.
+
+WriteOut is another name for Save.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Take some time to play around with the *nano* text editor.
+
+*Nano* is a very simple text editor which is easy to use but limited in features. More powerful
+editors exist such as *vim* and *emacs*, however they take a substantial amount of time to learn.
+
+</details>
+
+<hr />
+<h4 id="47-did-the-changes-you-made-to-testexpectationstxt-have-any-effect-on-vlscitrainingsharedintro_to_unix">4.7) Did the changes you made to <em>~/test/expectations.txt</em> have any effect on <em>/vlsci/TRAINING/shared/Intro_to_Unix</em>?<a class="headerlink" href="#47-did-the-changes-you-made-to-testexpectationstxt-have-any-effect-on-vlscitrainingsharedintro_to_unix" title="Permanent link">&para;</a></h4>
+<p>How can you tell if two files are the same or different in their contents?</p>
+<details>
+  <summary>Hint</summary>
+
+Remember exercise 4.4
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+Use *diff*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use *diff* to check that the two files are different after you have made the change to the copy of
+*expectations.txt* in your *~/test* directory.
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>diff<span class="w"> </span>~/test/expectations.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>/vlsci/TRAINING/shared/Intro_to_Unix/expectations.txt
+</span></code></pre></div>
+
+You could also use *ls* to check that the files have different sizes.
+
+</details>
+
+<hr />
+<h4 id="48-in-your-test-subdirectory-rename-expectationstxt-to-footxt">4.8) In your <em>test</em> subdirectory, rename <em>expectations.txt</em> to <em>foo.txt</em>.<a class="headerlink" href="#48-in-your-test-subdirectory-rename-expectationstxt-to-footxt" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Another way to think of it is *moving* it from *expectations.txt* to *foo.txt*
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*mv*
+
+Use *man mv* if you need to work out how to use it.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use the *mv* command to rename the file:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>$<span class="w"> </span>mv<span class="w"> </span>expectations.txt<span class="w"> </span>foo.txt
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>$<span class="w"> </span>ls
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>foo.txt<span class="w">  </span>hello.c<span class="w">  </span>hi<span class="w">  </span>jude.txt<span class="w">  </span>moby.txt<span class="w">  </span>sample_1.fastq<span class="w">  </span>sleepy
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="49-rename-footxt-back-to-expectationstxt">4.9) Rename foo.txt back to expectations.txt.<a class="headerlink" href="#49-rename-footxt-back-to-expectationstxt" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Answer</summary>
+
+Use the *mv* command to rename the file:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>$<span class="w"> </span>mv<span class="w"> </span>foo.txt<span class="w"> </span>expectations.txt
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>$<span class="w"> </span>ls
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>expectations.txt<span class="w">  </span>hello.c<span class="w">  </span>hi<span class="w">  </span>jude.txt<span class="w">  </span>moby.txt<span class="w">  </span>sample_1.fastq<span class="w">  </span>sleepy
+</span></code></pre></div>
+
+Use *ls* to check that the file is in fact renamed.
+
+</details>
+
+<hr />
+<h4 id="410-remove-the-file-expectationstxt-from-your-test-directory">4.10) Remove the file <em>expectations.txt</em> from your <em>test</em> directory.<a class="headerlink" href="#410-remove-the-file-expectationstxt-from-your-test-directory" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+We are trying to *remove* a file, check the commands at the top of this topic.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*rm*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use the *rm* command to remove files (carefully):
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>$<span class="w"> </span>rm<span class="w"> </span>expectations.txt
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>$<span class="w"> </span>ls
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>hello.c<span class="w">  </span>hi<span class="w">  </span>jude.txt<span class="w">  </span>moby.txt<span class="w">  </span>sample_1.fastq<span class="w">  </span>sleepy
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="411-remove-the-entire-test-directory-and-all-the-files-within-it">4.11) Remove the entire <em>test</em> directory and all the files within it.<a class="headerlink" href="#411-remove-the-entire-test-directory-and-all-the-files-within-it" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+We are trying to *remove a directory*.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+You could use *rmdir* but there is an easier way using just *rm* and a flag.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+You could use the *rm* command to remove each file individually, and then use the *rmdir* command
+to remove the directory. Note that *rmdir* will only remove directories that are empty (i.e. do not
+contain files or subdirectories).
+
+A faster way is to pass the *-r* (for recursive) flag to *rm* to remove all the files and the
+directory in one go:
+
+**Logical Answer**:
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="nb">cd</span><span class="w"> </span>~
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>rm<span class="w"> </span>test/*
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>rmdir<span class="w"> </span><span class="nb">test</span>
+</span></code></pre></div>
+
+**Easier Answer**:
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="nb">cd</span><span class="w"> </span>~
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>rm<span class="w"> </span>-r<span class="w"> </span><span class="nb">test</span>
+</span></code></pre></div>
+
+<div class="error"><b>Warning</b>: Be very careful with <em>rm -r</em>, it will remove all files
+and all subdirectories underneath the specified directory. This could be catastrophic if you do it
+in the wrong location! Now is a good moment to pause and think about file backup strategies.</div>
+
+</details>
+
+<hr />
+<h4 id="412-recreate-the-test-directory-in-your-home-directory-and-copy-all-the-files-from-vlscitrainingsharedintro_to_unix-back-into-the-test-directory">4.12) Recreate the test directory in your home directory and copy all the files from <em>/vlsci/TRAINING/shared/Intro_to_Unix</em> back into the test directory.<a class="headerlink" href="#412-recreate-the-test-directory-in-your-home-directory-and-copy-all-the-files-from-vlscitrainingsharedintro_to_unix-back-into-the-test-directory" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+See exercises 4.1 and 4.2
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Repeat exercises 4.1 and 4.2.
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>$<span class="w"> </span>mkdir<span class="w"> </span><span class="nb">test</span>
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>$<span class="w"> </span>cp<span class="w"> </span>/vlsci/TRAINING/shared/Intro_to_Unix/*<span class="w"> </span><span class="nb">test</span>
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="413-change-directories-to-test-and-use-the-cat-command-to-display-the-entire-contents-of-the-file-helloc">4.13) Change directories to <em>~/test</em> and use the <em>cat</em> command to display the entire contents of the file <em>hello.c</em><a class="headerlink" href="#413-change-directories-to-test-and-use-the-cat-command-to-display-the-entire-contents-of-the-file-helloc" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Use *man* if you can't guess how it might work.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/test
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>$<span class="w"> </span>cat<span class="w"> </span>hello.c
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="c1">#include &lt;stdio.h&gt;</span>
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>int<span class="w"> </span>main<span class="o">(</span>void<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="o">(</span><span class="s2">&quot;Hello World\n&quot;</span><span class="o">)</span><span class="p">;</span>
+</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+</span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a><span class="o">}</span>
+</span></code></pre></div>
+
+*hello.c* contains the source code of a C program. The compiled executable version of this code
+is in the file called *hi*, which you can run like so:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>$<span class="w"> </span>./hi
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>Hello<span class="w"> </span>World
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="414-use-the-head-command-to-view-the-first-20-lines-of-the-file-sample_1fastq">4.14) Use the <em>head</em> command to view the first <em>20</em> lines of the file <em>sample_1.fastq</em><a class="headerlink" href="#414-use-the-head-command-to-view-the-first-20-lines-of-the-file-sample_1fastq" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Remember your *best* friend!
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+Use *man* to find out what option you need to add to display a given number of *lines*.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>$<span class="w"> </span>head<span class="w"> </span>-20<span class="w"> </span>sample_1.fastq
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>@IRIS:7:1:17:394#0/1
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>GTCAGGACAAGAAAGACAANTCCAATTNACATTATG
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>+IRIS:7:1:17:394#0/1
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>aaabaa<span class="sb">`</span><span class="o">]</span>baaaaa_aab<span class="o">]</span>D^^<span class="sb">`</span>b<span class="sb">`</span>aYDW<span class="o">]</span>abaa<span class="sb">`</span>^
+</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>@IRIS:7:1:17:800#0/1
+</span><span id="__span-48-7"><a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a>GGAAACACTACTTAGGCTTATAAGATCNGGTTGCGG
+</span><span id="__span-48-8"><a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a>+IRIS:7:1:17:800#0/1
+</span><span id="__span-48-9"><a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a>ababbaaabaaaaa<span class="sb">`</span><span class="o">]</span><span class="sb">`</span>ba<span class="sb">`</span><span class="o">]</span><span class="sb">`</span>aaaaYD<span class="se">\\</span>_a<span class="sb">``</span>XT
+</span><span id="__span-48-10"><a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a>@IRIS:7:1:17:1757#0/1
+</span><span id="__span-48-11"><a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a>TTTTCTCGACGATTTCCACTCCTGGTCNACGAATCC
+</span><span id="__span-48-12"><a id="__codelineno-48-12" name="__codelineno-48-12" href="#__codelineno-48-12"></a>+IRIS:7:1:17:1757#0/1
+</span><span id="__span-48-13"><a id="__codelineno-48-13" name="__codelineno-48-13" href="#__codelineno-48-13"></a>aaaaaa<span class="sb">``</span>aaa<span class="sb">`</span>aaaa_^a<span class="sb">```</span><span class="o">]][</span>Z<span class="o">[</span>DY^XYV^_Y
+</span><span id="__span-48-14"><a id="__codelineno-48-14" name="__codelineno-48-14" href="#__codelineno-48-14"></a>@IRIS:7:1:17:1479#0/1
+</span><span id="__span-48-15"><a id="__codelineno-48-15" name="__codelineno-48-15" href="#__codelineno-48-15"></a>CATATTGTAGGGTGGATCTCGAAAGATATGAAAGAT
+</span><span id="__span-48-16"><a id="__codelineno-48-16" name="__codelineno-48-16" href="#__codelineno-48-16"></a>+IRIS:7:1:17:1479#0/1
+</span><span id="__span-48-17"><a id="__codelineno-48-17" name="__codelineno-48-17" href="#__codelineno-48-17"></a>abaaaaa<span class="sb">`</span>a<span class="sb">```</span>^aaaaa<span class="sb">`</span>_<span class="o">]</span>aaa<span class="sb">`</span>aaa__a_X<span class="o">]</span><span class="sb">``</span>
+</span><span id="__span-48-18"><a id="__codelineno-48-18" name="__codelineno-48-18" href="#__codelineno-48-18"></a>@IRIS:7:1:17:150#0/1
+</span><span id="__span-48-19"><a id="__codelineno-48-19" name="__codelineno-48-19" href="#__codelineno-48-19"></a>TGATGTACTATGCATATGAACTTGTATGCAAAGTGG
+</span><span id="__span-48-20"><a id="__codelineno-48-20" name="__codelineno-48-20" href="#__codelineno-48-20"></a>+IRIS:7:1:17:150#0/1
+</span><span id="__span-48-21"><a id="__codelineno-48-21" name="__codelineno-48-21" href="#__codelineno-48-21"></a>abaabaa<span class="sb">`</span>aaaaaaa^ba_<span class="o">]]</span>aaa^aaaaa_^<span class="o">][</span>aa
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="415-use-the-tail-command-to-view-the-last-8-lines-of-the-file-sample_1fastq">4.15) Use the <em>tail</em> command to view the last <em>8</em> lines of the file <em>sample_1.fastq</em><a class="headerlink" href="#415-use-the-tail-command-to-view-the-last-8-lines-of-the-file-sample_1fastq" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+It's very much like *head*.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>tail<span class="w"> </span>-8<span class="w"> </span>sample_1.fastq
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>@IRIS:7:32:731:717#0/1
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>TAATAATTGGAGCCAAATCATGAATCAAAGGACATA
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>+IRIS:7:32:731:717#0/1
+</span><span id="__span-49-5"><a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>ababbababbab<span class="o">]</span>abbaa<span class="sb">`</span>babaaabbb<span class="sb">`</span>bbbabbb
+</span><span id="__span-49-6"><a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>@IRIS:7:32:731:1228#0/1
+</span><span id="__span-49-7"><a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a>CTGATGCCGAGGCACGCCGTTAGGCGCGTGCTGCAG
+</span><span id="__span-49-8"><a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a>+IRIS:7:32:731:1228#0/1
+</span><span id="__span-49-9"><a id="__codelineno-49-9" name="__codelineno-49-9" href="#__codelineno-49-9"></a><span class="sb">`</span>aaaaa<span class="sb">``</span>aaa<span class="sb">`</span>a<span class="sb">``</span>a<span class="sb">`</span>^a<span class="sb">`</span>a<span class="sb">`</span>a_<span class="o">[</span>a_a<span class="sb">`</span>a<span class="sb">`</span>aa<span class="sb">`</span>__
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="416-use-the-grep-command-to-find-out-all-the-lines-in-mobytxt-that-contain-the-word-ahab">4.16) Use the <em>grep</em> command to find out all the lines in <em>moby.txt</em> that contain the word &ldquo;Ahab&rdquo;<a class="headerlink" href="#416-use-the-grep-command-to-find-out-all-the-lines-in-mobytxt-that-contain-the-word-ahab" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+One might say we are 'looking for the *pattern* "Ahab"'
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>$<span class="w"> </span>man<span class="w"> </span>grep
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>...
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>SYNOPSIS
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="w">       </span>grep<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>PATTERN<span class="w"> </span><span class="o">[</span>FILE...<span class="o">]</span>
+</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>...
+</span></code></pre></div>
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>$<span class="w"> </span>grep<span class="w"> </span>Ahab<span class="w"> </span>moby.txt
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="s2">&quot;Want to see what whaling is, eh? Have ye clapped eye on Captain Ahab?&quot;</span>
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="s2">&quot;Who is Captain Ahab, sir?&quot;</span>
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="s2">&quot;Aye, aye, I thought so. Captain Ahab is the Captain of this ship.&quot;</span>
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>...<span class="w"> </span>AND<span class="w"> </span>MUCH<span class="w"> </span>MUCH<span class="w"> </span>MORE<span class="w"> </span>...
+</span></code></pre></div>
+
+If you want to know how many lines are in the output of the above command you can "pipe" it
+into the *wc -l* command:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>$<span class="w"> </span>grep<span class="w"> </span>Ahab<span class="w"> </span>moby.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="m">491</span>
+</span></code></pre></div>
+
+which shows that there are *491* lines in *moby.txt* that contain the word Ahab.
+
+</details>
+
+<hr />
+<h4 id="417-use-the-grep-command-to-find-out-all-the-lines-in-expectationstxt-that-contain-the-word-the-with-a-case-insensitive-search-it-should-count-the-the-the-the-etcetera">4.17) Use the <em>grep</em> command to find out all the lines in <em>expectations.txt</em> that contain the word &ldquo;the&rdquo; with a case insensitive search (it should count &ldquo;the&rdquo; &ldquo;The&rdquo; &ldquo;THE&rdquo; &ldquo;tHe&rdquo; etcetera).<a class="headerlink" href="#417-use-the-grep-command-to-find-out-all-the-lines-in-expectationstxt-that-contain-the-word-the-with-a-case-insensitive-search-it-should-count-the-the-the-the-etcetera" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+One might say we are *ignoring case*.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>$<span class="w"> </span>man<span class="w"> </span>grep
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>...
+</span><span id="__span-53-3"><a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a><span class="w">       </span>-i,<span class="w"> </span>--ignore-case
+</span><span id="__span-53-4"><a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a><span class="w">              </span>Ignore<span class="w"> </span><span class="k">case</span><span class="w"> </span>distinctions<span class="w"> </span><span class="k">in</span><span class="w"> </span>both<span class="w"> </span>the<span class="w"> </span>PATTERN<span class="w"> </span>and<span class="w"> </span>the<span class="w"> </span>input<span class="w"> </span>files.<span class="w">  </span><span class="o">(</span>-i<span class="w"> </span>is<span class="w"> </span>specified<span class="w"> </span>by<span class="w"> </span>POSIX.<span class="o">)</span>
+</span><span id="__span-53-5"><a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a>...
+</span></code></pre></div>
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use the *-i* flag to *grep* to make it perform case insensitive search:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>the<span class="w"> </span>expectations.txt
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>The<span class="w"> </span>Project<span class="w"> </span>Gutenberg<span class="w"> </span>EBook<span class="w"> </span>of<span class="w"> </span>Great<span class="w"> </span>Expectations,<span class="w"> </span>by<span class="w"> </span>Charles<span class="w"> </span>Dickens
+</span><span id="__span-54-3"><a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>This<span class="w"> </span>eBook<span class="w"> </span>is<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>use<span class="w"> </span>of<span class="w"> </span>anyone<span class="w"> </span>anywhere<span class="w"> </span>at<span class="w"> </span>no<span class="w"> </span>cost<span class="w"> </span>and<span class="w"> </span>with
+</span><span id="__span-54-4"><a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a>re-use<span class="w"> </span>it<span class="w"> </span>under<span class="w"> </span>the<span class="w"> </span>terms<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Project<span class="w"> </span>Gutenberg<span class="w"> </span>License<span class="w"> </span>included
+</span><span id="__span-54-5"><a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a><span class="o">[</span>Project<span class="w"> </span>Gutenberg<span class="w"> </span>Editor<span class="err">&#39;</span>s<span class="w"> </span>Note:<span class="w"> </span>There<span class="w"> </span>is<span class="w"> </span>also<span class="w"> </span>another<span class="w"> </span>version<span class="w"> </span>of
+</span><span id="__span-54-6"><a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a>...<span class="w"> </span>AND<span class="w"> </span>MUCH<span class="w"> </span>MUCH<span class="w"> </span>MORE<span class="w"> </span>...
+</span></code></pre></div>
+
+Again, "pipe" the output to *wc -l* to count the number of lines:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>the<span class="w"> </span>expectations.txt<span class="w">  </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="m">8165</span>
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="418-use-the-gzip-command-to-compress-the-file-sample_1fastq-use-gunzip-to-decompress-it-back-to-the-original-contents">4.18) Use the <em>gzip</em> command to compress the file <em>sample_1.fastq</em>. Use <em>gunzip</em> to decompress it back to the original contents.<a class="headerlink" href="#418-use-the-gzip-command-to-compress-the-file-sample_1fastq-use-gunzip-to-decompress-it-back-to-the-original-contents" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Use the above commands along with *man* and *ls* to see what happens to the file.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Check the file size of sample_1.fastq before compressing it:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="c1"># check filesize</span>
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>sample_1.fastq
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>training01<span class="w"> </span>training<span class="w"> </span><span class="m">90849644</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">20</span>:03<span class="w"> </span>sample_1.fastq
+</span><span id="__span-56-4"><a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a>
+</span><span id="__span-56-5"><a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a><span class="c1"># compress it (takes a few seconds)</span>
+</span><span id="__span-56-6"><a id="__codelineno-56-6" name="__codelineno-56-6" href="#__codelineno-56-6"></a>$<span class="w"> </span>gzip<span class="w"> </span>sample_1.fastq
+</span><span id="__span-56-7"><a id="__codelineno-56-7" name="__codelineno-56-7" href="#__codelineno-56-7"></a>
+</span><span id="__span-56-8"><a id="__codelineno-56-8" name="__codelineno-56-8" href="#__codelineno-56-8"></a><span class="c1"># check filesize (Note: its name changed)</span>
+</span><span id="__span-56-9"><a id="__codelineno-56-9" name="__codelineno-56-9" href="#__codelineno-56-9"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>sample_1.fastq.gz
+</span><span id="__span-56-10"><a id="__codelineno-56-10" name="__codelineno-56-10" href="#__codelineno-56-10"></a>-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>training01<span class="w"> </span>training<span class="w"> </span><span class="m">26997595</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">20</span>:03<span class="w"> </span>sample_1.fastq.gz
+</span><span id="__span-56-11"><a id="__codelineno-56-11" name="__codelineno-56-11" href="#__codelineno-56-11"></a>
+</span><span id="__span-56-12"><a id="__codelineno-56-12" name="__codelineno-56-12" href="#__codelineno-56-12"></a><span class="c1"># decompress it</span>
+</span><span id="__span-56-13"><a id="__codelineno-56-13" name="__codelineno-56-13" href="#__codelineno-56-13"></a>$<span class="w"> </span>gunzip<span class="w"> </span>sample_1.fastq.gz
+</span><span id="__span-56-14"><a id="__codelineno-56-14" name="__codelineno-56-14" href="#__codelineno-56-14"></a>
+</span><span id="__span-56-15"><a id="__codelineno-56-15" name="__codelineno-56-15" href="#__codelineno-56-15"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>sample_1.fastq
+</span><span id="__span-56-16"><a id="__codelineno-56-16" name="__codelineno-56-16" href="#__codelineno-56-16"></a>-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>training01<span class="w"> </span>training<span class="w"> </span><span class="m">90849644</span><span class="w"> </span>Jun<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">20</span>:03<span class="w"> </span>sample_1.fastq
+</span></code></pre></div>
+
+You will see that when it was compressed it is *26997595* bytes in size, making it about *0.3* times the size of the
+original file.
+
+**Note**: in the above section the lines starting with *#* are comments so don't need to be copied but if you
+do then they wont do anything.
+
+</details>
+
+<h2 id="topic-5-pipes-output-redirection-and-shell-scripts">Topic 5: Pipes, output redirection and shell scripts<a class="headerlink" href="#topic-5-pipes-output-redirection-and-shell-scripts" title="Permanent link">&para;</a></h2>
+<p>In this section we will cover a lot of the more advanced Unix concepts; it is here where you will start to see
+the power of Unix.  I say <em>start</em> because this is only the &ldquo;tip of the iceberg&rdquo;.</p>
+<p><strong>Duration</strong>: 50 minutes. <!-- See "Processes" from the workshop notes. --></p>
+<p><strong>Relevant commands</strong>: <em>wc</em>, <em>paste</em>, <em>grep</em>, <em>sort</em>, <em>uniq</em>, <em>nano</em>, <em>cut</em></p>
+<h4 id="51-how-many-reads-are-contained-in-the-file-sample_1fastq">5.1) How many <em>reads</em> are contained in the file <em>sample_1.fastq</em>?<a class="headerlink" href="#51-how-many-reads-are-contained-in-the-file-sample_1fastq" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Examine some of the file to work out how many lines each *read* takes up.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+Count the number of lines
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+We can answer this question by counting the number of lines in the file and dividing by 4:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>$<span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span>sample_1.fastq
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="m">3000000</span>
+</span></code></pre></div>
+
+**Answer**: There are *3000000* lines in the file representing *750000* reads.
+
+If you want to do simple arithmetic at the command line then you can use the "basic calculator"
+called *bc*:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;3000000 / 4&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc
+</span><span id="__span-58-2"><a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a><span class="m">750000</span>
+</span></code></pre></div>
+
+<div class="info"><b>Note</b>: that the vertical bar character "|" is the Unix pipe (and is often
+called the "pipe symbol"). It is used for connecting the output of one command into the input of
+another command. We'll see more examples soon.</div>
+
+*bc* is suitable for small calculations, but it becomes cumbersome for more complex examples. If
+you want to do more sophisticated calculations then we recommend to use a more general purpose
+programming language (such as Python etcetera).
+
+</details>
+
+<hr />
+<h4 id="52-how-many-reads-in-sample_1fastq-contain-the-sequence-gattaca">5.2) How many reads in <em>sample_1.fastq</em> contain the sequence <em>GATTACA</em>?<a class="headerlink" href="#52-how-many-reads-in-sample_1fastq-contain-the-sequence-gattaca" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Check out exercise 4.16
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use *grep* to find all the lines that contain *GATTACA* and "pipe" the output to *wc -l* to count them:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>$<span class="w"> </span>grep<span class="w"> </span>GATTACA<span class="w"> </span>sample_1.fastq<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a><span class="m">1119</span>
+</span></code></pre></div>
+
+**Answer**: *1119*
+
+If you are unsure about the possibility of upper and lower case characters then consider using
+the *-i* (ignore case option for grep).
+
+</details>
+
+<hr />
+<h4 id="53-on-what-line-numbers-do-the-sequences-containing-gattaca-occur">5.3) On what line numbers do the sequences containing <em>GATTACA</em> occur?<a class="headerlink" href="#53-on-what-line-numbers-do-the-sequences-containing-gattaca-occur" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+We are looking for the *line numbers*.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+Check out the manpage for *grep* and/or *nl*
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+You can use the *-n* flag to grep to make it prefix each line with a line number:
+
+**Answer 1**:
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-n<span class="w"> </span>GATTACA<span class="w"> </span>sample_1.fastq
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a><span class="m">5078</span>:AGGAAGATTACAACTCCAAGACACCAAACAAATTCC
+</span><span id="__span-60-3"><a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a><span class="m">7170</span>:AACTACAAAGGTCAGGATTACAAGCTCTTGCCCTTC
+</span><span id="__span-60-4"><a id="__codelineno-60-4" name="__codelineno-60-4" href="#__codelineno-60-4"></a><span class="m">8238</span>:ATAGTTTTTTCGATTACATGGATTATATCTGTTTGC
+</span><span id="__span-60-5"><a id="__codelineno-60-5" name="__codelineno-60-5" href="#__codelineno-60-5"></a>...<span class="w"> </span>AND<span class="w"> </span>MUCH<span class="w"> </span>MUCH<span class="w"> </span>MORE<span class="w"> </span>...
+</span></code></pre></div>
+
+**Answer 2**: Or you can use the *nl* command to number each line of sample_1.fastq and then search for *GATTACA*
+in the numbered lines:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>$<span class="w"> </span>nl<span class="w"> </span>sample_1.fastq<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>GATTACA
+</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="w">  </span><span class="m">5078</span><span class="w">  </span>AGGAAGATTACAACTCCAAGACACCAAACAAATTCC
+</span><span id="__span-61-3"><a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a><span class="w">  </span><span class="m">7170</span><span class="w">  </span>AACTACAAAGGTCAGGATTACAAGCTCTTGCCCTTC
+</span><span id="__span-61-4"><a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a><span class="w">  </span><span class="m">8238</span><span class="w">  </span>ATAGTTTTTTCGATTACATGGATTATATCTGTTTGC
+</span><span id="__span-61-5"><a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a>...<span class="w"> </span>AND<span class="w"> </span>MUCH<span class="w"> </span>MUCH<span class="w"> </span>MORE<span class="w"> </span>...
+</span></code></pre></div>
+
+**Just the line numbers**:
+
+If you just want to see the line numbers then you can "pipe" the output of the above command into
+*cut -f 1*:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>$<span class="w"> </span>nl<span class="w"> </span>sample_1.fastq<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>GATTACA<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a><span class="w">  </span><span class="m">5078</span>
+</span><span id="__span-62-3"><a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a><span class="w">  </span><span class="m">7170</span>
+</span><span id="__span-62-4"><a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a><span class="w">  </span><span class="m">8238</span>
+</span><span id="__span-62-5"><a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a>...<span class="w"> </span>AND<span class="w"> </span>MUCH<span class="w"> </span>MUCH<span class="w"> </span>MORE<span class="w"> </span>...
+</span></code></pre></div>
+
+*cut* will remove certain columns from the input; in this case it will remove all except column 1
+(a.k.a. field 1, hence the *-f 1* option)
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-n<span class="w"> </span>GATTACA<span class="w"> </span>sample_1.fastq<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a><span class="m">5078</span>
+</span><span id="__span-63-3"><a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a><span class="m">7170</span>
+</span><span id="__span-63-4"><a id="__codelineno-63-4" name="__codelineno-63-4" href="#__codelineno-63-4"></a><span class="m">8238</span>
+</span><span id="__span-63-5"><a id="__codelineno-63-5" name="__codelineno-63-5" href="#__codelineno-63-5"></a>...<span class="w"> </span>AND<span class="w"> </span>MUCH<span class="w"> </span>MUCH<span class="w"> </span>MORE<span class="w"> </span>...
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="54-use-the-nl-command-to-print-each-line-of-sample_1fastq-with-its-corresponding-line-number-at-the-beginning">5.4) Use the <em>nl</em> command to print each line of <em>sample_1.fastq</em> with its corresponding line number at the beginning.<a class="headerlink" href="#54-use-the-nl-command-to-print-each-line-of-sample_1fastq-with-its-corresponding-line-number-at-the-beginning" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Check answer to 5.3.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>$<span class="w"> </span>nl<span class="w"> </span>sample_1.fastq
+</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a><span class="w">     </span><span class="m">1</span><span class="w">  </span>@IRIS:7:1:17:394#0/1
+</span><span id="__span-64-3"><a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a><span class="w">     </span><span class="m">2</span><span class="w">  </span>GTCAGGACAAGAAAGACAANTCCAATTNACATTATG
+</span><span id="__span-64-4"><a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a><span class="w">     </span><span class="m">3</span><span class="w">  </span>+IRIS:7:1:17:394#0/1
+</span><span id="__span-64-5"><a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a><span class="w">     </span><span class="m">4</span><span class="w">  </span>aaabaa<span class="sb">`</span><span class="o">]</span>baaaaa_aab<span class="o">]</span>D^^<span class="sb">`</span>b<span class="sb">`</span>aYDW<span class="o">]</span>abaa<span class="sb">`</span>^
+</span><span id="__span-64-6"><a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a><span class="w">     </span><span class="m">5</span><span class="w">  </span>@IRIS:7:1:17:800#0/1
+</span><span id="__span-64-7"><a id="__codelineno-64-7" name="__codelineno-64-7" href="#__codelineno-64-7"></a><span class="w">     </span><span class="m">6</span><span class="w">  </span>GGAAACACTACTTAGGCTTATAAGATCNGGTTGCGG
+</span><span id="__span-64-8"><a id="__codelineno-64-8" name="__codelineno-64-8" href="#__codelineno-64-8"></a><span class="w">     </span><span class="m">7</span><span class="w">  </span>+IRIS:7:1:17:800#0/1
+</span><span id="__span-64-9"><a id="__codelineno-64-9" name="__codelineno-64-9" href="#__codelineno-64-9"></a><span class="w">     </span><span class="m">8</span><span class="w">  </span>ababbaaabaaaaa<span class="sb">`</span><span class="o">]</span><span class="sb">`</span>ba<span class="sb">`</span><span class="o">]</span><span class="sb">`</span>aaaaYD<span class="se">\\</span>_a<span class="sb">``</span>XT
+</span><span id="__span-64-10"><a id="__codelineno-64-10" name="__codelineno-64-10" href="#__codelineno-64-10"></a>...<span class="w"> </span>AND<span class="w"> </span>MUCH<span class="w"> </span>MUCH<span class="w"> </span>MORE<span class="w"> </span>...
+</span></code></pre></div>
+
+There are a lot of lines in that file so this command might take a while to print all its output.
+If you get tired of looking at the output you can kill the command with *control-c* (hold the
+*control* key down and simultaneously press the "*c*" character).
+
+</details>
+
+<hr />
+<h4 id="55-redirect-the-output-of-the-previous-command-to-a-file-called-sample_1fastqnl">5.5) Redirect the output of the previous command to a file called <em>sample_1.fastq.nl</em>.<a class="headerlink" href="#55-redirect-the-output-of-the-previous-command-to-a-file-called-sample_1fastqnl" title="Permanent link">&para;</a></h4>
+<p>Check the first <em>20</em> lines of <em>sample_1.fastq.nl</em> with the <em>head</em> command. Use the <em>less</em> command to
+interactively view the contents of <em>sample_1.fastq.nl</em> (use the arrow keys to navigate up and down,
+<em>q</em> to quit and &lsquo;<em>/</em>&rsquo; to search). Use the search facility in less to find occurrences of
+<em>GATTACA</em>.</p>
+<details>
+  <summary>Hint</summary>
+
+Ok that one was tough, *> FILENAME* is how you do it if you didn't break out an internet search for
+"redirect the output in Unix"
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>$<span class="w"> </span>nl<span class="w"> </span>sample_1.fastq<span class="w"> </span>&gt;<span class="w"> </span>sample_1.fastq.nl
+</span></code></pre></div>
+
+The greater-than sign "*>*" is the file redirection operator. It causes the standard output of the
+command on the left-hand-side to be written to the file on the right-hand-side.
+
+You should notice that the above command is much faster than printing the output to the screen.
+This is because writing to disk can be performed much more quickly than rendering the output on
+a terminal.
+
+To check that the first 20 lines of the file look reasonable you can use the *head* command like so:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>$<span class="w"> </span>head<span class="w"> </span>-20<span class="w"> </span>sample_1.fastq.nl
+</span><span id="__span-66-2"><a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a><span class="w">     </span><span class="m">1</span><span class="w">  </span>@IRIS:7:1:17:394#0/1
+</span><span id="__span-66-3"><a id="__codelineno-66-3" name="__codelineno-66-3" href="#__codelineno-66-3"></a><span class="w">     </span><span class="m">2</span><span class="w">  </span>GTCAGGACAAGAAAGACAANTCCAATTNACATTATG
+</span><span id="__span-66-4"><a id="__codelineno-66-4" name="__codelineno-66-4" href="#__codelineno-66-4"></a><span class="w">     </span><span class="m">3</span><span class="w">  </span>+IRIS:7:1:17:394#0/1
+</span><span id="__span-66-5"><a id="__codelineno-66-5" name="__codelineno-66-5" href="#__codelineno-66-5"></a><span class="w">     </span><span class="m">4</span><span class="w">  </span>aaabaa<span class="sb">`</span><span class="o">]</span>baaaaa_aab<span class="o">]</span>D^^<span class="sb">`</span>b<span class="sb">`</span>aYDW<span class="o">]</span>abaa<span class="sb">`</span>^
+</span><span id="__span-66-6"><a id="__codelineno-66-6" name="__codelineno-66-6" href="#__codelineno-66-6"></a><span class="w">     </span><span class="m">5</span><span class="w">  </span>@IRIS:7:1:17:800#0/1
+</span><span id="__span-66-7"><a id="__codelineno-66-7" name="__codelineno-66-7" href="#__codelineno-66-7"></a><span class="w">     </span><span class="m">6</span><span class="w">  </span>GGAAACACTACTTAGGCTTATAAGATCNGGTTGCGG
+</span><span id="__span-66-8"><a id="__codelineno-66-8" name="__codelineno-66-8" href="#__codelineno-66-8"></a><span class="w">     </span><span class="m">7</span><span class="w">  </span>+IRIS:7:1:17:800#0/1
+</span><span id="__span-66-9"><a id="__codelineno-66-9" name="__codelineno-66-9" href="#__codelineno-66-9"></a><span class="w">     </span><span class="m">8</span><span class="w">  </span>ababbaaabaaaaa<span class="sb">`</span><span class="o">]</span><span class="sb">`</span>ba<span class="sb">`</span><span class="o">]</span><span class="sb">`</span>aaaaYD<span class="se">\\</span>_a<span class="sb">``</span>XT
+</span><span id="__span-66-10"><a id="__codelineno-66-10" name="__codelineno-66-10" href="#__codelineno-66-10"></a>...
+</span></code></pre></div>
+
+The *less* command allows you to interactively view a file. The arrow keys move the page up and
+down. You can search using the '*/*' followed by the search term. You can quit by pressing "*q*". Note
+that the *less* command is used by default to display man pages.
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>$<span class="w"> </span>less<span class="w"> </span>sample_1.fastq.nl
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="56-the-four-lines-per-read-format-of-fastq-is-cumbersome-to-deal-with-often-it-would-be-preferable-if-we-could-convert-it-to-tab-separated-value-tsv-format-such-that-each-read-appears-on-a-single-line-with-each-of-its-fields-separated-by-tabs-use-the-following-command-to-convert-sample_1fastq-into-tsv-format">5.6) The four-lines-per-read format of FASTQ is cumbersome to deal with. Often it would be preferable if we could convert it to tab-separated-value (TSV) format, such that each read appears on a single line with each of its fields separated by tabs. Use the following command to convert sample_1.fastq into TSV format:<a class="headerlink" href="#56-the-four-lines-per-read-format-of-fastq-is-cumbersome-to-deal-with-often-it-would-be-preferable-if-we-could-convert-it-to-tab-separated-value-tsv-format-such-that-each-read-appears-on-a-single-line-with-each-of-its-fields-separated-by-tabs-use-the-following-command-to-convert-sample_1fastq-into-tsv-format" title="Permanent link">&para;</a></h4>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>$<span class="w"> </span>cat<span class="w"> </span>sample_1.fastq<span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>&gt;<span class="w"> </span>sample_1.tsv
+</span></code></pre></div>
+<details>
+  <summary>Answer</summary>
+
+The *'-'* (dash) character has a special meaning when used in place of a file; it means use the standard
+input instead of a real file.  Note: while it is fairly common in most Unix programs, not all will support it.
+
+The *paste* command is useful for merging multiple files together line-by-line, such that the *Nth*
+line from each file is joined together into one line in the output, separated by default with a
+*tab* character. In the above example we give paste 4 copies of the contents of *sample_1.fastq*,
+which causes it to join consecutive groups of 4 lines from the file into one line of output.
+
+</details>
+
+<hr />
+<h4 id="57-do-you-expect-the-output-of-the-following-command-to-produce-the-same-output-as-above-and-why">5.7) Do you expect the output of the following command to produce the same output as above? and why?<a class="headerlink" href="#57-do-you-expect-the-output-of-the-following-command-to-produce-the-same-output-as-above-and-why" title="Permanent link">&para;</a></h4>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>$<span class="w"> </span>paste<span class="w"> </span>sample_1.fastq<span class="w"> </span>sample_1.fastq<span class="w"> </span>sample_1.fastq<span class="w"> </span>sample_1.fastq<span class="w"> </span>&gt;<span class="w"> </span>sample_1b.tsv
+</span></code></pre></div>
+<p>Try it, see what ends up in sample_1b.tsv (maybe use <em>less</em>)</p>
+<details>
+  <summary>Hint</summary>
+
+Use *less* to examine it.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+**Answer**: No, in the second instance we get 4 copies of each line.
+
+**Why**: In the first command *paste* will use the input file (standard input) 4 times since the *cat*
+command will only give one copy of the file to *paste*, where as, in the second command *paste* will open
+the file 4 times.  Note: this is quite confusing and is not necessory to remember; its just an interesting
+side point.
+
+</details>
+
+<hr />
+<h4 id="58-check-that-sample_1tsv-has-the-correct-number-of-lines-use-the-head-command-to-view-the-first-20-lines-of-the-file">5.8) Check that <em>sample_1.tsv</em> has the correct number of lines. Use the <em>head</em> command to view the first <em>20</em> lines of the file.<a class="headerlink" href="#58-check-that-sample_1tsv-has-the-correct-number-of-lines-use-the-head-command-to-view-the-first-20-lines-of-the-file" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Remember the *wc* command.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+We can count the number of lines in *sample_1.tsv* using *wc*:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>$<span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span>sample_1.tsv
+</span></code></pre></div>
+
+The output should be *750000* as expected (1/4 of the number of lines in sample_1.fastq).
+
+To view the first *20* lines of *sample_1.tsv* use the *head* command:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>$<span class="w"> </span>head<span class="w"> </span>-20<span class="w"> </span>sample_1.tsv
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="59-use-the-cut-command-to-print-out-the-second-column-of-sample_1tsv-redirect-the-output-to-a-file-called-sample_1dnatxt">5.9) Use the <em>cut</em> command to print out the second column of <em>sample_1.tsv</em>. Redirect the output to a file called <em>sample_1.dna.txt</em>.<a class="headerlink" href="#59-use-the-cut-command-to-print-out-the-second-column-of-sample_1tsv-redirect-the-output-to-a-file-called-sample_1dnatxt" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+See exercise 5.3 (for cut) and 5.5 (redirection)
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+The file sample_1.tsv is in column format. The cut command can be used to select certain columns
+from the file. The DNA sequences appear in column 2, we select that column using the -f 2 flag
+(the f stands for "field").
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">2</span><span class="w"> </span>sample_1.tsv<span class="w"> </span>&gt;<span class="w"> </span>sample_1.dna.txt
+</span></code></pre></div>
+
+Check that the output file looks reasonable using *head* or *less*.
+
+</details>
+
+<hr />
+<h4 id="510-use-the-sort-command-to-sort-the-lines-of-sample_1dnatxt-and-redirect-the-output-to-sample_1dnasortedtxt-use-head-to-look-at-the-first-few-lines-of-the-output-file-you-should-see-a-lot-of-repeated-sequences-of-as">5.10) Use the <em>sort</em> command to sort the lines of <em>sample_1.dna.txt</em> and redirect the output to <em>sample_1.dna.sorted.txt</em>. Use <em>head</em> to look at the first few lines of the output file. You should see a lot of repeated sequences of As.<a class="headerlink" href="#510-use-the-sort-command-to-sort-the-lines-of-sample_1dnatxt-and-redirect-the-output-to-sample_1dnasortedtxt-use-head-to-look-at-the-first-few-lines-of-the-output-file-you-should-see-a-lot-of-repeated-sequences-of-as" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Use *man* (sort) and see exercise 5.5 (redirection)
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>$<span class="w"> </span>sort<span class="w"> </span>sample_1.dna.txt<span class="w"> </span>&gt;<span class="w"> </span>sample_1.dna.sorted.txt
+</span></code></pre></div>
+
+Running *head* on the output file reveals that there are duplicate DNA sequences in the input FASTQ
+file.
+
+</details>
+
+<hr />
+<h4 id="511-use-the-uniq-command-to-remove-duplicate-consecutive-lines-from-sample_1dnasortedtxt-redirect-the-result-to-sample_1dnauniqtxt-compare-the-number-of-lines-in-sample1_dnatxt-to-the-number-of-lines-in-sample_1dnauniqtxt">5.11) Use the <em>uniq</em> command to remove duplicate consecutive lines from <em>sample_1.dna.sorted.txt</em>, redirect the result to <em>sample_1.dna.uniq.txt</em>. Compare the number of lines in sample1_dna.txt to the number of lines in <em>sample_1.dna.uniq.txt</em>.<a class="headerlink" href="#511-use-the-uniq-command-to-remove-duplicate-consecutive-lines-from-sample_1dnasortedtxt-redirect-the-result-to-sample_1dnauniqtxt-compare-the-number-of-lines-in-sample1_dnatxt-to-the-number-of-lines-in-sample_1dnauniqtxt" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+I am pretty sure you have already used *man* (or just guessed how to use *uniq*).  You're also a gun at
+redirection now.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>$<span class="w"> </span>uniq<span class="w"> </span>sample_1.dna.sorted.txt<span class="w"> </span>&gt;<span class="w"> </span>sample_1.dna.uniq.txt
+</span></code></pre></div>
+
+Compare the outputs of:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>$<span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span>sample_1.dna.sorted.txt
+</span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a><span class="m">750000</span>
+</span><span id="__span-75-3"><a id="__codelineno-75-3" name="__codelineno-75-3" href="#__codelineno-75-3"></a>$<span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span>sample_1.dna.uniq.txt
+</span><span id="__span-75-4"><a id="__codelineno-75-4" name="__codelineno-75-4" href="#__codelineno-75-4"></a><span class="m">614490</span>
+</span></code></pre></div>
+
+View the contents of *sample_1.dna.uniq.txt* to check that the duplicate DNA sequences have been
+removed.
+
+</details>
+
+<hr />
+<h4 id="512-can-you-modify-the-command-from-above-to-produce-only-those-sequences-of-dna-which-were-duplicated-in-sample_1dnasortedtxt">5.12) Can you modify the command from above to produce <em>only</em> those sequences of DNA which were duplicated in <em>sample_1.dna.sorted.txt</em>?<a class="headerlink" href="#512-can-you-modify-the-command-from-above-to-produce-only-those-sequences-of-dna-which-were-duplicated-in-sample_1dnasortedtxt" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Checkout the *uniq* manpage
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+Look at the man page for uniq.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Use the *-d* flag to *uniq* to print out only the duplicated lines from the file:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>$<span class="w"> </span>uniq<span class="w"> </span>-d<span class="w"> </span>sample_1.dna.sorted.txt<span class="w"> </span>&gt;<span class="w"> </span>sample_1.dna.dup.txt
+</span></code></pre></div>
+
+</details>
+
+<hr />
+<h4 id="513-write-a-shell-pipeline-which-will-print-the-number-of-duplicated-dna-sequences-in-sample_1fastq">5.13) Write a <em>shell pipeline</em> which will print the number of duplicated DNA sequences in sample_1.fastq.<a class="headerlink" href="#513-write-a-shell-pipeline-which-will-print-the-number-of-duplicated-dna-sequences-in-sample_1fastq" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+That is, *piping* most of the commands you used above instead of redirecting to file
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+i.e. 6 commands (*cat*, *paste*, *cut*, *sort*, *uniq*, *wc*)
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Finally we can 'pipe' all the pieces together into a sophisticated pipeline which starts with a
+FASTQ file and ends with a list of duplicated DNA sequences:
+
+**Answer**:
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>$<span class="w"> </span>cat<span class="w"> </span>sample_1.fastq<span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</span><span id="__span-77-2"><a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a><span class="m">56079</span>
+</span></code></pre></div>
+
+The output file should have *56079* lines.
+
+</details>
+
+<hr />
+<h4 id="514-advanced-write-a-shell-script-which-will-print-the-number-of-duplicated-dna-sequences-in-sample_1fastq">5.14) (Advanced) Write a shell script which will print the number of duplicated DNA sequences in sample_1.fastq.<a class="headerlink" href="#514-advanced-write-a-shell-script-which-will-print-the-number-of-duplicated-dna-sequences-in-sample_1fastq" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Check out the *sleepy* file (with *cat* or *nano*); there is a bit of magic on the first line that you will need.
+
+You also need to tell bash that this file can be executed (check out *chmod* command).
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Put the answer to *5.13* into a file called *sample_1_dups.sh* (or whatever you want). Use *nano* to
+create the file.
+
+**Answer**: the contents of the file will look like this:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-78-2"><a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a>
+</span><span id="__span-78-3"><a id="__codelineno-78-3" name="__codelineno-78-3" href="#__codelineno-78-3"></a>cat<span class="w"> </span>sample_1.fastq<span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</span></code></pre></div>
+
+<div class="info"><b>Note</b>: the first line has special meaning.  If it starts with '<em>#!</em>' (Hash
+then exclamation mark) then it tells bash this file is a script that can be interpreted.  The command
+(including full path) used to intepret the script is placed right after the magic code.</div>
+
+Give everyone execute permissions on the file with chmod:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>sample_1_dups.sh
+</span></code></pre></div>
+
+You can run the script like so:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>$<span class="w"> </span>./sample_1_dups.sh
+</span></code></pre></div>
+
+If all goes well the script should behave in exactly the same way as the answer to 5.13.
+
+</details>
+
+<hr />
+<h4 id="515-advanced-modify-your-shell-script-so-that-it-accepts-the-name-of-the-input-fastq-file-as-a-command-line-parameter">5.15) (Advanced) Modify your shell script so that it accepts the name of the input FASTQ file as a command line parameter.<a class="headerlink" href="#515-advanced-modify-your-shell-script-so-that-it-accepts-the-name-of-the-input-fastq-file-as-a-command-line-parameter" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Hint</summary>
+
+Shell scripts can refer to command line arguments by their position using special variables called
+*$0*, *$1*, *$2* and so on.
+
+</details>
+
+<details>
+  <summary>Additional Hint</summary>
+
+*$0* refers to the name of the script as it was called on the command line.
+*$1* refers to the first command line argument, and so on.
+
+</details>
+
+<details>
+  <summary>Answer</summary>
+
+Copy the shell script from *5.14* into a new file:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>$<span class="w"> </span>cp<span class="w"> </span>sample_1_dups.sh<span class="w"> </span>fastq_dups.sh
+</span></code></pre></div>
+
+Edit the new shell script file and change it to use the command line parameters:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-82-2"><a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a>
+</span><span id="__span-82-3"><a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a>cat<span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</span></code></pre></div>
+
+You can run the new script like so:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>$<span class="w"> </span>./fastq_dups.sh<span class="w"> </span>sample_1.fastq
+</span></code></pre></div>
+
+In the above example the script takes *sample_1.fastq* as input and prints the number of duplicated
+sequences as output.
+
+**A better Answer**:
+
+Ideally we would write our shell script to be more robust. At the moment it just assumes there
+will be at least one command line argument. However, it would be better to check and produce an
+error message if insufficient arguments were given:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2" href="#__codelineno-84-2"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3" href="#__codelineno-84-3"></a><span class="w">    </span>cat<span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</span><span id="__span-84-4"><a id="__codelineno-84-4" name="__codelineno-84-4" href="#__codelineno-84-4"></a><span class="k">else</span>
+</span><span id="__span-84-5"><a id="__codelineno-84-5" name="__codelineno-84-5" href="#__codelineno-84-5"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Usage: </span><span class="nv">$0</span><span class="s2"> &lt;fastq_filename&gt;&quot;</span>
+</span><span id="__span-84-6"><a id="__codelineno-84-6" name="__codelineno-84-6" href="#__codelineno-84-6"></a><span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-84-7"><a id="__codelineno-84-7" name="__codelineno-84-7" href="#__codelineno-84-7"></a><span class="k">fi</span>
+</span></code></pre></div>
+
+The '*if ...; then*' line means: do the following line(s) ONLY if the *...* (called condition) bit is true.
+
+The '*else*' line means: otherwise do the following line(s) instead.  Note: it is optional.
+
+The '*fi*' line means: this marks the end of the current *if* or *else* section.
+
+The '*[ $# -eq 1 ]*' part is the condition:
+
+* *$#*: is a special shell variable that indicates how many command line arguments were given.
+* *-eq*: checks if the numbers on either side of it are equal.
+* *1*: is a number one
+
+<div class="warning"><b>Spaces in conditions</b>:
+Bash is VERY picky about the spaces within the conditions; if you get it wrong it will just behave strangely
+(without warning).  You MUST put a space near the share brackets and between each part of the condition!</div>
+
+So in words our script is saying "if user provided 1 filename, then count the duplicates, otherwise print an error".
+
+<div class="info"><b>Exit-status</b>:
+It is a Unix standard that when the user provides incorrect commandline arguments we print a usage message
+and return a *non-zero* exit status.  The *exit status* is a standard way for other programs to know if
+our program ran correctly; 0 means everything went as expected, any other number is an error.  If you don't
+provide an *exit ..* line then it automatically returns a 0 for you.</div>
+
+</details>
+
+<hr />
+<h4 id="516-advanced-modify-your-shell-script-so-that-it-accepts-zero-or-more-fastq-files-on-the-command-line-argument-and-outputs-the-number-of-duplicated-dna-sequences-in-each-file">5.16) (Advanced) Modify your shell script so that it accepts zero or more FASTQ files on the command line argument and outputs the number of duplicated DNA sequences in each file.<a class="headerlink" href="#516-advanced-modify-your-shell-script-so-that-it-accepts-zero-or-more-fastq-files-on-the-command-line-argument-and-outputs-the-number-of-duplicated-dna-sequences-in-each-file" title="Permanent link">&para;</a></h4>
+<details>
+  <summary>Answer</summary>
+
+We can add a loop to our script to accept multiple input FASTQ files:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$@</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-85-3"><a id="__codelineno-85-3" name="__codelineno-85-3" href="#__codelineno-85-3"></a><span class="w">    </span><span class="nv">dups</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span>-<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span>
+</span><span id="__span-85-4"><a id="__codelineno-85-4" name="__codelineno-85-4" href="#__codelineno-85-4"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$file</span><span class="s2"> </span><span class="nv">$dups</span><span class="s2">&quot;</span>
+</span><span id="__span-85-5"><a id="__codelineno-85-5" name="__codelineno-85-5" href="#__codelineno-85-5"></a><span class="k">done</span>
+</span></code></pre></div>
+
+There's a lot going on in this script.
+
+The *$@* is a sequence of all command line arguments.
+
+The '*for ...; do*' (a.k.a. for loop) iterates over that sequence one argument at a time, assigning the current argument in
+the sequence to the variable called *file*.
+
+The *$(...)* allow us to capture the output of another command (in-place of the *...*).  In this
+case we capture the output of the pipeline and save it to the variable called *dups*.
+
+If you had multiple FASTQ files available you could run the script like so:
+
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>./fastq_dups.sh<span class="w"> </span>sample_1.fastq<span class="w"> </span>sample_2.fastq<span class="w"> </span>sample_3.fastq
+</span></code></pre></div>
+
+And it would produce output like:
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>sample_1.fastq 56079
+</span><span id="__span-87-2"><a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a>sample_2.fastq XXXXX
+</span><span id="__span-87-3"><a id="__codelineno-87-3" name="__codelineno-87-3" href="#__codelineno-87-3"></a>sample_3.fastq YYYYY
+</span></code></pre></div>
+
+</details>
+
+<h2 id="finished">Finished<a class="headerlink" href="#finished" title="Permanent link">&para;</a></h2>
+<p>Well done, you learnt a lot over the last 5 topics and you should be proud of your achievement; it
+was a lot to take in.</p>
+<p>From here you should be comfortable around the Unix command line and ready to take on the HPC
+Workshop.</p>
+<p>You will no-doubt forget a lot of what you learnt here so I encourage you to save a link to this
+workshop for later reference.</p>
+<p>Thank you for your attendance, please don&rsquo;t forget to complete the training survey and give it
+back to the workshop facilitators.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

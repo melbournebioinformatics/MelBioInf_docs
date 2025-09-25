@@ -1,0 +1,3179 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../assembly/spades/">
+      
+      
+        <link rel="next" href="../hybrid_assembly/nanopore_assembly/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>de novo assembly of PacBio reads (unix) - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#long-read-assembly-workshop" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              de novo assembly of PacBio reads (unix)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-get-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Get started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Get started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mac-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mac users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activate-the-conda-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activate the conda environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-new-working-directory-on-your-remote-computer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a new working directory on your remote computer.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-get-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Get data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-assemble" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Assemble
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-check-assembly-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Check assembly output
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Check assembly output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-trim-and-circularise" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Trim and circularise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Trim and circularise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-circlator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run Circlator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-the-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check the output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#questions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-find-smaller-plasmids" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Find smaller plasmids
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Find smaller plasmids">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#align-illumina-reads-to-the-pacbio-contig" class="md-nav__link">
+    <span class="md-ellipsis">
+      Align Illumina reads to the PacBio contig
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-unmapped-illumina-reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extract unmapped Illumina reads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assemble-the-unmapped-reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assemble the unmapped reads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trim-the-plasmid" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trim the plasmid
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collect-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Collect contigs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#questions_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-correct-the-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Correct the assembly
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Correct the assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#make-an-alignment-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make an alignment file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-pilon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run Pilon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#questions_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-comparative-genomics" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Comparative Genomics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Comparative Genomics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assemblies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assemblies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Annotations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-get-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Get started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Get started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mac-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mac users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activate-the-conda-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activate the conda environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-new-working-directory-on-your-remote-computer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a new working directory on your remote computer.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-get-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Get data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-assemble" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Assemble
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-check-assembly-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Check assembly output
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Check assembly output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-trim-and-circularise" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Trim and circularise
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Trim and circularise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-circlator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run Circlator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-the-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check the output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#questions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-find-smaller-plasmids" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Find smaller plasmids
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Find smaller plasmids">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#align-illumina-reads-to-the-pacbio-contig" class="md-nav__link">
+    <span class="md-ellipsis">
+      Align Illumina reads to the PacBio contig
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-unmapped-illumina-reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extract unmapped Illumina reads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assemble-the-unmapped-reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assemble the unmapped reads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trim-the-plasmid" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trim the plasmid
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collect-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Collect contigs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#questions_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-correct-the-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Correct the assembly
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Correct the assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#make-an-alignment-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make an alignment file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-pilon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run Pilon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#questions_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-comparative-genomics" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Comparative Genomics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Comparative Genomics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assemblies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assemblies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Annotations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<!-- 
+PR reviewers and advice: Anna Syme, Torsten Seemann
+
+Current slides:
+
+Introduction to de novo Genome Assembly - Torsten
+https://docs.google.com/presentation/d/e/2PACX-1vTtD05xhmuPYMSo_HbOCCiHPGXw9axe5O5sxnIoTtdzABAFaYaU1hKNMcQOFeT9YrJz4HwEAD60ctwC/pub?start=false&loop=false&delayms=3000&slide=id.p
+
+Long read sequencing - Torsten
+https://docs.google.com/presentation/d/e/2PACX-1vRMRr2IjvLRSSE9IQ1oK93B43a1E5Mrm5y3oc7e6cH9394sSVcMh26WUJYlZVXeR5Y9iSO2hZEEmwlM/pub?start=false&loop=false&delayms=3000&slide=id.p
+
+
+Other slides:
+
+- None yet
+-->
+
+<h1 id="long-read-assembly-workshop">Long read assembly workshop<a class="headerlink" href="#long-read-assembly-workshop" title="Permanent link">&para;</a></h1>
+<p>This is a tutorial for a workshop on long-read (PacBio) genome assembly.</p>
+<p>It demonstrates how to use long PacBio sequencing reads to assemble a bacterial genome, and includes additional steps for circularising, trimming, finding plasmids, and correcting the assembly with short-read Illumina data.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Simplified version of workflow:</p>
+<p><img alt="workflow" src="images/flowchart.png" /></p>
+<h2 id="1-get-started">1. Get started<a class="headerlink" href="#1-get-started" title="Permanent link">&para;</a></h2>
+<p>Your workshop trainers will provide you with the address of a virtual machine.</p>
+<h3 id="mac-users">Mac users<a class="headerlink" href="#mac-users" title="Permanent link">&para;</a></h3>
+<p>Open the Terminal.</p>
+<ul>
+<li>Type in</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ssh researcher@[your virtual machine address]
+</span></code></pre></div>
+<ul>
+<li>Type in the password provided.</li>
+</ul>
+<h3 id="windows-users">Windows users<a class="headerlink" href="#windows-users" title="Permanent link">&para;</a></h3>
+<p>If you are using Windows 10, you might be able to use the Ubuntu Subsystem. Otherwise, install and open Putty.</p>
+<ul>
+<li>Download putty <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">here</a>.</li>
+<li>Open. A configuration window will appear.</li>
+<li>Under &ldquo;Host Name (or IP address)&rdquo; enter in the address of your virtual machine.</li>
+<li>Under &ldquo;Port&rdquo; type in 22</li>
+<li>Under &ldquo;Connection Type&rdquo; select &ldquo;SSH&rdquo;</li>
+<li>Click &ldquo;Open&rdquo;</li>
+<li>Under &ldquo;Login as:&rdquo; enter &ldquo;researcher&rdquo;</li>
+<li>Type in the password provided.</li>
+</ul>
+<h3 id="activate-the-conda-environment">Activate the conda environment<a class="headerlink" href="#activate-the-conda-environment" title="Permanent link">&para;</a></h3>
+<p>Type in:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>source /mnt/gvl/apps/conda/bin/activate
+</span></code></pre></div></p>
+<p>(This points us to some different directories for the software we need).</p>
+<h3 id="create-a-new-working-directory-on-your-remote-computer">Create a new working directory on your remote computer.<a class="headerlink" href="#create-a-new-working-directory-on-your-remote-computer" title="Permanent link">&para;</a></h3>
+<p>Because we are starting a new analysis it is always good practice to start in a new empty directory. Therefore, we will create a new directory and change to it for the rest of the workshop.</p>
+<p>In your terminal:</p>
+<ul>
+<li>Create a new directory called &ldquo;Workshop&rdquo;</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>mkdir Workshop
+</span></code></pre></div>
+<ul>
+<li>Change to that directory</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>cd Workshop
+</span></code></pre></div>
+<p><strong>NOTE: Every time you open a new terminal or Putty session, you will need to make sure you are in this directory again.</strong></p>
+<p>Find your current directory by typing:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pwd
+</span></code></pre></div>
+<h2 id="2-get-data">2. Get data<a class="headerlink" href="#2-get-data" title="Permanent link">&para;</a></h2>
+<p>The sample used in this tutorial is from a bacteria called <em>Staphylococcus aureus</em>. We have used a small section of its real genome so that the programs can run in the workshop time.</p>
+<p>The files we need are:</p>
+<ul>
+<li><fn>pacbio.fq</fn>: the PacBio reads</li>
+<li><fn>R1.fq</fn>: the Illumina forward reads</li>
+<li><fn>R2.fq</fn>: the Illumina reverse reads</li>
+</ul>
+<p>In a new tab, go to <a href="https://doi.org/10.5281/zenodo.1009308">https://doi.org/10.5281/zenodo.1009308</a>.</p>
+<ul>
+<li>Next to the first file, right-click (or control-click) the &ldquo;Download&rdquo; button, and select &ldquo;Copy link address&rdquo;.</li>
+<li>Back in your terminal, enter
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>wget [paste file link here]
+</span></code></pre></div></li>
+<li>The file should download.</li>
+<li><em>Note:</em> paste the link to the file, not to the webpage.</li>
+<li>Repeat this for the other two files.</li>
+</ul>
+<p>Shorten each of these files names with the <code>mv</code> command:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>mv R1.fq\?download\=1 R1.fq
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>mv R2.fq\?download\=1 R2.fq
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>mv pacbio.fq\?download\=1 pacbio.fq
+</span></code></pre></div>
+<p>Type in <code>ls</code> to check the files are present and correctly-named.</p>
+<p>We should have <fn>R1.fq</fn>, <fn>R2.fq</fn> and <fn>pacbio.fq</fn>.</p>
+<h2 id="3-assemble">3. Assemble<a name="assemble"></a><a class="headerlink" href="#3-assemble" title="Permanent link">&para;</a></h2>
+<p>We will use the assembly software called <a href="http://canu.readthedocs.io/en/stable/">Canu</a>, version 1.7.</p>
+<p>Run Canu with these commands:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>canu -p canu -d canu_outdir genomeSize=0.03m corThreads=3 -pacbio-raw pacbio.fq
+</span></code></pre></div>
+<ul>
+<li>the first <code>canu</code> tells the program to run</li>
+<li><code>-p canu</code> names prefix for output files (&ldquo;canu&rdquo;)</li>
+<li><code>-d canu_outdir</code> names output directory (&ldquo;canu_outdir&rdquo;)</li>
+<li><code>genomeSize</code> only has to be approximate. (In this case we are using a partial genome of expected size 30,000 base pairs).</li>
+<li><code>corThreads=3</code> sets the number of available threads.</li>
+<li>Canu will correct, trim and assemble the reads.</li>
+<li>Various output will be displayed on the screen.</li>
+<li><em>Note</em>: Canu could say &ldquo;Finished&rdquo; but may still be running. In this case, type <code>squeue</code> to see if jobs are still running.</li>
+</ul>
+<p>If you run <code>squeue</code> you will see something like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>                 6      main canu_can research PD       0:00      1 (Dependency)
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>               5_1      main cormhap_ research  R       0:29      1 master
+</span></code></pre></div>
+<p>You will know if <strong>Canu</strong> has completely finished when <code>squeue</code> shows no jobs listed under the header row.</p>
+<h2 id="4-check-assembly-output">4. Check assembly output<a class="headerlink" href="#4-check-assembly-output" title="Permanent link">&para;</a></h2>
+<p>Move into the canu output folder:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>cd canu_outdir
+</span></code></pre></div></p>
+<p>View the list of files:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ls
+</span></code></pre></div></p>
+<ul>
+<li>The <fn>canu.contigs.fasta</fn> are the assembled sequences.</li>
+<li>The <fn>canu.unassembled.fasta</fn> are the reads that could not be assembled.</li>
+<li>The <fn>canu.correctedReads.fasta.gz</fn> are the corrected Pacbio reads that were used in the assembly.</li>
+<li>The <fn>canu.contigs.gfa</fn> is the graph of the assembly.</li>
+<li>The <fn>canu.report</fn> file is a summary of all of the steps Canu performed with information about the reads used, how they were handled and a whole lot of summary information about the assembly.</li>
+</ul>
+<p>Display summary information about the contigs: (<code>infoseq</code> is a tool from <a href="http://emboss.sourceforge.net/index.html">EMBOSS</a>)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>infoseq canu.contigs.fasta
+</span></code></pre></div>
+<ul>
+<li>This will show the contigs found by Canu. e.g.,  tig00000001  47997</li>
+<li>&ldquo;tig00000001&rdquo; is the name given to the contig</li>
+<li>&ldquo;47997&rdquo; is the number of base pairs in that contig.</li>
+</ul>
+<p>This matches what we were expecting for this sample (approximately 30,000 base pairs). For other data, Canu may not be able to join all the reads into one contig, so there may be several contigs in the output.</p>
+<p>We should also look at the <fn>canu.report</fn>. To do this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>less canu.report
+</span></code></pre></div>
+<ul>
+<li>&ldquo;less&rdquo; is a command to display the file on the screen.</li>
+<li>Use the up and down arrows to scroll up and down.</li>
+<li>You will see lots of histograms of read lengths before and after processing, final contig construction, etc.</li>
+<li>For a description of the outputs that Canu produces, see: <a href="http://canu.readthedocs.io/en/latest/tutorial.html#outputs">http://canu.readthedocs.io/en/latest/tutorial.html#outputs</a></li>
+<li>Type <code>q</code> to exit viewing the report.</li>
+</ul>
+<h3 id="questions">Questions<a class="headerlink" href="#questions" title="Permanent link">&para;</a></h3>
+<p>How do long- and short-read assembly methods differ?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Short reads are usually assembled with De Bruijn graphs. For long reads, there is a move back towards simpler overlap-layout-consensus methods.
+</details>
+
+<p>Where can we find out the what the approximate genome size should be for the species being assembled?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Go to NCBI Genomes, enter species name, click on Genome Assembly and Annotation report, sort table by clicking on the column header Size (Mb), look at range of sizes in this column.
+</details>
+
+<p>In the assembly output, what are the unassembled reads?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Reads and low-coverage contigs that were not used in the assembly.
+</details>
+
+<p>What are the corrected reads? How did canu correct the reads?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Canu builds overlaps between reads. The consensus is used to correct the reads.
+</details>
+
+<p>Where could you view the output .gfa and what would it show?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+A useful program is [Bandage](https://rrwick.github.io/Bandage/). If the assembly has multiple contigs, the assembly graph shows how these are connected.
+</details>
+
+<h2 id="5-trim-and-circularise">5. Trim and circularise<a class="headerlink" href="#5-trim-and-circularise" title="Permanent link">&para;</a></h2>
+<p>Bacteria have circular chromosomes.</p>
+<ul>
+<li>Because of sequencing errors, there may be some &ldquo;overhang&rdquo; in the assembled linear sequence.</li>
+<li>Our assembly may have some overhang because it is 9000 bases longer than expected.</li>
+</ul>
+<p><img alt="circlator" src="images/circlator_diagram.png" />
+<em>Adapted from Figure 1. Hunt et al. Genome Biology 2015</em></p>
+<p>A tool called <a href="http://sanger-pathogens.github.io/circlator/">Circlator</a> identifies and trims overhangs (on chromosomes and plasmids). It takes in the assembled contigs from Canu, as well as the corrected reads prepared by Canu.</p>
+<p>Move back into your main analysis folder:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>cd ..
+</span></code></pre></div></p>
+<h3 id="run-circlator">Run Circlator<a class="headerlink" href="#run-circlator" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>circlator all --threads 4 --verbose canu_outdir/canu.contigs.fasta canu_outdir/canu.correctedReads.fasta.gz circlator_outdir
+</span></code></pre></div>
+<ul>
+<li>
+<p>(Click on the dark grey slider bar above and move it to the right, to see all the way to the end of the line.)</p>
+</li>
+<li>
+<p><code>--threads</code> is the number of cores</p>
+</li>
+<li><code>--verbose</code> prints progress information to the screen</li>
+<li><code>canu_outdir/canu.contigs.fasta</code> is the file path to the input Canu assembly</li>
+<li><code>canu_outdir/canu.correctedReads.fasta.gz</code> is the file path to the corrected Pacbio reads - note, fastA not fastQ</li>
+<li><code>circlator_outdir</code> is the name of the output directory.</li>
+</ul>
+<p>Some output will print to screen. When finished, it should say &ldquo;Circularized x of x contig(s)&rdquo;.</p>
+<h3 id="check-the-output">Check the output<a class="headerlink" href="#check-the-output" title="Permanent link">&para;</a></h3>
+<p>Move into the Circlator output directory:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>cd circlator_outdir
+</span></code></pre></div>
+<p>List the files:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ls
+</span></code></pre></div></p>
+<p>Circlator has named the output files with numbers as prefixes.</p>
+<p>Were the contigs circularised?</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>less 04.merge.circularise.log
+</span></code></pre></div>
+<ul>
+<li>&ldquo;less&rdquo; is a command to display the file on the screen.</li>
+<li><fn>04.merge.circularise.log</fn> is the name of the file.</li>
+<li>Yes, the contig was circularised (last column).</li>
+<li>Type <code>q</code> to exit.</li>
+</ul>
+<p>What are the trimmed contig sizes?
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>infoseq 06.fixstart.fasta
+</span></code></pre></div></p>
+<ul>
+<li>The contig &ldquo;tig00000001&rdquo; has a length of 30019.</li>
+<li>This is about 18,000 bases shorter than before circularisation. This was the &ldquo;overhang&rdquo; and has now been trimmed.</li>
+</ul>
+<p>Copy the circularised contigs file to the main analysis directory with a new name:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>cp 06.fixstart.fasta ../contig1.fasta
+</span></code></pre></div>
+<p>Move back into the main folder:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>cd ..
+</span></code></pre></div></p>
+<h3 id="questions_1">Questions<a class="headerlink" href="#questions_1" title="Permanent link">&para;</a></h3>
+<p>Were all the contigs circularised?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+In this example, yes, the contig was circularised.
+</details>
+
+<p>Circlator can set the start of the sequence at a particular gene. Which gene does it use? Is this appropriate for all contigs?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Circlator uses dnaA (if present) for the chromosomal contig. For other contigs, it uses a centrally-located gene. However, ideally, plasmids would be oriented on a gene such as repA. It is possible to provide a file to Circlator to do this.
+</details>
+
+<h2 id="6-find-smaller-plasmids">6. Find smaller plasmids<a class="headerlink" href="#6-find-smaller-plasmids" title="Permanent link">&para;</a></h2>
+<p>Pacbio reads are long, and may have been longer than small plasmids. We will look for any small plasmids using the Illumina reads.</p>
+<p>This section involves several steps:</p>
+<ol>
+<li>Use the Canu+Circlator output of a trimmed assembly contig.</li>
+<li>Map all the Illumina reads against this Pacbio-assembled contig.</li>
+<li>Extract any reads that <em>didn&rsquo;t</em> map and assemble them together: this could be a plasmid, or part of a plasmid.</li>
+<li>Look for overhang: if found, trim.</li>
+</ol>
+<h3 id="align-illumina-reads-to-the-pacbio-contig">Align Illumina reads to the PacBio contig<a class="headerlink" href="#align-illumina-reads-to-the-pacbio-contig" title="Permanent link">&para;</a></h3>
+<p>Index the contigs file:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>bwa index contig1.fasta
+</span></code></pre></div>
+<p>Align Illumina reads using using bwa mem:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>bwa mem -t 4 contig1.fasta R1.fq R2.fq | samtools sort &gt; aln.bam
+</span></code></pre></div>
+<ul>
+<li><code>bwa mem</code> is the alignment tool</li>
+<li><code>-t 4</code> is the number of cores</li>
+<li><code>contig1.fasta</code> is the input assembly file</li>
+<li><code>R1.fq R2.fq</code> are the Illumina reads</li>
+<li><code>| samtools sort</code> pipes the output to samtools to sort</li>
+<li><code>&gt; aln.bam</code> sends the alignment to the file <fn>aln.bam</fn></li>
+</ul>
+<h3 id="extract-unmapped-illumina-reads">Extract unmapped Illumina reads<a class="headerlink" href="#extract-unmapped-illumina-reads" title="Permanent link">&para;</a></h3>
+<p>Index the alignment file:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>samtools index aln.bam
+</span></code></pre></div>
+<p>Extract the fastq files from the bam alignment - those reads that were unmapped to the Pacbio alignment - and save them in various &ldquo;unmapped&rdquo; files:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>samtools fastq -f 4 -1 unmapped.R1.fastq -2 unmapped.R2.fastq -s unmapped.RS.fastq aln.bam
+</span></code></pre></div>
+<ul>
+<li><code>fastq</code> is a command that coverts a <fn>.bam</fn> file into fastq format</li>
+<li><code>-f 4</code> : only output unmapped reads</li>
+<li><code>-1</code> : put R1 reads into a file called <fn>unmapped.R1.fastq</fn></li>
+<li><code>-2</code> : put R2 reads into a file called <fn>unmapped.R2.fastq</fn></li>
+<li><code>-s</code> : put singleton reads into a file called <fn>unmapped.RS.fastq</fn></li>
+<li><code>aln.bam</code> : input alignment file</li>
+</ul>
+<p>We now have three files of the unampped reads: <fn> unmapped.R1.fastq</fn>, <fn> unmapped.R2.fastq</fn>, <fn> unmapped.RS.fastq</fn>.</p>
+<h3 id="assemble-the-unmapped-reads">Assemble the unmapped reads<a class="headerlink" href="#assemble-the-unmapped-reads" title="Permanent link">&para;</a></h3>
+<p>Assemble with Spades:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>spades.py -1 unmapped.R1.fastq -2 unmapped.R2.fastq -s unmapped.RS.fastq --careful --cov-cutoff auto -o spades_assembly
+</span></code></pre></div>
+<ul>
+<li>
+<p>(Click on the dark grey slider bar above and move it to the right, to see all the way to the end of the line.)</p>
+</li>
+<li>
+<p><code>-1</code> is input file forward</p>
+</li>
+<li><code>-2</code> is input file reverse</li>
+<li><code>-s</code> is unpaired</li>
+<li><code>--careful</code> minimizes mismatches and short indels</li>
+<li><code>--cov-cutoff auto</code> computes the coverage threshold (rather than the default setting, &ldquo;off&rdquo;)</li>
+<li><code>-o</code> is the output directory</li>
+</ul>
+<p>Move into the output directory:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>cd spades_assembly
+</span></code></pre></div></p>
+<p>Look at the contigs:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>infoseq contigs.fasta
+</span></code></pre></div></p>
+<ul>
+<li>1 contig has been assembled with a length of 2359 bases.</li>
+</ul>
+<p>Copy it to a new file:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>cp contigs.fasta contig2.fasta
+</span></code></pre></div></p>
+<h3 id="trim-the-plasmid">Trim the plasmid<a class="headerlink" href="#trim-the-plasmid" title="Permanent link">&para;</a></h3>
+<p>To trim any overhang on this plasmid, we will blast the start of contig2 against itself.</p>
+<p>Take the start of the contig:</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>head -n 10 contig2.fasta &gt; contig2.fa.head
+</span></code></pre></div>
+- <code>head -n 10</code> takes the first ten lines of <fn>contig2.fasta</fn>
+- <code>&gt;</code> sends that output to a new file called <fn>contig2.fa.head</fn></p>
+<ul>
+<li>We want to see if the start of the contig matches the end (overhang).</li>
+</ul>
+<p>Format the assembly file for blast:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>makeblastdb -in contig2.fasta -dbtype nucl
+</span></code></pre></div>
+- <code>makeblastdb</code> makes a database for the tool Blast
+- This will generate three new files in the directory with suffixes .nhr, .nin and .nsq
+- <code>-in</code> sets the input file as <fn> contig2.fasta</fn>
+- <code>-dbtype nucl</code> sets the type to nucleotide (rather than protein)</p>
+<p>Blast the start of the assembly (.head file) against all of the assembly:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>blastn -query contig2.fa.head -db contig2.fasta -evalue 1e-3 -dust no -out contig2.bls
+</span></code></pre></div></p>
+<ul>
+<li><code>blastn</code> is the tool Blast, set as blast**n** to compare sequences of nucleotides to each other</li>
+<li><code>-query</code> sets the input sequence as <fn>contig2.fa.head</fn></li>
+<li><code>-db</code> sets the database as that of the original sequence <fn>contig2.fasta</fn>. We don&rsquo;t have to specify the other files that were created when we formatted this file, but they need to present in our current directory.</li>
+<li><code>-evalue</code> is the number of hits expected by chance, here set as 1e-3</li>
+<li><code>-dust no</code> turns off the masking of low-complexity regions</li>
+<li><code>-out</code> sets the output file as <fn>contig2.bls</fn></li>
+</ul>
+<p>Look at the hits (the matches):
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>less contig2.bls
+</span></code></pre></div></p>
+<ul>
+<li>The first hit is at the start, as expected. We can see that &ldquo;Query 1&rdquo; (the start of the contig) is aligned to &ldquo;Sbject 1&rdquo; (the whole contig), for the first 540 bases.</li>
+<li>Scroll down with the down arrow.</li>
+<li>The second hit shows &ldquo;Query 1&rdquo; (the start of the contig) also matches to &ldquo;Sbject 1&rdquo; (the whole contig) at position 2253, all the way to the end, position 2359.</li>
+</ul>
+<p><img alt="blast" src="images/blasthits.png" /></p>
+<ul>
+<li>This is the overhang.</li>
+<li>Therefore, in the next step, we need to trim the contig to position 2252.</li>
+<li>Type <code>q</code> to exit.</li>
+</ul>
+<p>First, change the name of the contig within the file:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>nano contig2.fasta
+</span></code></pre></div>
+<ul>
+<li><code>nano</code> opens up a text editor.</li>
+<li>Use the arrow keys to navigate. (The mouse won&rsquo;t work.)</li>
+<li>At the first line, delete the text, which will be something like &ldquo;&gt;NODE_1_length_2359_cov_3.320333&rdquo;</li>
+<li>Type in &ldquo;&gt;contig2&rdquo;</li>
+<li>Don&rsquo;t forget the <code>&gt;</code> symbol</li>
+<li>Press Control-X</li>
+<li>&ldquo;Save modified buffer ?&rdquo; - type <code>Y</code></li>
+<li>Press the Enter key</li>
+</ul>
+<p>Index the file (this will allow samtools to edit the file as it will have an index):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>samtools faidx contig2.fasta
+</span></code></pre></div>
+<ul>
+<li><code>faidx</code> means index the fasta file</li>
+</ul>
+<p>Trim the contig:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>samtools faidx contig2.fasta contig2:1-2252 &gt; plasmid.fasta
+</span></code></pre></div>
+<ul>
+<li>this extracts contig2 from position 1-2252</li>
+<li>
+<p><code>&gt; plasmid.fasta</code> sends the extracted section to a new file</p>
+</li>
+<li>
+<p>We now have a trimmed plasmid.</p>
+</li>
+</ul>
+<p>Copy the plasmid file into the main folder:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>cp plasmid.fasta ../
+</span></code></pre></div>
+<p>Move file back into main folder:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>cd ..
+</span></code></pre></div>
+<h3 id="collect-contigs">Collect contigs<a class="headerlink" href="#collect-contigs" title="Permanent link">&para;</a></h3>
+<p>Collect the chromosome and the plasmid in one fasta file (they will be 2 records in the file):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>cat contig1.fasta plasmid.fasta &gt; genome.fasta
+</span></code></pre></div>
+<p>See the contigs and sizes:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>infoseq genome.fasta
+</span></code></pre></div>
+<ul>
+<li>chromosome: 30019</li>
+<li>plasmid: 2252</li>
+</ul>
+<h3 id="questions_2">Questions<a class="headerlink" href="#questions_2" title="Permanent link">&para;</a></h3>
+<p>Why is this section so complicated?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Finding small plasmids is difficult for many reasons! This paper has a nice summary: On the (im)possibility to reconstruct plasmids from whole genome short-read sequencing data. doi: https://doi.org/10.1101/086744
+</details>
+
+<p>Why can PacBio sequencing miss small plasmids?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Library prep size selection.
+</details>
+
+<p>We extract unmapped Illumina reads and assemble these to find small plasmids. What could they be missing?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Repeats that have mapped to the PacBio assembly.
+</details>
+
+<p>How do you find a plasmid in a Bandage graph?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+It is probably circular, matches the size of a known plasmid, and has a rep gene.
+</details>
+
+<p>Are there easier ways to find plasmids?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Possibly. One option is the program called Unicycler which may automate many of these steps. https://github.com/rrwick/Unicycler
+</details>
+
+<h2 id="7-correct-the-assembly">7. Correct the assembly<a class="headerlink" href="#7-correct-the-assembly" title="Permanent link">&para;</a></h2>
+<p>Sequences from PacBio can have more errors than those from Illumina. Therefore, although it is useful to use the long PacBio reads to assemble the genome, we can also use the shorter and more accurate Illumina reads to correct errors in the PacBio assembly.</p>
+<h3 id="make-an-alignment-file">Make an alignment file<a class="headerlink" href="#make-an-alignment-file" title="Permanent link">&para;</a></h3>
+<p>Index the fasta file:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>bwa index genome.fasta
+</span></code></pre></div>
+<p>Align the Illumina reads:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>bwa mem -t 4 genome.fasta R1.fq R2.fq | samtools sort &gt; pilon_aln.bam
+</span></code></pre></div>
+<ul>
+<li>Aligns Illumina <fn>R1.fq</fn> and <fn>R2.fq</fn> to the PacBio assembly <fn>genome.fasta</fn>.</li>
+<li>This produces a .bam file</li>
+<li><code>|</code> pipes the output to samtools to sort (required for downstream processing)</li>
+<li><code>&gt; pilon_aln.bam</code> redirects the sorted bam to this file</li>
+</ul>
+<p>Index the files:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>samtools index pilon_aln.bam
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>samtools faidx genome.fasta
+</span></code></pre></div>
+<ul>
+<li>Now we have an alignment file to use  with the tool <a href="https://github.com/broadinstitute/pilon/wiki">Pilon</a>: <fn>pilon_aln.bam</fn></li>
+</ul>
+<h3 id="run-pilon">Run Pilon<a class="headerlink" href="#run-pilon" title="Permanent link">&para;</a></h3>
+<p>Run:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>pilon --genome genome.fasta --frags pilon_aln.bam --output pilon1 --fix all --mindepth 0.5 --changes --verbose --threads 4
+</span></code></pre></div>
+<ul>
+<li><code>--genome</code> is the name of the input assembly to be corrected</li>
+<li><code>--frags</code> is the alignment of the reads against the assembly</li>
+<li><code>--output</code> is the name of the output prefix</li>
+<li><code>--fix</code> is an option for types of corrections</li>
+<li><code>--mindepth</code> gives a minimum read depth to use</li>
+<li><code>--changes</code> produces an output file of the changes made</li>
+<li><code>--verbose</code> prints information to the screen during the run</li>
+<li><code>--threads</code>: number of cores</li>
+</ul>
+<p>Look at the changes file:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>less pilon1.changes
+</span></code></pre></div></p>
+<p><em>Example:</em></p>
+<p><img alt="pilon" src="images/pilon.png" /></p>
+<ul>
+<li>We can see lots of cases where a deletion (represented by a dot) has been corrected to a base.  </li>
+<li>Type <code>q</code> to exit.</li>
+</ul>
+<p>Look at the details of the fasta file:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>infoseq pilon1.fasta
+</span></code></pre></div></p>
+<ul>
+<li>chromosome - 30059 (net +40 bases)</li>
+<li>plasmid - 2252 (no change)</li>
+</ul>
+<p>Change the file name:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>cp pilon1.fasta assembly.fasta
+</span></code></pre></div></p>
+<p>We now have the corrected genome assembly of <em>Staphylococcus aureus</em> in .fasta format, containing a chromosome and a small plasmid.  </p>
+<h3 id="questions_3">Questions<a class="headerlink" href="#questions_3" title="Permanent link">&para;</a></h3>
+<p>Why don&rsquo;t we correct earlier in the assembly process?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+We need to circularise the contigs and trim overhangs first.
+</details>
+
+<p>Why can we use some reads (Illumina) to correct other reads (PacBio) ?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Illumina reads have higher accuracy.
+</details>
+
+<p>Could we just use PacBio reads to assemble the genome?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Yes, if accuracy adequate.
+</details>
+
+<h2 id="8-comparative-genomics">8. Comparative Genomics<a class="headerlink" href="#8-comparative-genomics" title="Permanent link">&para;</a></h2>
+<p>In the workshop so far, we used a partial bacterial genome so that the exercises could run in the time available. As a demonstration, to better see the effect of long and short reads on the assembly, we will examine a complete bacterial genome.</p>
+<h3 id="assemblies">Assemblies<a class="headerlink" href="#assemblies" title="Permanent link">&para;</a></h3>
+<p>This bacterial genome has been assembled from either long PacBio reads (using Canu) or shorter Illumina reads (using Spades).</p>
+<p>Assembly graphs:</p>
+<p>Look at the assembly graph (usually has a suffix .gfa), in the program <a href="https://rrwick.github.io/Bandage/">Bandage</a>. This shows how contigs are related, albeit with ambiguity in some places.</p>
+<p>The assembly graph from Illumina reads (Spades assembly):</p>
+<p><img alt="spades assembly graph" src="images/25747_spades_illumina_graph.png" /></p>
+<p>The assembly graph from PacBio reads (Canu assembly) - this is missing the small plasmid:</p>
+<p><img alt="canu assembly graph" src="images/25747_canu_pacbio_graph.png" /></p>
+<p>Here we can see that the long read data results in a more contiguous assembly - one complete chromosome versus many smaller contigs with ambiguous placement.</p>
+<p>Does it matter that an assembly is in many contigs?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+Yes and No. Yes: broken genes can lead to missing/incorrect annotations; fragmented assemblies provide less information about the genomic structure (*e.g.* the number of plasmids) and the location of genes of interest (*e.g.* gene A is located on plasmid X). No: many or all genes may still be annotated correctly. Gene location is useful (e.g. chromosome, plasmid1) but not always essential (e.g. presence/absence of particular resistance genes may be enough information).
+</details>
+
+<h3 id="annotations">Annotations<a class="headerlink" href="#annotations" title="Permanent link">&para;</a></h3>
+<p>Genomic features such as genes can be identified with annotation tools. We have used a tool called <a href="https://github.com/tseemann/prokka">Prokka</a> to annotate the two genomes described above.</p>
+<p>Some of the output data is displayed here:</p>
+<center>
+
+|assembly:| PacBio|Illumina|
+|-------|--------:|-------:|
+|size|2,825,804|2,792,905|
+|contigs|2|123|
+|CDS|2614|2575|
+|tRNA|61|65|
+|rRNA|19|4|
+
+</center>
+
+<p>Why are there more CDS identified in the PacBio assembly?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+The PacBio assembly may have errors (usually a one base indel) which will cause a frame shift, which can result in three things: a longer CDS, a shorter CDS, or a shorter CDS plus an additional CDS. In addition, the Illumina assembly is about 33 kb smaller than the PacBio assembly. In bacteria, a rule of thumb is that 1 kb is roughly equal to one gene. Thus, we would probably expect about 33 fewer identified genes, which fits with these results.  
+</details>
+
+<p>Why are there more rRNA identified in the PacBio assembly?</p>
+<details>
+<summary>Answer (click to reveal)</summary>
+There may be multiple copies of the rRNAs and these could have been collapsed as repeats in the Illumina assembly.
+</details>
+
+<h2 id="9-summary">9. Summary<a class="headerlink" href="#9-summary" title="Permanent link">&para;</a></h2>
+<p>In this workshop, we used bacterial sequencing data from long and short reads to produce a polished genome.</p>
+<p>Procedure and tools:</p>
+<ul>
+<li>Canu to assemble long-read PacBio data</li>
+<li>Circlator to trim and circularise contigs</li>
+<li>BWA-MEM to map shorter Illumina reads to the PacBio assembly</li>
+<li>Spades to assemble any unmapped, leftover Illumina reads (the plasmid)</li>
+<li>Pilon to correct the PacBio assembly with the more accurate Illumina reads</li>
+</ul>
+<p>We also looked at comparative genomics:</p>
+<ul>
+<li>Bandage to examine assembly graphs</li>
+<li>Prokka to annotate genomes with features such as genes</li>
+</ul>
+<p>Further research:</p>
+<ul>
+<li>Align genomes with Mauve: <a href="http://sepsis-omics.github.io/tutorials/modules/mauve/">tutorial link</a></li>
+<li>Find core and pan genomes with Roary and Phandango: <a href="http://sepsis-omics.github.io/tutorials/modules/roary/">tutorial link</a></li>
+</ul>
+<p>Melbourne Bioinformatics tutorials:</p>
+<ul>
+<li><a href="https://www.melbournebioinformatics.org.au/tutorials/">https://www.melbournebioinformatics.org.au/tutorials/</a></li>
+</ul>
+<p>Additional microbial genomics tutorials:</p>
+<ul>
+<li><a href="http://sepsis-omics.github.io/tutorials/">http://sepsis-omics.github.io/tutorials/</a> and <a href="https://galaxy-au-training.github.io/tutorials/">https://galaxy-au-training.github.io/tutorials/</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

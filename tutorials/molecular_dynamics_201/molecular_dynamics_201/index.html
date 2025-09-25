@@ -1,0 +1,2764 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../molecular_dynamics_101/molecular_dynamics_101/">
+      
+      
+        <link rel="next" href="../../workshop_delivery_mode_info/workshops_nectar/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Molecular Dynamics - Building input files, visualising the trajectory - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#molecular-dynamics-tutorial-building-input-files-visualising-the-trajectory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Molecular Dynamics - Building input files, visualising the trajectory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 - Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-namd-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 - NAMD overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 - NAMD overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-recap-what-weve-done-so-far" class="md-nav__link">
+    <span class="md-ellipsis">
+      a) Recap: what we&rsquo;ve done so far
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-building-namd-input-files-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      b) Building NAMD input files overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-the-namd_intermediate_template-directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      c) The Namd_intermediate_template directory structure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-building-a-hiv-protease-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 - Building a HIV protease model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-preparing-the-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 - Preparing the configuration files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 - Preparing the configuration files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-edit-the-conf-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      a) Edit the .conf files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-edit-the-sbatch-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      b) Edit the sbatch scripts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-launching-the-job-on-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      5 - Launching the job on the cluster
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-visualization-of-the-md-trajectory" class="md-nav__link">
+    <span class="md-ellipsis">
+      6 - Visualization of the MD trajectory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6 - Visualization of the MD trajectory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-combining-the-trajectory-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      a) Combining the trajectory files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-molecular-dynamics-trajectory-smoothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      b) Molecular dynamics trajectory smoothing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-centering-the-protein-for-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      c) Centering the protein for analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-using-volmap-to-map-ligand-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      d) Using Volmap to map ligand density.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 - Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-namd-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 - NAMD overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 - NAMD overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-recap-what-weve-done-so-far" class="md-nav__link">
+    <span class="md-ellipsis">
+      a) Recap: what we&rsquo;ve done so far
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-building-namd-input-files-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      b) Building NAMD input files overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-the-namd_intermediate_template-directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      c) The Namd_intermediate_template directory structure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-building-a-hiv-protease-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 - Building a HIV protease model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-preparing-the-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      4 - Preparing the configuration files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 - Preparing the configuration files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-edit-the-conf-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      a) Edit the .conf files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-edit-the-sbatch-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      b) Edit the sbatch scripts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-launching-the-job-on-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      5 - Launching the job on the cluster
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-visualization-of-the-md-trajectory" class="md-nav__link">
+    <span class="md-ellipsis">
+      6 - Visualization of the MD trajectory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6 - Visualization of the MD trajectory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-combining-the-trajectory-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      a) Combining the trajectory files
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-molecular-dynamics-trajectory-smoothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      b) Molecular dynamics trajectory smoothing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-centering-the-protein-for-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      c) Centering the protein for analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-using-volmap-to-map-ligand-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      d) Using Volmap to map ligand density.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><img alt="" src="../../../img/melbioinf_logo.png" /></p>
+<h1 id="molecular-dynamics-tutorial-building-input-files-visualising-the-trajectory">Molecular Dynamics Tutorial - Building input files, visualising the trajectory<a class="headerlink" href="#molecular-dynamics-tutorial-building-input-files-visualising-the-trajectory" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>In the following tutorials we will be logging on a high performance computer (HPC) to submit <a href="http://www.ks.uiuc.edu/Research/namd/">NAMD</a> molecular dynamics (MD) jobs and visualising the results with the molecular visualization program <a href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a>. As students have a vast range of skill levels and requirements, the tutorials are divided into two parts described below. Each tutorial is designed to be stand alone, start where you feel most comfortable and skip the exercises that are too simple.</p>
+<ul>
+<li>
+<p><strong><a href="../molecular_dynamics_101/molecular_dynamics_101/">MD tutorial - Introduction to cluster computing</a></strong>: If you have never launched a job on a cluster before, this tutorial is for you. Here we will simply copy across a bare minimum directory containing input files ready to go for a short NAMD simulation. Once the job is finished, we will download the data to your local computer and visualize the trajectory with VMD.</p>
+</li>
+<li>
+<p><strong>MD tutorial - Building input files (this tutorial)</strong>: In this tutorial we will be introducing a more sophisticated directory structure using scripts to direct the output and run the job. We initially download a copy of the directory to our local computer where we then build up the input files using VMD. We then upload this directory to the cluster where we submit the job. Finally we will download the results back to our local computer to visualize with VMD.</p>
+</li>
+</ul>
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>At the end of the course, you will be able to:</p>
+<ul>
+<li>Log onto a high performance computer cluster</li>
+<li>Upload files to the cluster</li>
+<li>Submit a basic molecular dynamics job on the cluster</li>
+<li>Download the output and visualise the preliminary results</li>
+</ul>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<p>This workshop is intended for scientists interested in learning the basics of running molecular dynamics on a HPC cluster.</p>
+<p>It is recommended that participants attend Introduction to <a href="../../hpc/hpc/">High Performance Computing</a> prior to this workshop. If you are not familiar with using the command line, please also attend the <a href="../../unix/unix/">Introduction to Unix</a> workshop.</p>
+<p>Please bring along your laptops with the following installed before arriving:</p>
+<ul>
+<li>VMD (<a href="http://www.ks.uiuc.edu/Research/vmd/">http://www.ks.uiuc.edu/Research/vmd/</a>)</li>
+<li>Putty (<a href="https://www.putty.org/">https://www.putty.org/</a>) – only if you use Windows.</li>
+</ul>
+<p><strong>Important</strong>: NAMD has specific licencing requirements. Users are required to agree to these requirements to use NAMD on the Melbourne Bioinformatics HPC clusters. Login on <a href="https://my.vlsci.org.au/">https://my.vlsci.org.au/</a>, select &lsquo;Software agreement&rsquo;, &lsquo;Add software&rsquo;, &lsquo;NAMD&rsquo;.</p>
+<blockquote>
+<p><strong>Note</strong>: this tutorial describes the use of Snowy, but all these steps can be carried out on Barcoo by substituting every instance of <code>snowy</code> for <code>barcoo</code>.</p>
+</blockquote>
+<p><em>Tutorials created by Mike Kuiper, edited by Thomas Coudrat.</em></p>
+<hr />
+<h2 id="1-overview">1 - Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<p>The aim of this tutorial is to give more advanced lessons in setting up and preparing molecular dynamics jobs for submission to the HPC cluster. It is assumed that the user has a basic command of visualization programs such as VMD and has had at least some experience launching and retrieving example tutorial jobs to the cluster, as shown in <a href="../molecular_dynamics_101/molecular_dynamics_101/">our introductory molecular dynamics tutorial</a>.</p>
+<blockquote>
+<p><strong>Tip</strong>: in conjunction with this tutorial there are some excellent <a href="http://www.ks.uiuc.edu/Training/Tutorials/">NAMD tutorials</a> available that are worth working through.</p>
+</blockquote>
+<h2 id="2-namd-overview">2 - NAMD overview<a class="headerlink" href="#2-namd-overview" title="Permanent link">&para;</a></h2>
+<h3 id="a-recap-what-weve-done-so-far">a) Recap: what we&rsquo;ve done so far<a class="headerlink" href="#a-recap-what-weve-done-so-far" title="Permanent link">&para;</a></h3>
+<p>In the previous <a href="../molecular_dynamics_101/molecular_dynamics_101/">introductory tutorial</a> we simply launched a short job on the cluster that already had all the required input files to simulate a ubiquitin protein molecule in solution.</p>
+<p>To run a molecular dynamics simulation on a cluster, the minimum files we need are:</p>
+<p><code>&lt;filename&gt;.psf</code> - <strong>protein structure file</strong>. A list of the atoms, masses, charges and connections between atoms.</p>
+<p><code>&lt;filename&gt;.pdb</code> - <strong>protein database file</strong>. The actual starting coordinates of the models. This has to be the same order as the psf file.</p>
+<p><code>&lt;filename&gt;.conf</code> - <strong>NAMD configuration file</strong>. Tells NAMD how to run the job.</p>
+<p><code>par_all27_prot_na.par</code> - <strong>a parameter file</strong>. (there are different types of these depending on the classes of molecules you have in your model, such as lipids or DNA). It is used by NAMD to run the simulation, basically a list of all the bonds, angles, dihedrals, improper and VdW terms.</p>
+<p><code>sbatch_batchfile</code> - <strong>a script file</strong> to launch the job on the cluster depending on the scheduler used (i.e. PBS or Slurm). Tells the cluster how to run the NAMD job and how many cores to use.</p>
+<p>In our <a href="../molecular_dynamics_101/molecular_dynamics_101/">introductory tutorial</a> all we had to do was launch the job. We will now go through the process of building a NAMD input files from scratch.</p>
+<h3 id="b-building-namd-input-files-overview">b) Building NAMD input files overview<a class="headerlink" href="#b-building-namd-input-files-overview" title="Permanent link">&para;</a></h3>
+<p>In order to build input files for NAMD, we will need a pdb file giving the initial coordinates. We usually get these files from the pdb database. These initial pdb files however are often not ideal, with missing residues and odd chain names making the process more complicated!</p>
+<p>To generate NAMD input files, we will use the <strong>psfgen</strong> module within VMD, together with pdb and <strong>topology files</strong>, to generate a new pdb file and psf file.</p>
+<p>In a flowchart, the process looks something like this:</p>
+<p><img alt="" src="../media/namd_flowchart.png" /></p>
+<h3 id="c-the-namd_intermediate_template-directory-structure">c) The <em>Namd_intermediate_template</em> directory structure<a class="headerlink" href="#c-the-namd_intermediate_template-directory-structure" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>Note</strong>: one problem with running molecular dynamics simulations is that you can very quickly build up a mess of output files with the resulting directory becoming disorganized and difficult to navigate. (If you ran the <a href="../molecular_dynamics_101/molecular_dynamics_101/">introductory tutorial</a> you may have noticed a lot more files at the end of the run with no particular order!). One solution to this is to have specific directories for certain tasks and using scripts to redirect outputs.</p>
+<p>In the next exercise we will download a template directory within which we will build our model and setup our simulation. We will use more sophisticated scripts to launch and manage our jobs that will direct output to appropriate directories.</p>
+</blockquote>
+<p>This directory is found on Snowy, under <strong>/vlsci/examples/namd/Namd_intermediate_template</strong>.</p>
+<p>It has a particular directory structure as follows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/Namd_intermediate_template
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    sbatch_start            ← script to start equilibration phase
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    sbatch_production       ← script to start production phase
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    sim_opt.conf            ← Namd configuration file for optimization
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    sim_production.conf     ← Namd configuration file for production run
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    project_plan.txt        ← A guide to thinking about your simulation
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    counter.txt             ← File for keeping track of job number
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    max_jobnumber.txt       ← Defines maximum number of jobs
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    /BUILD_DIR              ← this is where we will build our models
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    /Errors                 ← errors go here
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    /Examples               ← find some example files here
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    /InputFiles             ← our input files go here
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        /Parameters
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    /JobLog                 ← details of our running jobs end up here
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    /LastRestart            ← If we need to restart a job
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    /OutputFiles            ← Our NAMD output goes here
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>    /OutputText             ← Text output from the job
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    /RestartFiles           ← Generic restart files saved here
+</span></code></pre></div>
+<p>Rather than running one long job, this template is designed to run into smaller stages. After we build a model and make the appropriate changes to the input files the run is started by launching:</p>
+<p><code>sbatch sbatch_start</code>       <strong>(don&rsquo;t do this just yet!)</strong></p>
+<p>This will launch a job using the <strong>sim_opt.conf</strong> configuration file which is designed to equilibrate the system. At the conclusion of the equilibration run, the script will automatically launch the production run: <strong>sbatch sbatch_production</strong></p>
+<p>Production runs are designed to run less than 24 hours at a time, at the end of which <em>restart files</em> are saved and relaunch themselves for another 24 hour job. Every time they do, the script increases a <strong>counter.txt</strong> file by 1. Once that reaches the number in the <strong>MaxJobNumber.txt</strong> file, the job stops. For example, if a 24 hour job completes 5 nanoseconds of simulation a day, and we want a contiguous simulation of say 50 ns, then we&rsquo;d set the counter.txt file to 0 and the MaxJobNumber.txt to 10 and thus would expect the job to finish in 10 days. The advantage of running a series of smaller jobs rather than one long one is better scheduling on the cluster, and also better protection from data corruption should there be a hardware failure.</p>
+<p>The script also date stamps and directs the output to the appropriate folders. A complete <strong>dcd trajectory</strong> can be reconstructed from the ordered files in the <strong>/OutputFile</strong> directory.</p>
+<p>More of running a job later. First we need to build input files!</p>
+<h2 id="3-building-a-hiv-protease-model">3 - Building a HIV protease model<a class="headerlink" href="#3-building-a-hiv-protease-model" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="../media/vmd_solvated.jpg" /></p>
+<p>Download a copy of the <em>Namd_intermediate_template</em> to your <strong>local computer</strong>. We will prepare our files here and then upload them to the cluster once ready.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>scp -r &lt;username&gt;@snowy.vlsci.unimelb.edu.au:/vlsci/examples/namd/Namd_intermediate_template .
+</span></code></pre></div>
+<blockquote>
+<p><strong>Note</strong>: don&rsquo;t forget the dot at the end</p>
+</blockquote>
+<p>Change into the build directory:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cd Namd_intermediate_template/BUILD_DIR
+</span></code></pre></div>
+<p>We are going to build a model of HIV protease which is a dimer of two 99 amino acids protein monomers. First we need to extract the two chains as separate pdb files. We will use the <a href="https://www.rcsb.org/structure/7HVP">RCSB entry 7hvp</a>. Download the pdb file by clicking on &ldquo;Download Files&rdquo; (right hand corner), PDB Format. On your <strong>local computer</strong> start VMD and load the newly downloaded 7hvp.pdb file by doing the following in the <strong>VMD main panel</strong>:</p>
+<blockquote>
+<p>File → New Molecule → Browse&hellip; → Load</p>
+</blockquote>
+<p>In this structure there are 3 “chains”. Chain <strong>A</strong> and <strong>B</strong> are the monomers and chain <strong>C</strong> is the inhibitor PRD_000228. Since there are water molecules associated with each chain selection we need to be more selective.</p>
+<p>Highlight the protein selection in the <strong>VMD main panel</strong> and then click:</p>
+<blockquote>
+<p>File → save coordinates</p>
+</blockquote>
+<p>In the “selected atoms” box of the save trajectory window type:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>chain A and protein
+</span></code></pre></div>
+<p>Save the chain as a pdb file with a sensible name and a pdb extension into <strong>BUILD_DIR</strong>. (e.g. 7hvp_chainA.pdb)</p>
+<p>Repeat for chain B. Since the inhibitor is complicated we will leave chain C out for now for this exercise.
+We should now have two pdb files in the <strong>/BUILD_DIR</strong> which will be the basis of our model building, i.e.:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>7hvp_chainA.pdb
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>7hvp_chainB.pdb
+</span></code></pre></div>
+<p>We now have to use a text editor to change the <strong>build_example</strong> script to point to these files. Open the <strong>build_example</strong> file with a text editor.</p>
+<p>First thing to look for is that we are calling the right <strong>topology</strong> files. Since this example is only made from protein then the default topology file is fine (The _na part refers to nucleic acids).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>package require psfgen
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>topology ../InputFiles/Parameters/top_all27_prot_na.rtf
+</span></code></pre></div>
+<p>If we were to be building a model with a <strong>lipid bilayer</strong> we would need to also include the topology file referring to lipids, i.e.:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>topology ../InputFiles/Parameter/top_all27_prot_lipid.rtf
+</span></code></pre></div>
+<p>We now need to change and add “segment” lines to point to our new pdb chains.</p>
+<p>Edit:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>segment A {pdb model_chainA.pdb}
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>segment B {pdb model_chainB.pdb}
+</span></code></pre></div>
+<p>to read:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>segment A {pdb 7hvp_chainA.pdb}
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>segment B {pdb 7hvp_chainB.pdb}
+</span></code></pre></div>
+<p>We also need to change the “coordpdb” lines to reflect our new chains.</p>
+<p>Edit:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>coordpdb model_chainA.pdb A
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>coordpdb model_chainB.pdb B
+</span></code></pre></div>
+<p>to read:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>coordpdb 7hvp_chainA.pdb A
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>coordpdb 7hvp_chainB.pdb B
+</span></code></pre></div>
+<p>Between the &lsquo;segment&rsquo; and &lsquo;coordpdb&rsquo; lines we can apply <strong>patches</strong> to make modifications to the protein. This is useful for example when adding disulphide bonds or phosphate groups or modifying the termini. We won&rsquo;t make any modifications for this example.</p>
+<p>Save and close the <strong>build_example</strong> script. We will now see if we can build the model using VMD from the command line.</p>
+<p>Type:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>vmd -dispdev text -e build_example          
+</span></code></pre></div>
+<p><strong>You should see some errors.</strong></p>
+<p>This is because in the original chains A and B there are some modified alanine residues labeled <strong>ABA</strong>. Since the residues ABA are not defined in the topology files, <strong>vmd psfgen</strong> does not know how to build this model. Edit the <strong>7hvp_chainA.pdb</strong> and <strong>7hvp_chainB.pdb</strong> files and carefully change any occurrence of <strong>ABA</strong> to <strong>ALA</strong>.</p>
+<blockquote>
+<p><strong>Note</strong>: spacing in pdb files is really important so don&rsquo;t mess it up!</p>
+</blockquote>
+<p>Re-run the above command. This should run vmd in text mode and read through the build script. If all goes well we should see 2 new files in the directory:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>model_temp_x.psf
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>model_temp_x.pdb
+</span></code></pre></div>
+<blockquote>
+<p><strong>Note</strong>: here we use a “_x” notation to specify temporary files.</p>
+</blockquote>
+<p>Next load these files into VMD. From <strong>BUILD_DIR</strong> start vmd:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>vmd model_temp_x.psf model_temp_x.pdb
+</span></code></pre></div>
+<p>We will now use the solvation module to center and create a solvent box around our protein. We will use dimensions of <code>80 x 64 x 64</code> Å. Open the solvation window from the main panel:</p>
+<blockquote>
+<p>Extensions → Modeling → Add Solvation Box</p>
+</blockquote>
+<p>In this window do the following:</p>
+<ul>
+<li>toggle on the “rotate to minimize volume” button.</li>
+<li>Change the Boundary number from “2.4” to “1.8”</li>
+<li>untoggle the &lsquo;use molecular Dimensions” button.</li>
+<li>In the Box Size add:<ul>
+<li>min: x: -40 y: -32 z: -32</li>
+<li>max: x: 40 y: 32 z: 32</li>
+</ul>
+</li>
+<li>click “Solvate”</li>
+</ul>
+<p>We now should have two new files, <strong>solvate.psf</strong> and <strong>solvate.pdb</strong>, the solvated version of your original input. You should also your newly solvated system in the <strong>VMD display</strong>.</p>
+<blockquote>
+<p><strong>Tip</strong>: you can quickly hide &ldquo;model_temp_x.psf&rdquo; and &ldquo;model_temp_x.pdb&rdquo; from the VMD display by double-clicking on &lsquo;D&rsquo; (Drawn) next to these in the VMD main panel. This helps visualise the solvate.psf system.</p>
+</blockquote>
+<p>Now we can jump straight to adding ions. Adding ions makes the simulation more physiologically relevant and also balances charges. Open the ionization window:</p>
+<blockquote>
+<p>Extensions → Modeling → add ions</p>
+</blockquote>
+<p>In the <strong>“Autoionize”</strong> window simply toggle the “neutralize and set NaCl concentration” option and click “Autoionize”. We should get about 26 sodium ions and 30 chloride ions added to the system in two new files: <strong>ionized.psf</strong> and <strong>ionized.pdb</strong>.</p>
+<p>These are are final input files. We should now rename and move these files to a better location in the directory structure. In Linux we can use the command:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>mv ionized.psf ../InputFiles/hiv_protease.psf
+</span></code></pre></div>
+<p>and</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>mv ionized.pdb ../InputFiles/hiv_protease.pdb
+</span></code></pre></div>
+<p>You can also now remove the old “solvate” and “_x” files to keep things tidy.</p>
+<h2 id="4-preparing-the-configuration-files">4 - Preparing the configuration files<a class="headerlink" href="#4-preparing-the-configuration-files" title="Permanent link">&para;</a></h2>
+<p>By now we have prepared two new input files for a NAMD simulation called <strong>hiv_protease.psf</strong> and <strong>hiv_protease.pdb</strong> and placed them in the folder <strong>/InputFiles</strong>. We now need to make changes to the NAMD configuration files to match our new inputs. In the main directory (Namd_intermediate_template) we have two configuration files and two sbatch files:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sim_opt.conf
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>sim_production.conf
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>sbatch_start
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>sbatch_production
+</span></code></pre></div>
+<h3 id="a-edit-the-conf-files">a) Edit the .conf files<a class="headerlink" href="#a-edit-the-conf-files" title="Permanent link">&para;</a></h3>
+<p>Let us first edit the <strong>.conf</strong> files. Open the <strong>sim_opt.conf</strong> file.</p>
+<p>You can see that these two lines match our inputs (change them if you used a different name of the psf and pdb files):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>structure   InputFiles/hiv_protease.psf
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>coordinates InputFiles/hiv_protease.pdb
+</span></code></pre></div>
+<p>The next thing we have to watch is that we have an appropriate parameter file pointed to. Since we have a simple protein model the default parameter file should be fine:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>paraTypeCharmm  on
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>parameters      InputFiles/Parameters/par_all27_prot_na.prm
+</span></code></pre></div>
+<p>If we were running lipids in the simulation or used a separately parameterized ligand we would add a few extra lines here, say for example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>parameters  InputFiles/Parameters/par_all27_prot_lipid.prm
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>parameters  InputFiles/Parameters/par_for_ligand.prm
+</span></code></pre></div>
+<p>We also need to make changes to match our <strong>periodic boundary conditions</strong> (PBC).</p>
+<p>The way PBC works is that our simulation box has a certain rectangular geometry which is mirrored on all sides to mimic an infinite system. A molecule which falls out of the left and side of the box fall back in on the right hand side. A molecule that falls out of the bottom reappears at the top and so on. Care has to be given when building a solvated PBC system so that a protein molecule has enough room around its edges so that it doesn&rsquo;t interact with itself should it wander too close to a boundary.</p>
+<p>Since our box ended up being of dimensions 80 x 64 x 64 Å, this is reflected in the PBC parameters here:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>cellBasisVector1   80.  0.  0.
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>cellBasisVector2    0. 64.  0.
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>cellBasisVector3    0.  0. 64.
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>cellOrigin          0   0   0
+</span></code></pre></div>
+<p>That should do it for the optimization configuration file. The idea of the optimization phase is to equilibrate your simulation and allow it to settle before running production runs. Typically we run this with a NPT ensemble, (whereby the number of particles (N) pressure (P) and temperature (T) remain constant). The volume is allowed to change as water and lipids can find their optimal density. At the end of the optimization phase, the sbatch_start script takes the generic output of the run and renames it to pass on to the production phase of the simulation. The sbatch_script will automatically launch the production phase on successful completion of the optimization phase.</p>
+<p>The <strong>sim_production.conf</strong> file controls how we run a segment of the production phase including the type of simulation and how long it runs. The file <strong>MaxJobNumber.txt</strong> determines how many times this production script is run. Each time a production segment finishes, output is date-stamped and placed in appropriate folders, while restart files are written, ready to launch the next segment. The number in the file counter.txt is increased by 1 to keep track of the jobs. Typically we aim to keep these segments running less than 24 hours at a time. This has a number of advantages, firstly, if the machine should have a failure the most you will loose is one days simulation which is easy to recover from the last restart file. Secondly, this strategy helps with efficiently filling the machine with jobs and keeping your groups quota available. Long jobs scheduled for weeks can tie up resources, quota and risk losing all the generated data should there be a failure in that time.</p>
+<p>Open the <strong>sim_production.conf</strong> file:</p>
+<p>Since we would like to run a relatively short job segment for this exercise, we will change the line:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>set NumberSteps 2500
+</span></code></pre></div>
+<p>to:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>set NumberSteps 20000
+</span></code></pre></div>
+<p>This segment will run for only 20,000 x 2 fs = 0.04 ns at a time. For example, if we set max_jobnumber.txt to be 5 then we will should get 0.2 ns worth of simulation.</p>
+<p>Edit the <strong>counter.txt</strong> file to contain the number 0. (The counter file is a way of running a certain number of jobs. This increments up after each job finished until it reaches the same as MaxJobNumber.txt and then stops). In linux we can simply use:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>echo 0 &gt; counter.txt
+</span></code></pre></div>
+<p>Then edit the <strong>MaxJobNumber.txt</strong> file to contain the number 5. This will limit the total number of jobs run. Jobs will stop when counter.txt value is equal to or greater than the MaxJobNumber.txt value.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>echo 5 &gt; MaxJobNumber.txt
+</span></code></pre></div>
+<p>We can always make this number bigger later and restart the jobs if we want things to go longer.</p>
+<p>For this short example we will also change more lines in the <strong>sim_production.conf</strong> file:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>restartfreq     2500
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>dcdfreq         5000
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>xstFreq         5000
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>outputEnergies  5000
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>outputPressure  5000
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>outputTiming    5000
+</span></code></pre></div>
+<p>to:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>restartfreq     25000
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>dcdfreq         5000
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>xstFreq         5000
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>outputEnergies  5000
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>outputPressure  5000
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>outputTiming    5000
+</span></code></pre></div>
+<p>We don&rsquo;t have to change the periodic boundary conditions in the <strong>sim_production.conf</strong> file as we read in the restart files from the previous simulation namely:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>set inputname generic_restartfile
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>binCoordinates $inputname.coor  ; # Coordinates from last run (binary)
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>binVelocities  $inputname.vel   ; # Velocities from last run (binary)
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>extendedSystem $inputname.xsc   ; # Cell dimensions from last run
+</span></code></pre></div>
+<p>There are a number of other control parameters in the production configuration script worth taking a look at including such things as cutoffs and temperature controls if you have time. These don&rsquo;t change much typically between simulations, but are covered better in the online NAMD tutorials and manuals. The setting we use here are reasonable default values.</p>
+<p>Save and close your <strong>.conf</strong> files.</p>
+<h3 id="b-edit-the-sbatch-scripts">b) Edit the sbatch scripts<a class="headerlink" href="#b-edit-the-sbatch-scripts" title="Permanent link">&para;</a></h3>
+<p>The sbatch scripts tell the cluster how to run the simulation and how to handle the generated data. These scripts are a lot more complicated than the ones we saw in the <a href="../molecular_dynamics_101/molecular_dynamics_101/">introductory tutorial</a>, but most of the details you need to worry about are all in the first few lines.</p>
+<p>In a sbatch script we need to pass arguments to the Slurm scheduler (the controlling program which launches users jobs to the cluster). The way to do so is use a complete code word “#SBATCH” on the first spaces of a line:</p>
+<p><code>#SBATCH --nodes=2</code>         ← this works!</p>
+<p><code># SBATCH --nodes=2</code>        ← this doesn&rsquo;t because of the space between “#” and “SBATCH”</p>
+<blockquote>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>
+<p>people often get confused with this as the “<strong>#</strong>” symbol usually denotes a comment line.</p>
+</li>
+<li>
+<p>PBS scripts work in a similar way, but with the code word “<strong>#PBS</strong>”</p>
+</li>
+</ul>
+</blockquote>
+<p>Set the number of nodes used for a job on <strong>sbatch_start</strong> and <strong>sbatch_production</strong> to 4, as shown below:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>#SBATCH --nodes=4
+</span></code></pre></div>
+<p><strong>Remember, more nodes is not necessarily faster and can be dramatically slower!</strong> It can be a good way to quickly burn up your quota inefficiently. It is a good idea to benchmark your jobs to find an optimal sweet spot, - more of how to do that another time. 4 nodes for this example will be fine.</p>
+<p>To set the production job runtime change this line on <strong>sbatch_production</strong>:</p>
+<p><code>#SBATCH --time=2:0:0</code>         ← (hours:minutes:seconds)</p>
+<p>The time or “walltime” tells the cluster how long your job should run. If your job runs longer than this, it will be stopped. As rule of thumb, use the time you expect plus 10%.  If you use an excessively long walltime such as days or weeks, the scheduler may take a long time to fit your job into the queue. Generally shorter jobs will get on the cluster faster (but make sure your walltime is appropriate for your configuration file!).</p>
+<h2 id="5-launching-the-job-on-the-cluster">5 - Launching the job on the cluster<a class="headerlink" href="#5-launching-the-job-on-the-cluster" title="Permanent link">&para;</a></h2>
+<p>We are now ready to go ahead with launching the job. For convenience I prefer to keep everything associated with the simulation together in the one directory in including all the build scripts and parameter files. The size of the extra files is tiny compared to the data you generate but this way you can ensure to totally replicate and finding that you happen to make.</p>
+<p>Upload the entire directory to your account. Under Linux this might be:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>scp -r Namd_intermediate_template &lt;username&gt;@snowy.vlsci.unimelb.edu.au:
+</span></code></pre></div>
+<p>Log into your account on <strong>Snowy</strong> and change into the top of the <em>Namd_intermediate_template/</em> directory:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>ssh &lt;username&gt;@snowy.vlsci.unimelb.edu.au
+</span></code></pre></div>
+<p>Launch the start script:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>sbatch sbatch_start
+</span></code></pre></div>
+<p>This should launch the equilibration phase of the simulation. As mentioned previously, the sbatch_script will automatically direct the output to the proper directories and launch the production phase. <strong>This might take an hour or two to complete</strong>.</p>
+<p>All text output is directed to the <strong>/OutputText</strong> folder. You can take a peek at how your job is going by using the command <code>tail &lt;filename&gt;</code> which prints out the last few lines of <code>&lt;filename&gt;</code>.</p>
+<p><strong>For the purpose of this exercise</strong>, we will stop the job early and copy across a pre-computed data set. In your directory you should see slurm output file.</p>
+<p>It will look something like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>slurm-123456.out
+</span></code></pre></div>
+<p>The number represents the job number on the cluster. Now use <strong>scancel</strong> to stop that job (i.e. for above you would use: <strong>scancel 123456</strong>).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>scancel &lt;jobnumber&gt;
+</span></code></pre></div>
+<p>Now that your job has finished, we will copy across a completed job run. From your <strong>top directory</strong> on Snowy:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>cp -r /vlsci/examples/namd/Namd_intermediate_template_finished/* Namd_intermediate_template/
+</span></code></pre></div>
+<p>Once the jobs are finished (or you have stopped the jobs and copied across the precomputed data), we can download the entire directory back to our local computer for analysis. If you don&rsquo;t have much memory on your laptop, you can do the analysis remotely on the cluster.</p>
+<p>A smart way to copy files back to your local computer is to use <strong>rsync</strong>. This way you only copy new or changed files back to your computer. In Linux from the local computer terminal this would be:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>rsync -avzt &lt;username&gt;@snowy.vlsci.unimelb.edu.au:Namd_intermediate_template .
+</span></code></pre></div>
+<blockquote>
+<p><strong>Note</strong>: the dot is important!</p>
+</blockquote>
+<p>Now that you have your data, we are ready to visualize the results.</p>
+<h2 id="6-visualization-of-the-md-trajectory">6 - Visualization of the MD trajectory<a class="headerlink" href="#6-visualization-of-the-md-trajectory" title="Permanent link">&para;</a></h2>
+<p>Hopefully by now you have successfully built a model, completed a small run with the template directory on the cluster and downloaded the results on to your local computer. We will now have a look at the data you generated.</p>
+<blockquote>
+<p><strong>Note</strong>: if for some reason you didn&rsquo;t manage to run a successful MD simulation, you can copy a directory containing the precomputed data from the folowing Snowy folder: <strong>/vlsci/examples/namd/Namd_intermediate_template_finished</strong>. You can do this with the command below:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>scp -r &lt;username&gt;@snowy.vlsci.unimelb.edu.au:/vlsci/examples/namd/Namd_intermediate_template_finished .
+</span></code></pre></div></p>
+</blockquote>
+<h3 id="a-combining-the-trajectory-files">a) Combining the trajectory files<a class="headerlink" href="#a-combining-the-trajectory-files" title="Permanent link">&para;</a></h3>
+<p>When we run segmented jobs as in this template, we end up with a series of output files in <strong>/OutputFiles</strong> such as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>[train01@snowy OutputFiles]$ ls -lrt  
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>total 13184
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>-rwxr-xr-x 1 train01 TRAINING    1477 Mar 21 10:18 create_dcd_loader_script
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>-rw-r--r-- 1 train01 TRAINING 4090120 Mar 21 10:45 opt.2017-03-21-10.19.sim_opt_r1.dcd.x
+</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>-rw-r--r-- 1 train01 TRAINING 1859296 Mar 21 10:51 2017-03-21-10.45.NamdJob_round01.0.dcd
+</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>-rw-r--r-- 1 train01 TRAINING 1859296 Mar 21 10:57 2017-03-21-10.51.NamdJob_round01.1.dcd
+</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>-rw-r--r-- 1 train01 TRAINING 1859296 Mar 21 11:03 2017-03-21-10.57.NamdJob_round01.2.dcd
+</span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>-rw-r--r-- 1 train01 TRAINING 1859296 Mar 21 11:09 2017-03-21-11.03.NamdJob_round01.3.dcd
+</span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>-rw-r--r-- 1 train01 TRAINING 1859296 Mar 21 11:15 2017-03-21-11.09.NamdJob_round01.4.dcd
+</span><span id="__span-37-10"><a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a>-rw-r--r-- 1 train01 TRAINING     195 Mar 21 11:15 dcd_list.txt
+</span><span id="__span-37-11"><a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a>-rw-r--r-- 1 train01 TRAINING     742 Mar 21 11:15 combined_dcd_file_loader.vmd
+</span></code></pre></div>
+<p>The main output files have the <strong>.dcd</strong> extension. We can see that things went well as the sizes of these files are identical as expected.</p>
+<p>If you have a lot of these files, it can be tedious to read them into VMD. Luckily we can run a script from this directory (you can do this on the cluster if you are running Windows on your local computer) to generate a list of this output to be read in by VMD. Simply run:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>./create_dcd_loader_script
+</span></code></pre></div>
+<p>This creates the file: <strong>combined_dcd_file_loader.vmd</strong></p>
+<p>From the main directory on your local computer, we can load in our trajectory using:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>vmd InputFiles/hiv_protease.psf InputFiles/hiv_protease.pdb
+</span></code></pre></div>
+<p>then from the main panel:</p>
+<blockquote>
+<p>File → Load Visualization State → /OutputFiles/combined_dcd_file_loader.vmd</p>
+</blockquote>
+<p>Click on the &ldquo;play&rdquo; button at the bottom right hand corner of the VMD main panel and watch the simulation run!</p>
+<blockquote>
+<p><strong>Note</strong>: it is possible to restart the simulations of any segment as the restart files are saved under <strong>/RestartFiles</strong>.</p>
+</blockquote>
+<h3 id="b-molecular-dynamics-trajectory-smoothing">b) Molecular dynamics trajectory smoothing<a class="headerlink" href="#b-molecular-dynamics-trajectory-smoothing" title="Permanent link">&para;</a></h3>
+<p>The MD example presented here has not run for a particularly long period of time, barely a few hundred picoseconds, thus the relative movement in the molecule is small. For simulations that run on longer timescales there will be an amount of drifting making the analysis and visualization difficult.</p>
+<p>Luckily, there is an easy way to center and visualize our simulations which we will cover next. Now display only the protein backbone, in the VMD main panel:</p>
+<blockquote>
+<p>Graphics → Representations&hellip;</p>
+</blockquote>
+<p>In the graphical representations window:</p>
+<blockquote>
+<p>Selected Atoms (protein) + Drawing method (NewRibbons)</p>
+</blockquote>
+<p>You may notice the protein jiggles around when you play the trajectory. This is Brownian motion, and this is more prominent in longer sampling.</p>
+<p>The first thing we might try to ease the jiggling is to increase the <strong>trajectory smoothing window size</strong>. In the VMD Graphical representations window, select your protein representation and toggle the <strong>Trajectory</strong> tab. At the bottom of the tab, increase the Trajectory Smoothing value to 5 and replay the trajectory. This should be much smoother. Try increasing to higher values.</p>
+<p>Although this view is smoother, it still can be difficult to visualize what relative motion is going on, due to the motion of the protein in the simulation box.</p>
+<h3 id="c-centering-the-protein-for-analysis">c) Centering the protein for analysis<a class="headerlink" href="#c-centering-the-protein-for-analysis" title="Permanent link">&para;</a></h3>
+<p>We will now use the <strong>RMSD Trajectory Tool</strong> to center our protein frames.</p>
+<p>In the VMD main panel, open:</p>
+<blockquote>
+<p>Extensions → Analysis → RMSD Trajectory Tool</p>
+</blockquote>
+<p>This should open up a new window. Towards the top left we have the selection, for the &lsquo;Selection modifiers&rsquo; tick &lsquo;Backbone&rsquo;. In the top right, click <strong>“RMSD”</strong>.</p>
+<p>When you do so, it will calculate the RMSD, of the protein backbone over the course of the simulation. The average value can be quite large depending on how much your selection drifts through space. At this point nothing has changed in the trajectory yet.</p>
+<p>Next, click the <strong>“ALIGN”</strong> button. This will translate each frame to minimize the RMSD of the selection based on the first frame (in this case, our original input files).</p>
+<p>In other words, the protein has been centered on a reference frame, but now the water box appears to rotate about the axis. This makes it much more useful for analysis.</p>
+<p>Click <strong>“RMSD”</strong> again and you&rsquo;ll see the value becomes much smaller.</p>
+<h3 id="d-using-volmap-to-map-ligand-density">d) Using Volmap to map ligand density.<a class="headerlink" href="#d-using-volmap-to-map-ligand-density" title="Permanent link">&para;</a></h3>
+<p>Now that we have a nicely centered protein dataset we can do something useful like plot the water density. In the VMD main panel, open:</p>
+<blockquote>
+<p>Extensions → Analysis → VolMap Tool</p>
+</blockquote>
+<p>A new VolMap window should open up.</p>
+<p>In the selection box type: “water” and tick the box “compute for all frames”, click &ldquo;Create Map&rdquo;.</p>
+<p>This will calculate a density map based on your water selection and create a new graphical selection. You should see a big white box around your molecule. Open up your graphical representation window and select the new <strong>“Isosurface”</strong> representation. Under the “Draw style” tab use the Isovalue slider to scale back the density to just a few points (try 1.2).</p>
+<p>What you are seeing here are bound water molecules relative to the protein structure. These water molecules stay relatively still compared to the bulk water so create an area of high water density. These can be quite important for drug interactions, protein stability and catalytic centers. We often don&rsquo;t display waters in simulations for clarity, and often forget that they are there.</p>
+<p>If all goes well you might see something like this. The red and blue lines are the chains of the protein, the cyan blobs are regions of high water density averaged from the longer simulation.</p>
+<p><img alt="" src="../media/vmd_volmap.jpg" /></p>
+<blockquote>
+<p><strong>Exercise</strong>: see if you can identify any ordered waters near the catalytic residues of HIV protease (Asp 25). You may change the resolution of Volmap to 0.5 for more detail.</p>
+</blockquote>
+<p>You can also do this sort of view for ligands to show where they bind. Always make sure you first center your target protein or else this sort of representation will not make sense!</p>
+<p>So concludes the intermediate tutorial.</p>
+<blockquote>
+<p><strong>Note</strong>: a more advanced template that can be used to organise the MD simulations ran on HPC clusters called <a href="https://github.com/mkuiper/MD_workflow_py">MD_workflow_py</a> was written with using the Python programming language. This new workflow uses a similar structure to what was shown in this tutorial and has additional capability to manage thousands of independent jobs and generate molecular animations.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2591 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>GenomeBrowsers Intro short - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction-to-genome-browsers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GenomeBrowsers Intro short
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements and preparation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements and preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparing-you-and-your-laptop-prior-to-starting-this-workshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing you and your laptop prior to starting this workshop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authors-and-review-date" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author(s) and review date
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#genome-browser-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Genome Browser background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bdnf-and-trkb-signalling" class="md-nav__link">
+    <span class="md-ellipsis">
+      BDNF and TrkB signalling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-introduction-to-genome-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Introduction to Genome Browsers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Introduction to Genome Browsers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#genome-build-version-number-further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Genome Build version number- further reading
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-the-ucsc-genome-browser-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: The UCSC genome Browser interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: The UCSC genome Browser interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting started
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-gene-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding the gene models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding the gene models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ntrk2" class="md-nav__link">
+    <span class="md-ellipsis">
+      NTRK2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gene-model-revision-quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gene model revision Quiz
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gene-expression-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gene expression data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-igv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: IGV
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional reading
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><img alt="melbioinf_logo" src="../../media/melbioinf_logo.png" style="width:350px; padding-right:50px" />       <img alt="unimelb_logo" src="../../media/PRIMARY_A_Vertical_Housed_RGB.png" style="width:150px" /></p>
+<h1 id="introduction-to-genome-browsers">Introduction to Genome Browsers<a class="headerlink" href="#introduction-to-genome-browsers" title="Permanent link">&para;</a></h1>
+<p>Anticipated workshop duration when delivered to a group of participants is <strong>1 hour</strong>.<br>
+This is an abbreviated version of a <a href="https://www.melbournebioinformatics.org.au/tutorials/tutorials/Genome_browsers/GenomeBrowsers_Intro/">more extensive Genome Browser workshop</a>.  </p>
+<p>For queries relating to this workshop, contact Melbourne Bioinformatics at:</br> <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;">&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;</a>.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This tutorial will introduce you to the genome browser format and illustrate how some freely available genome browsers can be used to interrogate a variety of data types, such as gene expression, genomic variation, methylation and many more.</p>
+<h3 id="topic">Topic<a class="headerlink" href="#topic" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Genomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Transcriptomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Proteomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Metabolomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Statistics and visualisation</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Structural Modelling</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Basic skills</li>
+</ul>
+<h3 id="skill-level">Skill level<a class="headerlink" href="#skill-level" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Beginner  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Intermediate  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Advanced  </li>
+</ul>
+<p>This workshop is designed for participants with no previous experience of using Genome Browsers and no programming experience.</p>
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
+<p><em>Learn how to make the most of Genome Browsers !</em></p>
+<p>By focusing on gene expression, this hands on tutorial will provide beginners with an introduction to both the UCSC Genome browser and IGV (Integrated Genome Viewer).  Tools and public datasets will be used to illustrate how the expression of transcript variants can be investigated in different, tissues and cell types using public data, including human RNAseq data from GTEX and mouse cell type RNAseq data from Tabula Muris, as viewed within the UCSC genome browser. A subset of Single cell RNAseq data from the Allen Brain Atlas Celltax study will also be downloaded from SRA and visualised in IGV.
+The data and genes used in this workshop are taken from the neuroscience field, however the analysis approaches and tools illustrated can be applied to many research areas.</p>
+<p><strong><em>This tutorial is in three parts:</em></strong></p>
+<ul>
+<li>Section 1 Introduction to the general features of genome browsers. </br></li>
+<li>Section 2 Hands on tutorial of the <a href="https://genome.ucsc.edu/">UCSC Genome Browser</a></li>
+<li>Section 3 Hands on tutorials of the <a href="https://software.broadinstitute.org/software/igv/home">Integrative Genomics Viewer</a></li>
+</ul>
+<p>This tutorial was developed for use as part a series of workshops for neuroscience researchers, hence the data and example genes are drawn from neuroscience field and focused on analysis and visualisation  of expression data. However, the skills taught in this tutorial are applicable to all areas of research.</p>
+<p><strong>Data:</strong></p>
+<ul>
+<li><a href="http://linnarssonlab.org/cortex/">Single cell mouse cortex data from the Linnarsson lab</a></li>
+<li><a href="https://tabula-muris.ds.czbiohub.org/">Tabular Muris</a> data as represented in the UCSC Genome Browser</li>
+<li><a href="http://casestudies.brain-map.org/celltax">Celltax single cell expression atlas data</a> downloaded from <a href="https://www.ncbi.nlm.nih.gov/sra">SRA</a></br></li>
+</ul>
+<p><strong>Tools:</strong></p>
+<ul>
+<li><a href="https://genome.ucsc.edu/">UCSC genome Browser</a></li>
+<li><a href="https://software.broadinstitute.org/software/igv/home">Integrative Genomics Viewer</a></li>
+</ul>
+<hr />
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>At the end of this introductory workshop, you will :</p>
+<ul>
+<li>Understand the how some types of genomics and expression data are represented in Genome browsers.</li>
+<li>Understand gene models and identify differences between transcripts variants.</li>
+<li>Examine the tissue/cell type expression profiles of a gene of interest in expression data.</li>
+<li>Know some basic files types used in Genome browsers and upload and view local BAM files.</li>
+</ul>
+<hr />
+<h2 id="requirements-and-preparation">Requirements and preparation<a class="headerlink" href="#requirements-and-preparation" title="Permanent link">&para;</a></h2>
+<p><strong>Attendees are required to provide their own laptop computers.</strong>  </p>
+<p>If delivered as a workshop, participants should install the software and data files below prior to the workshop. Ensure that you provide sufficient time to liaise with your own IT support should you encounter any IT problems with installing software. Unless stated otherwise, recommended browsers are Firefox or Chrome.</p>
+<h3 id="preparing-you-and-your-laptop-prior-to-starting-this-workshop">Preparing you and your laptop prior to starting this workshop<a class="headerlink" href="#preparing-you-and-your-laptop-prior-to-starting-this-workshop" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Recomended software: Download and install <a href="https://software.broadinstitute.org/software/igv/download">IGV</a> (Free)
+ * Ensure that (<a href="https://www.google.com/chrome/">Chrome</a> or <a href="https://www.mozilla.org/en-US/">FireFox</a> are installed and upto date)</br>
+ * Create a user account in the <a href="https://genome.ucsc.edu/">UCSC genome browser</a>.
+ * Required data is downloaded as part of the tutorial exercises.</li>
+</ol>
+<h3 id="required-data">Required Data<a class="headerlink" href="#required-data" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No additional data needs to be downloaded prior to this workshop.</li>
+</ul>
+<hr />
+<h3 id="authors-and-review-date">Author(s) and review date<a class="headerlink" href="#authors-and-review-date" title="Permanent link">&para;</a></h3>
+<p><strong>Written by:</strong> Victoria Perreau | Melbourne Bioinformatics, University of Melbourne.</br></p>
+<p><strong>Created:</strong> October 2020</br>
+<strong>Reviewed and revised:</strong> March 2021</br></p>
+<hr />
+<h2 id="genome-browser-background">Genome Browser background<a class="headerlink" href="#genome-browser-background" title="Permanent link">&para;</a></h2>
+<p>Genome browsers are invaluable for viewing and interpreting the many different types of data that can be anchored to genomic positions.  These include variation, transcription, the many types regulatory data such as methylation and transcription factor binding, and disease associations. The larger genome browsers serve as data archives for valuable public datasets facilitating visualisation and analysis of different data types. It is also possible to load your own data into some of the public genome browsers.</p>
+<p>By enabling viewing of one type of data in the context of another, the use of Genome browsers can reveal important information about gene regulation in both normal development and disease, assist hypothesis development relating to genotype phenotype relationships.</p>
+<p>All researchers are therefore encouraged to become familiar with the use of some of the main browsers such as:</p>
+<ul>
+<li><a href="https://genome.ucsc.edu/">The UCSC Genome Browser</a>, (RRID:SCR_005780)</li>
+<li><a href="https://www.ensembl.org/index.html">ESEMBL Genome Browser</a>, (RRID:SCR_013367)</li>
+<li><a href="https://epigenomegateway.wustl.edu/browser/">Epigenome browser at WashU</a>, (RRID:SCR_006208)</li>
+<li><a href="http://software.broadinstitute.org/software/igv/">Integrative Genomics Viewer (IGV)</a>, RRID:SCR_011793).</li>
+</ul>
+<p>They are designed for use by researchers without programming experience and the developers often provide extensive tutorials and cases studies demonstrating the myriad of ways in which data can be loaded and interpreted to assist in develop and supporting your research hypothesis.</p>
+<ul>
+<li><a href="https://www.youtube.com/c/ucscgenomebrowser/videos">The UCSC Genome Browser Youtube channel</a></li>
+<li><a href="https://www.ebi.ac.uk/training/online/courses/ensembl-browser-series/">Ensemble Browser webinar course</a></li>
+</ul>
+<p>Many large genomic projects also incorporate genome browsers into their web portals to enable users to easily search and view the data. These include:</p>
+<ul>
+<li><a href="https://gtexportal.org/home/">GTEx</a></li>
+<li><a href="https://gnomad.broadinstitute.org/">gnomAD</a></li>
+</ul>
+<hr />
+<h2 id="bdnf-and-trkb-signalling">BDNF and TrkB signalling<a class="headerlink" href="#bdnf-and-trkb-signalling" title="Permanent link">&para;</a></h2>
+<p>This tutorial uses the a well known and important signalling pathway in the central nervous system (CNS) to illustrate some of the Genome browser tools and utility.</p>
+<p><img align="left" alt="TrkB-schema-eng" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/TrkB-schema-eng.png/256px-TrkB-schema-eng.png" />  </p>
+<p>Brain Derived Neurotrophic factor (BDNF) protein is an important neurotrophin responsible for regulating many aspects of growth and development in different cells within the CNS. TrkB is an important receptor that binds extracellular BDNF and propagates the intracellular signalling response via a tyrosine kinase. This TrkB receptor protein is encoded by the NTRK2 gene.  </p>
+<p>The NRK2 gene expresses a number of different transcript variants in different cell types. The most well studied of these is the full length TrkB receptor referred to as TrkB, which is mainly expressed in neuronal cell types. The other transcript variants all express the same exons encoding the extracellular domain of the receptor (shown in the fugure here in green) but have truncated intracellular domains, which do not include the tyrosine kinase domain and thus activate different signalling pathways upon binding to BDNF.  None of these truncated protein products have been well studied, but the most highly expressed receptor variant is known as TrkB-T1, and is known to be highly expressed in astocytes.  </p>
+<p>Since the transcript variants are differently expressed in different cell types within the CNS the NTRK2 gene is a very useful example for exploring cell type specific transcript expression in available public data.</p>
+<p><strong>Major CNS cell types:</strong></br></p>
+<ul>
+<li>Neuron  (yellow cell in the image below)</li>
+<li>Astrocyte  </li>
+<li>Oligodendrocyte  </li>
+<li>Microglia  </li>
+<li>Ependymal  </li>
+</ul>
+<p><img alt="1209 Glial Cells of the CNS-02" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/1209_Glial_Cells_of_the_CNS-02.jpg/512px-1209_Glial_Cells_of_the_CNS-02.jpg" /></p>
+<hr />
+<h2 id="section-1-introduction-to-genome-browsers">Section 1: Introduction to Genome Browsers<a class="headerlink" href="#section-1-introduction-to-genome-browsers" title="Permanent link">&para;</a></h2>
+<p>Genome browsers rely on a common reference genome for each species in order to map data from different sources to the correct location. A consortium has agreed on a common numbering for each position on the genome for each species. However, this position will vary based on the version of the genome, as error correction and updates can change the numbering. Therefore it is very important to know which version of the genome your data of interest is aligned to.</p>
+<p>The sequence for the human reference genome was accumulated up over many years from sequence data from many different sources and does not represent the sequence of one single person. Instead it is a composite of fragments of the genome from many different people.  Also, unlike the human genome which is diploid, the human genome is haploid.  That is there is only one copy of each chromosome. It therefore does not reflect the variation on the population, or even the most common variants in the human genome. Exploring variation within human genome is very important and facilitated by genome browsers but not covered in this workshop.</p>
+<h3 id="genome-build-version-number-further-reading">Genome Build version number- further reading<a class="headerlink" href="#genome-build-version-number-further-reading" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://www.ncbi.nlm.nih.gov/grc">The Genome reference consortium</a></br></li>
+<li><a href="https://genome.ucsc.edu/FAQ/FAQreleases.html">What does the nomenclature mean?</a></li>
+</ul>
+<p>For further info on Human Genome version updates I recommend you look at the updates and <a href="https://genome.ucsc.edu/goldenPath/newsarch.html#2019">blog pages on the UCSC genome browser</a>.</p>
+<hr />
+<h2 id="section-2-the-ucsc-genome-browser-interface">Section 2: The UCSC genome Browser interface<a class="headerlink" href="#section-2-the-ucsc-genome-browser-interface" title="Permanent link">&para;</a></h2>
+<p>In this section we will become familiar with the web interface of the UCSC genome browser and explore some of the tools and public datasets available.</p>
+<ul>
+<li>Explore features of particular chromosomal regions</li>
+<li>Investigate specific genes as well as collections of genes</li>
+<li>Search for locations of sequences and markers</li>
+<li>Retrieve annotation information for specific regions or genome-wide</li>
+<li>View your own data in context of other annotations</li>
+<li>Compare a region of one genome to genomes of other species</li>
+</ul>
+<p>Weekly maintenance of the browser is at 5-6 pm Thursdays Pacific time, which is equivalent to 11am-12pm AEST time. During this time the browser may be down for a few minutes. To ensure uninterrupted browser services for your research during UCSC server maintenance and power outages, bookmark one of the mirror sites that replicates the UCSC genome browser.</p>
+<p><strong>Accessing the tools</strong>:
+Many of the tools that we will explore can be selected via multiple different routes within the browser interface. One way to access many tools is via from the top toolbar on a pull down list, other tools can be accessed from within the browser window.  In the following instructions a series of <ss>blue boxes</ss> is used to indicate successive lower levels from the pull down menu when starting with the top toolbar.  For example, the notation below indicates that you should select &lsquo;Genome Browser&rsquo; from the top tool bar and then click on &lsquo;Reset all user settings&rsquo;.</p>
+<p><ss>Toolbar</ss> <ss>Genome Browser</ss> <ss>Reset all user settings</ss></p>
+<p><strong>Accessing help and training</strong>:
+This workshop the UCSC genome browser is supported by rich training resource which has new material added regularly <a href="https://www.youtube.com/channel/UCQnUJepyNOw0p8s2otX4RYQ/videos">youtube channel</a>. To access training to further develop your skills and go to:
+<ss>Toolbar</ss>  <ss>Help</ss> <ss>Training</ss></p>
+<h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Open the Browser interface:</strong>  <ul>
+<li>Navigate to the <a href="https://genome.ucsc.edu/">UCSC genome Browser</a> and sign in if you have an account.<br>
+<img src="../media/UCSC_Home.png" width="700"></li>
+</ul>
+</li>
+<li><strong>First reset the browser, so that we all see the same screen:</strong><br />
+    <ss>Toolbar</ss> <ss>Genome Browser</ss> <ss>Reset all user settings</ss></li>
+<li>
+<p><strong>Select and open the human Genome Hg38 at the default position, there are a few different ways to do this</strong>  </p>
+<ul>
+<li><ss>Toolbar</ss> <ss>Genomes</ss> (this takes you to the Genome gateway page)  <ul>
+<li>Check that GRCh38 is selected in &lsquo;human assembly&rsquo; and click on the blue <ss>GO</ss> box  </li>
+</ul>
+</li>
+<li><ss>Toolbar</ss> <ss>Genomes</ss> <ss>Human GRCh38hg38</ss> (takes you directly to the genome)</li>
+</ul>
+<p>You should see this screen, opening at a position on the X chromosome of Human genome version GRCh38 showing the gene model for the ACE2 gene.
+<img src="../media/UCSC_Hg38_opening.png" width="700"></p>
+</li>
+<li>
+<p><strong>Familiarise yourself with the main areas of the interface and locate:</strong></p>
+<ul>
+<li>The main Toolbar</li>
+<li>Blue bar track collections (data of similar types are collected together under the same &lsquo;Blue bar&rsquo; heading). Scroll down to see additional data collections and which ones are turned on as default.</li>
+<li>Genome species and version number</li>
+<li>Position box</li>
+<li>Navigation tool buttons</li>
+<li>Chromosome ideogram</li>
+<li>Genome view window</li>
+<li>Pre loaded tracks, track titles:<ul>
+<li>The grey bars on the left of the genome view can be used for selecting and configuring the tracks.</li>
+<li>You can change the order of the tracks by dragging these grey bars up and down.</li>
+</ul>
+</li>
+<li>Turn tracks on and off:<ul>
+<li>You can hide tracks by right clicking on the grey bar or by turning them off in the Blue bar collections.</li>
+<li>You have to click on a &lsquo;refresh&rsquo; button to the changes to be reflected in the the genome view window.</li>
+</ul>
+</li>
+<li>View the <strong>configuration page</strong> specific to a track.  The configuration page gives you a lot of information about the data track and its colouring. You can open the configuration page for a track by:<ul>
+<li>clicking on the grey bar for the track or,</li>
+<li>clicking on the track title in the Blue bar collection. More information and options is usually available by selecting the configuration page for a track via the track title in the Blue Bar collections.</li>
+</ul>
+</li>
+<li>Select white &lsquo;resize&rsquo; button to fit the genome view window to your screen</li>
+</ul>
+</li>
+<li>
+<p><strong>Customise your view by using the &lsquo;Configure&rsquo; tool to change the font size to 12.</strong> Use either method below to open the Configure tool.</p>
+<ul>
+<li><ss>Toolbar</ss> <ss>View</ss> <ss>Configure browser</ss> <ss>text size 12</ss> <ss>submit</ss></li>
+<li>or start by clicking on white <ss>configure</ss> button below the genome view window.</li>
+</ul>
+</li>
+<li>
+<p><strong>Practice navigating around the genome view.</strong></p>
+<ul>
+<li>move left and right both the navigation buttons and your mouse</li>
+<li>zoom in and out using navigation buttons</li>
+<li>zoom in to a region of interest using <strong>&lsquo;Drag-and-select&rsquo;</strong>:<ul>
+<li>using your mouse select a region of interest by clicking the ruler (position track) at the very top of the genome view window.</li>
+</ul>
+</li>
+<li>This is also how to access the <strong>&lsquo;highlight tool&rsquo;</strong> which you will use in a later exercise to highlight a region of interest.<ul>
+<li>Click on the down arrow next to the highlight colour to select a different colour.
+<img src="../media/UCSC_drag-and-select.png" width="700"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="understanding-the-gene-models">Understanding the gene models<a class="headerlink" href="#understanding-the-gene-models" title="Permanent link">&para;</a></h3>
+<p><img src="../media/gene_model.png" width="700"><br></p>
+<h4 id="ntrk2">NTRK2<a class="headerlink" href="#ntrk2" title="Permanent link">&para;</a></h4>
+<p>First we are going to familiarise ourselves with the gene model representation of the different transcripts of NTRK2.  </p>
+<ol>
+<li>
+<p><strong>Navigate to the NTRK2 gene position in GRCh38 and view the gene models</strong></p>
+<ul>
+<li>You can navigate to a different region by typing in the position box.<ul>
+<li>If you know the specific location you are interested in type in the location using the format &ldquo;chr#:1234-1234&rdquo;.</li>
+<li>If you have a gene of interest you can type in the gene name (eg: NTRK2). Note the autocompleted suggestions that appear when  you start typing.  You can select from one of the suggestions or click <ss>go</ss> and select from a wider range of options.</li>
+<li>Type (or copy and paste) <strong>NTRK2</strong> or <strong>chr9:84,665,760-85,030,334</strong> into the position box.</li>
+</ul>
+</li>
+<li><ss>Hide all</ss> tracks by selecting the white button below the genome view.</li>
+<li>Turn on only the &lsquo;Genecode v32 Genemodels&rsquo; in &lsquo;full&rsquo; viewing mode by selecting from the blue bar group labelled &lsquo;Genes and Gene predictions&rsquo;.</li>
+<li>Turn on &lsquo;Conservation&rsquo; track to &lsquo;full&rsquo;<ul>
+<li>Dont forget to click <ss>refresh</ss>.</li>
+</ul>
+</li>
+<li>
+<p>When you have navigated to the NTRK2 gene, zoom out until you can view all of the 5&rsquo; UTRs and 3&rsquo; UTRs for all transcript variants for this gene. Then drag the view left and right to center (like in Google maps) or &lsquo;drag and select&rsquo; the region to center the gene in the Genome view. You should see something like the image below.
+<img src="../media/UCSC_NTRK2_GENCODE.png" width="700"></p>
+</li>
+<li>
+<p>Which strand is the gene encoded on / transcribed from? (+ or - strand)</p>
+</li>
+<li>Identify the exons, introns and UTRs<ul>
+<li><em>Do regions of conservation only occur were there are coding regions?</em></li>
+<li><em>How many different transcripts variants are there for this gene?</em></li>
+<li><em>How do they differ?</em></li>
+</ul>
+</li>
+<li>Select a coding region (full height boxes) towards the 3&rsquo;UTR of the gene.<ul>
+<li>zoom in to the region until you can see the letters of the amino acid sequence.<ul>
+<li><em>Why are some amino acid boxes red or green?</em></li>
+</ul>
+</li>
+<li>Zoom in again until you can see each amino acid number.  <ul>
+<li><em>Why do different transcripts have different amino acid numbers?</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Note that one of the transcript names is in white text with a black background, this is the transcript you selected from the autocompleted list or the search results.</li>
+<li>Change the <strong>&lsquo;view settings&rsquo;</strong> for the track. Switch between <ss>dense</ss> <ss>squish</ss> <ss>pack</ss> <ss>full</ss> to see how it changes the representation of the models.<ul>
+<li>Right click on the track grey bar in the left of the genome window to access view settings.</li>
+</ul>
+</li>
+<li>Go to the configuration  page for the Gencode v32 track and change the gene names to also reveal the &lsquo;Gencode transcript ID&rsquo; in the label.</li>
+<li>The transcript names are now too long to fit on the screen. Go to the genome view configuration page (like you did to chane the font size at the beginning of the workshop) and change the number of characters in the label so that you can see the entire transcript label.  </li>
+</ul>
+</li>
+</ol>
+<h4 id="gene-model-revision-quiz">Gene model revision Quiz<a class="headerlink" href="#gene-model-revision-quiz" title="Permanent link">&para;</a></h4>
+<p>Test your understanding of gene model representation by attempting this 6 questions in this <a href="https://forms.gle/AnqR2igkm2xgEqEs6">quiz</a>.</p>
+<h3 id="gene-expression-data">Gene expression data<a class="headerlink" href="#gene-expression-data" title="Permanent link">&para;</a></h3>
+<p><img src="../media/coverage_plot.png" width="700"></p>
+<ol>
+<li>
+<p><strong>The FACS derived data from the <a href="https://tabula-muris.ds.czbiohub.org/">Tabular Muris</a> cell type data is also availble in the UCSC genome browser and can be visualised as a coverage plot</strong></p>
+<ul>
+<li>Start at the view of the NTRK2 gene in the human genome and navigate to the Ntrk2 gene in the mouse genome using the &lsquo;View in other genomes tool&rsquo;.<ul>
+<li><ss>Toolbar</ss> <ss>View</ss> <ss>In Other Genomes (Convert)</ss></li>
+<li>select New Genome:Mouse , New Assembly:GRC38/mm10, click on &lsquo;Submit&rsquo;</li>
+<li>select the region with the greatest homology</li>
+</ul>
+</li>
+<li>Configure the Tabular Muris track by selecting it from the blue bar collection.<ul>
+<li>Hide &lsquo;Cell expression&rsquo;</li>
+<li>Select &lsquo;Genome coverage&rsquo; to full</li>
+<li>Select &lsquo;submit&rsquo;<br>
+<strong>This can look like a bit too much data to manage as there are very many tracks and the default track height is set very high. But its easy to simplify it by filtering to show only a few cell types of interest.</strong><br></li>
+</ul>
+</li>
+<li>Right click on the grey bar to &lsquo;configure the track set&rsquo;.<ul>
+<li>Change track height to 30</li>
+<li>for &lsquo;data view scaling&rsquo; select group autoscale</li>
+<li>clear all the subtracks and then manually select only a few cell types of interest:<ul>
+<li>astrocyte Cv</li>
+<li>Bergmann glial Cv</li>
+<li>microglia Cv</li>
+<li>neuron Cv</li>
+<li>oligodendrocyte Cv</li>
+<li>OPC Cv</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Which cell type has the highest level expression in this dataset?</li>
+<li>Change the &lsquo;Data view scaling&rsquo; to autoscale to dataview.<ul>
+<li>Export a PDF image of the genome view: <ss>Toolbar</ss> <ss>View</ss> <ss>PDF/PS</ss> select &lsquo;Download the current browser graphic in PDF&rsquo;
+<img src="../media/mm10_Ntrk2.png" width="600"></li>
+</ul>
+</li>
+<li>Which cell type(s) express the long and short transcripts for NTRK2?</li>
+</ul>
+</li>
+<li>
+<p><strong>We are going to examine the expression of transcript variants of NTRK2 in different cell types in the mouse brain cortex <a href="http://linnarssonlab.org/cortex/">Linnarsson lab</a></strong></p>
+<ul>
+<li>The data that is publicly available for viewing in the UCCS genome browser but is not housed in the UCSC genome browser. You must first access it from the the Linnarsson lab data page.</li>
+<li>This RNAseq data is stranded, meaning you can see if the transcript data is from the + or - strand.</li>
+<li>Go to the <strong><a href="http://linnarssonlab.org/cortex/">Public data page</a></strong> where you can search for cell expression profiles for individual genes.</li>
+<li>Click on the &lsquo;Browse the genome&rsquo; blue text near the bottom of the page.</li>
+<li>This loads 18 different tracks, one for each cell type. The default setting for expression range is quite high and most gene expression cannot be visualised with these settings. Each track must be also be configured individually rather than as a group, which I will demonstrate but it takes a lot of time.</li>
+<li>I have created a version of this data where each track autoscales which can make it quicker to determine what expression range would be ideal for visualising the expression of an individual gene.  You can access this custom track set at this <strong><a href="https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10&amp;lastVirtModeType=exonMostly&amp;lastVirtModeExtraState=&amp;emGeneTable=knownGene&amp;virtModeType=exonMostly&amp;virtMode=1&amp;nonVirtPosition=chr13%3A58807697%2D59133970&amp;position=chr13%3A58807697%2D59133970&amp;hgsid=934998079_avsgVoOzSJintErsCjEIcwdiQOQc">link</a></strong>.</li>
+<li>For an exercise, select 2 or three cell types and adjust the scale to best reflect differences in gene expression of Ntrk2 between these cells. Save this session and share it.</li>
+</ul>
+</li>
+</ol>
+<h2 id="section-3-igv">Section 3: IGV<a class="headerlink" href="#section-3-igv" title="Permanent link">&para;</a></h2>
+<p>In this section we will download a BAM file of gene expression data from SRA and view it in the <a href="https://igv.org/">Integrated Genome Viewer (IGV)</a>.  </p>
+<p>For simplicity, and in order to save time if you have not yet installed IGV on your computer, you can view the BAM files  the IVG web browser application. However you cannot generate the Sashimi plot view in the web browser version of IGV.</p>
+<p>BAM files must first be sorted and indexed before they can be loaded into genome viewers and IGV has tools to do this in the desktop app without having to use command line. However these tools are not available in the <a href="https://igv.org/app/">IGV web app</a>. Therefore I have also provided the sorted BAM and index files for download, but I encourage you to download them yourself from SRA and sort and index them using the instructions below when you have time.<br>
+<strong><a href="https://zenodo.org/record/4636667#.YFyAuGQzZqt">BAM and Bai file download link</a></strong></p>
+<p>The expression data we are using for this exercise is from the mouse <a href="http://casestudies.brain-map.org/celltax">Celltax single cell expression atlas</a> published by the Allen Brain Institute.  The cell tax vignette has an expression browser that displays gene level expression as a heat map for any gene of interest,  The readsets (fastq files) and aligned data (BAM files) for 1809 runs on single cells are also available for down load from SRA.</p>
+<p>The SRA study ID for this study is <a href="https://www.ncbi.nlm.nih.gov/sra?term=SRP061902">SRP061902</a> and individual runs from this study are easily selected by viewing the samples in the &lsquo;RunSelector&rsquo;, if you wish to identify particular cell types of interest.  For this exercise, I have already identified a few samples that we will download in order to illustrate navigating data in IGV by looking at the expression of NTRK2 in the same cell types we have discussed in earlier exercises.<br></p>
+<p>For each cell type we will down load a .BAM file containing only the reads from a single chromosome of interest. Using a reduced dataset for demonstrations cuts down on data transfer and processing time.</p>
+<p>For each SRA run in the table below open the link in a new tab to down load the data. Not many readsets in SRA have aligned data available for down load but this data set does.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Cell type</th>
+<th style="text-align: left;">SRA run</th>
+<th style="text-align: left;">Vignette Cell ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>astrocyte</strong></td>
+<td style="text-align: left;"><a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?run=SRR2138962">SRR2138962</a></td>
+<td style="text-align: left;">D1319_V</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>astrocyte</strong></td>
+<td style="text-align: left;"><a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?run=SRR2139935">SRR2139935</a></td>
+<td style="text-align: left;">A1643_VL</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>neuron</strong></td>
+<td style="text-align: left;"><a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?run=SRR2139989">SRR2139989</a></td>
+<td style="text-align: left;">S467_V4</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>neuron</strong></td>
+<td style="text-align: left;"><a href="https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?run=SRR2140047">SRR2140047</a></td>
+<td style="text-align: left;">S1282_V</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p><strong>Download BAM files from SRA</strong></p>
+<ul>
+<li>Click on the &lsquo;Alignment&rsquo; tab</li>
+<li>Note that the data is aligned to the mouse GRCm38 genome (mm10).</li>
+<li>Select the chromosome of interest. For NTRK2 in mouse it is chr13</li>
+<li>For &lsquo;Output this run in:&rsquo; select <strong>BAM</strong> and click on &lsquo;format to:&rsquo; <strong>File</strong></li>
+<li>Rename the downloaded file to include the cell type, to avoid confusion. eg: <strong>SRR2138661_astrocyte_chr13.bam</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>Use IGV tools to SORT and INDEX the BAM files</strong> Store sorted BAM files and index files in the same folder.</p>
+<ul>
+<li>Open IGV and select Tools / Run igvtools&hellip; from the pull town menus.</li>
+<li>Select <strong>&lsquo;Sort&rsquo;</strong> from the Command options and use the brows options to select the BAM file you just downloaded and click <strong>&lsquo;Run&rsquo;</strong></li>
+<li>Without closing the igvtools window now select the command <strong>&lsquo;Index&rsquo;</strong> and Browse to find the BAM file you just sorted.  It will have the same file name with &lsquo;sorted&rsquo; added to the end. eg SRR2138661_astrocyte_chr13.sorted.bam</li>
+<li>The resulting index file will have the file name : SRR2138661_astrocyte_chr13.sorted.bam.bai<ul>
+<li>It is essential that the index file for a BAM file has the same name and is located in the same folder as its BAM file. If not the IVG software will not be able to open the BAM file.<br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="../media/BAM_bai_files.png" width="300"></p>
+<ol start="3">
+<li><strong>View the BAM files in IGV</strong><ul>
+<li>Select the Mouse (mm10) genome from the genome box in the top right hand corner.</li>
+<li>Select File / Load from File&hellip; and select all 4 &lsquo;_chr13.sorted.bam&rsquo; files only (use command to select more then one file at a time).</li>
+<li>select open - but don&rsquo;t expect to see any data yet. The genome view window opens on a whole chromosome view as default but it wont show any data until the view region is small enough to show all data in the current view.</li>
+<li>Type the gene name &lsquo;NTRK2&rsquo; into the search window.</li>
+<li>Expand the Refseq gene model track by right clicking it to see all the splice variants</li>
+<li>The gene and thus the genome view is 328kb and the default setting for viewing data is only 100kb.  So unless you have already changed your settings alignment data will not get be showing.</li>
+<li>zoom into the region of a coding exon by selecting in the numbered location track at the top of the genome view.</li>
+<li>To see the whole gene in the genome window at the same time you may need to change the preferences.  </li>
+<li>Go to View / Preferences and select the &lsquo;Alignments tab&rsquo;.</li>
+<li>Change the visibility range threshold to 400kb.</li>
+</ul>
+</li>
+</ol>
+<p><img src="../media/IGV_preferences.png" width="400"></p>
+<p><strong>You may need to change this back to a smaller range in the future if you are working with large datasets and/or small amounts of memory on your computer.</strong></p>
+<p><img src="../media/igv_Ntrk2.png" width="700"></p>
+<ol start="4">
+<li><strong>Export images</strong><ul>
+<li>The Genome view above can be exported by selecting &lsquo;File / Save image&hellip;&rsquo;  from the tool bar.</li>
+<li>To export the Sashimi plot below:<ul>
+<li>Right click on one of the junction tracks and select &lsquo;Sashimi Plot&rsquo; from the poll down menu.</li>
+<li>Select the tracks you want in your final image.</li>
+<li>There are some data filtering and style adjustments you can make to the Sashimi plot. Right click on each track to access the menu options. Some changes apply to each track individually and some to all tracks.
+    *
+<img src="../media/Sashimi.png" width="700"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<p><strong>IGV</strong>
+<a href="https://rockefelleruniversity.github.io/IGV_course/presentations/singlepage/IGV.html">https://rockefelleruniversity.github.io/IGV_course/presentations/singlepage/IGV.html</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

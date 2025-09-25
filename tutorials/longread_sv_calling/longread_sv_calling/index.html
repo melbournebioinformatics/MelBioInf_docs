@@ -1,0 +1,3268 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../var_detect_advanced/var_detect_advanced/">
+      
+      
+        <link rel="next" href="../../variant_calling_gatk1/variant_calling_gatk1/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Long-read Structural Variant Calling - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#structural-variant-calling-long-read-data" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Long-read Structural Variant Calling
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning Objectives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Software
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-structural-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Structural Variation?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefit-of-long-reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefit of Long Reads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applications-of-structural-variant-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applications of Structural Variant Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structural-variant-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structural Variant Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variants-detected-by-common-sv-calling-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variants detected by common SV calling programs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sv-calling-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      SV calling pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-bacterial-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Bacterial dataset
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Bacterial dataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting the data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-qc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read QC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alignment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sv-calling-with-sniffles" class="md-nav__link">
+    <span class="md-ellipsis">
+      SV calling with sniffles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-summary-awk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a summary (awk)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculating-sniffles-performance-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Calculating sniffles Performance Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuning-sniffles-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tuning sniffles Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualising-sv-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualising SV calls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-human-clinical-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Human clinical dataset
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Human clinical dataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patient-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      Patient Case
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-the-data_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting the data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sv-calling-using-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      SV Calling using Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualising-alignments-with-igv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualising Alignments with IGV
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#genomic-feature-annotation-of-variant-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Genomic Feature Annotation of Variant Calls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional reading
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning Objectives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Software
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#author-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Author Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Background">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-structural-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Structural Variation?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefit-of-long-reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefit of Long Reads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applications-of-structural-variant-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applications of Structural Variant Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structural-variant-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structural Variant Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variants-detected-by-common-sv-calling-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variants detected by common SV calling programs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sv-calling-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      SV calling pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-bacterial-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Bacterial dataset
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 1: Bacterial dataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting the data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-qc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read QC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alignment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sv-calling-with-sniffles" class="md-nav__link">
+    <span class="md-ellipsis">
+      SV calling with sniffles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-summary-awk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a summary (awk)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculating-sniffles-performance-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Calculating sniffles Performance Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuning-sniffles-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tuning sniffles Settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualising-sv-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualising SV calls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-human-clinical-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Human clinical dataset
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 2: Human clinical dataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patient-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      Patient Case
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-the-data_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting the data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sv-calling-using-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      SV Calling using Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualising-alignments-with-igv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualising Alignments with IGV
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#genomic-feature-annotation-of-variant-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Genomic Feature Annotation of Variant Calls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional reading
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><img src="../media/melbioinf_logo.png" width="350"> <img src="../media/PRIMARY_A_Vertical_Housed_RGB.png" width="150"></p>
+<h1 id="structural-variant-calling-long-read-data">Structural variant calling - long read data<a class="headerlink" href="#structural-variant-calling-long-read-data" title="Permanent link">&para;</a></h1>
+<p>Anticipated workshop duration when delivered to a group of participants is <strong>4 hours</strong>.  </p>
+<p>For queries relating to this workshop, contact Melbourne Bioinformatics (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;">&#98;&#105;&#111;&#105;&#110;&#102;&#111;&#114;&#109;&#97;&#116;&#105;&#99;&#115;&#45;&#116;&#114;&#97;&#105;&#110;&#105;&#110;&#103;&#64;&#117;&#110;&#105;&#109;&#101;&#108;&#98;&#46;&#101;&#100;&#117;&#46;&#97;&#117;</a>).</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<h3 id="topic">Topic<a class="headerlink" href="#topic" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Genomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Transcriptomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Proteomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Metabolomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Statistics and visualisation</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Structural Modelling</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Basic skills</li>
+</ul>
+<h3 id="skill-level">Skill level<a class="headerlink" href="#skill-level" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Beginner  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Intermediate  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Advanced  </li>
+</ul>
+<p>This workshop is designed for participants with no command line knowledge. A web-based platform called Galaxy will be used to run our analysis. We <em>will</em> be using <strong>1 line awk programs</strong> to process text output, but these will be supplied and explained. </p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p><em>Long reads have turbo-charged structural variant detection - be part of the renaissance!</em></p>
+<p>Structural variation has historically been hard to detect. The advent of long reads, and improvements to the quality of reference genomes over time has recently enabled new discoveries in the field.  This tutorial uses <strong><em>sniffles</em></strong> to implement a structural variant calling pipeline. Structural variant calling will be performed on a bacterial dataset to benchmark sniffles, then using a human clinical dataset to identify patient disease. We will explore one workflow for structural variant detection, then will visualise and summarise our results using multiple methods.   </p>
+<p><br></p>
+<p><strong>Data:</strong> Nanopore reads: bacterial &amp; human (FASTQ), genomic feature annotations (GFF), human reference genome hg38 </p>
+<p><strong>Pipeline:</strong> Read summaries &amp; QC, alignment, SV calling, text processing, visualisation</p>
+<p><strong>Tools:</strong> NanoPlot, Filtlong, minimap2, CalMD, SortSam, sniffles, VCFsort, VCFannotate, awk, Circos, IGV<br></p>
+<p><br></p>
+<p><em>Section 1</em> covers bacterial SV calling and benchmarking of bioinformatics tools. <br>
+<em>Section 2</em> will demonstrate SV calling on a human sample to diagnose a patient condition. </p>
+<p><br></p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>At the end of this introductory workshop, you will :</p>
+<ul>
+<li>Be able to perform SV calling in model <em>and</em> non-model organisms</li>
+<li>Be familiar with the current field of SV calling</li>
+<li>Gain an understanding of <em>why</em> and <em>when</em> SV calling is an appropriate analysis to perform.</li>
+</ul>
+<p><br></p>
+<hr />
+<h3 id="required-software">Required Software<a class="headerlink" href="#required-software" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No additional software needs to be installed for this workshop.</li>
+</ul>
+<h3 id="required-data">Required Data<a class="headerlink" href="#required-data" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No additional data needs to be downloaded for this workshop.</li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="author-information">Author Information<a class="headerlink" href="#author-information" title="Permanent link">&para;</a></h2>
+<p>Written by: Grace Hall<br />
+Melbourne Bioinformatics, University of Melbourne</p>
+<p>Created/Reviewed: March 2021</p>
+<p><br></p>
+<hr />
+<h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-structural-variation">What is Structural Variation?<a class="headerlink" href="#what-is-structural-variation" title="Permanent link">&para;</a></h3>
+<p>Genetic variation is always relative. In general, we have a reference sequence which we know lots about, and query sequences to compare against this reference.  Given we know lots about the reference, the <strong><em>impact</em></strong> of any variation we find in the query sequences can be inferred. The query sequences can originate from a single individual or a group, depending on the biological question.<br />
+<br></p>
+<p><img src="../media/snv_vs_sv.png" style="display: block; margin-left: auto; margin-right: auto; width: 65%;"></p>
+<p><br>Genetic variants are often separated into two categories: <strong><em>sequence variants</em></strong>, and <strong><em>structural variants</em></strong>. </p>
+<p><strong><em>Sequence variants</em></strong> cover small-scale changes which affect a few nucleotides, such as single nucleotide variants (SNVs) or small insertions / deletions (Indels). They are particularly important when they impact coding sequences of genes, as can alter the amino acid sequence of proteins.</p>
+<p><strong><em>Structural variants (SVs)</em></strong> are large-scale events (&gt;50 bp) where entire sections of genetic material have changed. An example is a deletion, where an entire section of DNA has been removed. Structural variants have the potential to greatly alter the gene dosage of a cell by duplicating or deleting entire exons or genes at a time. </p>
+<h3 id="benefit-of-long-reads">Benefit of Long Reads<a class="headerlink" href="#benefit-of-long-reads" title="Permanent link">&para;</a></h3>
+<p>Structural variation has historically been hard to detect. This is because structural variation often involves repeat elements which are notoriously hard to resolve using short-read sequencing technologies. Either the structural variant itself is a repeat, or it occurs in a repetitive region of the reference genome. </p>
+<p><br></p>
+<p><img src="../media/lr_vs_sr_tandem.png" style="display: block; margin-left: auto; margin-right: auto; width: 90%;"></p>
+<p><br></p>
+<p>In general, long reads have greater mappability. Mappability is the ability to unambiguously align reads to a reference. In the example above, a short read sampled from a tandem repeat cannot be accurately mapped, as it is equally likely it came from 3 different locations. On the other hand, a long read sampled from this region can be uniquely mapped to a single location. The extra repeat found in the isolate could also be detected given such a read. </p>
+<p>This is highly pertinent when working with the human genome, <strong><em>as more than 60% appears to be repetitive sequence</em></strong>.  This repetitive sequence consists of 2 main elements: mobile elements, and repeats. Mobile elements are sections of DNA which copy or move themselves throughout our genome and include retrotransposons (LINE, SINE, LTR, and SVA) and DNA transposons. Repeats are genomic regions which contain the same sequence repeated many times, and consist of Short Tandem Repeats (STRs / microsatellites) which are 1-6 bp tandem repeats, or Variable Number of Tandem Repeats (VNTRs / minisatellites) which are tandem repeats where the repeat length is greater than 7 bp.  </p>
+<h3 id="applications-of-structural-variant-detection">Applications of Structural Variant Detection<a class="headerlink" href="#applications-of-structural-variant-detection" title="Permanent link">&para;</a></h3>
+<p>The importance of structural variation has become more apparent in recent years. This has been driven by the advent of long-read sequencing technologies, and the availability of better reference genomes (including improvements to human reference genome hg38). Today, SV detection is implicated in many areas of bioinformatics, including the following:</p>
+<p><strong>Human Disease</strong></p>
+<ul>
+<li>Cohort studies<ul>
+<li>Identifying new, disease-causing structural variation</li>
+<li>Assessing an individual&rsquo;s susceptibility to disease mediated by SVs</li>
+</ul>
+</li>
+<li>Cancer genomics<ul>
+<li>Susceptibility of individual to certain cancers</li>
+<li>Monitoring of tumor progression</li>
+</ul>
+</li>
+</ul>
+<p><strong>Agriculture</strong></p>
+<ul>
+<li>Identifying desirable traits<ul>
+<li>Flowering rate, frost / drought resistance, improved crop yield</li>
+</ul>
+</li>
+<li>Genetic modification </li>
+</ul>
+<p><strong>The Microbial World</strong></p>
+<ul>
+<li>Understanding the relationship between microbiome SVs and human health</li>
+<li>Studying phylogeny and evolution of microbes (including horizontal gene transfer)</li>
+<li>Researching the spread of mobile elements and plasmids which convey virulence or antibiotic resistance genes</li>
+</ul>
+<h3 id="structural-variant-types">Structural Variant Types<a class="headerlink" href="#structural-variant-types" title="Permanent link">&para;</a></h3>
+<p>Structural variants are either destructive (involving a change in total genetic material), or non-destructive (total genetic material stays the same). Destructive variants are often particularly interesting, as they alter the gene dosage of a call. This can lead to overexpression of genes, or knock-out variants with zero expression if a gene was removed. Destructive SVs are highly implicated in cancer genomics, as undesirable genes such as tumor-suppressors can be removed, while desirable genes involving growth and proliferation can be expressed in much higher quantity.</p>
+<p><br></p>
+<p><img src="../media/sv_types.png" style="display: block; margin-left: auto; margin-right: auto; width: 90%;"></p>
+<p><br>There are <strong>5 main types</strong> of structural variation. Insertions, Deletions, Inversions, Duplications, and Translocations. Specifically, they involve the following:</p>
+<ul>
+<li>
+<p><strong>Insertions</strong><br>
+A foreign section of genetic material is inserted</p>
+</li>
+<li>
+<p><strong>Deletions</strong><br>
+A section of genetic material is removed</p>
+</li>
+<li>
+<p><strong>Inversions</strong><br>
+A section of genetic material swaps its orientation</p>
+</li>
+<li>
+<p><strong>Duplications</strong> (interspersed or tandem)<br>
+A section of genetic material is copied, then inserted. 
+Can be separated into:</p>
+<ul>
+<li>Interspersed duplications, where the insertion site is away from the copied section</li>
+<li>Tandem duplications, where the insertion site is directly beside the copied section</li>
+</ul>
+</li>
+<li>
+<p><strong>Translocations</strong> (intra- or inter-chromosomal)<br>
+A section of genetic material is cut out, then inserted somewhere else. Can be separated  into:</p>
+<ul>
+<li>Intra-chromosomal translocations, where the insertion site is within the same chromosome</li>
+<li>Inter-chromosomal translocations, where the insertion site is on another chromosome</li>
+</ul>
+</li>
+</ul>
+<h3 id="variants-detected-by-common-sv-calling-programs">Variants detected by common SV calling programs<a class="headerlink" href="#variants-detected-by-common-sv-calling-programs" title="Permanent link">&para;</a></h3>
+<p>Many SV calling programs <strong><em>do not</em></strong> attempt to detect interspersed duplications and intra-chromosomal translocations. This is because most SV callers have been designed for use with human data, and these variants are less relevant to the human genome than other organisms. </p>
+<p>Regarding <strong><em>interspersed duplications</em></strong>, most RNA transposons (the mechanism of variation) are inactive in the human genome. A few are still active, but an impact will only be seen if the insertion site (insert location of the copied segment) is within an important genomic feature, such as a gene body or enhancer region. </p>
+<p><strong><em>Intra-chromosomal translocations</em></strong> are ignored for similar reasons. These are mainly caused by DNA transposons, which are considered inactive in humans. DNA transposons are still active in other eukaryotes (including most plants) and bacteria, so must be considered when working outside human data. </p>
+<h3 id="sv-calling-pipeline">SV calling pipeline<a class="headerlink" href="#sv-calling-pipeline" title="Permanent link">&para;</a></h3>
+<p>Today, we will explore one workflow for SV calling. We will first call variants using a benchmarking dataset, where the true SVs are known. We will then swap to a human clinical scenario, and will identify a structural variant causing patient disease. </p>
+<p>We will use the workflow below to explore structural variation. This workflow has 3 main sections - data exploration, calling variants, then interpreting our findings. Our process will be slightly different depending on whether we are working with the bacterial read set, or the human sample. </p>
+<p><br></p>
+<p><img src="../media/pipeline.png" width="95%" style="display: block; margin-left: auto; margin-right: auto; width: 90%;"></p>
+<p><br></p>
+<p>Our SV calling workflow will consist of 5 key steps:</p>
+<ol>
+<li>
+<p><strong>Read QC</strong><br>
+The length and quality distribution of long-read data is highly variable. We will summarise our read set using <strong><em>NanoPlot</em></strong>, to understand what quality of results to expect during analysis.  <strong><em>Filtlong</em></strong> will then be used to remove short reads, or those with patches of low quality. This will reduce erroneous read mapping and will improve our results. </p>
+</li>
+<li>
+<p><strong>Alignment</strong><br>
+Structural variation is always relative to a reference. Our isolate reads will act as the query, and an appropriate reference genome will be selected to measure structural variation against. We will align our isolate reads using <strong><em>minimap2</em></strong> to the chosen reference genome, then will pass the output alignment BAM file to our SV caller.  </p>
+</li>
+<li>
+<p><strong>SV calling</strong><br>
+Our SV caller, <strong><em>sniffles</em></strong>, uses the read alignment information to detect structural variation. It will output variant calls in VCF format, which we will then process with <strong><em>awk</em></strong> to create a summary which is easy to read.</p>
+</li>
+<li>
+<p><strong>Feature annotation</strong><br>
+Variants which span or otherwise intersect with key genomic regions are most likely to have functional impact. Rather than doing this manually for each variant, we can use <strong><em>awk</em></strong> and <strong><em>VCFannotate</em></strong> to automatically label variants with the genomic features they intersect with.</p>
+</li>
+<li>
+<p><strong>Visualisation</strong><br>
+Visualisation will be performed to understand variation on a genome-wide scale, and to probe single variants for their potential functional impact. <strong><em>Circos</em></strong> plots will be generated for the bacterial read set to view the total variation across the genome, and <strong><em>IGV</em></strong> will be used on the human clinical dataset to infer the functional consequences of variants. </p>
+</li>
+</ol>
+<p><br></p>
+<hr />
+<h2 id="section-1-bacterial-dataset">Section 1: Bacterial dataset<a class="headerlink" href="#section-1-bacterial-dataset" title="Permanent link">&para;</a></h2>
+<h3 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h3>
+<p>The first dataset we will use is a synthetically mutated bacterial genome. Structural variants and single base mutations have been added to an <em>E. coli sakai</em> assembly, then Nanopore reads of this mutated genome were simulated using <strong><em>NanoSim</em></strong>.  We will use these reads to identify the SVs we added using our SV calling pipeline. </p>
+<p>The benefit to this approach is that we know the ground truth. SVs were manually added to our <em>E. coli sakai</em> reference genome, and their details were recorded. As we have a list of SVs which were added, we can assess sniffles performance at SV calling by the number of SVs it correctly identifies.  </p>
+<p>In this section we will:</p>
+<ul>
+<li>Perform read Quality Control (QC)</li>
+<li>Align reads</li>
+<li>Perform SV calling</li>
+<li>Create SV call summaries using awk (text processing)</li>
+<li>Visualise SV calls with Circos</li>
+</ul>
+<p>We will employ a number of tools in our pipeline, so let&rsquo;s get to it!</p>
+<p><br></p>
+<h3 id="getting-the-data">Getting the data<a class="headerlink" href="#getting-the-data" title="Permanent link">&para;</a></h3>
+<p>To start, we need a set of reads from our synthetic isolate, a reference genome to call SVs against, and a &lsquo;ground truth&rsquo; list of variants which have been added to our isolate. </p>
+<p>Import the following Galaxy history to get started:<br />
+<a href="https://usegalaxy.org.au/u/graceh1024/h/sniffles-benchmarking-ecoli-sakai">https://usegalaxy.org.au/u/graceh1024/h/sniffles-benchmarking-ecoli-sakai</a></p>
+<div class="admonition question">
+<p class="admonition-title">Importing a galaxy history</p>
+<details class="hint">
+<summary>How to import</summary>
+<p>Galaxy histories can be accessed via a link, or in the &lsquo;Shared Data&rsquo; tab of the top navigation bar. Once you find a history you want to copy, press the &lsquo;+&rsquo; icon at the top right of the page to import the history</p>
+</details>
+</div>
+<ul>
+<li>The reference genome is &ldquo;ecoli_sakai.fasta&rdquo;</li>
+<li>Our reads are “isolate_reads.fastq”</li>
+<li>The list of added SVs is &ldquo;isolate_sv_record.tsv&rdquo;</li>
+</ul>
+<p><br></p>
+<h3 id="read-qc">Read QC<a class="headerlink" href="#read-qc" title="Permanent link">&para;</a></h3>
+<p>Before proceeding, we want to understand our read set. Nanopore reads can have highly variable read length and quality distributions from sample to sample - by creating a summary, we can know what to expect from our reads, and whether we should perform QC filtering. </p>
+<p><strong>Create a summary of the reads</strong></p>
+<p>First, we want to get a summary of our read set. <strong><em>NanoPlot</em></strong> creates plots to summarise the length distribution and quality of our read set.</p>
+<p><strong>Tool:</strong> NanoPlot</p>
+<ul>
+<li><strong><em>Type of the file(s) to work on:</em></strong> fastq<ul>
+<li><strong><em>files:</em></strong>  isolate_reads.fastq</li>
+</ul>
+</li>
+</ul>
+<p><br> NanoPlot creates 5 outputs. Today, we are only interested in the HTML report. This report contains a summary table which will summarise most of the important information, followed by plots displaying the read length and quality distribution of reads. Your report may be similar to the following image: </p>
+<p><img src="../media/lengths_vs_quality.png" width="95%" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;"></p>
+<p><br>
+Answer the questions below regarding isolate_reads.fastq:</p>
+<div class="admonition question">
+<p class="admonition-title">What is the median read length?</p>
+<details class="hint">
+<summary>answer</summary>
+<p>____ bp</p>
+</details>
+</div>
+<div class="admonition question">
+<p class="admonition-title">What is the median read quality?</p>
+<details class="hint">
+<summary>answer</summary>
+<p>Q__ (phred ___)</p>
+</details>
+</div>
+<div class="admonition question">
+<p class="admonition-title">What is the length and mean quality of the longest single read?</p>
+<details class="hint">
+<summary>answer </summary>
+<p>____ bp, Q ___</p>
+</details>
+</div>
+<p>As a significant proportion of the reads are short or low quality, we will perform a filtering step to reduce incorrect SV calls downstream in our analysis. </p>
+<p><br></p>
+<p><strong>Filter reads</strong></p>
+<p>Long reads can have a wide range of lengths and qualities. Filtering of long reads is often conducted slightly differently to short reads. Often, reads less than 1000 bp are removed, and reads containing <strong><em>patches</em></strong> of poor quality are discarded. This is an important distinction to short read filtering, as a given long read can have a good overall base quality, while having areas which are very low quality. As our SV caller, sniffles, looks at alignment quality when identifying structural variation, it is important we remove reads with low-quality patches.   </p>
+<p><strong>Tool:</strong> filtlong</p>
+<ul>
+<li><strong><em>Input FASTQ</em></strong> isolate_reads.fastq</li>
+<li><strong><em>Output thresholds</em></strong><ul>
+<li><strong><em>Min. Length</em></strong> 1000</li>
+<li><strong><em>Min. window quality</em></strong> 9</li>
+</ul>
+</li>
+</ul>
+<p>rename the output to &lsquo;isolate_reads_filtered.fastq&rsquo;</p>
+<p>The above will remove any reads which are less than 1000 bp, or those where a section (250bp) of the read has mean quality below Q9. Our readset will now be ready for structural variant calling.</p>
+<p><br></p>
+<h3 id="alignment">Alignment<a class="headerlink" href="#alignment" title="Permanent link">&para;</a></h3>
+<p>Sniffles requires an alignment file when calling variants. It searches the alignments for split reads, alignments containing patches of high error rate, and soft clipping of reads to identify structural variation.  Below we can see how different isolate reads capturing an inversion might be aligned to the reference genome.</p>
+<p><img src="../media/sniffles_method.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;"> </p>
+<p>In the first example, the inversion appears near the middle of the read and is large. In this case, the aligner may split the read and report the alignment in 3 sections. In scenario 2, the inversion is quite small, and the read may not be split. In this case there would be a patch of low sequence identity between the read and reference genome at the inversion location. In the final example, only the very edge of the read has spanned the SV, and as a result the aligner may just report a single alignment with part of the read clipped off.  All this information is available to our SV caller after the reads are aligned to our reference genome.</p>
+<p>To provide this file, we need to map our read set to our reference genome of choice. The reference genome should be as close as possible to the isolate from which our reads originate for best results.  In this situation, the original E. coli sakai assembly which we computationally mutated will be our reference genome. </p>
+<p><strong>Align reads</strong></p>
+<p><strong>Tool:</strong> Map with minimap2</p>
+<ul>
+<li><strong><em>Will you select a reference genome from your history or use a built-in index?</em></strong> Use a genome from history and build index</li>
+<li>
+<p><strong><em>Use the following dataset as the reference sequence</em></strong> ecoli_sakai.fna</p>
+</li>
+<li>
+<p><strong><em>Single or Paired-end reads</em></strong> single</p>
+</li>
+<li>
+<p><strong><em>Select fastq dataset</em></strong> isolate_reads_filtered.fastq</p>
+<ul>
+<li><strong><em>Select a profile of preset options</em></strong> Oxford Nanopore read to reference mapping&hellip;</li>
+</ul>
+</li>
+<li>
+<p><strong><em>Set advanced output options</em></strong></p>
+<ul>
+<li><strong><em>Generate CIGAR</em></strong> Yes</li>
+</ul>
+</li>
+</ul>
+<p>Rename output to “isolate mapped reads”</p>
+<p><strong>Calculate MD Tag</strong></p>
+<p>Sniffles requires alignments to contain the ‘MD tag’ in our BAM file. This is a condensed representation of the alignment of a read to the reference, and is similar to a CIGAR string. We can use CalMD to add this to each alignment in our BAM file.  </p>
+<p><strong>Tool:</strong> CalMD</p>
+<ul>
+<li><strong><em>BAM file to recalculate</em></strong> isolate mapped reads</li>
+<li><strong><em>Choose the source for the reference genome</em></strong> Use a genome from the history</li>
+<li><strong><em>Using reference file</em></strong> ecoli_sakai.fna</li>
+</ul>
+<p>Rename output to “isolate mapped reads MD”</p>
+<p><br></p>
+<h3 id="sv-calling-with-sniffles">SV calling with sniffles<a class="headerlink" href="#sv-calling-with-sniffles" title="Permanent link">&para;</a></h3>
+<p>Now we have our alignments (BAM) in the correct format, we can call variants with sniffles. Sniffles generally has good defaults, so we will leave everything as-is for now. Later, we will tweak the settings based on our read set for better results. </p>
+<p><strong>Call variants</strong></p>
+<p><strong>Tool:</strong> sniffles</p>
+<ul>
+<li><strong><em>Input BAM file</em></strong> isolate mapped reads MD</li>
+</ul>
+<p>Rename the output to ‘sniffles variant calls’</p>
+<p>Have a look at the VCF output of sniffles. It contains header lines providing metadata and definitions, followed by variant call lines. VCF stands for &lsquo;Variant Call Format&rsquo; and is the standard format for recording variant information - both <em>sequence variants</em>, and <em>structural variants.</em> Click the eye icon <img src="../media/eye_icon.png" width="20px"> to view.</p>
+<p><strong>Sort VCF output</strong></p>
+<p>Before continuing, we well sort the variant calls so they are in coordinate order. This will help us compare against the truth SV record for our simulated isolates (provided SV records are sorted by coordinate), and in future will allow us to view the variants using a genome browser.  </p>
+<p><strong>Tool:</strong> VCFsort</p>
+<ul>
+<li><strong><em>Select VCF dataset</em></strong> sniffles output VCF</li>
+</ul>
+<p>Rename the output to ‘sniffles variant calls sorted’</p>
+<p><br></p>
+<h3 id="creating-a-summary-awk">Creating a summary (awk)<a class="headerlink" href="#creating-a-summary-awk" title="Permanent link">&para;</a></h3>
+<p>Unfortunately, the VCF file format was not created to store structural variant information, and generally does a poor job. In its current state, it is not very easy to quickly summarise our variant calls, as a lot of the important information is shoved in the &lsquo;INFO&rsquo; field.  </p>
+<p><img src="../media/vcf_info.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;"></p>
+<p>We would prefer a format which identifies the contig, location, type, and size of each variant call in an easy to read manner. We can create such a summary using text processing - specifically by using the ‘awk’ tool. For each variant call we will extract the value for the #CHROM, #POS, and #ID fields, and from the #INFO field we will extract the remaining information we need. </p>
+<p>Awk processes the input file line-by-line.  For each line, it follows the following approach:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pattern { action }
+</span></code></pre></div>
+<p>For a given line, if the <strong><em>pattern</em></strong> is matched, the <strong><em>action</em></strong> will be performed. For example, given the following input file:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>chr12       gene        NTRK2
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>chr18       CDS         BRCA1
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>chr22       gene        P53 
+</span></code></pre></div>
+<p>And the command:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Awk ‘/gene/ { print $0 }’
+</span></code></pre></div>
+<p>We will obtain the output:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>chr12       gene        NTRK2
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>chr22       gene        P53 
+</span></code></pre></div>
+<p>How it works:</p>
+<p><code>/gene/</code> will match any line which contains “gene”, and the statement <code>{ print $0 }</code> will print the line.  Awk always sets some variables for the line being processed - in particular, the complete line is stored as $0, and $1, $2, $3 etc store the value for field 1, 2, 3 etc respectively. </p>
+<p>If desired, we can also perform multiple actions when the pattern is matched:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pattern { action 1; action 2; action 3; }
+</span></code></pre></div>
+<p>Awk is a highly versatile tool for text processing, and can perform all the common functionality including conditional if / else statements and loops. </p>
+<p>From here the awk programs will be supplied, but if you wish to learn more, here is a good place to start: <a href="https://zetcode.com/lang/awk/">https://zetcode.com/lang/awk/</a></p>
+<p><strong>Process VCF with awk</strong></p>
+<p><strong>Tool:</strong> Text reformatting with awk</p>
+<ul>
+<li><strong><em>File to process:</em></strong> sniffles variant calls sorted</li>
+<li><strong><em>AWK Program:</em></strong> 
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/SVTYPE=/ {split($8,infoArr,&quot;;&quot;); print substr(infoArr[9],8), $3, $1, substr(infoArr[3],6), $2, substr(infoArr[4],5), substr(infoArr[11],7)}
+</span></code></pre></div></li>
+</ul>
+<p>Rename output to “sniffles VCF summary”</p>
+<p><br>Your output may look something like this:</p>
+<p><br><img src="../media/sniffles_calls_rs10.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;"></p>
+<p><br></p>
+<h3 id="calculating-sniffles-performance-metrics">Calculating sniffles Performance Metrics<a class="headerlink" href="#calculating-sniffles-performance-metrics" title="Permanent link">&para;</a></h3>
+<p>We now have both files we need to measure the performance of sniffles - the variant calls provided by sniffles, and the ground SV truth. Open both files in new tabs and compare them by right-clicking the eye icon <img src="../media/eye_icon.png" width="20px"> then selecting &lsquo;open link in new tab&rsquo;. Specifically, note the following:</p>
+<ul>
+<li>How many real SVs did sniffles identify (true positives)</li>
+<li>How many did it miss? (false negatives)</li>
+<li>How many SVs were called by sniffles which were not actually added to the reference genome? (false positives)</li>
+</ul>
+<p><br>From this information we can calculate performance metrics for sniffles. The following formulas for accuracy, precision and recall are commonly used when benchmarking bioinformatics software.</p>
+<p><img src="../media/metrics.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;"></p>
+<p><br></p>
+<div class="admonition question">
+<p class="admonition-title">What was sniffles recall?</p>
+<details class="hint">
+<summary>answer</summary>
+<p>____ bp</p>
+</details>
+</div>
+<p>While the accuracy and precision of sniffles was good, the recall is low. This is due to a key setting in sniffles which relates to our read set - read support. </p>
+<p><br></p>
+<h3 id="tuning-sniffles-settings">Tuning sniffles Settings<a class="headerlink" href="#tuning-sniffles-settings" title="Permanent link">&para;</a></h3>
+<p>Sniffles has a default setting called &lsquo;read support&rsquo; which requires 10 reads to support a possible SV for it to be accepted as genuine. Reducing this number allows more SVs to be discovered, but may also cause some false positives (SV calls for variants which do not actually exist). Conversely, we can be more strict by increasing this number. The best choice for this setting depends on the biological question you wish to answer, and the amount of read depth your dataset has. </p>
+<p><br></p>
+<p><img src="../media/read_support.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;"></p>
+<p><br>Our filtered read set fastq file was 139 mb, so we have approximately 70 mbp worth of long read data. As the genome size of our isolate is approximately 5 mbp, this equates to only around 12x mean read depth for a given location in the reference genome. Read depth is not uniform, so we expect some regions to have less than 12x depth, resulting in some structural variants being missed by sniffles if not enough reads supported the call.</p>
+<p>As our mean depth is 12x, but the quality of our reads is good, we will reduce the &lsquo;read support&rsquo; setting to 5.</p>
+<p><strong>Re-run sniffles</strong></p>
+<p>Run sniffles again by clicking the re-run <img src="../media/rerun_icon.png" width="20px"> button on the sniffles VCF output. By clicking the re-run button, all the settings previously used will already be filled.</p>
+<p>Change the following:</p>
+<ul>
+<li><strong><em>Set general options</em></strong><ul>
+<li><strong><em>Minimum Support:</em></strong> 5</li>
+</ul>
+</li>
+</ul>
+<p>Leave all else default and click &lsquo;execute&rsquo;</p>
+<p>Rename the output to &lsquo;sniffles variant calls RS5&rsquo;</p>
+<p><strong>Re-run VCFsort</strong></p>
+<p>Run VCFsort again by clicking the re-run <img src="../media/rerun_icon.png" width="20px"> button.</p>
+<p>Change the following:</p>
+<ul>
+<li><strong><em>Select VCF dataset:</em></strong> &lsquo;sniffles variant calls RS5&rsquo;</li>
+</ul>
+<p>Leave all else default and click &lsquo;execute&rsquo;</p>
+<p>Rename the output to &lsquo;sniffles variant calls RS5 sorted&rsquo;</p>
+<p><strong>Re-run awk</strong></p>
+<p>Run awk again to create a summary by clicking the re-run <img src="../media/rerun_icon.png" width="20px"> button.</p>
+<p>Change the following:</p>
+<ul>
+<li><strong><em>File to process:</em></strong> &lsquo;sniffles variant calls RS5 sorted&rsquo;</li>
+</ul>
+<p>Leave all else default and click &lsquo;execute&rsquo;</p>
+<p>Rename the output to &lsquo;sniffles VCF summary RS5&rsquo;</p>
+<p><br></p>
+<p>Our new variant calls should be an improvement on the original settings. You may see something similar to the following:</p>
+<p><br><img src="../media/sniffles_calls_rs5.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;"></p>
+<p><br>We have increased our recall by lowering our read support threshold to 5, rather than 10. While being less conservative in this manner will increase recall, it also may result in greater false positives (sniffles calling variants that don&rsquo;t exist). Whether we maximise precision or recall depends on the task at hand - in this case, we want to discover all the variants and prefer high recall, and should therefore treat our variant calls with more scepticism.  </p>
+<p><br></p>
+<h3 id="visualising-sv-calls">Visualising SV calls<a class="headerlink" href="#visualising-sv-calls" title="Permanent link">&para;</a></h3>
+<p>Visualisation and interpretation is an important part of any analysis. Now we have our SV calls, we can view them on a genome-wide scale using a type of visualisation called a <strong><em>circos</em></strong> plot. Circos plots are often featured on the cover of academic journals as they can communicate a large amount of genomic information at a glance.</p>
+<p>We will now make a circos plot which displays our variant calls. Similar to genome browsers, circos plots are built from data tracks. When dealing with genomic data, the outer coordinate system (called the <strong><em>ideogram</em></strong>) is usually the chromosomes of a genome, and the tracks pin data to their genomic positions. For this workshop, we will use a <strong><em>galaxy workflow</em></strong> to create our circos plot, but if you would like to learn how to create these plots yourself, see the following tutorial: </p>
+<p><a href="https://training.galaxyproject.org/training-material/topics/visualisation/tutorials/circos/tutorial.html">https://training.galaxyproject.org/training-material/topics/visualisation/tutorials/circos/tutorial.html</a> </p>
+<p><strong>Create Circos plot</strong></p>
+<p>We will be using a workflow to create circos plots for us. This will process our sniffles VCF summary and SV truth report, and produce a plot. </p>
+<p>Invoke the workflow using this link: <br>
+<a href="https://usegalaxy.org.au/workflows/run?id=6588e175004aba38">https://usegalaxy.org.au/workflows/run?id=6588e175004aba38</a></p>
+<div class="admonition question">
+<p class="admonition-title">Optional: importing a galaxy workflow</p>
+<details class="hint">
+<summary>importing rather than running</summary>
+<p>Galaxy workflows can be directly run, or can be imported as a workflow. The benefit to importing a workflow is that you can see all the tools that are being run, and can customise the workflow to suit your needs. Like shared histories, workflows can also be found in the &lsquo;Shared Data&rsquo; tab of the top navigation bar. Once you find a workflow you want to import, press the &lsquo;+&rsquo; icon at the top right of the page to import the workflow. The circos plot workflow can be imported using the following link: <a href="https://usegalaxy.org.au/u/graceh1024/w/long-read-sv-calling---circos-plots">https://usegalaxy.org.au/u/graceh1024/w/long-read-sv-calling---circos-plots</a> </p>
+</details>
+</div>
+<p>Set the following:</p>
+<ul>
+<li><strong><em>sniffles VCF summary:</em></strong> sniffles VCF summary RS4</li>
+<li><strong><em>Reference Genome:</em></strong> ecoli_sakai.fna</li>
+<li><strong><em>SV truth record:</em></strong> isolate_sv_record.tsv</li>
+</ul>
+<p>Click the blue &lsquo;Run Workflow&rsquo; button on the top right to execute the workflow. Your output might be similar to the following figure:</p>
+<p><br></p>
+<p><img src="../media/circos.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;"></p>
+<p><br></p>
+<p>The circos plot has been formatted so both the variant calls (sniffles) and the true SVs are displayed. The ideogram (outer coordinate system) is displaying the bacterial chromosome and two plasmids. One plasmid is reasonable size, while the other is tiny.  </p>
+<p>The outer tile track displays sniffles calls, and the inner track is the true added variants. Link tracks (lines connecting regions of the plot) have been added which show the translocation breakends called by sniffles in yellow, and any undetected breakends in red.  From this plot, we can quickly see that sniffles detected most of the variants, but a few were still missed. </p>
+<p><br></p>
+<hr />
+<h2 id="section-2-human-clinical-dataset">Section 2: Human clinical dataset<a class="headerlink" href="#section-2-human-clinical-dataset" title="Permanent link">&para;</a></h2>
+<h3 id="introduction_1">Introduction<a class="headerlink" href="#introduction_1" title="Permanent link">&para;</a></h3>
+<p>Pathogenic structural variation has become more thoroughly understood in recent years, partly driven by the advent of long-read sequencing technologies. For the remainder of this workshop, we will use a dataset which emulates a patient case. </p>
+<p>In this example, long-read sequence data was able to identify a causal SV, where short-read sequencing had previously reported a negative result. The dataset was simulated according to the findings of Merker et al (2018) and can be found at <a href="https://dx.doi.org/10.1038%2Fgim.2017.86">https://dx.doi.org/10.1038%2Fgim.2017.86</a>.</p>
+<p><br></p>
+<h3 id="patient-case">Patient Case<a class="headerlink" href="#patient-case" title="Permanent link">&para;</a></h3>
+<p>The patient is a male who had numerous recurring tumorous growths over their development. At age 7, an atrial myxoma of the heart was discovered and removed, followed by a Sertoli-Leydig cell tumor at age 10, a pituitary tumor at 13, more growths on the heart at 16 and 18 which were surgically removed. After the heart surgery at 18 years old, he suffered from a cardiac arrest which he eventually recovered from. At 18, the possibility of a <a href="https://rarediseases.org/rare-diseases/carney-complex/#:~:text=Carney%20complex%20is%20a%20rare,the%20skin%20of%20affected%20areas.">Carney complex</a> was suggested, but short read sequencing and analysis of the PRKAR1A gene returned negative for pathogenic variation. </p>
+<p>The patient continued to develop tumors over the following years, prompting another round of sequencing - this time, whole genome sequencing (WGS) using long reads. 26.7 Gb of reads were produced using the PacBio Sequel system, equating to an average read depth of 8.6x. </p>
+<p>The following dataset is simulated reads from a section of chr17 which emulate the patient case. </p>
+<p><br></p>
+<h3 id="getting-the-data_1">Getting the data<a class="headerlink" href="#getting-the-data_1" title="Permanent link">&para;</a></h3>
+<p>To start, we need reads from our section of chr17 (pos 66,000,000 - 69,000,000) for variant calling against hg38, and a file listing genomic features (GFF) for automated annotation later on. </p>
+<p>Import the following Galaxy history to get started:<br />
+<a href="https://usegalaxy.org.au/u/graceh1024/h/carney-complex---chr17-reads">https://usegalaxy.org.au/u/graceh1024/h/carney-complex---chr17-reads</a></p>
+<p><br></p>
+<h3 id="sv-calling-using-workflow">SV Calling using Workflow<a class="headerlink" href="#sv-calling-using-workflow" title="Permanent link">&para;</a></h3>
+<p>Rather than manually running each tool again using our chr17 reads and human reference genome hg38 as reference, we will use a workflow to do the analysis for us. hg38 is a built-in genome in galaxy, so we do not need to provide it ourselves. The workflow will perform the following:</p>
+<ul>
+<li>Read QC (Filtlong)</li>
+<li>Produce a summary report of filtered reads (NanoPlot)</li>
+<li>Align reads to hg38 (minimap2)</li>
+<li>Calculate the MD tag (CalMD) and sort the BAM file by coordinate (SortSam)</li>
+<li>Call variants (sniffles)</li>
+<li>Sort the variant calls (VCFsort)</li>
+<li>Create a summary of the variant calls (awk) </li>
+</ul>
+<p><br></p>
+<p><img src="../media/workflow1.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;"></p>
+<p><br></p>
+<p>As we are aligning reads to hg38, the alignment step will take longer than for the bacterial dataset. The human genome is approximately 640x larger than <em>E. coli sakai</em>, so this is understandable. Reads may take 15 minutes to map during the workflow. </p>
+<p>Invoke the workflow using this link: <br>
+<a href="https://usegalaxy.org.au/workflows/run?id=d69a765cfc82a399">https://usegalaxy.org.au/workflows/run?id=d69a765cfc82a399</a></p>
+<p>Set the following:</p>
+<ul>
+<li><strong><em>Long reads:</em></strong> chr17_reads.fastq</li>
+<li><strong><em>CalMD</em></strong><ul>
+<li><strong><em>Using reference genome:</em></strong> &lsquo;hg38&rsquo;</li>
+</ul>
+</li>
+</ul>
+<p>Click the blue &lsquo;Run Workflow&rsquo; button on the top right to execute the workflow.</p>
+<p><br></p>
+<p>This workflow produces the key outputs we need. The <strong><em>NanoPlot HTML report</em></strong> summarises our reads after filtering, which we can view to determine the quality of our read set. The <strong><em>sorted alignments</em></strong> contain the alignment information, which we can download to view using a genome browser. <strong><em>variant calls sorted</em></strong> is the sorted VCF file produced by sniffles, and <strong><em>variant calls summary</em></strong> is our simplified awk summary of the variant calls.  Use the eye icon <img src="../media/eye_icon.png" width="20px"> to view these outputs for your own interest.</p>
+<p>All going well, your final variant calls summary will look similar to the following:</p>
+<p><img src="../media/chr17_calls.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;"></p>
+<p><br></p>
+<p>As our reads are from a 3 mbp segment of chr17, the variants are all located on chr17, between position 6,600,000 and 6,900,000. 19 structural variants have been detected, which is a reasonable number for this segment given that multiple thousand variants are generally detected between any individual and hg38.  </p>
+<p>One of these variants is causing patient disease, and we will identify the culprit using IGV.  </p>
+<p><br></p>
+<h3 id="visualising-alignments-with-igv">Visualising Alignments with IGV<a class="headerlink" href="#visualising-alignments-with-igv" title="Permanent link">&para;</a></h3>
+<p>We will use IGV to inspect the variant calls, and determine which may be causing disease. In particular, we are looking for structural variation which spans or interrupts gene coding sequences, as these are most likely to cause a disease phenotype. </p>
+<p>We wish to view the alignments and variant calls, so will download the sorted alignment files (BAM and BAI) and the variant calls (VCF). We can then upload this data to the IGV webapp to visualise. </p>
+<p><br></p>
+<p><strong>Download Alignments and Variant Calls Data</strong></p>
+<p>Click the save <img src="../media/save_icon.png" width="20px"> icon in the &lsquo;sorted alignments&rsquo; output, and download both the dataset (BAM) and the bam_index (BAI) files. The BAM contains read alignment information, and the BAI contains an index which allows IGV to load this data. </p>
+<p><img src="../media/alignment_save.png" width="300px"></p>
+<p>Do the same for the &lsquo;variant calls sorted&rsquo; VCF output. This time, simply clicking the save <img src="../media/save_icon.png" width="20px"> icon will download the VCF as there is only 1 piece of data.</p>
+<p><br></p>
+<p><strong>Open IGV and set to hg38</strong></p>
+<p>Navigate to <a href="https://igv.org/app/">https://igv.org/app/</a> to open IGV. </p>
+<p>Genome browsers use a reference genome as a coordinate system, and anchor data to these coordinates.  Datasets are loaded as ‘tracks’, and use the selected reference genome as coordinates. </p>
+<p>The first thing we need to do is ensure the correct genome is loaded.  By default, this is human reference genome hg19.  We used hg38 as reference genome when aligning our chr17 reads. </p>
+<p>In the top toolbar, click ‘Genome’ then select Human (GRCh38/hg38)</p>
+<p><br></p>
+<p><img src="../media/load_hg38.png" width="300px"></p>
+<p><br></p>
+<p>Now we have the current version of the human genome loaded and ready to use. The genome is divided by chromosome markers which you will see as sections marked at the top of the screen. Below that, we have a single ‘track’ - RefSeq gene annotations. </p>
+<p>We now need to add our two tracks - the variant calls, and alignments. </p>
+<p><br></p>
+<p><img src="../media/load_data.png" width="300px"></p>
+<p><br></p>
+<p>To add the variant calls, click ‘Tracks’ then ‘Local File’ in the top navigation bar, and select the sorted variant_calls_sorted VCF file.</p>
+<p>To add the read alignments, click ‘Tracks’ then ‘Local File’ in the top navigation bar, then upload the sorted_alignments BAM and BAI files we  downloaded from the SortSam output. Both the .BAM and .BAI files must be selected together. </p>
+<p>Currently, there is too much data to load the alignments and variant calls. We will need to zoom in to see this information. In the grey bar at the top of the genome browser, next to hg38, use the dropdown to select chr17. Now that chr17 is selected, we will investigate our variant calls. </p>
+<p>One of the variants  was located approximately between position 66270000 and 66276000. We can view this region by typing coordinates in the box next to the chromosome selector. Set it to the following:</p>
+<p><img src="../media/region1.png" width="500px"></p>
+<p>This is what we can see in the region:</p>
+<p><br></p>
+<p><img src="../media/variant1.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;"></p>
+<p><br></p>
+<p>A deletion is evident. No reads are aligned in this region, and the coverage is high enough to support this variant call. </p>
+<p>While this is clearly a variant, it is not spanning any known RefSeq genes. We are looking for a variant which is causing tumors, so genes involved in cell signalling such as PRKAR1A, tumor suppression, or growth factors may be implicated. </p>
+<p>Once you have looked at some variant calls in detail, expand the below to reveal the variant causing disease: </p>
+<div class="admonition question">
+<p class="admonition-title">Disease causing variant location</p>
+<details class="hint">
+<summary>Reveal</summary>
+<p>chr17:68,509,063-68,520,941</p>
+</details>
+</div>
+<p><br>Enter the coordinates above to view the disease variant. Your IGV may look similar to the following:</p>
+<p><br></p>
+<p><img src="../media/igv.png" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;"></p>
+<p><br></p>
+<p>There is a clear deletion spanning the first coding exon of the PRKAR1A gene. This deletion would likely have a large impact on protein function, as the start codon and an entire exon has been deleted.</p>
+<p>After obtaining this result, managing doctors diagnosed the patient with Carney complex due to the pathogenic deletion in PRKAR1A. This shows an early example of how SV detection can be used in a clinical setting to diagnose patient disease, and that long reads have an advantage over short reads for structural variation detection.  </p>
+<p><br></p>
+<h3 id="genomic-feature-annotation-of-variant-calls">Genomic Feature Annotation of Variant Calls<a class="headerlink" href="#genomic-feature-annotation-of-variant-calls" title="Permanent link">&para;</a></h3>
+<p>As a final summary, we will annotate our variant calls with the genomic features they intersect with.  Rather than manually inspect each variant call with a genome browser, we can automate this process. Genome annotations provide locations and descriptions for important genomic features which have been discovered.  Genome annotations are available for most assemblies on RefSeq, and the hg38 annotations are naturally very good. </p>
+<p>Today we will use genome annotations in the <strong><em>general feature format</em></strong> (GFF) format. We will invoke a workflow which uses a GFF file and our variant calls VCF file as input, then annotates the variant calls with any features they intersect with. </p>
+<p>A GFF has been provided for chr17, and includes a vast amount of information. We will just look at coding sequences (CDS) intersecting our variants, as distruptions in these regions are likely to have functional impact.  </p>
+<p>Invoke the workflow using this link: <br>
+<a href="https://usegalaxy.org.au/workflows/run?id=142e5f7c1f340838">https://usegalaxy.org.au/workflows/run?id=142e5f7c1f340838</a></p>
+<p>Set the following:</p>
+<ul>
+<li><strong><em>Genome Annotations (GFF):</em></strong> chr17_annotations.gff</li>
+<li><strong><em>Sniffles Variant Calls (VCF):</em></strong> variant calls sorted</li>
+<li><strong><em>Extract features</em></strong><ul>
+<li><strong><em>Extract features:</em></strong> select &lsquo;CDS&rsquo; from the list</li>
+</ul>
+</li>
+</ul>
+<p>Click the blue &lsquo;Run Workflow&rsquo; button on the top right to execute the workflow. View the &lsquo;variant calls summary (annotated)&rsquo; output. Yours may be similar to the following:</p>
+<p><br><img src="../media/final_human_calls.png" style="display: block;
+  margin-left: 0; <br />  margin-right: auto;
+  width: 90%;"></p>
+<p><br>Considering we may have thousands of structural variants between an individual and hg38, this process can drastically cut down on time. In the associated paper, authors reduced the initial &gt; 13,500 variant calls down to only 3, by filtering for variants which overlap a disease gene coding exon, and those which are not present in a healthy control sample.   </p>
+<p><br></p>
+<hr />
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Today, we have covered a large amount of theory and analysis. Structural variant detection is a growing area, and will no doubt yield many discoveries in the near future. As with any bioinformatic analysis, we first explored our input data,  performed our analysis, then finished by visualising and interpreting our findings. </p>
+<p>For those wishing to learn more about human clinical SV calling, dbVar (<a href="https://www.ncbi.nlm.nih.gov/dbvar/">https://www.ncbi.nlm.nih.gov/dbvar/</a>) and other repositories which contain information linking structural variants and disease is a good place to start.  </p>
+<p><br></p>
+<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<p>Links to additional recommended reading and suggestions for related tutorials.</p>
+<p><br></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

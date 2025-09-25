@@ -1,0 +1,2960 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../rna_seq_basic_background/">
+      
+      
+        <link rel="next" href="../rna_seq_basic_tuxedo/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>RNAseq analysis using HISAT2 (Galaxy) - Bioinformatics Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rna-seq-differential-gene-expression" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-header__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bioinformatics Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              RNAseq analysis using HISAT2 (Galaxy)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bioinformatics Documentation" class="md-nav__button md-logo" aria-label="Bioinformatics Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Bioinformatics Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tools and skill development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tools and skill development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is Bioinformatics?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Galaxy Platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Galaxy Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-R/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Genome Browsers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Containerized Bioinformatics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command-line software development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Version Control with Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow Translation With Janis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Genomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Genomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Variant detection
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Variant detection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Variant detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 1 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant Calling part 2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Long-read Structural Variant Calling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variant calling using command-line tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            de novo assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo assembly with Velvet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to de novo genome assembly for Illumina reads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of Illumina reads using Spades (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    de novo assembly of PacBio reads (unix)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hybrid genome assembly - Nanopore and Illumina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Metabarcoding
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Metabarcoding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transcriptomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transcriptomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNA-seq Experimental Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bulk RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bulk RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to bulk RNAseq analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using HISAT2 (Galaxy)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      The data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Preparation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-alignment-with-hisat2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Alignment with HISAT2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-visualise-the-aligned-reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Visualise the aligned reads
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3: Visualise the aligned reads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewing-in-jbrowse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viewing in JBrowse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewing-in-igv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viewing in IGV
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-4-quantification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 4. Quantification
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-5-degust" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 5. Degust
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-5-deseq2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 5. DESeq2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-6-the-importance-of-replicates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 6. The importance of replicates
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional extension
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq analysis using Tuxedo (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression tool comparision (Galaxy)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RNAseq differential expression in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Single-cell RNA-seq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single-cell RNA-seq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10X scRNA-seq analysis in R
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    scRNA-seq Integration and Differential Expression
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Proteomics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Proteomics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Identifying proteins from mass spectrometry data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Statistics and Visualisation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Statistics and Visualisation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data visualisation with Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Structural Modelling
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Structural Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Introduction to cluster computing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Molecular Dynamics - Building input files, visualising the trajectory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Workshop Delivery Mode Information
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workshop Delivery Mode Information
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workshops on Nectar Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Unix-Archive
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to CWL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Git and Github (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro_R_biologists/intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to R for Biologists (deprecated)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      The data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-1-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 1: Preparation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-2-alignment-with-hisat2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 2: Alignment with HISAT2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-3-visualise-the-aligned-reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 3: Visualise the aligned reads
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Section 3: Visualise the aligned reads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewing-in-jbrowse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viewing in JBrowse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewing-in-igv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Viewing in IGV
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-4-quantification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 4. Quantification
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-5-degust" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 5. Degust
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-5-deseq2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 5. DESeq2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-6-the-importance-of-replicates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Section 6. The importance of replicates
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional extension
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<style type="text/css">
+    body{
+        line-height: 2;
+        font-size: 16px;
+    }
+
+    ol li{padding: 2px;}
+    ul li{padding: 0px;}
+    h4 {margin: 30px 0px 15px 0px;}
+
+    div.code {
+        font-family: "Courier New";
+        border: 1px solid;
+        border-color: #999999;
+        background-color: #eeeeee;
+        padding: 5px 10px;
+        margin: 10px;
+        border-radius: 5px;
+        overflow: auto;
+    }
+
+    div.question {
+        color: #666666;
+        background-color: #e1eaf9;
+        padding: 15px 25px;
+        margin: 20px;
+        font-size: 15px;
+        border-radius: 20px;
+    }
+
+    div.extra {
+        color: #444444;
+        background-color: #e1eaf9;
+        padding: 15px 25px;
+        margin: 20px;
+        font-size: 15px;
+        border-radius: 20px;
+    }
+
+    div.question h4 {
+        font-style: italic;
+        margin: 10px 0px !important;
+    }
+</style>
+
+<p><img src="../../../img/melbioinf_logo.png" height=100px>
+<img src="../media/gvl_logo.jpg" height=100px align=right></p>
+<h1 id="rna-seq-differential-gene-expression">RNA-Seq - Differential Gene Expression<a class="headerlink" href="#rna-seq-differential-gene-expression" title="Permanent link">&para;</a></h1>
+<p><strong>Authors: Jessica Chung, Mahtab Mirmomeni, Andrew Lonie</strong></p>
+<hr />
+<h2 id="tutorial-overview">Tutorial Overview<a class="headerlink" href="#tutorial-overview" title="Permanent link">&para;</a></h2>
+<p>In this tutorial we cover the concepts of RNA-seq differential gene expression
+(DGE) analysis using a dataset from the common fruit fly, <em>Drosophila
+melanogaster</em>.</p>
+<p>The tutorial is designed to introduce the tools, datatypes and workflows of an
+RNA-seq DGE analysis. Here, we&rsquo;ll be using a subset of the data from a
+<a href="https://www.ncbi.nlm.nih.gov/pubmed/27621057">published experiment</a> by Hateley
+et. al. in 2016. In practice, full-sized datasets would be much larger and
+take longer to run.</p>
+<p>In this tutorial we will:  </p>
+<ul>
+<li>introduce the types of files typically used in RNA-seq analysis</li>
+<li>align RNA-seq reads with an aligner, HISAT2</li>
+<li>visualise RNA-seq alignment data with IGV or JBrowse</li>
+<li>use a number of different methods to find differentially expressed genes</li>
+<li>understand the importance of replicates for differential expression analysis</li>
+</ul>
+<p>This tutorial does not cover the following steps that we might do in a real
+RNA-seq DGE analysis:  </p>
+<ul>
+<li>QC (quality control) of the raw sequence data</li>
+<li>Trimming the reads for quality and for adaptor sequences</li>
+<li>QC of the RNA-seq alignment data  </li>
+</ul>
+<h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
+<p>At the end of this tutorial you will be able to:</p>
+<ul>
+<li>understand the basic workflow of alignment, quantification, and testing,
+   for RNA-seq differential expression analysis</li>
+<li>process raw RNA sequence data into a list of differentially
+   expressed genes</li>
+<li>understand the relationship between the number of biological replicates
+   in an experiment and the statistical power available to detect differentially
+   expressed genes</li>
+</ul>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<p>Participants with no previous Galaxy experience are strongly recommended to
+attend the &ldquo;Introduction to Galaxy&rdquo; workshop first.</p>
+<p>Attendees are required to bring their own laptop computers.</p>
+<hr />
+<h2 id="the-data">The data<a class="headerlink" href="#the-data" title="Permanent link">&para;</a></h2>
+<p>The sequencing data you will be working with is from Drosophila
+melanogaster pupae from the study,
+<a href="https:/www.ncbi.nlm.nih.gov/pubmed/27621057"><em>Transcriptomic response of Drosophila melanogaster pupae developed in hypergravity</em></a>.
+The experiment has two conditions, <strong>g3</strong> where pupae underwent development in
+three times Earth&rsquo;s gravity (i.e. 3 <em>g</em>), and <strong>g1</strong>, the control, where pupae
+developed in the standard gravitational acceleration felt on the surface of
+Earth (i.e. 1 <em>g</em>). There are three samples in each condition and the
+sequencing data is paired-end so you will have two files for each of the six
+samples. Your aim will be to find differentially expressed genes in
+<strong>g1</strong> vs <strong>g3</strong>.</p>
+<p><img src="../media/3_vs_3_fruit_fly_pupae.png" height=50%/></p>
+<hr />
+<h2 id="section-1-preparation">Section 1: Preparation<a class="headerlink" href="#section-1-preparation" title="Permanent link">&para;</a></h2>
+<p><strong>1.  Register as a new user in Galaxy if you don’t already have an account</strong></p>
+<ul>
+<li>Open a browser and go to a Galaxy server. For example, you could use <a href="https://usegalaxy.org.au/">Galaxy Australia</a>. Recommended browsers include Firefox and Chrome. Internet Explorer is not supported.</li>
+<li>Register as a new user by clicking <strong>User &gt; Register</strong> on the top dark-grey bar. Alternatively, if you already have an account, login by clicking <strong>User &gt; Login</strong>.</li>
+</ul>
+<!-- This can either be your
+    personal GVL server you [started previously](http://genome.edu.au/get/get#launch),
+    the public [Galaxy Tutorial server](http://galaxy-tut.genome.edu.au)
+    or the public [Galaxy Australia](https://usegalaxy.org.au/).  -->
+
+<p><strong>2.  Import the RNA-seq data for the workshop.</strong></p>
+<!-- If you are using the public Galaxy Tutorial server or Galaxy Melbourne server,
+you can import the data directly from Galaxy. You can do this by going to
+**Shared Data > Published Histories** on the top toolbar, and selecting
+the history called **RNA-Seq_Basic_2017**. Then click on "Import History" on
+the top right and "start using this history" to switch to the newly imported
+history.
+-->
+
+<p>If you are using Galaxy Australia, go to <strong>Shared Data &gt; Data Libraries</strong> in the top toolbar, and select <strong>Data for RNA-Seq tutorial - Hypergravity</strong>. Select (tick) all of the files and click <strong>To History</strong>, and choose <strong>as Datasets</strong>, then <strong>Import</strong>.</p>
+<p>Alternatively, if you are using your own personal Galaxy server or a different Galaxy server, you can import
+the data like this:</p>
+<ol>
+<li>In the tool panel located on the left, under Basic Tools select <strong>Get
+    Data &gt; Upload File</strong>. Click on the <strong>Paste/Fetch data</strong> button on the
+    bottom section of the pop-up window.</li>
+<li>
+<p>Upload the sequence data by pasting the following links into the text
+    input area.
+    These six files are three paired-end samples from the <em>g1</em> group. Keep the
+    type as &ldquo;Auto-detect&rdquo; when uploading these files.
+    <div class="code">
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_01_R1.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_01_R1.fastq.gz</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_01_R2.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_01_R2.fastq.gz</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_02_R1.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_02_R1.fastq.gz</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_02_R2.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_02_R2.fastq.gz</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_03_R1.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_03_R1.fastq.gz</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_03_R2.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g1_03_R2.fastq.gz</a>
+    <br>
+    </div>
+    These six files are three paired-end samples from the <em>g3</em> group.
+    <div class="code">
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_01_R1.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_01_R1.fastq.gz</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_01_R2.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_01_R2.fastq.gz</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_02_R1.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_02_R1.fastq.gz</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_02_R2.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_02_R2.fastq.gz</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_03_R1.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_03_R1.fastq.gz</a>
+    <br>
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_03_R2.fastq.gz">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/g3_03_R2.fastq.gz</a>
+    <br>
+    </div>
+    Then, upload this file of gene definitions. Keep the type as &ldquo;Auto-detect&rdquo;
+    when this file as Galaxy will auto-detect the file as a GTF file.
+    <div class="code">
+    <a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/ensembl_dm3.chr4.gtf">https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/ensembl_dm3.chr4.gtf</a>
+    </div>
+    You should now have 13 files in your history.</p>
+<p><strong>Note:</strong> If you log out of Galaxy and log back at a later time your data
+and results from previous experiments will be available in the right panel
+of your screen called the ‘History’</p>
+</li>
+</ol>
+<p><strong>3.  View and have an understanding of the files involved in RNA-seq analysis.</strong></p>
+<ol>
+<li>
+<p>You should now have the following files in your Galaxy history:</p>
+<p>6 files containing paired-ended reads for the 3 samples that developed in 1 <em>g</em>:
+<ul>
+<li>g1_01_R1.fastq.gz<br />
+<li>g1_01_R2.fastq.gz<br />
+<li>g1_02_R1.fastq.gz<br />
+<li>g1_02_R2.fastq.gz<br />
+<li>g1_03_R1.fastq.gz<br />
+<li>g1_03_R2.fastq.gz<br />
+</ul></p>
+<p>6 files containing paired-ended reads for the 3 samples that developed in 3 <em>g</em>:
+<ul>
+<li>g3_01_R1.fastq.gz<br />
+<li>g3_01_R2.fastq.gz<br />
+<li>g3_02_R1.fastq.gz<br />
+<li>g3_02_R2.fastq.gz<br />
+<li>g3_03_R1.fastq.gz<br />
+<li>g3_03_R2.fastq.gz<br />
+</ul></p>
+<p>And 1 gene annotation file for chromosome 4 of the Drosophila genome:
+<ul>
+<li>ensembl_dm3.chr4.gtf<br />
+</ul></p>
+<p>These files can be renamed by clicking the <strong>pen icon</strong> if you wish.</p>
+</li>
+<li>
+<p>These 12 sequencing files are in FASTQ format and have the file
+    extension: &ldquo;.fastq.gz&rdquo;. If you are not familiar with the FASTQ format,
+    <a href="https://en.wikipedia.org/wiki/FASTQ_format">click here for an overview</a>.
+    The &ldquo;.gz&rdquo; extension indicates these files have been compressed by
+    <a href="https://en.wikipedia.org/wiki/Gzip">gzip</a>. FASTQ files are typically
+    stored as compressed files to save disk space as they are usually
+    gigabytes in size.</p>
+<p>Each condition has three samples, and each sample has two files (an R1
+file containing forward reads and an R2 file containing reverse reads).</p>
+<p>Click on the <strong>eye icon</strong> to the top right of any FASTQ file to view the
+first part of the file.</p>
+<p><strong>Note:</strong> The reads are paired-end, i.e. g1_01_R1.fastq.gz and
+g1_01_R2.fastq.gz are paired reads from one sequencing run. If you&rsquo;re
+unfamiliar with paired-end sequencing, you can read about it
+<a href="https://www.illumina.com/science/technology/next-generation-sequencing/paired-end-vs-single-read-sequencing.html">here</a>.</p>
+</li>
+<li>
+<p>The gene annotation file (ensembl_dm3.chr4.gtf) is in GTF format. This file
+    describes where the genes are located in the D. melanogaster reference
+    genome, filtered for genes on chromosome 4.
+    Each feature is defined by a chromosomal start and end point, feature type
+    (CDS, gene, exon etc), and parent gene and transcript.
+    We will examine this file more closely later in Section 3 of this
+    tutorial.
+    More information on the GTF format can be found
+    <a href="http://asia.ensembl.org/info/website/upload/gff.html">here</a>.</p>
+</li>
+</ol>
+<hr />
+<h2 id="section-2-alignment-with-hisat2">Section 2: Alignment with HISAT2<a class="headerlink" href="#section-2-alignment-with-hisat2" title="Permanent link">&para;</a></h2>
+<p>In this section we map the reads in our FASTQ files to a reference genome. As
+these reads originate from mRNA, we expect some of them will cross exon/intron
+boundaries when we align them to the reference genome. We will use HISAT2 to
+perform our alignment. HISAT2 is a fast, splice-aware, alignment program that
+is a successor to TopHat2. More information on
+HISAT2 can be found <a href="https://ccb.jhu.edu/software/hisat2/index.shtml">here</a>.</p>
+<p><strong>1.  Align the RNA-seq reads to a reference genome.</strong></p>
+<p>In the left tool panel menu, under NGS Analysis, select
+<strong>NGS: RNA Analysis &gt; HISAT2</strong> and set the parameters as follows:  </p>
+<ul>
+<li>
+<p><strong>Source for the reference genome to align against:</strong> Use
+built-in genome</p>
+</li>
+<li>
+<p><strong>Select a reference genome:</strong> Fruit Fly (Drosophila melanogaster): dm3</p>
+</li>
+</ul>
+<!-- - **Input data format** FASTQ-->
+
+<ul>
+<li><strong>Single end or paired reads?</strong> Paired end</li>
+<li>
+<p><strong>Forward reads:</strong><br />
+(Click on the <strong>multiple datasets icon</strong> (which looks like two pieces of paper in a stack) and select all six of the forward
+FASTQ files ending in *_R1.fastq.gz. This should be correspond to every
+second dataset (e.g. 1,3,5,7,9,11). This can be done by holding down the
+ctrl key (Windows) or the command key (OSX) to select multiple files.)</p>
+<ul>
+<li>g1_01_R1.fastq.gz</li>
+<li>g1_02_R1.fastq.gz</li>
+<li>g1_03_R1.fastq.gz</li>
+<li>g3_01_R1.fastq.gz</li>
+<li>g3_02_R1.fastq.gz</li>
+<li>g3_03_R1.fastq.gz</li>
+</ul>
+</li>
+<li>
+<p><strong>Reverse reads:</strong><br />
+(Click on the <strong>multiple datasets icon</strong> and select all six of the reverse
+FASTQ files ending in *_R2.fastq.gz.)  </p>
+<ul>
+<li>g1_01_R2.fastq.gz</li>
+<li>g1_02_R2.fastq.gz</li>
+<li>g1_03_R2.fastq.gz</li>
+<li>g3_01_R2.fastq.gz</li>
+<li>g3_02_R2.fastq.gz</li>
+<li>g3_03_R2.fastq.gz</li>
+</ul>
+</li>
+<li>
+<p>Use defaults for the other fields</p>
+</li>
+<li>Execute</li>
+</ul>
+<p>Your tool interface panel will look similar to this:</p>
+<p><img src="../media/hypergravity_hisat.png"/></p>
+<p>Note: This may take a few minutes, depending on how busy the server is.</p>
+<p><strong>2.  Examine the alignment stats</strong></p>
+<p>HISAT2 outputs one bam file for each set of paired-end read files. Rename the 6
+files into a more meaningful name (e.g. &lsquo;HISAT on data 2 and data 1&rsquo; to &lsquo;g1_01.bam&rsquo;)
+by using the <strong>pen icon</strong> next to the file.</p>
+<p>These files are BAM files (short for
+<a href="https://en.wikipedia.org/wiki/Binary_Alignment_Map">Binary Alignment Map</a>)
+and like the name suggests, is a binary file. Galaxy automatically converts
+these to a plain-text equivalent (SAM) file to view when you click on the eye
+icon.</p>
+<p>HISAT2 also outputs some information to stderr which we can preview by
+clicking on the dataset name. To view the raw file, click the &ldquo;info&rdquo; button
+(view details) of a dataset, say g1_01.bam, and find the &ldquo;Tool Standard Error&rdquo;
+row under &ldquo;Job Information&rdquo; in the table. Click the &ldquo;stderr&rdquo; link to view
+the alignment summary output.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>50000 reads; of these:
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  50000 (100.00%) were paired; of these:
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    321 (0.64%) aligned concordantly 0 times
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    45766 (91.53%) aligned concordantly exactly 1 time
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    3913 (7.83%) aligned concordantly &gt;1 times
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    ----
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    321 pairs aligned concordantly 0 times; of these:
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>      0 (0.00%) aligned discordantly 1 time
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    ----
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    321 pairs aligned 0 times concordantly or discordantly; of these:
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>      642 mates make up the pairs; of these:
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        529 (82.40%) aligned 0 times
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        77 (11.99%) aligned exactly 1 time
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        36 (5.61%) aligned &gt;1 times
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>99.47% overall alignment rate
+</span></code></pre></div>
+<p>Here we see we have a very high alignment rate, which is expected since the
+reads in this dataset have been pre-selected to align to chromosome 4.</p>
+<hr />
+<h2 id="section-3-visualise-the-aligned-reads">Section 3: Visualise the aligned reads<a class="headerlink" href="#section-3-visualise-the-aligned-reads" title="Permanent link">&para;</a></h2>
+<p>The purpose of this step is to :</p>
+<ul>
+<li>visualise the quantitative, exon-based nature of RNA-seq data</li>
+<li>visualise the expression differences between samples represented by the
+  quantity of reads, and</li>
+<li>become familiar with interactive visualisation tools such as JBrowse and IGV.   </li>
+</ul>
+<!--
+- become familiar with the [Integrative Genomics Viewer
+  (IGV)](https://www.broadinstitute.org/igv/)-- an interactive
+  visualisation tool by the Broad Institute.  
+-->
+
+<p>JBrowse and IGV are both interactive tools that can visualise BAM files. You
+can pick either one to use in this section. JBrowse is run on Galaxy which means
+you can view your BAM file in your browser, but it takes a while to run the job
+(~30 mins). IGV is a separate application you&rsquo;ll need to download to your
+computer and run locally.</p>
+<h3 id="viewing-in-jbrowse">Viewing in JBrowse<a class="headerlink" href="#viewing-in-jbrowse" title="Permanent link">&para;</a></h3>
+<p>Before using JBrowse, you&rsquo;ll need to convert your GTF file to a GFF file.</p>
+<p>In the left tool panel menu, select the &ldquo;GTF-to-GFF converter&rdquo; tool, then
+provide your GTF file and click &ldquo;execute&rdquo;.</p>
+<p>GTF and GFF are similar representations of the same information, but JBrowse
+requires the annotation information to be in GFF format.</p>
+<p>To visualise the alignment data:</p>
+<ul>
+<li>search for &ldquo;JBrowse&rdquo; in the tool panel search bar</li>
+<li>for &ldquo;Reference genome to display&rdquo;: <em>Use a built-in genome</em></li>
+<li>for &ldquo;Select a reference genome&rdquo;: <em>Fruit Fly dm3</em></li>
+<li>leave other settings as default, except:</li>
+</ul>
+<p><strong>Set up a track for mapped RNA-seq reads:</strong></p>
+<ul>
+<li>click &ldquo;Insert Track Group&rdquo; and then &ldquo;Insert Annotation Track&rdquo;</li>
+<li>for &ldquo;Track Type&rdquo;: <em>BAM pileups</em></li>
+<li>for &ldquo;BAM Track Data&rdquo;: select the multiple datasets icon, then select a bam from each condition, e.g., g1_01.bam and g3_01.bam (your files may be named differently)</li>
+<li>for &ldquo;Autogenerate SNP Track&rdquo;: <em>Yes</em></li>
+</ul>
+<p><strong>Set up a track for the annotated genome:</strong></p>
+<ul>
+<li>click &ldquo;Insert Track Group&rdquo; and then &ldquo;Insert Annotation Track&rdquo;</li>
+<li>for &ldquo;Track Type&rdquo;: <em>GFF/GFF3/BED/GBK Features</em></li>
+<li>for &ldquo;GFF/GFF3/BED Track Data&rdquo;: select the reference genome in GFF format, e.g. the converted GTF file (ensembl_dm3.chr4.gtf) - your files may be named differently</li>
+<li><em>Execute</em></li>
+</ul>
+<p>JBrowse will create a single file with this visualization (this may take a while).</p>
+<ul>
+<li>When it is ready, click the eye icon to display in the centre panel.</li>
+<li>Make sure all &ldquo;Available Tracks&rdquo; on the left are ticked.</li>
+<li>Zoom in and out with the plus and minus buttons.</li>
+<li>Select &ldquo;Chr4&rdquo;.</li>
+</ul>
+<p><img alt="JBrowse" src="../media/jbrowse.png" /></p>
+<h3 id="viewing-in-igv">Viewing in IGV<a class="headerlink" href="#viewing-in-igv" title="Permanent link">&para;</a></h3>
+<p>An alternative to JBrowse is IGV. If you don&rsquo;t already have IGV installed on
+your computer, <a href="https://software.broadinstitute.org/software/igv/download">download and install</a>
+it now. You will also need Java installed to run IGV.</p>
+<p>To visualise the alignment data:</p>
+<ol>
+<li>Open the IGV application (this may take a few seconds). Once opened, use
+    the top left drop-down menu bar to select the correct Drosophila genome
+    (dm3). You may need to select the &ldquo;More&hellip;&rdquo; option, and select
+    &ldquo;D. melanogaster (dm3)&rdquo;.</li>
+<li>In Galaxy, click on one of the BAM files, for example &lsquo;g1_01.bam&rsquo;, to
+    expand the available options. Click on &ldquo;display with IGV <strong>local</strong>&rdquo; and
+    the BAM file should be loaded into IGV.</li>
+<li>Select <strong>chr4</strong> from the second drop box under the toolbar. Zoom in to
+    view alignments of reads to the reference genome.
+    You should see the characteristic distribution of RNA-seq reads across
+    the exons of the genes, with some gaps at intron/exon boundaries.
+    The number of reads aligned to a particular gene is proportional to the
+    abundance of the RNA derived from that gene in the sequenced sample.
+    (Note that IGV already has a list of known genes of most major organisms
+    including Drosophila, which is why you can see the genes in the bottom
+    panel of IGV.)</li>
+<li>
+<p>Open another BAM file from the other condition (e.g. &lsquo;g3_01.bam&rsquo;) by
+    clicking on the dataset in Galaxy and clicking on
+    &ldquo;display with IGV <strong>local</strong>&rdquo;.</p>
+<p><img src="../media/rna_igv.png" height=400px/></p>
+</li>
+</ol>
+<!--
+**[Optional]** Visualise the aligned reads in Trackster  
+If you have trouble getting IGV to work, you can also use the inbuilt
+Galaxy genome browser, Trackster, to visualise alignments. Trackster has fewer
+features than IGV, but sometimes it may be more convenient to use as it only
+requires the browser.
+
+1.  On the top bar of Galaxy, select **Visualization > New Track Browser**.
+2.  Name your new visualization and select D. melanogaster (dm3) as the
+    reference genome build.
+3.  Click the **Add Datasets to Visualization** button and select WT_01.bam and
+    KO_01.bam by using the checkboxes on the left.
+4.  Select chr4 from the dropdown box. You can zoom in and out using the
+    buttons on the top toolbar. You can also add more tracks using the Add
+    Tracks icon located on the top right.
+5.  Next to the drop down list, click on the chromosomal position number
+    display and specify the location **chr4:816349-830862**.  
+
+Before starting the next section, leave the Trackster interface and return
+to the analysis view of Galaxy by clicking 'Analyze Data' on the top
+Galaxy toolbar.
+-->
+
+<hr />
+<h2 id="section-4-quantification">Section 4. Quantification<a class="headerlink" href="#section-4-quantification" title="Permanent link">&para;</a></h2>
+<p>HTSeq-count counts the number of the reads from each bam file that map to the
+genomic features in the provided annotation file. For each feature (a
+gene for example) we will obtain a numerical value associated with the
+expression of that feature in our sample (i.e. the number of reads that
+were aligned to that gene).</p>
+<p><strong>1.  Examine the GTF file</strong></p>
+<p>Click on the <strong>eye icon</strong> to display the ensembl_dm3.chr4.gtf file in Galaxy.</p>
+<p>This GTF file is essentially a list of chromosomal features
+which together define genes. Each feature is in turn defined by a
+chromosomal start and end point, feature type (CDS, gene, exon etc),
+and parent gene and transcript. Importantly, a gene may have many features,
+but one feature will belong to only one gene.
+More information on the GTF format can be found
+<a href="http://asia.ensembl.org/info/website/upload/gff.html">here</a>.
+<br><img src="../media/rna_basic_gtf.png" height=200px style="margin: 10px;"/><br>
+The ensembl_dm3.chr4.gtf file contains ~4900 features which together define
+the 92 known genes on chromosome 4 of Drosophila melanogaster.</p>
+<p><strong>2.  Run HTSeq-count</strong></p>
+<ol>
+<li>
+<p>Use HTSeq-count to count the number of reads for each feature.<br />
+    In the left tool panel menu, under NGS Analysis, select
+    <strong>NGS: RNA Analysis &gt; htseq-count</strong> and set the parameters as follows:  </p>
+<ul>
+<li><strong>Aligned SAM/BAM File:</strong><br />
+  (Select &lsquo;Multiple datasets&rsquo;, then select all six bam files using the shift key.)<ul>
+<li>g1_01.bam</li>
+<li>g1_02.bam</li>
+<li>g1_03.bam</li>
+<li>g3_01.bam</li>
+<li>g3_02.bam</li>
+<li>g3_03.bam</li>
+</ul>
+</li>
+<li><strong>GFF File:</strong> ensembl_dm3.chr4.gtf</li>
+<li><strong>Stranded:</strong> No</li>
+<li><strong>ID Attribute:</strong> gene_name</li>
+<li>Use defaults for the other fields</li>
+<li>Execute</li>
+</ul>
+</li>
+<li>
+<p>In the previous step, each input BAM file outputted two files. The first
+    file contains the counts for each of our genes. The second file
+    (ending with &ldquo;(no feature)&rdquo;) contains the stats for the reads that weren&rsquo;t
+    able to be uniquely aligned to a gene. We don&rsquo;t need the &ldquo;(no feature)&rdquo;
+    files so we can remove then with the delete &ldquo;X&rdquo; button on the top right.</p>
+</li>
+<li>
+<p>Rename the remaining six files from htseq-count to meaningful names,
+    such as g1_01, g1_02, etc.</p>
+</li>
+</ol>
+<p><strong>3.  Generate a count matrix</strong></p>
+<ol>
+<li>Generate a combined count matrix by combining our six files.
+    In the left tool panel menu, under NGS Analysis, select
+    <strong>NGS: RNA Analysis &gt; Generate count matrix</strong> and set the parameters as follows:  <ul>
+<li><strong>Count files from your history:</strong><br />
+    (Select all six count files using the shift key.)<ul>
+<li>g1_01</li>
+<li>g1_02</li>
+<li>g1_03</li>
+<li>g3_01</li>
+<li>g3_02</li>
+<li>g3_03</li>
+</ul>
+</li>
+<li>Use defaults for the other fields</li>
+<li>Execute</li>
+</ul>
+</li>
+</ol>
+<p>Examine the outputted matrix by using the <strong>eye icon</strong>.<br />
+Each column corresponds to a sample and each row corresponds to a gene. By
+sight, see if you can find a gene you think is differentially expressed
+just by looking at the counts.</p>
+<p>We now have a count matrix which we will now use to find differentially
+expressed genes between g1 samples and g3 samples.</p>
+<hr />
+<h2 id="section-5-degust">Section 5. Degust<a class="headerlink" href="#section-5-degust" title="Permanent link">&para;</a></h2>
+<p>Degust is an interactive visualiser for analysing RNA-seq data. It runs as a
+web service and can be found at <a href="http://degust.erc.monash.edu/">degust.erc.monash.edu/</a>.</p>
+<p><img src="../media/degust_01.png" height=400px style="display:block; margin-left: auto; margin-right:auto;"></p>
+<p><strong>1. Load count data into Degust</strong></p>
+<ol>
+<li>In Galaxy, download the count matrix you generated in the last section
+    using the <strong>disk icon</strong>.</li>
+<li>Go to <a href="http://degust.erc.monash.edu/">degust.erc.monash.edu/</a>
+    and click on &ldquo;Upload your counts file&rdquo;.</li>
+<li>Click &ldquo;Choose file&rdquo; and upload the recently downloaded Galaxy tabular file
+    containing your RNA-seq counts.</li>
+</ol>
+<p><strong>2. Configure your uploaded data</strong></p>
+<ol>
+<li>Give your visualisation a name.</li>
+<li>For the Info column, select &ldquo;gene_id&rdquo;.</li>
+<li>Add two conditions: g1 and g3. For each condition, select the three
+    samples which correspond with the condition.</li>
+<li>Set min gene CPM to 0.5 in at least 3 samples.</li>
+<li>Click <strong>Save changes</strong> and view your data.</li>
+</ol>
+<p><img src="../media/hypergravity_degust.png" style="display:block; margin-left: auto; margin-right:auto;"></p>
+<p>\endshowable</p>
+<p>Read through the Degust tour of features. Explore the parallel coordinates plot,
+MA plot, MDS plot, heatmap and gene list. Each is fully interactive and
+influences other portions on the display depending on what is selected.</p>
+<p><img src="../media/degust_03.png" style="display:block; margin-left: auto; margin-right:auto;"></p>
+<p>On the right side of the page is an options module which can set thresholds to
+filter genes using statistical significance or absolute-fold-change.</p>
+<p>On the left side is a dropdown box you can specify the method (Voom/Limma or
+edgeR) used to perform differential expression analysis on the data. You can
+also view the R code by clicking &ldquo;Show R code&rdquo; under the options module on
+the right.</p>
+<p><strong>4. Explore the demo data</strong></p>
+<p>Degust also provides an example dataset with 4 conditions and more genes. You
+can play with the demo dataset by clicking on the &ldquo;Try the demo&rdquo; button on the
+Degust homepage. The demo dataset includes a column with an EC number for each
+gene. This means genes can be displayed on Kegg pathways using the module on
+the right.</p>
+<p><strong>5. Explore the full dataset</strong></p>
+<p>The FASTQ files we started with is only a small proportion of the full dataset.
+If you wish, you can download the full count matrix
+<a href="https://swift.rc.nectar.org.au:8888/v1/AUTH_377/public/rna_seq_hypergravity/GSE80323_counts.tsv">here</a>,
+upload it to Degust, and explore the results.</p>
+<hr />
+<h2 id="section-5-deseq2">Section 5. DESeq2<a class="headerlink" href="#section-5-deseq2" title="Permanent link">&para;</a></h2>
+<p>In this section we&rsquo;ll use the &ldquo;DESeq2&rdquo; tool in Galaxy to do our differential
+gene analysis. This tool uses the separate HTSeq files we generated in section
+4.</p>
+<p>Similar to Voom/Limma or edgeR that was used in Degust to statistically test
+our data, DESeq2 will:</p>
+<ul>
+<li>statistically test for expression differences in normalised read counts for
+    each gene, taking into account the variance observed between samples,  </li>
+<li>for each gene, calculate the p-value of the gene being differentially
+    expressed&ndash; this is the probability of seeing the data or something more
+    extreme given the null hypothesis (that the gene is not differentially
+    expressed between the two conditions),</li>
+<li>for each gene, estimate the fold change in expression between the two
+    conditions.</li>
+</ul>
+<p></p>
+
+<ol>
+<li>Use DESeq2 to find differentially expressed features from the count data.<br />
+    In the left tool panel menu, under NGS Analysis, select <strong>NGS: RNA Analysis
+    &gt; DESeq2</strong> and set the parameters as follows:<ul>
+<li><strong>1: Factor</strong><ul>
+<li><strong>Specify a factor name:</strong> gravity</li>
+<li><strong>1: Factor level:</strong><ul>
+<li><strong>Specify a factor level:</strong> g1<br />
+(Select the three g1 htseq-count files.)<ul>
+<li>g1_01</li>
+<li>g1_02</li>
+<li>g1_03</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>2: Factor level:</strong><ul>
+<li><strong>Specify a factor level:</strong> g3<br />
+(Select the three g3 htseq-count files.)<ul>
+<li>g3_01</li>
+<li>g3_02</li>
+<li>g3_03</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Use defaults for the other fields</li>
+<li>Execute</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="../media/hypergravity_deseq2.png"/></p>
+<ol start="2">
+<li>Have a look at the outputs of DESeq2. We will now filter significant
+    (adjusted p-value &lt; 0.05) genes from the DESeq2 result file.<br />
+    Under Basic Tools, click on <strong>Filter and Sort &gt; Filter</strong>:<ul>
+<li><strong>Filter:</strong> &ldquo;DESeq2 result file on data &hellip;&rdquo;</li>
+<li><strong>With following condition:</strong> c7 &lt; 0.05</li>
+<li>Execute</li>
+</ul>
+</li>
+</ol>
+<p>How many differentially expressed genes with adjusted p-value &lt; 0.05 are there?</p>
+<hr />
+<h2 id="section-6-the-importance-of-replicates">Section 6. The importance of replicates<a class="headerlink" href="#section-6-the-importance-of-replicates" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Repeat the previous differential expression analysis with two samples in
+    each group instead of three. How do you expect your results to differ when
+    using fewer samples?</p>
+</li>
+<li>
+<p>Filter genes with adjusted-p-value &lt; 0.05. How many genes are significant?</p>
+</li>
+<li>
+<p>Run DESeq2 again, using only one sample from each group. How many genes are
+    now significant?</p>
+</li>
+<li>
+<p>Can you find genes that were identified as differentially expressed when
+    using three samples in each condition that were not identified as
+    differentially expressed when using two samples? What do you expect these
+    gene&rsquo;s counts or logFC values to look like compared to genes that remained
+    statistically significance? Have a look at the counts or the logFC values
+    of these genes.</p>
+</li>
+</ol>
+<p>The identification of differentially expressed genes is based on the size
+of the difference in expression and the variance observed across multiple
+replicates. This demonstrates how important it is to have biological replicates
+in differential gene expression experiments.</p>
+<p>CG1674 is an example of a gene that showed up as differentially expressed
+when we did a 3 vs 3 comparsion but not with a 2 vs 2 comparsion.
+If we say that genes like CG1674 was <strong>truly</strong> differentially expressed, we
+can call these instances where the true differentially expressed genes are not
+identified as false negatives. Generally, increasing replicates decreases the
+number of false negatives.</p>
+<p>It is also more likely to see more false positives when using an insufficient
+number of replicates. False positives can be defined as identifying a gene as
+differentially expressed when it is, in reality, not.</p>
+<hr />
+<h2 id="optional-extension">Optional extension<a class="headerlink" href="#optional-extension" title="Permanent link">&para;</a></h2>
+<p>Have a go at doing another differential expression analysis with the following
+Saccharomyces cerevisiae data from chromosome I. This time, the two conditions
+are called &lsquo;batch&rsquo; and &lsquo;chem&rsquo;, and like before, there are three samples per
+condition.</p>
+<p>Batch sequence data:</p>
+<div class="code">
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch1_chrI_1.fastq
+<br>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch1_chrI_2.fastq
+<br>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch2_chrI_1.fastq
+<br>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch2_chrI_2.fastq
+<br>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch3_chrI_1.fastq
+<br>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/batch3_chrI_2.fastq
+<br>
+</div>
+<p>Chem sequence data:</p>
+<div class="code">
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem1_chrI_1.fastq
+<br>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem1_chrI_2.fastq
+<br>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem2_chrI_1.fastq
+<br>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem2_chrI_2.fastq
+<br>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem3_chrI_1.fastq
+<br>
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/chem3_chrI_2.fastq
+<br>
+</div>
+<p>Gene annotation:</p>
+<div class="code">
+https://swift.rc.nectar.org.au:8888/v1/AUTH_a3929895f9e94089ad042c9900e1ee82/RNAseqDGE_ADVNCD/genes.gtf
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
