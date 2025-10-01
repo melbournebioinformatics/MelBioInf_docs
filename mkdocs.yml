@@ -100,7 +100,6 @@ nav:
         - 'Introduction to Unix-Archive': 'tutorials/unix_archive_2022/unix.md'
         - 'Introduction to CWL': 'tutorials/cwl/cwl.md'
         - 'Introduction to Git and Github (deprecated)': 'tutorials/using_git/Using_Git.md'
-        - 'Introduction to R for Biologists (deprecated)': 'tutorials/intro_R_biologists/intro_R_biologists.md'
 
 extra_templates: [
   'tutorials/hpc/slides.html',
