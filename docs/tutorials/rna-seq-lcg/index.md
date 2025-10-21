@@ -101,7 +101,7 @@ head(tab, n=50)
 ```
 Here's what we have:
 
-- The first 2 columns are gene annotation: "EnsembleID" and "Symbol", respectively (note: EnsembleID is one of many standard gene identifiers in use; anther common identifier is "Entrez" gene ID).
+- The first 2 columns are gene annotation: "EnsembleID" and "Symbol", respectively (note: EnsembleID is one of many standard gene identifiers in use; another common identifier is "Entrez" gene ID).
 - The next 12 columns represent the count data on the four experimental groups of interest, each with three biological replicates; specially, a special kind of T cell treated with either: RA, TGFb, both (RA_TGFb), or neither (WT).
 
 # Preliminaries
@@ -352,7 +352,7 @@ We want to answer the question: which genes are DE, i.e. have significantly diff
 
 For various reasons (theoretical and empirical), it turns out that a good model for RNA-seq count data (on biological replicates) is the *Negative Binomial* (NB) distribution:
 ```
-Y_{ij} \sim \text{Negative Bionomial}
+Y_{ij} \sim \text{Negative Binomial}
 ```
 You might have never even heard of this obscure distribution! Remarkably, however, it can shown that log transformed NB count data (or adjusted CPM data) follows, to good approximation, a simple *Normal* distribution:
 ```
@@ -582,7 +582,7 @@ These visualisations look as they should in this case. However, if you produce p
 
 
 
-![](img/p-vaule-hist.png){width=80%}
+![](img/p-value-hist.png){width=80%}
 
 
 
