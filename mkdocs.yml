@@ -77,6 +77,7 @@ nav:
             - 'Intro to Metabarcoding using QIIME2: *Mammal dataset*': 'tutorials/qiime2_mammal/qiime2_mammal.md'
     - 'Transcriptomics':
         - 'RNAseq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
+        - 'RNA-seq: counts to genes': 'tutorials/rna-seq-lcg/index.md'
         - 'Bulk RNA-seq':
             - 'Introduction to bulk RNAseq analysis': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
             - 'RNAseq analysis using HISAT2 (Galaxy)': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tutorial.md'
