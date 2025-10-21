@@ -44,6 +44,7 @@ nav:
         - 'Intro to the Nectar Cloud': 'https://melbournebioinformatics.github.io/nectar-instances/'
         - 'Intro to R for Biologists': 'https://melbournebioinformatics.github.io/intro-to-r/'
         - 'Intro to RNASeq': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
+        - 'RNA-seq: counts to genes': 'https://melbournebioinformatics.github.io/rna-seq-counts-to-genes/'
     - 'Tools and skill development':
         - 'What is Bioinformatics?': 'guides/bioinfo.md'
         - 'Introduction to the Galaxy Platform': 'guides/galaxy.md'
