@@ -168,12 +168,14 @@ head(dge$counts) # compare to pre-filtered data to see the difference
 Roughly speaking, this strategy keeps genes that have a reasonable number of counts in a worthwhile number samples, and removes them otherwise (see function help for precise details).
 
 Following filtering, you should check the *library size* of each sample. The library size of a sample is simply the sum of the counts in that library, i.e.
-```
+
+$$
 \begin{align*}
 \text{Library size for sample}\ j &= \sum_{i} Y_{ij} \\
 & = \sum_{\substack{\text{all genes}}} \text{counts for sample}\ j
 \end{align*}
-```
+$$
+
 where $Y_{ij}$ is the count for gene $i$ in sample $j$. Here's a plot of the library sizes for our data:
 ```{r}
 lib.size.millons <- colSums(dge$counts) / 1e6
@@ -249,9 +251,11 @@ Does Gene 3 show a biological or technical difference between the two groups? Lo
 
 
 It should be clear from this that differences resulting from different library sizes can be mistaken for biological differences. One simple way to (roughly) normalise for library size differences is to calculate *counts-per-million (CPM)*. If we again let $Y_{ij}$ be the count for gene $i$ in sample $j$, and let $N_j$ be the library size for sample $j$, then the CPM value for gene $i$ in sample $j$ is given by
-```
+
+$$
 \text{CPM}_{ij} = \frac{Y_{ij}}{N_j} \times 10^6 = \frac{\text{Count}}{\text{Library size}} \times 10^6,
-```
+$$
+
 Because CPM values are (scaled) *proportions*, i.e. "Count / Library size", not absolute counts, the issue of library size differences is no longer relevant.
 
 2. *Compositional differences*. For each sample, the probability of sequencing a transcript is proportional to its abundance---this is the basis of how RNA-seq works (of course!). To see the potential problem this fact creates, look at this figure:
@@ -351,13 +355,17 @@ We want to answer the question: which genes are DE, i.e. have significantly diff
 
 
 For various reasons (theoretical and empirical), it turns out that a good model for RNA-seq count data (on biological replicates) is the *Negative Binomial* (NB) distribution:
-```
+
+$$
 Y_{ij} \sim \text{Negative Binomial}
-```
+$$
+
 You might have never even heard of this obscure distribution! Remarkably, however, it can shown that log transformed NB count data (or adjusted CPM data) follows, to good approximation, a simple *Normal* distribution:
-```
+
+$$
 \log(Y_{ij}) \sim \text{Normal}
-```
+$$
+
 With this in mind, we can distinguish the two main approaches to DE analysis:
 
 1. Analyse the counts directly
@@ -386,107 +394,110 @@ y$genes <- dge$genes
 
 Now that we've decided on a model for the data, and corresponding methodology, we need to connect the data to the *means* for each experimental group. For this, we use a *linear model*. There's many ways to talk about and apply linear models---we'll do it the simplest way possible.
 
-Take any gene, and let $y_1, y_2, \ldots, y_{12}$ be the 12 log expression observations for that gene. Now let $y_{1,RA}, y_{2,RA}, y_{3,RA}$ be the three observations for the RA group specifically. We can write
-```
+Take any gene, and let $y_1, y_2, \ldots, y_{12}$ be the 12 log expression observations for that gene. Now let $y_{1,RA}, y_{2,RA}, y_{3,RA}$ be the three observations for the RA group specifically. We can write:
+
+$$
 \begin{align}
 y_{1,RA} &= \mu_{RA} + \epsilon_1 \\
 y_{2,RA} &= \mu_{RA} + \epsilon_2 \\
 y_{3,RA} &= \mu_{RA} + \epsilon_3,
 \end{align}
-```
+$$
+
 where $\mu_{RA}$ is the RA group mean and the $\epsilon$'s are random errors (i.e. biological variation!). Note that all three observations share the group mean $\mu_{RA}$; they differ only because of the random errors. 
 
 Similarly, we can do this for all 12 observations:
-```
+
+$$
 \begin{align}
-y_{1,RA} &= \mu_{RA} + \epsilon_1 \\
-y_{2,RA} &= \mu_{RA} + \epsilon_2 \\
-y_{3,RA} &= \mu_{RA} + \epsilon_3 \\
-y_{4,TGFb} &= \mu_{TGFb} + \epsilon_4 \\
-y_{5,TGFb} &= \mu_{TGFb} + \epsilon_5 \\
-y_{6,TGFb} &= \mu_{TGFb} + \epsilon_6 \\
-y_{7,RA\_TGFb} &= \mu_{RA\_TGFb} + \epsilon_7 \\
-y_{8,RA\_TGFb} &= \mu_{RA\_TGFb} + \epsilon_8 \\
-y_{9,RA\_TGFb} &= \mu_{RA\_TGFb} + \epsilon_9 \\
-y_{10,WT} &= \mu_{WT} + \epsilon_{10} \\
-y_{11,WT} &= \mu_{WT} + \epsilon_{11} \\
+y_{1,RA} &= \mu_{RA} + \epsilon_1 \newline
+y_{2,RA} &= \mu_{RA} + \epsilon_2 \newline
+y_{3,RA} &= \mu_{RA} + \epsilon_3 \newline
+y_{4,TGFb} &= \mu_{TGFb} + \epsilon_4 \newline
+y_{5,TGFb} &= \mu_{TGFb} + \epsilon_5 \newline
+y_{6,TGFb} &= \mu_{TGFb} + \epsilon_6 \newline
+y_{7,RA\_TGFb} &= \mu_{RA\_TGFb} + \epsilon_7 \newline
+y_{8,RA\_TGFb} &= \mu_{RA\_TGFb} + \epsilon_8 \newline
+y_{9,RA\_TGFb} &= \mu_{RA\_TGFb} + \epsilon_9 \newline
+y_{10,WT} &= \mu_{WT} + \epsilon_{10} \newline
+y_{11,WT} &= \mu_{WT} + \epsilon_{11} \newline
 y_{12,WT} &= \mu_{WT} + \epsilon_{12}.
 \end{align}
-```
+$$
 Now, using some simple high-school matrix-vector notation and algebra, we can write
-```
+$$
 \begin{bmatrix}  
-y_{1,RA} \\ 
-y_{2,RA} \\ 
-y_{3,RA} \\ 
-y_{4,TGFb} \\ 
-y_{5,TGFb} \\ 
-y_{6,TGFb} \\ 
-y_{7,RA\_TGFb} \\ 
-y_{8,RA\_TGFb} \\ 
-y_{9,RA\_TGFb} \\ 
-y_{10,WT} \\ 
-y_{11,WT} \\ 
+y_{1,RA} \newline
+y_{2,RA} \newline
+y_{3,RA} \newline
+y_{4,TGFb} \newline
+y_{5,TGFb} \newline
+y_{6,TGFb} \newline
+y_{7,RA\_TGFb} \newline
+y_{8,RA\_TGFb} \newline
+y_{9,RA\_TGFb} \newline
+y_{10,WT} \newline
+y_{11,WT} \newline
 y_{12,WT}
 \end{bmatrix}
 \quad
 =
 \quad
 \begin{bmatrix}
-\mu_{RA} + \epsilon_1 \\
-\mu_{RA} + \epsilon_2 \\
-\mu_{RA} + \epsilon_3 \\
-\mu_{TGFb} + \epsilon_4 \\
-\mu_{TGFb} + \epsilon_5 \\
-\mu_{TGFb} + \epsilon_6 \\
-\mu_{RA\_TGFb} + \epsilon_7 \\
-\mu_{RA\_TGFb} + \epsilon_8 \\
-\mu_{RA\_TGFb} + \epsilon_9 \\
-\mu_{WT} + \epsilon_{10} \\
-\mu_{WT} + \epsilon_{11} \\
+\mu_{RA} + \epsilon_1 \newline
+\mu_{RA} + \epsilon_2 \newline
+\mu_{RA} + \epsilon_3 \newline
+\mu_{TGFb} + \epsilon_4 \newline
+\mu_{TGFb} + \epsilon_5 \newline
+\mu_{TGFb} + \epsilon_6 \newline
+\mu_{RA\_TGFb} + \epsilon_7 \newline
+\mu_{RA\_TGFb} + \epsilon_8 \newline
+\mu_{RA\_TGFb} + \epsilon_9 \newline
+\mu_{WT} + \epsilon_{10} \newline
+\mu_{WT} + \epsilon_{11} \newline
 \mu_{WT} + \epsilon_{12}
 \end{bmatrix}
 \quad
 = 
 \quad
 \begin{bmatrix} 
-1 & 0 & 0 & 0 \\
-1 & 0 & 0 & 0 \\
-1 & 0 & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 1 & 0 & 0 \\
-0 & 1 & 0 & 0 \\
-0 & 1 & 0 & 0 \\
-0 & 0 & 0 & 1 \\
-0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 0 \newline
+1 & 0 & 0 & 0 \newline
+1 & 0 & 0 & 0 \newline
+0 & 0 & 1 & 0 \newline
+0 & 0 & 1 & 0 \newline
+0 & 0 & 1 & 0 \newline
+0 & 1 & 0 & 0 \newline
+0 & 1 & 0 & 0 \newline
+0 & 1 & 0 & 0 \newline
+0 & 0 & 0 & 1 \newline
+0 & 0 & 0 & 1 \newline
 0 & 0 & 0 & 1
 \end{bmatrix}
 \begin{bmatrix}
-\mu_{RA}\\
-\mu_{RA\_TGFb}\\
-\mu_{TGFb}\\
+\mu_{RA} \newline
+\mu_{RA\_TGFb} \newline
+\mu_{TGFb} \newline
 \mu_{WT}
 \end{bmatrix}
 \quad
 +
 \quad
 \begin{bmatrix}
-\epsilon_1 \\
-\epsilon_2 \\
-\epsilon_3 \\
-\epsilon_4 \\
-\epsilon_5 \\
-\epsilon_6 \\
-\epsilon_7 \\
-\epsilon_8 \\
-\epsilon_9 \\
-\epsilon_{10} \\
-\epsilon_{11} \\
+\epsilon_1 \newline
+\epsilon_2 \newline
+\epsilon_3 \newline
+\epsilon_4 \newline
+\epsilon_5 \newline
+\epsilon_6 \newline
+\epsilon_7 \newline
+\epsilon_8 \newline
+\epsilon_9 \newline
+\epsilon_{10} \newline
+\epsilon_{11} \newline
 \epsilon_{12}
 \end{bmatrix}
-```
+$$
 or, more compactly: $\mathbf{y} = \mathbf{X} \boldsymbol\beta + \boldsymbol\epsilon$. This is the linear model for our data, and we'll use the following terminology:
 
   - $\mathbf{X}$ is called the "design" matrix
@@ -524,9 +535,11 @@ This has transformed the initial coefficients (i.e. groups means) into the contr
 ## Testing for DE
 
 Now that we have our differences in group means for each gene, we want to ask if any of these differences are *significantly different from zero* (over and above what you might see by random chance). In other words, for each gene we want to statistically test if the means of the two groups are different---more simply: we want to test for DE! To do this, we'll use the so-called t-test (applied to each gene), whose test statistic looks like this:
-```
+
+$$
 T = \frac{\bar{y}_{_{A}} - \bar{y}_{_{B}}}{ \sqrt{v}}
-```
+$$
+
 where $\bar{y}_{_{A}}$ and $\bar{y}_{_{B}}$ are the means of the two groups being compared, and $v$ is an estimate of the variance. To test the null hypothesis (that the means are the same), we use the $t$-distribution to calculate probabilities about this test statistic (if the chances of seeing certain values of $T$ are small, this is evidence against the null hypothesis that the group means are the same).
 
 At this point you must be thinking: "why did we do all that linear models stuff if, in the end, we're just going to use a t-test?" There are at least two reasons. Briefly:
@@ -534,10 +547,12 @@ At this point you must be thinking: "why did we do all that linear models stuff 
 1. By using a linear model we've actually used *all* the samples to estimate the variability $v$ here (a standard t-test would only estimate it from the two groups being compared) and so the estimate is better.
 2. Linear models are much more powerful than our simple situation suggests: they can be used to easily adjust for things which aren't of interest but affect the things of interest, e.g. you can make comparisons while adjusting for biological things (e.g. sex) or while adjusting for technical things (e.g. batch), or while adjusting for both!
 
-Hopefully this convinces you that linear models are your friend, but now you must be thinking a different question: "wait a second...we're going to do t-tests with as little as 2 or 3 observations in each group?...that's crazy!" Yes, that does seem crazy---there's barely any information in each group to make a reliable inference about whether the means are different. But this is where the real magic of RNA-seq analysis comes in, the thing that makes it all work: *empirical Bayes* statistics. The full details are beyond the scope of our discussion, but the rough idea is this: we use a procedure whereby the genes are allowed to *share information* with each other---this sharing of information between genes makes up for the fact that there isn't much information within any single gene. This procedure is applied to the gene variances---the $v$'s above---which *moderates* them, making them better estimates, and thus increasing our power to detect DE (other terms for this 'moderation' procedure include 'shrinkage' or 'regularization', terms which you may see in your travels---this powerful technique is used in many places in statistical omics analysis). So, the statistic used to test for DE is actually
-```
+Hopefully this convinces you that linear models are your friend, but now you must be thinking a different question: "wait a second...we're going to do t-tests with as little as 2 or 3 observations in each group?...that's crazy!" Yes, that does seem crazy---there's barely any information in each group to make a reliable inference about whether the means are different. But this is where the real magic of RNA-seq analysis comes in, the thing that makes it all work: *empirical Bayes* statistics. The full details are beyond the scope of our discussion, but the rough idea is this: we use a procedure whereby the genes are allowed to *share information* with each other---this sharing of information between genes makes up for the fact that there isn't much information within any single gene. This procedure is applied to the gene variances---the $v$'s above---which *moderates* them, making them better estimates, and thus increasing our power to detect DE (other terms for this 'moderation' procedure include 'shrinkage' or 'regularization', terms which you may see in your travels---this powerful technique is used in many places in statistical omics analysis). So, the statistic used to test for DE is actually:
+
+$$
 \widetilde{T} = \frac{\bar{y}_{_{A}} - \bar{y}_{_{B}}}{ \sqrt{ \widetilde{v} }}
-```
+$$
+
 where $\widetilde{v}$ is the moderated variance; accordingly, $\widetilde{T}$ is called the "moderated t-statistic".
 
 That said, testing for DE with the moderated t-statistic is actually easy:

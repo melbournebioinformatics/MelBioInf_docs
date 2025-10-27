@@ -34,6 +34,9 @@ theme:
 extra_css:
   - 'extra.css'
 
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
 copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics – The University of Melbourne ©</a>
 
@@ -43,7 +46,7 @@ nav:
         - 'Git for Researchers': 'https://melbournebioinformatics.github.io/intro-to-git/'
         - 'Intro to the Nectar Cloud': 'https://melbournebioinformatics.github.io/nectar-instances/'
         - 'Intro to R for Biologists': 'https://melbournebioinformatics.github.io/intro-to-r/'
-        - 'Intro to RNASeq': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
+        - 'Intro to RNA-seq': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
         - 'RNA-seq: counts to genes': 'https://melbournebioinformatics.github.io/rna-seq-counts-to-genes/'
     - 'Tools and skill development':
         - 'What is Bioinformatics?': 'guides/bioinfo.md'
@@ -116,7 +119,8 @@ markdown_extensions:
       linenums: true
   - toc:
       permalink: true
-  - pymdownx.arithmatex
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
