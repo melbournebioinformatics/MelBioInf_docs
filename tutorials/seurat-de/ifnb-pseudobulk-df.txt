@@ -1,0 +1,715 @@
+##               RNA.CTRL_SNG.101_CD14.Mono RNA.CTRL_SNG.101_CD4.Naive.T
+## AL627309.1                             0                            0
+## RP11-206L10.2                          0                            0
+## LINC00115                              0                            0
+## NOC2L                                  7                            3
+## KLHL17                                 0                            0
+## PLEKHN1                                1                            0
+##               RNA.CTRL_SNG.101_CD4.Memory.T RNA.CTRL_SNG.101_CD16.Mono
+## AL627309.1                                0                          0
+## RP11-206L10.2                             0                          0
+## LINC00115                                 0                          0
+## NOC2L                                     5                          3
+## KLHL17                                    0                          0
+## PLEKHN1                                   0                          0
+##               RNA.CTRL_SNG.101_B RNA.CTRL_SNG.101_CD8.T
+## AL627309.1                     0                      0
+## RP11-206L10.2                  0                      0
+## LINC00115                      0                      0
+## NOC2L                          1                      3
+## KLHL17                         0                      0
+## PLEKHN1                        0                      1
+##               RNA.CTRL_SNG.101_T.activated RNA.CTRL_SNG.101_NK
+## AL627309.1                               0                   0
+## RP11-206L10.2                            0                   0
+## LINC00115                                1                   0
+## NOC2L                                    0                   2
+## KLHL17                                   0                   0
+## PLEKHN1                                  0                   0
+##               RNA.CTRL_SNG.101_DC RNA.CTRL_SNG.101_B.Activated
+## AL627309.1                      0                            0
+## RP11-206L10.2                   0                            0
+## LINC00115                       1                            0
+## NOC2L                           0                            4
+## KLHL17                          0                            0
+## PLEKHN1                         0                            0
+##               RNA.CTRL_SNG.101_Mk RNA.CTRL_SNG.101_pDC RNA.CTRL_SNG.101_Eryth
+## AL627309.1                      0                    0                      0
+## RP11-206L10.2                   0                    0                      0
+## LINC00115                       0                    0                      1
+## NOC2L                           1                    0                      0
+## KLHL17                          0                    0                      0
+## PLEKHN1                         0                    0                      0
+##               RNA.CTRL_SNG.1015_CD14.Mono RNA.CTRL_SNG.1015_CD4.Naive.T
+## AL627309.1                              0                             0
+## RP11-206L10.2                           0                             0
+## LINC00115                               3                             0
+## NOC2L                                  23                             7
+## KLHL17                                  3                             0
+## PLEKHN1                                 2                             0
+##               RNA.CTRL_SNG.1015_CD4.Memory.T RNA.CTRL_SNG.1015_CD16.Mono
+## AL627309.1                                 0                           0
+## RP11-206L10.2                              0                           0
+## LINC00115                                  0                           4
+## NOC2L                                     16                          14
+## KLHL17                                     0                           0
+## PLEKHN1                                    0                           0
+##               RNA.CTRL_SNG.1015_B RNA.CTRL_SNG.1015_CD8.T
+## AL627309.1                      0                       0
+## RP11-206L10.2                   0                       0
+## LINC00115                       0                       1
+## NOC2L                           8                       8
+## KLHL17                          0                       0
+## PLEKHN1                         0                       0
+##               RNA.CTRL_SNG.1015_T.activated RNA.CTRL_SNG.1015_NK
+## AL627309.1                                0                    0
+## RP11-206L10.2                             0                    0
+## LINC00115                                 0                    1
+## NOC2L                                     7                    5
+## KLHL17                                    0                    0
+## PLEKHN1                                   0                    0
+##               RNA.CTRL_SNG.1015_DC RNA.CTRL_SNG.1015_B.Activated
+## AL627309.1                       0                             0
+## RP11-206L10.2                    0                             0
+## LINC00115                        0                             0
+## NOC2L                            4                            22
+## KLHL17                           0                             0
+## PLEKHN1                          0                             0
+##               RNA.CTRL_SNG.1015_Mk RNA.CTRL_SNG.1015_pDC
+## AL627309.1                       0                     0
+## RP11-206L10.2                    0                     0
+## LINC00115                        1                     1
+## NOC2L                            2                     0
+## KLHL17                           0                     0
+## PLEKHN1                          0                     0
+##               RNA.CTRL_SNG.1015_Eryth RNA.CTRL_SNG.1016_CD14.Mono
+## AL627309.1                          0                           0
+## RP11-206L10.2                       0                           1
+## LINC00115                           0                           1
+## NOC2L                               1                           5
+## KLHL17                              0                           0
+## PLEKHN1                             0                           3
+##               RNA.CTRL_SNG.1016_CD4.Naive.T RNA.CTRL_SNG.1016_CD4.Memory.T
+## AL627309.1                                0                              0
+## RP11-206L10.2                             0                              0
+## LINC00115                                 1                              2
+## NOC2L                                     6                              5
+## KLHL17                                    0                              0
+## PLEKHN1                                   0                              0
+##               RNA.CTRL_SNG.1016_CD16.Mono RNA.CTRL_SNG.1016_B
+## AL627309.1                              0                   0
+## RP11-206L10.2                           0                   0
+## LINC00115                               0                   1
+## NOC2L                                   6                   3
+## KLHL17                                  0                   0
+## PLEKHN1                                 0                   0
+##               RNA.CTRL_SNG.1016_CD8.T RNA.CTRL_SNG.1016_T.activated
+## AL627309.1                          1                             0
+## RP11-206L10.2                       0                             0
+## LINC00115                           0                             1
+## NOC2L                               8                             9
+## KLHL17                              1                             0
+## PLEKHN1                             0                             0
+##               RNA.CTRL_SNG.1016_NK RNA.CTRL_SNG.1016_DC
+## AL627309.1                       0                    0
+## RP11-206L10.2                    0                    1
+## LINC00115                        0                    0
+## NOC2L                            0                    1
+## KLHL17                           0                    0
+## PLEKHN1                          0                    0
+##               RNA.CTRL_SNG.1016_B.Activated RNA.CTRL_SNG.1016_Mk
+## AL627309.1                                0                    0
+## RP11-206L10.2                             0                    0
+## LINC00115                                 0                    0
+## NOC2L                                     2                    1
+## KLHL17                                    0                    0
+## PLEKHN1                                   0                    0
+##               RNA.CTRL_SNG.1016_pDC RNA.CTRL_SNG.1016_Eryth
+## AL627309.1                        0                       0
+## RP11-206L10.2                     0                       0
+## LINC00115                         0                       0
+## NOC2L                             0                       0
+## KLHL17                            0                       0
+## PLEKHN1                           0                       0
+##               RNA.CTRL_SNG.1039_CD14.Mono RNA.CTRL_SNG.1039_CD4.Naive.T
+## AL627309.1                              0                             0
+## RP11-206L10.2                           0                             0
+## LINC00115                               0                             0
+## NOC2L                                   3                             4
+## KLHL17                                  0                             0
+## PLEKHN1                                 0                             0
+##               RNA.CTRL_SNG.1039_CD4.Memory.T RNA.CTRL_SNG.1039_CD16.Mono
+## AL627309.1                                 0                           0
+## RP11-206L10.2                              0                           0
+## LINC00115                                  0                           0
+## NOC2L                                      7                           3
+## KLHL17                                     0                           0
+## PLEKHN1                                    0                           1
+##               RNA.CTRL_SNG.1039_B RNA.CTRL_SNG.1039_CD8.T
+## AL627309.1                      0                       0
+## RP11-206L10.2                   0                       0
+## LINC00115                       0                       0
+## NOC2L                           1                       2
+## KLHL17                          0                       0
+## PLEKHN1                         0                       0
+##               RNA.CTRL_SNG.1039_T.activated RNA.CTRL_SNG.1039_NK
+## AL627309.1                                0                    0
+## RP11-206L10.2                             0                    0
+## LINC00115                                 0                    0
+## NOC2L                                     1                    0
+## KLHL17                                    0                    1
+## PLEKHN1                                   0                    0
+##               RNA.CTRL_SNG.1039_DC RNA.CTRL_SNG.1039_B.Activated
+## AL627309.1                       0                             0
+## RP11-206L10.2                    0                             0
+## LINC00115                        0                             0
+## NOC2L                            0                             0
+## KLHL17                           0                             0
+## PLEKHN1                          0                             0
+##               RNA.CTRL_SNG.1039_Mk RNA.CTRL_SNG.1039_pDC
+## AL627309.1                       0                     0
+## RP11-206L10.2                    0                     0
+## LINC00115                        0                     0
+## NOC2L                            1                     1
+## KLHL17                           0                     0
+## PLEKHN1                          0                     0
+##               RNA.CTRL_SNG.107_CD14.Mono RNA.CTRL_SNG.107_CD4.Naive.T
+## AL627309.1                             0                            0
+## RP11-206L10.2                          0                            0
+## LINC00115                              1                            0
+## NOC2L                                  8                            3
+## KLHL17                                 0                            0
+## PLEKHN1                                1                            0
+##               RNA.CTRL_SNG.107_CD4.Memory.T RNA.CTRL_SNG.107_CD16.Mono
+## AL627309.1                                0                          0
+## RP11-206L10.2                             0                          0
+## LINC00115                                 0                          0
+## NOC2L                                     4                          3
+## KLHL17                                    0                          0
+## PLEKHN1                                   0                          0
+##               RNA.CTRL_SNG.107_B RNA.CTRL_SNG.107_CD8.T
+## AL627309.1                     0                      0
+## RP11-206L10.2                  0                      0
+## LINC00115                      0                      0
+## NOC2L                          3                      0
+## KLHL17                         0                      0
+## PLEKHN1                        0                      0
+##               RNA.CTRL_SNG.107_T.activated RNA.CTRL_SNG.107_NK
+## AL627309.1                               0                   0
+## RP11-206L10.2                            0                   0
+## LINC00115                                0                   0
+## NOC2L                                    0                   1
+## KLHL17                                   0                   0
+## PLEKHN1                                  0                   0
+##               RNA.CTRL_SNG.107_DC RNA.CTRL_SNG.107_B.Activated
+## AL627309.1                      0                            0
+## RP11-206L10.2                   0                            0
+## LINC00115                       0                            0
+## NOC2L                           1                            2
+## KLHL17                          0                            0
+## PLEKHN1                         0                            0
+##               RNA.CTRL_SNG.107_Mk RNA.CTRL_SNG.107_pDC
+## AL627309.1                      0                    0
+## RP11-206L10.2                   0                    0
+## LINC00115                       0                    0
+## NOC2L                           0                    1
+## KLHL17                          0                    0
+## PLEKHN1                         0                    0
+##               RNA.CTRL_SNG.1244_CD14.Mono RNA.CTRL_SNG.1244_CD4.Naive.T
+## AL627309.1                              0                             0
+## RP11-206L10.2                           0                             0
+## LINC00115                               3                             0
+## NOC2L                                   5                            27
+## KLHL17                                  0                             1
+## PLEKHN1                                 1                             0
+##               RNA.CTRL_SNG.1244_CD4.Memory.T RNA.CTRL_SNG.1244_CD16.Mono
+## AL627309.1                                 1                           0
+## RP11-206L10.2                              0                           0
+## LINC00115                                  1                           0
+## NOC2L                                     13                           5
+## KLHL17                                     0                           2
+## PLEKHN1                                    0                           0
+##               RNA.CTRL_SNG.1244_B RNA.CTRL_SNG.1244_CD8.T
+## AL627309.1                      0                       0
+## RP11-206L10.2                   0                       0
+## LINC00115                       0                       0
+## NOC2L                           5                       8
+## KLHL17                          0                       0
+## PLEKHN1                         0                       0
+##               RNA.CTRL_SNG.1244_T.activated RNA.CTRL_SNG.1244_NK
+## AL627309.1                                0                    0
+## RP11-206L10.2                             0                    0
+## LINC00115                                 1                    0
+## NOC2L                                     2                    2
+## KLHL17                                    0                    0
+## PLEKHN1                                   0                    0
+##               RNA.CTRL_SNG.1244_DC RNA.CTRL_SNG.1244_B.Activated
+## AL627309.1                       0                             0
+## RP11-206L10.2                    0                             0
+## LINC00115                        0                             0
+## NOC2L                            7                             6
+## KLHL17                           0                             0
+## PLEKHN1                          0                             0
+##               RNA.CTRL_SNG.1244_Mk RNA.CTRL_SNG.1244_pDC
+## AL627309.1                       0                     0
+## RP11-206L10.2                    0                     0
+## LINC00115                        0                     0
+## NOC2L                            2                     0
+## KLHL17                           0                     0
+## PLEKHN1                          0                     0
+##               RNA.CTRL_SNG.1244_Eryth RNA.CTRL_SNG.1256_CD14.Mono
+## AL627309.1                          0                           0
+## RP11-206L10.2                       0                           0
+## LINC00115                           0                           1
+## NOC2L                               0                          11
+## KLHL17                              0                           2
+## PLEKHN1                             0                           2
+##               RNA.CTRL_SNG.1256_CD4.Naive.T RNA.CTRL_SNG.1256_CD4.Memory.T
+## AL627309.1                                0                              0
+## RP11-206L10.2                             0                              0
+## LINC00115                                 1                              0
+## NOC2L                                    35                              9
+## KLHL17                                    1                              0
+## PLEKHN1                                   1                              0
+##               RNA.CTRL_SNG.1256_CD16.Mono RNA.CTRL_SNG.1256_B
+## AL627309.1                              0                   0
+## RP11-206L10.2                           0                   1
+## LINC00115                               0                   0
+## NOC2L                                   3                   7
+## KLHL17                                  0                   1
+## PLEKHN1                                 0                   0
+##               RNA.CTRL_SNG.1256_CD8.T RNA.CTRL_SNG.1256_T.activated
+## AL627309.1                          0                             0
+## RP11-206L10.2                       0                             0
+## LINC00115                           0                             2
+## NOC2L                               1                            11
+## KLHL17                              0                             0
+## PLEKHN1                             0                             0
+##               RNA.CTRL_SNG.1256_NK RNA.CTRL_SNG.1256_DC
+## AL627309.1                       0                    0
+## RP11-206L10.2                    0                    0
+## LINC00115                        0                    0
+## NOC2L                            3                    3
+## KLHL17                           0                    0
+## PLEKHN1                          0                    0
+##               RNA.CTRL_SNG.1256_B.Activated RNA.CTRL_SNG.1256_Mk
+## AL627309.1                                0                    1
+## RP11-206L10.2                             0                    0
+## LINC00115                                 0                    0
+## NOC2L                                     9                    2
+## KLHL17                                    0                    0
+## PLEKHN1                                   0                    0
+##               RNA.CTRL_SNG.1256_pDC RNA.CTRL_SNG.1256_Eryth
+## AL627309.1                        0                       0
+## RP11-206L10.2                     0                       0
+## LINC00115                         0                       0
+## NOC2L                             0                       0
+## KLHL17                            0                       0
+## PLEKHN1                           0                       0
+##               RNA.CTRL_SNG.1488_CD14.Mono RNA.CTRL_SNG.1488_CD4.Naive.T
+## AL627309.1                              0                             1
+## RP11-206L10.2                           0                             1
+## LINC00115                               0                             0
+## NOC2L                                  11                            23
+## KLHL17                                  0                             0
+## PLEKHN1                                 3                             0
+##               RNA.CTRL_SNG.1488_CD4.Memory.T RNA.CTRL_SNG.1488_CD16.Mono
+## AL627309.1                                 0                           0
+## RP11-206L10.2                              0                           0
+## LINC00115                                  1                           0
+## NOC2L                                     12                           6
+## KLHL17                                     0                           0
+## PLEKHN1                                    0                           0
+##               RNA.CTRL_SNG.1488_B RNA.CTRL_SNG.1488_CD8.T
+## AL627309.1                      0                       0
+## RP11-206L10.2                   0                       0
+## LINC00115                       0                       0
+## NOC2L                           7                       0
+## KLHL17                          0                       0
+## PLEKHN1                         0                       0
+##               RNA.CTRL_SNG.1488_T.activated RNA.CTRL_SNG.1488_NK
+## AL627309.1                                0                    0
+## RP11-206L10.2                             0                    0
+## LINC00115                                 2                    4
+## NOC2L                                     3                    2
+## KLHL17                                    0                    0
+## PLEKHN1                                   0                    1
+##               RNA.CTRL_SNG.1488_DC RNA.CTRL_SNG.1488_B.Activated
+## AL627309.1                       0                             0
+## RP11-206L10.2                    0                             0
+## LINC00115                        0                             0
+## NOC2L                            2                             6
+## KLHL17                           0                             0
+## PLEKHN1                          0                             0
+##               RNA.CTRL_SNG.1488_Mk RNA.CTRL_SNG.1488_pDC
+## AL627309.1                       0                     0
+## RP11-206L10.2                    0                     0
+## LINC00115                        0                     0
+## NOC2L                            1                     0
+## KLHL17                           0                     0
+## PLEKHN1                          0                     0
+##               RNA.CTRL_SNG.1488_Eryth RNA.STIM_SNG.101_CD14.Mono
+## AL627309.1                          0                          0
+## RP11-206L10.2                       0                          0
+## LINC00115                           0                          0
+## NOC2L                               0                          1
+## KLHL17                              0                          0
+## PLEKHN1                             0                          3
+##               RNA.STIM_SNG.101_CD4.Naive.T RNA.STIM_SNG.101_CD4.Memory.T
+## AL627309.1                               0                             0
+## RP11-206L10.2                            0                             0
+## LINC00115                                0                             0
+## NOC2L                                    4                             6
+## KLHL17                                   0                             0
+## PLEKHN1                                  0                             1
+##               RNA.STIM_SNG.101_CD16.Mono RNA.STIM_SNG.101_B
+## AL627309.1                             0                  0
+## RP11-206L10.2                          0                  0
+## LINC00115                              1                  0
+## NOC2L                                  4                  6
+## KLHL17                                 1                  0
+## PLEKHN1                                2                  0
+##               RNA.STIM_SNG.101_CD8.T RNA.STIM_SNG.101_T.activated
+## AL627309.1                         0                            0
+## RP11-206L10.2                      0                            0
+## LINC00115                          0                            1
+## NOC2L                              2                            3
+## KLHL17                             0                            0
+## PLEKHN1                            1                            0
+##               RNA.STIM_SNG.101_NK RNA.STIM_SNG.101_DC
+## AL627309.1                      0                   0
+## RP11-206L10.2                   0                   0
+## LINC00115                       0                   0
+## NOC2L                           2                   1
+## KLHL17                          0                   0
+## PLEKHN1                         2                   1
+##               RNA.STIM_SNG.101_B.Activated RNA.STIM_SNG.101_Mk
+## AL627309.1                               0                   0
+## RP11-206L10.2                            0                   0
+## LINC00115                                0                   0
+## NOC2L                                    5                   1
+## KLHL17                                   0                   0
+## PLEKHN1                                  0                   0
+##               RNA.STIM_SNG.101_pDC RNA.STIM_SNG.101_Eryth
+## AL627309.1                       0                      0
+## RP11-206L10.2                    0                      0
+## LINC00115                        0                      0
+## NOC2L                            0                      0
+## KLHL17                           0                      0
+## PLEKHN1                          0                      0
+##               RNA.STIM_SNG.1015_CD14.Mono RNA.STIM_SNG.1015_CD4.Naive.T
+## AL627309.1                              0                             0
+## RP11-206L10.2                           0                             0
+## LINC00115                               4                             0
+## NOC2L                                   8                             6
+## KLHL17                                  0                             0
+## PLEKHN1                                16                             0
+##               RNA.STIM_SNG.1015_CD4.Memory.T RNA.STIM_SNG.1015_CD16.Mono
+## AL627309.1                                 0                           0
+## RP11-206L10.2                              0                           0
+## LINC00115                                  0                           0
+## NOC2L                                      8                           0
+## KLHL17                                     0                           0
+## PLEKHN1                                    4                           0
+##               RNA.STIM_SNG.1015_B RNA.STIM_SNG.1015_CD8.T
+## AL627309.1                      0                       0
+## RP11-206L10.2                   0                       0
+## LINC00115                       0                       1
+## NOC2L                          13                       7
+## KLHL17                          1                       0
+## PLEKHN1                         1                       0
+##               RNA.STIM_SNG.1015_T.activated RNA.STIM_SNG.1015_NK
+## AL627309.1                                0                    0
+## RP11-206L10.2                             0                    0
+## LINC00115                                 0                    1
+## NOC2L                                     4                    7
+## KLHL17                                    0                    0
+## PLEKHN1                                   0                    0
+##               RNA.STIM_SNG.1015_DC RNA.STIM_SNG.1015_B.Activated
+## AL627309.1                       0                             0
+## RP11-206L10.2                    0                             0
+## LINC00115                        0                             0
+## NOC2L                            1                            13
+## KLHL17                           0                             0
+## PLEKHN1                          0                             0
+##               RNA.STIM_SNG.1015_Mk RNA.STIM_SNG.1015_pDC
+## AL627309.1                       0                     0
+## RP11-206L10.2                    0                     0
+## LINC00115                        0                     0
+## NOC2L                            1                     0
+## KLHL17                           0                     0
+## PLEKHN1                          0                     0
+##               RNA.STIM_SNG.1015_Eryth RNA.STIM_SNG.1016_CD14.Mono
+## AL627309.1                          0                           0
+## RP11-206L10.2                       0                           0
+## LINC00115                           1                           2
+## NOC2L                               0                           4
+## KLHL17                              0                           0
+## PLEKHN1                             0                           4
+##               RNA.STIM_SNG.1016_CD4.Naive.T RNA.STIM_SNG.1016_CD4.Memory.T
+## AL627309.1                                0                              0
+## RP11-206L10.2                             0                              0
+## LINC00115                                 0                              0
+## NOC2L                                     8                              4
+## KLHL17                                    0                              0
+## PLEKHN1                                   0                              0
+##               RNA.STIM_SNG.1016_CD16.Mono RNA.STIM_SNG.1016_B
+## AL627309.1                              0                   0
+## RP11-206L10.2                           0                   0
+## LINC00115                               0                   0
+## NOC2L                                   4                   2
+## KLHL17                                  0                   0
+## PLEKHN1                                 0                   0
+##               RNA.STIM_SNG.1016_CD8.T RNA.STIM_SNG.1016_T.activated
+## AL627309.1                          0                             0
+## RP11-206L10.2                       0                             0
+## LINC00115                           0                             0
+## NOC2L                               8                            11
+## KLHL17                              0                             0
+## PLEKHN1                             1                             0
+##               RNA.STIM_SNG.1016_NK RNA.STIM_SNG.1016_DC
+## AL627309.1                       0                    0
+## RP11-206L10.2                    0                    0
+## LINC00115                        0                    0
+## NOC2L                            0                    0
+## KLHL17                           0                    0
+## PLEKHN1                          0                    2
+##               RNA.STIM_SNG.1016_B.Activated RNA.STIM_SNG.1016_Mk
+## AL627309.1                                0                    0
+## RP11-206L10.2                             0                    0
+## LINC00115                                 0                    0
+## NOC2L                                     2                    1
+## KLHL17                                    0                    0
+## PLEKHN1                                   0                    0
+##               RNA.STIM_SNG.1016_pDC RNA.STIM_SNG.1016_Eryth
+## AL627309.1                        0                       0
+## RP11-206L10.2                     0                       0
+## LINC00115                         0                       0
+## NOC2L                             1                       0
+## KLHL17                            0                       0
+## PLEKHN1                           0                       0
+##               RNA.STIM_SNG.1039_CD14.Mono RNA.STIM_SNG.1039_CD4.Naive.T
+## AL627309.1                              0                             0
+## RP11-206L10.2                           0                             0
+## LINC00115                               0                             0
+## NOC2L                                   2                            15
+## KLHL17                                  0                             0
+## PLEKHN1                                 2                             0
+##               RNA.STIM_SNG.1039_CD4.Memory.T RNA.STIM_SNG.1039_CD16.Mono
+## AL627309.1                                 0                           0
+## RP11-206L10.2                              0                           0
+## LINC00115                                  0                           0
+## NOC2L                                      4                           0
+## KLHL17                                     0                           0
+## PLEKHN1                                    1                           1
+##               RNA.STIM_SNG.1039_B RNA.STIM_SNG.1039_CD8.T
+## AL627309.1                      0                       0
+## RP11-206L10.2                   0                       0
+## LINC00115                       0                       0
+## NOC2L                           2                       1
+## KLHL17                          0                       0
+## PLEKHN1                         0                       0
+##               RNA.STIM_SNG.1039_T.activated RNA.STIM_SNG.1039_NK
+## AL627309.1                                0                    0
+## RP11-206L10.2                             0                    0
+## LINC00115                                 1                    0
+## NOC2L                                     4                    0
+## KLHL17                                    0                    0
+## PLEKHN1                                   0                    0
+##               RNA.STIM_SNG.1039_DC RNA.STIM_SNG.1039_B.Activated
+## AL627309.1                       0                             0
+## RP11-206L10.2                    0                             0
+## LINC00115                        0                             0
+## NOC2L                            0                             1
+## KLHL17                           0                             0
+## PLEKHN1                          0                             0
+##               RNA.STIM_SNG.1039_Mk RNA.STIM_SNG.1039_pDC
+## AL627309.1                       0                     0
+## RP11-206L10.2                    0                     0
+## LINC00115                        0                     0
+## NOC2L                            2                     1
+## KLHL17                           0                     0
+## PLEKHN1                          0                     0
+##               RNA.STIM_SNG.1039_Eryth RNA.STIM_SNG.107_CD14.Mono
+## AL627309.1                          0                          0
+## RP11-206L10.2                       0                          0
+## LINC00115                           0                          0
+## NOC2L                               0                          0
+## KLHL17                              0                          0
+## PLEKHN1                             0                          0
+##               RNA.STIM_SNG.107_CD4.Naive.T RNA.STIM_SNG.107_CD4.Memory.T
+## AL627309.1                               0                             0
+## RP11-206L10.2                            0                             0
+## LINC00115                                0                             0
+## NOC2L                                    3                             8
+## KLHL17                                   0                             0
+## PLEKHN1                                  0                             0
+##               RNA.STIM_SNG.107_CD16.Mono RNA.STIM_SNG.107_B
+## AL627309.1                             0                  0
+## RP11-206L10.2                          0                  0
+## LINC00115                              0                  0
+## NOC2L                                  0                  6
+## KLHL17                                 0                  0
+## PLEKHN1                                0                  0
+##               RNA.STIM_SNG.107_CD8.T RNA.STIM_SNG.107_T.activated
+## AL627309.1                         0                            0
+## RP11-206L10.2                      0                            0
+## LINC00115                          0                            0
+## NOC2L                              2                            2
+## KLHL17                             0                            0
+## PLEKHN1                            0                            0
+##               RNA.STIM_SNG.107_NK RNA.STIM_SNG.107_DC
+## AL627309.1                      0                   0
+## RP11-206L10.2                   0                   0
+## LINC00115                       0                   0
+## NOC2L                           1                   0
+## KLHL17                          0                   0
+## PLEKHN1                         0                   0
+##               RNA.STIM_SNG.107_B.Activated RNA.STIM_SNG.107_Mk
+## AL627309.1                               0                   0
+## RP11-206L10.2                            0                   0
+## LINC00115                                0                   0
+## NOC2L                                    2                   1
+## KLHL17                                   0                   0
+## PLEKHN1                                  0                   0
+##               RNA.STIM_SNG.107_pDC RNA.STIM_SNG.1244_CD14.Mono
+## AL627309.1                       0                           0
+## RP11-206L10.2                    0                           0
+## LINC00115                        0                           0
+## NOC2L                            0                           2
+## KLHL17                           0                           0
+## PLEKHN1                          0                           2
+##               RNA.STIM_SNG.1244_CD4.Naive.T RNA.STIM_SNG.1244_CD4.Memory.T
+## AL627309.1                                0                              0
+## RP11-206L10.2                             0                              0
+## LINC00115                                 0                              1
+## NOC2L                                    45                              6
+## KLHL17                                    0                              0
+## PLEKHN1                                   0                              0
+##               RNA.STIM_SNG.1244_CD16.Mono RNA.STIM_SNG.1244_B
+## AL627309.1                              0                   0
+## RP11-206L10.2                           0                   0
+## LINC00115                               0                   0
+## NOC2L                                   1                   7
+## KLHL17                                  0                   0
+## PLEKHN1                                 0                   0
+##               RNA.STIM_SNG.1244_CD8.T RNA.STIM_SNG.1244_T.activated
+## AL627309.1                          0                             0
+## RP11-206L10.2                       0                             0
+## LINC00115                           0                             0
+## NOC2L                               5                             5
+## KLHL17                              0                             0
+## PLEKHN1                             0                             0
+##               RNA.STIM_SNG.1244_NK RNA.STIM_SNG.1244_DC
+## AL627309.1                       0                    0
+## RP11-206L10.2                    0                    0
+## LINC00115                        0                    0
+## NOC2L                            2                    0
+## KLHL17                           0                    0
+## PLEKHN1                          0                    0
+##               RNA.STIM_SNG.1244_B.Activated RNA.STIM_SNG.1244_Mk
+## AL627309.1                                0                    0
+## RP11-206L10.2                             0                    0
+## LINC00115                                 0                    0
+## NOC2L                                     6                    2
+## KLHL17                                    0                    0
+## PLEKHN1                                   0                    0
+##               RNA.STIM_SNG.1244_pDC RNA.STIM_SNG.1244_Eryth
+## AL627309.1                        0                       0
+## RP11-206L10.2                     0                       0
+## LINC00115                         0                       0
+## NOC2L                             0                       0
+## KLHL17                            0                       0
+## PLEKHN1                           0                       0
+##               RNA.STIM_SNG.1256_CD14.Mono RNA.STIM_SNG.1256_CD4.Naive.T
+## AL627309.1                              0                             0
+## RP11-206L10.2                           0                             0
+## LINC00115                               1                             0
+## NOC2L                                   4                            46
+## KLHL17                                  0                             0
+## PLEKHN1                                 1                             0
+##               RNA.STIM_SNG.1256_CD4.Memory.T RNA.STIM_SNG.1256_CD16.Mono
+## AL627309.1                                 0                           0
+## RP11-206L10.2                              0                           0
+## LINC00115                                  0                           0
+## NOC2L                                     12                           0
+## KLHL17                                     0                           0
+## PLEKHN1                                    1                           0
+##               RNA.STIM_SNG.1256_B RNA.STIM_SNG.1256_CD8.T
+## AL627309.1                      0                       0
+## RP11-206L10.2                   0                       0
+## LINC00115                       1                       0
+## NOC2L                           7                       3
+## KLHL17                          0                       0
+## PLEKHN1                         0                       0
+##               RNA.STIM_SNG.1256_T.activated RNA.STIM_SNG.1256_NK
+## AL627309.1                                0                    0
+## RP11-206L10.2                             0                    0
+## LINC00115                                 1                    0
+## NOC2L                                     3                    7
+## KLHL17                                    0                    1
+## PLEKHN1                                   0                    0
+##               RNA.STIM_SNG.1256_DC RNA.STIM_SNG.1256_B.Activated
+## AL627309.1                       0                             0
+## RP11-206L10.2                    0                             0
+## LINC00115                        0                             0
+## NOC2L                            1                             4
+## KLHL17                           0                             0
+## PLEKHN1                          0                             0
+##               RNA.STIM_SNG.1256_Mk RNA.STIM_SNG.1256_pDC
+## AL627309.1                       0                     0
+## RP11-206L10.2                    0                     0
+## LINC00115                        0                     0
+## NOC2L                            1                     3
+## KLHL17                           0                     0
+## PLEKHN1                          0                     0
+##               RNA.STIM_SNG.1256_Eryth RNA.STIM_SNG.1488_CD14.Mono
+## AL627309.1                          0                           0
+## RP11-206L10.2                       0                           0
+## LINC00115                           0                           1
+## NOC2L                               0                           3
+## KLHL17                              0                           1
+## PLEKHN1                             0                           5
+##               RNA.STIM_SNG.1488_CD4.Naive.T RNA.STIM_SNG.1488_CD4.Memory.T
+## AL627309.1                                0                              0
+## RP11-206L10.2                             0                              0
+## LINC00115                                 0                              1
+## NOC2L                                    50                              7
+## KLHL17                                    0                              0
+## PLEKHN1                                   1                              0
+##               RNA.STIM_SNG.1488_CD16.Mono RNA.STIM_SNG.1488_B
+## AL627309.1                              0                   0
+## RP11-206L10.2                           0                   0
+## LINC00115                               1                   0
+## NOC2L                                   1                   5
+## KLHL17                                  0                   0
+## PLEKHN1                                 1                   1
+##               RNA.STIM_SNG.1488_CD8.T RNA.STIM_SNG.1488_T.activated
+## AL627309.1                          0                             0
+## RP11-206L10.2                       0                             0
+## LINC00115                           0                             2
+## NOC2L                               1                             4
+## KLHL17                              0                             0
+## PLEKHN1                             0                             0
+##               RNA.STIM_SNG.1488_NK RNA.STIM_SNG.1488_DC
+## AL627309.1                       0                    0
+## RP11-206L10.2                    0                    0
+## LINC00115                        0                    0
+## NOC2L                            0                    0
+## KLHL17                           0                    0
+## PLEKHN1                          0                    1
+##               RNA.STIM_SNG.1488_B.Activated RNA.STIM_SNG.1488_Mk
+## AL627309.1                                0                    0
+## RP11-206L10.2                             0                    0
+## LINC00115                                 0                    0
+## NOC2L                                     8                    3
+## KLHL17                                    0                    0
+## PLEKHN1                                   0                    0
+##               RNA.STIM_SNG.1488_pDC RNA.STIM_SNG.1488_Eryth
+## AL627309.1                        0                       0
+## RP11-206L10.2                     0                       0
+## LINC00115                         0                       0
+## NOC2L                             2                       0
+## KLHL17                            0                       0
+## PLEKHN1                           0                       0
+
