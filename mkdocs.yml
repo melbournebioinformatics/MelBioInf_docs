@@ -46,7 +46,6 @@ nav:
         - 'Git for Researchers': 'https://melbournebioinformatics.github.io/intro-to-git/'
         - 'Intro to the Nectar Cloud': 'https://melbournebioinformatics.github.io/nectar-instances/'
         - 'Intro to R for Biologists': 'https://melbournebioinformatics.github.io/intro-to-r/'
-        - 'Intro to RNA-seq': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
         - 'RNA-seq: counts to genes': 'https://melbournebioinformatics.github.io/rna-seq-counts-to-genes/'
     - 'Tools and skill development':
         - 'What is Bioinformatics?': 'guides/bioinfo.md'
@@ -57,7 +56,7 @@ nav:
         - 'Introduction to R for Biologists': 'tutorials/intro_R_biologists/index.md'
         - 'Introduction to Genome Browsers': 'tutorials/Genome_browsers/GenomeBrowsers_Intro.md'
         - 'Introduction to CWL': 'tutorials/cwl_2022/cwl_2022.md'
-        - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
+        - 'RNA-seq Experimental Design': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
         - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
         - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
         - 'Version Control with Git': 'tutorials/git/git.md'
@@ -80,7 +79,7 @@ nav:
             - 'Intro to Metabarcoding using QIIME2: *Marine dataset*': 'tutorials/qiime2/qiime2.md'
             - 'Intro to Metabarcoding using QIIME2: *Mammal dataset*': 'tutorials/qiime2_mammal/qiime2_mammal.md'
     - 'Transcriptomics':
-        - 'RNAseq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
+        - 'RNAseq Experimental Design': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
         - 'RNA-seq: counts to genes': 'tutorials/rna-seq-lcg/index.md'
         - 'Bulk RNA-seq':
             - 'Introduction to bulk RNAseq analysis': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
@@ -105,6 +104,7 @@ nav:
         - 'Introduction to Unix-Archive': 'tutorials/unix_archive_2022/unix.md'
         - 'Introduction to CWL': 'tutorials/cwl/cwl.md'
         - 'Introduction to Git and Github (deprecated)': 'tutorials/using_git/Using_Git.md'
+        - 'RNA-seq Experimental Design (deprecated)': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
 
 extra_templates: [
   'tutorials/hpc/slides.html',
