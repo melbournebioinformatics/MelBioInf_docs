@@ -1,0 +1,3379 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../qiime2_mammal/qiime2_mammal/">
+      
+      
+        <link rel="next" href="../rna_seq_dge_basic/rna_seq_basic_background/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../img/favicon-16x16.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>RNA-seq: counts to genes - MBITE Tutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMNLJD0DWP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-EMNLJD0DWP');
+</script>
+
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#an-introduction-to-rna-seq-analysis-counts-to-differentially-expressed-genes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MBITE Tutorials" class="md-header__button md-logo" aria-label="MBITE Tutorials" data-md-component="logo">
+      
+  <img src="../../img/apple-touch-icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MBITE Tutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              RNA-seq: counts to genes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MBITE Tutorials" class="md-nav__button md-logo" aria-label="MBITE Tutorials" data-md-component="logo">
+      
+  <img src="../../img/apple-touch-icon.png" alt="logo">
+
+    </a>
+    MBITE Tutorials
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/melbournebioinformatics/MelBioInf_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    melbournebioinformatics/MelBioInf_docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Popular
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Popular
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git for Researchers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/nectar-instances/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to the Nectar Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to R for Biologists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/rna-seq-counts-to-genes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNA-seq: counts to genes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-proteomics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Proteomics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools and skill development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools and skill development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/bioinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is Bioinformatics?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/galaxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to the Galaxy Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../galaxy-workflows/galaxy-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Galaxy Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_overview/python_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unix/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Unix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro_R_biologists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to R for Biologists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Genome_browsers/GenomeBrowsers_Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Genome Browsers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl_2022/cwl_2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to CWL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-rna-seq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNA-seq Experimental Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containerized Bioinformatics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bionitio/bionitio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command-line software development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Version Control with Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../janis_translate/janis_translate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Translation With Janis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genomics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Genomics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variant detection
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Variant detection
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../var_detect_advanced/var_detect_advanced_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Variant detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../variant_calling_galaxy_1/variant_calling_galaxy_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variant Calling part 1 (Galaxy)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../var_detect_advanced/var_detect_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variant Calling part 2 (Galaxy)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../longread_sv_calling/longread_sv_calling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Long-read Structural Variant Calling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../variant_calling_gatk1/variant_calling_gatk1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variant calling using command-line tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    de novo assembly
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    de novo assembly
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/assembly-background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to de novo assembly with Velvet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/assembly-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to de novo genome assembly for Illumina reads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    de novo assembly of Illumina reads using Velvet (Galaxy)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/spades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    de novo assembly of Illumina reads using Spades (Galaxy)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pacbio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    de novo assembly of PacBio reads (unix)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hybrid_assembly/nanopore_assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hybrid genome assembly - Nanopore and Illumina
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metabarcoding
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Metabarcoding
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qiime2/qiime2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Metabarcoding using QIIME2: *Marine dataset*
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qiime2_mammal/qiime2_mammal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro to Metabarcoding using QIIME2: *Mammal dataset*
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transcriptomics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Transcriptomics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://melbournebioinformatics.github.io/intro-to-rna-seq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNAseq Experimental Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNA-seq: counts to genes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNA-seq: counts to genes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bulk RNA-seq
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Bulk RNA-seq
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_dge_basic/rna_seq_basic_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to bulk RNAseq analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_dge_basic/rna_seq_basic_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNAseq analysis using HISAT2 (Galaxy)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_dge_basic/rna_seq_basic_tuxedo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNAseq analysis using Tuxedo (Galaxy)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_dge_advanced/rna_seq_advanced_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNAseq differential expression tool comparision (Galaxy)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_dge_in_r/rna_seq_r/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNAseq differential expression in R
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single-cell RNA-seq
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Single-cell RNA-seq
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../singlecell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10X scRNA-seq analysis in R
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seurat-de/seurat-de/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    scRNA-seq Integration and Differential Expression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seurat-go/seurat-go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gene Ontology (GO) and Data Integration for scRNA-seq
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proteomics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Proteomics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proteomics_basic/proteomics_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identifying proteins from mass spectrometry data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics and Visualisation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Statistics and Visualisation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_viz/python_viz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data visualisation with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Structural Modelling
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Structural Modelling
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../molecular_dynamics_101/molecular_dynamics_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Molecular Dynamics - Introduction to cluster computing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../molecular_dynamics_201/molecular_dynamics_201/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Molecular Dynamics - Building input files, visualising the trajectory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workshop Delivery Mode Information
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Workshop Delivery Mode Information
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workshop_delivery_mode_info/workshops_nectar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workshops on Nectar Instances
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unix_archive_2022/unix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Unix-Archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cwl/cwl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to CWL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using_git/Using_Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Git and Github (deprecated)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna_seq_exp_design/rna_seq_experimental_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNA-seq Experimental Design (deprecated)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="an-introduction-to-rna-seq-analysis-counts-to-differentially-expressed-genes">An introduction to RNA-seq analysis: counts to differentially expressed genes<a class="headerlink" href="#an-introduction-to-rna-seq-analysis-counts-to-differentially-expressed-genes" title="Permanent link">&para;</a></h1>
+<p><strong>Author:</strong> Luke C. Gandolfo, Melbourne Bioinformatics. Last updated October 2025.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p><strong>Topic</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Genomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Transcriptomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Proteomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Metabolomics</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Statistics and visualisation</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Structural Modelling</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Basic skills</li>
+</ul>
+<p><strong>Skill level</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Beginner  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Intermediate  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Advanced  </li>
+</ul>
+<p><strong>Data:</strong> <a href="https://www.cell.com/immunity/abstract/S1074-7613(24)00459-X">Obers et al. &ldquo;Retinoic acid and TGF-β orchestrate organ-specific programs of tissue residency&rdquo;, <em>Immunity</em> (2024)</a></p>
+<p><strong>Tools:</strong> RStudio</p>
+<p><strong>Pipeline:</strong><br />
+<em>Section 1:</em> Introduction, background, and preliminaries. <br />
+<em>Section 2:</em> Filtering, visualisation, normalisation.<br />
+<em>Section 3:</em> Differential Expression with the <em>limma</em> package. <br />
+<em>Section 4:</em> Summary and exercises.   </p>
+<p><strong>Learning objectives:</strong> TO-DO.</p>
+<h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
+<p>Comparing gene expression, i.e. the amount of RNA transcript, in different experimental conditions provides important biological insights. For example, comparing gene expression in cancer and non-cancer tissue gives us insights into the biology of cancer. While there are many ways of measuring gene expression, the focus of this workshop will be (bulk) <em>RNA-seq</em>, a technology which (nominally) measures gene expression across the whole transcriptome, i.e. <em>all</em> RNA transcripts, in a sample.</p>
+<p>The main aim of this workshop is to show you how to go from a &ldquo;counts table&rdquo; of RNA-seq data to a ranked list of differentially expressed (DE) genes using R and statistical software packages from Bioconductor (note: basic knowledge of R will be assumed). This aim may seem modest, but our approach will be to carefully discuss each step along the way. The motivation for this is twofold: (1) to give you some understanding and thus confidence in what you&rsquo;re doing; and (2) to give you some skills to judge whether the DE results you obtain are likely to be trustworthy or rubbish.</p>
+<p>The second motivation is important. In our context, rubbish DE results take two forms: <em>missed discoveries</em> (i.e. failing to infer a gene to be DE when it really is DE) or <em>false discoveries</em> (i.e. inferring a gene to be DE when it&rsquo;s actually not DE). Rubbish results are a real danger in the following way: you can competently do all the steps in this workshop and still arrive at rubbish! How is this possible? Because some data sets aren&rsquo;t amenable to the kinds of analyses we&rsquo;ll be discussing, and it&rsquo;s important to know when this occurs (if you care about the results!). Such data sets are typically problematic or difficult in some way and will require techniques and strategies beyond those contained in this workshop to obtain non-rubbish results. The good news, however, is that many data sets are amenable to the analyses we&rsquo;ll discuss.</p>
+<p><em>Important note</em>. Our starting point for RNA-seq analysis will be a `table of counts&rsquo;; we won&rsquo;t begin from raw sequencing data (in the form of .fastq files). There&rsquo;s several reasons for this. Firstly, going from raw sequencing data to a table of counts can be computationally intensive and a little involved. Secondly, because of this, workshops often fail to spend enough time on the (more important) statistical part that comes after this, i.e. analysing the table of counts. Thirdly, many people have no interest in processing raw sequencing data; they&rsquo;re simply interested in analysing one of vast number of publicly available counts tables of RNA-seq data. If you&rsquo;ve generated raw sequencing data of your own (or want to look at publicly available raw sequencing files) then you should look at other workshops for how to go from this data to a table of counts. But, if you&rsquo;ve got a table of counts that you want to analyse, then this is the workshop for you!</p>
+<h1 id="some-background">Some background<a class="headerlink" href="#some-background" title="Permanent link">&para;</a></h1>
+<p>RNA-seq involves several steps, as summarised in this figure:</p>
+<p><img alt="" src="img/rna-seq-steps.png" width="90%" /></p>
+<p>We could say a lot more about each step, but this isn&rsquo;t our focus. For us, the important thing to know is that after this whole process we arrive at a <em>table of counts</em>&mdash;the fundamental object of RNA-seq data analysis. For example, here&rsquo;s a made up table of counts for two groups (A and B) each with three biological replicates (using the typical &lsquo;genes rows, samples in columns&rsquo; convention):</p>
+<p><img alt="" src="img/table-of-counts.png" width="80%" /></p>
+<p>The counts quantify expression: more counts, more expression (roughly speaking&mdash;see below). The fundamental question we want to ask is: which genes are DE between the groups? (e.g. is Gene 3 DE?)</p>
+<p>Before proceeding, some important comments about replicates:</p>
+<ol>
+<li>If you don&rsquo;t have replicates (ideally for all groups), STOP! You&rsquo;ll likely produce rubbish results (actually statistical tools will often give you an error in this situation, but not always!). Here &ldquo;replicates&rdquo; means <em>biological</em> replicates (data collected from distinct individuals), not <em>technical</em> replicates (data repeatedly collected from the same individual), a distinction nicely depicted in the figure below. Biological replicates are essential because you cannot do rigorous RNA-seq analysis (i.e. statistics) without them. Why? There are many reasons, e.g. you&rsquo;ll have no way of estimating the (biological) variation, i.e. &ldquo;noise&rdquo;, in your data and so no way of properly comparing any &ldquo;signal&rdquo; (of DE) to the &ldquo;noise&rdquo; (actually there are some ways around this issue but they&rsquo;re not recommended). Thus, 2 replicates is a minimum and 3+ replicates (depending on the context and situation) are recommended.</li>
+</ol>
+<p><img alt="" src="img/replicates.png" width="50%" /></p>
+<ol start="2">
+<li>If you have technical replicates, PROCEED CAREFULLY! They shouldn&rsquo;t be analysed as if they were separate (independent) samples. Why? To see the main reason, consider an example: suppose one of your groups consists of three individuals each with 2 technical replications, making 3x2 = 6 samples in that group. It may seem like there&rsquo;s 6 samples in that group for doing the relevant statistics, but don&rsquo;t be fooled: there&rsquo;s only 3 independent samples (i.e. distinct individuals). If you analysed the 6 samples as if they were separate samples, your analysis would &ldquo;overestimate&rdquo; the amount of information available&mdash;there&rsquo;s only 3 &ldquo;pieces&rdquo; of information, not 6&mdash;and thus might produce many false discoveries (because the estimated variation might be too small). The standard advice for handling technical replicates is this: add the counts (gene-wise) of each technical replicate to produce single biological replicates. Note, however, that this only applies if there&rsquo;s no significant technical differences between the replicates (e.g. the technical replicates sit almost on top of each other in a PCA plot&mdash;see below). If there are significant technical differences between the replicates (e.g. if each replicate is in different batch, which incidentally is one of the main reasons for generating technical replicates) then you should consult an expert. And, if you&rsquo;re in doubt about applying this advice, consult an expert!</li>
+</ol>
+<p>Another nice way of understanding the technical replicate issue above is through humour, e.g. reflect on the mistake being made in this <a href="https://xkcd.com/">xkcd</a> comic:</p>
+<p><img alt="" src="img/xkcd_slope_hypothesis_testing.png" width="80%" /></p>
+<h1 id="example-data">Example data<a class="headerlink" href="#example-data" title="Permanent link">&para;</a></h1>
+<p>For illustration, we&rsquo;ll look at data from the publication: <a href="https://www.cell.com/immunity/abstract/S1074-7613(24)00459-X">Obers et al. &ldquo;Retinoic acid and TGF-β orchestrate organ-specific programs of tissue residency&rdquo;, <em>Immunity</em> (2024)</a>. The aim of this study was to investigate the roles of retinoic acid (RA) and the cytokine TGFb in driving organ-specificity of tissue resident T cells.</p>
+<p>The relevant RNA-seq counts table for this study can be obtained from <a href="https://www.ncbi.nlm.nih.gov/geo">Gene Expression Omnibus</a> as follows:</p>
+<ol>
+<li>Use this <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE232852">link</a></li>
+<li>Scroll down to the &ldquo;Supplementary file&rdquo; section</li>
+<li>For the file &ldquo;GSE232852_CountsTable.txt.gz&rdquo; (first row), hit &ldquo;ftp&rdquo; or &ldquo;http&rdquo; in the &ldquo;Downloads&rdquo; column</li>
+</ol>
+<p>Once the file is downloaded, move it to your R working directory and unzip it. Now let&rsquo;s read it into R and take a look (note: you&rsquo;ll need to adjust the file path accordingly):
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>tab &lt;- read.table(&quot;../Data/GSE232852_CountsTable.txt&quot;, header=TRUE)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>head(tab, n=50)
+</span></code></pre></div>
+Here&rsquo;s what we have:</p>
+<ul>
+<li>The first 2 columns are gene annotation: &ldquo;EnsembleID&rdquo; and &ldquo;Symbol&rdquo;, respectively (note: EnsembleID is one of many standard gene identifiers in use; another common identifier is &ldquo;Entrez&rdquo; gene ID).</li>
+<li>The next 12 columns represent the count data on the four experimental groups of interest, each with three biological replicates; specially, a special kind of T cell treated with either: RA, TGFb, both (RA_TGFb), or neither (WT).</li>
+</ul>
+<h1 id="preliminaries">Preliminaries<a class="headerlink" href="#preliminaries" title="Permanent link">&para;</a></h1>
+<p>Before we can start analysing this data, there&rsquo;s four preliminaries:</p>
+<ol>
+<li>
+<p>Let&rsquo;s load the R packages we&rsquo;ll be using (note: if you don&rsquo;t have the relevant packages installed, then you&rsquo;ll need to run the commented code):
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># # CRAN packages
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># install.packages(c(&quot;ggplot2&quot;,&quot;ggrepel&quot;,&quot;ggfortify&quot;,&quot;scales&quot;,&quot;pheatmap&quot;,&quot;matrixStats&quot;,&quot;openxlsx&quot;))
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>library(ggplot2)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>library(ggrepel)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>library(ggfortify)
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>library(scales)
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>library(pheatmap)
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>library(matrixStats)
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>library(openxlsx)
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a># # Bioconductor packages
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a># install.packages(&quot;BiocManager&quot;)
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a># BiocManager::install(c(&quot;limma&quot;,&quot;edgeR&quot;))
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>library(limma)
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>library(edgeR)
+</span></code></pre></div>
+We&rsquo;ll mainly be using <code>limma</code> and some functions from <code>edgeR</code> to analyse the data above; the other packages will be used for plotting and exporting results tables.</p>
+</li>
+<li>
+<p>We need to organize our data into <code>DGEList</code> which is a special &ldquo;container&rdquo; for our analysis:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>annotation &lt;- tab[,c(1,2)]
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>counts &lt;- tab[,-c(1,2)]
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>dge &lt;- DGEList(counts=counts, genes=annotation)
+</span></code></pre></div>
+Note that we split the data table into two distinct parts&mdash;gene annotation and counts&mdash;storing each into the relevant slots of the container.</p>
+</li>
+<li>
+<p>It&rsquo;s helpful to create a table of sample information:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>samples &lt;- colnames(tab)[-c(1,2)]
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>group &lt;- c(rep(&quot;RA&quot;,3), rep(&quot;TGFb&quot;,3), rep(&quot;RA_TGFb&quot;,3), rep(&quot;WT&quot;,3))
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>info &lt;- data.frame(samples, group)
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>info
+</span></code></pre></div>
+Here the first column is a unique sample name and the second labels the experimental group the sample belongs to. Incidentally, this would be the place to store any other relevant sample information (e.g. what batch each sample belongs to, if relevant) and even relevant biological covariates (e.g. sex, age, etc.). Note also that such sample information is usually prepared separately (in, say, Excel) and then read into R; since our example is simple, we created it on the fly.</p>
+</li>
+<li>
+<p>We need to create a factor vector for our groups:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>group &lt;- factor(info$group)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>group
+</span></code></pre></div>
+Factor vectors are special in R: they have an extra piece of information called &ldquo;levels&rdquo; (in this case, it&rsquo;s saying this factor has four levels), information which R uses to specify statistical models etc. As you&rsquo;ll see, this particular <code>group</code> vector will be important in our analysis.</p>
+</li>
+</ol>
+<h1 id="first-steps-filtering-visualisation-and-basic-normalisation">First steps: filtering, visualisation, and basic normalisation<a class="headerlink" href="#first-steps-filtering-visualisation-and-basic-normalisation" title="Permanent link">&para;</a></h1>
+<h2 id="filtering">Filtering<a class="headerlink" href="#filtering" title="Permanent link">&para;</a></h2>
+<p>So, assuming your counts table has biological replicates in each group (and any technical replicates have been taken care of), the first thing we need to do is <em>filtering</em>. More precisely, removing genes with little to no expression, because the former add &ldquo;noise&rdquo; while the latter aren&rsquo;t even relevant. There are various approaches to filtering, but one of the simplest is to use the <code>limma</code> function <code>filterByExpression</code>:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>keep &lt;- filterByExpr(dge, group=group) # logical vector indicating which rows of dge to keep
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>table(keep) # 32069 genes will be removed; 14009 genes will be kept
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>dge &lt;- dge[keep,,keep.lib.size=FALSE]
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>head(dge$counts) # compare to pre-filtered data to see the difference
+</span></code></pre></div>
+Roughly speaking, this strategy keeps genes that have a reasonable number of counts in a worthwhile number samples, and removes them otherwise (see function help for precise details).</p>
+<p>Following filtering, you should check the <em>library size</em> of each sample. The library size of a sample is simply the sum of the counts in that library, i.e.</p>
+<div class="arithmatex">\[
+\begin{align*}
+\text{Library size for sample}\ j &amp;= \sum_{i} Y_{ij} \\
+&amp; = \sum_{\substack{\text{all genes}}} \text{counts for sample}\ j
+\end{align*}
+\]</div>
+<p>where <span class="arithmatex">\(Y_{ij}\)</span> is the count for gene <span class="arithmatex">\(i\)</span> in sample <span class="arithmatex">\(j\)</span>. Here&rsquo;s a plot of the library sizes for our data:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>lib.size.millons &lt;- colSums(dge$counts) / 1e6
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>barplot(lib.size.millons, las=2, cex.names=0.8, main=&quot;Library size (millons)&quot;)
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>abline(h=20, lwd=2, col=&quot;red2&quot;)
+</span></code></pre></div></p>
+<p>Library size is an important quantity. One reason to check it is because bigger is usually better: 5 million or less (not that good); 10-15 million (better); 20+ million (much better). This is because (1) it&rsquo;s a limited resource that needs to be &ldquo;shared&rdquo; between all the genes (in proportion to their expression); and (2) bigger counts generally means better statistical properties (e.g. power to detect DE). Another reason to check is because it will help signpost what tools you should use to analyse your data (more about this later).</p>
+<h2 id="visualisation">Visualisation<a class="headerlink" href="#visualisation" title="Permanent link">&para;</a></h2>
+<p>The next thing to do is <em>visualise</em> your data. This allows you to (1) see the landscape of biological differences between experimental groups, and (2) assess whether the data is affected by technical variation. Detecting technical variation is particularly important because its presence leads to missed and/or false discoveries, i.e. rubbish DE results. Thus, this step is crucial: analysing RNA-seq data without visualisation is literally &ldquo;flying blind&rdquo;!</p>
+<p>There are many visualisation methods. Each has different advantages and show different aspects of the data&mdash;there is no single perfect visualisation, so use several! Here we&rsquo;ll discuss three: </p>
+<ol>
+<li>
+<p><em>PCA plots</em>. These give a special low dimensional representation of our (very) high dimensional data (i.e. where we&rsquo;ve taken thousands of measurements on each sample). A ``good&rdquo; plot looks like this: (1) replicates <em>cluster</em>; and (2) there&rsquo;s some <em>separation</em> of biological groups.</p>
+</li>
+<li>
+<p><em>Boxplots</em>. These are very simple: you take all the expression measurements in each sample and dump them into a boxplot, one boxplot for each sample. A ``good&rdquo; set of plots looks like this: the boxplots are lined up, without much movement between them.</p>
+</li>
+<li>
+<p><em>RLE plots</em>. These are the same as boxplots but with one extra (crucial) step: subtracting the row median from each row before dumping the observations into boxplots. This additional step removes the between-gene variation, making the plot more sensitive than boxplots for detecting technical variation. A ``good&rdquo; plot looks like this: the boxplot medians are lined up around zero and the boxes are roughly the same size.</p>
+</li>
+</ol>
+<p>If any of these plots don&rsquo;t look ``good&rdquo;, in the ways described, this indicates the presence of technical variation. </p>
+<p>Let&rsquo;s make each plot then discuss them:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a># log transform counts, note: 1/2 offset to avoid log transforming zeros
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>y &lt;- log2(dge$counts + 1/2)
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a># PCA plot (nice ggplot version, potentially for publication)
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>pca &lt;- prcomp(t(y), center=TRUE) 
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>autoplot(pca, data.frame(group=group), col=&#39;group&#39;, size=4) + 
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  theme_classic() +
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  ggtitle(&quot;PCA plot&quot;)
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a># boxplot and RLE plot (simple base R versions; they&#39;re generally not for publication)
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>par(mfcol=c(1,2))
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>cols.group &lt;- group
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>levels(cols.group) &lt;- hue_pal()(4)
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>boxplot(y, col=as.character(cols.group), outline=FALSE, las=2, cex.axis=0.6, main=&quot;Boxplots&quot;)
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>RLE &lt;- y - rowMedians(y)
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>boxplot(RLE, col=as.character(cols.group), outline=FALSE, las=2, cex.axis=0.6, main=&quot;RLE plot&quot;)
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>abline(h=0, col=&quot;grey20&quot;, lwd=3, lty=1)
+</span></code></pre></div></p>
+<p>Note that we made these plots with log transformed counts, not the counts themselves (the reason for this is technical: the log transformation roughly removes the strong mean-variance relationship inherent in RNA-seq data, something we don&rsquo;t want driving our visualisations). </p>
+<p>For our data, the PCA plot looks okay; the replicates cluster reasonably well and there&rsquo;s separation of biological groups. The boxplots and RLE plot, on the other hand, tell a different story (which is why you should visualise your data multiple ways!). The boxplots are wobbling around a little, which is a problem. Indeed, the RLE plot reveals things are far from ideal. The boxplots and RLE plot clearly indicate the presence of technical variation which needs to be removed if we&rsquo;re to obtain non-rubbish results. This is the topic we turn to next.</p>
+<h2 id="basic-normalisation">Basic normalisation<a class="headerlink" href="#basic-normalisation" title="Permanent link">&para;</a></h2>
+<p>Unfortunately, when doing RNA-seq analysis we can&rsquo;t simply compare counts between samples because there&rsquo;s almost always technical differences between them. To make samples properly comparable, the data needs to be <em>normalised</em>: we need to remove or adjust for technical differences between samples, leaving only biological differences (the thing we&rsquo;re interested in!). Failing to successfully normalise your data can lead to significant missed and/or false discoveries (rubbish results).</p>
+<p>Two important technical differences between samples are (1) library size differences and (2) compositional differences:</p>
+<ol>
+<li><em>Library size differences</em>. To see the problem here look at Gene 3 in the made up table of counts:</li>
+</ol>
+<p><img alt="" src="img/table-of-counts.png" width="70%" /></p>
+<p>Does Gene 3 show a biological or technical difference between the two groups? Looks like a biological difference, but what if I told you the library sizes for group B were 3 times bigger? In that case, the difference looks more like an artifact of library size rather than a true biological difference. Let&rsquo;s look at the problem another way:</p>
+<p><img alt="" src="img/differences-lib-size.png" width="70%" /></p>
+<p>It should be clear from this that differences resulting from different library sizes can be mistaken for biological differences. One simple way to (roughly) normalise for library size differences is to calculate <em>counts-per-million (CPM)</em>. If we again let <span class="arithmatex">\(Y_{ij}\)</span> be the count for gene <span class="arithmatex">\(i\)</span> in sample <span class="arithmatex">\(j\)</span>, and let <span class="arithmatex">\(N_j\)</span> be the library size for sample <span class="arithmatex">\(j\)</span>, then the CPM value for gene <span class="arithmatex">\(i\)</span> in sample <span class="arithmatex">\(j\)</span> is given by</p>
+<div class="arithmatex">\[
+\text{CPM}_{ij} = \frac{Y_{ij}}{N_j} \times 10^6 = \frac{\text{Count}}{\text{Library size}} \times 10^6,
+\]</div>
+<p>Because CPM values are (scaled) <em>proportions</em>, i.e. &ldquo;Count / Library size&rdquo;, not absolute counts, the issue of library size differences is no longer relevant.</p>
+<ol start="2">
+<li><em>Compositional differences</em>. For each sample, the probability of sequencing a transcript is proportional to its abundance&mdash;this is the basis of how RNA-seq works (of course!). To see the potential problem this fact creates, look at this figure:</li>
+</ol>
+<p><img alt="" src="img/differences-composition.png" width="70%" /></p>
+<p>These two samples are the same (they have the same number of red, yellow, blue, and green transcripts) except for the black transcript: sample A has many more black transcripts. This difference in composition means that even if the library sizes are the same, comparing raw counts still gives the wrong impression. One popular approach for normalising out these differences is the <code>TMM</code> method (from the <code>edgeR</code> package).</p>
+<p>Here&rsquo;s how to adjust for library size and compositional differences in our example:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>dge &lt;- calcNormFactors(dge, method=&quot;TMM&quot;) # adjustment factors for composition; stored in our container for later use
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>CPM &lt;- cpm(dge) # adjustment factors for composition incorporated when calculating cpm values
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>head(CPM) # compare to the raw counts
+</span></code></pre></div></p>
+<p>Before we can proceed, however, we need to do something <em>very important</em>: we need to <em>check</em> that the normalisation methodology we&rsquo;ve applied has actually worked! One way of doing this is through visualisation. You want to see that the normalisation has (1) removed technical (unwanted) variation, while (2) retaining (i.e. not removing) the biological differences of interest. For example, here&rsquo;s what our data looks like after normalising for library size and composition:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a># log transform adjusted CPM values
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>y &lt;- cpm(dge, log=TRUE)
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a># PCA plot (nice ggplot version, potentially for publication)
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>pca &lt;- prcomp(t(y), center=TRUE) 
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>autoplot(pca, data.frame(group=group), col=&#39;group&#39;, size=4) + 
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>  theme_classic() +
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>  ggtitle(&quot;PCA plot&quot;)
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a># boxplot and RLE plot (simple base R versions; they&#39;re generally not for publication)
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>par(mfcol=c(1,2))
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>cols.group &lt;- group
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>levels(cols.group) &lt;- hue_pal()(4)
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>boxplot(y, col=as.character(cols.group), outline=FALSE, las=2, cex.axis=0.6, main=&quot;Boxplots&quot;)
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>RLE &lt;- y - rowMedians(y)
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>boxplot(RLE, col=as.character(cols.group), outline=FALSE, las=2, cex.axis=0.6, main=&quot;RLE plot&quot;)
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>abline(h=0, col=&quot;grey20&quot;, lwd=3, lty=1)
+</span></code></pre></div></p>
+<p>Note that we can now use the cpm function to calculate logged data. The PCA plot looks better: the replicates are clustered more tightly (technical variation has been removed), and the biological groups are more separated (biological differences between groups are maintained, actually improved). Moreover, the boxplots and RLE plot are looking much better: the boxplots are lined up, and the RLE plot medians are centered on zero and the boxes are roughly similar in size.</p>
+<p>WARNING!&hellip;library size and composition differences aren’t the only kinds of technical differences that can arise between samples:</p>
+<ul>
+<li>
+<p>Another way they can arise is when different samples are prepared differently, e.g.</p>
+</li>
+<li>
+<p>with different protocols, or</p>
+</li>
+<li>in different labs, or</li>
+<li>on different dates, or</li>
+<li>by different people, or</li>
+<li>etc.</li>
+</ul>
+<p>These differences can lead to so-called &ldquo;batch effects&rdquo;. For example, consider these PCA plots of a real data set:</p>
+<p><img alt="" src="img/batch-effect.png" width="80%" /></p>
+<p>These are both the &ldquo;same&rdquo; PCA plot, but one is coloured by biological condition and the other is coloured by batch. The major factor driving separation (along PC1) is batch, not biological condition; consequently, replicates are not clustering by group, and the groups aren&rsquo;t separating. Batch effects like these can only be corrected with more sophisticated analysis approaches, a topic outside the scope of this workshop. </p>
+<ul>
+<li>Moreover, batch effects aren&rsquo;t the only way problems can arise (beyond library size and composition). For example, consider this PCA plot of another real data set (coloured by biological condition):</li>
+</ul>
+<p><img alt="" src="img/bad-PCA.png" width="40%" /></p>
+<p>Again, the replicates aren&rsquo;t really clustering and the groups aren&rsquo;t really separating. The problem here, however, isn&rsquo;t batch effects&mdash;it&rsquo;s something much more subtle.</p>
+<p>The bottom line is this: if, after normalising for library size and composition, your visualisations don&rsquo;t look reasonably &ldquo;good&rdquo;, in the ways discussed above, the results you&rsquo;ll get from proceeding with a DE analysis will likely contain missed and/or false discoveries&mdash;you&rsquo;ll likely get rubbish results.</p>
+<h1 id="differential-expression-limma">Differential expression: limma<a class="headerlink" href="#differential-expression-limma" title="Permanent link">&para;</a></h1>
+<h2 id="statistical-model-for-the-data">Statistical model (for the data)<a class="headerlink" href="#statistical-model-for-the-data" title="Permanent link">&para;</a></h2>
+<p>Let&rsquo;s remind ourselves of our goal. Look again at the made up table of counts:</p>
+<p><img alt="" src="img/table-of-counts.png" width="80%" /></p>
+<p>We want to answer the question: which genes are DE, i.e. have significantly different levels of expression between groups? For example, does Gene 3 have higher expression in group B? It looks like it does (assuming there&rsquo;s no library size and composition difference), but there’s also <em>variation</em>. Thus, we need to do some statistics! And for this we&rsquo;re going to need a <em>statistical model</em> for the data. Let <span class="arithmatex">\(Y_{ij}\)</span> be the count for gene <span class="arithmatex">\(i\)</span> in sample <span class="arithmatex">\(j\)</span>:</p>
+<p><img alt="" src="img/math-table.png" width="30%" /></p>
+<p>For various reasons (theoretical and empirical), it turns out that a good model for RNA-seq count data (on biological replicates) is the <em>Negative Binomial</em> (NB) distribution:</p>
+<div class="arithmatex">\[
+Y_{ij} \sim \text{Negative Binomial}
+\]</div>
+<p>You might have never even heard of this obscure distribution! Remarkably, however, it can shown that log transformed NB count data (or adjusted CPM data) follows, to good approximation, a simple <em>Normal</em> distribution:</p>
+<div class="arithmatex">\[
+\log(Y_{ij}) \sim \text{Normal}
+\]</div>
+<p>With this in mind, we can distinguish the two main approaches to DE analysis:</p>
+<ol>
+<li>Analyse the counts directly<ul>
+<li>Popular methods are: <code>edgeR</code> and <code>DEseq2</code></li>
+<li>These use the NB distribution and generalised linear models (GLMs)</li>
+<li>Roughly speaking, these are applicable in all situations (in contrast to recommendations below)
+<br>
+<br></li>
+</ul>
+</li>
+<li>Analyse log transformed expression values (more precisely: log transformed adjusted CPM values)<ul>
+<li>The most popular method is <code>limma</code>, which comes in two flavours: <code>limma-trend</code> and <code>limma-voom</code></li>
+<li>These use the normal distribution and simple linear models (LMs).</li>
+<li>Recommendations</li>
+<li>Neither flavour is recommended when library sizes are very small (e.g. less than 1M) [or more generally: when the average counts per feature is small]</li>
+<li><code>limma-voom</code> in particular is recommended when library sizes are very different (e.g. some libraries have size 2M while others have size 20M).</li>
+</ul>
+</li>
+</ol>
+<p>Since the library sizes aren&rsquo;t too small in our example, we&rsquo;ll focus on the <code>limma</code> approach, and since the library sizes aren&rsquo;t too different, we&rsquo;ll focus initially on <code>limma-trend</code> and return to a discussion of <code>limma-voom</code> later. While methods that analyse counts directly are more generally applicable, they&rsquo;re more difficult to understand conceptually and to apply. Thankfully, however, the log transformation approach (<code>limma</code>) is applicable to most RNA-seq data sets.</p>
+<p>The first step in our analysis will be to create another container, called an <code>EList</code>, which will store our log transformed (adjusted) CPM values and gene annotation:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>y &lt;- new(&quot;EList&quot;)
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>y$E &lt;- cpm(dge, log=TRUE, prior.count=1/2)
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>y$genes &lt;- dge$genes
+</span></code></pre></div></p>
+<h2 id="linear-model-for-the-means">Linear model (for the means)<a class="headerlink" href="#linear-model-for-the-means" title="Permanent link">&para;</a></h2>
+<p>Now that we&rsquo;ve decided on a model for the data, and corresponding methodology, we need to connect the data to the <em>means</em> for each experimental group. For this, we use a <em>linear model</em>. There&rsquo;s many ways to talk about and apply linear models&mdash;we&rsquo;ll do it the simplest way possible.</p>
+<p>Take any gene, and let <span class="arithmatex">\(y_1, y_2, \ldots, y_{12}\)</span> be the 12 log expression observations for that gene. Now let <span class="arithmatex">\(y_{1,RA}, y_{2,RA}, y_{3,RA}\)</span> be the three observations for the RA group specifically. We can write:</p>
+<div class="arithmatex">\[
+\begin{align}
+y_{1,RA} &amp;= \mu_{RA} + \epsilon_1 \\
+y_{2,RA} &amp;= \mu_{RA} + \epsilon_2 \\
+y_{3,RA} &amp;= \mu_{RA} + \epsilon_3,
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(\mu_{RA}\)</span> is the RA group mean and the <span class="arithmatex">\(\epsilon\)</span>&rsquo;s are random errors (i.e. biological variation!). Note that all three observations share the group mean <span class="arithmatex">\(\mu_{RA}\)</span>; they differ only because of the random errors. </p>
+<p>Similarly, we can do this for all 12 observations:</p>
+<p>$$
+\begin{align}
+y_{1,RA} &amp;= \mu_{RA} + \epsilon_1 \newline
+y_{2,RA} &amp;= \mu_{RA} + \epsilon_2 \newline
+y_{3,RA} &amp;= \mu_{RA} + \epsilon_3 \newline
+y_{4,TGFb} &amp;= \mu_{TGFb} + \epsilon_4 \newline
+y_{5,TGFb} &amp;= \mu_{TGFb} + \epsilon_5 \newline
+y_{6,TGFb} &amp;= \mu_{TGFb} + \epsilon_6 \newline
+y_{7,RA_TGFb} &amp;= \mu_{RA_TGFb} + \epsilon_7 \newline
+y_{8,RA_TGFb} &amp;= \mu_{RA_TGFb} + \epsilon_8 \newline
+y_{9,RA_TGFb} &amp;= \mu_{RA_TGFb} + \epsilon_9 \newline
+y_{10,WT} &amp;= \mu_{WT} + \epsilon_{10} \newline
+y_{11,WT} &amp;= \mu_{WT} + \epsilon_{11} \newline
+y_{12,WT} &amp;= \mu_{WT} + \epsilon_{12}.
+\end{align}
+$$
+Now, using some simple high-school matrix-vector notation and algebra, we can write
+$$
+\begin{bmatrix}<br />
+y_{1,RA} \newline
+y_{2,RA} \newline
+y_{3,RA} \newline
+y_{4,TGFb} \newline
+y_{5,TGFb} \newline
+y_{6,TGFb} \newline
+y_{7,RA_TGFb} \newline
+y_{8,RA_TGFb} \newline
+y_{9,RA_TGFb} \newline
+y_{10,WT} \newline
+y_{11,WT} \newline
+y_{12,WT}
+\end{bmatrix}
+\quad
+=
+\quad
+\begin{bmatrix}
+\mu_{RA} + \epsilon_1 \newline
+\mu_{RA} + \epsilon_2 \newline
+\mu_{RA} + \epsilon_3 \newline
+\mu_{TGFb} + \epsilon_4 \newline
+\mu_{TGFb} + \epsilon_5 \newline
+\mu_{TGFb} + \epsilon_6 \newline
+\mu_{RA_TGFb} + \epsilon_7 \newline
+\mu_{RA_TGFb} + \epsilon_8 \newline
+\mu_{RA_TGFb} + \epsilon_9 \newline
+\mu_{WT} + \epsilon_{10} \newline
+\mu_{WT} + \epsilon_{11} \newline
+\mu_{WT} + \epsilon_{12}
+\end{bmatrix}
+\quad
+= 
+\quad
+\begin{bmatrix} 
+1 &amp; 0 &amp; 0 &amp; 0 \newline
+1 &amp; 0 &amp; 0 &amp; 0 \newline
+1 &amp; 0 &amp; 0 &amp; 0 \newline
+0 &amp; 0 &amp; 1 &amp; 0 \newline
+0 &amp; 0 &amp; 1 &amp; 0 \newline
+0 &amp; 0 &amp; 1 &amp; 0 \newline
+0 &amp; 1 &amp; 0 &amp; 0 \newline
+0 &amp; 1 &amp; 0 &amp; 0 \newline
+0 &amp; 1 &amp; 0 &amp; 0 \newline
+0 &amp; 0 &amp; 0 &amp; 1 \newline
+0 &amp; 0 &amp; 0 &amp; 1 \newline
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+\mu_{RA} \newline
+\mu_{RA_TGFb} \newline
+\mu_{TGFb} \newline
+\mu_{WT}
+\end{bmatrix}
+\quad
++
+\quad
+\begin{bmatrix}
+\epsilon_1 \newline
+\epsilon_2 \newline
+\epsilon_3 \newline
+\epsilon_4 \newline
+\epsilon_5 \newline
+\epsilon_6 \newline
+\epsilon_7 \newline
+\epsilon_8 \newline
+\epsilon_9 \newline
+\epsilon_{10} \newline
+\epsilon_{11} \newline
+\epsilon_{12}
+\end{bmatrix}
+$$
+or, more compactly: <span class="arithmatex">\(\mathbf{y} = \mathbf{X} \boldsymbol\beta + \boldsymbol\epsilon\)</span>. This is the linear model for our data, and we&rsquo;ll use the following terminology:</p>
+<ul>
+<li><span class="arithmatex">\(\mathbf{X}\)</span> is called the &ldquo;design&rdquo; matrix</li>
+<li><span class="arithmatex">\(\boldsymbol\beta\)</span> is called the vector of coefficients</li>
+</ul>
+<p>We&rsquo;ll fit this (one) model to every gene, which amounts to <em>estimating</em> the coefficient vector <span class="arithmatex">\(\boldsymbol\beta\)</span> for each gene, i.e. the group means for every gene!</p>
+<p>While the terminology above is important to know, don&rsquo;t worry if you didn&rsquo;t follow all the details of the discussion. The details are there partly for completeness, but mostly to help demystify design matrices: they&rsquo;re just something that connects your data (observed expression values) to the things of interest, in our case the means of the groups. The design matrix is easy to make using our <code>group</code> factor vector:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>X &lt;- model.matrix(~0 + group) # note the &quot;0&quot;: VERY important!
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>colnames(X) &lt;- levels(group)
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>X
+</span></code></pre></div>
+Observe, of course, that this is the same as the design matrix above. Fitting the linear model is easy too:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>fit &lt;- lmFit(y, design=X)
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>names(fit)
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>head(fit$coefficients)
+</span></code></pre></div>
+We&rsquo;ve arrived at the group means for each gene, but this isn&rsquo;t what we&rsquo;re really after: what we really want are differences between the group means&mdash;remember: we&rsquo;re looking for DE genes&mdash;or, more precisely, we want <em>differences</em> between the group means for <em>contrasts</em> (i.e. comparisons) of interest. To do this, we construct the contrasts of interest and then fit them. For example, suppose we&rsquo;re interested in two comparisons: (1) RA vs WT (i.e. the effect of RA), and (2) TGFb vs WT (i.e. the effect of TGFb). The corresponding contrast (matrix) is constructed as follows:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>CM &lt;- makeContrasts(
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>  RA_WT   = RA - WT,
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>  TGFb_WT = TGFb - WT,
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>  levels=X)
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>CM
+</span></code></pre></div>
+Now, to calculate these contrasts, i.e. to fit them, we do the following:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>fit2 &lt;- contrasts.fit(fit, contrasts=CM)
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>head(fit2$coefficients)
+</span></code></pre></div>
+This has transformed the initial coefficients (i.e. groups means) into the contrasts of interest: the difference in means between the RA and WT groups (column 1) and the difference in means between the TGFb and WT groups (column 2).</p>
+<h2 id="testing-for-de">Testing for DE<a class="headerlink" href="#testing-for-de" title="Permanent link">&para;</a></h2>
+<p>Now that we have our differences in group means for each gene, we want to ask if any of these differences are <em>significantly different from zero</em> (over and above what you might see by random chance). In other words, for each gene we want to statistically test if the means of the two groups are different&mdash;more simply: we want to test for DE! To do this, we&rsquo;ll use the so-called t-test (applied to each gene), whose test statistic looks like this:</p>
+<div class="arithmatex">\[
+T = \frac{\bar{y}_{_{A}} - \bar{y}_{_{B}}}{ \sqrt{v}}
+\]</div>
+<p>where <span class="arithmatex">\(\bar{y}_{_{A}}\)</span> and <span class="arithmatex">\(\bar{y}_{_{B}}\)</span> are the means of the two groups being compared, and <span class="arithmatex">\(v\)</span> is an estimate of the variance. To test the null hypothesis (that the means are the same), we use the <span class="arithmatex">\(t\)</span>-distribution to calculate probabilities about this test statistic (if the chances of seeing certain values of <span class="arithmatex">\(T\)</span> are small, this is evidence against the null hypothesis that the group means are the same).</p>
+<p>At this point you must be thinking: &ldquo;why did we do all that linear models stuff if, in the end, we&rsquo;re just going to use a t-test?&rdquo; There are at least two reasons. Briefly:</p>
+<ol>
+<li>By using a linear model we&rsquo;ve actually used <em>all</em> the samples to estimate the variability <span class="arithmatex">\(v\)</span> here (a standard t-test would only estimate it from the two groups being compared) and so the estimate is better.</li>
+<li>Linear models are much more powerful than our simple situation suggests: they can be used to easily adjust for things which aren&rsquo;t of interest but affect the things of interest, e.g. you can make comparisons while adjusting for biological things (e.g. sex) or while adjusting for technical things (e.g. batch), or while adjusting for both!</li>
+</ol>
+<p>Hopefully this convinces you that linear models are your friend, but now you must be thinking a different question: &ldquo;wait a second&hellip;we&rsquo;re going to do t-tests with as little as 2 or 3 observations in each group?&hellip;that&rsquo;s crazy!&rdquo; Yes, that does seem crazy&mdash;there&rsquo;s barely any information in each group to make a reliable inference about whether the means are different. But this is where the real magic of RNA-seq analysis comes in, the thing that makes it all work: <em>empirical Bayes</em> statistics. The full details are beyond the scope of our discussion, but the rough idea is this: we use a procedure whereby the genes are allowed to <em>share information</em> with each other&mdash;this sharing of information between genes makes up for the fact that there isn&rsquo;t much information within any single gene. This procedure is applied to the gene variances&mdash;the <span class="arithmatex">\(v\)</span>&rsquo;s above&mdash;which <em>moderates</em> them, making them better estimates, and thus increasing our power to detect DE (other terms for this &lsquo;moderation&rsquo; procedure include &lsquo;shrinkage&rsquo; or &lsquo;regularization&rsquo;, terms which you may see in your travels&mdash;this powerful technique is used in many places in statistical omics analysis). So, the statistic used to test for DE is actually:</p>
+<div class="arithmatex">\[
+\widetilde{T} = \frac{\bar{y}_{_{A}} - \bar{y}_{_{B}}}{ \sqrt{ \widetilde{v} }}
+\]</div>
+<p>where <span class="arithmatex">\(\widetilde{v}\)</span> is the moderated variance; accordingly, <span class="arithmatex">\(\widetilde{T}\)</span> is called the &ldquo;moderated t-statistic&rdquo;.</p>
+<p>That said, testing for DE with the moderated t-statistic is actually easy:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>fit2 &lt;- eBayes(fit2, trend=TRUE) # &quot;eBayes&quot; means empirical Bayes
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>names(fit2) # note the addition of &quot;t&quot; (and other empirical Bayes things, which needn&#39;t concern us)
+</span></code></pre></div>
+NOTE. We&rsquo;ve specified the function option <code>trend=TRUE</code> (this isn&rsquo;t default). This is because one characteristic of RNA-seq data is that there is a downward trend in variability as a function of the level of expression&mdash;genes with lower levels of expression are more variable than genes with higher levels of expression (see next section). The empirical Bayes procedure takes this trend into account.</p>
+<p>There&rsquo;s a fair amount of differential expression&mdash;here&rsquo;s the number of DE genes for each comparison:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>dt &lt;- decideTests(fit2)
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>summary(dt)
+</span></code></pre></div></p>
+<h2 id="some-checks">Some checks<a class="headerlink" href="#some-checks" title="Permanent link">&para;</a></h2>
+<p>Before we look at the DE results more closely, there&rsquo;s some things we need to check:</p>
+<ol>
+<li><em>SA plot</em>. This is a plot of variability (estimated by the linear model) as a function of expression level. It typically has a characteristic shape: it (monotonically) trends downward.</li>
+<li><em>MD plot (for each comparison)</em>. This is simply a plot of log-fold-change (y-axis) and expression level (x-axis) for all genes. The meaning of &lsquo;log-fold-change&rsquo; will be discussed below. For now, we note that these plots should look as follows: (1) the &lsquo;cloud&rsquo; of data is skewered through the middle, (2) the red/blue dots are on top/bottom, respectively, and in roughly the same proportions (unless you have a reason to think otherwise), and (3) there&rsquo;s a characteristic funnel shape, thicker to thinner as expression level increases. </li>
+<li><em>p-value histogram (for each comparison)</em>. This is simply a histogram of all the DE hypothesis test p-values (one p-value for each gene). It should look like this: flat, with a possible spike on the far left. The intuitive idea here is simple: a large majority of genes aren&rsquo;t DE, i.e. the null hypothesis is true for then, and so testing them for DE should just produce p-values that are random noise between 0-1, and thus a the histogram of these p-values should be flat; the possible spike to the far left are p-values from genes which are truly DE.</li>
+</ol>
+<p>These are made as follows:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>plotSA(fit2)
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>par(mfcol=c(1,2))
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>plotMD(fit2, coef=&quot;RA_WT&quot;, status=dt[,&quot;RA_WT&quot;], cex=0.6, main=&quot;MD-plot: RA vs WT&quot;)
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>abline(h=0, lwd=2, col=&quot;green2&quot;)
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>plotMD(fit2, coef=&quot;TGFb_WT&quot;, status=dt[,&quot;TGFb_WT&quot;], cex=0.6, main=&quot;MD-plot: TGFb vs WT&quot;)
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>abline(h=0, lwd=2, col=&quot;green2&quot;)
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>par(mfcol=c(1,2))
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>hist(fit2$p.value[,&quot;RA_WT&quot;], col=&quot;grey&quot;, xlab=&quot;p-value&quot;, main=&quot;p-value histogram: RA vs WT&quot;)
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>hist(fit2$p.value[,&quot;TGFb_WT&quot;], col=&quot;grey&quot;, xlab=&quot;p-value&quot;, main=&quot;p-value histogram: TGFb vs WT&quot;)
+</span></code></pre></div></p>
+<p>These visualisations look as they should in this case. However, if you produce plots that don&rsquo;t look reasonably close to these, then something isn&rsquo;t right. Depending on how bad they look, the results will likely contain missed and/or false discoveries&mdash;they&rsquo;ll be rubbish. The p-value histograms are particularly important. Consider two real examples from different data sets below:</p>
+<p><img alt="" src="img/p-value-hist.png" width="80%" /></p>
+<p>The plot on the right is ideal, i.e. flat with possible spike to the left. The plot on the left is far from ideal. If you produce a plot that looks like this, your results are likely rubbish!</p>
+<h2 id="results">Results<a class="headerlink" href="#results" title="Permanent link">&para;</a></h2>
+<p>With these checks done, we&rsquo;re now ready to look at the results. Here&rsquo;s results for the top genes from each comparison:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>tab1 &lt;- topTable(fit2, coef=&quot;RA_WT&quot;, n=Inf)
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>tab2 &lt;- topTable(fit2, coef=&quot;TGFb_WT&quot;, n=Inf)
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a># RA vs WT
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>head(tab1)
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a># TGFb vs WT
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>head(tab2)
+</span></code></pre></div>
+Let&rsquo;s interpret these results (note: we&rsquo;ll ignore the &ldquo;B&rdquo; column):</p>
+<ol>
+<li><em>Symbol</em>. These are simply gene symbols.</li>
+<li><em>AveExpr</em>. The average level of expression for that gene (taken across all samples).</li>
+<li><em>logFC</em>, i.e. log-fold-change. This is important, but sometimes misunderstood. Here it means the difference between the group means, or more specifically: for the first table logFC = RA group mean - WT group mean; for the second table logFC = TGFb group mean - WT group mean. The reason for the &ldquo;log&rdquo; bit in &ldquo;log-fold-change&rdquo; is because the means are calculated on a log-scale; the reason for the &ldquo;fold-change&rdquo; bit in &ldquo;log-fold-change&rdquo; is because a difference of logs is the log of the ratio.</li>
+<li><em>t</em>. The moderated t-statistic.</li>
+<li><em>P.Value</em>. The p-value for the hypothesis test of DE obtained using the moderated t-statistic (NOTE: this is typically ignored&ndash;see below).</li>
+<li><em>adj.P.Val</em>. The p-value adjusted for &lsquo;multiple testing&rsquo; (typically using the Benjamini-Hochberg method). Usually a gene is inferred/judged to be DE only if adj.P.Val &lt; 0.05.</li>
+</ol>
+<p>The distinction between (5) and (6) is particularly important, so let&rsquo;s say more. Firstly, in our context, we&rsquo;re doing ~10,000 hypothesis tests, and so the idea of a p-value isn&rsquo;t particularly useful. To appreciate this, consider the following <a href="https://xkcd.com/">xkcd</a> comic:</p>
+<p><img alt="" src="img/xkcd_significant.png" width="60%" /></p>
+<p>Recall that the p-value is the probability of seeing certain values of our test statistic, assuming the null hypothesis is true, and that we reject the null assumption if the calculated probability is small, say, below 0.05. But, this implies the following: if we were testing 10,000 genes, and the null hypothesis was true for every gene (i.e. there was no DE in the data set), then we&rsquo;d still reject the null (i.e. infer DE) for ~500 genes&mdash;that&rsquo;s 500 false discoveries! The solution to this problem is to focus on a different idea: the <em>false discovery rate</em> (FDR). This is the proportion of false discoveries of DE amongst all the genes you&rsquo;ve declared to be DE. This is what the adjusted p-value (adj.P.Val) represents, i.e. if you choose a DE cutoff of adj.P.Val &lt; 0.05 then only 5% of the genes declared DE with this cutoff will be false discoveries.</p>
+<p>At this point, one extra way of checking your results is to look at any known <em>control genes</em> relevant to the experiment: <em>positive</em> or <em>negative</em> controls, i.e. genes which <em>should</em> or <em>shouldn&rsquo;t</em> be DE between conditions, respectively. For example, a <em>positive</em> control for this experiment is Hic1 because RA is known to up-regulate this gene&mdash;it should be DE in the RA vs WT comparison, and indeed it is:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>i &lt;- tab1$Symbol==&quot;Hic1&quot;
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>tab1[i,]
+</span></code></pre></div>
+If it turned out this gene wasn&rsquo;t DE, this would cast some doubt over the validity of the analysis.</p>
+<p>Finally, let&rsquo;s save our results in an Excel spreadsheet!:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>write.xlsx(tab1, file=&quot;../Results/DE_RA-vs-WT.xlsx&quot;)
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>write.xlsx(tab2, file=&quot;../Results/DE_TGFb-vs-WT.xlsx&quot;)
+</span></code></pre></div></p>
+<h2 id="two-limma-approaches-trend-vs-voom">Two limma approaches: &ldquo;trend&rdquo; vs &ldquo;voom&rdquo;<a class="headerlink" href="#two-limma-approaches-trend-vs-voom" title="Permanent link">&para;</a></h2>
+<p>Recall that there&rsquo;s two flavours of <code>limma</code>: <code>trend</code> and <code>voom</code>. We&rsquo;ve been using the <code>trend</code> approach, but now we&rsquo;ll briefly turn to the <code>voom</code> approach. Both approaches are essentially the same, except for one key difference: <code>voom</code> first estimates &ldquo;precision weights&rdquo; (the details are beyond our scope) and incorporates them into the linear modelling step.</p>
+<p>Given you now know the <code>trend</code> approach, the <code>voom</code> approach is easy to summarise. We do all the same steps above, right up until before we create an <code>EList</code>, at which point we proceed as follows:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a># prepare a voom EList, containing &quot;precision weights&quot; from our DGEList and the same design X above
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>v &lt;- voom(dge, design=X, plot=FALSE)
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a># fit linear model (to get group means); &quot;precision weights&quot; will be incorporated
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>fit.voom &lt;- lmFit(v, design=X)
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a># fit contrasts using the same contrast matrix CM (for the relevant comparisons)
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>fit2.voom &lt;- contrasts.fit(fit.voom, contrasts=CM)
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a># test for DE using empirical Bayes moderated t-statistics
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>fit2.voom &lt;- eBayes(fit2.voom, trend=FALSE) # NOTE: trend=FALSE (see comments below)
+</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>
+</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a># DE summary and results
+</span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>dt &lt;- decideTests(fit2.voom)
+</span><span id="__span-25-15"><a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>summary(dt)
+</span><span id="__span-25-16"><a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>
+</span><span id="__span-25-17"><a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a># top DE genes
+</span><span id="__span-25-18"><a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>topTable(fit2.voom, coef=&quot;RA_WT&quot;)
+</span><span id="__span-25-19"><a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>topTable(fit2.voom, coef=&quot;TGFb_WT&quot;)
+</span></code></pre></div>
+The results have the same interpretations as before, and we can also do the same checks as before (i.e. MD plots, p-value histograms, control genes) except that instead of checking an SA plot, we check the voom &lsquo;mean-variance&rsquo; trend plot produced automatically when <code>plot=TRUE</code> is specified in the voom function.</p>
+<p>Two important comments:</p>
+<ol>
+<li>We specified <code>trend=FALSE</code> in the <code>eBayes</code> DE testing step. This is because the voom &ldquo;precision weights&rdquo; actually remove the trend in variability noted earlier, and so this step doesn&rsquo;t need to use the &lsquo;trend&rsquo; anymore.</li>
+<li><code>voom</code> is recommended when the library sizes are very different (e.g. some libraries have size 2M while others have size 20M) because the &ldquo;precision weights&rdquo; are able to take these differences in library sizes into account.</li>
+</ol>
+<p>The library sizes aren&rsquo;t very different in our example and so both <code>limma</code> approaches give essentially the same DE genes, as can be seen here:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a># DE results
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>dt.trend &lt;- decideTests(fit2)
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>dt.voom &lt;- decideTests(fit2.voom)
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a># venn diagram comparisons
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>df1 &lt;- cbind(dt.trend[,&quot;RA_WT&quot;], dt.voom[,&quot;RA_WT&quot;])
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>df2 &lt;- cbind(dt.trend[,&quot;TGFb_WT&quot;], dt.voom[,&quot;TGFb_WT&quot;])
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>par(mfcol=c(1,2))
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>vennDiagram(df1,
+</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>            main=&quot;RA vs WT&quot;,
+</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>            names=c(&quot;trend&quot;,&quot;voom&quot;),
+</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>            include=c(&quot;up&quot;,&quot;down&quot;), 
+</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>            counts.col=c(&quot;red3&quot;,&quot;blue3&quot;), 
+</span><span id="__span-26-16"><a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>            circle.col=c(&quot;purple&quot;,&quot;turquoise&quot;))
+</span><span id="__span-26-17"><a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>
+</span><span id="__span-26-18"><a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>vennDiagram(df2,
+</span><span id="__span-26-19"><a id="__codelineno-26-19" name="__codelineno-26-19" href="#__codelineno-26-19"></a>            main=&quot;TGFb vs WT&quot;,
+</span><span id="__span-26-20"><a id="__codelineno-26-20" name="__codelineno-26-20" href="#__codelineno-26-20"></a>            names=c(&quot;trend&quot;,&quot;voom&quot;),
+</span><span id="__span-26-21"><a id="__codelineno-26-21" name="__codelineno-26-21" href="#__codelineno-26-21"></a>            include=c(&quot;up&quot;,&quot;down&quot;), 
+</span><span id="__span-26-22"><a id="__codelineno-26-22" name="__codelineno-26-22" href="#__codelineno-26-22"></a>            counts.col=c(&quot;red3&quot;,&quot;blue3&quot;), 
+</span><span id="__span-26-23"><a id="__codelineno-26-23" name="__codelineno-26-23" href="#__codelineno-26-23"></a>            circle.col=c(&quot;purple&quot;,&quot;turquoise&quot;))
+</span></code></pre></div></p>
+<h1 id="summary-and-exercise">Summary and exercise<a class="headerlink" href="#summary-and-exercise" title="Permanent link">&para;</a></h1>
+<p>Let&rsquo;s summarise by putting the key analysis code together with comments (for the RA vs WT comparison). Here&rsquo;s the preliminaries etc.:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a># organise data into a DGEList
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>tab &lt;- read.table(&quot;../Data/GSE232852_CountsTable.txt&quot;, header=TRUE)
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>annotation &lt;- tab[,c(1,2)]
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>counts &lt;- tab[,-c(1,2)]
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>dge &lt;- DGEList(counts=counts, genes=annotation)
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a># sample info and group vector
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>samples &lt;- colnames(tab)[-c(1,2)]
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>group &lt;- c(rep(&quot;RA&quot;,3), rep(&quot;TGFb&quot;,3), rep(&quot;RA_TGFb&quot;,3), rep(&quot;WT&quot;,3))
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>info &lt;- data.frame(samples, group)
+</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>
+</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>group &lt;- factor(info$group)
+</span><span id="__span-27-15"><a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>
+</span><span id="__span-27-16"><a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a># filter for low expression
+</span><span id="__span-27-17"><a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>i &lt;- filterByExpr(dge, group=group)
+</span><span id="__span-27-18"><a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>dge &lt;- dge[i,,keep.lib.size=FALSE]
+</span><span id="__span-27-19"><a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>
+</span><span id="__span-27-20"><a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a># check library sizes
+</span><span id="__span-27-21"><a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a>lib.size.millons &lt;- colSums(dge$counts) / 1e6
+</span><span id="__span-27-22"><a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a>barplot(lib.size.millons, las=2, cex.names=0.8, main=&quot;Library size (millons)&quot;)
+</span><span id="__span-27-23"><a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a>abline(h=20, lwd=2, col=&quot;red2&quot;)
+</span><span id="__span-27-24"><a id="__codelineno-27-24" name="__codelineno-27-24" href="#__codelineno-27-24"></a>
+</span><span id="__span-27-25"><a id="__codelineno-27-25" name="__codelineno-27-25" href="#__codelineno-27-25"></a># visualisation: raw data
+</span><span id="__span-27-26"><a id="__codelineno-27-26" name="__codelineno-27-26" href="#__codelineno-27-26"></a>y &lt;- log2(dge$counts + 1/2)
+</span><span id="__span-27-27"><a id="__codelineno-27-27" name="__codelineno-27-27" href="#__codelineno-27-27"></a>
+</span><span id="__span-27-28"><a id="__codelineno-27-28" name="__codelineno-27-28" href="#__codelineno-27-28"></a>pca &lt;- prcomp(t(y), center=TRUE) 
+</span><span id="__span-27-29"><a id="__codelineno-27-29" name="__codelineno-27-29" href="#__codelineno-27-29"></a>autoplot(pca, data.frame(group=group), col=&#39;group&#39;, size=4) + 
+</span><span id="__span-27-30"><a id="__codelineno-27-30" name="__codelineno-27-30" href="#__codelineno-27-30"></a>  theme_classic() +
+</span><span id="__span-27-31"><a id="__codelineno-27-31" name="__codelineno-27-31" href="#__codelineno-27-31"></a>  ggtitle(&quot;PCA plot&quot;)
+</span><span id="__span-27-32"><a id="__codelineno-27-32" name="__codelineno-27-32" href="#__codelineno-27-32"></a>
+</span><span id="__span-27-33"><a id="__codelineno-27-33" name="__codelineno-27-33" href="#__codelineno-27-33"></a>cols.group &lt;- group
+</span><span id="__span-27-34"><a id="__codelineno-27-34" name="__codelineno-27-34" href="#__codelineno-27-34"></a>levels(cols.group) &lt;- hue_pal()(4)
+</span><span id="__span-27-35"><a id="__codelineno-27-35" name="__codelineno-27-35" href="#__codelineno-27-35"></a>boxplot(y, col=as.character(cols.group), outline=FALSE, las=2, cex.axis=0.7, main=&quot;Boxplots&quot;)
+</span><span id="__span-27-36"><a id="__codelineno-27-36" name="__codelineno-27-36" href="#__codelineno-27-36"></a>RLE &lt;- y - rowMedians(y)
+</span><span id="__span-27-37"><a id="__codelineno-27-37" name="__codelineno-27-37" href="#__codelineno-27-37"></a>boxplot(RLE, col=as.character(cols.group), outline=FALSE, las=2, cex.axis=0.7, main=&quot;RLE plot&quot;)
+</span><span id="__span-27-38"><a id="__codelineno-27-38" name="__codelineno-27-38" href="#__codelineno-27-38"></a>abline(h=0, col=&quot;grey20&quot;, lwd=3, lty=1)
+</span><span id="__span-27-39"><a id="__codelineno-27-39" name="__codelineno-27-39" href="#__codelineno-27-39"></a>
+</span><span id="__span-27-40"><a id="__codelineno-27-40" name="__codelineno-27-40" href="#__codelineno-27-40"></a># normalise for library size and composition
+</span><span id="__span-27-41"><a id="__codelineno-27-41" name="__codelineno-27-41" href="#__codelineno-27-41"></a>dge &lt;- calcNormFactors(dge, method=&quot;TMM&quot;)
+</span><span id="__span-27-42"><a id="__codelineno-27-42" name="__codelineno-27-42" href="#__codelineno-27-42"></a>y &lt;- cpm(dge, log=TRUE)
+</span><span id="__span-27-43"><a id="__codelineno-27-43" name="__codelineno-27-43" href="#__codelineno-27-43"></a>
+</span><span id="__span-27-44"><a id="__codelineno-27-44" name="__codelineno-27-44" href="#__codelineno-27-44"></a># visualisation: normalised data
+</span><span id="__span-27-45"><a id="__codelineno-27-45" name="__codelineno-27-45" href="#__codelineno-27-45"></a>pca &lt;- prcomp(t(y), center=TRUE)
+</span><span id="__span-27-46"><a id="__codelineno-27-46" name="__codelineno-27-46" href="#__codelineno-27-46"></a>autoplot(pca, data.frame(group=group), col=&#39;group&#39;, size=4) + 
+</span><span id="__span-27-47"><a id="__codelineno-27-47" name="__codelineno-27-47" href="#__codelineno-27-47"></a>  theme_classic() +
+</span><span id="__span-27-48"><a id="__codelineno-27-48" name="__codelineno-27-48" href="#__codelineno-27-48"></a>  ggtitle(&quot;PCA plot&quot;)
+</span><span id="__span-27-49"><a id="__codelineno-27-49" name="__codelineno-27-49" href="#__codelineno-27-49"></a>
+</span><span id="__span-27-50"><a id="__codelineno-27-50" name="__codelineno-27-50" href="#__codelineno-27-50"></a>cols.group &lt;- group
+</span><span id="__span-27-51"><a id="__codelineno-27-51" name="__codelineno-27-51" href="#__codelineno-27-51"></a>levels(cols.group) &lt;- hue_pal()(4)
+</span><span id="__span-27-52"><a id="__codelineno-27-52" name="__codelineno-27-52" href="#__codelineno-27-52"></a>boxplot(y, col=as.character(cols.group), outline=FALSE, las=2, cex.axis=0.5, main=&quot;Boxplots&quot;)
+</span><span id="__span-27-53"><a id="__codelineno-27-53" name="__codelineno-27-53" href="#__codelineno-27-53"></a>RLE &lt;- y - rowMedians(y)
+</span><span id="__span-27-54"><a id="__codelineno-27-54" name="__codelineno-27-54" href="#__codelineno-27-54"></a>boxplot(RLE, col=as.character(cols.group), outline=FALSE, las=2, cex.axis=0.5, main=&quot;RLE plot&quot;)
+</span><span id="__span-27-55"><a id="__codelineno-27-55" name="__codelineno-27-55" href="#__codelineno-27-55"></a>abline(h=0, col=&quot;grey20&quot;, lwd=3, lty=1)
+</span></code></pre></div>
+If the library sizes aren&rsquo;t too different, we proceed with <code>limma-trend</code>:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a># organise EList
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>y &lt;- new(&quot;EList&quot;)
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>y$E &lt;- cpm(dge, log=TRUE)
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>y$genes &lt;- dge$genes
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a># design matrix
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>X &lt;- model.matrix(~0 + group)
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>colnames(X) &lt;- levels(group)
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a># fit linear model (to get group means)
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>fit &lt;- lmFit(y, design=X)
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>
+</span><span id="__span-28-13"><a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a># make contrasts
+</span><span id="__span-28-14"><a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>CM &lt;- makeContrasts(
+</span><span id="__span-28-15"><a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>  RA_WT   = RA - WT,
+</span><span id="__span-28-16"><a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>  TGFb_WT = TGFb - WT,
+</span><span id="__span-28-17"><a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a>  levels=X)
+</span><span id="__span-28-18"><a id="__codelineno-28-18" name="__codelineno-28-18" href="#__codelineno-28-18"></a>
+</span><span id="__span-28-19"><a id="__codelineno-28-19" name="__codelineno-28-19" href="#__codelineno-28-19"></a># fit contrasts
+</span><span id="__span-28-20"><a id="__codelineno-28-20" name="__codelineno-28-20" href="#__codelineno-28-20"></a>fit2 &lt;- contrasts.fit(fit, contrasts=CM)
+</span><span id="__span-28-21"><a id="__codelineno-28-21" name="__codelineno-28-21" href="#__codelineno-28-21"></a>
+</span><span id="__span-28-22"><a id="__codelineno-28-22" name="__codelineno-28-22" href="#__codelineno-28-22"></a># test for DE
+</span><span id="__span-28-23"><a id="__codelineno-28-23" name="__codelineno-28-23" href="#__codelineno-28-23"></a>fit2 &lt;- eBayes(fit2, trend=TRUE)
+</span><span id="__span-28-24"><a id="__codelineno-28-24" name="__codelineno-28-24" href="#__codelineno-28-24"></a>
+</span><span id="__span-28-25"><a id="__codelineno-28-25" name="__codelineno-28-25" href="#__codelineno-28-25"></a># some checks
+</span><span id="__span-28-26"><a id="__codelineno-28-26" name="__codelineno-28-26" href="#__codelineno-28-26"></a>dt &lt;- decideTests(fit2)
+</span><span id="__span-28-27"><a id="__codelineno-28-27" name="__codelineno-28-27" href="#__codelineno-28-27"></a>plotSA(fit2) # SA plot
+</span><span id="__span-28-28"><a id="__codelineno-28-28" name="__codelineno-28-28" href="#__codelineno-28-28"></a>plotMD(fit2, coef=&quot;RA_WT&quot;, status=dt[,&quot;RA_WT&quot;], cex=0.6, main=&quot;MD-plot: RA vs WT&quot;) # MD plot
+</span><span id="__span-28-29"><a id="__codelineno-28-29" name="__codelineno-28-29" href="#__codelineno-28-29"></a>abline(h=0, lwd=2, col=&quot;green2&quot;)
+</span><span id="__span-28-30"><a id="__codelineno-28-30" name="__codelineno-28-30" href="#__codelineno-28-30"></a>hist(fit2$p.value[,&quot;RA_WT&quot;], col=&quot;grey&quot;, xlab=&quot;p-value&quot;, main=&quot;p-value histogram: RA vs WT&quot;) # p-value hist
+</span><span id="__span-28-31"><a id="__codelineno-28-31" name="__codelineno-28-31" href="#__codelineno-28-31"></a>
+</span><span id="__span-28-32"><a id="__codelineno-28-32" name="__codelineno-28-32" href="#__codelineno-28-32"></a># DE results
+</span><span id="__span-28-33"><a id="__codelineno-28-33" name="__codelineno-28-33" href="#__codelineno-28-33"></a>tab &lt;- topTable(fit2, coef=&quot;RA_WT&quot;, n=Inf)
+</span><span id="__span-28-34"><a id="__codelineno-28-34" name="__codelineno-28-34" href="#__codelineno-28-34"></a>write.xlsx(tab, file=&quot;../Results/DE_limma-trend_RA-vs-WT.xlsx&quot;)
+</span></code></pre></div>
+If the library sizes are very different, proceed with <code>limma-voom</code>:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a># organise voom EList
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>v &lt;- voom(dge, design=X, plot=TRUE) # same X as above
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a># fit linear model (to get group means)
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>fit.voom &lt;- lmFit(v, design=X)
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a># fit contrasts
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>fit2.voom &lt;- contrasts.fit(fit.voom, contrasts=CM) # same CM as above
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a># test for DE
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>fit2.voom &lt;- eBayes(fit2.voom, trend=FALSE) # NOTE: trend=FALSE
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>
+</span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a># some checks
+</span><span id="__span-29-14"><a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>dt &lt;- decideTests(fit2.voom)
+</span><span id="__span-29-15"><a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>plotMD(fit2.voom, coef=&quot;RA_WT&quot;, status=dt[,&quot;RA_WT&quot;], cex=0.6, main=&quot;MD-plot: RA vs WT&quot;) # MD plot
+</span><span id="__span-29-16"><a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>abline(h=0, lwd=2, col=&quot;green2&quot;)
+</span><span id="__span-29-17"><a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>hist(fit2$p.value[,&quot;RA_WT&quot;], col=&quot;grey&quot;, xlab=&quot;p-value&quot;, main=&quot;p-value histogram: RA vs WT&quot;) # p-value hist
+</span><span id="__span-29-18"><a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>
+</span><span id="__span-29-19"><a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a># DE results
+</span><span id="__span-29-20"><a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a>tab &lt;- topTable(fit2.voom, coef=&quot;RA_WT&quot;, n=Inf)
+</span><span id="__span-29-21"><a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a>write.xlsx(tab, file=&quot;../Results/DE_limma-voom_RA-vs-WT.xlsx&quot;)
+</span></code></pre></div></p>
+<p>To reinforce what you&rsquo;ve learnt, try your hand at finding DE results for the RA+TGFb vs WT comparison using both limma approaches.</p>
+<p>Solution:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a># new contrast matrix
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>CM2 &lt;- makeContrasts(
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>  RA_WT      = RA - WT,
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>  TGFb_WT    = TGFb - WT,
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>  RA.TGFb_WT = RA_TGFb - WT, # new comparison
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>  levels=X)
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a># limma-trend
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>fit2 &lt;- contrasts.fit(fit, contrasts=CM2)
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>fit2 &lt;- eBayes(fit2, trend=TRUE)
+</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>
+</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>dt &lt;- decideTests(fit2)
+</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>summary(dt)
+</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a>
+</span><span id="__span-30-15"><a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a>tab &lt;- topTable(fit2, coef=&quot;RA.TGFb_WT&quot;, n=Inf)
+</span><span id="__span-30-16"><a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a>write.xlsx(tab, file=&quot;../Results/DE_limma-trend_RA.TGFb_WT.xlsx&quot;)
+</span><span id="__span-30-17"><a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a>
+</span><span id="__span-30-18"><a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a># limma-voom
+</span><span id="__span-30-19"><a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a>fit2.voom &lt;- contrasts.fit(fit.voom, contrasts=CM2)
+</span><span id="__span-30-20"><a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a>fit2.voom &lt;- eBayes(fit2.voom, trend=FALSE)
+</span><span id="__span-30-21"><a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a>
+</span><span id="__span-30-22"><a id="__codelineno-30-22" name="__codelineno-30-22" href="#__codelineno-30-22"></a>dt &lt;- decideTests(fit2.voom)
+</span><span id="__span-30-23"><a id="__codelineno-30-23" name="__codelineno-30-23" href="#__codelineno-30-23"></a>summary(dt)
+</span><span id="__span-30-24"><a id="__codelineno-30-24" name="__codelineno-30-24" href="#__codelineno-30-24"></a>
+</span><span id="__span-30-25"><a id="__codelineno-30-25" name="__codelineno-30-25" href="#__codelineno-30-25"></a>tab &lt;- topTable(fit2.voom, coef=&quot;RA.TGFb_WT&quot;, n=Inf)
+</span><span id="__span-30-26"><a id="__codelineno-30-26" name="__codelineno-30-26" href="#__codelineno-30-26"></a>write.xlsx(tab, file=&quot;../Results/DE_limma-voom_RA.TGFb_WT.xlsx&quot;)
+</span></code></pre></div></p>
+<h1 id="visualisation-of-results">Visualisation of results<a class="headerlink" href="#visualisation-of-results" title="Permanent link">&para;</a></h1>
+<p>There are several common ways to visualise DE results, e.g. volcano plots, MD plots (already used for checking above but made nicer here), and heatmaps. Let&rsquo;s produce basic examples of each, for the RA vs WT comparison.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a># organize data frame for volcano and MD plots
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>tab &lt;- topTable(fit2, coef=&quot;RA_WT&quot;, n=Inf)
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>logFC &lt;- tab$logFC
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>p.value &lt;- tab$P.Value
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>A &lt;- tab$AveExpr
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>Gene &lt;- tab$Symbol
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>Status &lt;- rep(&quot;Not DE&quot;, nrow(tab))
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>Status[tab$logFC&gt;0 &amp; tab$adj.P.Val&lt;0.05] &lt;- &quot;Up&quot;
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>Status[tab$logFC&lt;0 &amp; tab$adj.P.Val&lt;0.05] &lt;- &quot;Down&quot; # table(Status)
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a>df &lt;- data.frame(logFC, p.value, A, Gene, Status)
+</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>
+</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a># prepare some annotation
+</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a>genes &lt;- c(&quot;Hic1&quot;,&quot;Itgae&quot;,&quot;Zfp683&quot;)
+</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a>i &lt;- match(genes, df$Gene)
+</span><span id="__span-31-17"><a id="__codelineno-31-17" name="__codelineno-31-17" href="#__codelineno-31-17"></a>HL &lt;- df[i,]
+</span><span id="__span-31-18"><a id="__codelineno-31-18" name="__codelineno-31-18" href="#__codelineno-31-18"></a>
+</span><span id="__span-31-19"><a id="__codelineno-31-19" name="__codelineno-31-19" href="#__codelineno-31-19"></a># basic volcano plot
+</span><span id="__span-31-20"><a id="__codelineno-31-20" name="__codelineno-31-20" href="#__codelineno-31-20"></a>ggplot(data=df, aes(x=logFC, y=-log10(p.value))) +
+</span><span id="__span-31-21"><a id="__codelineno-31-21" name="__codelineno-31-21" href="#__codelineno-31-21"></a>  geom_point(shape=16, aes(color=Status)) +
+</span><span id="__span-31-22"><a id="__codelineno-31-22" name="__codelineno-31-22" href="#__codelineno-31-22"></a>  scale_color_manual(values=c(&quot;blue3&quot;,&quot;grey70&quot;,&quot;red3&quot;)) +
+</span><span id="__span-31-23"><a id="__codelineno-31-23" name="__codelineno-31-23" href="#__codelineno-31-23"></a>  geom_label_repel(data=HL, aes(label=Gene), box.padding=2) +
+</span><span id="__span-31-24"><a id="__codelineno-31-24" name="__codelineno-31-24" href="#__codelineno-31-24"></a>  labs(title=&quot;Volcano: RA vs WT&quot;, x=&quot;log2(fold-change)&quot;, y=&quot;-log10(p-value)&quot;)
+</span><span id="__span-31-25"><a id="__codelineno-31-25" name="__codelineno-31-25" href="#__codelineno-31-25"></a>
+</span><span id="__span-31-26"><a id="__codelineno-31-26" name="__codelineno-31-26" href="#__codelineno-31-26"></a># basic MD plot
+</span><span id="__span-31-27"><a id="__codelineno-31-27" name="__codelineno-31-27" href="#__codelineno-31-27"></a>ggplot(data=df, aes(x=A, y=logFC)) +
+</span><span id="__span-31-28"><a id="__codelineno-31-28" name="__codelineno-31-28" href="#__codelineno-31-28"></a>  geom_point(shape=16, aes(color=Status)) +
+</span><span id="__span-31-29"><a id="__codelineno-31-29" name="__codelineno-31-29" href="#__codelineno-31-29"></a>  scale_color_manual(values=c(&quot;blue3&quot;,&quot;grey70&quot;,&quot;red3&quot;)) +
+</span><span id="__span-31-30"><a id="__codelineno-31-30" name="__codelineno-31-30" href="#__codelineno-31-30"></a>  geom_hline(yintercept=0, linetype=2, colour=&quot;black&quot;) +
+</span><span id="__span-31-31"><a id="__codelineno-31-31" name="__codelineno-31-31" href="#__codelineno-31-31"></a>  geom_label_repel(data=HL, aes(label=Gene), box.padding=2) +
+</span><span id="__span-31-32"><a id="__codelineno-31-32" name="__codelineno-31-32" href="#__codelineno-31-32"></a>  labs(title=&quot;Volcano: RA vs WT&quot;, x=&quot;Average log-expression&quot;, y=&quot;log2(fold-change)&quot;)
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a># organize data frame for heatmap
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>top.genes &lt;- tab[1:50,]$Symbol
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>df &lt;- y$E
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>rownames(df) &lt;- y$genes$Symbol
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>df &lt;- df[top.genes,]
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a># basic heatmap
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>pheatmap(
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a>  df,
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>  border_color=NA, 
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a>  scale=&quot;row&quot;, 
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a>  cluster_rows=TRUE,
+</span><span id="__span-32-13"><a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a>  cluster_cols=FALSE,
+</span><span id="__span-32-14"><a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a>  treeheight_row=0,
+</span><span id="__span-32-15"><a id="__codelineno-32-15" name="__codelineno-32-15" href="#__codelineno-32-15"></a>  main=&quot;Top 50 DE genes: RA vs WT&quot;,
+</span><span id="__span-32-16"><a id="__codelineno-32-16" name="__codelineno-32-16" href="#__codelineno-32-16"></a>  fontsize_row=6)
+</span></code></pre></div></p>
+<h1 id="getting-data">Getting data<a class="headerlink" href="#getting-data" title="Permanent link">&para;</a></h1>
+<p>Now that you have some basic analysis skills, you&rsquo;ll want to get your hands on some data, e.g. publicly available RNA-seq counts tables. As we&rsquo;ve seen, one place to get data is <a href="https://www.ncbi.nlm.nih.gov/geo">Gene Expression Omnibus (GEO)</a>. But, GEO can be hit-and-miss: sometimes counts tables are available as supplementary files (as we saw), but sometimes they&rsquo;re not. Although, sometimes there are other ways of getting counts tables on GEO. It&rsquo;s really a bit of a mess&mdash;you just need to get on there and try your luck. </p>
+<p>Thankfully, there are alternatives. For example, for human and mouse data, <a href="https://dev.ilincs.org/apps/grein/?gse=">GREIN</a> is a real gem: its search interface is clear and simple to use and the counts data and sample information is uniformly pre-packaged and ready for easy download. Check it out. </p>
+<p>And have fun!</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics – The University of Melbourne ©</a>
+          </div>
+        
+        Powered by <a href="https://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">Material for MkDocs</a>.
+      </div>
+      
+        
+<div class="md-social">
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

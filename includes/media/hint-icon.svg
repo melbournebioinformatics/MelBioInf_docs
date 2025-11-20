@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48"
+   height="48"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="hint-icon.svg"
+   inkscape:export-filename="/home/arobinson/Documents/AptanaStudio/lscc_docs/ext/hint-icon.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="31.678384"
+     inkscape:cx="25.009674"
+     inkscape:cy="15.025393"
+     inkscape:document-units="px"
+     inkscape:current-layer="g3786"
+     showgrid="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="1022"
+     inkscape:window-x="979"
+     inkscape:window-y="382"
+     inkscape:window-maximized="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1004.3622)">
+    <g
+       id="g3786"
+       transform="translate(-7,13.00002)">
+      <path
+         sodipodi:nodetypes="ccccccc"
+         transform="translate(0,988.36218)"
+         inkscape:connector-curvature="0"
+         id="path2989"
+         d="M 24,34 C 0,-4 64,-4 40,34 l 0,8 c 0,4 -1,5 -5,5 l -6,0 c -4,0 -5,-1 -5,-5 z"
+         style="fill:none;stroke:#000000;stroke-width:1.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         transform="translate(0,988.36218)"
+         inkscape:connector-curvature="0"
+         id="path2991"
+         d="m 24,34 16,0"
+         style="fill:none;stroke:#000000;stroke-width:1.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4.20000003999999993" />
+      <path
+         transform="translate(0,988.36218)"
+         inkscape:connector-curvature="0"
+         id="path2993"
+         d="M 24,39 40,34"
+         style="fill:none;stroke:#000000;stroke-width:1.60000002;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.80000007,4.80000007;stroke-dashoffset:8.64000013" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path2995"
+         d="m 25,1032.3622 14,-5"
+         style="fill:none;stroke:#000000;stroke-width:1.60000002;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.80000007,4.80000007;stroke-dashoffset:5.12000008" />
+      <path
+         sodipodi:nodetypes="ccc"
+         transform="translate(0,988.36218)"
+         inkscape:connector-curvature="0"
+         id="path2997"
+         d="m 30,47 c 0,2 4,2 4,0 l 0,0 z"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>
