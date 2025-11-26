@@ -1,5 +1,5 @@
 ---
 title: Training Program
-template: training.html
+template: training-program.html
 ---
 
