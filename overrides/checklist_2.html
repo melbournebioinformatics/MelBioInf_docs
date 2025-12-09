@@ -1,0 +1,233 @@
+{% extends 'header_footer.html' %}
+
+{% block content %}
+
+<header>
+  <h1>Pre-Workshop Checklist</h1>
+  <p>Preparing for in-person workshops run by Melbourne Bioinformatics</p>
+</header>
+
+<br><br>
+
+<h2>Enrolled in a workshop and need help with setup?</h2>
+
+<p>Use this checklist to make sure you have completed all the necessary steps.</p>
+
+<p class="notice notice--info">
+  These are general guidelines. Please check emails from the training team and your workshop’s description for specific tools needed.
+</p>
+
+<form>
+  <fieldset>
+    <legend class="screenreaders-only">Checklist for workshops</legend>
+    <ul class="checklist">
+      <li>
+        <input class="checkbox" id="c0" type="checkbox">
+        <label for="c0">
+          <span>Confirmed registration on Eventbrite using a UoM-affiliated email address</span>
+        </label>
+      </li>
+      <li>
+        <input class="checkbox" id="c1" type="checkbox">
+        <label for="c1">
+          <span>Joined the Slack channel for the workshop</span>
+        </label>
+      </li>
+      <li>
+        <input class="checkbox" id="c2" type="checkbox">
+        <label for="c2">
+          <span>Installed all necessary software</span>
+        </label>
+      </li>
+    </ul>
+  </fieldset>
+</form>
+
+<br>
+
+<h2>My workshop uses...</h2>
+
+<section class="content-block">
+  <div class="grid">
+    <div class="grid__col-2">
+      <a href="#rstudio" class="button button--secondary">R / RStudio</a>
+    </div>
+    <div class="grid__col-3">
+      <a href="#commandline" class="button button--secondary">Bash (command line)</a>
+    </div>
+    <div class="grid__col-2">
+      <a href="#galaxy" class="button button--secondary">Galaxy</a>
+    </div>
+    <div class="grid__col-1">
+      <a href="#git" class="button button--secondary">Git</a>
+    </div>
+    <div class="grid__col-2">
+      <a href="#python" class="button button--secondary">Python</a>
+    </div>
+  </div>
+</section>
+
+<br><br>
+
+<!-- ========================================================= -->
+<!-- R / RStudio -->
+<!-- ========================================================= -->
+
+<section class="content-block" id="rstudio">
+  <h2>R / RStudio</h2>
+
+  <p>R is a widely used statistical programming language, and RStudio is its most common interface.</p>
+
+  <h3>What you need to install</h3>
+  <ul>
+    <li><a href="https://cran.r-project.org/">Download and install R</a></li>
+    <li><a href="https://posit.co/download/rstudio-desktop/">Download and install RStudio Desktop</a></li>
+  </ul>
+
+  <p>Your workshop may require specific packages. You can install packages available on CRAN using:</p>
+
+  <pre><code>install.packages("packagename")</code></pre>
+
+  <p>To check your R version:</p>
+  <pre><code>version</code></pre>
+</section>
+
+<br><br>
+
+<!-- ========================================================= -->
+<!-- Command Line -->
+<!-- ========================================================= -->
+
+<section class="content-block" id="commandline">
+  <h2>Bash / Command Line</h2>
+
+  <p>Many workshops require using the command line to access remote servers or run tools.</p>
+
+  <h3>Before the workshop</h3>
+  <ul class="checklist">
+    <li>
+      <input class="checkbox" id="cl0" type="checkbox">
+      <label for="cl0">
+        <span><a href="https://code.visualstudio.com/download">Install VS Code</a> (if required)</span>
+      </label>
+    </li>
+    <li>
+      <input class="checkbox" id="cl1" type="checkbox">
+      <label for="cl1">
+        <span>If on Windows, install <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a></span>
+      </label>
+    </li>
+    <li>
+      <input class="checkbox" id="cl2" type="checkbox">
+      <label for="cl2">
+        <span><a href="https://mbite.org/nectar-instances/logging-on-to-a-nectar-instance.html">Read the instructions for logging in to Nectar</a></span>
+      </label>
+    </li>
+  </ul>
+</section>
+
+<br><br>
+
+<!-- ========================================================= -->
+<!-- Galaxy -->
+<!-- ========================================================= -->
+
+<section class="content-block" id="galaxy">
+  <h2>Galaxy</h2>
+
+  <p>Galaxy is a user-friendly platform for running bioinformatics workflows without needing command-line tools.</p>
+
+  <h3>Before the workshop</h3>
+  <ul>
+    <li>Sign in using your University of Melbourne email—this gives you 600GB of storage.</li>
+    <li>Set up your Galaxy account before attending to avoid delays.</li>
+    <li>If you haven't received the Galaxy invitation email, check your spam folder.</li>
+  </ul>
+
+  <p>You can access Galaxy at the link provided in your workshop email.</p>
+</section>
+
+<br><br>
+
+<!-- ========================================================= -->
+<!-- Git -->
+<!-- ========================================================= -->
+
+<section class="content-block" id="git">
+  <h2>Git</h2>
+
+  <p>Git is used for version control and is the backbone of GitHub. Learning how to use git will make versioning and sharing your code useful during your studies.</p>
+
+  <h3>Install Git</h3>
+  <ul>
+    <li><a href="https://git-scm.com/downloads">Download Git</a> for Windows, macOS, or Linux.</li>
+  </ul>
+
+  <h3>Test your installation</h3>
+  <pre><code>git --version</code></pre>
+
+  <h3>Common tasks you may need</h3>
+  <pre><code>
+git clone https://github.com/example/repo.git
+git pull
+git status
+</code></pre>
+</section>
+
+<br><br>
+
+<!-- ========================================================= -->
+<!-- Python -->
+<!-- ========================================================= -->
+
+<section class="content-block" id="python">
+  <h2>Python</h2>
+
+  <p>Python is a beginner-friendly programming language that is gaining popularity in bioinformatics. We teach introductory courses as part of our workshop schedule.</p>
+
+  <h3>Install Python</h3>
+  <ul>
+    <li><a href=https://pmacdasci.github.io/IntroPython-Bio/#prerequisites>Read through detailed instructions here.</a></li>
+  </ul>
+
+  <h3>Check Python version</h3>
+  <pre><code>python --version</code></pre>
+
+  <h3>Install required packages with the </h3>
+  <pre><code>pip install packagename</code></pre>
+</section>
+
+<br><br>
+
+<!-- ========================================================= -->
+<!-- SLACK -->
+<!-- ========================================================= -->
+
+<section class="content-block" id="slack">
+  <h2>Slack</h2>
+
+  <p>Melbourne Bioinformatics uses Slack to communicate with participants before, during, and after workshops.</p>
+
+  <p>You can <a href="https://slack.com/intl/en-au/get">download Slack</a> or use it in your browser.</p>
+
+  <h3>Common issues</h3>
+  <ul>
+    <li><strong>Not receiving Slack emails?</strong> Check your spam/junk folder.</li>
+    <li>If you still do not receive an invitation, contact the training team.</li>
+  </ul>
+</section>
+
+<br><br>
+
+<!-- ========================================================= -->
+<!-- FAQ (unchanged except formatting) -->
+<!-- ========================================================= -->
+
+<h2>Frequently Asked Questions</h2>
+
+<ul class="accordion">
+  <!-- your accordion content stays the same -->
+  {{ accordion_html|safe }}
+</ul>
+
+{% endblock %}

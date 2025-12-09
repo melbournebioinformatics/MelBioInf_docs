@@ -26,13 +26,14 @@
   src="https://dds-gen4.web.unimelb.edu.au/2.0.2/integration/client.js"
   async=""
 ></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
 
     <div data-um-mega-menu='
 {
-  "facultyName": "Melbourne Bioinformatics",
-  "facultyHref": "https://mdhs.unimelb.edu.au/melbournebioinformatics",
+  "facultyName": "Melbourne Bioinformatics Training and Education (MBITE)",
+  "facultyHref": "https://mbite.mdhs.unimelb.edu.au/",
   "external": false,
   "alt": "Melbourne Bioinformatics",
   "src": "img/melbioinf_logo.png",
@@ -47,30 +48,34 @@
       "href": "/guides/training-program",
       "selected": true
     },
+
+{
+  "title": "In-Person Workshops",
+  "href": "#test",
+  "navItems": [
     {
-      "title": "Additional information",
-      "href": "/main-item-with-children",
-      "navItems": [
+      "title": "Pre-Workshop Checklist",
+      "href": "/guides/checklist",
+      "selected": true
+    },
         {
-          "title": "Website sections",
-          "href": "/layouts#website-sections",
-          "navItems": [
-            {
-              "title": "Second-level item",
-              "href": "/second-level-item"
-            },
-            {
-              "title": "Second-level item with children",
-              "href": "/second-level-item-with-children",
-              "navItems": [
-                {
-                  "title": "Third-level item-1",
-                  "href": "/third-level-item-1"
-                }
-              ]
-            }
-          ]
-        }
+      "title": "Attendance Policy",
+      "href": "/guides/policy",
+      "selected": true
+    }
+  ]
+},
+
+
+    {
+      "title": "Resources",
+      "href": "#",
+      "navItems": [
+          {
+      "title": "Galaxy Australia",
+      "href": "/guides/galaxy",
+      "selected": true
+    }
       ],
       "asides": [
         {
@@ -79,9 +84,10 @@
           "content": "Our workshops open for registration are available on Eventbrite"
         },
         {
-          "title": "Aside 2",
+          "title": "Visit our main site",
           "imageUrl": "https://mbite.org/img/melbioinf_logo.png",
-          "content": "Lorem ipsum dolor sit amet."
+          "href": "https://mdhs.unimelb.edu.au/melbournebioinformatics",
+          "content": "Learn more about what Melbourne Bioinformatics has to offer"
         }
       ]
     }
@@ -154,7 +160,7 @@
     </li>
     <li>
       <a href="https://www.eventbrite.com.au/o/melbourne-bioinformatics-13058846490">
-        <div data-icon="star-rate" data-size="md"></div>
+        <div data-icon="calendar" data-size="md"></div>
         Eventbrite
       </a>
     </li>
@@ -165,7 +171,7 @@
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href="http://eepurl.com/iJGXSk">
         <div data-icon="mail" data-size="md"></div>
         Newsletter
       </a>
@@ -174,6 +180,12 @@
       <a href="https://www.youtube.com/channel/UC4t3Nxa14vd5mdOhplMQelw">
         <div data-icon="youtube" data-size="md"></div>
         YouTube
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/melbournebioinformatics/">
+      <i class="fa fa-github" style="font-size:24px"></i>
+      GitHub
       </a>
     </li>
   </ul>

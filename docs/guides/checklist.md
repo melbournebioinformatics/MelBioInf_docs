@@ -1,4 +1,4 @@
 ---
 title: Checklist
-template: checklist.html
+template: checklist_2.html
 ---
