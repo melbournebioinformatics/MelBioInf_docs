@@ -4,7 +4,7 @@ template: home.html
 ---
 
 
-[![Melbourne Bioinformatics Logo](img/melbioinf-logo.png)](https://www.melbournebioinformatics.org.au/)
+[![Melbourne Bioinformatics Logo](./img/melbioinf_logo.png)](https://www.melbournebioinformatics.org.au/)
 
 # Welcome to MBITE!
 
