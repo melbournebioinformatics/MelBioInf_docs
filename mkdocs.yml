@@ -1,8 +1,8 @@
 
 site_name: MBITE Tutorials
 
-repo_name: melbournebioinformatics/MelBioInf_docs
-repo_url: https://github.com/melbournebioinformatics/MelBioInf_docs
+repo_name: melbournebioinformatics/melbournebioinformatics.github.io
+repo_url: https://github.com/melbournebioinformatics/melbournebioinformatics.github.io
 
 # Comment below - old universal analytics tracking. No longer used.
 # google_analytics: ['UA-21794901-5', 'www.melbournebioinformatics.org.au/tutorials/']
