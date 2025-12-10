@@ -1,3 +1,8 @@
+---
+title: Policy
+template: policy.html
+---
+
 # Bioinformatics Workshop Attendance Policy
 *Effective Date: 1st August 2025*
 

@@ -1,3 +1,8 @@
+---
+title: The Galaxy Platform
+template: galaxy.html
+---
+
 # The Galaxy Platform  
 
 <!-- ![Galaxy logo](media/galaxy_logo.png) -->
