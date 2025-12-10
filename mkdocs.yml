@@ -41,7 +41,7 @@ extra_javascript:
 copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics – The University of Melbourne ©</a>
 
 nav:
-    - Home: 'index.md'
+    - Home: 'tutorials/index.md'
     - 'Popular':
         - 'Git for Researchers': 'https://melbournebioinformatics.github.io/intro-to-git/'
         - 'Intro to the Nectar Cloud': 'https://melbournebioinformatics.github.io/nectar-instances/'
