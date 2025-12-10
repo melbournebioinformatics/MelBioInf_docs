@@ -2,7 +2,7 @@ name: redeploy website
 on:
   push:
     branches: 
-      - master
+      - main
 
 jobs:
   test-build:
@@ -10,7 +10,7 @@ jobs:
     steps:
 
       # Check out the code
-      - name: Checkout master branch
+      - name: Checkout main branch
         uses: actions/checkout@v4
 
       # Set up Python environment
@@ -35,7 +35,7 @@ jobs:
     steps:
 
       # Check out the code
-      - name: Checkout master branch
+      - name: Checkout main branch
         uses: actions/checkout@v4
 
       # Set up Python environment

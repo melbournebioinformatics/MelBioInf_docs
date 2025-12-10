@@ -34,6 +34,9 @@ theme:
 extra_css:
   - 'extra.css'
 
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
 copyright: <a href="https://www.melbournebioinformatics.org.au/">Melbourne Bioinformatics – The University of Melbourne ©</a>
 
@@ -43,7 +46,10 @@ nav:
         - 'Git for Researchers': 'https://melbournebioinformatics.github.io/intro-to-git/'
         - 'Intro to the Nectar Cloud': 'https://melbournebioinformatics.github.io/nectar-instances/'
         - 'Intro to R for Biologists': 'https://melbournebioinformatics.github.io/intro-to-r/'
-        - 'Intro to RNASeq': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
+        - 'Intro to Proteomics': 'https://melbournebioinformatics.github.io/intro-to-proteomics/'
+        - 'RNA-seq: counts to genes': 'https://melbournebioinformatics.github.io/rna-seq-counts-to-genes/'
+        - 'RNA-seq pathway analysis': 'https://melbournebioinformatics.github.io/rna-pathways/'
+        - 'Differential expression with Seurat': 'https://melbournebioinformatics.github.io/seurat-de-2025'
     - 'Tools and skill development':
         - 'What is Bioinformatics?': 'guides/bioinfo.md'
         - 'Introduction to the Galaxy Platform': 'guides/galaxy.md'
@@ -53,7 +59,7 @@ nav:
         - 'Introduction to R for Biologists': 'tutorials/intro_R_biologists/index.md'
         - 'Introduction to Genome Browsers': 'tutorials/Genome_browsers/GenomeBrowsers_Intro.md'
         - 'Introduction to CWL': 'tutorials/cwl_2022/cwl_2022.md'
-        - 'RNA-seq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
+        - 'RNA-seq Experimental Design': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
         - 'Containerized Bioinformatics': 'tutorials/docker/docker.md'
         - 'Command-line software development': 'tutorials/bionitio/bionitio.md'
         - 'Version Control with Git': 'tutorials/git/git.md'
@@ -76,7 +82,8 @@ nav:
             - 'Intro to Metabarcoding using QIIME2: *Marine dataset*': 'tutorials/qiime2/qiime2.md'
             - 'Intro to Metabarcoding using QIIME2: *Mammal dataset*': 'tutorials/qiime2_mammal/qiime2_mammal.md'
     - 'Transcriptomics':
-        - 'RNAseq Experimental Design': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
+        - 'RNAseq Experimental Design': 'https://melbournebioinformatics.github.io/intro-to-rna-seq/'
+        - 'RNA-seq: counts to genes': 'tutorials/rna-seq-lcg/index.md'
         - 'Bulk RNA-seq':
             - 'Introduction to bulk RNAseq analysis': 'tutorials/rna_seq_dge_basic/rna_seq_basic_background.md'
             - 'RNAseq analysis using HISAT2 (Galaxy)': 'tutorials/rna_seq_dge_basic/rna_seq_basic_tutorial.md'
@@ -100,7 +107,7 @@ nav:
         - 'Introduction to Unix-Archive': 'tutorials/unix_archive_2022/unix.md'
         - 'Introduction to CWL': 'tutorials/cwl/cwl.md'
         - 'Introduction to Git and Github (deprecated)': 'tutorials/using_git/Using_Git.md'
-        - 'Introduction to R for Biologists (deprecated)': 'tutorials/intro_R_biologists/intro_R_biologists.md'
+        - 'RNA-seq Experimental Design (deprecated)': 'tutorials/rna_seq_exp_design/rna_seq_experimental_design.md'
 
 extra_templates: [
   'tutorials/hpc/slides.html',
@@ -115,7 +122,8 @@ markdown_extensions:
       linenums: true
   - toc:
       permalink: true
-  - pymdownx.arithmatex
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret

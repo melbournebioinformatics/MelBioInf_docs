@@ -1,5 +1,3 @@
-![](../../img/melbioinf_logo.png)
-
 # Molecular Dynamics Tutorial - Introduction to cluster computing
 
 ## Overview
