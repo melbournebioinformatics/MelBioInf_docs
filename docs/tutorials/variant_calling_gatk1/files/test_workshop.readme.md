@@ -7,7 +7,7 @@ There are two main components to this system.
 
 `run_complete_workshop.sh` contains an ordered series of commands to be run by the participants directly from the workshop. It is expected that the environment and tools are setup appropriately to simulate the workshop environment.
 
-`test_workshop.sh` script performs the test by simulating a workshop environment. Currently, this tool takes in a variable `N` as the expected number of participants to simulate on a single machine (this is the machine where this tool in run). Next, the tool run the `run_complete_workshop.sh` script to simulate the workshop `N` times in parallel, each time creating a unique workshop working directory (prefix `MYTEST_`). At the moment this tool does not have test to check for expected files and outcomes.
+`test_workshop.sh` script performs the test by simulating a workshop environment. Currently, this tool takes in a variable `N` as the expected number of participants to simulate on a single machine (this is the machine where this tool in run). Next, the tool run the `run_complete_workshop.sh` script to simulate the workshop `N` times in parallel, each time creating a unique workshop working directory (prefix `MYTEST_`). At the moment this tool does not have test to check for expected files and outcomes. Requires GNU Parallel.
 
 ```bash
 !/bin/bash
