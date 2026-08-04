@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1046.2572"
+   height="67.359573"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="unix-cwd-barcoo.svg"
+   inkscape:export-filename="/home/arobinson/Documents/workspace/lscc_docs/docs/tutorials/unix/media/unix-cwd-barcoo.png"
+   inkscape:export-xdpi="150.04741"
+   inkscape:export-ydpi="150.04741">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="516.06115"
+     inkscape:cy="-125.54139"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     fit-margin-left="1"
+     fit-margin-top="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     inkscape:window-width="1920"
+     inkscape:window-height="1163"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       units="mm"
+       spacingx="3.7795276"
+       spacingy="3.7795276"
+       originx="-13.564292"
+       originy="-1052.9344" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-13.564305,-2.2256986)">
+    <rect
+       style="fill:#ececec;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2.13333344;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:8.63999939;stroke-opacity:1"
+       id="rect3843"
+       width="1035.5905"
+       height="56.692905"
+       x="18.897638"
+       y="7.5590315"
+       rx="5.1200004"
+       ry="5.1200004" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2987"
+       style="font-style:normal;font-weight:normal;font-size:12.80000019px;line-height:0.01%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.06666672"><flowRegion
+         id="flowRegion2989"
+         style="font-family:sans-serif;stroke-width:1.06666672"><rect
+           id="rect2991"
+           width="148.95238"
+           height="96.380951"
+           x="160"
+           y="109.18633"
+           style="font-family:sans-serif;stroke-width:1.13777781" /></flowRegion><flowPara
+         id="flowPara2993"
+         style="font-size:12.80000019px;line-height:1.25;font-family:sans-serif;stroke-width:1.06666672"> </flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12.80000019px;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.06666672"
+       x="37.652752"
+       y="45.003269"
+       id="text2995"
+       transform="scale(1.0037853,0.99622899)"
+       inkscape:export-xdpi="150.04741"
+       inkscape:export-ydpi="150.04741"><tspan
+         sodipodi:role="line"
+         x="37.652752"
+         y="45.003269"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:29.73041916px;line-height:1.25;font-family:Courier;-inkscape-font-specification:Courier;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:1.06666672"
+         id="tspan3013">[arobinson@barcoo experiment]$</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3835"
+       style="font-style:normal;font-weight:normal;font-size:12.80000019px;line-height:0.01%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.06666672"><flowRegion
+         id="flowRegion3837"
+         style="font-family:sans-serif;stroke-width:1.06666672"><rect
+           id="rect3839"
+           width="33.523811"
+           height="51.047619"
+           x="22.095238"
+           y="80.23394"
+           style="font-family:sans-serif;stroke-width:1.13777781" /></flowRegion><flowPara
+         id="flowPara3841"
+         style="font-size:12.80000019px;line-height:1.25;font-family:sans-serif;stroke-width:1.06666672"> </flowPara></flowRoot>    <rect
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#00faeb;stroke-width:4.26666689;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3042"
+       width="182.97636"
+       height="56.692913"
+       x="355.05515"
+       y="7.5590105"
+       rx="7.758142"
+       ry="7.5590549" />
+  </g>
+</svg>

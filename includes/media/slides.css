@@ -1,0 +1,397 @@
+.remark-container div.header {display: block; position: absolute; top: 25px; left: 0px; width: 908px;}
+
+.remark-container span.header-left {display: block; float: left; padding-left: 30px;}
+.remark-container span.header-right {display: block; float: right; padding-right: 30px;}
+
+/* Proper font sizing */
+body.remark-container { font-family: 'Droid Serif';}
+.remark-container h1, .remark-container h2, .remark-container h3 { font-family: 'Yanone Kaffeesatz'; font-weight: normal; }
+.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+  
+.remark-slide-content p, .remark-slide-content ul, .remark-slide-content ol {font-size: 50px;}
+div.remark-slide-content.title h1 {font-size: 120px;}
+div.remark-slide-content.title h2 {font-size: 90px;}
+  
+.remark-slide-content  h1 {font-size:75px; margin: 0 0 0.3em 0;}
+.remark-slide-content  h2 {font-size:62px; margin: 0.2em 0;}
+.remark-slide-content  h3 {font-size:50px; margin: 0.2em 0;}
+.remark-slide-content  p {margin: 0.5em 0;}
+.remark-slide-content ul, .remark-slide-content ol {margin: 0; padding: 0 0 0 1em;}
+.remark-slide-content  li {margin: 0.3em 0 .3em .6em;}
+
+.giant-url1 {display: block; text-align: center; font-weight: bold; font-size: 60px; font-family: 'Courier';}
+.giant-url2 {display: block; text-align: center; font-weight: bold; font-size: 70px; font-family: 'Courier';}
+.giant-url3 {display: block; text-align: center; font-weight: bold; font-size: 80px; font-family: 'Courier';}
+.giant-url4 {display: block; text-align: center; font-weight: bold; font-size: 90px; font-family: 'Courier';}
+
+.phonetic1 {font-size: 25px; font-family: 'Courier';}
+.phonetic2 {font-size: 30px; font-family: 'Courier';}
+.phonetic3 {font-size: 35px; font-family: 'Courier';}
+.phonetic4 {font-size: 40px; font-family: 'Courier';}
+
+/* details taken from application.css */
+.md-typeset .admonition, .md-typeset details {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12), 0 3px 1px -2px rgba(0, 0, 0, .2);
+    position: relative;
+    margin: 1.5625em 0;
+    padding: 0 1.2rem;
+    border-left: .4rem solid #448aff;
+    border-radius: .2rem;
+    font-size: 1.28rem;
+    overflow: auto
+}
+
+[dir=rtl] .md-typeset .admonition, [dir=rtl] .md-typeset details {
+    border-right: .4rem solid #448aff;
+    border-left: none
+}
+
+html .md-typeset .admonition > :last-child, html .md-typeset details > :last-child {
+    margin-bottom: 1.2rem
+}
+
+.md-typeset .admonition .admonition, .md-typeset .admonition details,
+.md-typeset details .admonition, .md-typeset details details {
+    margin: 1em 0
+}
+
+.md-typeset .admonition > .admonition-title, .md-typeset .admonition > summary,
+.md-typeset details > .admonition-title, .md-typeset details > summary {
+    margin: 0 -1.2rem;
+    padding: .8rem 1.2rem .8rem 4rem;
+    border-bottom: .1rem solid rgba(68, 138, 255, .1);
+    background-color: rgba(68, 138, 255, .1);
+    font-weight: 700
+}
+
+[dir=rtl] .md-typeset .admonition > .admonition-title, [dir=rtl] .md-typeset .admonition > summary,
+[dir=rtl] .md-typeset details > .admonition-title, [dir=rtl] .md-typeset details > summary {
+    padding: .8rem 4rem .8rem 1.2rem
+}
+
+.md-typeset .admonition > .admonition-title:last-child, .md-typeset .admonition > summary:last-child,
+.md-typeset details > .admonition-title:last-child, .md-typeset details > summary:last-child {
+    margin-bottom: 0
+}
+
+.md-typeset .admonition > .admonition-title:before, .md-typeset .admonition > summary:before,
+.md-typeset details > .admonition-title:before, .md-typeset details > summary:before {
+    position: absolute;
+    left: 1.2rem;
+    color: #448aff;
+    font-size: 2rem;
+    content: "\E3C9"
+}
+
+[dir=rtl] .md-typeset .admonition > .admonition-title:before, [dir=rtl] .md-typeset .admonition > summary:before,
+[dir=rtl] .md-typeset details > .admonition-title:before, [dir=rtl] .md-typeset details > summary:before {
+    right: 1.2rem;
+    left: auto
+}
+
+.md-typeset .admonition.abstract, .md-typeset .admonition.summary,
+.md-typeset .admonition.tldr, .md-typeset details.abstract, .md-typeset details.summary,
+.md-typeset details.tldr {
+    border-left-color: #00b0ff
+}
+
+[dir=rtl] .md-typeset .admonition.abstract, [dir=rtl] .md-typeset .admonition.summary,
+[dir=rtl] .md-typeset .admonition.tldr, [dir=rtl] .md-typeset details.abstract,
+[dir=rtl] .md-typeset details.summary, [dir=rtl] .md-typeset details.tldr {
+    border-right-color: #00b0ff
+}
+
+.md-typeset .admonition.abstract > .admonition-title, .md-typeset .admonition.abstract > summary,
+.md-typeset .admonition.summary > .admonition-title, .md-typeset .admonition.summary > summary,
+.md-typeset .admonition.tldr > .admonition-title, .md-typeset .admonition.tldr > summary,
+.md-typeset details.abstract > .admonition-title, .md-typeset details.abstract > summary,
+.md-typeset details.summary > .admonition-title, .md-typeset details.summary > summary,
+.md-typeset details.tldr > .admonition-title, .md-typeset details.tldr > summary {
+    border-bottom-color: .1rem solid rgba(0, 176, 255, .1);
+    background-color: rgba(0, 176, 255, .1)
+}
+
+.md-typeset .admonition.abstract > .admonition-title:before, .md-typeset .admonition.abstract > summary:before,
+.md-typeset .admonition.summary > .admonition-title:before, .md-typeset .admonition.summary > summary:before,
+.md-typeset .admonition.tldr > .admonition-title:before, .md-typeset .admonition.tldr > summary:before,
+.md-typeset details.abstract > .admonition-title:before, .md-typeset details.abstract > summary:before,
+.md-typeset details.summary > .admonition-title:before, .md-typeset details.summary > summary:before,
+.md-typeset details.tldr > .admonition-title:before, .md-typeset details.tldr > summary:before {
+    color: #00b0ff;
+    content: "\E8D2"
+}
+
+.md-typeset .admonition.info, .md-typeset .admonition.todo, .md-typeset details.info,
+.md-typeset details.todo {
+    border-left-color: #00b8d4
+}
+
+[dir=rtl] .md-typeset .admonition.info, [dir=rtl] .md-typeset .admonition.todo,
+[dir=rtl] .md-typeset details.info, [dir=rtl] .md-typeset details.todo {
+    border-right-color: #00b8d4
+}
+
+.md-typeset .admonition.info > .admonition-title, .md-typeset .admonition.info > summary,
+.md-typeset .admonition.todo > .admonition-title, .md-typeset .admonition.todo > summary,
+.md-typeset details.info > .admonition-title, .md-typeset details.info > summary,
+.md-typeset details.todo > .admonition-title, .md-typeset details.todo > summary {
+    border-bottom-color: .1rem solid rgba(0, 184, 212, .1);
+    background-color: rgba(0, 184, 212, .1)
+}
+
+.md-typeset .admonition.info > .admonition-title:before, .md-typeset .admonition.info > summary:before,
+.md-typeset .admonition.todo > .admonition-title:before, .md-typeset .admonition.todo > summary:before,
+.md-typeset details.info > .admonition-title:before, .md-typeset details.info > summary:before,
+.md-typeset details.todo > .admonition-title:before, .md-typeset details.todo > summary:before {
+    color: #00b8d4;
+    content: "\E88E"
+}
+
+.md-typeset .admonition.hint, .md-typeset .admonition.important,
+.md-typeset .admonition.tip, .md-typeset details.hint, .md-typeset details.important,
+.md-typeset details.tip {
+    border-left-color: #00bfa5
+}
+
+[dir=rtl] .md-typeset .admonition.hint, [dir=rtl] .md-typeset .admonition.important,
+[dir=rtl] .md-typeset .admonition.tip, [dir=rtl] .md-typeset details.hint,
+[dir=rtl] .md-typeset details.important, [dir=rtl] .md-typeset details.tip {
+    border-right-color: #00bfa5
+}
+
+.md-typeset .admonition.hint > .admonition-title, .md-typeset .admonition.hint > summary,
+.md-typeset .admonition.important > .admonition-title, .md-typeset .admonition.important > summary,
+.md-typeset .admonition.tip > .admonition-title, .md-typeset .admonition.tip > summary,
+.md-typeset details.hint > .admonition-title, .md-typeset details.hint > summary,
+.md-typeset details.important > .admonition-title, .md-typeset details.important > summary,
+.md-typeset details.tip > .admonition-title, .md-typeset details.tip > summary {
+    border-bottom-color: .1rem solid rgba(0, 191, 165, .1);
+    background-color: rgba(0, 191, 165, .1)
+}
+
+.md-typeset .admonition.hint > .admonition-title:before, .md-typeset .admonition.hint > summary:before,
+.md-typeset .admonition.important > .admonition-title:before, .md-typeset .admonition.important > summary:before,
+.md-typeset .admonition.tip > .admonition-title:before, .md-typeset .admonition.tip > summary:before,
+.md-typeset details.hint > .admonition-title:before, .md-typeset details.hint > summary:before,
+.md-typeset details.important > .admonition-title:before, .md-typeset details.important > summary:before,
+.md-typeset details.tip > .admonition-title:before, .md-typeset details.tip > summary:before {
+    color: #00bfa5;
+    content: "\E80E"
+}
+
+.md-typeset .admonition.check, .md-typeset .admonition.done, .md-typeset .admonition.success,
+.md-typeset details.check, .md-typeset details.done, .md-typeset details.success {
+    border-left-color: #00c853
+}
+
+[dir=rtl] .md-typeset .admonition.check, [dir=rtl] .md-typeset .admonition.done,
+[dir=rtl] .md-typeset .admonition.success, [dir=rtl] .md-typeset details.check,
+[dir=rtl] .md-typeset details.done, [dir=rtl] .md-typeset details.success {
+    border-right-color: #00c853
+}
+
+.md-typeset .admonition.check > .admonition-title, .md-typeset .admonition.check > summary,
+.md-typeset .admonition.done > .admonition-title, .md-typeset .admonition.done > summary,
+.md-typeset .admonition.success > .admonition-title, .md-typeset .admonition.success > summary,
+.md-typeset details.check > .admonition-title, .md-typeset details.check > summary,
+.md-typeset details.done > .admonition-title, .md-typeset details.done > summary,
+.md-typeset details.success > .admonition-title, .md-typeset details.success > summary {
+    border-bottom-color: .1rem solid rgba(0, 200, 83, .1);
+    background-color: rgba(0, 200, 83, .1)
+}
+
+.md-typeset .admonition.check > .admonition-title:before, .md-typeset .admonition.check > summary:before,
+.md-typeset .admonition.done > .admonition-title:before, .md-typeset .admonition.done > summary:before,
+.md-typeset .admonition.success > .admonition-title:before, .md-typeset .admonition.success > summary:before,
+.md-typeset details.check > .admonition-title:before, .md-typeset details.check > summary:before,
+.md-typeset details.done > .admonition-title:before, .md-typeset details.done > summary:before,
+.md-typeset details.success > .admonition-title:before, .md-typeset details.success > summary:before {
+    color: #00c853;
+    content: "\E876"
+}
+
+.md-typeset .admonition.faq, .md-typeset .admonition.help, .md-typeset .admonition.question,
+.md-typeset details.faq, .md-typeset details.help, .md-typeset details.question {
+    border-left-color: #64dd17
+}
+
+[dir=rtl] .md-typeset .admonition.faq, [dir=rtl] .md-typeset .admonition.help,
+[dir=rtl] .md-typeset .admonition.question, [dir=rtl] .md-typeset details.faq,
+[dir=rtl] .md-typeset details.help, [dir=rtl] .md-typeset details.question {
+    border-right-color: #64dd17
+}
+
+.md-typeset .admonition.faq > .admonition-title, .md-typeset .admonition.faq > summary,
+.md-typeset .admonition.help > .admonition-title, .md-typeset .admonition.help > summary,
+.md-typeset .admonition.question > .admonition-title, .md-typeset .admonition.question > summary,
+.md-typeset details.faq > .admonition-title, .md-typeset details.faq > summary,
+.md-typeset details.help > .admonition-title, .md-typeset details.help > summary,
+.md-typeset details.question > .admonition-title, .md-typeset details.question > summary {
+    border-bottom-color: .1rem solid rgba(100, 221, 23, .1);
+    background-color: rgba(100, 221, 23, .1)
+}
+
+.md-typeset .admonition.faq > .admonition-title:before, .md-typeset .admonition.faq > summary:before,
+.md-typeset .admonition.help > .admonition-title:before, .md-typeset .admonition.help > summary:before,
+.md-typeset .admonition.question > .admonition-title:before, .md-typeset .admonition.question > summary:before,
+.md-typeset details.faq > .admonition-title:before, .md-typeset details.faq > summary:before,
+.md-typeset details.help > .admonition-title:before, .md-typeset details.help > summary:before,
+.md-typeset details.question > .admonition-title:before, .md-typeset details.question > summary:before {
+    color: #64dd17;
+    content: "\E887"
+}
+
+.md-typeset .admonition.attention, .md-typeset .admonition.caution,
+.md-typeset .admonition.warning, .md-typeset details.attention, .md-typeset details.caution,
+.md-typeset details.warning {
+    border-left-color: #ff9100
+}
+
+[dir=rtl] .md-typeset .admonition.attention, [dir=rtl] .md-typeset .admonition.caution,
+[dir=rtl] .md-typeset .admonition.warning, [dir=rtl] .md-typeset details.attention,
+[dir=rtl] .md-typeset details.caution, [dir=rtl] .md-typeset details.warning {
+    border-right-color: #ff9100
+}
+
+.md-typeset .admonition.attention > .admonition-title, .md-typeset .admonition.attention > summary,
+.md-typeset .admonition.caution > .admonition-title, .md-typeset .admonition.caution > summary,
+.md-typeset .admonition.warning > .admonition-title, .md-typeset .admonition.warning > summary,
+.md-typeset details.attention > .admonition-title, .md-typeset details.attention > summary,
+.md-typeset details.caution > .admonition-title, .md-typeset details.caution > summary,
+.md-typeset details.warning > .admonition-title, .md-typeset details.warning > summary {
+    border-bottom-color: .1rem solid rgba(255, 145, 0, .1);
+    background-color: rgba(255, 145, 0, .1)
+}
+
+.md-typeset .admonition.attention > .admonition-title:before, .md-typeset .admonition.attention > summary:before,
+.md-typeset .admonition.caution > .admonition-title:before, .md-typeset .admonition.caution > summary:before,
+.md-typeset .admonition.warning > .admonition-title:before, .md-typeset .admonition.warning > summary:before,
+.md-typeset details.attention > .admonition-title:before, .md-typeset details.attention > summary:before,
+.md-typeset details.caution > .admonition-title:before, .md-typeset details.caution > summary:before,
+.md-typeset details.warning > .admonition-title:before, .md-typeset details.warning > summary:before {
+    color: #ff9100;
+    content: "\E002"
+}
+
+.md-typeset .admonition.fail, .md-typeset .admonition.failure, .md-typeset .admonition.missing,
+.md-typeset details.fail, .md-typeset details.failure, .md-typeset details.missing {
+    border-left-color: #ff5252
+}
+
+[dir=rtl] .md-typeset .admonition.fail, [dir=rtl] .md-typeset .admonition.failure,
+[dir=rtl] .md-typeset .admonition.missing, [dir=rtl] .md-typeset details.fail,
+[dir=rtl] .md-typeset details.failure, [dir=rtl] .md-typeset details.missing {
+    border-right-color: #ff5252
+}
+
+.md-typeset .admonition.fail > .admonition-title, .md-typeset .admonition.fail > summary,
+.md-typeset .admonition.failure > .admonition-title, .md-typeset .admonition.failure > summary,
+.md-typeset .admonition.missing > .admonition-title, .md-typeset .admonition.missing > summary,
+.md-typeset details.fail > .admonition-title, .md-typeset details.fail > summary,
+.md-typeset details.failure > .admonition-title, .md-typeset details.failure > summary,
+.md-typeset details.missing > .admonition-title, .md-typeset details.missing > summary {
+    border-bottom-color: .1rem solid rgba(255, 82, 82, .1);
+    background-color: rgba(255, 82, 82, .1)
+}
+
+.md-typeset .admonition.fail > .admonition-title:before, .md-typeset .admonition.fail > summary:before,
+.md-typeset .admonition.failure > .admonition-title:before, .md-typeset .admonition.failure > summary:before,
+.md-typeset .admonition.missing > .admonition-title:before, .md-typeset .admonition.missing > summary:before,
+.md-typeset details.fail > .admonition-title:before, .md-typeset details.fail > summary:before,
+.md-typeset details.failure > .admonition-title:before, .md-typeset details.failure > summary:before,
+.md-typeset details.missing > .admonition-title:before, .md-typeset details.missing > summary:before {
+    color: #ff5252;
+    content: "\E14C"
+}
+
+.md-typeset .admonition.danger, .md-typeset .admonition.error, .md-typeset details.danger,
+.md-typeset details.error {
+    border-left-color: #ff1744
+}
+
+[dir=rtl] .md-typeset .admonition.danger, [dir=rtl] .md-typeset .admonition.error,
+[dir=rtl] .md-typeset details.danger, [dir=rtl] .md-typeset details.error {
+    border-right-color: #ff1744
+}
+
+.md-typeset .admonition.danger > .admonition-title, .md-typeset .admonition.danger > summary,
+.md-typeset .admonition.error > .admonition-title, .md-typeset .admonition.error > summary,
+.md-typeset details.danger > .admonition-title, .md-typeset details.danger > summary,
+.md-typeset details.error > .admonition-title, .md-typeset details.error > summary {
+    border-bottom-color: .1rem solid rgba(255, 23, 68, .1);
+    background-color: rgba(255, 23, 68, .1)
+}
+
+.md-typeset .admonition.danger > .admonition-title:before, .md-typeset .admonition.danger > summary:before,
+.md-typeset .admonition.error > .admonition-title:before, .md-typeset .admonition.error > summary:before,
+.md-typeset details.danger > .admonition-title:before, .md-typeset details.danger > summary:before,
+.md-typeset details.error > .admonition-title:before, .md-typeset details.error > summary:before {
+    color: #ff1744;
+    content: "\E3E7"
+}
+
+.md-typeset .admonition.bug, .md-typeset details.bug {
+    border-left-color: #f50057
+}
+
+[dir=rtl] .md-typeset .admonition.bug, [dir=rtl] .md-typeset details.bug {
+    border-right-color: #f50057
+}
+
+.md-typeset .admonition.bug > .admonition-title, .md-typeset .admonition.bug > summary,
+.md-typeset details.bug > .admonition-title, .md-typeset details.bug > summary {
+    border-bottom-color: .1rem solid rgba(245, 0, 87, .1);
+    background-color: rgba(245, 0, 87, .1)
+}
+
+.md-typeset .admonition.bug > .admonition-title:before, .md-typeset .admonition.bug > summary:before,
+.md-typeset details.bug > .admonition-title:before, .md-typeset details.bug > summary:before {
+    color: #f50057;
+    content: "\E868"
+}
+
+.md-typeset .admonition.example, .md-typeset details.example {
+    border-left-color: #651fff
+}
+
+[dir=rtl] .md-typeset .admonition.example, [dir=rtl] .md-typeset details.example {
+    border-right-color: #651fff
+}
+
+.md-typeset .admonition.example > .admonition-title, .md-typeset .admonition.example > summary,
+.md-typeset details.example > .admonition-title, .md-typeset details.example > summary {
+    border-bottom-color: .1rem solid rgba(101, 31, 255, .1);
+    background-color: rgba(101, 31, 255, .1)
+}
+
+.md-typeset .admonition.example > .admonition-title:before, .md-typeset .admonition.example > summary:before,
+.md-typeset details.example > .admonition-title:before, .md-typeset details.example > summary:before {
+    color: #651fff;
+    content: "\E242"
+}
+
+.md-typeset .admonition.cite, .md-typeset .admonition.quote, .md-typeset details.cite,
+.md-typeset details.quote {
+    border-left-color: #9e9e9e
+}
+
+[dir=rtl] .md-typeset .admonition.cite, [dir=rtl] .md-typeset .admonition.quote,
+[dir=rtl] .md-typeset details.cite, [dir=rtl] .md-typeset details.quote {
+    border-right-color: #9e9e9e
+}
+
+.md-typeset .admonition.cite > .admonition-title, .md-typeset .admonition.cite > summary,
+.md-typeset .admonition.quote > .admonition-title, .md-typeset .admonition.quote > summary,
+.md-typeset details.cite > .admonition-title, .md-typeset details.cite > summary,
+.md-typeset details.quote > .admonition-title, .md-typeset details.quote > summary {
+    border-bottom-color: .1rem solid hsla(0, 0%, 62%, .1);
+    background-color: hsla(0, 0%, 62%, .1)
+}
+
+.md-typeset .admonition.cite > .admonition-title:before, .md-typeset .admonition.cite > summary:before,
+.md-typeset .admonition.quote > .admonition-title:before, .md-typeset .admonition.quote > summary:before,
+.md-typeset details.cite > .admonition-title:before, .md-typeset details.cite > summary:before,
+.md-typeset details.quote > .admonition-title:before, .md-typeset details.quote > summary:before {
+    color: #9e9e9e;
+    content: "\E244"
+}

@@ -1,0 +1,80 @@
+/* the bar across the top */
+.md-header {
+	background: #fff url('https://www.melbournebioinformatics.org.au/wp-content/themes/_vlsci/images/top-orange.gif') repeat-x top left;
+	color: #2fa4e7;
+	border-bottom: none;
+}
+
+.md-header-nav__parent {
+	color: #2fa4e7;
+}
+
+.md-search__form:hover {
+	background-color: #333333;
+}
+
+.icon-bar {
+	background-color: #555 !important;
+}
+
+.navbar-default .navbar-brand, .navbar-default:hover .navbar-brand:hover {
+	color: #2fa4e7;
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: #2fa4e7;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	background-color: #00A8BD;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	background-color: #00A8BD;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+	background-color: #00A8BD;
+}
+
+/* the menu items */
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+	background-color: #00A8BD;
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+	background-color: #00A8BD;
+}
+/*
+These style abbreviations are as follows:
+SS = "screen shot" for menu items etc.
+FN = filename
+TX = text
+*/
+
+SS {
+  font-family: "Lucida Grande", sans-serif;
+  font-size: 80%;
+  font-weight: bolder;
+  color: black;
+  text-align: center;
+  border-radius: 5px;
+  background: lightsteelblue;
+  padding: 0.3ex 1ex;
+
+}
+
+FN {
+  font-family: "Lucida Grande", sans-serif;
+  font-size: 80%;
+  color: black;
+  text-align: center;
+  padding: 0.3ex 1ex;
+  border: solid thin black;
+  border-radius: 4px;
+}
+
+TX {
+  font-family: monospace;
+  font-weight: bolder;
+}
