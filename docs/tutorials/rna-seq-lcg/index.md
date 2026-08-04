@@ -1,5 +1,9 @@
 # An introduction to RNA-seq analysis: counts to differentially expressed genes
 
+!!! warning "Deprecated"
+
+    **This workshop has been deprecated. For the current version, please visit [https://melbournebioinformatics.github.io/rna-seq-counts-to-genes/](https://melbournebioinformatics.github.io/rna-seq-counts-to-genes/).**
+
 
 **Author:** Luke C. Gandolfo, Melbourne Bioinformatics. Last updated October 2025.
 

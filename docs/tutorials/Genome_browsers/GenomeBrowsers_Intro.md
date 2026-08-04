@@ -2,6 +2,11 @@
 
 # Introduction to Genome Browsers
 
+!!! warning "Deprecated"
+
+    **This workshop has been deprecated. For the current version, please visit [https://melbournebioinformatics.github.io/intro-to-genome-browsers/](https://melbournebioinformatics.github.io/intro-to-genome-browsers/).**
+
+
 The anticipated workshop duration when delivered to a group of participants is **4 hours**.  
 Note that not all the exercises are expected to be completed during the workshop.  
 

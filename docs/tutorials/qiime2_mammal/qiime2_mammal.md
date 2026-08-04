@@ -2,6 +2,11 @@
 
 # QIIME2 - Mammal Dataset
 
+!!! warning "Deprecated"
+
+    **This workshop has been deprecated. For the current version, please visit [https://melbournebioinformatics.github.io/qiime2_dunnart/](https://melbournebioinformatics.github.io/qiime2_dunnart/).**
+
+
 Anticipated workshop duration when delivered to a group of participants is **4 hours**.  
 
 For queries relating to this workshop, contact Melbourne Bioinformatics (bioinformatics-training@unimelb.edu.au).

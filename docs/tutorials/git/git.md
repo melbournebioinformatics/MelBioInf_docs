@@ -1,5 +1,10 @@
 # Version Control with Git
 
+!!! warning "Deprecated"
+
+    **This workshop has been deprecated. For the current version, please visit [https://melbournebioinformatics.github.io/intro-to-git/](https://melbournebioinformatics.github.io/intro-to-git/).**
+
+
 **Author:** Vini Salazar, Melbourne Bioinformatics. Last updated October 2024.
 **Contributors:** 
 - Adam Taranto, WEHI.
